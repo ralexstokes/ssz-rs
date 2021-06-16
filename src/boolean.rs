@@ -1,13 +1,10 @@
 use crate::de::{Deserialize, DeserializeError};
 use crate::ser::{Serialize, SerializeError};
 
-#[repr(transparent)]
-#[derive(Default, Debug, PartialEq, Eq)]
-pub struct Boolean(bool);
-
 impl Serialize for bool {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
-        buffer.push(*self as u8);
+        let value = if *self { 1u8 } else { 0u8 };
+        buffer.push(value);
         Ok(1)
     }
 }
