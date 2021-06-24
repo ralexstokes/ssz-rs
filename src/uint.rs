@@ -48,9 +48,9 @@ define_uint!(u128);
 #[repr(transparent)]
 #[derive(Default, Debug, PartialEq, Eq)]
 // inner slice is little-endian
-pub struct Uint256([u8; 32]);
+pub struct U256([u8; 32]);
 
-impl SSZ for Uint256 {
+impl SSZ for U256 {
     fn is_variable_size() -> bool {
         false
     }
@@ -60,14 +60,14 @@ impl SSZ for Uint256 {
     }
 }
 
-impl Serialize for Uint256 {
+impl Serialize for U256 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         buffer.extend_from_slice(&self.0);
         Ok(32)
     }
 }
 
-impl Deserialize for Uint256 {
+impl Deserialize for U256 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if encoding.len() < 32 {
             return Err(DeserializeError::InputTooShort);
@@ -137,8 +137,8 @@ mod tests {
             assert_eq!(result, expected);
         }
         let tests = vec![
-            (Uint256([2u8; 32]), [2u8; 32]),
-            (Uint256([u8::MAX; 32]), [u8::MAX; 32]),
+            (U256([2u8; 32]), [2u8; 32]),
+            (U256([u8::MAX; 32]), [u8::MAX; 32]),
         ];
         for (value, expected) in tests {
             let result = serialize(&value).expect("can encode");
@@ -200,11 +200,11 @@ mod tests {
             assert_eq!(result, expected);
         }
         let tests = vec![
-            (Uint256([2u8; 32]), [2u8; 32]),
-            (Uint256([u8::MAX; 32]), [u8::MAX; 32]),
+            (U256([2u8; 32]), [2u8; 32]),
+            (U256([u8::MAX; 32]), [u8::MAX; 32]),
         ];
         for (expected, bytes) in tests {
-            let result = Uint256::deserialize(&bytes).expect("can encode");
+            let result = U256::deserialize(&bytes).expect("can encode");
             assert_eq!(result, expected);
         }
     }

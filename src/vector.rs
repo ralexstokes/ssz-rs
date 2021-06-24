@@ -89,7 +89,7 @@ where
     T: SSZ + Default + Copy,
 {
     fn default() -> Self {
-        Vector([T::default(); N])
+        Self([T::default(); N])
     }
 }
 
