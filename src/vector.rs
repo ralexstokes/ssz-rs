@@ -7,7 +7,7 @@ use std::ops::{Index, IndexMut};
 /// A homogenous collection of a fixed number of values.
 /// NOTE: a `Vector` of length `0` is illegal.
 #[derive(Debug, PartialEq, Eq)]
-pub struct Vector<T, const N: usize>([T; N]);
+pub struct Vector<T: SSZ, const N: usize>([T; N]);
 
 impl<T, const N: usize> SSZ for Vector<T, N>
 where
@@ -46,18 +46,21 @@ where
     }
 }
 
-impl<T, const N: usize> Copy for Vector<T, N> where T: Copy {}
+impl<T, const N: usize> Copy for Vector<T, N> where T: Copy + SSZ {}
 
 impl<T, const N: usize> Clone for Vector<T, N>
 where
-    T: Copy,
+    T: Copy + SSZ,
 {
     fn clone(&self) -> Self {
         *self
     }
 }
 
-impl<T, const N: usize> IntoIterator for Vector<T, N> {
+impl<T, const N: usize> IntoIterator for Vector<T, N>
+where
+    T: SSZ,
+{
     type Item = T;
     type IntoIter = std::array::IntoIter<T, N>;
 
@@ -66,7 +69,10 @@ impl<T, const N: usize> IntoIterator for Vector<T, N> {
     }
 }
 
-impl<'a, T, const N: usize> IntoIterator for &'a Vector<T, N> {
+impl<'a, T, const N: usize> IntoIterator for &'a Vector<T, N>
+where
+    T: SSZ,
+{
     type Item = &'a T;
     type IntoIter = std::slice::Iter<'a, T>;
 
@@ -75,7 +81,10 @@ impl<'a, T, const N: usize> IntoIterator for &'a Vector<T, N> {
     }
 }
 
-impl<'a, T, const N: usize> IntoIterator for &'a mut Vector<T, N> {
+impl<'a, T, const N: usize> IntoIterator for &'a mut Vector<T, N>
+where
+    T: SSZ,
+{
     type Item = &'a mut T;
     type IntoIter = std::slice::IterMut<'a, T>;
 
