@@ -1,5 +1,6 @@
 mod boolean;
 mod de;
+mod list;
 mod ser;
 mod ssz;
 mod uint;
