@@ -6,5 +6,11 @@ An implementation of the `ssz` serialization scheme defined in the [eth2.0-specs
 
 - [x] Encoding / Decoding for "basic" types
 - [ ] Encoding / Decoding for "composite" types
+  - [ ] container
+  - [ ] vector
+  - [ ] list
+  - [ ] bitvector
+  - [ ] bitlist
+  - [ ] union
 - [ ] Merkleization / hashing
 - [ ] Merkle (multi)proofs

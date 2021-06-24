@@ -13,10 +13,3 @@ pub trait Deserialize {
     where
         Self: Sized;
 }
-
-pub fn deserialize<T>(encoding: &[u8]) -> Result<T, DeserializeError>
-where
-    T: Deserialize,
-{
-    T::deserialize(encoding)
-}

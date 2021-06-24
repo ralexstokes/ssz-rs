@@ -1,5 +1,16 @@
 use crate::de::{Deserialize, DeserializeError};
 use crate::ser::{Serialize, SerializeError};
+use crate::ssz::SSZ;
+
+impl SSZ for bool {
+    fn is_variable_size(&self) -> bool {
+        false
+    }
+
+    fn size_hint() -> usize {
+        1
+    }
+}
 
 impl Serialize for bool {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {

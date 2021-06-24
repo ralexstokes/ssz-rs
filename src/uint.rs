@@ -1,7 +1,18 @@
 use crate::de::{Deserialize, DeserializeError};
 use crate::ser::{Serialize, SerializeError};
+use crate::ssz::SSZ;
 use std::convert::TryInto;
 use std::default::Default;
+
+impl SSZ for u8 {
+    fn is_variable_size(&self) -> bool {
+        false
+    }
+
+    fn size_hint() -> usize {
+        1
+    }
+}
 
 impl Serialize for u8 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
@@ -17,6 +28,16 @@ impl Deserialize for u8 {
         }
 
         Ok(encoding[0])
+    }
+}
+
+impl SSZ for u16 {
+    fn is_variable_size(&self) -> bool {
+        false
+    }
+
+    fn size_hint() -> usize {
+        2
     }
 }
 
@@ -38,6 +59,16 @@ impl Deserialize for u16 {
     }
 }
 
+impl SSZ for u32 {
+    fn is_variable_size(&self) -> bool {
+        false
+    }
+
+    fn size_hint() -> usize {
+        4
+    }
+}
+
 impl Serialize for u32 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         buffer.extend_from_slice(&self.to_le_bytes());
@@ -56,6 +87,16 @@ impl Deserialize for u32 {
     }
 }
 
+impl SSZ for u64 {
+    fn is_variable_size(&self) -> bool {
+        false
+    }
+
+    fn size_hint() -> usize {
+        8
+    }
+}
+
 impl Serialize for u64 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         buffer.extend_from_slice(&self.to_le_bytes());
@@ -71,6 +112,16 @@ impl Deserialize for u64 {
 
         let bytes = encoding[..8].try_into().expect("slice has right length");
         Ok(u64::from_le_bytes(bytes))
+    }
+}
+
+impl SSZ for u128 {
+    fn is_variable_size(&self) -> bool {
+        false
+    }
+
+    fn size_hint() -> usize {
+        16
     }
 }
 
@@ -97,6 +148,16 @@ impl Deserialize for u128 {
 // inner slice is little-endian
 pub struct Uint256([u8; 32]);
 
+impl SSZ for Uint256 {
+    fn is_variable_size(&self) -> bool {
+        false
+    }
+
+    fn size_hint() -> usize {
+        32
+    }
+}
+
 impl Serialize for Uint256 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         buffer.extend_from_slice(&self.0);
@@ -118,7 +179,7 @@ impl Deserialize for Uint256 {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::ser::serialize;
+    use crate::serialize;
 
     #[test]
     fn encode_uints() {
