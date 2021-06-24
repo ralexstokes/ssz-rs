@@ -57,7 +57,8 @@ where
     T: SSZ,
 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
-        let elements = deserialize_homogeneous_composite(encoding, T::size_hint())?;
+        let elements = deserialize_homogeneous_composite(encoding)?;
+        assert!(elements.len() <= N);
         Ok(List(elements))
     }
 }
@@ -171,6 +172,17 @@ mod tests {
         let mut buffer = vec![];
         let _ = input.serialize(&mut buffer).expect("can serialize");
         let recovered = List::<u8, COUNT>::deserialize(&buffer).expect("can decode");
+        assert_eq!(input, recovered);
+    }
+
+    #[test]
+    fn roundtrip_list_of_list() {
+        const COUNT: usize = 4;
+        let bytes = vec![List(vec![0u8]), List(vec![]), List(vec![1u8])];
+        let input: List<List<u8, 1>, COUNT> = List(bytes);
+        let mut buffer = vec![];
+        let _ = input.serialize(&mut buffer).expect("can serialize");
+        let recovered = List::<List<u8, 1>, COUNT>::deserialize(&buffer).expect("can decode");
         assert_eq!(input, recovered);
     }
 }

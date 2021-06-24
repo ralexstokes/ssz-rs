@@ -1,3 +1,4 @@
+use crate::ser::BYTES_PER_LENGTH_OFFSET;
 use crate::ssz::SSZ;
 use thiserror::Error;
 
@@ -15,15 +16,12 @@ pub trait Deserialize {
         Self: Sized;
 }
 
-fn deserialize_fixed_homogeneous_composite<T>(
-    encoding: &[u8],
-    chunk_size: usize,
-) -> Result<Vec<T>, DeserializeError>
+fn deserialize_fixed_homogeneous_composite<T>(encoding: &[u8]) -> Result<Vec<T>, DeserializeError>
 where
     T: SSZ,
 {
     encoding
-        .chunks_exact(chunk_size)
+        .chunks_exact(T::size_hint())
         .map(|chunk| T::deserialize(chunk))
         .collect()
 }
@@ -34,19 +32,35 @@ fn deserialize_variable_homogeneous_composite<T>(
 where
     T: SSZ,
 {
-    unimplemented!()
+    let data_pointer = u32::deserialize(&encoding[..BYTES_PER_LENGTH_OFFSET])? as usize;
+    if encoding.len() < data_pointer {
+        return Err(DeserializeError::InputTooShort);
+    }
+
+    let offsets = &mut encoding[..data_pointer]
+        .chunks_exact(BYTES_PER_LENGTH_OFFSET)
+        .map(|chunk| u32::deserialize(chunk).map(|offset| offset as usize))
+        .collect::<Result<Vec<usize>, DeserializeError>>()?;
+    offsets.push(encoding.len());
+
+    let element_count = data_pointer as usize / BYTES_PER_LENGTH_OFFSET;
+    let mut result = Vec::with_capacity(element_count);
+    for span in offsets.windows(2) {
+        let start = span[0];
+        let end = span[1];
+        let element = T::deserialize(&encoding[start..end])?;
+        result.push(element);
+    }
+    Ok(result)
 }
 
-pub fn deserialize_homogeneous_composite<T>(
-    encoding: &[u8],
-    chunk_size: usize,
-) -> Result<Vec<T>, DeserializeError>
+pub fn deserialize_homogeneous_composite<T>(encoding: &[u8]) -> Result<Vec<T>, DeserializeError>
 where
     T: SSZ,
 {
     if T::is_variable_size() {
         deserialize_variable_homogeneous_composite(encoding)
     } else {
-        deserialize_fixed_homogeneous_composite(encoding, chunk_size)
+        deserialize_fixed_homogeneous_composite(encoding)
     }
 }

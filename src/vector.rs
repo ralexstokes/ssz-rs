@@ -47,7 +47,7 @@ where
 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         assert!(N > 0);
-        let elements = deserialize_homogeneous_composite(encoding, T::size_hint())?;
+        let elements = deserialize_homogeneous_composite(encoding)?;
         elements
             .try_into()
             .map(Vector)
@@ -134,6 +134,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::list::List;
     use crate::serialize;
 
     const COUNT: usize = 32;
@@ -166,6 +167,22 @@ mod tests {
     }
 
     #[test]
+    fn decode_variable_vector() {
+        const COUNT: usize = 4;
+        let mut inner: Vec<List<u8, 1>> = (0..4)
+            .map(|i| List::from_iter(std::array::IntoIter::new([i as u8])))
+            .collect();
+        let permutation = &mut inner[3];
+        let _ = permutation.pop().expect("test data correct");
+        let input: Vector<List<u8, 1>, COUNT> =
+            Vector(inner.try_into().expect("test data correct"));
+        let mut buffer = vec![];
+        let _ = input.serialize(&mut buffer).expect("can serialize");
+        let expected = vec![16, 0, 0, 0, 17, 0, 0, 0, 18, 0, 0, 0, 19, 0, 0, 0, 0, 1, 2];
+        assert_eq!(buffer, expected);
+    }
+
+    #[test]
     fn roundtrip_vector() {
         let bytes = vec![
             0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8,
@@ -175,6 +192,22 @@ mod tests {
         let mut buffer = vec![];
         let _ = input.serialize(&mut buffer).expect("can serialize");
         let recovered = Vector::<u8, COUNT>::deserialize(&buffer).expect("can decode");
+        assert_eq!(input, recovered);
+    }
+
+    #[test]
+    fn roundtrip_variable_vector() {
+        const COUNT: usize = 4;
+        let mut inner: Vec<List<u8, 1>> = (0..4)
+            .map(|i| List::from_iter(std::array::IntoIter::new([i as u8])))
+            .collect();
+        let permutation = &mut inner[3];
+        let _ = permutation.pop().expect("test data correct");
+        let input: Vector<List<u8, 1>, COUNT> =
+            Vector(inner.try_into().expect("test data correct"));
+        let mut buffer = vec![];
+        let _ = input.serialize(&mut buffer).expect("can serialize");
+        let recovered = Vector::<List<u8, 1>, COUNT>::deserialize(&buffer).expect("can decode");
         assert_eq!(input, recovered);
     }
 }
