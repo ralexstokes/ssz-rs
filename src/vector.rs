@@ -9,6 +9,15 @@ use std::ops::{Index, IndexMut};
 #[derive(Debug, PartialEq, Eq)]
 pub struct Vector<T: SSZ, const N: usize>([T; N]);
 
+impl<T, const N: usize> Vector<T, N>
+where
+    T: SSZ,
+{
+    pub fn len(&self) -> usize {
+        self.0.len()
+    }
+}
+
 impl<T, const N: usize> SSZ for Vector<T, N>
 where
     T: SSZ,

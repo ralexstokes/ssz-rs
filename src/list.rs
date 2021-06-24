@@ -1,6 +1,7 @@
 use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
 use crate::ser::{serialize_homogeneous_composite, Serialize, SerializeError};
 use crate::ssz::SSZ;
+use std::iter::FromIterator;
 use std::ops::{Index, IndexMut};
 
 /// A homogenous collection of a variable number of values.
@@ -13,6 +14,18 @@ where
 {
     pub fn push(&mut self, value: T) {
         self.0.push(value)
+    }
+
+    pub fn pop(&mut self) -> Option<T> {
+        self.0.pop()
+    }
+
+    pub fn len(&self) -> usize {
+        self.0.len()
+    }
+
+    pub fn from_iter(iter: impl Iterator<Item = T>) -> Self {
+        Self(Vec::from_iter(iter))
     }
 }
 
