@@ -14,7 +14,7 @@ pub trait Serialize {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError>;
 }
 
-pub fn serialize_composite<'a, T, U: 'a>(
+pub fn serialize_homogeneous_composite<'a, T, U: 'a>(
     value: T,
     buffer: &mut Vec<u8>,
 ) -> Result<usize, SerializeError>
@@ -35,7 +35,7 @@ where
         let bytes_written = element.serialize(&mut buffer)?;
         total_bytes_written += bytes_written;
 
-        if element.is_variable_size() {
+        if U::is_variable_size() {
             fixed.push(None);
             variable.push(buffer);
         } else {

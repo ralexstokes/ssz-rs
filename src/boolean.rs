@@ -3,7 +3,7 @@ use crate::ser::{Serialize, SerializeError};
 use crate::ssz::SSZ;
 
 impl SSZ for bool {
-    fn is_variable_size(&self) -> bool {
+    fn is_variable_size() -> bool {
         false
     }
 

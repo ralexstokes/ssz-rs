@@ -4,144 +4,46 @@ use crate::ssz::SSZ;
 use std::convert::TryInto;
 use std::default::Default;
 
-impl SSZ for u8 {
-    fn is_variable_size(&self) -> bool {
-        false
-    }
+macro_rules! define_uint {
+    ($uint:ty) => {
+        impl SSZ for $uint {
+            fn is_variable_size() -> bool {
+                false
+            }
 
-    fn size_hint() -> usize {
-        1
-    }
-}
-
-impl Serialize for u8 {
-    fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
-        buffer.push(*self);
-        Ok(1)
-    }
-}
-
-impl Deserialize for u8 {
-    fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
-        if encoding.len() < 1 {
-            return Err(DeserializeError::InputTooShort);
+            fn size_hint() -> usize {
+                (<$uint>::BITS / 8) as usize
+            }
         }
 
-        Ok(encoding[0])
-    }
-}
-
-impl SSZ for u16 {
-    fn is_variable_size(&self) -> bool {
-        false
-    }
-
-    fn size_hint() -> usize {
-        2
-    }
-}
-
-impl Serialize for u16 {
-    fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
-        buffer.extend_from_slice(&self.to_le_bytes());
-        Ok(2)
-    }
-}
-
-impl Deserialize for u16 {
-    fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
-        if encoding.len() < 2 {
-            return Err(DeserializeError::InputTooShort);
+        impl Serialize for $uint {
+            fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
+                buffer.extend_from_slice(&self.to_le_bytes());
+                Ok((<$uint>::BITS / 8) as usize)
+            }
         }
 
-        let bytes = encoding[..2].try_into().expect("slice has right length");
-        Ok(u16::from_le_bytes(bytes))
-    }
-}
+        impl Deserialize for $uint {
+            fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
+                let byte_size = (<$uint>::BITS / 8) as usize;
+                if encoding.len() < byte_size {
+                    return Err(DeserializeError::InputTooShort);
+                }
 
-impl SSZ for u32 {
-    fn is_variable_size(&self) -> bool {
-        false
-    }
-
-    fn size_hint() -> usize {
-        4
-    }
-}
-
-impl Serialize for u32 {
-    fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
-        buffer.extend_from_slice(&self.to_le_bytes());
-        Ok(4)
-    }
-}
-
-impl Deserialize for u32 {
-    fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
-        if encoding.len() < 4 {
-            return Err(DeserializeError::InputTooShort);
+                let bytes = encoding[..byte_size]
+                    .try_into()
+                    .expect("slice has right length");
+                Ok(<$uint>::from_le_bytes(bytes))
+            }
         }
-
-        let bytes = encoding[..4].try_into().expect("slice has right length");
-        Ok(u32::from_le_bytes(bytes))
-    }
+    };
 }
 
-impl SSZ for u64 {
-    fn is_variable_size(&self) -> bool {
-        false
-    }
-
-    fn size_hint() -> usize {
-        8
-    }
-}
-
-impl Serialize for u64 {
-    fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
-        buffer.extend_from_slice(&self.to_le_bytes());
-        Ok(8)
-    }
-}
-
-impl Deserialize for u64 {
-    fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
-        if encoding.len() < 8 {
-            return Err(DeserializeError::InputTooShort);
-        }
-
-        let bytes = encoding[..8].try_into().expect("slice has right length");
-        Ok(u64::from_le_bytes(bytes))
-    }
-}
-
-impl SSZ for u128 {
-    fn is_variable_size(&self) -> bool {
-        false
-    }
-
-    fn size_hint() -> usize {
-        16
-    }
-}
-
-impl Serialize for u128 {
-    fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
-        buffer.extend_from_slice(&self.to_le_bytes());
-        Ok(16)
-    }
-}
-
-impl Deserialize for u128 {
-    fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
-        if encoding.len() < 16 {
-            return Err(DeserializeError::InputTooShort);
-        }
-
-        let bytes = encoding[..16].try_into().expect("slice has right length");
-        Ok(u128::from_le_bytes(bytes))
-    }
-}
+define_uint!(u8);
+define_uint!(u16);
+define_uint!(u32);
+define_uint!(u64);
+define_uint!(u128);
 
 #[repr(transparent)]
 #[derive(Default, Debug, PartialEq, Eq)]
@@ -149,7 +51,7 @@ impl Deserialize for u128 {
 pub struct Uint256([u8; 32]);
 
 impl SSZ for Uint256 {
-    fn is_variable_size(&self) -> bool {
+    fn is_variable_size() -> bool {
         false
     }
 

@@ -1,24 +1,23 @@
-use crate::de::{Deserialize, DeserializeError};
-use crate::ser::{serialize_composite, Serialize, SerializeError};
+use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
+use crate::ser::{serialize_homogeneous_composite, Serialize, SerializeError};
 use crate::SSZ;
+use std::convert::TryInto;
 use std::ops::{Index, IndexMut};
 
 /// A homogenous collection of a fixed number of values.
 /// NOTE: a `Vector` of length `0` is illegal.
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 pub struct Vector<T, const N: usize>([T; N]);
 
 impl<T, const N: usize> SSZ for Vector<T, N>
 where
     T: SSZ,
 {
-    fn is_variable_size(&self) -> bool {
-        assert!(N > 0);
-        self.0[0].is_variable_size()
+    fn is_variable_size() -> bool {
+        T::is_variable_size()
     }
 
     fn size_hint() -> usize {
-        assert!(N > 0);
         T::size_hint() * N
     }
 }
@@ -29,7 +28,7 @@ where
 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         assert!(N > 0);
-        serialize_composite(self, buffer)
+        serialize_homogeneous_composite(self, buffer)
     }
 }
 
@@ -38,7 +37,12 @@ where
     T: SSZ,
 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
-        unimplemented!()
+        assert!(N > 0);
+        let elements = deserialize_homogeneous_composite(encoding, T::size_hint())?;
+        elements
+            .try_into()
+            .map(Vector)
+            .map_err(|_| DeserializeError::InputTooShort)
     }
 }
 
@@ -112,11 +116,12 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{deserialize, serialize};
+    use crate::serialize;
+
+    const COUNT: usize = 32;
 
     #[test]
     fn encode_vector() {
-        const COUNT: usize = 32;
         let mut value: Vector<u16, COUNT> = Vector::default();
         for elem in &mut value {
             *elem = 33u16;
@@ -133,13 +138,25 @@ mod tests {
 
     #[test]
     fn decode_vector() {
-        const COUNT: usize = 32;
-
-        let bytes = vec![];
-        let result = Vector::<u16, COUNT>::deserialize(&bytes);
-        assert!(result.is_ok())
+        let bytes = vec![
+            0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8,
+            1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8,
+        ];
+        let result = Vector::<u8, COUNT>::deserialize(&bytes).expect("can deserialize");
+        let expected: Vector<u8, COUNT> = Vector(bytes.try_into().expect("test data"));
+        assert_eq!(result, expected);
     }
 
     #[test]
-    fn roundtrip_vector() {}
+    fn roundtrip_vector() {
+        let bytes = vec![
+            0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8,
+            1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8,
+        ];
+        let input: Vector<u8, COUNT> = Vector(bytes.try_into().expect("test data"));
+        let mut buffer = vec![];
+        let _ = input.serialize(&mut buffer).expect("can serialize");
+        let recovered = Vector::<u8, COUNT>::deserialize(&buffer).expect("can decode");
+        assert_eq!(input, recovered);
+    }
 }
