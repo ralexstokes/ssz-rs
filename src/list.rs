@@ -2,30 +2,38 @@ use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError
 use crate::ser::{serialize_homogeneous_composite, Serialize, SerializeError};
 use crate::ssz::SSZ;
 use std::iter::FromIterator;
-use std::ops::{Index, IndexMut};
+use std::ops::{Deref, DerefMut};
 
 /// A homogenous collection of a variable number of values.
 #[derive(Debug, PartialEq, Eq)]
 pub struct List<T: SSZ, const N: usize>(Vec<T>);
 
-impl<T, const N: usize> List<T, N>
+impl<T, const N: usize> Default for List<T, N>
 where
     T: SSZ,
 {
-    pub fn push(&mut self, value: T) {
-        self.0.push(value)
+    fn default() -> Self {
+        Self(vec![])
     }
+}
 
-    pub fn pop(&mut self) -> Option<T> {
-        self.0.pop()
+impl<T, const N: usize> Deref for List<T, N>
+where
+    T: SSZ,
+{
+    type Target = Vec<T>;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
     }
+}
 
-    pub fn len(&self) -> usize {
-        self.0.len()
-    }
-
-    pub fn from_iter(iter: impl Iterator<Item = T>) -> Self {
-        Self(Vec::from_iter(iter))
+impl<T, const N: usize> DerefMut for List<T, N>
+where
+    T: SSZ,
+{
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
     }
 }
 
@@ -63,6 +71,18 @@ where
     }
 }
 
+impl<T, const N: usize> FromIterator<T> for List<T, N>
+where
+    T: SSZ,
+{
+    fn from_iter<I>(iter: I) -> Self
+    where
+        I: IntoIterator<Item = T>,
+    {
+        Self(Vec::from_iter(iter))
+    }
+}
+
 impl<T, const N: usize> IntoIterator for List<T, N>
 where
     T: SSZ,
@@ -96,35 +116,6 @@ where
 
     fn into_iter(self) -> Self::IntoIter {
         self.0.iter_mut()
-    }
-}
-
-impl<T, const N: usize> Default for List<T, N>
-where
-    T: SSZ,
-{
-    fn default() -> Self {
-        Self(vec![])
-    }
-}
-
-impl<T, const N: usize> Index<usize> for List<T, N>
-where
-    T: SSZ,
-{
-    type Output = T;
-
-    fn index(&self, index: usize) -> &Self::Output {
-        &self.0[index]
-    }
-}
-
-impl<T, const N: usize> IndexMut<usize> for List<T, N>
-where
-    T: SSZ,
-{
-    fn index_mut(&mut self, index: usize) -> &mut Self::Output {
-        &mut self.0[index]
     }
 }
 

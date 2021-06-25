@@ -2,19 +2,39 @@ use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError
 use crate::ser::{serialize_homogeneous_composite, Serialize, SerializeError};
 use crate::SSZ;
 use std::convert::TryInto;
-use std::ops::{Index, IndexMut};
+use std::ops::{Deref, DerefMut};
 
 /// A homogenous collection of a fixed number of values.
 /// NOTE: a `Vector` of length `0` is illegal.
 #[derive(Debug, PartialEq, Eq)]
 pub struct Vector<T: SSZ, const N: usize>([T; N]);
 
-impl<T, const N: usize> Vector<T, N>
+impl<T, const N: usize> Default for Vector<T, N>
+where
+    T: SSZ + Default + Copy,
+{
+    fn default() -> Self {
+        Self([T::default(); N])
+    }
+}
+
+impl<T, const N: usize> Deref for Vector<T, N>
 where
     T: SSZ,
 {
-    pub fn len(&self) -> usize {
-        self.0.len()
+    type Target = [T; N];
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+impl<T, const N: usize> DerefMut for Vector<T, N>
+where
+    T: SSZ,
+{
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
     }
 }
 
@@ -55,17 +75,6 @@ where
     }
 }
 
-impl<T, const N: usize> Copy for Vector<T, N> where T: Copy + SSZ {}
-
-impl<T, const N: usize> Clone for Vector<T, N>
-where
-    T: Copy + SSZ,
-{
-    fn clone(&self) -> Self {
-        *self
-    }
-}
-
 impl<T, const N: usize> IntoIterator for Vector<T, N>
 where
     T: SSZ,
@@ -102,35 +111,6 @@ where
     }
 }
 
-impl<T, const N: usize> Default for Vector<T, N>
-where
-    T: SSZ + Default + Copy,
-{
-    fn default() -> Self {
-        Self([T::default(); N])
-    }
-}
-
-impl<T, const N: usize> Index<usize> for Vector<T, N>
-where
-    T: SSZ,
-{
-    type Output = T;
-
-    fn index(&self, index: usize) -> &Self::Output {
-        &self.0[index]
-    }
-}
-
-impl<T, const N: usize> IndexMut<usize> for Vector<T, N>
-where
-    T: SSZ,
-{
-    fn index_mut(&mut self, index: usize) -> &mut Self::Output {
-        &mut self.0[index]
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -145,6 +125,9 @@ mod tests {
         for elem in &mut value {
             *elem = 33u16;
         }
+        value[0] = 34u16;
+        assert_eq!(value[0], 34u16);
+        value[0] = 33u16;
         let encoding = serialize(&value).expect("can encode");
         let expected = [
             33u8, 0u8, 33u8, 0u8, 33u8, 0u8, 33u8, 0u8, 33u8, 0u8, 33u8, 0u8, 33u8, 0u8, 33u8, 0u8,
@@ -170,7 +153,7 @@ mod tests {
     fn decode_variable_vector() {
         const COUNT: usize = 4;
         let mut inner: Vec<List<u8, 1>> = (0..4)
-            .map(|i| List::from_iter(std::array::IntoIter::new([i as u8])))
+            .map(|i| std::array::IntoIter::new([i as u8]).collect())
             .collect();
         let permutation = &mut inner[3];
         let _ = permutation.pop().expect("test data correct");
@@ -199,7 +182,7 @@ mod tests {
     fn roundtrip_variable_vector() {
         const COUNT: usize = 4;
         let mut inner: Vec<List<u8, 1>> = (0..4)
-            .map(|i| List::from_iter(std::array::IntoIter::new([i as u8])))
+            .map(|i| std::array::IntoIter::new([i as u8]).collect())
             .collect();
         let permutation = &mut inner[3];
         let _ = permutation.pop().expect("test data correct");
