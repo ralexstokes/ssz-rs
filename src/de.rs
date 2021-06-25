@@ -8,6 +8,8 @@ pub enum DeserializeError {
     InputTooShort,
     #[error("invalid data for expected type")]
     InvalidInput,
+    #[error("{0}")]
+    IOError(#[from] std::io::Error),
 }
 
 pub trait Deserialize {

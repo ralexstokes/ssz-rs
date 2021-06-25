@@ -8,3 +8,4 @@ edition = "2018"
 
 [dependencies]
 thiserror = "1.0.25"
+bitvec = "0.22.3"
