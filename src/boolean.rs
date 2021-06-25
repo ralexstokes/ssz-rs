@@ -22,7 +22,7 @@ impl Serialize for bool {
 
 impl Deserialize for bool {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
-        if encoding.len() < 1 {
+        if encoding.is_empty() {
             return Err(DeserializeError::InputTooShort);
         }
 

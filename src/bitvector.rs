@@ -26,16 +26,16 @@ impl<const N: usize> Default for Bitvector<N> {
 impl<const N: usize> Bitvector<N> {
     /// Return the bit at `index`. `None` if index is out-of-bounds.
     pub fn get(&mut self, index: usize) -> Option<bool> {
-        self.0.get(index).and_then(|value| Some(*value))
+        self.0.get(index).map(|value| *value)
     }
 
     /// Set the bit at `index` to `value`. Return the previous value
     /// or `None` if index is out-of-bounds.
     pub fn set(&mut self, index: usize, value: bool) -> Option<bool> {
-        self.get_mut(index).and_then(|mut slot| {
+        self.get_mut(index).map(|mut slot| {
             let old = *slot;
             *slot = value;
-            Some(old)
+            old
         })
     }
 }
@@ -98,13 +98,8 @@ impl<const N: usize> FromIterator<bool> for Bitvector<N> {
         assert!(N > 0);
 
         let mut result: Bitvector<N> = Default::default();
-        let mut index = 0;
-        for bit in iter {
-            if index >= N {
-                break;
-            }
+        for (index, bit) in iter.into_iter().enumerate().take(N) {
             result.set(index, bit);
-            index += 1;
         }
         result
     }
