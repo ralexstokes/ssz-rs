@@ -4,13 +4,39 @@ An implementation of the `ssz` serialization scheme defined in the [eth2.0-specs
 
 # Features
 
-- [x] Encoding / Decoding for "basic" types
-- [ ] Encoding / Decoding for "composite" types
-  - [ ] container
-  - [ ] vector
-  - [ ] list
-  - [ ] bitvector
-  - [ ] bitlist
-  - [ ] union
-- [ ] Merkleization / hashing
-- [ ] Merkle (multi)proofs
+## serialization
+
+- uintN
+  - [x] encoding
+  - [x] decoding
+- bool
+  - [x] encoding
+  - [x] decoding
+- vector
+  - [x] encoding
+  - [x] decoding
+- list
+  - [x] encoding
+  - [x] decoding
+- bitvector
+  - [x] encoding
+  - [x] decoding
+- bitlist
+  - [ ] encoding
+  - [ ] decoding
+- container
+  - [ ] derive macro
+  - [ ] encoding
+  - [ ] decoding
+- union
+  - [ ] derive macro
+  - [ ] encoding
+  - [ ] decoding
+
+## Merkleization
+
+- [ ] TODO
+
+## (multi)proofs
+
+- [ ] TODO
