@@ -63,32 +63,32 @@ impl<const N: usize> Serialize for Bitlist<N> {
         assert!(self.len() <= N);
         let start_len = buffer.len();
         buffer.extend_from_slice(self.as_raw_slice());
+
         let element_count = self.len();
-        let bytes_to_write = element_count / 8 + 1;
-        if buffer.len() < start_len + bytes_to_write {
-            buffer.push(2_u8.pow(element_count as u32 % 8));
+        let marker_index = element_count % 8;
+        if marker_index == 0 {
+            buffer.push(1u8);
         } else {
-            let last = buffer.last_mut().unwrap();
-            *last |= 1 << (element_count % 8) as u8;
+            let last = buffer.last_mut().expect("bitlist cannot be empty");
+            *last |= 1u8 << marker_index;
         }
-        Ok(bytes_to_write)
+        Ok(buffer.len() - start_len)
     }
 }
 
 impl<const N: usize> Deserialize for Bitlist<N> {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
-        let mut result = Self::default();
         let (last_byte, prefix) = encoding
             .split_last()
             .ok_or_else(|| DeserializeError::InputTooShort)?;
-        result.extend_from_raw_slice(prefix);
-        let last = BitVec::<Lsb0, _>::from_element(*last_byte);
+        let mut result = BitlistInner::from_slice(prefix).expect("can read slice");
+        let last = BitlistInner::from_element(*last_byte);
         let high_bit_index = last.len() - last.trailing_zeros() - 1;
         for bit in last.iter().take(high_bit_index) {
             result.push(*bit);
         }
         assert!(result.len() <= N);
-        Ok(result)
+        Ok(Self(result))
     }
 }
 
