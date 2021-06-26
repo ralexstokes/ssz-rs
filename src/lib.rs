@@ -1,3 +1,4 @@
+mod bitlist;
 mod bitvector;
 mod boolean;
 mod de;
@@ -7,6 +8,7 @@ mod ssz;
 mod uint;
 mod vector;
 
+pub use bitlist::Bitlist;
 pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};
 pub use ser::{Serialize, SerializeError};

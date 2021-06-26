@@ -22,8 +22,8 @@ An implementation of the `ssz` serialization scheme defined in the [eth2.0-specs
   - [x] encoding
   - [x] decoding
 - bitlist
-  - [ ] encoding
-  - [ ] decoding
+  - [x] encoding
+  - [x] decoding
 - container
   - [ ] derive macro
   - [ ] encoding
@@ -32,6 +32,10 @@ An implementation of the `ssz` serialization scheme defined in the [eth2.0-specs
   - [ ] derive macro
   - [ ] encoding
   - [ ] decoding
+
+- other
+  - [ ] harden deserialization
+  - [ ] turn asserts into errors
 
 ## Merkleization
 
