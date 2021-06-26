@@ -1,4 +1,4 @@
-use crate::SSZ;
+use crate::ssz::SSZ;
 use thiserror::Error;
 
 pub const BYTES_PER_LENGTH_OFFSET: usize = 4;

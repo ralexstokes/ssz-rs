@@ -1,6 +1,6 @@
 use crate::de::{Deserialize, DeserializeError};
 use crate::ser::{Serialize, SerializeError};
-use crate::SSZ;
+use crate::ssz::SSZ;
 use bitvec::field::BitField;
 use bitvec::prelude::BitVec;
 use std::iter::FromIterator;
@@ -69,7 +69,7 @@ impl<const N: usize> Serialize for Bitvector<N> {
         assert!(N > 0);
         let bytes_to_write = Self::size_hint();
         buffer.reserve(bytes_to_write);
-        for byte in self.0.chunks(8) {
+        for byte in self.chunks(8) {
             buffer.push(byte.load_le());
         }
         Ok(bytes_to_write)

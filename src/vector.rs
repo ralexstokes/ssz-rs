@@ -1,6 +1,6 @@
 use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
 use crate::ser::{serialize_homogeneous_composite, Serialize, SerializeError};
-use crate::SSZ;
+use crate::ssz::SSZ;
 use std::convert::TryInto;
 use std::ops::{Deref, DerefMut};
 

@@ -46,7 +46,7 @@ where
     }
 
     fn size_hint() -> usize {
-        T::size_hint()
+        0
     }
 }
 
@@ -55,7 +55,7 @@ where
     T: SSZ,
 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
-        assert!(self.0.len() <= N);
+        assert!(self.len() <= N);
         serialize_homogeneous_composite(self, buffer)
     }
 }
