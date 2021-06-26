@@ -8,13 +8,14 @@ mod ssz;
 mod uint;
 mod vector;
 
+pub use crate::ssz::SSZ;
 pub use bitlist::Bitlist;
 pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};
+pub use list::List;
 pub use ser::{Serialize, SerializeError};
+pub use uint::U256;
 pub use vector::Vector;
-
-use crate::ssz::SSZ;
 
 pub fn serialize<T>(value: &T) -> Result<Vec<u8>, SerializeError>
 where
