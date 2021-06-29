@@ -48,7 +48,7 @@ define_uint!(u128);
 #[repr(transparent)]
 #[derive(Default, Debug, PartialEq, Eq)]
 // inner slice is little-endian
-pub struct U256([u8; 32]);
+pub struct U256(pub [u8; 32]);
 
 impl SSZ for U256 {
     fn is_variable_size() -> bool {
