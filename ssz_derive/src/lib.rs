@@ -54,6 +54,65 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
     }
 }
 
+fn derive_deserialize_impl(data: &Data) -> TokenStream {
+    match data {
+        Data::Struct(ref data) => match data.fields {
+            Fields::Named(ref fields) => {
+                if fields.named.is_empty() {
+                    panic!("ssz containers with no fields are illegal")
+                }
+                let element_count = fields.named.len();
+                let deserialization_by_field = fields.named.iter().enumerate().map(|(i, f)| {
+                    let field_name = &f.ident;
+                    let field_type = &f.ty;
+                    quote_spanned! { f.span() =>
+                        let bytes_read = if <#field_type>::is_variable_size() {
+                            let end = start + ssz::ser::BYTES_PER_LENGTH_OFFSET;
+                            let end_of_element = u32::deserialize(&encoding[start..end])? as usize;
+
+                            if let Some(start_of_element) = last_offset {
+                                container.#field_name = <#field_type>::deserialize(&encoding[start_of_element..end_of_element])?;
+                            }
+                            last_offset.insert(end_of_element);
+
+                            if #i == #element_count - 1 {
+                                container.#field_name = <#field_type>::deserialize(&encoding[end_of_element..])?;
+                            }
+
+                            ssz::ser::BYTES_PER_LENGTH_OFFSET
+                        } else {
+                            let encoded_length = <#field_type>::size_hint();
+                            let end = start + encoded_length;
+                            let result = <#field_type>::deserialize(&encoding[start..end])?;
+                            container.#field_name = result;
+                            encoded_length
+                        };
+                        start += bytes_read;
+                    }
+                });
+
+                quote! {
+                    fn deserialize(encoding: &[u8]) -> Result<Self, ssz::DeserializeError> {
+                        let mut start = 0;
+                        let mut last_offset = None;
+
+                        let mut container = Self::default();
+
+                        #(#deserialization_by_field)*
+
+                        Ok(container)
+                    }
+                }
+            }
+            _ => panic!("not supported"),
+        },
+        Data::Enum(_data) => {
+            unimplemented!()
+        }
+        Data::Union(..) => panic!("not supported"),
+    }
+}
+
 fn derive_variable_size_impl(data: &Data) -> TokenStream {
     match data {
         Data::Struct(ref data) => match data.fields {
@@ -114,6 +173,7 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let data = &input.data;
 
     let serialize_impl = derive_serialize_impl(data);
+    let deserialize_impl = derive_deserialize_impl(data);
     let is_variable_size_impl = derive_variable_size_impl(data);
     let size_hint_impl = derive_size_hint_impl(data);
 
@@ -123,9 +183,7 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
         }
 
         impl ssz::Deserialize for #name {
-            fn deserialize(encoding: &[u8]) -> Result<Self, ssz::DeserializeError> {
-                Ok(Self::default())
-            }
+            #deserialize_impl
         }
 
         impl ssz::SSZ for #name {
