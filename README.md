@@ -25,8 +25,8 @@ An implementation of the `ssz` serialization scheme defined in the [eth2.0-specs
   - [x] encoding
   - [x] decoding
 - container
-  - [ ] derive macro
-  - [ ] encoding
+  - [x] derive macro
+  - [x] encoding
   - [ ] decoding
 - union
   - [ ] derive macro
