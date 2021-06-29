@@ -80,7 +80,7 @@ impl<const N: usize> Deserialize for Bitlist<N> {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         let (last_byte, prefix) = encoding
             .split_last()
-            .ok_or_else(|| DeserializeError::InputTooShort)?;
+            .ok_or(DeserializeError::InputTooShort)?;
         let mut result = BitlistInner::from_slice(prefix).expect("can read slice");
         let last = BitlistInner::from_element(*last_byte);
         let high_bit_index = last.len() - last.trailing_zeros() - 1;

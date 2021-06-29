@@ -62,14 +62,13 @@ pub fn serialize_composite<T: SSZ>(
         let mut buffer = Vec::with_capacity(T::size_hint());
         element.serialize(&mut buffer)?;
 
+        let buffer_len = buffer.len();
         if T::is_variable_size() {
-            let buffer_len = buffer.len();
             fixed.push(None);
             fixed_lengths_sum += BYTES_PER_LENGTH_OFFSET;
             variable.push(buffer);
             variable_lengths.push(buffer_len);
         } else {
-            let buffer_len = buffer.len();
             fixed.push(Some(buffer));
             fixed_lengths_sum += buffer_len;
             variable_lengths.push(0)
