@@ -2,14 +2,33 @@ use crate::de::{Deserialize, DeserializeError};
 use crate::ser::{Serialize, SerializeError};
 use crate::ssz::SSZ;
 use bitvec::prelude::{BitVec, Lsb0};
+use std::fmt;
 use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
 
 type BitlistInner = BitVec<Lsb0, u8>;
 
 /// A homogenous collection of a variable number of boolean values.
-#[derive(Debug, PartialEq, Eq)]
+#[derive(PartialEq, Eq)]
 pub struct Bitlist<const N: usize>(BitlistInner);
+
+impl<const N: usize> fmt::Debug for Bitlist<N> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+        write!(f, "Bitlist(0b")?;
+        let len = self.len();
+        let mut bits_written = 0;
+        for (index, bit) in self.iter().enumerate() {
+            let value = if *bit { 1 } else { 0 };
+            write!(f, "{}", value)?;
+            bits_written += 1;
+            if bits_written % 4 == 0 && index != len - 1 {
+                write!(f, "_")?;
+            }
+        }
+        write!(f, ")")?;
+        Ok(())
+    }
+}
 
 impl<const N: usize> Default for Bitlist<N> {
     fn default() -> Self {

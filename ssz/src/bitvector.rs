@@ -3,6 +3,7 @@ use crate::ser::{Serialize, SerializeError};
 use crate::ssz::SSZ;
 use bitvec::field::BitField;
 use bitvec::prelude::BitVec;
+use std::fmt;
 use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
 
@@ -13,8 +14,26 @@ use std::ops::{Deref, DerefMut};
 /// this type can use something like
 /// bitvec::array::BitArray<T, {N / 8}> where T: BitRegister, [T; {N / 8}]: BitViewSized
 /// Refer: https://stackoverflow.com/a/65462213
-#[derive(Debug, PartialEq, Eq)]
+#[derive(PartialEq, Eq)]
 pub struct Bitvector<const N: usize>(BitVec);
+
+impl<const N: usize> fmt::Debug for Bitvector<N> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+        write!(f, "Bitvector(0b")?;
+        let len = self.len();
+        let mut bits_written = 0;
+        for (index, bit) in self.iter().enumerate() {
+            let value = if *bit { 1 } else { 0 };
+            write!(f, "{}", value)?;
+            bits_written += 1;
+            if bits_written % 4 == 0 && index != len - 1 {
+                write!(f, "_")?;
+            }
+        }
+        write!(f, ")")?;
+        Ok(())
+    }
+}
 
 impl<const N: usize> Default for Bitvector<N> {
     fn default() -> Self {
