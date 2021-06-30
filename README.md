@@ -29,13 +29,15 @@ An implementation of the `ssz` serialization scheme defined in the [eth2.0-specs
   - [x] encoding
   - [x] decoding
 - union
-  - [ ] derive macro
-  - [ ] encoding
-  - [ ] decoding
-
+  - [x] derive macro
+  - [x] encoding
+  - [x] decoding
 - other
   - [ ] harden deserialization
   - [ ] turn asserts into errors
+  - [ ] run against conformance tests
+  - [ ] ensure variants in derive and others
+  - [ ] polish derive infra
 
 ## Merkleization
 

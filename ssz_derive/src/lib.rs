@@ -30,8 +30,8 @@ fn derive_set_by_index_impl(data: &Data) -> TokenStream {
             }
             _ => panic!("not supported"),
         },
-        Data::Enum(_data) => {
-            unimplemented!()
+        Data::Enum(..) => {
+            quote! {}
         }
         Data::Union(..) => panic!("not supported"),
     }
@@ -81,8 +81,41 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
             }
             _ => panic!("not supported"),
         },
-        Data::Enum(_data) => {
-            unimplemented!()
+        Data::Enum(ref data) => {
+            if data.variants.is_empty() {
+                panic!("ssz unions with no variants are illegal")
+            }
+
+            let serialization_by_variant = data.variants.iter().enumerate().map(|(i, variant)| {
+                if variant.fields.len() != 1 {
+                    panic!("only unions with 1 type per selector are allowed");
+                }
+
+                if i > 127 {
+                    panic!("unions cannot have more than 127 variants");
+                }
+
+                let variant_name = &variant.ident;
+                quote_spanned! { variant.span() =>
+                    Self::#variant_name(value) => {
+                        let selector = u8::try_from(#i).expect("variant index cannot be higher than one byte");
+                        buffer.push(selector);
+                        let selector_bytes = 1;
+                        let value_bytes  = value.serialize(buffer)?;
+                        Ok(selector_bytes + value_bytes)
+                    }
+                }
+            });
+
+            quote! {
+                fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, ssz::SerializeError> {
+                    use std::convert::TryFrom;
+
+                    match self {
+                        #(#serialization_by_variant)*
+                    }
+                }
+            }
         }
         Data::Union(..) => panic!("not supported"),
     }
@@ -148,8 +181,46 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
             }
             _ => panic!("not supported"),
         },
-        Data::Enum(_data) => {
-            unimplemented!()
+        Data::Enum(ref data) => {
+            if data.variants.is_empty() {
+                panic!("ssz unions with no variants are illegal")
+            }
+
+            let deserialization_by_variant =
+                data.variants.iter().enumerate().map(|(i, variant)| {
+                    if variant.fields.len() != 1 {
+                        panic!("only unions with 1 type per selector are allowed");
+                    }
+
+                    if i > 127 {
+                        panic!("unions cannot have more than 127 variants");
+                    }
+
+                    let variant_name = &variant.ident;
+                    let variant_type = match &variant.fields {
+                        Fields::Unnamed(inner) => &inner.unnamed[0],
+                        _ => panic!("only tuple variants of length 1 are allowed"),
+                    };
+                    quote_spanned! { variant.span() =>
+                        #i => {
+                            let value = <#variant_type>::deserialize(&encoding[1..])?;
+                            Ok(Self::#variant_name(value))
+                        }
+                    }
+                });
+
+            quote! {
+                fn deserialize(encoding: &[u8]) -> Result<Self, ssz::DeserializeError> {
+                    if encoding.len() < 1 {
+                        return Err(ssz::DeserializeError::InputTooShort);
+                    }
+
+                    match &encoding[0].into() {
+                        #(#deserialization_by_variant)*
+                        _ => Err(ssz::DeserializeError::InvalidInput),
+                    }
+                }
+            }
         }
         Data::Union(..) => panic!("not supported"),
     }
@@ -201,7 +272,7 @@ fn derive_size_hint_impl(data: &Data) -> TokenStream {
             _ => panic!("not supported"),
         },
         Data::Enum(..) => {
-            unimplemented!()
+            quote! { 0 }
         }
         Data::Union(..) => panic!("not supported"),
     }
@@ -221,7 +292,6 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let size_hint_impl = derive_size_hint_impl(data);
 
     let expansion = quote! {
-
         impl #name {
             #set_by_index_impl
         }

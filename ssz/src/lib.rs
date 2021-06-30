@@ -7,6 +7,7 @@ mod list;
 mod ser;
 mod ssz;
 mod uint;
+mod union;
 mod vector;
 
 pub use crate::ssz::SSZ;
