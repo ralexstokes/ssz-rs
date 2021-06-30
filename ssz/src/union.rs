@@ -1,3 +1,59 @@
+use crate::de::{Deserialize, DeserializeError};
+use crate::ser::{Serialize, SerializeError};
+use crate::ssz::SSZ;
+
+/// `SSZ` is implemented for `Option` as a convenience
+/// when the schema is equivalent to one described by:
+/// enum Option<T: SSZ> {
+///     None,
+///     Some(T),
+/// }
+impl<T> SSZ for Option<T>
+where
+    T: SSZ,
+{
+    fn is_variable_size() -> bool {
+        true
+    }
+
+    fn size_hint() -> usize {
+        0
+    }
+}
+
+impl<T> Serialize for Option<T>
+where
+    T: SSZ,
+{
+    fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
+        match self {
+            Some(data) => {
+                let selector_bytes = 1u8.serialize(buffer)?;
+                let value_bytes = data.serialize(buffer)?;
+                Ok(selector_bytes + value_bytes)
+            }
+            None => 0u8.serialize(buffer),
+        }
+    }
+}
+
+impl<T> Deserialize for Option<T>
+where
+    T: SSZ,
+{
+    fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
+        if encoding.is_empty() {
+            return Err(DeserializeError::InputTooShort);
+        }
+
+        match &encoding[0].into() {
+            0 => Ok(None),
+            1 => Ok(Some(T::deserialize(&encoding[1..])?)),
+            _ => Err(DeserializeError::InvalidInput),
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     // needed for derives internal to crate
@@ -40,6 +96,29 @@ mod tests {
         B(Inner),
         C(List<u8, 12>),
         D(Vector<u8, 2>),
+    }
+
+    #[test]
+    fn test_option() {
+        let mut x = Some(12u8);
+        let mut buffer = vec![];
+        let result = x.serialize(&mut buffer).expect("can encode");
+        assert_eq!(result, 2);
+        let expected = [1u8, 12u8];
+        assert_eq!(buffer, expected);
+
+        x = None;
+        let mut buffer = vec![];
+        let result = x.serialize(&mut buffer).expect("can encode");
+        assert_eq!(result, 1);
+        let expected = [0u8];
+        assert_eq!(buffer, expected);
+
+        x = Some(34u8);
+        let mut buffer = vec![];
+        let _ = x.serialize(&mut buffer).expect("can serialize");
+        let recovered = Option::<u8>::deserialize(&buffer).expect("can decode");
+        assert_eq!(x, recovered);
     }
 
     #[test]
