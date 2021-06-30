@@ -15,7 +15,7 @@ pub use bitlist::Bitlist;
 pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};
 pub use list::List;
-pub use ser::{Serialize, SerializeError};
+pub use ser::{Serialize, SerializeError, BYTES_PER_LENGTH_OFFSET};
 pub use uint::U256;
 pub use vector::Vector;
 
@@ -35,27 +35,21 @@ where
     T::deserialize(encoding)
 }
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn test_demonstration() {
-        // #[derive(PartialEq, Eq, Debug, Default, Serialize)]
-        // struct Foo {
-        //     a: List<u8, 32>,
-        //     b: Vector<u16, 32>,
-        //     c: bool,
-        //     d: U256,
-        // }
+pub mod prelude {
+    pub use crate::bitlist::Bitlist;
+    pub use crate::bitvector::Bitvector;
+    pub use crate::de::{Deserialize, DeserializeError};
+    pub use crate::deserialize;
+    pub use crate::list::List;
+    pub use crate::ser::{Serialize, SerializeError};
+    pub use crate::serialize;
+    pub use crate::ssz::SSZ;
+    pub use crate::uint::U256;
+    pub use crate::vector::Vector;
+    pub use ssz_derive::SimpleSerialize;
+}
 
-        // let mut f = Foo::default();
-        // f.a.push(32u8);
-        // f.b[22] = 2021u16;
-        // f.c = true;
-        // f.d = U256([12u8; 32]);
-
-        // let mut buffer = vec![];
-        // let _ = f.serialize(&mut buffer).expect("it works");
-        // let another_f: Foo = deserialize(&buffer).expect("can decode");
-        // assert_eq!(f, another_f);
-    }
+pub mod internal {
+    // exported for derive macro to avoid code duplication...
+    pub use crate::ser::serialize_composite_from_components;
 }

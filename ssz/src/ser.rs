@@ -2,7 +2,7 @@ use crate::ssz::SSZ;
 use thiserror::Error;
 
 pub const BYTES_PER_LENGTH_OFFSET: usize = 4;
-pub const MAXIMUM_LENGTH: usize = 2usize.pow((BYTES_PER_LENGTH_OFFSET * 8) as u32);
+const MAXIMUM_LENGTH: usize = 2usize.pow((BYTES_PER_LENGTH_OFFSET * 8) as u32);
 
 #[derive(Error, Debug)]
 #[error("{0}")]

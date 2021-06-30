@@ -96,7 +96,7 @@ fn derive_serialize_impl(data: &ValidationState) -> TokenStream {
                         if <#field_type>::is_variable_size() {
                             let buffer_len = element_buffer.len();
                             fixed.push(None);
-                            fixed_lengths_sum += ssz::ser::BYTES_PER_LENGTH_OFFSET;
+                            fixed_lengths_sum += ssz::BYTES_PER_LENGTH_OFFSET;
                             variable.push(element_buffer);
                             variable_lengths.push(buffer_len);
                         } else {
@@ -117,7 +117,7 @@ fn derive_serialize_impl(data: &ValidationState) -> TokenStream {
 
                         #(#serialization_by_field)*
 
-                        ssz::ser::serialize_composite_from_components(fixed, variable, variable_lengths, fixed_lengths_sum, buffer)
+                        ssz::internal::serialize_composite_from_components(fixed, variable, variable_lengths, fixed_lengths_sum, buffer)
                     }
                 }
             }
@@ -174,11 +174,11 @@ fn derive_deserialize_impl(data: &ValidationState) -> TokenStream {
                     let field_type = &f.ty;
                     quote_spanned! { f.span() =>
                         let bytes_read = if <#field_type>::is_variable_size() {
-                            let end = start + ssz::ser::BYTES_PER_LENGTH_OFFSET;
+                            let end = start + ssz::BYTES_PER_LENGTH_OFFSET;
                             let next_offset = u32::deserialize(&encoding[start..end])?;
                             offsets.push((#i, next_offset as usize));
 
-                            ssz::ser::BYTES_PER_LENGTH_OFFSET
+                            ssz::BYTES_PER_LENGTH_OFFSET
                         } else {
                             let encoded_length = <#field_type>::size_hint();
                             let end = start + encoded_length;
@@ -402,7 +402,7 @@ enum ValidationState<'a> {
     Validated(&'a Data),
 }
 
-#[proc_macro_derive(Serialize)]
+#[proc_macro_derive(SimpleSerialize)]
 pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
 
