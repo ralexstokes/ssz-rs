@@ -30,9 +30,7 @@ fn derive_set_by_index_impl(data: &Data) -> TokenStream {
             }
             _ => panic!("not supported"),
         },
-        Data::Enum(..) => {
-            quote! {}
-        }
+        Data::Enum(..) => quote! {},
         Data::Union(..) => panic!("not supported"),
     }
 }
@@ -118,7 +116,11 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
         },
         Data::Enum(ref data) => {
             if data.variants.is_empty() {
-                panic!("ssz unions with no variants are illegal")
+                panic!("unions with no variants are illegal")
+            }
+
+            if data.variants.len() > 127 {
+                panic!("unions cannot have more than 127 variants");
             }
 
             let serialization_by_variant = data.variants.iter().enumerate().map(|(i, variant)| {
@@ -126,16 +128,11 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
                     panic!("only unions with 1 type per selector are allowed");
                 }
 
-                if i > 127 {
-                    panic!("unions cannot have more than 127 variants");
-                }
-
                 let variant_name = &variant.ident;
                 quote_spanned! { variant.span() =>
                     Self::#variant_name(value) => {
                         let selector = u8::try_from(#i).expect("variant index cannot be higher than one byte");
-                        buffer.push(selector);
-                        let selector_bytes = 1;
+                        let selector_bytes = selector.serialize(buffer)?;
                         let value_bytes  = value.serialize(buffer)?;
                         Ok(selector_bytes + value_bytes)
                     }
@@ -246,7 +243,7 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
 
             quote! {
                 fn deserialize(encoding: &[u8]) -> Result<Self, ssz::DeserializeError> {
-                    if encoding.len() < 1 {
+                    if encoding.is_empty() {
                         return Err(ssz::DeserializeError::InputTooShort);
                     }
 
