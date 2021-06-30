@@ -36,7 +36,7 @@ An implementation of the `ssz` serialization scheme defined in the [eth2.0-specs
   - [ ] harden deserialization
   - [ ] turn asserts into errors
   - [ ] run against conformance tests
-  - [ ] ensure variants in derive and others
+  - [ ] other spec conformance? (invariants, etc)
   - [ ] polish derive infra
 
 ## Merkleization
