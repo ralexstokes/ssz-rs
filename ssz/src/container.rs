@@ -39,6 +39,17 @@ mod tests {
         b: bool,
         c: List<bool, 32>,
         d: Vector<bool, 4>,
+        e: u8,
+    }
+
+    #[derive(Default, Debug, PartialEq, Eq, Serialize)]
+    struct YetAnotherContainer {
+        a: u32,
+        b: bool,
+        c: List<bool, 32>,
+        d: Vector<bool, 4>,
+        e: u8,
+        f: List<u32, 32>,
     }
 
     #[test]
@@ -92,13 +103,14 @@ mod tests {
             b: true,
             c: List::from_iter([true, false]),
             d: Default::default(),
+            e: 12u8,
         };
 
         let mut buffer = vec![];
         let result = value.serialize(&mut buffer).expect("can serialize");
-        assert_eq!(result, 15);
+        assert_eq!(result, 16);
         let expected = [
-            5u8, 0u8, 0u8, 0u8, 1u8, 13u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 1u8, 0u8,
+            5u8, 0u8, 0u8, 0u8, 1u8, 14u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 12u8, 1u8, 0u8,
         ];
         assert_eq!(buffer, expected);
     }
@@ -113,5 +125,35 @@ mod tests {
             c: List::from_iter([true, false]),
         };
         assert_eq!(result, value);
+    }
+
+    #[test]
+    fn roundtrip_container() {
+        let value = AnotherContainer {
+            a: 5u32,
+            b: true,
+            c: List::from_iter([true, false, false, false, true, true]),
+            d: Vector::from_iter([true, false, false, true]),
+            e: 24u8,
+        };
+        let mut buffer = vec![];
+        let _ = value.serialize(&mut buffer).expect("can deserialize");
+        dbg!(&buffer);
+        let recovered = AnotherContainer::deserialize(&buffer).expect("can decode");
+        assert_eq!(value, recovered);
+
+        let value = YetAnotherContainer {
+            a: 5u32,
+            b: true,
+            c: List::from_iter([true, false, false, false, true, true]),
+            d: Vector::from_iter([true, false, false, true]),
+            e: 24u8,
+            f: List::from_iter([234u32, 567u32]),
+        };
+        let mut buffer = vec![];
+        let _ = value.serialize(&mut buffer).expect("can deserialize");
+        dbg!(&buffer);
+        let recovered = YetAnotherContainer::deserialize(&buffer).expect("can decode");
+        assert_eq!(value, recovered);
     }
 }

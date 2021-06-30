@@ -3,6 +3,40 @@ use quote::{quote, quote_spanned};
 use syn::spanned::Spanned;
 use syn::{parse_macro_input, Data, DeriveInput, Fields};
 
+fn derive_set_by_index_impl(data: &Data) -> TokenStream {
+    match data {
+        Data::Struct(ref data) => match data.fields {
+            Fields::Named(ref fields) => {
+                if fields.named.is_empty() {
+                    panic!("ssz containers with no fields are illegal")
+                }
+                let set_by_field = fields.named.iter().enumerate().map(|(i, f)| {
+                    let field_name = &f.ident;
+                    let field_type = &f.ty;
+                    quote_spanned! { f.span() =>
+                        #i => { self.#field_name = <#field_type>::deserialize(encoding)?; },
+                    }
+                });
+
+                quote! {
+                    fn __ssz_set_by_index(&mut self, index: usize, encoding: &[u8]) -> Result<(), ssz::DeserializeError> {
+                        match index {
+                            #(#set_by_field)*
+                            _ => unreachable!(),
+                        }
+                        Ok(())
+                    }
+                }
+            }
+            _ => panic!("not supported"),
+        },
+        Data::Enum(_data) => {
+            unimplemented!()
+        }
+        Data::Union(..) => panic!("not supported"),
+    }
+}
+
 fn derive_serialize_impl(data: &Data) -> TokenStream {
     match data {
         Data::Struct(ref data) => match data.fields {
@@ -61,23 +95,14 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                 if fields.named.is_empty() {
                     panic!("ssz containers with no fields are illegal")
                 }
-                let element_count = fields.named.len();
                 let deserialization_by_field = fields.named.iter().enumerate().map(|(i, f)| {
                     let field_name = &f.ident;
                     let field_type = &f.ty;
                     quote_spanned! { f.span() =>
                         let bytes_read = if <#field_type>::is_variable_size() {
                             let end = start + ssz::ser::BYTES_PER_LENGTH_OFFSET;
-                            let end_of_element = u32::deserialize(&encoding[start..end])? as usize;
-
-                            if let Some(start_of_element) = last_offset {
-                                container.#field_name = <#field_type>::deserialize(&encoding[start_of_element..end_of_element])?;
-                            }
-                            last_offset.insert(end_of_element);
-
-                            if #i == #element_count - 1 {
-                                container.#field_name = <#field_type>::deserialize(&encoding[end_of_element..])?;
-                            }
+                            let next_offset = u32::deserialize(&encoding[start..end])?;
+                            offsets.push((#i, next_offset as usize));
 
                             ssz::ser::BYTES_PER_LENGTH_OFFSET
                         } else {
@@ -94,11 +119,28 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                 quote! {
                     fn deserialize(encoding: &[u8]) -> Result<Self, ssz::DeserializeError> {
                         let mut start = 0;
-                        let mut last_offset = None;
-
+                        let mut offsets = vec![];
                         let mut container = Self::default();
 
-                        #(#deserialization_by_field)*
+                        #(#deserialization_by_field){}*
+
+                        if let Some((_, offset)) = offsets.first() {
+                            // NOTE: this invariant should always hold
+                            // and also quiets a warning about the last write
+                            // to `start` not being used otherwise...
+                            assert_eq!(start, *offset);
+                        }
+
+                        // NOTE: this value is not read
+                        let dummy_index = 0;
+                        offsets.push((dummy_index, encoding.len()));
+
+                        for span in offsets.windows(2) {
+                            let (index, start) = span[0];
+                            let (_, end) = span[1];
+
+                            container.__ssz_set_by_index(index, &encoding[start..end])?;
+                        }
 
                         Ok(container)
                     }
@@ -172,12 +214,18 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let name = input.ident;
     let data = &input.data;
 
+    let set_by_index_impl = derive_set_by_index_impl(data);
     let serialize_impl = derive_serialize_impl(data);
     let deserialize_impl = derive_deserialize_impl(data);
     let is_variable_size_impl = derive_variable_size_impl(data);
     let size_hint_impl = derive_size_hint_impl(data);
 
     let expansion = quote! {
+
+        impl #name {
+            #set_by_index_impl
+        }
+
         impl ssz::Serialize for #name {
             #serialize_impl
         }
