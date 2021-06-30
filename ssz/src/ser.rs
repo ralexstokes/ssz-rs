@@ -1,6 +1,7 @@
 use crate::SimpleSerialize;
 use thiserror::Error;
 
+// NOTE: if this is changed, go change in `ssz_derive` as well!
 pub const BYTES_PER_LENGTH_OFFSET: usize = 4;
 const MAXIMUM_LENGTH: usize = 2usize.pow((BYTES_PER_LENGTH_OFFSET * 8) as u32);
 

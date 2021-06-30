@@ -1,5 +1,5 @@
+use crate::ser::BYTES_PER_LENGTH_OFFSET;
 use crate::SimpleSerialize;
-use crate::BYTES_PER_LENGTH_OFFSET;
 use thiserror::Error;
 
 #[derive(Error, Debug)]

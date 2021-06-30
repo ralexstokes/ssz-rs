@@ -3,6 +3,10 @@ use quote::{format_ident, quote, quote_spanned};
 use syn::spanned::Spanned;
 use syn::{parse_macro_input, Data, DeriveInput, Fields, Ident};
 
+// NOTE: copied here from `ssz` crate as it is unlikely to change
+// and can keep it out of the crate's public interface.
+const BYTES_PER_LENGTH_OFFSET: usize = 4;
+
 fn derive_container_set_by_index_impl(name: &Ident, data: &ValidationState) -> TokenStream {
     let data = match data {
         ValidationState::Validated(data) => data,
@@ -96,7 +100,7 @@ fn derive_serialize_impl(data: &ValidationState) -> TokenStream {
                         if <#field_type>::is_variable_size() {
                             let buffer_len = element_buffer.len();
                             fixed.push(None);
-                            fixed_lengths_sum += ssz::BYTES_PER_LENGTH_OFFSET;
+                            fixed_lengths_sum += #BYTES_PER_LENGTH_OFFSET;
                             variable.push(element_buffer);
                             variable_lengths.push(buffer_len);
                         } else {
@@ -174,11 +178,11 @@ fn derive_deserialize_impl(data: &ValidationState) -> TokenStream {
                     let field_type = &f.ty;
                     quote_spanned! { f.span() =>
                         let bytes_read = if <#field_type>::is_variable_size() {
-                            let end = start + ssz::BYTES_PER_LENGTH_OFFSET;
+                            let end = start + #BYTES_PER_LENGTH_OFFSET;
                             let next_offset = u32::deserialize(&encoding[start..end])?;
                             offsets.push((#i, next_offset as usize));
 
-                            ssz::BYTES_PER_LENGTH_OFFSET
+                            #BYTES_PER_LENGTH_OFFSET
                         } else {
                             let encoded_length = <#field_type>::size_hint();
                             let end = start + encoded_length;

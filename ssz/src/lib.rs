@@ -13,7 +13,7 @@ pub use bitlist::Bitlist;
 pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};
 pub use list::List;
-pub use ser::{Serialize, SerializeError, BYTES_PER_LENGTH_OFFSET};
+pub use ser::{Serialize, SerializeError};
 pub use uint::U256;
 pub use vector::Vector;
 
