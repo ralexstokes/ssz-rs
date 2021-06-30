@@ -66,6 +66,13 @@ mod tests {
     use ssz_derive::Serialize;
     use std::iter::FromIterator;
 
+    #[derive(Debug, PartialEq, Eq, Serialize)]
+    enum AnotherOption {
+        None,
+        A(u8),
+        B(u8),
+    }
+
     #[derive(Debug, Default, PartialEq, Eq, Serialize)]
     struct Inner {
         data: List<u8, 8>,
@@ -118,6 +125,29 @@ mod tests {
         let mut buffer = vec![];
         let _ = x.serialize(&mut buffer).expect("can serialize");
         let recovered = Option::<u8>::deserialize(&buffer).expect("can decode");
+        assert_eq!(x, recovered);
+    }
+
+    #[test]
+    fn test_another_option() {
+        let mut x = AnotherOption::A(12u8);
+        let mut buffer = vec![];
+        let result = x.serialize(&mut buffer).expect("can encode");
+        assert_eq!(result, 2);
+        let expected = [1u8, 12u8];
+        assert_eq!(buffer, expected);
+
+        x = AnotherOption::None;
+        let mut buffer = vec![];
+        let result = x.serialize(&mut buffer).expect("can encode");
+        assert_eq!(result, 1);
+        let expected = [0u8];
+        assert_eq!(buffer, expected);
+
+        x = AnotherOption::B(32u8);
+        let mut buffer = vec![];
+        let _ = x.serialize(&mut buffer).expect("can serialize");
+        let recovered = AnotherOption::deserialize(&buffer).expect("can decode");
         assert_eq!(x, recovered);
     }
 
