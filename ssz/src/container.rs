@@ -137,8 +137,7 @@ mod tests {
             e: 24u8,
         };
         let mut buffer = vec![];
-        let _ = value.serialize(&mut buffer).expect("can deserialize");
-        dbg!(&buffer);
+        let _ = value.serialize(&mut buffer).expect("can serialize");
         let recovered = AnotherContainer::deserialize(&buffer).expect("can decode");
         assert_eq!(value, recovered);
 
@@ -151,8 +150,7 @@ mod tests {
             f: List::from_iter([234u32, 567u32]),
         };
         let mut buffer = vec![];
-        let _ = value.serialize(&mut buffer).expect("can deserialize");
-        dbg!(&buffer);
+        let _ = value.serialize(&mut buffer).expect("can serialize");
         let recovered = YetAnotherContainer::deserialize(&buffer).expect("can decode");
         assert_eq!(value, recovered);
     }
