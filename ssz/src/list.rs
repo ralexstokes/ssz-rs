@@ -1,16 +1,16 @@
 use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
 use crate::ser::{serialize_composite, Serialize, SerializeError};
-use crate::ssz::SSZ;
+use crate::{SSZSized, SimpleSerialize};
 use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
 
 /// A homogenous collection of a variable number of values.
 #[derive(Debug, PartialEq, Eq)]
-pub struct List<T: SSZ, const N: usize>(Vec<T>);
+pub struct List<T: SimpleSerialize, const N: usize>(Vec<T>);
 
 impl<T, const N: usize> Default for List<T, N>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     fn default() -> Self {
         Self(vec![])
@@ -19,7 +19,7 @@ where
 
 impl<T, const N: usize> Deref for List<T, N>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     type Target = Vec<T>;
 
@@ -30,16 +30,16 @@ where
 
 impl<T, const N: usize> DerefMut for List<T, N>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     fn deref_mut(&mut self) -> &mut Self::Target {
         &mut self.0
     }
 }
 
-impl<T, const N: usize> SSZ for List<T, N>
+impl<T, const N: usize> SSZSized for List<T, N>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     fn is_variable_size() -> bool {
         true
@@ -52,7 +52,7 @@ where
 
 impl<T, const N: usize> Serialize for List<T, N>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         assert!(self.len() <= N);
@@ -62,7 +62,7 @@ where
 
 impl<T, const N: usize> Deserialize for List<T, N>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         let elements = deserialize_homogeneous_composite(encoding)?;
@@ -71,9 +71,11 @@ where
     }
 }
 
+impl<T, const N: usize> SimpleSerialize for List<T, N> where T: SimpleSerialize {}
+
 impl<T, const N: usize> FromIterator<T> for List<T, N>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     fn from_iter<I>(iter: I) -> Self
     where
@@ -85,7 +87,7 @@ where
 
 impl<T, const N: usize> IntoIterator for List<T, N>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     type Item = T;
     type IntoIter = std::vec::IntoIter<T>;
@@ -97,7 +99,7 @@ where
 
 impl<'a, T, const N: usize> IntoIterator for &'a List<T, N>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     type Item = &'a T;
     type IntoIter = std::slice::Iter<'a, T>;
@@ -109,7 +111,7 @@ where
 
 impl<'a, T, const N: usize> IntoIterator for &'a mut List<T, N>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     type Item = &'a mut T;
     type IntoIter = std::slice::IterMut<'a, T>;

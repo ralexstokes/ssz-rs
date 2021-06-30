@@ -1,4 +1,4 @@
-use crate::ssz::SSZ;
+use crate::SimpleSerialize;
 use thiserror::Error;
 
 pub const BYTES_PER_LENGTH_OFFSET: usize = 4;
@@ -49,7 +49,7 @@ pub fn serialize_composite_from_components(
     Ok(total_bytes_written)
 }
 
-pub fn serialize_composite<T: SSZ>(
+pub fn serialize_composite<T: SimpleSerialize>(
     elements: &[T],
     buffer: &mut Vec<u8>,
 ) -> Result<usize, SerializeError> {

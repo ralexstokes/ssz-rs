@@ -1,8 +1,8 @@
 use crate::de::{Deserialize, DeserializeError};
 use crate::ser::{Serialize, SerializeError};
-use crate::ssz::SSZ;
+use crate::{SSZSized, SimpleSerialize};
 
-impl SSZ for bool {
+impl SSZSized for bool {
     fn is_variable_size() -> bool {
         false
     }
@@ -33,6 +33,8 @@ impl Deserialize for bool {
         }
     }
 }
+
+impl SimpleSerialize for bool {}
 
 #[cfg(test)]
 mod tests {

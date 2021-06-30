@@ -329,7 +329,7 @@ fn is_valid_none_identifier(ident: &Ident) -> bool {
 
 // Validates the incoming data follows the rules
 // for mapping the Rust term to something that can
-// implement the `SSZ` trait.
+// implement the `SimpleSerialize` trait.
 fn validate_derive_data(data: ValidationState) -> ValidationState {
     let data = match data {
         ValidationState::Unvalidated(data) => data,
@@ -431,7 +431,7 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
             #deserialize_impl
         }
 
-        impl ssz::SSZ for #name {
+        impl ssz::SSZSized for #name {
             fn is_variable_size() -> bool {
                 #is_variable_size_impl
             }
@@ -440,6 +440,8 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
                 #size_hint_impl
             }
         }
+
+        impl ssz::SimpleSerialize for #name {}
     };
 
     proc_macro::TokenStream::from(expansion)

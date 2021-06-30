@@ -2,38 +2,36 @@
 mod tests {
     // needed for derives internal to crate
     use crate as ssz;
-    use crate::de::Deserialize;
-    use crate::ser::Serialize;
     use crate::List;
     use crate::Vector;
-    use crate::SSZ;
-    use ssz_derive::Serialize;
+    use crate::{Deserialize, SSZSized, Serialize};
+    use ssz_derive::SimpleSerialize;
     use std::iter::FromIterator;
 
-    #[derive(Default, Debug, PartialEq, Eq, Serialize)]
+    #[derive(Default, Debug, PartialEq, Eq, SimpleSerialize)]
     struct Foo {
         a: u32,
     }
 
-    #[derive(Default, Debug, PartialEq, Eq, Serialize)]
+    #[derive(Default, Debug, PartialEq, Eq, SimpleSerialize)]
     struct Bar {
         a: List<u32, 128>,
     }
 
-    #[derive(Default, Debug, PartialEq, Eq, Serialize)]
+    #[derive(Default, Debug, PartialEq, Eq, SimpleSerialize)]
     struct BasicContainer {
         a: u32,
         d: bool,
     }
 
-    #[derive(Default, Debug, PartialEq, Eq, Serialize)]
+    #[derive(Default, Debug, PartialEq, Eq, SimpleSerialize)]
     struct SomeContainer {
         a: u32,
         b: bool,
         c: List<bool, 32>,
     }
 
-    #[derive(Default, Debug, PartialEq, Eq, Serialize)]
+    #[derive(Default, Debug, PartialEq, Eq, SimpleSerialize)]
     struct AnotherContainer {
         a: u32,
         b: bool,
@@ -42,7 +40,7 @@ mod tests {
         e: u8,
     }
 
-    #[derive(Default, Debug, PartialEq, Eq, Serialize)]
+    #[derive(Default, Debug, PartialEq, Eq, SimpleSerialize)]
     struct YetAnotherContainer {
         a: u32,
         b: bool,

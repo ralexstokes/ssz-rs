@@ -1,12 +1,12 @@
 use crate::de::{Deserialize, DeserializeError};
 use crate::ser::{Serialize, SerializeError};
-use crate::ssz::SSZ;
+use crate::{SSZSized, SimpleSerialize};
 use std::convert::TryInto;
 use std::default::Default;
 
 macro_rules! define_uint {
     ($uint:ty) => {
-        impl SSZ for $uint {
+        impl SSZSized for $uint {
             fn is_variable_size() -> bool {
                 false
             }
@@ -36,6 +36,8 @@ macro_rules! define_uint {
                 Ok(<$uint>::from_le_bytes(bytes))
             }
         }
+
+        impl SimpleSerialize for $uint {}
     };
 }
 
@@ -50,7 +52,7 @@ define_uint!(u128);
 // inner slice is little-endian
 pub struct U256(pub [u8; 32]);
 
-impl SSZ for U256 {
+impl SSZSized for U256 {
     fn is_variable_size() -> bool {
         false
     }
@@ -77,6 +79,8 @@ impl Deserialize for U256 {
         Ok(Self(bytes))
     }
 }
+
+impl SimpleSerialize for U256 {}
 
 #[cfg(test)]
 mod tests {

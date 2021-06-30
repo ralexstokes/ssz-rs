@@ -1,17 +1,14 @@
 use crate::de::{Deserialize, DeserializeError};
 use crate::ser::{Serialize, SerializeError};
-use crate::ssz::SSZ;
+use crate::{SSZSized, SimpleSerialize};
 
-/// `SSZ` is implemented for `Option` as a convenience
+/// `SimpleSerialize` is implemented for `Option` as a convenience
 /// when the schema is equivalent to one described by:
-/// enum Option<T: SSZ> {
+/// enum Option<T: SimpleSerialize> {
 ///     None,
 ///     Some(T),
 /// }
-impl<T> SSZ for Option<T>
-where
-    T: SSZ,
-{
+impl<T: SimpleSerialize> SSZSized for Option<T> {
     fn is_variable_size() -> bool {
         true
     }
@@ -23,7 +20,7 @@ where
 
 impl<T> Serialize for Option<T>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         match self {
@@ -39,7 +36,7 @@ where
 
 impl<T> Deserialize for Option<T>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if encoding.is_empty() {
@@ -54,50 +51,50 @@ where
     }
 }
 
+impl<T> SimpleSerialize for Option<T> where T: SimpleSerialize {}
+
 #[cfg(test)]
 mod tests {
     // needed for derives internal to crate
     use crate as ssz;
-    use crate::de::Deserialize;
-    use crate::ser::Serialize;
     use crate::List;
     use crate::Vector;
-    use crate::SSZ;
-    use ssz_derive::Serialize;
+    use crate::{Deserialize, SSZSized, Serialize};
+    use ssz_derive::SimpleSerialize;
     use std::iter::FromIterator;
 
-    #[derive(Debug, PartialEq, Eq, Serialize)]
+    #[derive(Debug, PartialEq, Eq, SimpleSerialize)]
     enum AnotherOption {
         None,
         A(u8),
         B(u8),
     }
 
-    #[derive(Debug, Default, PartialEq, Eq, Serialize)]
+    #[derive(Debug, Default, PartialEq, Eq, SimpleSerialize)]
     struct Inner {
         data: List<u8, 8>,
     }
 
-    #[derive(Debug, PartialEq, Eq, Serialize)]
+    #[derive(Debug, PartialEq, Eq, SimpleSerialize)]
     enum Foo {
         A(u32),
         B(u8),
     }
 
-    #[derive(Debug, PartialEq, Eq, Serialize)]
+    #[derive(Debug, PartialEq, Eq, SimpleSerialize)]
     enum Bar {
         A(u32),
         B(Vector<u8, 4>),
     }
 
-    #[derive(Debug, PartialEq, Eq, Serialize)]
+    #[derive(Debug, PartialEq, Eq, SimpleSerialize)]
     enum Baz {
         A(u32),
         B(Inner),
         C(List<u8, 12>),
     }
 
-    #[derive(Debug, PartialEq, Eq, Serialize)]
+    #[derive(Debug, PartialEq, Eq, SimpleSerialize)]
     enum Boo {
         A(u32),
         B(Inner),

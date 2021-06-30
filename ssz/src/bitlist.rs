@@ -1,6 +1,6 @@
 use crate::de::{Deserialize, DeserializeError};
 use crate::ser::{Serialize, SerializeError};
-use crate::ssz::SSZ;
+use crate::{SSZSized, SimpleSerialize};
 use bitvec::prelude::{BitVec, Lsb0};
 use std::fmt;
 use std::iter::FromIterator;
@@ -67,7 +67,7 @@ impl<const N: usize> DerefMut for Bitlist<N> {
     }
 }
 
-impl<const N: usize> SSZ for Bitlist<N> {
+impl<const N: usize> SSZSized for Bitlist<N> {
     fn is_variable_size() -> bool {
         true
     }
@@ -94,6 +94,8 @@ impl<const N: usize> Serialize for Bitlist<N> {
         Ok(buffer.len() - start_len)
     }
 }
+
+impl<const N: usize> SimpleSerialize for Bitlist<N> {}
 
 impl<const N: usize> Deserialize for Bitlist<N> {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {

@@ -1,6 +1,6 @@
 use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
 use crate::ser::{serialize_composite, Serialize, SerializeError};
-use crate::ssz::SSZ;
+use crate::{SSZSized, SimpleSerialize};
 use std::convert::TryInto;
 use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
@@ -8,11 +8,11 @@ use std::ops::{Deref, DerefMut};
 /// A homogenous collection of a fixed number of values.
 /// NOTE: a `Vector` of length `0` is illegal.
 #[derive(Debug, PartialEq, Eq)]
-pub struct Vector<T: SSZ, const N: usize>([T; N]);
+pub struct Vector<T: SimpleSerialize, const N: usize>([T; N]);
 
 impl<T, const N: usize> Default for Vector<T, N>
 where
-    T: SSZ + Default + Copy,
+    T: SimpleSerialize + Default + Copy,
 {
     fn default() -> Self {
         Self([T::default(); N])
@@ -21,7 +21,7 @@ where
 
 impl<T, const N: usize> Deref for Vector<T, N>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     type Target = [T; N];
 
@@ -32,16 +32,16 @@ where
 
 impl<T, const N: usize> DerefMut for Vector<T, N>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     fn deref_mut(&mut self) -> &mut Self::Target {
         &mut self.0
     }
 }
 
-impl<T, const N: usize> SSZ for Vector<T, N>
+impl<T, const N: usize> SSZSized for Vector<T, N>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     fn is_variable_size() -> bool {
         T::is_variable_size()
@@ -54,7 +54,7 @@ where
 
 impl<T, const N: usize> Serialize for Vector<T, N>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         assert!(N > 0);
@@ -64,7 +64,7 @@ where
 
 impl<T, const N: usize> Deserialize for Vector<T, N>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         assert!(N > 0);
@@ -76,9 +76,11 @@ where
     }
 }
 
+impl<T, const N: usize> SimpleSerialize for Vector<T, N> where T: SimpleSerialize {}
+
 impl<T, const N: usize> FromIterator<T> for Vector<T, N>
 where
-    T: SSZ + Default + Copy,
+    T: SimpleSerialize + Default + Copy,
 {
     fn from_iter<I>(iter: I) -> Self
     where
@@ -97,7 +99,7 @@ where
 
 impl<T, const N: usize> IntoIterator for Vector<T, N>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     type Item = T;
     type IntoIter = std::array::IntoIter<T, N>;
@@ -109,7 +111,7 @@ where
 
 impl<'a, T, const N: usize> IntoIterator for &'a Vector<T, N>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     type Item = &'a T;
     type IntoIter = std::slice::Iter<'a, T>;
@@ -121,7 +123,7 @@ where
 
 impl<'a, T, const N: usize> IntoIterator for &'a mut Vector<T, N>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     type Item = &'a mut T;
     type IntoIter = std::slice::IterMut<'a, T>;

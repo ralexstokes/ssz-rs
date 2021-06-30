@@ -1,5 +1,5 @@
-use crate::ser::BYTES_PER_LENGTH_OFFSET;
-use crate::ssz::SSZ;
+use crate::SimpleSerialize;
+use crate::BYTES_PER_LENGTH_OFFSET;
 use thiserror::Error;
 
 #[derive(Error, Debug)]
@@ -20,7 +20,7 @@ pub trait Deserialize {
 
 fn deserialize_fixed_homogeneous_composite<T>(encoding: &[u8]) -> Result<Vec<T>, DeserializeError>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     encoding
         .chunks_exact(T::size_hint())
@@ -32,7 +32,7 @@ fn deserialize_variable_homogeneous_composite<T>(
     encoding: &[u8],
 ) -> Result<Vec<T>, DeserializeError>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     let data_pointer = u32::deserialize(&encoding[..BYTES_PER_LENGTH_OFFSET])? as usize;
     if encoding.len() < data_pointer {
@@ -58,7 +58,7 @@ where
 
 pub fn deserialize_homogeneous_composite<T>(encoding: &[u8]) -> Result<Vec<T>, DeserializeError>
 where
-    T: SSZ,
+    T: SimpleSerialize,
 {
     if T::is_variable_size() {
         deserialize_variable_homogeneous_composite(encoding)
