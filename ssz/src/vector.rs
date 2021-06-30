@@ -2,6 +2,7 @@ use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError
 use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::ssz::SSZ;
 use std::convert::TryInto;
+use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
 
 /// A homogenous collection of a fixed number of values.
@@ -72,6 +73,25 @@ where
             .try_into()
             .map(Vector)
             .map_err(|_| DeserializeError::InputTooShort)
+    }
+}
+
+impl<T, const N: usize> FromIterator<T> for Vector<T, N>
+where
+    T: SSZ + Default + Copy,
+{
+    fn from_iter<I>(iter: I) -> Self
+    where
+        I: IntoIterator<Item = T>,
+    {
+        let mut inner = [T::default()].repeat(N);
+        for (i, elem) in iter.into_iter().enumerate().take(N) {
+            inner[i] = elem;
+        }
+        match inner.try_into() {
+            Ok(inner) => Self(inner),
+            Err(_) => unreachable!(),
+        }
     }
 }
 
