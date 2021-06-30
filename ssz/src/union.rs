@@ -243,11 +243,12 @@ mod tests {
 
     #[test]
     fn roundtrip_union() {
-        let value = Boo::A(12u32);
+        let value = Boo::default();
         let mut buffer = vec![];
         let _ = value.serialize(&mut buffer).expect("can serialize");
         let recovered = Boo::deserialize(&buffer).expect("can decode");
         assert_eq!(value, recovered);
+        assert_eq!(value, Boo::A(u32::default()));
 
         let value = Boo::B(Inner {
             data: List::from_iter([123u8]),
