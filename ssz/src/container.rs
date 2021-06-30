@@ -4,7 +4,7 @@ mod tests {
     use crate as ssz;
     use crate::List;
     use crate::Vector;
-    use crate::{Deserialize, SSZSized, Serialize};
+    use crate::{Deserialize, Serialize, Sized};
     use ssz_derive::SimpleSerialize;
     use std::iter::FromIterator;
 

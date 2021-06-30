@@ -1,8 +1,8 @@
 use crate::de::{Deserialize, DeserializeError};
 use crate::ser::{Serialize, SerializeError};
-use crate::{SSZSized, SimpleSerialize};
+use crate::{SimpleSerialize, Sized};
 
-impl SSZSized for bool {
+impl Sized for bool {
     fn is_variable_size() -> bool {
         false
     }

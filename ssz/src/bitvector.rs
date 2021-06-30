@@ -1,6 +1,6 @@
 use crate::de::{Deserialize, DeserializeError};
 use crate::ser::{Serialize, SerializeError};
-use crate::{SSZSized, SimpleSerialize};
+use crate::{SimpleSerialize, Sized};
 use bitvec::field::BitField;
 use bitvec::prelude::BitVec;
 use std::fmt;
@@ -73,7 +73,7 @@ impl<const N: usize> DerefMut for Bitvector<N> {
     }
 }
 
-impl<const N: usize> SSZSized for Bitvector<N> {
+impl<const N: usize> Sized for Bitvector<N> {
     fn is_variable_size() -> bool {
         false
     }

@@ -17,9 +17,9 @@ pub use ser::{Serialize, SerializeError, BYTES_PER_LENGTH_OFFSET};
 pub use uint::U256;
 pub use vector::Vector;
 
-/// `SSZSized` is a trait for types that can
+/// `Sized` is a trait for types that can
 /// provide sizing information relevant for the SSZ spec.
-pub trait SSZSized {
+pub trait Sized {
     // is this type variable or fixed size?
     fn is_variable_size() -> bool;
 
@@ -28,7 +28,7 @@ pub trait SSZSized {
 
 /// `SimpleSerialize` is a marker trait for types
 /// conforming to the SSZ spec.
-pub trait SimpleSerialize: Serialize + Deserialize + SSZSized {}
+pub trait SimpleSerialize: Serialize + Deserialize + Sized {}
 
 /// `serialize` is a convenience function for taking a value that
 /// implements `SimpleSerialize` and attempting to encode it to
@@ -64,8 +64,8 @@ pub mod prelude {
     pub use crate::serialize;
     pub use crate::uint::U256;
     pub use crate::vector::Vector;
-    pub use crate::SSZSized;
     pub use crate::SimpleSerialize;
+    pub use crate::Sized;
     pub use ssz_derive::SimpleSerialize;
 }
 

@@ -1,6 +1,6 @@
 use crate::de::{Deserialize, DeserializeError};
 use crate::ser::{Serialize, SerializeError};
-use crate::{SSZSized, SimpleSerialize};
+use crate::{SimpleSerialize, Sized};
 
 /// `SimpleSerialize` is implemented for `Option` as a convenience
 /// when the schema is equivalent to one described by:
@@ -8,7 +8,7 @@ use crate::{SSZSized, SimpleSerialize};
 ///     None,
 ///     Some(T),
 /// }
-impl<T: SimpleSerialize> SSZSized for Option<T> {
+impl<T: SimpleSerialize> Sized for Option<T> {
     fn is_variable_size() -> bool {
         true
     }
@@ -59,7 +59,7 @@ mod tests {
     use crate as ssz;
     use crate::List;
     use crate::Vector;
-    use crate::{Deserialize, SSZSized, Serialize};
+    use crate::{Deserialize, Serialize, Sized};
     use ssz_derive::SimpleSerialize;
     use std::iter::FromIterator;
 

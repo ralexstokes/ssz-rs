@@ -1,6 +1,6 @@
 use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
 use crate::ser::{serialize_composite, Serialize, SerializeError};
-use crate::{SSZSized, SimpleSerialize};
+use crate::{SimpleSerialize, Sized};
 use std::convert::TryInto;
 use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
@@ -39,7 +39,7 @@ where
     }
 }
 
-impl<T, const N: usize> SSZSized for Vector<T, N>
+impl<T, const N: usize> Sized for Vector<T, N>
 where
     T: SimpleSerialize,
 {
