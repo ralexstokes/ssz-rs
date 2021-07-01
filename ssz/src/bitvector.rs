@@ -87,7 +87,9 @@ impl<const N: usize> Sized for Bitvector<N> {
 
 impl<const N: usize> Serialize for Bitvector<N> {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
-        assert!(N > 0);
+        if N == 0 {
+            return Err(SerializeError::IllegalType { bound: N });
+        }
         let bytes_to_write = Self::size_hint();
         buffer.reserve(bytes_to_write);
         for byte in self.chunks(8) {
@@ -99,7 +101,9 @@ impl<const N: usize> Serialize for Bitvector<N> {
 
 impl<const N: usize> Deserialize for Bitvector<N> {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
-        assert!(N > 0);
+        if N == 0 {
+            return Err(DeserializeError::IllegalType { bound: N });
+        }
 
         let mut result = Self::default();
         for (slot, byte) in result.chunks_mut(8).zip(encoding.iter().copied()) {

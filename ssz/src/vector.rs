@@ -57,7 +57,9 @@ where
     T: SimpleSerialize,
 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
-        assert!(N > 0);
+        if N == 0 {
+            return Err(SerializeError::IllegalType { bound: N });
+        }
         serialize_composite(&self.0, buffer)
     }
 }
@@ -67,7 +69,9 @@ where
     T: SimpleSerialize,
 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
-        assert!(N > 0);
+        if N == 0 {
+            return Err(DeserializeError::IllegalType { bound: N });
+        }
         let elements = deserialize_homogeneous_composite(encoding)?;
         elements
             .try_into()

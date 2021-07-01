@@ -79,7 +79,12 @@ impl<const N: usize> Sized for Bitlist<N> {
 
 impl<const N: usize> Serialize for Bitlist<N> {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
-        assert!(self.len() <= N);
+        if self.len() > N {
+            return Err(SerializeError::TypeBoundsViolated {
+                bound: N,
+                len: self.len(),
+            });
+        }
         let start_len = buffer.len();
         buffer.extend_from_slice(self.as_raw_slice());
 
@@ -108,7 +113,12 @@ impl<const N: usize> Deserialize for Bitlist<N> {
         for bit in last.iter().take(high_bit_index) {
             result.push(*bit);
         }
-        assert!(result.len() <= N);
+        if result.len() > N {
+            return Err(DeserializeError::TypeBoundsViolated {
+                bound: N,
+                len: result.len(),
+            });
+        }
         Ok(Self(result))
     }
 }

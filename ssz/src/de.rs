@@ -3,6 +3,7 @@ use crate::SimpleSerialize;
 use thiserror::Error;
 
 #[derive(Error, Debug)]
+#[error("the value could not be deserialized: {0}")]
 pub enum DeserializeError {
     #[error("expected further data when decoding")]
     InputTooShort,
@@ -10,6 +11,10 @@ pub enum DeserializeError {
     InvalidInput,
     #[error("{0}")]
     IOError(#[from] std::io::Error),
+    #[error("the type for this value has a bound of {bound} but the value has {len} elements")]
+    TypeBoundsViolated { bound: usize, len: usize },
+    #[error("the type for this value has an illegal bound of {bound}")]
+    IllegalType { bound: usize },
 }
 
 pub trait Deserialize {

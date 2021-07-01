@@ -55,7 +55,12 @@ where
     T: SimpleSerialize,
 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
-        assert!(self.len() <= N);
+        if self.len() > N {
+            return Err(SerializeError::TypeBoundsViolated {
+                bound: N,
+                len: self.len(),
+            });
+        }
         serialize_composite(&self.0, buffer)
     }
 }
@@ -65,9 +70,14 @@ where
     T: SimpleSerialize,
 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
-        let elements = deserialize_homogeneous_composite(encoding)?;
-        assert!(elements.len() <= N);
-        Ok(List(elements))
+        let result = deserialize_homogeneous_composite(encoding)?;
+        if result.len() > N {
+            return Err(DeserializeError::TypeBoundsViolated {
+                bound: N,
+                len: result.len(),
+            });
+        }
+        Ok(List(result))
     }
 }
 

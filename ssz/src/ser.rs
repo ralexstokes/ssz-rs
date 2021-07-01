@@ -6,8 +6,15 @@ pub const BYTES_PER_LENGTH_OFFSET: usize = 4;
 const MAXIMUM_LENGTH: usize = 2usize.pow((BYTES_PER_LENGTH_OFFSET * 8) as u32);
 
 #[derive(Error, Debug)]
-#[error("{0}")]
-pub enum SerializeError {}
+#[error("the value could not be serialized: {0}")]
+pub enum SerializeError {
+    #[error("the encoded length is {0} which exceeds the maximum length {MAXIMUM_LENGTH}")]
+    MaximumEncodedLengthExceeded(usize),
+    #[error("the type for this value has a bound of {bound} but the value has {len} elements")]
+    TypeBoundsViolated { bound: usize, len: usize },
+    #[error("the type for this value has an illegal bound of {bound}")]
+    IllegalType { bound: usize },
+}
 
 pub trait Serialize {
     /// Append an encoding of `self` to the `buffer`.
@@ -22,7 +29,10 @@ pub fn serialize_composite_from_components(
     fixed_lengths_sum: usize,
     buffer: &mut Vec<u8>,
 ) -> Result<usize, SerializeError> {
-    assert!(fixed_lengths_sum + variable_lengths.iter().sum::<usize>() < MAXIMUM_LENGTH);
+    let total_size = fixed_lengths_sum + variable_lengths.iter().sum::<usize>();
+    if total_size >= MAXIMUM_LENGTH {
+        return Err(SerializeError::MaximumEncodedLengthExceeded(total_size));
+    }
 
     let mut total_bytes_written = 0;
 
