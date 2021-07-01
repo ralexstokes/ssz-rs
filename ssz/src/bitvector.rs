@@ -8,12 +8,14 @@ use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
 
 /// A homogenous collection of a fixed number of boolean values.
+///
 /// NOTE: a `Bitvector` of length `0` is illegal.
 ///
 /// NOTE: once `const_generics` and `const_evaluatable_checked` features stabilize,
 /// this type can use something like
 /// bitvec::array::BitArray<T, {N / 8}> where T: BitRegister, [T; {N / 8}]: BitViewSized
-/// Refer: https://stackoverflow.com/a/65462213
+///
+/// Refer: <https://stackoverflow.com/a/65462213>
 #[derive(PartialEq, Eq)]
 pub struct Bitvector<const N: usize>(BitVec);
 
