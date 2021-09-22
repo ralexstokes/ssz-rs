@@ -236,13 +236,13 @@ mod tests {
 
     #[test]
     fn test_hash_tree_root() {
-        #[derive(PartialEq, Eq, Debug, SimpleSerialize)]
+        #[derive(PartialEq, Eq, Debug, SimpleSerialize, Clone)]
         enum Bar {
             A(u32),
             B(List<bool, 32>),
         }
 
-        #[derive(PartialEq, Eq, Debug, Default, SimpleSerialize)]
+        #[derive(PartialEq, Eq, Debug, Default, SimpleSerialize, Clone)]
         struct Foo {
             a: u32,
             b: Vector<u32, 4>,
@@ -271,22 +271,25 @@ mod tests {
             hex!("c46234d121c855779cff24e67356fc69b94fb165d3a4611ebb64340c12301b99")
         );
 
+        let original_foo = foo.clone();
+
         foo.b[2] = 44u32;
         foo.d.pop();
-        match &mut foo.e {
-            Bar::B(inner) => {
-                inner.pop();
-            }
-            _ => {}
-        }
+        foo.e = Bar::A(33);
+
+        let root = original_foo.hash_tree_root().expect("can make root");
+        assert_eq!(
+            root,
+            hex!("c46234d121c855779cff24e67356fc69b94fb165d3a4611ebb64340c12301b99")
+        );
 
         let root = foo.hash_tree_root().expect("can make root");
         assert_eq!(
             root,
-            hex!("515430db558670c7aa31f8e45fa10f66ab2628b78efe1132fb1a32e8984c488e")
+            hex!("9408e9fc300a11c11ee9e4515de14f19d5aee9e72e0a8a89da60b1e591f6b2e5")
         );
 
-        let encoding = match serialize(&foo) {
+        let encoding = match serialize(&original_foo) {
             Ok(encoding) => encoding,
             Err(e) => {
                 eprintln!("some error encoding: {}", e);
@@ -294,7 +297,7 @@ mod tests {
             }
         };
 
-        let restored_foo = match Foo::deserialize(&encoding) {
+        let mut restored_foo = match Foo::deserialize(&encoding) {
             Ok(value) => value,
             Err(e) => {
                 eprintln!("some error decoding: {}", e);
@@ -305,7 +308,17 @@ mod tests {
         let root = restored_foo.hash_tree_root().expect("can make root");
         assert_eq!(
             root,
-            hex!("cf6930cb2cfbb64092e403708d4d275759adf6662f012f04b93241648e5d89bd")
+            hex!("c46234d121c855779cff24e67356fc69b94fb165d3a4611ebb64340c12301b99")
+        );
+
+        restored_foo.b[2] = 44u32;
+        restored_foo.d.pop();
+        restored_foo.e = Bar::A(33);
+
+        let root = foo.hash_tree_root().expect("can make root");
+        assert_eq!(
+            root,
+            hex!("9408e9fc300a11c11ee9e4515de14f19d5aee9e72e0a8a89da60b1e591f6b2e5")
         );
     }
 }
