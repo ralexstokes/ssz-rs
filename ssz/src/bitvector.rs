@@ -17,7 +17,7 @@ use std::ops::{Deref, DerefMut};
 /// bitvec::array::BitArray<T, {N / 8}> where T: BitRegister, [T; {N / 8}]: BitViewSized
 ///
 /// Refer: <https://stackoverflow.com/a/65462213>
-#[derive(PartialEq, Eq)]
+#[derive(PartialEq, Eq, Clone)]
 pub struct Bitvector<const N: usize>(BitVec);
 
 impl<const N: usize> fmt::Debug for Bitvector<N> {

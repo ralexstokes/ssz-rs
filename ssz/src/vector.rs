@@ -8,7 +8,7 @@ use std::ops::{Deref, DerefMut};
 
 /// A homogenous collection of a fixed number of values.
 /// NOTE: a `Vector` of length `0` is illegal.
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Clone)]
 pub struct Vector<T: SimpleSerialize, const N: usize>([T; N]);
 
 impl<T, const N: usize> Default for Vector<T, N>

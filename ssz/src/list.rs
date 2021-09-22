@@ -6,7 +6,7 @@ use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
 
 /// A homogenous collection of a variable number of values.
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Clone)]
 pub struct List<T: SimpleSerialize, const N: usize>(Vec<T>);
 
 impl<T, const N: usize> Default for List<T, N>

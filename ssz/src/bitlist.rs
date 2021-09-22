@@ -12,7 +12,7 @@ use std::ops::{Deref, DerefMut};
 type BitlistInner = BitVec<Lsb0, u8>;
 
 /// A homogenous collection of a variable number of boolean values.
-#[derive(PartialEq, Eq)]
+#[derive(PartialEq, Eq, Clone)]
 pub struct Bitlist<const N: usize>(BitlistInner);
 
 impl<const N: usize> fmt::Debug for Bitlist<N> {
