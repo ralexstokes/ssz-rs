@@ -7,12 +7,7 @@ use syn::{parse_macro_input, Data, DeriveInput, Fields, Ident};
 // and can keep it out of the crate's public interface.
 const BYTES_PER_LENGTH_OFFSET: usize = 4;
 
-fn derive_container_set_by_index_impl(name: &Ident, data: &ValidationState) -> TokenStream {
-    let data = match data {
-        ValidationState::Validated(data) => data,
-        ValidationState::Unvalidated(..) => panic!("do not process unvalidated input"),
-    };
-
+fn derive_container_set_by_index_impl(name: &Ident, data: &Data) -> TokenStream {
     match data {
         Data::Struct(ref data) => match data.fields {
             Fields::Named(ref fields) => {
@@ -43,12 +38,7 @@ fn derive_container_set_by_index_impl(name: &Ident, data: &ValidationState) -> T
     }
 }
 
-fn derive_union_default_impl(name: &Ident, data: &ValidationState) -> TokenStream {
-    let data = match data {
-        ValidationState::Validated(data) => data,
-        ValidationState::Unvalidated(..) => panic!("do not process unvalidated input"),
-    };
-
+fn derive_union_default_impl(name: &Ident, data: &Data) -> TokenStream {
     match data {
         Data::Struct(..) => quote! {},
         Data::Enum(ref data) => {
@@ -81,12 +71,7 @@ fn derive_union_default_impl(name: &Ident, data: &ValidationState) -> TokenStrea
     }
 }
 
-fn derive_serialize_impl(data: &ValidationState) -> TokenStream {
-    let data = match data {
-        ValidationState::Validated(data) => data,
-        ValidationState::Unvalidated(..) => panic!("do not process unvalidated input"),
-    };
-
+fn derive_serialize_impl(data: &Data) -> TokenStream {
     match data {
         Data::Struct(ref data) => match data.fields {
             Fields::Named(ref fields) => {
@@ -164,12 +149,7 @@ fn derive_serialize_impl(data: &ValidationState) -> TokenStream {
     }
 }
 
-fn derive_deserialize_impl(data: &ValidationState) -> TokenStream {
-    let data = match data {
-        ValidationState::Validated(data) => data,
-        ValidationState::Unvalidated(..) => panic!("do not process unvalidated input"),
-    };
-
+fn derive_deserialize_impl(data: &Data) -> TokenStream {
     match data {
         Data::Struct(ref data) => match data.fields {
             Fields::Named(ref fields) => {
@@ -266,12 +246,7 @@ fn derive_deserialize_impl(data: &ValidationState) -> TokenStream {
     }
 }
 
-fn derive_variable_size_impl(data: &ValidationState) -> TokenStream {
-    let data = match data {
-        ValidationState::Validated(data) => data,
-        ValidationState::Unvalidated(..) => panic!("do not process unvalidated input"),
-    };
-
+fn derive_variable_size_impl(data: &Data) -> TokenStream {
     match data {
         Data::Struct(ref data) => match data.fields {
             Fields::Named(ref fields) => {
@@ -295,11 +270,7 @@ fn derive_variable_size_impl(data: &ValidationState) -> TokenStream {
     }
 }
 
-fn derive_size_hint_impl(data: &ValidationState) -> TokenStream {
-    let data = match data {
-        ValidationState::Validated(data) => data,
-        ValidationState::Unvalidated(..) => panic!("do not process unvalidated input"),
-    };
+fn derive_size_hint_impl(data: &Data) -> TokenStream {
     match data {
         Data::Struct(ref data) => match data.fields {
             Fields::Named(ref fields) => {
@@ -400,6 +371,74 @@ fn validate_derive_data(data: ValidationState) -> ValidationState {
     ValidationState::Validated(data)
 }
 
+fn derive_merkleization_impl(data: &Data) -> TokenStream {
+    match data {
+        Data::Struct(ref data) => match data.fields {
+            Fields::Named(ref fields) => {
+                let field_count = fields.named.iter().len();
+                let impl_by_field = fields.named.iter().map(|f| {
+                    let field_name = &f.ident;
+                    quote_spanned! { f.span() =>
+                        let chunk = self.#field_name.hash_tree_root()?;
+                        chunks.push(chunk.to_vec());
+                    }
+                });
+                quote! {
+                    fn chunk_count(&self) -> usize {
+                        #field_count
+                    }
+
+                    fn hash_tree_root(&self) -> Result<Root, MerkleizationError> {
+                        let mut chunks = Vec::with_capacity(self.chunk_count() * BYTES_PER_CHUNK);
+                        #(#impl_by_field)*
+                        Ok(merkleize(&chunks, None)?)
+                    }
+                }
+            }
+            _ => unreachable!(),
+        },
+        Data::Enum(ref data) => {
+            let hash_tree_root_by_variant = data.variants.iter().enumerate().map(|(i, variant)| {
+                let variant_name = &variant.ident;
+                match &variant.fields {
+                    Fields::Unnamed(..) => {
+                        quote_spanned! { variant.span() =>
+                            Self::#variant_name(value) => {
+                                let selector = #i as u8 as usize;
+                                let data_root  = value.hash_tree_root()?;
+                                Ok(mix_in_selector(&data_root, selector))
+                            }
+                        }
+                    }
+                    Fields::Unit => {
+                        quote_spanned! { variant.span() =>
+                            Self::None => Ok(mix_in_selector(
+                                ZERO_CHUNK.try_into().expect("is valid chunk"),
+                                0,
+                            )),
+                        }
+                    }
+                    _ => unreachable!(),
+                }
+            });
+            quote! {
+                fn chunk_count(&self) -> usize {
+                    0
+                }
+
+                fn hash_tree_root(&self) -> Result<Root, MerkleizationError> {
+                    use std::convert::TryInto;
+
+                    match self {
+                            #(#hash_tree_root_by_variant)*
+                    }
+                }
+            }
+        }
+        Data::Union(..) => unreachable!(),
+    }
+}
+
 // Refers to the validation state of proc macro's input
 enum ValidationState<'a> {
     Unvalidated(&'a Data),
@@ -415,12 +454,18 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
 
     let data = &validate_derive_data(data);
 
+    let data = match *data {
+        ValidationState::Validated(data) => data,
+        ValidationState::Unvalidated(..) => panic!("do not process unvalidated input"),
+    };
+
     let set_by_index_impl = derive_container_set_by_index_impl(name, data);
     let union_default_impl = derive_union_default_impl(name, data);
     let serialize_impl = derive_serialize_impl(data);
     let deserialize_impl = derive_deserialize_impl(data);
     let is_variable_size_impl = derive_variable_size_impl(data);
     let size_hint_impl = derive_size_hint_impl(data);
+    let merkleization_impl = derive_merkleization_impl(data);
 
     let expansion = quote! {
         #union_default_impl
@@ -443,6 +488,10 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
             fn size_hint() -> usize {
                 #size_hint_impl
             }
+        }
+
+        impl ssz::Merkleized for #name {
+            #merkleization_impl
         }
 
         impl ssz::SimpleSerialize for #name {}

@@ -1,4 +1,5 @@
 use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
+use crate::merkleization::{merkleize, mix_in_length, pack, MerkleizationError, Merkleized, Root};
 use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 use std::iter::FromIterator;
@@ -78,6 +79,35 @@ where
             });
         }
         Ok(List(result))
+    }
+}
+
+impl<T, const N: usize> Merkleized for List<T, N>
+where
+    T: SimpleSerialize,
+{
+    fn chunk_count(&self) -> usize {
+        if T::is_composite_type() {
+            N
+        } else {
+            (N * T::size_hint() + 31) / 32
+        }
+    }
+
+    fn hash_tree_root(&self) -> Result<Root, MerkleizationError> {
+        if T::is_composite_type() {
+            let mut chunks = Vec::with_capacity(self.len());
+            for elem in self {
+                let chunk = elem.hash_tree_root()?;
+                chunks.push(chunk.to_vec());
+            }
+            let data_root = merkleize(&chunks, Some(self.chunk_count()))?;
+            Ok(mix_in_length(&data_root, self.len()))
+        } else {
+            let chunks = pack(self)?;
+            let data_root = merkleize(&chunks, Some(self.chunk_count()))?;
+            Ok(mix_in_length(&data_root, self.len()))
+        }
     }
 }
 

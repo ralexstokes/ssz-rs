@@ -1,4 +1,7 @@
 use crate::de::{Deserialize, DeserializeError};
+use crate::merkleization::{
+    merkleize, mix_in_length, pack_bytes, Chunk, MerkleizationError, Merkleized, Root,
+};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 use bitvec::prelude::{BitVec, Lsb0};
@@ -14,7 +17,7 @@ pub struct Bitlist<const N: usize>(BitlistInner);
 
 impl<const N: usize> fmt::Debug for Bitlist<N> {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        write!(f, "Bitlist(0b")?;
+        write!(f, "Bitlist<len={}, cap={}>(0b", self.len(), N)?;
         let len = self.len();
         let mut bits_written = 0;
         for (index, bit) in self.iter().enumerate() {
@@ -51,6 +54,39 @@ impl<const N: usize> Bitlist<N> {
             old
         })
     }
+
+    fn pack_bits(&self) -> Result<Vec<Chunk>, MerkleizationError> {
+        let mut data = vec![];
+        let _ = self.serialize_with_length(&mut data, false)?;
+        Ok(pack_bytes(data))
+    }
+
+    fn serialize_with_length(
+        &self,
+        buffer: &mut Vec<u8>,
+        with_length_bit: bool,
+    ) -> Result<usize, SerializeError> {
+        if self.len() > N {
+            return Err(SerializeError::TypeBoundsViolated {
+                bound: N,
+                len: self.len(),
+            });
+        }
+        let start_len = buffer.len();
+        buffer.extend_from_slice(self.as_raw_slice());
+
+        if with_length_bit {
+            let element_count = self.len();
+            let marker_index = element_count % 8;
+            if marker_index == 0 {
+                buffer.push(1u8);
+            } else {
+                let last = buffer.last_mut().expect("bitlist cannot be empty");
+                *last |= 1u8 << marker_index;
+            }
+        }
+        Ok(buffer.len() - start_len)
+    }
 }
 
 impl<const N: usize> Deref for Bitlist<N> {
@@ -79,28 +115,9 @@ impl<const N: usize> Sized for Bitlist<N> {
 
 impl<const N: usize> Serialize for Bitlist<N> {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
-        if self.len() > N {
-            return Err(SerializeError::TypeBoundsViolated {
-                bound: N,
-                len: self.len(),
-            });
-        }
-        let start_len = buffer.len();
-        buffer.extend_from_slice(self.as_raw_slice());
-
-        let element_count = self.len();
-        let marker_index = element_count % 8;
-        if marker_index == 0 {
-            buffer.push(1u8);
-        } else {
-            let last = buffer.last_mut().expect("bitlist cannot be empty");
-            *last |= 1u8 << marker_index;
-        }
-        Ok(buffer.len() - start_len)
+        self.serialize_with_length(buffer, true)
     }
 }
-
-impl<const N: usize> SimpleSerialize for Bitlist<N> {}
 
 impl<const N: usize> Deserialize for Bitlist<N> {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
@@ -122,6 +139,20 @@ impl<const N: usize> Deserialize for Bitlist<N> {
         Ok(Self(result))
     }
 }
+
+impl<const N: usize> Merkleized for Bitlist<N> {
+    fn chunk_count(&self) -> usize {
+        (N + 255) / 256
+    }
+
+    fn hash_tree_root(&self) -> Result<Root, MerkleizationError> {
+        let chunks = self.pack_bits()?;
+        let data_root = merkleize(&chunks, Some(self.chunk_count()))?;
+        Ok(mix_in_length(&data_root, self.len()))
+    }
+}
+
+impl<const N: usize> SimpleSerialize for Bitlist<N> {}
 
 impl<const N: usize> FromIterator<bool> for Bitlist<N> {
     // NOTE: only takes the first `N` values from `iter`.

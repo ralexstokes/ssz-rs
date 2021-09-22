@@ -1,4 +1,5 @@
 use crate::de::{Deserialize, DeserializeError};
+use crate::merkleization::{MerkleizationError, Merkleized, Root, BYTES_PER_CHUNK};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 use std::convert::TryInto;
@@ -37,7 +38,25 @@ macro_rules! define_uint {
             }
         }
 
-        impl SimpleSerialize for $uint {}
+        impl Merkleized for $uint {
+            fn chunk_count(&self) -> usize {
+                1
+            }
+
+            fn hash_tree_root(&self) -> Result<Root, MerkleizationError> {
+                let mut data = vec![];
+                let _ = self.serialize(&mut data)?;
+                let mut root = vec![0; BYTES_PER_CHUNK];
+                root[0..data.len()].copy_from_slice(&data);
+                Ok(root.try_into().expect("is valid root"))
+            }
+        }
+
+        impl SimpleSerialize for $uint {
+            fn is_composite_type() -> bool {
+                false
+            }
+        }
     };
 }
 
@@ -48,7 +67,7 @@ define_uint!(u64);
 define_uint!(u128);
 
 #[repr(transparent)]
-#[derive(Default, Debug, PartialEq, Eq)]
+#[derive(Default, Debug, PartialEq, Eq, Clone)]
 // inner slice is little-endian
 pub struct U256(pub [u8; 32]);
 
@@ -80,7 +99,21 @@ impl Deserialize for U256 {
     }
 }
 
-impl SimpleSerialize for U256 {}
+impl Merkleized for U256 {
+    fn chunk_count(&self) -> usize {
+        1
+    }
+
+    fn hash_tree_root(&self) -> Result<Root, MerkleizationError> {
+        Ok(self.0.try_into().expect("is valid root"))
+    }
+}
+
+impl SimpleSerialize for U256 {
+    fn is_composite_type() -> bool {
+        false
+    }
+}
 
 #[cfg(test)]
 mod tests {

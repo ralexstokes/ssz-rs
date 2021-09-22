@@ -4,6 +4,7 @@ mod boolean;
 mod container;
 mod de;
 mod list;
+mod merkleization;
 mod ser;
 mod uint;
 mod union;
@@ -13,6 +14,7 @@ pub use bitlist::Bitlist;
 pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};
 pub use list::List;
+pub use merkleization::Merkleized;
 pub use ser::{Serialize, SerializeError};
 pub use uint::U256;
 pub use vector::Vector;
@@ -26,9 +28,13 @@ pub trait Sized {
     fn size_hint() -> usize;
 }
 
-/// `SimpleSerialize` is a marker trait for types
+/// `SimpleSerialize` is a trait for types
 /// conforming to the SSZ spec.
-pub trait SimpleSerialize: Serialize + Deserialize + Sized {}
+pub trait SimpleSerialize: Serialize + Deserialize + Sized + Merkleized {
+    fn is_composite_type() -> bool {
+        true
+    }
+}
 
 /// `serialize` is a convenience function for taking a value that
 /// implements `SimpleSerialize` and attempting to encode it to
@@ -60,6 +66,10 @@ pub mod prelude {
     pub use crate::de::{Deserialize, DeserializeError};
     pub use crate::deserialize;
     pub use crate::list::List;
+    pub use crate::merkleization::{
+        merkleize, mix_in_selector, MerkleizationError, Merkleized, Root, BYTES_PER_CHUNK,
+        ZERO_CHUNK,
+    };
     pub use crate::ser::{Serialize, SerializeError};
     pub use crate::serialize;
     pub use crate::uint::U256;

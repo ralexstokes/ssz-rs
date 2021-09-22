@@ -1,3 +1,4 @@
+use hex;
 use ssz::prelude::*;
 use std::iter::FromIterator;
 
@@ -12,7 +13,7 @@ struct Foo {
     a: u32,
     b: Vector<u32, 4>,
     c: bool,
-    d: Bitlist<32>,
+    d: Bitlist<27>,
     e: Bar,
     f: Bitvector<4>,
 }
@@ -30,6 +31,9 @@ fn main() {
         e: Bar::B(List::from_iter([true, true, false, false, false, true])),
         f: Bitvector::from_iter([false, true, false, true]),
     };
+
+    let root = foo.hash_tree_root().expect("can make root");
+    println!("{}", hex::encode(root));
 
     foo.b[2] = 44u32;
     foo.d.pop();
@@ -57,4 +61,6 @@ fn main() {
     };
 
     println!("{:#?}", restored_foo);
+    let root = restored_foo.hash_tree_root().expect("can make root");
+    println!("{}", hex::encode(root));
 }

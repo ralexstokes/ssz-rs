@@ -1,4 +1,5 @@
 use crate::de::{Deserialize, DeserializeError};
+use crate::merkleization::{merkleize, pack_bytes, Chunk, MerkleizationError, Merkleized, Root};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 use bitvec::field::BitField;
@@ -21,7 +22,7 @@ pub struct Bitvector<const N: usize>(BitVec);
 
 impl<const N: usize> fmt::Debug for Bitvector<N> {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        write!(f, "Bitvector(0b")?;
+        write!(f, "Bitvector<{}>(0b", N)?;
         let len = self.len();
         let mut bits_written = 0;
         for (index, bit) in self.iter().enumerate() {
@@ -58,6 +59,12 @@ impl<const N: usize> Bitvector<N> {
             *slot = value;
             old
         })
+    }
+
+    fn pack_bits(&self) -> Result<Vec<Chunk>, MerkleizationError> {
+        let mut data = vec![];
+        let _ = self.serialize(&mut data)?;
+        Ok(pack_bytes(data))
     }
 }
 
@@ -110,6 +117,17 @@ impl<const N: usize> Deserialize for Bitvector<N> {
             slot.store_le(byte);
         }
         Ok(result)
+    }
+}
+
+impl<const N: usize> Merkleized for Bitvector<N> {
+    fn chunk_count(&self) -> usize {
+        (N + 255) / 256
+    }
+
+    fn hash_tree_root(&self) -> Result<Root, MerkleizationError> {
+        let chunks = self.pack_bits()?;
+        merkleize(&chunks, Some(self.chunk_count()))
     }
 }
 

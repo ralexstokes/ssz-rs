@@ -1,6 +1,8 @@
 use crate::de::{Deserialize, DeserializeError};
+use crate::merkleization::{mix_in_selector, MerkleizationError, Merkleized, Root, ZERO_CHUNK};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
+use std::convert::TryInto;
 
 /// `SimpleSerialize` is implemented for `Option` as a convenience
 /// when the schema is equivalent to one described by:
@@ -51,15 +53,32 @@ where
     }
 }
 
+impl<T> Merkleized for Option<T>
+where
+    T: SimpleSerialize,
+{
+    fn chunk_count(&self) -> usize {
+        0
+    }
+
+    fn hash_tree_root(&self) -> Result<Root, MerkleizationError> {
+        match self {
+            Some(value) => Ok(mix_in_selector(&value.hash_tree_root()?, 1)),
+            None => Ok(mix_in_selector(
+                ZERO_CHUNK.try_into().expect("is valid chunk"),
+                0,
+            )),
+        }
+    }
+}
+
 impl<T> SimpleSerialize for Option<T> where T: SimpleSerialize {}
 
 #[cfg(test)]
 mod tests {
     // needed for derives internal to crate
     use crate as ssz;
-    use crate::List;
-    use crate::Vector;
-    use crate::{Deserialize, Serialize, Sized};
+    use crate::prelude::*;
     use ssz_derive::SimpleSerialize;
     use std::iter::FromIterator;
 
