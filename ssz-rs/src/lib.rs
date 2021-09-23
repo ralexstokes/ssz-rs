@@ -61,6 +61,7 @@ where
 /// The `prelude` contains common traits and types a user of this library
 /// would want to have handy with a simple (single) import.
 pub mod prelude {
+    pub use crate as ssz_rs;
     pub use crate::bitlist::Bitlist;
     pub use crate::bitvector::Bitvector;
     pub use crate::de::Deserialize;
@@ -75,9 +76,10 @@ pub mod prelude {
     pub use crate::SimpleSerialize;
     pub use crate::Sized;
     pub use crate::{deserialize, serialize};
-    pub use ssz_derive::SimpleSerialize;
+    pub use ssz_rs_derive::SimpleSerialize;
 }
 
+/// `internal` contains functionality that is exposed purely for the derive proc macro crate
 pub mod internal {
     // exported for derive macro to avoid code duplication...
     pub use crate::merkleization::{merkleize, mix_in_selector};

@@ -72,8 +72,6 @@ impl<T> SimpleSerialize for Option<T> where T: SimpleSerialize {}
 
 #[cfg(test)]
 mod tests {
-    // needed for derives internal to crate
-    use crate as ssz;
     use crate::prelude::*;
     use std::iter::FromIterator;
 

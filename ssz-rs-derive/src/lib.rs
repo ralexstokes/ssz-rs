@@ -3,7 +3,7 @@ use quote::{format_ident, quote, quote_spanned};
 use syn::spanned::Spanned;
 use syn::{parse_macro_input, Data, DeriveInput, Fields, Ident};
 
-// NOTE: copied here from `ssz` crate as it is unlikely to change
+// NOTE: copied here from `ssz_rs` crate as it is unlikely to change
 // and can keep it out of the crate's public interface.
 const BYTES_PER_LENGTH_OFFSET: usize = 4;
 const BYTES_PER_CHUNK: usize = 32;
@@ -22,7 +22,7 @@ fn derive_container_set_by_index_impl(name: &Ident, data: &Data) -> TokenStream 
 
                 quote! {
                     impl #name {
-                        fn __ssz_set_by_index(&mut self, index: usize, encoding: &[u8]) -> Result<(), ssz::DeserializeError> {
+                        fn __ssz_rs_set_by_index(&mut self, index: usize, encoding: &[u8]) -> Result<(), ssz_rs::DeserializeError> {
                             match index {
                                 #(#set_by_field)*
                                 _ => unreachable!(),
@@ -99,7 +99,7 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
                 });
 
                 quote! {
-                    fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, ssz::SerializeError> {
+                    fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, ssz_rs::SerializeError> {
                         let mut fixed = vec![];
                         let mut variable = vec![];
                         let mut variable_lengths = vec![];
@@ -107,7 +107,7 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
 
                         #(#serialization_by_field)*
 
-                        ssz::internal::serialize_composite_from_components(fixed, variable, variable_lengths, fixed_lengths_sum, buffer)
+                        ssz_rs::internal::serialize_composite_from_components(fixed, variable, variable_lengths, fixed_lengths_sum, buffer)
                     }
                 }
             }
@@ -139,7 +139,7 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
             });
 
             quote! {
-                fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, ssz::SerializeError> {
+                fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, ssz_rs::SerializeError> {
                     match self {
                         #(#serialization_by_variant)*
                     }
@@ -176,7 +176,7 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                 });
 
                 quote! {
-                    fn deserialize(encoding: &[u8]) -> Result<Self, ssz::DeserializeError> {
+                    fn deserialize(encoding: &[u8]) -> Result<Self, ssz_rs::DeserializeError> {
                         let mut start = 0;
                         let mut offsets = vec![];
                         let mut container = Self::default();
@@ -198,7 +198,7 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                             let (index, start) = span[0];
                             let (_, end) = span[1];
 
-                            container.__ssz_set_by_index(index, &encoding[start..end])?;
+                            container.__ssz_rs_set_by_index(index, &encoding[start..end])?;
                         }
 
                         Ok(container)
@@ -231,14 +231,14 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                 });
 
             quote! {
-                fn deserialize(encoding: &[u8]) -> Result<Self, ssz::DeserializeError> {
+                fn deserialize(encoding: &[u8]) -> Result<Self, ssz_rs::DeserializeError> {
                     if encoding.is_empty() {
-                        return Err(ssz::DeserializeError::InputTooShort);
+                        return Err(ssz_rs::DeserializeError::InputTooShort);
                     }
 
                     match &encoding[0].into() {
                         #(#deserialization_by_variant)*
-                        _ => Err(ssz::DeserializeError::InvalidInput),
+                        _ => Err(ssz_rs::DeserializeError::InvalidInput),
                     }
                 }
             }
@@ -316,7 +316,7 @@ fn validate_derive_data(data: ValidationState) -> ValidationState {
         Data::Struct(ref data) => match data.fields {
             Fields::Named(ref fields) => {
                 if fields.named.is_empty() {
-                    panic!("ssz containers with no fields are illegal")
+                    panic!("ssz_rs containers with no fields are illegal")
                 }
             }
             _ => panic!("Structs with unit or unnnamed fields are not supported"),
@@ -386,10 +386,10 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                     }
                 });
                 quote! {
-                    fn hash_tree_root(&self) -> Result<ssz::Root, ssz::MerkleizationError> {
+                    fn hash_tree_root(&self) -> Result<ssz_rs::Root, ssz_rs::MerkleizationError> {
                         let mut chunks = vec![0u8; #field_count * #BYTES_PER_CHUNK];
                         #(#impl_by_field)*
-                        Ok(ssz::internal::merkleize(&chunks, None)?)
+                        Ok(ssz_rs::internal::merkleize(&chunks, None)?)
                     }
                 }
             }
@@ -404,14 +404,14 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                             Self::#variant_name(value) => {
                                 let selector = #i as u8 as usize;
                                 let data_root  = value.hash_tree_root()?;
-                                Ok(ssz::internal::mix_in_selector(&data_root, selector))
+                                Ok(ssz_rs::internal::mix_in_selector(&data_root, selector))
                             }
                         }
                     }
                     Fields::Unit => {
                         quote_spanned! { variant.span() =>
-                            Self::None => Ok(ssz::internal::mix_in_selector(
-                                &ssz::Root::default(),
+                            Self::None => Ok(ssz_rs::internal::mix_in_selector(
+                                &ssz_rs::Root::default(),
                                 0,
                             )),
                         }
@@ -420,7 +420,7 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                 }
             });
             quote! {
-                fn hash_tree_root(&self) -> Result<ssz::Root, ssz::MerkleizationError> {
+                fn hash_tree_root(&self) -> Result<ssz_rs::Root, ssz_rs::MerkleizationError> {
                     match self {
                             #(#hash_tree_root_by_variant)*
                     }
@@ -464,15 +464,15 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
 
         #set_by_index_impl
 
-        impl ssz::Serialize for #name {
+        impl ssz_rs::Serialize for #name {
             #serialize_impl
         }
 
-        impl ssz::Deserialize for #name {
+        impl ssz_rs::Deserialize for #name {
             #deserialize_impl
         }
 
-        impl ssz::Sized for #name {
+        impl ssz_rs::Sized for #name {
             fn is_variable_size() -> bool {
                 #is_variable_size_impl
             }
@@ -482,11 +482,11 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
             }
         }
 
-        impl ssz::Merkleized for #name {
+        impl ssz_rs::Merkleized for #name {
             #merkleization_impl
         }
 
-        impl ssz::SimpleSerialize for #name {}
+        impl ssz_rs::SimpleSerialize for #name {}
     };
 
     proc_macro::TokenStream::from(expansion)

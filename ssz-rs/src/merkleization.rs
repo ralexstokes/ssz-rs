@@ -135,10 +135,10 @@ pub fn mix_in_selector(root: &Root, selector: usize) -> Root {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate as ssz;
+    use crate as ssz_rs;
     use crate::prelude::*;
     use hex_literal::hex;
-    use ssz_derive::SimpleSerialize;
+    use ssz_rs_derive::SimpleSerialize;
     use std::iter::FromIterator;
 
     #[test]

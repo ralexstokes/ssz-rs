@@ -1,5 +1,5 @@
 [package]
-name = "ssz"
+name = "ssz_rs"
 version = "0.1.0"
 authors = ["Alex Stokes <r.alex.stokes@gmail.com>"]
 edition = "2018"
@@ -9,7 +9,7 @@ edition = "2018"
 [dependencies]
 thiserror = "1.0.25"
 bitvec = "0.22.3"
-ssz_derive = { path = "../ssz_derive" }
+ssz_rs_derive = { path = "../ssz-rs-derive" }
 sha2 = "0.9.8"
 
 [dev-dependencies]
