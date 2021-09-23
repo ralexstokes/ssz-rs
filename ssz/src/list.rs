@@ -2,12 +2,22 @@ use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError
 use crate::merkleization::{merkleize, mix_in_length, pack, MerkleizationError, Merkleized, Root};
 use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
+use std::fmt;
 use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
 
 /// A homogenous collection of a variable number of values.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(PartialEq, Eq, Clone)]
 pub struct List<T: SimpleSerialize, const N: usize>(Vec<T>);
+
+impl<T, const N: usize> fmt::Debug for List<T, N>
+where
+    T: SimpleSerialize + fmt::Debug,
+{
+    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+        write!(f, "List<len={}, cap={}>{:?}", self.len(), N, self.0)
+    }
+}
 
 impl<T, const N: usize> Default for List<T, N>
 where

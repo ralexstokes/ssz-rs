@@ -22,7 +22,7 @@ pub struct Bitvector<const N: usize>(BitVec);
 
 impl<const N: usize> fmt::Debug for Bitvector<N> {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        write!(f, "Bitvector<{}>(0b", N)?;
+        write!(f, "Bitvector<{}>[", N)?;
         let len = self.len();
         let mut bits_written = 0;
         for (index, bit) in self.iter().enumerate() {
@@ -33,7 +33,7 @@ impl<const N: usize> fmt::Debug for Bitvector<N> {
                 write!(f, "_")?;
             }
         }
-        write!(f, ")")?;
+        write!(f, "]")?;
         Ok(())
     }
 }

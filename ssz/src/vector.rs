@@ -3,13 +3,23 @@ use crate::merkleization::{merkleize, pack, MerkleizationError, Merkleized, Root
 use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 use std::convert::TryInto;
+use std::fmt;
 use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
 
 /// A homogenous collection of a fixed number of values.
 /// NOTE: a `Vector` of length `0` is illegal.
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(PartialEq, Eq, Clone)]
 pub struct Vector<T: SimpleSerialize, const N: usize>([T; N]);
+
+impl<T, const N: usize> fmt::Debug for Vector<T, N>
+where
+    T: SimpleSerialize + fmt::Debug,
+{
+    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+        write!(f, "Vector<{}>{:?}", N, self.0)
+    }
+}
 
 impl<T, const N: usize> Default for Vector<T, N>
 where

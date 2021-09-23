@@ -17,7 +17,7 @@ pub struct Bitlist<const N: usize>(BitlistInner);
 
 impl<const N: usize> fmt::Debug for Bitlist<N> {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        write!(f, "Bitlist<len={}, cap={}>(0b", self.len(), N)?;
+        write!(f, "Bitlist<len={}, cap={}>[", self.len(), N)?;
         let len = self.len();
         let mut bits_written = 0;
         for (index, bit) in self.iter().enumerate() {
@@ -28,7 +28,7 @@ impl<const N: usize> fmt::Debug for Bitlist<N> {
                 write!(f, "_")?;
             }
         }
-        write!(f, ")")?;
+        write!(f, "]")?;
         Ok(())
     }
 }

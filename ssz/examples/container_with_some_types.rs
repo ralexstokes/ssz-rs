@@ -32,6 +32,7 @@ fn main() {
         f: Bitvector::from_iter([false, true, false, true]),
     };
 
+    println!("{:?}", foo);
     let root = foo.hash_tree_root().expect("can make root");
     println!("{}", hex::encode(root));
 
