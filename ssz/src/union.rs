@@ -57,10 +57,6 @@ impl<T> Merkleized for Option<T>
 where
     T: SimpleSerialize,
 {
-    fn chunk_count(&self) -> usize {
-        0
-    }
-
     fn hash_tree_root(&self) -> Result<Root, MerkleizationError> {
         match self {
             Some(value) => Ok(mix_in_selector(&value.hash_tree_root()?, 1)),
@@ -79,7 +75,6 @@ mod tests {
     // needed for derives internal to crate
     use crate as ssz;
     use crate::prelude::*;
-    use ssz_derive::SimpleSerialize;
     use std::iter::FromIterator;
 
     #[derive(Debug, PartialEq, Eq, SimpleSerialize)]

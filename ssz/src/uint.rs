@@ -39,10 +39,6 @@ macro_rules! define_uint {
         }
 
         impl Merkleized for $uint {
-            fn chunk_count(&self) -> usize {
-                1
-            }
-
             fn hash_tree_root(&self) -> Result<Root, MerkleizationError> {
                 let mut data = vec![];
                 let _ = self.serialize(&mut data)?;
@@ -100,12 +96,8 @@ impl Deserialize for U256 {
 }
 
 impl Merkleized for U256 {
-    fn chunk_count(&self) -> usize {
-        1
-    }
-
     fn hash_tree_root(&self) -> Result<Root, MerkleizationError> {
-        Ok(self.0.try_into().expect("is valid root"))
+        Ok(self.0)
     }
 }
 

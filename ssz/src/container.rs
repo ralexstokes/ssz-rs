@@ -2,11 +2,7 @@
 mod tests {
     // needed for derives internal to crate
     use crate as ssz;
-    use crate::List;
-    use crate::Vector;
-    use crate::{Deserialize, Serialize, Sized};
-    use ssz::merkleization::{merkleize, MerkleizationError, Merkleized, Root, BYTES_PER_CHUNK};
-    use ssz_derive::SimpleSerialize;
+    use crate::prelude::*;
     use std::iter::FromIterator;
 
     #[derive(Default, Debug, PartialEq, Eq, SimpleSerialize)]
@@ -152,21 +148,5 @@ mod tests {
         let _ = value.serialize(&mut buffer).expect("can serialize");
         let recovered = YetAnotherContainer::deserialize(&buffer).expect("can decode");
         assert_eq!(value, recovered);
-    }
-
-    #[test]
-    fn get_chunk_count() {
-        let value = BasicContainer { a: 5u32, d: true };
-        assert_eq!(value.chunk_count(), 2);
-
-        let value = YetAnotherContainer {
-            a: 5u32,
-            b: true,
-            c: List::from_iter([true, false, false, false, true, true]),
-            d: Vector::from_iter([true, false, false, true]),
-            e: 24u8,
-            f: List::from_iter([234u32, 567u32]),
-        };
-        assert_eq!(value.chunk_count(), 6);
     }
 }

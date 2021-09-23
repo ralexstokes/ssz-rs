@@ -1,7 +1,5 @@
-use std::convert::TryInto;
-
 use crate::de::{Deserialize, DeserializeError};
-use crate::merkleization::{MerkleizationError, Merkleized, Root, ZERO_CHUNK};
+use crate::merkleization::{MerkleizationError, Merkleized, Root};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 
@@ -38,17 +36,13 @@ impl Deserialize for bool {
 }
 
 impl Merkleized for bool {
-    fn chunk_count(&self) -> usize {
-        1
-    }
-
     fn hash_tree_root(&self) -> Result<Root, MerkleizationError> {
         if *self {
             let mut root = Root::default();
             root[0] = 1u8;
             Ok(root)
         } else {
-            Ok(ZERO_CHUNK.try_into().expect("is valid root"))
+            Ok(Root::default())
         }
     }
 }

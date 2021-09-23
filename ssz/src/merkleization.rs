@@ -4,17 +4,13 @@ use std::convert::TryInto;
 use crate::ser::{Serialize, SerializeError};
 use thiserror::Error;
 
-pub const BYTES_PER_CHUNK: usize = 32;
+pub(crate) const BYTES_PER_CHUNK: usize = 32;
 
-pub const ZERO_CHUNK: &[u8] = &[0; BYTES_PER_CHUNK];
+pub(crate) const ZERO_CHUNK: &[u8] = &[0; BYTES_PER_CHUNK];
 
 pub type Root = [u8; 32];
 
-pub(crate) type Chunk = Vec<u8>;
-
 pub trait Merkleized {
-    fn chunk_count(&self) -> usize;
-
     fn hash_tree_root(&self) -> Result<Root, MerkleizationError>;
 }
 
@@ -29,22 +25,18 @@ pub enum MerkleizationError {
     InputExceedsLimit(usize),
 }
 
-pub(crate) fn pack_bytes(mut buffer: Vec<u8>) -> Vec<Chunk> {
+pub(crate) fn pack_bytes(buffer: &mut Vec<u8>) {
     let data_len = buffer.len();
     if data_len % BYTES_PER_CHUNK != 0 {
         let bytes_to_pad = BYTES_PER_CHUNK - data_len % BYTES_PER_CHUNK;
-        for _ in 0..bytes_to_pad {
-            buffer.push(0u8);
-        }
+        let pad = vec![0u8; bytes_to_pad];
+        buffer.extend_from_slice(&pad);
     }
-    let mut result = vec![];
-    for chunk in buffer.chunks_exact(BYTES_PER_CHUNK) {
-        result.push(chunk.to_vec());
-    }
-    result
 }
 
-pub(crate) fn pack<T>(values: &[T]) -> Result<Vec<Chunk>, MerkleizationError>
+// Packs serializations of `values` into the return buffer with the
+// guarantee that `buffer.len() % BYTES_PER_CHUNK == 0`
+pub(crate) fn pack<T>(values: &[T]) -> Result<Vec<u8>, MerkleizationError>
 where
     T: Serialize,
 {
@@ -52,21 +44,24 @@ where
     for value in values {
         value.serialize(&mut buffer)?;
     }
-    Ok(pack_bytes(buffer))
+    pack_bytes(&mut buffer);
+    Ok(buffer)
 }
 
-fn hash_nodes(a: &[u8], b: &[u8]) -> Chunk {
+fn hash_nodes(a: &[u8], b: &[u8]) -> Vec<u8> {
     let mut hasher = Sha256::new();
     hasher.update(a);
     hasher.update(b);
     hasher.finalize().to_vec()
 }
 
-fn merkleize_chunks(chunks: &[Chunk], leaf_count: usize) -> Result<Root, MerkleizationError> {
-    // NOTE: naive implementation, can make much more efficient
-    // NOTE: invariants to this function:
+// Return the root of the Merklization of a binary tree
+// formed from `chunks` when `chunks.len() / BYTES_PER_CHUNK > 1`.
+// Invariant: `chunks.len() % BYTES_PER_CHUNK == 0`
+// Invariant: `leaf_count.next_power_of_two() == leaf_count`
+// NOTE: naive implementation, can make much more efficient
+fn merkleize_chunks(chunks: &[u8], leaf_count: usize) -> Result<Root, MerkleizationError> {
     debug_assert!(leaf_count.next_power_of_two() == leaf_count);
-    debug_assert!(leaf_count >= 2);
 
     let node_count = 2 * leaf_count - 1;
     let interior_count = node_count - leaf_count;
@@ -74,7 +69,7 @@ fn merkleize_chunks(chunks: &[Chunk], leaf_count: usize) -> Result<Root, Merklei
 
     let mut buffer = vec![0u8; node_count * BYTES_PER_CHUNK];
     debug_assert!(node_count * BYTES_PER_CHUNK == buffer.len());
-    for (i, chunk) in chunks.iter().enumerate() {
+    for (i, chunk) in chunks.chunks_exact(BYTES_PER_CHUNK).enumerate() {
         let start = leaf_start + (i * BYTES_PER_CHUNK);
         let end = leaf_start + (i + 1) * BYTES_PER_CHUNK;
         buffer[start..end].copy_from_slice(chunk);
@@ -100,8 +95,15 @@ fn merkleize_chunks(chunks: &[Chunk], leaf_count: usize) -> Result<Root, Merklei
         .expect("can produce a single root chunk"))
 }
 
-pub fn merkleize(chunks: &[Chunk], limit: Option<usize>) -> Result<Root, MerkleizationError> {
-    let chunk_count = chunks.len();
+// Return the root of the Merklization of a binary tree
+// formed from `chunks`.
+// Invariant: `chunks.len() % BYTES_PER_CHUNK == 0`
+pub fn merkleize(chunks: &[u8], limit: Option<usize>) -> Result<Root, MerkleizationError> {
+    debug_assert!(chunks.len() % BYTES_PER_CHUNK == 0);
+    if chunks.is_empty() {
+        return Ok(Root::default());
+    }
+    let chunk_count = chunks.len() / BYTES_PER_CHUNK;
     let mut leaf_count = chunk_count.next_power_of_two();
     if let Some(limit) = limit {
         if limit < chunk_count {
@@ -109,16 +111,7 @@ pub fn merkleize(chunks: &[Chunk], limit: Option<usize>) -> Result<Root, Merklei
         }
         leaf_count = limit.next_power_of_two();
     }
-    match chunk_count {
-        0 => Ok(Default::default()),
-        1 => chunks[0]
-            .clone()
-            .try_into()
-            .map_err(|partial_chunk: Vec<u8>| {
-                MerkleizationError::PartialChunk(partial_chunk.clone(), partial_chunk.len())
-            }),
-        _ => merkleize_chunks(chunks, leaf_count),
-    }
+    merkleize_chunks(chunks, leaf_count)
 }
 
 pub(crate) fn mix_in_length(root: &Root, length: usize) -> Root {
@@ -155,8 +148,8 @@ mod tests {
         expected[0] = 1u8;
         let input = &[b];
         let result = pack(input).expect("can pack values");
-        assert!(result.len() == 1);
-        assert_eq!(result[0], expected);
+        assert!(result.len() == BYTES_PER_CHUNK);
+        assert_eq!(result, expected);
     }
 
     #[test]
@@ -168,7 +161,7 @@ mod tests {
         let mut expected = vec![0u8; BYTES_PER_CHUNK];
         expected[0] = 1u8;
         expected[3] = 1u8;
-        assert_eq!(result[0], expected);
+        assert_eq!(result, expected);
     }
 
     #[test]
@@ -177,7 +170,7 @@ mod tests {
         let input = &[data.clone(), data.clone(), data.clone()];
         let result = pack(input).expect("can pack values");
 
-        let expected = vec![[1u8; 32]; 3];
+        let expected = vec![1u8; 3 * 32];
         assert_eq!(result, expected);
     }
 
@@ -198,36 +191,36 @@ mod tests {
 
     #[test]
     fn test_merkleize_chunks() {
-        let chunks = &[ZERO_CHUNK.to_vec(), ZERO_CHUNK.to_vec()];
-        let root = merkleize_chunks(chunks, chunks.len()).expect("can merkleize");
+        let chunks = vec![0u8; 2 * BYTES_PER_CHUNK];
+        let root = merkleize_chunks(&chunks, 2).expect("can merkleize");
         assert_eq!(
             root,
             hex!("f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b")
         );
 
-        let chunks = &[[1u8; 32].to_vec(), [1u8; 32].to_vec()];
-        let root = merkleize_chunks(chunks, chunks.len()).expect("can merkleize");
+        let chunks = vec![1u8; 2 * BYTES_PER_CHUNK];
+        let root = merkleize_chunks(&chunks, 2).expect("can merkleize");
         assert_eq!(
             root,
             hex!("7c8975e1e60a5c8337f28edf8c33c3b180360b7279644a9bc1af3c51e6220bf5")
         );
 
-        let chunks = &[[0u8; 32].to_vec()];
-        let root = merkleize_chunks(chunks, 4).expect("can merkleize");
+        let chunks = vec![0u8; BYTES_PER_CHUNK];
+        let root = merkleize_chunks(&chunks, 4).expect("can merkleize");
         assert_eq!(
             root,
             hex!("db56114e00fdd4c1f85c892bf35ac9a89289aaecb1ebd0a96cde606a748b5d71")
         );
 
-        let chunks = &[[1u8; 32].to_vec()];
-        let root = merkleize_chunks(chunks, 4).expect("can merkleize");
+        let chunks = vec![1u8; BYTES_PER_CHUNK];
+        let root = merkleize_chunks(&chunks, 4).expect("can merkleize");
         assert_eq!(
             root,
             hex!("29797eded0e83376b70f2bf034cc0811ae7f1414653b1d720dfd18f74cf13309")
         );
 
-        let chunks = &[[2u8; 32].to_vec()];
-        let root = merkleize_chunks(chunks, 8).expect("can merkleize");
+        let chunks = vec![2u8; BYTES_PER_CHUNK];
+        let root = merkleize_chunks(&chunks, 8).expect("can merkleize");
         assert_eq!(
             root,
             hex!("fa4cf775712aa8a2fe5dcb5a517d19b2e9effcf58ff311b9fd8e4a7d308e6d00")
@@ -250,6 +243,7 @@ mod tests {
             d: Bitlist<27>,
             e: Bar,
             f: Bitvector<4>,
+            g: List<u16, 7>,
         }
 
         let mut foo = Foo {
@@ -263,12 +257,13 @@ mod tests {
             ]),
             e: Bar::B(List::from_iter([true, true, false, false, false, true])),
             f: Bitvector::from_iter([false, true, false, true]),
+            g: List::from_iter([1, 2]),
         };
 
         let root = foo.hash_tree_root().expect("can make root");
         assert_eq!(
             root,
-            hex!("c46234d121c855779cff24e67356fc69b94fb165d3a4611ebb64340c12301b99")
+            hex!("7078155bf8f0dc42d8afccec8d9b5aeb54f0a2e8e58fcef3e723f6a867232ce7")
         );
 
         let original_foo = foo.clone();
@@ -280,35 +275,23 @@ mod tests {
         let root = original_foo.hash_tree_root().expect("can make root");
         assert_eq!(
             root,
-            hex!("c46234d121c855779cff24e67356fc69b94fb165d3a4611ebb64340c12301b99")
+            hex!("7078155bf8f0dc42d8afccec8d9b5aeb54f0a2e8e58fcef3e723f6a867232ce7")
         );
 
         let root = foo.hash_tree_root().expect("can make root");
         assert_eq!(
             root,
-            hex!("9408e9fc300a11c11ee9e4515de14f19d5aee9e72e0a8a89da60b1e591f6b2e5")
+            hex!("0063bfcfabbca567483a2ee859fcfafb958329489eb328ac7f07790c7df1b231")
         );
 
-        let encoding = match serialize(&original_foo) {
-            Ok(encoding) => encoding,
-            Err(e) => {
-                eprintln!("some error encoding: {}", e);
-                return;
-            }
-        };
+        let encoding = serialize(&original_foo).expect("can serialize");
 
-        let mut restored_foo = match Foo::deserialize(&encoding) {
-            Ok(value) => value,
-            Err(e) => {
-                eprintln!("some error decoding: {}", e);
-                return;
-            }
-        };
+        let mut restored_foo = Foo::deserialize(&encoding).expect("can deserialize");
 
         let root = restored_foo.hash_tree_root().expect("can make root");
         assert_eq!(
             root,
-            hex!("c46234d121c855779cff24e67356fc69b94fb165d3a4611ebb64340c12301b99")
+            hex!("7078155bf8f0dc42d8afccec8d9b5aeb54f0a2e8e58fcef3e723f6a867232ce7")
         );
 
         restored_foo.b[2] = 44u32;
@@ -318,7 +301,7 @@ mod tests {
         let root = foo.hash_tree_root().expect("can make root");
         assert_eq!(
             root,
-            hex!("9408e9fc300a11c11ee9e4515de14f19d5aee9e72e0a8a89da60b1e591f6b2e5")
+            hex!("0063bfcfabbca567483a2ee859fcfafb958329489eb328ac7f07790c7df1b231")
         );
     }
 }

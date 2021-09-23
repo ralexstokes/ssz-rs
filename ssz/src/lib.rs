@@ -14,7 +14,7 @@ pub use bitlist::Bitlist;
 pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};
 pub use list::List;
-pub use merkleization::Merkleized;
+pub use merkleization::{MerkleizationError, Merkleized, Root};
 pub use ser::{Serialize, SerializeError};
 pub use uint::U256;
 pub use vector::Vector;
@@ -63,23 +63,23 @@ where
 pub mod prelude {
     pub use crate::bitlist::Bitlist;
     pub use crate::bitvector::Bitvector;
-    pub use crate::de::{Deserialize, DeserializeError};
-    pub use crate::deserialize;
+    pub use crate::de::Deserialize;
+    pub use crate::de::DeserializeError;
     pub use crate::list::List;
     pub use crate::merkleization::{
-        merkleize, mix_in_selector, MerkleizationError, Merkleized, Root, BYTES_PER_CHUNK,
-        ZERO_CHUNK,
+        merkleize, mix_in_selector, MerkleizationError, Merkleized, Root,
     };
     pub use crate::ser::{Serialize, SerializeError};
-    pub use crate::serialize;
     pub use crate::uint::U256;
     pub use crate::vector::Vector;
     pub use crate::SimpleSerialize;
     pub use crate::Sized;
+    pub use crate::{deserialize, serialize};
     pub use ssz_derive::SimpleSerialize;
 }
 
 pub mod internal {
     // exported for derive macro to avoid code duplication...
+    pub use crate::merkleization::{merkleize, mix_in_selector};
     pub use crate::ser::serialize_composite_from_components;
 }

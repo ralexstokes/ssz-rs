@@ -39,7 +39,8 @@ An implementation of the `ssz` serialization scheme defined in the [eth2.0-specs
 
 ## Merkleization
 
-- [ ] TODO
+- [x] naive hash tree root
+- [ ] variant with virtualized padding hashes
 
 ## (multi)proofs
 

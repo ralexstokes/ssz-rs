@@ -6,6 +6,7 @@ use syn::{parse_macro_input, Data, DeriveInput, Fields, Ident};
 // NOTE: copied here from `ssz` crate as it is unlikely to change
 // and can keep it out of the crate's public interface.
 const BYTES_PER_LENGTH_OFFSET: usize = 4;
+const BYTES_PER_CHUNK: usize = 32;
 
 fn derive_container_set_by_index_impl(name: &Ident, data: &Data) -> TokenStream {
     match data {
@@ -376,22 +377,19 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
         Data::Struct(ref data) => match data.fields {
             Fields::Named(ref fields) => {
                 let field_count = fields.named.iter().len();
-                let impl_by_field = fields.named.iter().map(|f| {
+                let impl_by_field = fields.named.iter().enumerate().map(|(i, f)| {
                     let field_name = &f.ident;
                     quote_spanned! { f.span() =>
                         let chunk = self.#field_name.hash_tree_root()?;
-                        chunks.push(chunk.to_vec());
+                        let range = #i*#BYTES_PER_CHUNK..(#i+1)*#BYTES_PER_CHUNK;
+                        chunks[range].copy_from_slice(&chunk);
                     }
                 });
                 quote! {
-                    fn chunk_count(&self) -> usize {
-                        #field_count
-                    }
-
-                    fn hash_tree_root(&self) -> Result<Root, MerkleizationError> {
-                        let mut chunks = Vec::with_capacity(self.chunk_count() * BYTES_PER_CHUNK);
+                    fn hash_tree_root(&self) -> Result<ssz::Root, ssz::MerkleizationError> {
+                        let mut chunks = vec![0u8; #field_count * #BYTES_PER_CHUNK];
                         #(#impl_by_field)*
-                        Ok(merkleize(&chunks, None)?)
+                        Ok(ssz::internal::merkleize(&chunks, None)?)
                     }
                 }
             }
@@ -406,14 +404,14 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                             Self::#variant_name(value) => {
                                 let selector = #i as u8 as usize;
                                 let data_root  = value.hash_tree_root()?;
-                                Ok(mix_in_selector(&data_root, selector))
+                                Ok(ssz::internal::mix_in_selector(&data_root, selector))
                             }
                         }
                     }
                     Fields::Unit => {
                         quote_spanned! { variant.span() =>
-                            Self::None => Ok(mix_in_selector(
-                                ZERO_CHUNK.try_into().expect("is valid chunk"),
+                            Self::None => Ok(ssz::internal::mix_in_selector(
+                                &ssz::Root::default(),
                                 0,
                             )),
                         }
@@ -422,13 +420,7 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                 }
             });
             quote! {
-                fn chunk_count(&self) -> usize {
-                    0
-                }
-
-                fn hash_tree_root(&self) -> Result<Root, MerkleizationError> {
-                    use std::convert::TryInto;
-
+                fn hash_tree_root(&self) -> Result<ssz::Root, ssz::MerkleizationError> {
                     match self {
                             #(#hash_tree_root_by_variant)*
                     }

@@ -1,5 +1,7 @@
 use crate::de::{Deserialize, DeserializeError};
-use crate::merkleization::{merkleize, pack_bytes, Chunk, MerkleizationError, Merkleized, Root};
+use crate::merkleization::{
+    merkleize, pack_bytes, MerkleizationError, Merkleized, Root, BYTES_PER_CHUNK,
+};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 use bitvec::field::BitField;
@@ -61,10 +63,11 @@ impl<const N: usize> Bitvector<N> {
         })
     }
 
-    fn pack_bits(&self) -> Result<Vec<Chunk>, MerkleizationError> {
+    fn pack_bits(&self) -> Result<Vec<u8>, MerkleizationError> {
         let mut data = vec![];
         let _ = self.serialize(&mut data)?;
-        Ok(pack_bytes(data))
+        pack_bytes(&mut data);
+        Ok(data)
     }
 }
 
@@ -121,13 +124,9 @@ impl<const N: usize> Deserialize for Bitvector<N> {
 }
 
 impl<const N: usize> Merkleized for Bitvector<N> {
-    fn chunk_count(&self) -> usize {
-        (N + 255) / 256
-    }
-
     fn hash_tree_root(&self) -> Result<Root, MerkleizationError> {
         let chunks = self.pack_bits()?;
-        merkleize(&chunks, Some(self.chunk_count()))
+        merkleize(&chunks, Some(chunks.len() / BYTES_PER_CHUNK))
     }
 }
 
