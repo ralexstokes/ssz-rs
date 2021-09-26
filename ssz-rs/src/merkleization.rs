@@ -125,7 +125,7 @@ fn merkleize_chunks_with_virtual_padding(
                     let children_index = focus.len() - 2 * BYTES_PER_CHUNK;
                     let (parent, children) = focus.split_at_mut(children_index);
                     let (left, right) = children.split_at_mut(BYTES_PER_CHUNK);
-                    if parent.len() == 0 {
+                    if parent.is_empty() {
                         // NOTE: have to specially handle the situation where the children nodes and parent node share memory
                         hasher.update(&left);
                         hasher.update(right);
@@ -142,7 +142,7 @@ fn merkleize_chunks_with_virtual_padding(
                     let (left, _) = children.split_at_mut(BYTES_PER_CHUNK);
                     let depth = height - k - 1;
                     let right = &context[depth as usize];
-                    if parent.len() == 0 {
+                    if parent.is_empty() {
                         // NOTE: have to specially handle the situation where the children nodes and parent node share memory
                         hasher.update(&left);
                         hasher.update(right);
