@@ -1,5 +1,7 @@
 use crate::de::{Deserialize, DeserializeError};
-use crate::merkleization::{mix_in_selector, MerkleizationError, Merkleized, Root, ZERO_CHUNK};
+use crate::merkleization::{
+    mix_in_selector, Context, MerkleizationError, Merkleized, Root, ZERO_CHUNK,
+};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 use std::convert::TryInto;
@@ -57,9 +59,9 @@ impl<T> Merkleized for Option<T>
 where
     T: SimpleSerialize,
 {
-    fn hash_tree_root(&self) -> Result<Root, MerkleizationError> {
+    fn hash_tree_root(&self, context: &Context) -> Result<Root, MerkleizationError> {
         match self {
-            Some(value) => Ok(mix_in_selector(&value.hash_tree_root()?, 1)),
+            Some(value) => Ok(mix_in_selector(&value.hash_tree_root(context)?, 1)),
             None => Ok(mix_in_selector(
                 ZERO_CHUNK.try_into().expect("is valid chunk"),
                 0,

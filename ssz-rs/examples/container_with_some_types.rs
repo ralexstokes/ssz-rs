@@ -19,6 +19,7 @@ struct Foo {
 }
 
 fn main() {
+    let context = MerkleizationContext::new();
     let mut foo = Foo {
         a: 16u32,
         b: Vector::from_iter([3u32, 2u32, 1u32, 10u32]),
@@ -33,7 +34,7 @@ fn main() {
     };
 
     println!("{:?}", foo);
-    let root = foo.hash_tree_root().expect("can make root");
+    let root = foo.hash_tree_root(&context).expect("can make root");
     println!("{}", hex::encode(root));
 
     foo.b[2] = 44u32;
@@ -62,6 +63,8 @@ fn main() {
     };
 
     println!("{:#?}", restored_foo);
-    let root = restored_foo.hash_tree_root().expect("can make root");
+    let root = restored_foo
+        .hash_tree_root(&context)
+        .expect("can make root");
     println!("{}", hex::encode(root));
 }

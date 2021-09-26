@@ -1,6 +1,6 @@
 use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
 use crate::merkleization::{
-    merkleize, mix_in_length, pack, MerkleizationError, Merkleized, Root, BYTES_PER_CHUNK,
+    merkleize, mix_in_length, pack, Context, MerkleizationError, Merkleized, Root, BYTES_PER_CHUNK,
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
@@ -98,19 +98,19 @@ impl<T, const N: usize> Merkleized for List<T, N>
 where
     T: SimpleSerialize,
 {
-    fn hash_tree_root(&self) -> Result<Root, MerkleizationError> {
+    fn hash_tree_root(&self, context: &Context) -> Result<Root, MerkleizationError> {
         if T::is_composite_type() {
             let mut chunks = Vec::with_capacity(self.len() * BYTES_PER_CHUNK);
             for (i, elem) in self.iter().enumerate() {
-                let chunk = elem.hash_tree_root()?;
+                let chunk = elem.hash_tree_root(context)?;
                 let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
                 chunks[range].copy_from_slice(&chunk);
             }
-            let data_root = merkleize(&chunks, Some(N))?;
+            let data_root = merkleize(&chunks, Some(N), context)?;
             Ok(mix_in_length(&data_root, self.len()))
         } else {
             let chunks = pack(self)?;
-            let data_root = merkleize(&chunks, Some(chunks.len() / BYTES_PER_CHUNK))?;
+            let data_root = merkleize(&chunks, Some(chunks.len() / BYTES_PER_CHUNK), context)?;
             Ok(mix_in_length(&data_root, self.len()))
         }
     }

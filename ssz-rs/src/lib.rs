@@ -14,7 +14,7 @@ pub use bitlist::Bitlist;
 pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};
 pub use list::List;
-pub use merkleization::{MerkleizationError, Merkleized, Root};
+pub use merkleization::{Context as MerkleizationContext, MerkleizationError, Merkleized, Root};
 pub use ser::{Serialize, SerializeError};
 pub use uint::U256;
 pub use vector::Vector;
@@ -73,6 +73,7 @@ pub mod prelude {
     pub use crate::ser::{Serialize, SerializeError};
     pub use crate::uint::U256;
     pub use crate::vector::Vector;
+    pub use crate::MerkleizationContext;
     pub use crate::SimpleSerialize;
     pub use crate::Sized;
     pub use crate::{deserialize, serialize};
