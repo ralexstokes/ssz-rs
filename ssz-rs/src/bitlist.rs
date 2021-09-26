@@ -146,7 +146,7 @@ impl<const N: usize> Merkleized for Bitlist<N> {
     fn hash_tree_root(&self, context: &Context) -> Result<Root, MerkleizationError> {
         let chunks = self.pack_bits()?;
         let data_root = merkleize(&chunks, Some(chunks.len() / BYTES_PER_CHUNK), context)?;
-        Ok(mix_in_length(&data_root, self.len()))
+        Ok(mix_in_length(&data_root, self.len(), context))
     }
 }
 

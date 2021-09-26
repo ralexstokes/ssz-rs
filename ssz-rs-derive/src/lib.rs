@@ -407,7 +407,7 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                             Self::#variant_name(value) => {
                                 let selector = #i as u8 as usize;
                                 let data_root  = value.hash_tree_root(context)?;
-                                Ok(ssz_rs::internal::mix_in_selector(&data_root, selector))
+                                Ok(ssz_rs::internal::mix_in_selector(&data_root, selector, context))
                             }
                         }
                     }
@@ -416,6 +416,7 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                             Self::None => Ok(ssz_rs::internal::mix_in_selector(
                                 &ssz_rs::Root::default(),
                                 0,
+                                context,
                             )),
                         }
                     }

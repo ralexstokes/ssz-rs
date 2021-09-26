@@ -47,23 +47,22 @@ where
     Ok(buffer)
 }
 
-fn hash_nodes(a: &[u8], b: &[u8]) -> Vec<u8> {
-    let mut hasher = Sha256::new();
+fn hash_nodes(hasher: &mut Sha256, a: &[u8], b: &[u8], out: &mut [u8]) {
     hasher.update(a);
     hasher.update(b);
-    hasher.finalize().to_vec()
+    out.copy_from_slice(&hasher.finalize_reset());
 }
 
 const MAX_MERKLE_TREE_DEPTH: usize = 64;
 
 fn compute_zero_hashes() -> [u8; MAX_MERKLE_TREE_DEPTH * BYTES_PER_CHUNK] {
+    let mut hasher = Sha256::new();
     let mut buffer = [0u8; MAX_MERKLE_TREE_DEPTH * BYTES_PER_CHUNK];
     for i in 0..MAX_MERKLE_TREE_DEPTH - 1 {
-        let source = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
-        let target = (i + 1) * BYTES_PER_CHUNK..(i + 2) * BYTES_PER_CHUNK;
-        let source = &buffer[source];
-        let parent = hash_nodes(source, source);
-        buffer[target].copy_from_slice(&parent);
+        let focus_range = i * BYTES_PER_CHUNK..(i + 2) * BYTES_PER_CHUNK;
+        let focus = &mut buffer[focus_range];
+        let (source, target) = focus.split_at_mut(BYTES_PER_CHUNK);
+        hash_nodes(&mut hasher, source, source, target);
     }
     buffer
 }
@@ -109,6 +108,7 @@ fn merkleize_chunks_with_virtual_padding(
 ) -> Result<Root, MerkleizationError> {
     let chunk_count = chunks.len() / BYTES_PER_CHUNK;
 
+    let mut hasher = Sha256::new();
     debug_assert!(chunks.len() % BYTES_PER_CHUNK == 0);
     debug_assert!(leaf_count.next_power_of_two() == leaf_count);
 
@@ -117,29 +117,47 @@ fn merkleize_chunks_with_virtual_padding(
     let mut last_index = chunk_count - 1;
     for k in (1..height).rev() {
         for i in (0..2usize.pow(k)).step_by(2) {
-            let (left, right) = match i.cmp(&last_index) {
+            let parent_index = i / 2;
+            match i.cmp(&last_index) {
                 Ordering::Less => {
-                    let left_range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
-                    let right_range = (i + 1) * BYTES_PER_CHUNK..(i + 2) * BYTES_PER_CHUNK;
-                    (&layer[left_range], &layer[right_range])
+                    let focus =
+                        &mut layer[parent_index * BYTES_PER_CHUNK..(i + 2) * BYTES_PER_CHUNK];
+                    let children_index = focus.len() - 2 * BYTES_PER_CHUNK;
+                    let (parent, children) = focus.split_at_mut(children_index);
+                    let (left, right) = children.split_at_mut(BYTES_PER_CHUNK);
+                    if parent.len() == 0 {
+                        // NOTE: have to specially handle the situation where the children nodes and parent node share memory
+                        hasher.update(&left);
+                        hasher.update(right);
+                        left.copy_from_slice(&hasher.finalize_reset());
+                    } else {
+                        hash_nodes(&mut hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
+                    }
                 }
                 Ordering::Equal => {
-                    let left_range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
+                    let focus =
+                        &mut layer[parent_index * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK];
+                    let children_index = focus.len() - BYTES_PER_CHUNK;
+                    let (parent, children) = focus.split_at_mut(children_index);
+                    let (left, _) = children.split_at_mut(BYTES_PER_CHUNK);
                     let depth = height - k - 1;
                     let right = &context[depth as usize];
-                    (&layer[left_range], right)
+                    if parent.len() == 0 {
+                        // NOTE: have to specially handle the situation where the children nodes and parent node share memory
+                        hasher.update(&left);
+                        hasher.update(right);
+                        left.copy_from_slice(&hasher.finalize_reset());
+                    } else {
+                        hash_nodes(&mut hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
+                    }
                 }
                 _ => break,
             };
-            let parent = hash_nodes(left, right);
-            let parent_index = i / 2;
-            layer[parent_index * BYTES_PER_CHUNK..(parent_index + 1) * BYTES_PER_CHUNK]
-                .copy_from_slice(&parent);
         }
         last_index /= 2;
     }
 
-    Ok(layer[0..BYTES_PER_CHUNK]
+    Ok(layer[..BYTES_PER_CHUNK]
         .try_into()
         .expect("can produce a single root chunk"))
 }
@@ -167,22 +185,23 @@ pub fn merkleize(
     merkleize_chunks_with_virtual_padding(chunks, leaf_count, context)
 }
 
-pub(crate) fn mix_in_length(root: &Root, length: usize) -> Root {
-    let mut length_bytes = vec![0; BYTES_PER_CHUNK];
-    let length_data = &length.to_le_bytes();
-    length_bytes[0..length_data.len()].copy_from_slice(length_data);
-    hash_nodes(root, &length_bytes)
-        .try_into()
-        .expect("can convert to root")
+fn mix_in_decoration(root: &Root, decoration: usize, context: &Context) -> Root {
+    let decoration_data = decoration
+        .hash_tree_root(context)
+        .expect("can merkleize usize");
+
+    let mut hasher = Sha256::new();
+    let mut output = vec![0u8; BYTES_PER_CHUNK];
+    hash_nodes(&mut hasher, root, &decoration_data, &mut output);
+    output.try_into().expect("can extract root")
 }
 
-pub fn mix_in_selector(root: &Root, selector: usize) -> Root {
-    let mut selector_bytes = vec![0; BYTES_PER_CHUNK];
-    let selector_data = &selector.to_le_bytes();
-    selector_bytes[0..selector_data.len()].copy_from_slice(selector_data);
-    hash_nodes(root, &selector_bytes)
-        .try_into()
-        .expect("can convert to root")
+pub(crate) fn mix_in_length(root: &Root, length: usize, context: &Context) -> Root {
+    mix_in_decoration(root, length, context)
+}
+
+pub fn mix_in_selector(root: &Root, selector: usize, context: &Context) -> Root {
+    mix_in_decoration(root, selector, context)
 }
 
 #[cfg(test)]
@@ -256,6 +275,7 @@ mod tests {
         let interior_count = node_count - leaf_count;
         let leaf_start = interior_count * BYTES_PER_CHUNK;
 
+        let mut hasher = Sha256::new();
         let mut buffer = vec![0u8; node_count * BYTES_PER_CHUNK];
         buffer[leaf_start..leaf_start + chunks.len()].copy_from_slice(chunks);
         for i in chunks.len()..leaf_count {
@@ -265,14 +285,13 @@ mod tests {
         }
 
         for i in (1..node_count).rev().step_by(2) {
-            let left_range = (i - 1) * BYTES_PER_CHUNK..(i) * BYTES_PER_CHUNK;
-            let right_range = (i) * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
-            let left = &buffer[left_range];
-            let right = &buffer[right_range];
-            let parent = hash_nodes(left, right);
             let parent_index = (i - 1) / 2;
-            buffer[parent_index * BYTES_PER_CHUNK..(parent_index + 1) * BYTES_PER_CHUNK]
-                .copy_from_slice(&parent);
+            let focus = &mut buffer[parent_index * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK];
+            let children_index = focus.len() - 2 * BYTES_PER_CHUNK;
+            let (parent, children) = focus.split_at_mut(children_index);
+            let left = &children[0..BYTES_PER_CHUNK];
+            let right = &children[BYTES_PER_CHUNK..2 * BYTES_PER_CHUNK];
+            hash_nodes(&mut hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
         }
         Ok(buffer[0..BYTES_PER_CHUNK]
             .try_into()

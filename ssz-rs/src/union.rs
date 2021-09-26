@@ -61,10 +61,11 @@ where
 {
     fn hash_tree_root(&self, context: &Context) -> Result<Root, MerkleizationError> {
         match self {
-            Some(value) => Ok(mix_in_selector(&value.hash_tree_root(context)?, 1)),
+            Some(value) => Ok(mix_in_selector(&value.hash_tree_root(context)?, 1, context)),
             None => Ok(mix_in_selector(
                 ZERO_CHUNK.try_into().expect("is valid chunk"),
                 0,
+                context,
             )),
         }
     }
