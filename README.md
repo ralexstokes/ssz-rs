@@ -37,7 +37,7 @@ An implementation of the `ssz` serialization scheme defined in the [consensus-sp
   - [ ] run against conformance tests
   - [ ] other spec conformance? (invariants, etc)
 
-## Merkleization
+## merkleization
 
 - [x] naive hash tree root
 - [x] variant with virtualized padding hashes
