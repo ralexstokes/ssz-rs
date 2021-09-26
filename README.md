@@ -1,6 +1,6 @@
 # ssz_rs ✂️
 
-An implementation of the `ssz` serialization scheme defined in the [eth2.0-specs repo](https://github.com/ethereum/eth2.0-specs).
+An implementation of the `ssz` serialization scheme defined in the [consensus-specs repo](https://github.com/ethereum/consensus-specs).
 
 # Features
 
