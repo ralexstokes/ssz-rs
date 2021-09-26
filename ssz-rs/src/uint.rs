@@ -60,6 +60,7 @@ define_uint!(u16);
 define_uint!(u32);
 define_uint!(u64);
 define_uint!(u128);
+define_uint!(usize);
 
 #[repr(transparent)]
 #[derive(Default, Debug, PartialEq, Eq, Clone)]
