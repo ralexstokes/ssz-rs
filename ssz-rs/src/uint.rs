@@ -1,5 +1,5 @@
 use crate::de::{Deserialize, DeserializeError};
-use crate::merkleization::{Context, MerkleizationError, Merkleized, Root, BYTES_PER_CHUNK};
+use crate::merkleization::{pack_bytes, Context, MerkleizationError, Merkleized, Root};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 use std::convert::TryInto;
@@ -40,10 +40,9 @@ macro_rules! define_uint {
 
         impl Merkleized for $uint {
             fn hash_tree_root(&self, _context: &Context) -> Result<Root, MerkleizationError> {
-                let mut data = vec![];
-                let _ = self.serialize(&mut data)?;
-                let mut root = vec![0; BYTES_PER_CHUNK];
-                root[0..data.len()].copy_from_slice(&data);
+                let mut root = vec![];
+                let _ = self.serialize(&mut root)?;
+                pack_bytes(&mut root);
                 Ok(root.try_into().expect("is valid root"))
             }
         }
