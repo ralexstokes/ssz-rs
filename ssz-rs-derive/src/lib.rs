@@ -42,39 +42,6 @@ fn derive_container_set_by_index_impl(name: &Ident, data: &Data) -> TokenStream 
     }
 }
 
-fn derive_union_default_impl(name: &Ident, data: &Data) -> TokenStream {
-    match data {
-        Data::Struct(..) => quote! {},
-        Data::Enum(ref data) => {
-            let variant = &data.variants[0];
-            let variant_name = &variant.ident;
-            let default_impl = match &variant.fields {
-                Fields::Unnamed(inner) => {
-                    let variant_type = &inner.unnamed[0];
-                    quote_spanned! { variant.span() =>
-                        Self::#variant_name(<#variant_type>::default())
-                    }
-                }
-                Fields::Unit => {
-                    quote_spanned! { variant.span() =>
-                        Self::None
-                    }
-                }
-                _ => unreachable!(),
-            };
-
-            quote! {
-                impl std::default::Default for #name {
-                    fn default() -> Self {
-                        #default_impl
-                    }
-                }
-            }
-        }
-        Data::Union(..) => unreachable!(),
-    }
-}
-
 fn derive_serialize_impl(data: &Data) -> TokenStream {
     match data {
         Data::Struct(ref data) => match data.fields {
@@ -456,7 +423,6 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     };
 
     let set_by_index_impl = derive_container_set_by_index_impl(name, data);
-    let union_default_impl = derive_union_default_impl(name, data);
     let serialize_impl = derive_serialize_impl(data);
     let deserialize_impl = derive_deserialize_impl(data);
     let is_variable_size_impl = derive_variable_size_impl(data);
@@ -464,8 +430,6 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let merkleization_impl = derive_merkleization_impl(data);
 
     let expansion = quote! {
-        #union_default_impl
-
         #set_by_index_impl
 
         impl ssz_rs::Serialize for #name {

@@ -8,6 +8,12 @@ enum Bar {
     B(List<bool, 32>),
 }
 
+impl Default for Bar {
+    fn default() -> Self {
+        Self::A(Default::default())
+    }
+}
+
 #[derive(PartialEq, Eq, Debug, Default, SimpleSerialize)]
 struct Foo {
     a: u32,

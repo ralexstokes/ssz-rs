@@ -85,6 +85,12 @@ mod tests {
         B(u8),
     }
 
+    impl Default for AnotherOption {
+        fn default() -> Self {
+            Self::None
+        }
+    }
+
     #[derive(Debug, Default, PartialEq, Eq, SimpleSerialize)]
     struct Inner {
         data: List<u8, 8>,
@@ -96,10 +102,22 @@ mod tests {
         B(u8),
     }
 
+    impl Default for Foo {
+        fn default() -> Self {
+            Self::A(Default::default())
+        }
+    }
+
     #[derive(Debug, PartialEq, Eq, SimpleSerialize)]
     enum Bar {
         A(u32),
         B(Vector<u8, 4>),
+    }
+
+    impl Default for Bar {
+        fn default() -> Self {
+            Self::A(Default::default())
+        }
     }
 
     #[derive(Debug, PartialEq, Eq, SimpleSerialize)]
@@ -109,12 +127,24 @@ mod tests {
         C(List<u8, 12>),
     }
 
+    impl Default for Baz {
+        fn default() -> Self {
+            Self::A(Default::default())
+        }
+    }
+
     #[derive(Debug, PartialEq, Eq, SimpleSerialize)]
     enum Boo {
         A(u32),
         B(Inner),
         C(List<u8, 12>),
         D(Vector<u8, 2>),
+    }
+
+    impl Default for Boo {
+        fn default() -> Self {
+            Self::A(Default::default())
+        }
     }
 
     #[test]

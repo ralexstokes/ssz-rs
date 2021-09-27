@@ -93,7 +93,7 @@ where
     }
 }
 
-impl<T, const N: usize> SimpleSerialize for Vector<T, N> where T: SimpleSerialize {}
+impl<T, const N: usize> SimpleSerialize for Vector<T, N> where T: SimpleSerialize + Copy {}
 
 impl<T, const N: usize> Merkleized for Vector<T, N>
 where
