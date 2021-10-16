@@ -18,7 +18,6 @@ fn serialize<T: SimpleSerialize>(value: &T) -> Vec<u8> {
     ssz_rs::serialize(value).expect("can serialize")
 }
 
-// NOTE: pass in `_dummy` to help with type inference
 fn deserialize<T: SimpleSerialize>(encoding: &[u8]) -> T {
     ssz_rs::deserialize(encoding).expect("can deserialize")
 }
@@ -28,7 +27,7 @@ fn hash_tree_root<T: SimpleSerialize>(value: &T) -> Root {
     value.hash_tree_root(&context).expect("can compute root")
 }
 
-// Return SSZ-encoded bytes from test file
+// Return SSZ-encoded bytes from test file at `target_path`
 fn read_ssz_snappy_from_test_data(target_path: &str) -> Vec<u8> {
     let project_root = match project_root::get_project_root() {
         Ok(p) => p,
