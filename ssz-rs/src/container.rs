@@ -111,7 +111,7 @@ mod tests {
     #[test]
     fn decode_container() {
         let data = vec![5u8, 0u8, 0u8, 0u8, 1u8, 9u8, 0u8, 0u8, 0u8, 1u8, 0u8];
-        let result = SomeContainer::deserialize(&data).expect("can deserialize");
+        let (result, _) = SomeContainer::deserialize(&data).expect("can deserialize");
         let value = SomeContainer {
             a: 5u32,
             b: true,
@@ -131,7 +131,7 @@ mod tests {
         };
         let mut buffer = vec![];
         let _ = value.serialize(&mut buffer).expect("can serialize");
-        let recovered = AnotherContainer::deserialize(&buffer).expect("can decode");
+        let (recovered, _) = AnotherContainer::deserialize(&buffer).expect("can decode");
         assert_eq!(value, recovered);
 
         let value = YetAnotherContainer {
@@ -144,7 +144,7 @@ mod tests {
         };
         let mut buffer = vec![];
         let _ = value.serialize(&mut buffer).expect("can serialize");
-        let recovered = YetAnotherContainer::deserialize(&buffer).expect("can decode");
+        let (recovered, _) = YetAnotherContainer::deserialize(&buffer).expect("can decode");
         assert_eq!(value, recovered);
     }
 }

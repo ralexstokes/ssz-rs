@@ -22,14 +22,14 @@ impl Serialize for bool {
 }
 
 impl Deserialize for bool {
-    fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
+    fn deserialize(encoding: &[u8]) -> Result<(Self, &[u8]), DeserializeError> {
         if encoding.is_empty() {
             return Err(DeserializeError::InputTooShort);
         }
 
         match encoding[0] {
-            0u8 => Ok(false),
-            1u8 => Ok(true),
+            0u8 => Ok((false, &encoding[1..])),
+            1u8 => Ok((true, &encoding[1..])),
             _ => Err(DeserializeError::InvalidInput),
         }
     }
@@ -71,7 +71,7 @@ mod tests {
     fn decode_boolean() {
         let tests = vec![([0u8], false), ([1u8], true)];
         for (bytes, expected) in tests {
-            let result = bool::deserialize(&bytes).expect("can encode");
+            let (result, _) = bool::deserialize(&bytes).expect("can encode");
             assert_eq!(result, expected);
         }
     }

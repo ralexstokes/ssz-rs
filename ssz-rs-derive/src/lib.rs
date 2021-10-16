@@ -19,7 +19,10 @@ fn derive_container_set_by_index_impl(name: &Ident, data: &Data) -> TokenStream 
                     let field_name = &f.ident;
                     let field_type = &f.ty;
                     quote_spanned! { f.span() =>
-                        #i => { self.#field_name = <#field_type>::deserialize(encoding)?; },
+                                     #i => {
+                                         let (result, _) = <#field_type>::deserialize(encoding)?;
+                                         self.#field_name = result;
+                                     },
                     }
                 });
 
@@ -130,14 +133,14 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                     quote_spanned! { f.span() =>
                         let bytes_read = if <#field_type>::is_variable_size() {
                             let end = start + #BYTES_PER_LENGTH_OFFSET;
-                            let next_offset = u32::deserialize(&encoding[start..end])?;
+                            let (next_offset, _) = u32::deserialize(&encoding[start..end])?;
                             offsets.push((#i, next_offset as usize));
 
                             #BYTES_PER_LENGTH_OFFSET
                         } else {
                             let encoded_length = <#field_type>::size_hint();
                             let end = start + encoded_length;
-                            let result = <#field_type>::deserialize(&encoding[start..end])?;
+                            let (result, _) = <#field_type>::deserialize(&encoding[start..end])?;
                             container.#field_name = result;
                             encoded_length
                         };
@@ -146,7 +149,7 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                 });
 
                 quote! {
-                    fn deserialize(encoding: &[u8]) -> Result<Self, ssz_rs::DeserializeError> {
+                    fn deserialize(encoding: &[u8]) -> Result<(Self, &[u8]), ssz_rs::DeserializeError> {
                         let mut start = 0;
                         let mut offsets = vec![];
                         let mut container = Self::default();
@@ -164,14 +167,16 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                         let dummy_index = 0;
                         offsets.push((dummy_index, encoding.len()));
 
+                        let mut end_of_encoding = 0;
                         for span in offsets.windows(2) {
                             let (index, start) = span[0];
                             let (_, end) = span[1];
 
                             container.__ssz_rs_set_by_index(index, &encoding[start..end])?;
+                            end_of_encoding = end;
                         }
 
-                        Ok(container)
+                        Ok((container, &encoding[end_of_encoding..]))
                     }
                 }
             }
@@ -186,14 +191,14 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                             let variant_type = &inner.unnamed[0];
                             quote_spanned! { variant.span() =>
                                 #i => {
-                                    let value = <#variant_type>::deserialize(&encoding[1..])?;
-                                    Ok(Self::#variant_name(value))
+                                    let (value, encoding) = <#variant_type>::deserialize(&encoding[1..])?;
+                                    Ok((Self::#variant_name(value), encoding))
                                 }
                             }
                         }
                         Fields::Unit => {
                             quote_spanned! { variant.span() =>
-                                0 => Ok(Self::None),
+                                0 => Ok((Self::None, &encoding[1..])),
                             }
                         }
                         _ => unreachable!(),
@@ -201,7 +206,7 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                 });
 
             quote! {
-                fn deserialize(encoding: &[u8]) -> Result<Self, ssz_rs::DeserializeError> {
+                fn deserialize(encoding: &[u8]) -> Result<(Self, &[u8]), ssz_rs::DeserializeError> {
                     if encoding.is_empty() {
                         return Err(ssz_rs::DeserializeError::InputTooShort);
                     }

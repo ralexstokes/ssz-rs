@@ -51,11 +51,17 @@ where
 /// `deserialize` is a convenience function for taking an encoding
 /// for some value that implements `SimpleSerialize` in a `&[u8]`
 /// and attempting to deserialize that value from the byte representation.
+/// NOTE: this function assumes the complete input is provided as the `encoding`
+/// and, importantly, returns an error if there is extraneous input.
 pub fn deserialize<T>(encoding: &[u8]) -> Result<T, DeserializeError>
 where
     T: SimpleSerialize,
 {
-    T::deserialize(encoding)
+    let (result, remainder) = T::deserialize(encoding)?;
+    if !remainder.is_empty() {
+        return Err(DeserializeError::ExtraInput);
+    }
+    Ok(result)
 }
 
 /// The `prelude` contains common traits and types a user of this library

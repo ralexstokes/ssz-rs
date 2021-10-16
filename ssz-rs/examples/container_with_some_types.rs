@@ -61,7 +61,7 @@ fn main() {
     };
 
     let restored_foo = match Foo::deserialize(&encoding) {
-        Ok(value) => value,
+        Ok((value, _)) => value,
         Err(e) => {
             eprintln!("some error decoding: {}", e);
             return;

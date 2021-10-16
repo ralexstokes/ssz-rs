@@ -110,7 +110,7 @@ impl<const N: usize> Serialize for Bitvector<N> {
 }
 
 impl<const N: usize> Deserialize for Bitvector<N> {
-    fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
+    fn deserialize(encoding: &[u8]) -> Result<(Self, &[u8]), DeserializeError> {
         if N == 0 {
             return Err(DeserializeError::IllegalType { bound: N });
         }
@@ -119,7 +119,7 @@ impl<const N: usize> Deserialize for Bitvector<N> {
         for (slot, byte) in result.chunks_mut(8).zip(encoding.iter().copied()) {
             slot.store_le(byte);
         }
-        Ok(result)
+        Ok((result, &encoding[Self::size_hint()..]))
     }
 }
 
@@ -181,12 +181,12 @@ mod tests {
     #[test]
     fn decode_bitvector() {
         let bytes = vec![12u8];
-        let result = Bitvector::<4>::deserialize(&bytes).expect("test data is correct");
+        let (result, _) = Bitvector::<4>::deserialize(&bytes).expect("test data is correct");
         let expected = Bitvector::from_iter(vec![false, false, true, true]);
         assert_eq!(result, expected);
 
         let bytes = vec![24u8, 1u8];
-        let result = Bitvector::<COUNT>::deserialize(&bytes).expect("test data is correct");
+        let (result, _) = Bitvector::<COUNT>::deserialize(&bytes).expect("test data is correct");
         let expected = Bitvector::from_iter(vec![
             false, false, false, true, true, false, false, false, true, false, false, false,
         ]);
@@ -200,7 +200,7 @@ mod tests {
         ]);
         let mut buffer = vec![];
         let _ = input.serialize(&mut buffer).expect("can serialize");
-        let recovered = Bitvector::<COUNT>::deserialize(&buffer).expect("can decode");
+        let (recovered, _) = Bitvector::<COUNT>::deserialize(&buffer).expect("can decode");
         assert_eq!(input, recovered);
     }
 }

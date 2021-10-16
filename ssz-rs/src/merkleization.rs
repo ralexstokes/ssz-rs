@@ -462,7 +462,7 @@ mod tests {
 
         let encoding = serialize(&original_foo).expect("can serialize");
 
-        let mut restored_foo = Foo::deserialize(&encoding).expect("can deserialize");
+        let (mut restored_foo, _) = Foo::deserialize(&encoding).expect("can deserialize");
 
         let root = restored_foo
             .hash_tree_root(&context)
