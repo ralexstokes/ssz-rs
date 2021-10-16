@@ -29,10 +29,7 @@ fn hash_tree_root<T: SimpleSerialize>(value: &T) -> Root {
 
 // Return SSZ-encoded bytes from test file at `target_path`
 fn read_ssz_snappy_from_test_data(target_path: &str) -> Vec<u8> {
-    let project_root = match project_root::get_project_root() {
-        Ok(p) => p,
-        Err(e) => panic!("{}", e),
-    };
+    let project_root = project_root::get_project_root().unwrap();
     let target_path = PathBuf::from(target_path);
     let data_path = project_root.join(&target_path);
     let mut file = File::open(&data_path).expect("can read file");
