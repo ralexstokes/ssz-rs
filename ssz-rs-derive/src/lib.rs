@@ -158,6 +158,7 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
 
                         if let Some((_, offset)) = offsets.first() {
                             // NOTE: this invariant should always hold
+                            // because empty containers are illegal
                             // and also quiets a warning about the last write
                             // to `start` not being used otherwise...
                             assert_eq!(start, *offset);
