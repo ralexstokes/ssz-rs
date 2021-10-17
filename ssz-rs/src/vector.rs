@@ -124,20 +124,20 @@ where
 
 impl<T, const N: usize> FromIterator<T> for Vector<T, N>
 where
-    T: SimpleSerialize + Default + Copy,
+    T: SimpleSerialize + Default + Clone,
 {
     fn from_iter<I>(iter: I) -> Self
     where
         I: IntoIterator<Item = T>,
     {
-        let mut inner = [T::default()].repeat(N);
-        for (i, elem) in iter.into_iter().enumerate().take(N) {
-            inner[i] = elem;
-        }
-        match inner.try_into() {
-            Ok(inner) => Self(inner),
-            Err(_) => unreachable!(),
-        }
+        let inner = iter.into_iter().take(N).collect::<Vec<_>>();
+        let inner = inner.try_into().unwrap_or_else(|_| {
+            // NOTE: using the error from `try_into` demands that `T` also implement
+            // `fmt::Debug` which bubbles up into all instances of `Vector`.
+            // Just ignore the error with a simple panic for now...
+            panic!("could not construct inner array type from default vector")
+        });
+        Self(inner)
     }
 }
 
