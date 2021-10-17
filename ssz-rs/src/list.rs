@@ -110,7 +110,8 @@ where
             Ok(mix_in_length(&data_root, self.len(), context))
         } else {
             let chunks = pack(self)?;
-            let data_root = merkleize(&chunks, Some(chunks.len() / BYTES_PER_CHUNK), context)?;
+            let chunk_count = (N * T::size_hint() + 31) / 32;
+            let data_root = merkleize(&chunks, Some(chunk_count), context)?;
             Ok(mix_in_length(&data_root, self.len(), context))
         }
     }
