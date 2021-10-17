@@ -156,6 +156,8 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
 
                         #(#deserialization_by_field)*
 
+                        let mut expected_end = start;
+
                         if let Some((_, offset)) = offsets.first() {
                             // NOTE: this invariant should always hold
                             // because empty containers are illegal
@@ -168,16 +170,15 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                         let dummy_index = 0;
                         offsets.push((dummy_index, encoding.len()));
 
-                        let mut end_of_encoding = 0;
                         for span in offsets.windows(2) {
                             let (index, start) = span[0];
                             let (_, end) = span[1];
 
                             container.__ssz_rs_set_by_index(index, &encoding[start..end])?;
-                            end_of_encoding = end;
+                            expected_end = end;
                         }
 
-                        Ok((container, &encoding[end_of_encoding..]))
+                        Ok((container, &encoding[expected_end..]))
                     }
                 }
             }
