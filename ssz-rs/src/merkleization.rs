@@ -113,6 +113,14 @@ fn merkleize_chunks_with_virtual_padding(
     debug_assert!(leaf_count.next_power_of_two() == leaf_count);
 
     let height = leaf_count.trailing_zeros() + 1;
+
+    if chunk_count == 0 {
+        let depth = height - 1;
+        return Ok(context[depth as usize]
+            .try_into()
+            .expect("can produce a single root chunk"));
+    }
+
     let mut layer = chunks.to_vec();
     let mut last_index = chunk_count - 1;
     for k in (1..height).rev() {
@@ -171,9 +179,6 @@ pub fn merkleize(
     context: &Context,
 ) -> Result<Root, MerkleizationError> {
     debug_assert!(chunks.len() % BYTES_PER_CHUNK == 0);
-    if chunks.is_empty() {
-        return Ok(Root::default());
-    }
     let chunk_count = chunks.len() / BYTES_PER_CHUNK;
     let mut leaf_count = chunk_count.next_power_of_two();
     if let Some(limit) = limit {
@@ -429,6 +434,17 @@ mod tests {
         assert_eq!(
             root,
             hex!("d20d2246e1438d88de46f6f41c7b041f92b673845e51f2de93b944bf599e63b1")
+        );
+    }
+
+    #[test]
+    fn test_hash_tree_root_of_empty_list() {
+        let context = MerkleizationContext::new();
+        let a_list = List::<u16, 1024>::from_iter([]);
+        let root = a_list.hash_tree_root(&context).expect("can compute root");
+        assert_eq!(
+            root,
+            hex!("c9eece3e14d3c3db45c38bbf69a4cb7464981e2506d8424a0ba450dad9b9af30")
         );
     }
 
