@@ -236,7 +236,7 @@ fn derive_variable_size_impl(data: &Data) -> TokenStream {
                 });
 
                 quote! {
-                    #(#impl_by_field)&& *
+                    #(#impl_by_field)|| *
                 }
             }
             _ => unreachable!(),
