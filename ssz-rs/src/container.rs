@@ -45,6 +45,13 @@ mod tests {
         f: List<u32, 32>,
     }
 
+    #[derive(Default, Debug, PartialEq, Eq, SimpleSerialize)]
+    struct VarTestStruct {
+        a: u16,
+        b: List<u16, 1024>,
+        c: u8,
+    }
+
     #[test]
     fn encode_container() {
         let value = Foo { a: 5u32 };
@@ -146,5 +153,19 @@ mod tests {
         let _ = value.serialize(&mut buffer).expect("can serialize");
         let recovered = YetAnotherContainer::deserialize(&buffer).expect("can decode");
         assert_eq!(value, recovered);
+    }
+
+    #[test]
+    #[should_panic]
+    fn decode_container_with_extra_input() {
+        let data = vec![5u8, 0u8, 7u8, 0u8, 0u8, 0u8, 5u8, 255u8];
+        let result = VarTestStruct::deserialize(&data).expect("can deserialize");
+        assert!(false);
+        let value = VarTestStruct {
+            a: 5,
+            b: List::from_iter([]),
+            c: 5,
+        };
+        assert_eq!(result, value);
     }
 }
