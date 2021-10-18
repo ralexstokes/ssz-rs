@@ -25,7 +25,7 @@ macro_rules! define_uint {
         }
 
         impl Deserialize for $uint {
-            fn deserialize(encoding: &[u8]) -> Result<(Self, &[u8]), DeserializeError> {
+            fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
                 let byte_size = (<$uint>::BITS / 8) as usize;
                 if encoding.len() < byte_size {
                     return Err(DeserializeError::InputTooShort);
@@ -37,7 +37,7 @@ macro_rules! define_uint {
                 let bytes = encoding[..byte_size]
                     .try_into()
                     .expect("slice has right length");
-                Ok((<$uint>::from_le_bytes(bytes), &encoding[byte_size..]))
+                Ok(<$uint>::from_le_bytes(bytes))
             }
         }
 
@@ -88,13 +88,16 @@ impl Serialize for U256 {
 }
 
 impl Deserialize for U256 {
-    fn deserialize(encoding: &[u8]) -> Result<(Self, &[u8]), DeserializeError> {
+    fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if encoding.len() < 32 {
             return Err(DeserializeError::InputTooShort);
         }
+        if encoding.len() > 32 {
+            return Err(DeserializeError::ExtraInput);
+        }
 
         let bytes = encoding[..32].try_into().expect("slice has right length");
-        Ok((Self(bytes), &encoding[32..]))
+        Ok(Self(bytes))
     }
 }
 
@@ -182,7 +185,7 @@ mod tests {
     fn decode_uints() {
         let tests = vec![(u8::default(), [0u8]), (2u8, [2u8]), (u8::MAX, [u8::MAX])];
         for (expected, bytes) in tests {
-            let (result, _) = u8::deserialize(&bytes).expect("can encode");
+            let result = u8::deserialize(&bytes).expect("can encode");
             assert_eq!(result, expected);
         }
         let tests = vec![
@@ -191,7 +194,7 @@ mod tests {
             (u16::MAX, [u8::MAX, u8::MAX]),
         ];
         for (expected, bytes) in tests {
-            let (result, _) = u16::deserialize(&bytes).expect("can encode");
+            let result = u16::deserialize(&bytes).expect("can encode");
             assert_eq!(result, expected);
         }
         let tests = vec![
@@ -200,7 +203,7 @@ mod tests {
             (u32::MAX, [u8::MAX, u8::MAX, u8::MAX, u8::MAX]),
         ];
         for (expected, bytes) in tests {
-            let (result, _) = u32::deserialize(&bytes).expect("can encode");
+            let result = u32::deserialize(&bytes).expect("can encode");
             assert_eq!(result, expected);
         }
         let tests = vec![
@@ -209,7 +212,7 @@ mod tests {
             (u64::MAX, [u8::MAX; 8]),
         ];
         for (expected, bytes) in tests {
-            let (result, _) = u64::deserialize(&bytes).expect("can encode");
+            let result = u64::deserialize(&bytes).expect("can encode");
             assert_eq!(result, expected);
         }
         let tests = vec![
@@ -228,7 +231,7 @@ mod tests {
             (u128::MAX, [u8::MAX; 16]),
         ];
         for (expected, bytes) in tests {
-            let (result, _) = u128::deserialize(&bytes).expect("can encode");
+            let result = u128::deserialize(&bytes).expect("can encode");
             assert_eq!(result, expected);
         }
         let tests = vec![
@@ -236,7 +239,7 @@ mod tests {
             (U256([u8::MAX; 32]), [u8::MAX; 32]),
         ];
         for (expected, bytes) in tests {
-            let (result, _) = U256::deserialize(&bytes).expect("can encode");
+            let result = U256::deserialize(&bytes).expect("can encode");
             assert_eq!(result, expected);
         }
     }

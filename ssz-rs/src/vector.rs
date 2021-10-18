@@ -88,14 +88,23 @@ impl<T, const N: usize> Deserialize for Vector<T, N>
 where
     T: SimpleSerialize,
 {
-    fn deserialize(encoding: &[u8]) -> Result<(Self, &[u8]), DeserializeError> {
+    fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if N == 0 {
             return Err(DeserializeError::IllegalType { bound: N });
         }
-        let (elements, encoding) = deserialize_homogeneous_composite(encoding)?;
+        if !T::is_variable_size() {
+            let expected_length = N * T::size_hint();
+            if encoding.len() < expected_length {
+                return Err(DeserializeError::InputTooShort);
+            }
+            if encoding.len() > expected_length {
+                return Err(DeserializeError::ExtraInput);
+            }
+        }
+        let elements = deserialize_homogeneous_composite(encoding)?;
         elements
             .try_into()
-            .map(|elements| (Vector(elements), encoding))
+            .map(Vector)
             .map_err(|_| DeserializeError::InputTooShort)
     }
 }
@@ -210,7 +219,7 @@ mod tests {
             0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8,
             1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8,
         ];
-        let (result, _) = Vector::<u8, COUNT>::deserialize(&bytes).expect("can deserialize");
+        let result = Vector::<u8, COUNT>::deserialize(&bytes).expect("can deserialize");
         let expected: Vector<u8, COUNT> = Vector(bytes.try_into().expect("test data"));
         assert_eq!(result, expected);
     }
@@ -240,7 +249,7 @@ mod tests {
         let input: Vector<u8, COUNT> = Vector(bytes.try_into().expect("test data"));
         let mut buffer = vec![];
         let _ = input.serialize(&mut buffer).expect("can serialize");
-        let (recovered, _) = Vector::<u8, COUNT>::deserialize(&buffer).expect("can decode");
+        let recovered = Vector::<u8, COUNT>::deserialize(&buffer).expect("can decode");
         assert_eq!(input, recovered);
     }
 
@@ -256,8 +265,7 @@ mod tests {
             Vector(inner.try_into().expect("test data correct"));
         let mut buffer = vec![];
         let _ = input.serialize(&mut buffer).expect("can serialize");
-        let (recovered, _) =
-            Vector::<List<u8, 1>, COUNT>::deserialize(&buffer).expect("can decode");
+        let recovered = Vector::<List<u8, 1>, COUNT>::deserialize(&buffer).expect("can decode");
         assert_eq!(input, recovered);
     }
 }

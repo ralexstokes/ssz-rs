@@ -42,16 +42,16 @@ impl<T> Deserialize for Option<T>
 where
     T: SimpleSerialize,
 {
-    fn deserialize(encoding: &[u8]) -> Result<(Self, &[u8]), DeserializeError> {
+    fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if encoding.is_empty() {
             return Err(DeserializeError::InputTooShort);
         }
 
         match &encoding[0].into() {
-            0 => Ok((None, &encoding[1..])),
+            0 => Ok(None),
             1 => {
-                let (inner, encoding) = T::deserialize(&encoding[1..])?;
-                Ok((Some(inner), encoding))
+                let inner = T::deserialize(&encoding[1..])?;
+                Ok(Some(inner))
             }
             _ => Err(DeserializeError::InvalidInput),
         }
@@ -169,7 +169,7 @@ mod tests {
         x = Some(34u8);
         let mut buffer = vec![];
         let _ = x.serialize(&mut buffer).expect("can serialize");
-        let (recovered, _) = Option::<u8>::deserialize(&buffer).expect("can decode");
+        let recovered = Option::<u8>::deserialize(&buffer).expect("can decode");
         assert_eq!(x, recovered);
     }
 
@@ -192,7 +192,7 @@ mod tests {
         x = AnotherOption::B(32u8);
         let mut buffer = vec![];
         let _ = x.serialize(&mut buffer).expect("can serialize");
-        let (recovered, _) = AnotherOption::deserialize(&buffer).expect("can decode");
+        let recovered = AnotherOption::deserialize(&buffer).expect("can decode");
         assert_eq!(x, recovered);
     }
 
@@ -294,24 +294,24 @@ mod tests {
     #[test]
     fn decode_union() {
         let data = [0u8, 12u8, 0u8, 0u8, 0u8];
-        let (result, _) = Boo::deserialize(&data).expect("can decode");
+        let result = Boo::deserialize(&data).expect("can decode");
         let value = Boo::A(12u32);
         assert_eq!(result, value);
 
         let data = [1u8, 4u8, 0u8, 0u8, 0u8, 123u8];
-        let (result, _) = Boo::deserialize(&data).expect("can decode");
+        let result = Boo::deserialize(&data).expect("can decode");
         let value = Boo::B(Inner {
             data: List::from_iter([123u8]),
         });
         assert_eq!(result, value);
 
         let data = [2u8, 123u8, 253u8];
-        let (result, _) = Boo::deserialize(&data).expect("can decode");
+        let result = Boo::deserialize(&data).expect("can decode");
         let value = Boo::C(List::from_iter([123u8, 253u8]));
         assert_eq!(result, value);
 
         let data = [3u8, 123u8, 253u8];
-        let (result, _) = Boo::deserialize(&data).expect("can decode");
+        let result = Boo::deserialize(&data).expect("can decode");
         let value = Boo::D(Vector::from_iter([123u8, 253u8]));
         assert_eq!(result, value);
     }
@@ -321,7 +321,7 @@ mod tests {
         let value = Boo::default();
         let mut buffer = vec![];
         let _ = value.serialize(&mut buffer).expect("can serialize");
-        let (recovered, _) = Boo::deserialize(&buffer).expect("can decode");
+        let recovered = Boo::deserialize(&buffer).expect("can decode");
         assert_eq!(value, recovered);
         assert_eq!(value, Boo::A(u32::default()));
 
@@ -330,19 +330,19 @@ mod tests {
         });
         let mut buffer = vec![];
         let _ = value.serialize(&mut buffer).expect("can serialize");
-        let (recovered, _) = Boo::deserialize(&buffer).expect("can decode");
+        let recovered = Boo::deserialize(&buffer).expect("can decode");
         assert_eq!(value, recovered);
 
         let value = Boo::C(List::from_iter([123u8, 253u8]));
         let mut buffer = vec![];
         let _ = value.serialize(&mut buffer).expect("can serialize");
-        let (recovered, _) = Boo::deserialize(&buffer).expect("can decode");
+        let recovered = Boo::deserialize(&buffer).expect("can decode");
         assert_eq!(value, recovered);
 
         let value = Boo::D(Vector::from_iter([123u8, 253u8]));
         let mut buffer = vec![];
         let _ = value.serialize(&mut buffer).expect("can serialize");
-        let (recovered, _) = Boo::deserialize(&buffer).expect("can decode");
+        let recovered = Boo::deserialize(&buffer).expect("can decode");
         assert_eq!(value, recovered);
     }
 }

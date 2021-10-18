@@ -82,15 +82,15 @@ impl<T, const N: usize> Deserialize for List<T, N>
 where
     T: SimpleSerialize,
 {
-    fn deserialize(encoding: &[u8]) -> Result<(Self, &[u8]), DeserializeError> {
-        let (result, encoding) = deserialize_homogeneous_composite(encoding)?;
+    fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
+        let result = deserialize_homogeneous_composite(encoding)?;
         if result.len() > N {
             return Err(DeserializeError::TypeBoundsViolated {
                 bound: N,
                 len: result.len(),
             });
         }
-        Ok((List(result), encoding))
+        Ok(List(result))
     }
 }
 
@@ -196,7 +196,7 @@ mod tests {
             0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8,
             1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8,
         ];
-        let (result, _) = List::<u8, COUNT>::deserialize(&bytes).expect("can deserialize");
+        let result = List::<u8, COUNT>::deserialize(&bytes).expect("can deserialize");
         let expected: List<u8, COUNT> = List(bytes);
         assert_eq!(result, expected);
     }
@@ -210,7 +210,7 @@ mod tests {
         let input: List<u8, COUNT> = List(bytes);
         let mut buffer = vec![];
         let _ = input.serialize(&mut buffer).expect("can serialize");
-        let (recovered, _) = List::<u8, COUNT>::deserialize(&buffer).expect("can decode");
+        let recovered = List::<u8, COUNT>::deserialize(&buffer).expect("can decode");
         assert_eq!(input, recovered);
     }
 
@@ -221,7 +221,7 @@ mod tests {
         let input: List<List<u8, 1>, COUNT> = List(bytes);
         let mut buffer = vec![];
         let _ = input.serialize(&mut buffer).expect("can serialize");
-        let (recovered, _) = List::<List<u8, 1>, COUNT>::deserialize(&buffer).expect("can decode");
+        let recovered = List::<List<u8, 1>, COUNT>::deserialize(&buffer).expect("can decode");
         assert_eq!(input, recovered);
     }
 }

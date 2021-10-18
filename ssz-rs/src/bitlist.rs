@@ -122,10 +122,17 @@ impl<const N: usize> Serialize for Bitlist<N> {
 }
 
 impl<const N: usize> Deserialize for Bitlist<N> {
-    fn deserialize(encoding: &[u8]) -> Result<(Self, &[u8]), DeserializeError> {
-        let (last_byte, prefix) = encoding
-            .split_last()
-            .ok_or(DeserializeError::InputTooShort)?;
+    fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
+        if encoding.is_empty() {
+            return Ok(Default::default());
+        }
+
+        // +1 for length bit
+        if encoding.len() > (N + 7 + 1) / 8 {
+            return Err(DeserializeError::ExtraInput);
+        }
+
+        let (last_byte, prefix) = encoding.split_last().unwrap();
         let mut result = BitlistInner::from_slice(prefix).expect("can read slice");
         let last = BitlistInner::from_element(*last_byte);
         let high_bit_index = last.len() - last.trailing_zeros() - 1;
@@ -138,8 +145,7 @@ impl<const N: usize> Deserialize for Bitlist<N> {
                 len: result.len(),
             });
         }
-        // TODO fix encoding
-        Ok((Self(result), &encoding[encoding.len()..]))
+        Ok(Self(result))
     }
 }
 
@@ -209,24 +215,24 @@ mod tests {
     #[test]
     fn decode_bitlist() {
         let bytes = vec![1u8];
-        let (result, _) = Bitlist::<COUNT>::deserialize(&bytes).expect("test data is correct");
+        let result = Bitlist::<COUNT>::deserialize(&bytes).expect("test data is correct");
         let expected = Bitlist::from_iter(vec![]);
         assert_eq!(result, expected);
 
         let bytes = vec![24u8, 1u8];
-        let (result, _) = Bitlist::<COUNT>::deserialize(&bytes).expect("test data is correct");
+        let result = Bitlist::<COUNT>::deserialize(&bytes).expect("test data is correct");
         let expected =
             Bitlist::from_iter(vec![false, false, false, true, true, false, false, false]);
         assert_eq!(result, expected);
 
         let bytes = vec![24u8, 2u8];
-        let (result, _) = Bitlist::<COUNT>::deserialize(&bytes).expect("test data is correct");
+        let result = Bitlist::<COUNT>::deserialize(&bytes).expect("test data is correct");
         let expected = Bitlist::from_iter(vec![
             false, false, false, true, true, false, false, false, false,
         ]);
         assert_eq!(result, expected);
         let bytes = vec![24u8, 3u8];
-        let (result, _) = Bitlist::<COUNT>::deserialize(&bytes).expect("test data is correct");
+        let result = Bitlist::<COUNT>::deserialize(&bytes).expect("test data is correct");
         let expected = Bitlist::from_iter(vec![
             false, false, false, true, true, false, false, false, true,
         ]);
@@ -241,7 +247,7 @@ mod tests {
         ]);
         let mut buffer = vec![];
         let _ = input.serialize(&mut buffer).expect("can serialize");
-        let (recovered, _) = Bitlist::<COUNT>::deserialize(&buffer).expect("can decode");
+        let recovered = Bitlist::<COUNT>::deserialize(&buffer).expect("can decode");
         assert_eq!(input, recovered);
     }
 }
