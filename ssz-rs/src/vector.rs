@@ -108,7 +108,7 @@ where
 {
     fn hash_tree_root(&self, context: &Context) -> Result<Root, MerkleizationError> {
         if T::is_composite_type() {
-            let mut chunks = Vec::with_capacity(self.len() * BYTES_PER_CHUNK);
+            let mut chunks = vec![0u8; self.len() * BYTES_PER_CHUNK];
             for (i, elem) in self.iter().enumerate() {
                 let chunk = elem.hash_tree_root(context)?;
                 let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
