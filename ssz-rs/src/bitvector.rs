@@ -132,6 +132,14 @@ impl<const N: usize> Deserialize for Bitvector<N> {
         for (slot, byte) in result.chunks_mut(8).zip(encoding.iter().copied()) {
             slot.store_le(byte);
         }
+        let remainder_count = N % 8;
+        if remainder_count != 0 {
+            let last_byte = encoding.last().unwrap();
+            let remainder_bits = last_byte >> remainder_count;
+            if remainder_bits != 0 {
+                return Err(DeserializeError::ExtraInput);
+            }
+        }
         Ok(result)
     }
 }
