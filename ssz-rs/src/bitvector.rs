@@ -5,10 +5,15 @@ use crate::merkleization::{
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 use bitvec::field::BitField;
-use bitvec::prelude::BitVec;
+use bitvec::prelude::{BitVec, Msb0};
 use std::fmt;
 use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
+
+// Use "big endian" layout to simplify logic
+// Consider a swap to "little endian" if better performance
+// and possibly consider swapping the underlying type to `usize`
+type BitvectorInner = BitVec<Msb0, u8>;
 
 /// A homogenous collection of a fixed number of boolean values.
 ///
@@ -20,7 +25,7 @@ use std::ops::{Deref, DerefMut};
 ///
 /// Refer: <https://stackoverflow.com/a/65462213>
 #[derive(PartialEq, Eq, Clone)]
-pub struct Bitvector<const N: usize>(BitVec);
+pub struct Bitvector<const N: usize>(BitvectorInner);
 
 impl<const N: usize> fmt::Debug for Bitvector<N> {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
@@ -72,7 +77,7 @@ impl<const N: usize> Bitvector<N> {
 }
 
 impl<const N: usize> Deref for Bitvector<N> {
-    type Target = BitVec;
+    type Target = BitvectorInner;
 
     fn deref(&self) -> &Self::Target {
         &self.0
@@ -190,13 +195,16 @@ mod tests {
     fn decode_bitvector() {
         let bytes = vec![12u8];
         let result = Bitvector::<4>::deserialize(&bytes).expect("test data is correct");
-        let expected = Bitvector::from_iter(vec![false, false, true, true]);
+        let expected = Bitvector::from_iter(vec![true, true, false, false]);
         assert_eq!(result, expected);
+    }
 
+    #[test]
+    fn decode_bitvector_several() {
         let bytes = vec![24u8, 1u8];
         let result = Bitvector::<COUNT>::deserialize(&bytes).expect("test data is correct");
         let expected = Bitvector::from_iter(vec![
-            false, false, false, true, true, false, false, false, true, false, false, false,
+            false, false, false, true, true, false, false, false, false, false, false, true,
         ]);
         assert_eq!(result, expected);
     }

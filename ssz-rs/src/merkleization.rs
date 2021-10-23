@@ -485,7 +485,7 @@ mod tests {
                 true,
             ]),
             e: Bar::B(List::from_iter([true, true, false, false, false, true])),
-            f: Bitvector::from_iter([false, true, false, true]),
+            f: Bitvector::from_iter([true, false, true, false]),
             g: List::from_iter([1, 2]),
         };
 
