@@ -123,7 +123,7 @@ impl<const N: usize> Serialize for Bitlist<N> {
 impl<const N: usize> Deserialize for Bitlist<N> {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if encoding.is_empty() {
-            return Ok(Default::default());
+            return Err(DeserializeError::InputTooShort);
         }
 
         // +1 for length bit
@@ -134,8 +134,13 @@ impl<const N: usize> Deserialize for Bitlist<N> {
         let (last_byte, prefix) = encoding.split_last().unwrap();
         let mut result = BitlistInner::from_slice(prefix).expect("can read slice");
         let last = BitlistInner::from_element(*last_byte);
-        let high_bit_index = last.len() - last.trailing_zeros() - 1;
-        for bit in last.iter().take(high_bit_index) {
+        let high_bit_index = 8 - last.trailing_zeros();
+
+        if last[high_bit_index - 1] != true {
+            return Err(DeserializeError::InvalidInput);
+        }
+
+        for bit in last.iter().take(high_bit_index - 1) {
             result.push(*bit);
         }
         if result.len() > N {
