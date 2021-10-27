@@ -3,15 +3,12 @@ use crate::merkleization::{merkleize, pack_bytes, Context, MerkleizationError, M
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 use bitvec::field::BitField;
-use bitvec::prelude::{BitVec, Msb0};
+use bitvec::prelude::{BitVec, Lsb0};
 use std::fmt;
 use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
 
-// Use "big endian" layout to simplify logic
-// Consider a swap to "little endian" if better performance
-// and possibly consider swapping the underlying type to `usize`
-type BitvectorInner = BitVec<Msb0, u8>;
+type BitvectorInner = BitVec<Lsb0, u8>;
 
 /// A homogenous collection of a fixed number of boolean values.
 ///
@@ -106,7 +103,7 @@ impl<const N: usize> Serialize for Bitvector<N> {
         let bytes_to_write = Self::size_hint();
         buffer.reserve(bytes_to_write);
         for byte in self.chunks(8) {
-            buffer.push(byte.load_le());
+            buffer.push(byte.load());
         }
         Ok(bytes_to_write)
     }
@@ -201,7 +198,7 @@ mod tests {
     fn decode_bitvector() {
         let bytes = vec![12u8];
         let result = Bitvector::<4>::deserialize(&bytes).expect("test data is correct");
-        let expected = Bitvector::from_iter(vec![true, true, false, false]);
+        let expected = Bitvector::from_iter(vec![false, false, true, true]);
         assert_eq!(result, expected);
     }
 
@@ -210,7 +207,7 @@ mod tests {
         let bytes = vec![24u8, 1u8];
         let result = Bitvector::<COUNT>::deserialize(&bytes).expect("test data is correct");
         let expected = Bitvector::from_iter(vec![
-            false, false, false, true, true, false, false, false, false, false, false, true,
+            false, false, false, true, true, false, false, false, true, false, false, false,
         ]);
         assert_eq!(result, expected);
     }

@@ -45,44 +45,44 @@ fn test_bitvector_bitvec_1_random() {
 #[test]
 fn test_bitvector_bitvec_512_random() {
     let value = Bitvector::<512>::from_iter([
-        false, true, false, true, false, false, false, false, true, false, false, true, true,
-        false, false, false, true, true, false, true, false, false, false, true, true, false, true,
-        true, false, false, true, false, false, false, false, true, true, true, false, true, true,
-        false, true, true, false, true, false, true, false, true, true, false, true, false, true,
-        false, true, true, false, false, false, true, false, true, true, true, true, false, true,
-        true, true, true, true, false, false, false, true, true, true, true, false, true, true,
-        false, false, false, false, false, true, false, false, true, false, false, false, false,
-        true, false, true, false, false, true, false, false, false, false, false, false, true,
-        true, false, false, false, false, false, true, false, false, true, false, true, true,
-        false, true, false, false, true, true, false, false, false, false, true, true, false,
-        false, false, false, true, true, false, true, false, false, false, false, true, true, true,
-        false, false, false, false, true, true, true, true, false, true, true, false, true, false,
-        false, false, true, false, false, true, false, false, true, true, false, true, true, false,
-        true, false, false, true, true, true, true, false, true, true, false, false, true, false,
-        true, false, true, true, false, false, false, true, true, true, true, false, true, false,
-        false, false, true, true, true, true, true, true, false, false, false, false, false, false,
-        false, true, false, true, true, false, false, true, false, true, false, false, false,
-        false, false, false, true, false, true, true, true, true, true, false, true, true, false,
-        true, false, false, false, false, false, false, true, false, false, false, false, true,
-        true, false, true, false, false, false, false, false, true, true, false, true, true, true,
-        false, false, false, false, true, false, false, false, true, false, true, true, true, true,
-        false, true, true, false, true, true, false, true, false, true, false, false, false, false,
-        false, false, true, true, true, false, false, false, true, false, false, false, false,
-        false, false, false, false, false, true, false, true, true, false, true, false, false,
-        false, true, false, false, true, false, true, true, true, false, false, false, true, true,
-        true, true, false, true, true, false, true, false, false, false, true, true, false, true,
-        true, false, false, true, true, false, false, false, false, false, true, false, false,
-        false, true, true, false, true, false, true, true, true, true, true, true, false, true,
-        false, true, true, true, true, true, false, true, false, false, false, false, false, false,
-        true, true, false, false, false, true, true, false, false, false, true, false, false, true,
-        true, false, false, true, false, true, true, false, true, true, true, false, true, false,
-        false, true, false, true, true, false, true, true, false, true, false, false, true, true,
-        false, true, false, false, true, false, true, false, true, true, false, false, true, false,
-        false, true, false, true, true, false, true, false, false, true, true, true, true, false,
-        false, true, true, false, false, false, true, true, false, true, false, true, false, false,
-        false, false, false, true, true, false, true, false, true, true, true, false, true, false,
-        true, true, false, true, false, false, false, true, true, false, true, true, false, true,
-        true, true, true, false,
+        false, false, false, false, true, false, true, false, false, false, false, true, true,
+        false, false, true, true, false, false, false, true, false, true, true, false, true, false,
+        false, true, true, false, true, true, false, true, true, true, false, false, false, true,
+        false, true, false, true, true, false, true, false, true, false, true, false, true, true,
+        false, true, false, true, false, false, false, true, true, true, true, true, true, false,
+        true, true, true, true, true, true, true, false, false, false, true, false, false, false,
+        false, false, true, true, false, false, false, false, false, true, false, false, true,
+        false, false, true, false, false, true, false, true, false, false, true, true, false,
+        false, false, false, false, true, false, false, true, false, false, false, true, true,
+        false, false, true, false, true, true, false, false, true, true, false, false, false,
+        false, false, false, true, false, true, true, false, false, false, false, false, true,
+        true, true, false, false, true, true, false, true, true, true, true, false, false, false,
+        true, false, false, false, true, false, true, true, false, true, true, false, false, true,
+        true, true, true, true, false, false, true, false, true, false, true, false, false, true,
+        true, false, true, true, false, false, false, true, true, false, true, false, false, false,
+        true, false, true, true, false, false, false, true, true, true, true, true, true, true,
+        false, true, false, false, false, false, false, false, false, true, false, true, false,
+        false, true, true, true, false, true, false, false, false, false, true, false, true, true,
+        false, true, true, false, false, true, false, false, false, false, false, false, false,
+        true, false, true, true, false, false, true, true, false, true, true, false, false, false,
+        false, false, true, false, false, false, false, true, false, true, true, true, true, false,
+        true, false, false, true, false, true, true, false, true, true, true, false, false, false,
+        false, false, false, true, false, false, true, false, false, false, true, true, true,
+        false, false, false, false, false, false, false, false, false, false, true, false, true,
+        true, false, true, true, true, false, true, false, false, true, false, true, true, true,
+        true, false, false, false, true, false, false, false, true, false, true, true, true, true,
+        false, false, true, true, false, true, false, false, true, false, false, false, false,
+        false, true, true, false, true, false, true, true, false, true, false, true, false, true,
+        true, true, true, false, false, true, false, true, true, true, true, false, false, true,
+        true, false, false, false, false, false, true, false, false, false, true, true, false,
+        true, false, true, false, false, true, true, false, false, true, false, true, true, true,
+        false, true, true, true, false, true, true, false, true, false, true, false, true, true,
+        false, false, true, false, true, true, false, true, false, true, false, false, true, false,
+        true, false, false, true, false, false, true, true, true, false, false, true, false, true,
+        false, false, false, true, true, false, false, true, false, false, true, false, true,
+        false, true, true, false, true, false, true, true, false, false, false, true, true, false,
+        true, false, true, true, true, false, true, true, false, false, false, true, false, false,
+        true, true, true, true, false, true, true,
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -272,8 +272,8 @@ fn test_bitvector_bitvec_31_max() {
 #[test]
 fn test_bitvector_bitvec_16_random() {
     let value = Bitvector::<16>::from_iter([
-        false, false, true, false, true, true, true, false, true, true, true, false, true, true,
-        false, false,
+        false, true, true, true, false, true, false, false, false, false, true, true, false, true,
+        true, true,
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -403,7 +403,7 @@ fn test_bitvector_bitvec_512_max() {
 
 #[test]
 fn test_bitvector_bitvec_5_random() {
-    let value = Bitvector::<5>::from_iter([false, false, false, true, true]);
+    let value = Bitvector::<5>::from_iter([true, true, false, false, false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_5_random/serialized.ssz_snappy",
@@ -571,44 +571,44 @@ fn test_bitvector_bitvec_512_zero() {
 #[test]
 fn test_bitvector_bitvec_513_random() {
     let value = Bitvector::<513>::from_iter([
-        false, false, true, false, false, false, true, true, false, false, false, false, false,
-        true, true, true, true, true, false, false, true, true, true, true, false, true, false,
-        false, true, true, false, true, false, true, true, true, false, false, true, false, false,
-        false, false, false, true, false, false, true, true, false, false, true, false, true,
-        false, false, false, false, false, true, false, true, true, false, false, true, false,
-        true, true, true, false, true, true, false, false, false, false, false, false, false,
-        false, false, false, true, false, true, false, false, false, true, false, false, false,
-        false, false, false, true, true, false, false, true, true, true, false, false, false, true,
-        false, false, false, false, false, false, false, false, true, false, true, true, false,
-        true, true, false, false, true, true, false, false, true, true, true, false, true, false,
-        true, false, true, true, false, false, true, false, false, false, true, true, true, true,
-        true, true, false, false, true, true, true, true, false, false, true, true, false, false,
-        false, false, false, false, false, true, false, false, false, true, true, false, true,
-        true, true, true, false, true, true, false, false, false, false, true, false, true, false,
-        false, false, false, true, false, false, false, true, false, true, false, false, true,
-        true, true, true, false, true, false, true, true, true, true, true, true, false, false,
-        false, true, true, false, false, true, false, false, false, false, false, true, false,
-        false, false, false, false, true, false, true, false, true, true, true, true, false, false,
-        true, true, false, false, true, true, false, true, true, true, true, false, true, false,
-        true, true, true, true, false, false, true, false, true, true, false, true, true, true,
-        true, false, false, true, true, false, false, true, false, false, false, false, false,
-        false, false, true, false, true, true, false, false, false, false, false, true, false,
-        false, false, false, false, false, true, true, true, true, true, false, false, false, true,
-        true, false, false, false, false, true, true, true, true, false, false, false, false, true,
-        true, false, true, false, true, true, true, false, true, false, true, true, true, false,
-        false, true, false, false, true, false, false, true, false, true, false, false, true,
-        false, true, true, false, true, false, false, false, false, true, true, false, false,
-        false, false, true, false, false, true, true, true, true, false, true, true, true, true,
-        true, true, true, false, true, false, false, true, true, true, false, false, true, true,
-        false, false, true, true, true, false, false, true, false, false, false, false, true, true,
-        false, true, false, false, false, false, true, true, true, true, true, false, false, false,
-        false, true, false, false, false, false, true, true, true, false, false, false, true, true,
-        false, false, true, false, false, false, false, true, true, true, true, true, false, true,
+        true, true, false, false, false, true, false, false, true, true, true, false, false, false,
+        false, false, true, true, true, true, false, false, true, true, true, false, true, true,
+        false, false, true, false, false, true, false, false, true, true, true, false, true, false,
+        false, true, false, false, false, false, false, false, true, false, true, false, false,
+        true, false, true, true, false, true, false, false, false, true, false, true, true, true,
+        false, true, false, false, false, false, false, false, false, false, true, false, false,
+        true, false, true, false, false, false, false, false, false, false, false, false, true,
+        false, false, true, true, true, false, false, true, true, false, false, false, false,
+        false, true, false, false, false, true, true, false, true, false, false, false, false,
+        false, true, true, false, false, true, true, false, true, false, true, false, true, true,
+        true, false, false, false, true, false, false, true, true, false, false, true, true, true,
+        true, true, true, true, true, false, false, true, true, true, true, true, false, false,
+        false, false, false, false, false, true, true, false, true, true, false, false, false,
+        false, false, false, true, true, false, true, true, false, false, false, false, true,
+        false, true, false, false, true, false, true, false, false, false, true, false, true,
+        false, true, true, true, true, false, false, false, true, true, true, true, true, true,
+        false, false, true, false, false, true, true, false, false, false, false, false, true,
+        false, false, false, true, true, true, false, true, false, true, false, true, false, false,
+        true, true, false, false, true, true, false, true, true, true, true, false, true, true,
+        false, false, true, true, true, true, false, true, true, true, true, false, true, true,
+        false, false, true, false, false, true, true, false, false, false, true, false, false,
+        false, false, false, false, true, false, false, false, false, false, true, true, true,
+        true, false, false, false, false, false, false, true, true, false, false, false, true,
+        true, true, true, true, true, true, false, false, false, false, true, false, true, true,
+        false, false, false, false, true, false, true, false, true, true, true, false, true, false,
+        false, true, false, false, true, true, true, false, false, true, false, true, false, false,
+        false, false, false, true, false, true, true, false, true, false, false, false, false,
+        true, true, false, true, false, true, true, true, true, false, false, true, false, true,
+        true, true, true, true, true, true, false, false, true, true, true, false, false, false,
+        false, true, true, true, false, false, true, false, true, true, false, false, false, false,
+        true, true, true, true, false, false, false, false, true, false, true, false, false, false,
+        false, true, true, false, false, true, true, true, false, false, false, false, false, true,
+        false, false, true, true, false, false, true, true, true, true, true, false, false, true,
         false, true, true, true, true, false, true, false, false, true, false, false, true, false,
-        false, true, true, false, true, false, true, false, true, true, true, true, false, false,
-        true, true, true, false, false, false, false, true, true, true, true, true, true, true,
-        false, false, false, false, true, false, false, false, true, true, true, true, true, true,
-        true, false, false, false, true, false, false, false,
+        false, true, false, true, false, true, false, true, true, true, true, true, false, false,
+        true, true, true, true, true, true, true, false, false, false, false, true, false, false,
+        false, false, true, true, true, true, true, true, true, true, false, false, false, false,
+        false, true, false, false, false, true, true, false,
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -628,9 +628,9 @@ fn test_bitvector_bitvec_513_random() {
 #[test]
 fn test_bitvector_bitvec_31_random() {
     let value = Bitvector::<31>::from_iter([
-        false, true, true, true, false, false, true, false, true, true, false, true, true, true,
-        true, true, false, true, true, false, false, true, false, false, false, false, true, false,
-        true, false, true,
+        false, true, false, false, true, true, true, false, true, true, true, true, true, false,
+        true, true, false, false, true, false, false, true, true, false, true, false, true, false,
+        true, false, false,
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -747,7 +747,7 @@ fn test_bitvector_bitvec_16_max() {
 
 #[test]
 fn test_bitvector_bitvec_4_random() {
-    let value = Bitvector::<4>::from_iter([true, true, false, true]);
+    let value = Bitvector::<4>::from_iter([true, false, true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_4_random/serialized.ssz_snappy",
@@ -765,7 +765,7 @@ fn test_bitvector_bitvec_4_random() {
 
 #[test]
 fn test_bitvector_bitvec_8_random() {
-    let value = Bitvector::<8>::from_iter([true, true, false, true, true, true, true, true]);
+    let value = Bitvector::<8>::from_iter([true, true, true, true, true, false, true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_8_random/serialized.ssz_snappy",
