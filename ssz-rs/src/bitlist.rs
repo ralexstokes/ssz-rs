@@ -136,7 +136,7 @@ impl<const N: usize> Deserialize for Bitlist<N> {
         let last = BitlistInner::from_element(*last_byte);
         let high_bit_index = 8 - last.trailing_zeros();
 
-        if last[high_bit_index - 1] != true {
+        if !last[high_bit_index - 1] {
             return Err(DeserializeError::InvalidInput);
         }
 

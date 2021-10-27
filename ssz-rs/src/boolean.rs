@@ -24,17 +24,13 @@ impl Serialize for bool {
 impl Deserialize for bool {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         match encoding.len() {
-            0 => {
-                return Err(DeserializeError::InputTooShort);
-            }
+            0 => Err(DeserializeError::InputTooShort),
             1 => match encoding[0] {
                 0u8 => Ok(false),
                 1u8 => Ok(true),
-                _ => return Err(DeserializeError::InvalidInput),
+                _ => Err(DeserializeError::InvalidInput),
             },
-            _ => {
-                return Err(DeserializeError::ExtraInput);
-            }
+            _ => Err(DeserializeError::ExtraInput),
         }
     }
 }
