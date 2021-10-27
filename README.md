@@ -28,3 +28,6 @@ This library provides the hash tree root computation for types implementing `Sim
 
 This library provides tools for generating and verifying multiproofs of SSZ data.
 
+# Testing
+
+This repo includes a copy of the generic SSZ [consensus spec tests](https://github.com/ethereum/consensus-spec-tests) as integration tests for the `ssz_rs` crate. The tests are generated from a local clone of the spec tests repo and the generator script under `ssz-rs/scripts`. Refer to the README there if you need to update/change these tests.

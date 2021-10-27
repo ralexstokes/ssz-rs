@@ -1,7 +1,6 @@
 mod test_utils;
 
 use ssz_rs::prelude::*;
-use std::iter::FromIterator;
 use test_utils::{
     deserialize, hash_tree_root, read_ssz_snappy_from_test_data, root_from_hex, serialize,
 };
