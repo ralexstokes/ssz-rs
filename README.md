@@ -2,47 +2,29 @@
 
 An implementation of the `ssz` serialization scheme defined in the [consensus-specs repo](https://github.com/ethereum/consensus-specs).
 
+This repo aims to remain lightweight and relatively free-standing, rather than coupled to other ethereum consensus code/dependencies.
+
+# 🚧 WARNING 🚧
+
+This implementation has **not** been audited for security and is primarily intended for R&D use cases.
+
+If you need a battle-tested implementation (e.g. for consensus-critical work), refer to the [Lighthouse implementation](https://github.com/sigp/lighthouse).
+
 # Features
 
-## serialization
+To conform to the SSZ spec, a given Rust type should implement the `SimpleSerialize` trait. Types implementing this trait then obtain:
 
-- uintN
-  - [x] encoding
-  - [x] decoding
-- bool
-  - [x] encoding
-  - [x] decoding
-- vector
-  - [x] encoding
-  - [x] decoding
-- list
-  - [x] encoding
-  - [x] decoding
-- bitvector
-  - [x] encoding
-  - [x] decoding
-- bitlist
-  - [x] encoding
-  - [x] decoding
-- container
-  - [x] derive macro
-  - [x] encoding
-  - [x] decoding
-- union
-  - [x] derive macro
-  - [x] encoding
-  - [x] decoding
-- other
-  - [ ] harden deserialization, strengthen typing, bounds assertions
-  - [ ] run against conformance tests
-  - [ ] other spec conformance? (invariants, etc)
+## Encoding / decoding
 
-## merkleization
+`ssz_rs` aims to add as little ceremony over the built-in Rust types as possible. The `ssz_rs_derive` crate provides macros to derive the encoding and decoding routines for SSZ containers and unions (represented as Rust `struct`s and `enum`s, respectively). See the `ssz-rs/examples` for example usage.
 
-- [x] naive hash tree root
-- [x] variant with virtualized padding hashes
-- [ ] cache the hash tree root calculation
+## Merkleization
 
-## (multi)proofs
+This library provides the hash tree root computation for types implementing `SimpleSerialize`.
 
-- [ ] TODO
+## Multiproofs
+
+* *NOTE*: under construction
+
+This library provides tools for generating and verifying multiproofs of SSZ data.
+
