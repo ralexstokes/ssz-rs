@@ -8,6 +8,6 @@ $ truncate --size 0 ../tests/$TYPE.rs && python gen.py $TYPE >> ../tests/$TYPE.r
 ```
 4. Move test data under the integration tests.
 ```bash
-$ mv ssz-rs/tests/data ../tests && rm -rf ssz-rs
+$ mv ssz_rs/tests/data ../tests && rm -rf ssz_rs
 ```
 where `$TYPE` is one of: `boolean, uints, basic_vector, bitlist, bitvector, containers`.

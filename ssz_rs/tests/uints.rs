@@ -13,7 +13,7 @@ fn test_uints_uint_256_zero_2() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_zero_2/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_256_zero_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -31,7 +31,7 @@ fn test_uints_uint_16_zero_3() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_zero_3/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_16_zero_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -49,7 +49,7 @@ fn test_uints_uint_16_zero_4() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_zero_4/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_16_zero_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -67,7 +67,7 @@ fn test_uints_uint_128_random_2() {
     let value = 1966913376797472348559631900882537126;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_random_2/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_128_random_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -85,7 +85,7 @@ fn test_uints_uint_32_max_0() {
     let value = 4294967295;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_max_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_32_max_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -103,7 +103,7 @@ fn test_uints_uint_16_random_1() {
     let value = 12900;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_random_1/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_16_random_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -121,7 +121,7 @@ fn test_uints_uint_32_zero_3() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_zero_3/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_32_zero_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -139,7 +139,7 @@ fn test_uints_uint_8_random_0() {
     let value = 225;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_random_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_8_random_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -157,7 +157,7 @@ fn test_uints_uint_16_max_0() {
     let value = 65535;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_max_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_16_max_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -175,7 +175,7 @@ fn test_uints_uint_128_zero_4() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_zero_4/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_128_zero_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -193,7 +193,7 @@ fn test_uints_uint_32_zero_4() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_zero_4/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_32_zero_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -211,7 +211,7 @@ fn test_uints_uint_128_zero_3() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_zero_3/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_128_zero_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -229,7 +229,7 @@ fn test_uints_uint_16_random_0() {
     let value = 11001;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_random_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_16_random_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -247,7 +247,7 @@ fn test_uints_uint_32_max_1() {
     let value = 4294967295;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_max_1/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_32_max_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -268,7 +268,7 @@ fn test_uints_uint_256_zero_4() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_zero_4/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_256_zero_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -286,7 +286,7 @@ fn test_uints_uint_128_random_3() {
     let value = 223686144064414504608552983434269426145;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_random_3/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_128_random_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -304,7 +304,7 @@ fn test_uints_uint_128_random_4() {
     let value = 199925590919705556758473559487562637786;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_random_4/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_128_random_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -325,7 +325,7 @@ fn test_uints_uint_256_zero_3() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_zero_3/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_256_zero_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -343,7 +343,7 @@ fn test_uints_uint_16_zero_2() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_zero_2/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_16_zero_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -361,7 +361,7 @@ fn test_uints_uint_128_zero_2() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_zero_2/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_128_zero_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -379,7 +379,7 @@ fn test_uints_uint_16_max_1() {
     let value = 65535;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_max_1/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_16_max_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -397,7 +397,7 @@ fn test_uints_uint_8_random_1() {
     let value = 59;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_random_1/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_8_random_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -415,7 +415,7 @@ fn test_uints_uint_32_zero_2() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_zero_2/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_32_zero_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -433,7 +433,7 @@ fn test_uints_uint_64_zero_0() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_zero_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_64_zero_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -451,7 +451,7 @@ fn test_uints_uint_128_max_2() {
     let value = 340282366920938463463374607431768211455;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_max_2/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_128_max_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -469,7 +469,7 @@ fn test_uints_uint_8_max_1() {
     let value = 255;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_max_1/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_8_max_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -487,7 +487,7 @@ fn test_uints_uint_128_max_3() {
     let value = 340282366920938463463374607431768211455;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_max_3/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_128_max_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -508,7 +508,7 @@ fn test_uints_uint_256_last_byte_empty() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_last_byte_empty/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_256_last_byte_empty/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -526,7 +526,7 @@ fn test_uints_uint_128_max_4() {
     let value = 340282366920938463463374607431768211455;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_max_4/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_128_max_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -544,7 +544,7 @@ fn test_uints_uint_64_zero_1() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_zero_1/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_64_zero_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -562,7 +562,7 @@ fn test_uints_uint_8_max_0() {
     let value = 255;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_max_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_8_max_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -583,7 +583,7 @@ fn test_uints_uint_256_max_4() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_max_4/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_256_max_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -601,7 +601,7 @@ fn test_uints_uint_8_zero_0() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_zero_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_8_zero_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -622,7 +622,7 @@ fn test_uints_uint_256_random_2() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_random_2/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_256_random_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -640,7 +640,7 @@ fn test_uints_uint_64_random_3() {
     let value = 11891402719218752485;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_random_3/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_64_random_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -661,7 +661,7 @@ fn test_uints_uint_256_max_3() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_max_3/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_256_max_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -679,7 +679,7 @@ fn test_uints_uint_64_random_4() {
     let value = 15683022699148686111;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_random_4/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_64_random_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -697,7 +697,7 @@ fn test_uints_uint_64_max_2() {
     let value = 18446744073709551615;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_max_2/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_64_max_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -715,7 +715,7 @@ fn test_uints_uint_32_random_0() {
     let value = 3387753032;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_random_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_32_random_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -736,7 +736,7 @@ fn test_uints_uint_256_max_2() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_max_2/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_256_max_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -757,7 +757,7 @@ fn test_uints_uint_256_random_4() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_random_4/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_256_random_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -775,7 +775,7 @@ fn test_uints_uint_8_zero_1() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_zero_1/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_8_zero_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -796,7 +796,7 @@ fn test_uints_uint_256_random_3() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_random_3/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_256_random_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -814,7 +814,7 @@ fn test_uints_uint_64_random_2() {
     let value = 10680714365983390887;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_random_2/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_64_random_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -832,7 +832,7 @@ fn test_uints_uint_32_random_1() {
     let value = 2676973563;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_random_1/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_32_random_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -850,7 +850,7 @@ fn test_uints_uint_64_max_4() {
     let value = 18446744073709551615;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_max_4/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_64_max_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -868,7 +868,7 @@ fn test_uints_uint_64_max_3() {
     let value = 18446744073709551615;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_max_3/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_64_max_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -886,7 +886,7 @@ fn test_uints_uint_8_last_byte_empty() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_last_byte_empty/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_8_last_byte_empty/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -904,7 +904,7 @@ fn test_uints_uint_8_random_4() {
     let value = 17;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_random_4/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_8_random_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -922,7 +922,7 @@ fn test_uints_uint_16_max_4() {
     let value = 65535;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_max_4/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_16_max_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -940,7 +940,7 @@ fn test_uints_uint_128_zero_0() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_zero_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_128_zero_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -958,7 +958,7 @@ fn test_uints_uint_32_zero_0() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_zero_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_32_zero_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -976,7 +976,7 @@ fn test_uints_uint_8_random_3() {
     let value = 46;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_random_3/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_8_random_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -994,7 +994,7 @@ fn test_uints_uint_16_max_3() {
     let value = 65535;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_max_3/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_16_max_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1012,7 +1012,7 @@ fn test_uints_uint_128_random_1() {
     let value = 226427817519480008631815531407103573168;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_random_1/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_128_random_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1033,7 +1033,7 @@ fn test_uints_uint_256_zero_1() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_zero_1/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_256_zero_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1051,7 +1051,7 @@ fn test_uints_uint_16_zero_0() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_zero_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_16_zero_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1069,7 +1069,7 @@ fn test_uints_uint_16_random_2() {
     let value = 46482;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_random_2/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_16_random_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1087,7 +1087,7 @@ fn test_uints_uint_32_max_4() {
     let value = 4294967295;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_max_4/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_32_max_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1105,7 +1105,7 @@ fn test_uints_uint_32_max_3() {
     let value = 4294967295;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_max_3/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_32_max_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1123,7 +1123,7 @@ fn test_uints_uint_16_max_2() {
     let value = 65535;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_max_2/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_16_max_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1141,7 +1141,7 @@ fn test_uints_uint_8_random_2() {
     let value = 3;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_random_2/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_8_random_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1159,7 +1159,7 @@ fn test_uints_uint_32_zero_1() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_zero_1/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_32_zero_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1177,7 +1177,7 @@ fn test_uints_uint_128_zero_1() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_zero_1/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_128_zero_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1195,7 +1195,7 @@ fn test_uints_uint_16_random_4() {
     let value = 2284;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_random_4/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_16_random_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1213,7 +1213,7 @@ fn test_uints_uint_32_max_2() {
     let value = 4294967295;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_max_2/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_32_max_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1231,7 +1231,7 @@ fn test_uints_uint_16_random_3() {
     let value = 31039;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_random_3/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_16_random_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1252,7 +1252,7 @@ fn test_uints_uint_256_zero_0() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_zero_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_256_zero_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1270,7 +1270,7 @@ fn test_uints_uint_16_zero_1() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_zero_1/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_16_zero_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1288,7 +1288,7 @@ fn test_uints_uint_128_random_0() {
     let value = 317658863013703600909281237913711302754;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_random_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_128_random_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1306,7 +1306,7 @@ fn test_uints_uint_8_max_2() {
     let value = 255;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_max_2/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_8_max_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1324,7 +1324,7 @@ fn test_uints_uint_64_zero_4() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_zero_4/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_64_zero_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1342,7 +1342,7 @@ fn test_uints_uint_64_zero_3() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_zero_3/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_64_zero_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1360,7 +1360,7 @@ fn test_uints_uint_128_max_1() {
     let value = 340282366920938463463374607431768211455;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_max_1/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_128_max_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1378,7 +1378,7 @@ fn test_uints_uint_8_max_3() {
     let value = 255;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_max_3/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_8_max_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1396,7 +1396,7 @@ fn test_uints_uint_8_max_4() {
     let value = 255;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_max_4/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_8_max_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1414,7 +1414,7 @@ fn test_uints_uint_128_max_0() {
     let value = 340282366920938463463374607431768211455;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_max_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_128_max_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1432,7 +1432,7 @@ fn test_uints_uint_64_zero_2() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_zero_2/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_64_zero_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1450,7 +1450,7 @@ fn test_uints_uint_32_random_3() {
     let value = 638037343;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_random_3/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_32_random_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1468,7 +1468,7 @@ fn test_uints_uint_32_random_4() {
     let value = 4144220671;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_random_4/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_32_random_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1486,7 +1486,7 @@ fn test_uints_uint_64_max_1() {
     let value = 18446744073709551615;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_max_1/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_64_max_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1504,7 +1504,7 @@ fn test_uints_uint_32_last_byte_empty() {
     let value = 16777215;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_last_byte_empty/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_32_last_byte_empty/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1522,7 +1522,7 @@ fn test_uints_uint_128_last_byte_empty() {
     let value = 1329227995784915872903807060280344575;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_last_byte_empty/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_128_last_byte_empty/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1540,7 +1540,7 @@ fn test_uints_uint_16_last_byte_empty() {
     let value = 255;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_last_byte_empty/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_16_last_byte_empty/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1558,7 +1558,7 @@ fn test_uints_uint_8_zero_4() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_zero_4/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_8_zero_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1579,7 +1579,7 @@ fn test_uints_uint_256_max_0() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_max_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_256_max_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1597,7 +1597,7 @@ fn test_uints_uint_8_zero_3() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_zero_3/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_8_zero_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1618,7 +1618,7 @@ fn test_uints_uint_256_random_1() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_random_1/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_256_random_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1636,7 +1636,7 @@ fn test_uints_uint_64_random_0() {
     let value = 8594311575614880821;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_random_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_64_random_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1654,7 +1654,7 @@ fn test_uints_uint_64_max_0() {
     let value = 18446744073709551615;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_max_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_64_max_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1672,7 +1672,7 @@ fn test_uints_uint_32_random_2() {
     let value = 2644908285;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_random_2/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_32_random_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1690,7 +1690,7 @@ fn test_uints_uint_8_zero_2() {
     let value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_zero_2/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_8_zero_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1711,7 +1711,7 @@ fn test_uints_uint_256_random_0() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_random_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_256_random_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1729,7 +1729,7 @@ fn test_uints_uint_64_random_1() {
     let value = 12453893770581738044;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_random_1/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_64_random_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1750,7 +1750,7 @@ fn test_uints_uint_256_max_1() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_max_1/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_256_max_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1768,7 +1768,7 @@ fn test_uints_uint_64_last_byte_empty() {
     let value = 72057594037927935;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_last_byte_empty/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/valid/uint_64_last_byte_empty/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1785,7 +1785,7 @@ fn test_uints_uint_64_last_byte_empty() {
 #[should_panic]
 fn test_uints_uint_128_one_too_high() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/invalid/uint_128_one_too_high/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/invalid/uint_128_one_too_high/serialized.ssz_snappy",
     );
 
     deserialize::<u128>(&encoding);
@@ -1795,7 +1795,7 @@ fn test_uints_uint_128_one_too_high() {
 #[should_panic]
 fn test_uints_uint_8_one_byte_longer() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/invalid/uint_8_one_byte_longer/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/invalid/uint_8_one_byte_longer/serialized.ssz_snappy",
     );
 
     deserialize::<u8>(&encoding);
@@ -1805,7 +1805,7 @@ fn test_uints_uint_8_one_byte_longer() {
 #[should_panic]
 fn test_uints_uint_8_one_too_high() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/invalid/uint_8_one_too_high/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/invalid/uint_8_one_too_high/serialized.ssz_snappy",
     );
 
     deserialize::<u8>(&encoding);
@@ -1815,7 +1815,7 @@ fn test_uints_uint_8_one_too_high() {
 #[should_panic]
 fn test_uints_uint_16_one_byte_shorter() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/invalid/uint_16_one_byte_shorter/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/invalid/uint_16_one_byte_shorter/serialized.ssz_snappy",
     );
 
     deserialize::<u16>(&encoding);
@@ -1825,7 +1825,7 @@ fn test_uints_uint_16_one_byte_shorter() {
 #[should_panic]
 fn test_uints_uint_32_one_byte_shorter() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/invalid/uint_32_one_byte_shorter/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/invalid/uint_32_one_byte_shorter/serialized.ssz_snappy",
     );
 
     deserialize::<u32>(&encoding);
@@ -1835,7 +1835,7 @@ fn test_uints_uint_32_one_byte_shorter() {
 #[should_panic]
 fn test_uints_uint_64_one_too_high() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/invalid/uint_64_one_too_high/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/invalid/uint_64_one_too_high/serialized.ssz_snappy",
     );
 
     deserialize::<u64>(&encoding);
@@ -1845,7 +1845,7 @@ fn test_uints_uint_64_one_too_high() {
 #[should_panic]
 fn test_uints_uint_256_one_byte_longer() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/invalid/uint_256_one_byte_longer/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/invalid/uint_256_one_byte_longer/serialized.ssz_snappy",
     );
 
     deserialize::<U256>(&encoding);
@@ -1855,7 +1855,7 @@ fn test_uints_uint_256_one_byte_longer() {
 #[should_panic]
 fn test_uints_uint_32_one_byte_longer() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/invalid/uint_32_one_byte_longer/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/invalid/uint_32_one_byte_longer/serialized.ssz_snappy",
     );
 
     deserialize::<u32>(&encoding);
@@ -1865,7 +1865,7 @@ fn test_uints_uint_32_one_byte_longer() {
 #[should_panic]
 fn test_uints_uint_128_one_byte_longer() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/invalid/uint_128_one_byte_longer/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/invalid/uint_128_one_byte_longer/serialized.ssz_snappy",
     );
 
     deserialize::<u128>(&encoding);
@@ -1875,7 +1875,7 @@ fn test_uints_uint_128_one_byte_longer() {
 #[should_panic]
 fn test_uints_uint_16_one_byte_longer() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/invalid/uint_16_one_byte_longer/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/invalid/uint_16_one_byte_longer/serialized.ssz_snappy",
     );
 
     deserialize::<u16>(&encoding);
@@ -1885,7 +1885,7 @@ fn test_uints_uint_16_one_byte_longer() {
 #[should_panic]
 fn test_uints_uint_32_one_too_high() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/invalid/uint_32_one_too_high/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/invalid/uint_32_one_too_high/serialized.ssz_snappy",
     );
 
     deserialize::<u32>(&encoding);
@@ -1895,7 +1895,7 @@ fn test_uints_uint_32_one_too_high() {
 #[should_panic]
 fn test_uints_uint_64_one_byte_longer() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/invalid/uint_64_one_byte_longer/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/invalid/uint_64_one_byte_longer/serialized.ssz_snappy",
     );
 
     deserialize::<u64>(&encoding);
@@ -1905,7 +1905,7 @@ fn test_uints_uint_64_one_byte_longer() {
 #[should_panic]
 fn test_uints_uint_16_one_too_high() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/invalid/uint_16_one_too_high/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/invalid/uint_16_one_too_high/serialized.ssz_snappy",
     );
 
     deserialize::<u16>(&encoding);
@@ -1915,7 +1915,7 @@ fn test_uints_uint_16_one_too_high() {
 #[should_panic]
 fn test_uints_uint_256_one_too_high() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/invalid/uint_256_one_too_high/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/invalid/uint_256_one_too_high/serialized.ssz_snappy",
     );
 
     deserialize::<U256>(&encoding);
@@ -1925,7 +1925,7 @@ fn test_uints_uint_256_one_too_high() {
 #[should_panic]
 fn test_uints_uint_128_one_byte_shorter() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/invalid/uint_128_one_byte_shorter/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/invalid/uint_128_one_byte_shorter/serialized.ssz_snappy",
     );
 
     deserialize::<u128>(&encoding);
@@ -1935,7 +1935,7 @@ fn test_uints_uint_128_one_byte_shorter() {
 #[should_panic]
 fn test_uints_uint_256_one_byte_shorter() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/invalid/uint_256_one_byte_shorter/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/invalid/uint_256_one_byte_shorter/serialized.ssz_snappy",
     );
 
     deserialize::<U256>(&encoding);
@@ -1945,7 +1945,7 @@ fn test_uints_uint_256_one_byte_shorter() {
 #[should_panic]
 fn test_uints_uint_64_one_byte_shorter() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/invalid/uint_64_one_byte_shorter/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/invalid/uint_64_one_byte_shorter/serialized.ssz_snappy",
     );
 
     deserialize::<u64>(&encoding);
@@ -1955,7 +1955,7 @@ fn test_uints_uint_64_one_byte_shorter() {
 #[should_panic]
 fn test_uints_uint_8_one_byte_shorter() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/invalid/uint_8_one_byte_shorter/serialized.ssz_snappy",
+        "ssz_rs/tests/data/uints/invalid/uint_8_one_byte_shorter/serialized.ssz_snappy",
     );
 
     deserialize::<u8>(&encoding);

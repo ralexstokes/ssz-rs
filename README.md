@@ -1,6 +1,6 @@
 # ssz_rs ✂️
 
-An implementation of the `ssz` serialization scheme defined in the [consensus-specs repo](https://github.com/ethereum/consensus-specs).
+An implementation of the `SSZ` serialization scheme defined in the [consensus-specs repo](https://github.com/ethereum/consensus-specs).
 
 This repo aims to remain lightweight and relatively free-standing, rather than coupled to other ethereum consensus code/dependencies.
 
@@ -16,7 +16,8 @@ To conform to the SSZ spec, a given Rust type should implement the `SimpleSerial
 
 ## Encoding / decoding
 
-`ssz_rs` aims to add as little ceremony over the built-in Rust types as possible. The `ssz_rs_derive` crate provides macros to derive the encoding and decoding routines for SSZ containers and unions (represented as Rust `struct`s and `enum`s, respectively). See the `ssz-rs/examples` for example usage.
+`ssz_rs` aims to add as little ceremony over the built-in Rust types as possible. The `ssz_rs_derive` crate provides macros to derive the encoding and decoding routines for SSZ containers and unions (represented as Rust `struct`s and `enum`s, respectively).
+See the `ssz_rs/examples` for example usage.
 
 ## Merkleization
 
@@ -30,4 +31,6 @@ This library provides tools for generating and verifying multiproofs of SSZ data
 
 # Testing
 
-This repo includes a copy of the generic SSZ [consensus spec tests](https://github.com/ethereum/consensus-spec-tests) as integration tests for the `ssz_rs` crate. The tests are generated from a local clone of the spec tests repo and the generator script under `ssz-rs/scripts`. Refer to the README there if you need to update/change these tests.
+This repo includes a copy of the generic SSZ [consensus spec tests](https://github.com/ethereum/consensus-spec-tests) as integration tests for the `ssz_rs` crate.
+The tests are generated from a local clone of the spec tests repo and the generator script under `ssz_rs/scripts`.
+Refer to the README there if you need to update/change these tests.

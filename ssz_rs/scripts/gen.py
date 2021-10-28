@@ -6,7 +6,7 @@ import shutil
 
 input_root_path = "consensus-spec-tests/tests/general/phase0/ssz_generic/"
 # relative to workspace root
-output_root_path = "ssz-rs/tests/data/"
+output_root_path = "ssz_rs/tests/data/"
 
 test_src_fmt = """mod test_utils;
 

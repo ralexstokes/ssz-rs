@@ -9,7 +9,7 @@ edition = "2021"
 [dependencies]
 thiserror = "1.0.25"
 bitvec = "0.22.3"
-ssz_rs_derive = { path = "../ssz-rs-derive" }
+ssz_rs_derive = { path = "../ssz_rs_derive" }
 sha2 = "0.9.8"
 
 [dev-dependencies]

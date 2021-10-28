@@ -1,6 +1,6 @@
 //! `SimpleSerialize` provides a macro to derive SSZ containers and union types from
 //! native Rust structs and enums.
-//! Refer to the `examples` in the `ssz-rs` crate for a better idea on how to use this derive macro.
+//! Refer to the `examples` in the `ssz_rs` crate for a better idea on how to use this derive macro.
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote, quote_spanned};
 use syn::spanned::Spanned;

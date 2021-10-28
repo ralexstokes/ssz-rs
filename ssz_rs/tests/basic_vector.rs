@@ -75,7 +75,7 @@ fn test_basic_vector_vec_uint256_16_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_16_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_16_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -99,7 +99,7 @@ fn test_basic_vector_vec_uint64_5_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_5_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_5_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2166,7 +2166,7 @@ fn test_basic_vector_vec_uint256_512_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_512_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_512_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2203,7 +2203,7 @@ fn test_basic_vector_vec_uint16_513_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_513_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_513_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2221,7 +2221,7 @@ fn test_basic_vector_vec_bool_4_zero() {
     let value = Vector::<bool, 4>::from_iter([false, false, false, false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_bool_4_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_bool_4_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2239,7 +2239,7 @@ fn test_basic_vector_vec_uint64_5_zero() {
     let value = Vector::<u64, 5>::from_iter([0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_5_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_5_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2257,7 +2257,7 @@ fn test_basic_vector_vec_uint8_1_random() {
     let value = Vector::<u8, 1>::from_iter([225]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_1_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_1_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2349,7 +2349,7 @@ fn test_basic_vector_vec_uint32_513_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_513_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_513_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2367,7 +2367,7 @@ fn test_basic_vector_vec_uint32_4_random() {
     let value = Vector::<u32, 4>::from_iter([2599571881, 2754953818, 2448479820, 3973051506]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_4_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_4_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2389,7 +2389,7 @@ fn test_basic_vector_vec_bool_31_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_bool_31_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_bool_31_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2407,7 +2407,7 @@ fn test_basic_vector_vec_uint8_5_zero() {
     let value = Vector::<u8, 5>::from_iter([0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_5_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_5_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2425,7 +2425,7 @@ fn test_basic_vector_vec_uint16_2_random() {
     let value = Vector::<u16, 2>::from_iter([12188, 36886]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_2_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_2_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2444,7 +2444,7 @@ fn test_basic_vector_vec_bool_8_zero() {
         Vector::<bool, 8>::from_iter([false, false, false, false, false, false, false, false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_bool_8_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_bool_8_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2479,7 +2479,7 @@ fn test_basic_vector_vec_uint128_16_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_16_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_16_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2500,7 +2500,7 @@ fn test_basic_vector_vec_uint32_8_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_8_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_8_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2550,7 +2550,7 @@ fn test_basic_vector_vec_uint64_31_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_31_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_31_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2693,7 +2693,7 @@ fn test_basic_vector_vec_uint256_31_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_31_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_31_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2711,7 +2711,7 @@ fn test_basic_vector_vec_uint64_8_zero() {
     let value = Vector::<u64, 8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_8_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_8_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3242,7 +3242,7 @@ fn test_basic_vector_vec_uint128_512_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_512_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_512_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3260,7 +3260,7 @@ fn test_basic_vector_vec_uint8_3_random() {
     let value = Vector::<u8, 3>::from_iter([46, 17, 42]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_3_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_3_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3278,7 +3278,7 @@ fn test_basic_vector_vec_uint8_4_zero() {
     let value = Vector::<u8, 4>::from_iter([0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_4_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_4_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3305,7 +3305,7 @@ fn test_basic_vector_vec_uint256_2_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_2_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_2_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3326,7 +3326,7 @@ fn test_basic_vector_vec_uint8_31_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_31_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_31_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3377,7 +3377,7 @@ fn test_basic_vector_vec_uint256_8_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_8_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_8_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3398,7 +3398,7 @@ fn test_basic_vector_vec_uint16_16_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_16_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_16_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3416,7 +3416,7 @@ fn test_basic_vector_vec_uint32_1_zero() {
     let value = Vector::<u32, 1>::from_iter([0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_1_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_1_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3443,7 +3443,7 @@ fn test_basic_vector_vec_uint128_8_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_8_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_8_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3461,7 +3461,7 @@ fn test_basic_vector_vec_uint64_4_zero() {
     let value = Vector::<u64, 4>::from_iter([0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_4_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_4_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3482,7 +3482,7 @@ fn test_basic_vector_vec_uint8_31_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_31_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_31_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3505,7 +3505,7 @@ fn test_basic_vector_vec_uint128_4_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_4_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_4_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3523,7 +3523,7 @@ fn test_basic_vector_vec_bool_5_zero() {
     let value = Vector::<bool, 5>::from_iter([false, false, false, false, false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_bool_5_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_bool_5_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3560,7 +3560,7 @@ fn test_basic_vector_vec_uint16_512_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_512_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_512_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3580,7 +3580,7 @@ fn test_basic_vector_vec_uint8_31_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_31_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_31_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3598,7 +3598,7 @@ fn test_basic_vector_vec_uint8_8_zero() {
     let value = Vector::<u8, 8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_8_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_8_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3616,7 +3616,7 @@ fn test_basic_vector_vec_uint16_1_zero() {
     let value = Vector::<u16, 1>::from_iter([0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_1_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_1_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5687,7 +5687,7 @@ fn test_basic_vector_vec_uint256_513_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_513_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_513_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5705,7 +5705,7 @@ fn test_basic_vector_vec_uint16_3_max() {
     let value = Vector::<u16, 3>::from_iter([65535, 65535, 65535]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_3_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_3_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5764,7 +5764,7 @@ fn test_basic_vector_vec_bool_512_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_bool_512_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_bool_512_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5801,7 +5801,7 @@ fn test_basic_vector_vec_uint128_512_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_512_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_512_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5828,7 +5828,7 @@ fn test_basic_vector_vec_uint64_8_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_8_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_8_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5846,7 +5846,7 @@ fn test_basic_vector_vec_uint32_2_max() {
     let value = Vector::<u32, 2>::from_iter([4294967295, 4294967295]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_2_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_2_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5864,7 +5864,7 @@ fn test_basic_vector_vec_uint16_4_random() {
     let value = Vector::<u16, 4>::from_iter([15417, 28067, 51352, 59311]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_4_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_4_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5882,7 +5882,7 @@ fn test_basic_vector_vec_uint32_2_random() {
     let value = Vector::<u32, 2>::from_iter([2286406229, 3289673013]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_2_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_2_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5941,7 +5941,7 @@ fn test_basic_vector_vec_uint16_513_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_513_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_513_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5960,7 +5960,7 @@ fn test_basic_vector_vec_uint16_8_random() {
         Vector::<u16, 8>::from_iter([48757, 12920, 33149, 59406, 48754, 39786, 12312, 58318]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_8_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_8_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5978,7 +5978,7 @@ fn test_basic_vector_vec_uint8_16_zero() {
     let value = Vector::<u8, 16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_16_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_16_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5996,7 +5996,7 @@ fn test_basic_vector_vec_uint8_3_zero() {
     let value = Vector::<u8, 3>::from_iter([0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_3_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_3_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6014,7 +6014,7 @@ fn test_basic_vector_vec_uint32_3_max() {
     let value = Vector::<u32, 3>::from_iter([4294967295, 4294967295, 4294967295]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_3_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_3_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6032,7 +6032,7 @@ fn test_basic_vector_vec_uint128_1_zero() {
     let value = Vector::<u128, 1>::from_iter([0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_1_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_1_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6050,7 +6050,7 @@ fn test_basic_vector_vec_uint16_2_max() {
     let value = Vector::<u16, 2>::from_iter([65535, 65535]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_2_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_2_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6068,7 +6068,7 @@ fn test_basic_vector_vec_uint32_1_max() {
     let value = Vector::<u32, 1>::from_iter([4294967295]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_1_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_1_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6105,7 +6105,7 @@ fn test_basic_vector_vec_uint32_513_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_513_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_513_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6126,7 +6126,7 @@ fn test_basic_vector_vec_uint256_1_zero() {
     ])]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_1_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_1_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6161,7 +6161,7 @@ fn test_basic_vector_vec_uint128_16_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_16_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_16_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6179,7 +6179,7 @@ fn test_basic_vector_vec_bool_2_zero() {
     let value = Vector::<bool, 2>::from_iter([false, false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_bool_2_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_bool_2_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6206,7 +6206,7 @@ fn test_basic_vector_vec_uint128_8_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_8_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_8_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6224,7 +6224,7 @@ fn test_basic_vector_vec_uint64_3_zero() {
     let value = Vector::<u64, 3>::from_iter([0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_3_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_3_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6246,7 +6246,7 @@ fn test_basic_vector_vec_uint64_3_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_3_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_3_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6264,7 +6264,7 @@ fn test_basic_vector_vec_uint16_1_max() {
     let value = Vector::<u16, 1>::from_iter([65535]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_1_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_1_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6282,7 +6282,7 @@ fn test_basic_vector_vec_bool_8_max() {
     let value = Vector::<bool, 8>::from_iter([true, true, true, true, true, true, true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_bool_8_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_bool_8_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6300,7 +6300,7 @@ fn test_basic_vector_vec_uint16_5_max() {
     let value = Vector::<u16, 5>::from_iter([65535, 65535, 65535, 65535, 65535]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_5_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_5_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6322,7 +6322,7 @@ fn test_basic_vector_vec_uint32_16_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_16_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_16_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6340,7 +6340,7 @@ fn test_basic_vector_vec_uint32_4_max() {
     let value = Vector::<u32, 4>::from_iter([4294967295, 4294967295, 4294967295, 4294967295]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_4_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_4_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6358,7 +6358,7 @@ fn test_basic_vector_vec_uint64_2_zero() {
     let value = Vector::<u64, 2>::from_iter([0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_2_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_2_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6404,7 +6404,7 @@ fn test_basic_vector_vec_uint8_512_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_512_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_512_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6428,7 +6428,7 @@ fn test_basic_vector_vec_uint32_31_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_31_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_31_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6446,7 +6446,7 @@ fn test_basic_vector_vec_bool_3_zero() {
     let value = Vector::<bool, 3>::from_iter([false, false, false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_bool_3_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_bool_3_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6977,7 +6977,7 @@ fn test_basic_vector_vec_uint64_512_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_512_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_512_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6998,7 +6998,7 @@ fn test_basic_vector_vec_uint16_16_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_16_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_16_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7016,7 +7016,7 @@ fn test_basic_vector_vec_uint64_1_random() {
     let value = Vector::<u64, 1>::from_iter([8914067055681793591]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_1_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_1_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7053,7 +7053,7 @@ fn test_basic_vector_vec_uint32_512_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_512_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_512_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7072,7 +7072,7 @@ fn test_basic_vector_vec_uint32_5_max() {
         Vector::<u32, 5>::from_iter([4294967295, 4294967295, 4294967295, 4294967295, 4294967295]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_5_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_5_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7090,7 +7090,7 @@ fn test_basic_vector_vec_uint16_4_max() {
     let value = Vector::<u16, 4>::from_iter([65535, 65535, 65535, 65535]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_4_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_4_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7111,7 +7111,7 @@ fn test_basic_vector_vec_uint128_2_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_2_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_2_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7146,7 +7146,7 @@ fn test_basic_vector_vec_uint256_4_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_4_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_4_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7194,7 +7194,7 @@ fn test_basic_vector_vec_uint8_513_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_513_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_513_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7245,7 +7245,7 @@ fn test_basic_vector_vec_uint256_8_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_8_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_8_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7263,7 +7263,7 @@ fn test_basic_vector_vec_uint8_2_zero() {
     let value = Vector::<u8, 2>::from_iter([0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_2_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_2_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9334,7 +9334,7 @@ fn test_basic_vector_vec_uint256_513_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_513_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_513_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9384,7 +9384,7 @@ fn test_basic_vector_vec_uint64_31_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_31_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_31_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9432,7 +9432,7 @@ fn test_basic_vector_vec_uint8_512_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_512_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_512_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9450,7 +9450,7 @@ fn test_basic_vector_vec_uint8_8_max() {
     let value = Vector::<u8, 8>::from_iter([255, 255, 255, 255, 255, 255, 255, 255]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_8_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_8_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9468,7 +9468,7 @@ fn test_basic_vector_vec_uint8_5_random() {
     let value = Vector::<u8, 5>::from_iter([15, 8, 177, 247, 237]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_5_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_5_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9527,7 +9527,7 @@ fn test_basic_vector_vec_bool_513_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_bool_513_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_bool_513_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9564,7 +9564,7 @@ fn test_basic_vector_vec_uint128_513_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_513_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_513_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9582,7 +9582,7 @@ fn test_basic_vector_vec_uint128_3_zero() {
     let value = Vector::<u128, 3>::from_iter([0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_3_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_3_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9600,7 +9600,7 @@ fn test_basic_vector_vec_uint32_8_zero() {
     let value = Vector::<u32, 8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_8_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_8_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9618,7 +9618,7 @@ fn test_basic_vector_vec_uint8_5_max() {
     let value = Vector::<u8, 5>::from_iter([255, 255, 255, 255, 255]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_5_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_5_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9642,7 +9642,7 @@ fn test_basic_vector_vec_uint32_31_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_31_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_31_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9660,7 +9660,7 @@ fn test_basic_vector_vec_uint16_3_random() {
     let value = Vector::<u16, 3>::from_iter([55998, 58650, 32471]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_3_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_3_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9678,7 +9678,7 @@ fn test_basic_vector_vec_uint64_1_max() {
     let value = Vector::<u64, 1>::from_iter([18446744073709551615]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_1_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_1_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9700,7 +9700,7 @@ fn test_basic_vector_vec_uint128_3_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_3_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_3_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9719,7 +9719,7 @@ fn test_basic_vector_vec_uint32_5_random() {
         Vector::<u32, 5>::from_iter([1051503312, 1875702585, 3338068896, 1062162289, 44280150]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_5_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_5_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9740,7 +9740,7 @@ fn test_basic_vector_vec_uint256_1_random() {
     ])]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_1_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_1_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9758,7 +9758,7 @@ fn test_basic_vector_vec_uint8_1_zero() {
     let value = Vector::<u8, 1>::from_iter([0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_1_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_1_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9776,7 +9776,7 @@ fn test_basic_vector_vec_uint128_16_zero() {
     let value = Vector::<u128, 16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_16_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_16_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9859,7 +9859,7 @@ fn test_basic_vector_vec_uint256_16_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_16_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_16_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9881,7 +9881,7 @@ fn test_basic_vector_vec_uint16_31_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_31_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_31_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9972,7 +9972,7 @@ fn test_basic_vector_vec_uint32_512_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_512_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_512_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9990,7 +9990,7 @@ fn test_basic_vector_vec_uint16_8_zero() {
     let value = Vector::<u16, 8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_8_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_8_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10012,7 +10012,7 @@ fn test_basic_vector_vec_uint16_31_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_31_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_31_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10033,7 +10033,7 @@ fn test_basic_vector_vec_uint128_2_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_2_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_2_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10051,7 +10051,7 @@ fn test_basic_vector_vec_uint8_4_max() {
     let value = Vector::<u8, 4>::from_iter([255, 255, 255, 255]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_4_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_4_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10071,7 +10071,7 @@ fn test_basic_vector_vec_uint8_16_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_16_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_16_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10108,7 +10108,7 @@ fn test_basic_vector_vec_uint8_512_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_512_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_512_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10126,7 +10126,7 @@ fn test_basic_vector_vec_uint32_4_zero() {
     let value = Vector::<u32, 4>::from_iter([0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_4_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_4_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10144,7 +10144,7 @@ fn test_basic_vector_vec_bool_4_max() {
     let value = Vector::<bool, 4>::from_iter([true, true, true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_bool_4_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_bool_4_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10237,7 +10237,7 @@ fn test_basic_vector_vec_uint32_513_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_513_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_513_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10291,7 +10291,7 @@ fn test_basic_vector_vec_bool_513_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_bool_513_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_bool_513_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10309,7 +10309,7 @@ fn test_basic_vector_vec_uint64_1_zero() {
     let value = Vector::<u64, 1>::from_iter([0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_1_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_1_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10327,7 +10327,7 @@ fn test_basic_vector_vec_uint64_2_max() {
     let value = Vector::<u64, 2>::from_iter([18446744073709551615, 18446744073709551615]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_2_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_2_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10348,7 +10348,7 @@ fn test_basic_vector_vec_uint32_8_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_8_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_8_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -12419,7 +12419,7 @@ fn test_basic_vector_vec_uint256_513_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_513_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_513_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -12437,7 +12437,7 @@ fn test_basic_vector_vec_uint16_4_zero() {
     let value = Vector::<u16, 4>::from_iter([0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_4_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_4_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14504,7 +14504,7 @@ fn test_basic_vector_vec_uint256_512_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_512_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_512_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14531,7 +14531,7 @@ fn test_basic_vector_vec_uint64_8_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_8_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_8_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14554,7 +14554,7 @@ fn test_basic_vector_vec_uint64_4_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_4_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_4_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14572,7 +14572,7 @@ fn test_basic_vector_vec_uint128_1_max() {
     let value = Vector::<u128, 1>::from_iter([340282366920938463463374607431768211455]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_1_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_1_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14594,7 +14594,7 @@ fn test_basic_vector_vec_uint64_3_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_3_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_3_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14625,7 +14625,7 @@ fn test_basic_vector_vec_uint256_3_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_3_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_3_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14679,7 +14679,7 @@ fn test_basic_vector_vec_bool_512_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_bool_512_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_bool_512_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14772,7 +14772,7 @@ fn test_basic_vector_vec_uint32_512_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_512_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_512_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14791,7 +14791,7 @@ fn test_basic_vector_vec_uint16_8_max() {
         Vector::<u16, 8>::from_iter([65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_8_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_8_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14809,7 +14809,7 @@ fn test_basic_vector_vec_bool_5_max() {
     let value = Vector::<bool, 5>::from_iter([true, true, true, true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_bool_5_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_bool_5_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14892,7 +14892,7 @@ fn test_basic_vector_vec_uint256_16_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_16_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_16_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14910,7 +14910,7 @@ fn test_basic_vector_vec_bool_1_max() {
     let value = Vector::<bool, 1>::from_iter([true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_bool_1_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_bool_1_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14934,7 +14934,7 @@ fn test_basic_vector_vec_uint128_5_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_5_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_5_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14952,7 +14952,7 @@ fn test_basic_vector_vec_uint8_3_max() {
     let value = Vector::<u8, 3>::from_iter([255, 255, 255]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_3_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_3_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14979,7 +14979,7 @@ fn test_basic_vector_vec_uint256_2_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_2_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_2_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15000,7 +15000,7 @@ fn test_basic_vector_vec_bool_16_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_bool_16_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_bool_16_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15018,7 +15018,7 @@ fn test_basic_vector_vec_uint32_16_zero() {
     let value = Vector::<u32, 16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_16_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_16_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15036,7 +15036,7 @@ fn test_basic_vector_vec_uint16_5_zero() {
     let value = Vector::<u16, 5>::from_iter([0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_5_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_5_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15056,7 +15056,7 @@ fn test_basic_vector_vec_uint64_31_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_31_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_31_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15074,7 +15074,7 @@ fn test_basic_vector_vec_bool_1_zero() {
     let value = Vector::<bool, 1>::from_iter([false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_bool_1_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_bool_1_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15092,7 +15092,7 @@ fn test_basic_vector_vec_uint8_2_max() {
     let value = Vector::<u8, 2>::from_iter([255, 255]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_2_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_2_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15115,7 +15115,7 @@ fn test_basic_vector_vec_uint128_4_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_4_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_4_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15152,7 +15152,7 @@ fn test_basic_vector_vec_uint8_513_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_513_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_513_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15170,7 +15170,7 @@ fn test_basic_vector_vec_uint32_5_zero() {
     let value = Vector::<u32, 5>::from_iter([0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_5_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_5_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15190,7 +15190,7 @@ fn test_basic_vector_vec_uint16_31_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_31_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_31_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15214,7 +15214,7 @@ fn test_basic_vector_vec_uint128_5_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_5_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_5_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15232,7 +15232,7 @@ fn test_basic_vector_vec_bool_2_max() {
     let value = Vector::<bool, 2>::from_iter([true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_bool_2_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_bool_2_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15764,7 +15764,7 @@ fn test_basic_vector_vec_uint128_513_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_513_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_513_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15787,7 +15787,7 @@ fn test_basic_vector_vec_uint64_4_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_4_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_4_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15818,7 +15818,7 @@ fn test_basic_vector_vec_uint256_3_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_3_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_3_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15836,7 +15836,7 @@ fn test_basic_vector_vec_uint16_1_random() {
     let value = Vector::<u16, 1>::from_iter([58671]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_1_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_1_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15860,7 +15860,7 @@ fn test_basic_vector_vec_uint64_5_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_5_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_5_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15878,7 +15878,7 @@ fn test_basic_vector_vec_uint8_1_max() {
     let value = Vector::<u8, 1>::from_iter([255]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_1_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_1_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16410,7 +16410,7 @@ fn test_basic_vector_vec_uint128_513_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_513_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_513_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16428,7 +16428,7 @@ fn test_basic_vector_vec_uint8_2_random() {
     let value = Vector::<u8, 2>::from_iter([59, 3]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_2_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_2_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16959,7 +16959,7 @@ fn test_basic_vector_vec_uint128_512_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_512_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_512_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16977,7 +16977,7 @@ fn test_basic_vector_vec_bool_3_max() {
     let value = Vector::<bool, 3>::from_iter([true, true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_bool_3_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_bool_3_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16995,7 +16995,7 @@ fn test_basic_vector_vec_uint128_2_zero() {
     let value = Vector::<u128, 2>::from_iter([0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_2_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_2_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17013,7 +17013,7 @@ fn test_basic_vector_vec_uint32_2_zero() {
     let value = Vector::<u32, 2>::from_iter([0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_2_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_2_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17048,7 +17048,7 @@ fn test_basic_vector_vec_uint64_16_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_16_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_16_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17066,7 +17066,7 @@ fn test_basic_vector_vec_uint128_1_random() {
     let value = Vector::<u128, 1>::from_iter([209794508200186098054846448654859096491]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_1_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_1_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17088,7 +17088,7 @@ fn test_basic_vector_vec_uint32_16_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_16_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_16_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17106,7 +17106,7 @@ fn test_basic_vector_vec_uint64_2_random() {
     let value = Vector::<u64, 2>::from_iter([16527226978582771838, 7558561043290308816]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_2_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_2_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17124,7 +17124,7 @@ fn test_basic_vector_vec_uint16_2_zero() {
     let value = Vector::<u16, 2>::from_iter([0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_2_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_2_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17163,7 +17163,7 @@ fn test_basic_vector_vec_uint256_5_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_5_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_5_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17181,7 +17181,7 @@ fn test_basic_vector_vec_uint128_5_zero() {
     let value = Vector::<u128, 5>::from_iter([0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_5_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_5_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17324,7 +17324,7 @@ fn test_basic_vector_vec_uint256_31_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_31_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_31_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17344,7 +17344,7 @@ fn test_basic_vector_vec_uint8_16_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_16_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_16_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17383,7 +17383,7 @@ fn test_basic_vector_vec_uint256_5_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_5_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_5_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17403,7 +17403,7 @@ fn test_basic_vector_vec_uint32_31_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_31_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_31_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17425,7 +17425,7 @@ fn test_basic_vector_vec_bool_31_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_bool_31_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_bool_31_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17462,7 +17462,7 @@ fn test_basic_vector_vec_uint64_513_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_513_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_513_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17480,7 +17480,7 @@ fn test_basic_vector_vec_uint32_3_random() {
     let value = Vector::<u32, 3>::from_iter([414721764, 1396444802, 4099449558]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_3_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_3_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17498,7 +17498,7 @@ fn test_basic_vector_vec_uint16_5_random() {
     let value = Vector::<u16, 5>::from_iter([35919, 34593, 14706, 39574, 53868]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_5_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_5_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17533,7 +17533,7 @@ fn test_basic_vector_vec_uint64_16_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_16_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_16_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17551,7 +17551,7 @@ fn test_basic_vector_vec_uint64_16_zero() {
     let value = Vector::<u64, 16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_16_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_16_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17586,7 +17586,7 @@ fn test_basic_vector_vec_uint256_4_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_4_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_4_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17604,7 +17604,7 @@ fn test_basic_vector_vec_uint16_16_zero() {
     let value = Vector::<u16, 16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_16_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_16_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17663,7 +17663,7 @@ fn test_basic_vector_vec_uint16_512_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_512_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_512_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17806,7 +17806,7 @@ fn test_basic_vector_vec_uint256_31_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_31_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_31_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19873,7 +19873,7 @@ fn test_basic_vector_vec_uint256_512_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_512_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_512_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19924,7 +19924,7 @@ fn test_basic_vector_vec_uint256_8_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_8_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_8_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -20455,7 +20455,7 @@ fn test_basic_vector_vec_uint64_512_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_512_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_512_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -20473,7 +20473,7 @@ fn test_basic_vector_vec_uint8_8_random() {
     let value = Vector::<u8, 8>::from_iter([76, 46, 93, 58, 7, 249, 127, 33]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_8_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_8_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -20532,7 +20532,7 @@ fn test_basic_vector_vec_uint16_512_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_512_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_512_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -20550,7 +20550,7 @@ fn test_basic_vector_vec_uint8_4_random() {
     let value = Vector::<u8, 4>::from_iter([50, 181, 121, 8]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_4_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_4_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -20587,7 +20587,7 @@ fn test_basic_vector_vec_uint64_512_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_512_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_512_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -20626,7 +20626,7 @@ fn test_basic_vector_vec_uint256_5_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_5_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_5_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -20647,7 +20647,7 @@ fn test_basic_vector_vec_uint256_1_max() {
     ])]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_1_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_1_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -20706,7 +20706,7 @@ fn test_basic_vector_vec_uint16_513_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_513_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_513_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21238,7 +21238,7 @@ fn test_basic_vector_vec_uint64_513_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_513_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_513_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21256,7 +21256,7 @@ fn test_basic_vector_vec_uint32_1_random() {
     let value = Vector::<u32, 1>::from_iter([1797257601]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_1_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_1_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21274,7 +21274,7 @@ fn test_basic_vector_vec_uint128_4_zero() {
     let value = Vector::<u128, 4>::from_iter([0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_4_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_4_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21309,7 +21309,7 @@ fn test_basic_vector_vec_uint256_4_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_4_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_4_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21331,7 +21331,7 @@ fn test_basic_vector_vec_uint128_3_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_3_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_3_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21362,7 +21362,7 @@ fn test_basic_vector_vec_uint256_3_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_3_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_3_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21382,7 +21382,7 @@ fn test_basic_vector_vec_uint128_31_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_31_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_31_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21400,7 +21400,7 @@ fn test_basic_vector_vec_uint16_3_zero() {
     let value = Vector::<u16, 3>::from_iter([0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint16_3_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint16_3_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21446,7 +21446,7 @@ fn test_basic_vector_vec_uint8_513_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint8_513_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint8_513_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21467,7 +21467,7 @@ fn test_basic_vector_vec_bool_16_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_bool_16_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_bool_16_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21494,7 +21494,7 @@ fn test_basic_vector_vec_uint256_2_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint256_2_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint256_2_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21544,7 +21544,7 @@ fn test_basic_vector_vec_uint128_31_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_31_max/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_31_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -22076,7 +22076,7 @@ fn test_basic_vector_vec_uint64_513_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint64_513_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint64_513_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -22126,7 +22126,7 @@ fn test_basic_vector_vec_uint128_31_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_31_random/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_31_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -22144,7 +22144,7 @@ fn test_basic_vector_vec_uint128_8_zero() {
     let value = Vector::<u128, 8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint128_8_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint128_8_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -22162,7 +22162,7 @@ fn test_basic_vector_vec_uint32_3_zero() {
     let value = Vector::<u32, 3>::from_iter([0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/valid/vec_uint32_3_zero/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/valid/vec_uint32_3_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -22178,7 +22178,7 @@ fn test_basic_vector_vec_uint32_3_zero() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_2_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_2_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_2_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 2>>(&encoding);
 }
@@ -22186,7 +22186,7 @@ fn test_basic_vector_vec_uint16_2_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_16_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_16_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_16_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 16>>(&encoding);
 }
@@ -22195,7 +22195,7 @@ fn test_basic_vector_vec_uint256_16_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_5_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_5_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_5_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 5>>(&encoding);
@@ -22204,7 +22204,7 @@ fn test_basic_vector_vec_uint128_5_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_1_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_1_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_1_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 1>>(&encoding);
 }
@@ -22213,7 +22213,7 @@ fn test_basic_vector_vec_uint256_1_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_4_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_4_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_4_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 4>>(&encoding);
@@ -22223,7 +22223,7 @@ fn test_basic_vector_vec_bool_4_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_3_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_3_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_3_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 3>>(&encoding);
@@ -22232,7 +22232,7 @@ fn test_basic_vector_vec_bool_3_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_2_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_2_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_2_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 2>>(&encoding);
 }
@@ -22241,7 +22241,7 @@ fn test_basic_vector_vec_bool_2_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_4_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_4_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_4_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 4>>(&encoding);
@@ -22251,7 +22251,7 @@ fn test_basic_vector_vec_uint32_4_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_512_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_512_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_512_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 512>>(&encoding);
@@ -22260,7 +22260,7 @@ fn test_basic_vector_vec_uint128_512_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_8_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_8_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_8_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 8>>(&encoding);
 }
@@ -22269,7 +22269,7 @@ fn test_basic_vector_vec_uint128_8_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_2_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_2_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_2_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 2>>(&encoding);
@@ -22279,7 +22279,7 @@ fn test_basic_vector_vec_uint32_2_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_512_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_512_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_512_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 512>>(&encoding);
@@ -22289,7 +22289,7 @@ fn test_basic_vector_vec_uint128_512_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_16_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_16_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_16_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 16>>(&encoding);
@@ -22299,7 +22299,7 @@ fn test_basic_vector_vec_uint32_16_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_31_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_31_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_31_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 31>>(&encoding);
@@ -22309,7 +22309,7 @@ fn test_basic_vector_vec_uint256_31_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_1_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_1_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_1_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 1>>(&encoding);
@@ -22319,7 +22319,7 @@ fn test_basic_vector_vec_uint8_1_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_2_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_2_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_2_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 2>>(&encoding);
@@ -22329,7 +22329,7 @@ fn test_basic_vector_vec_uint128_2_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_5_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_5_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_5_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 5>>(&encoding);
@@ -22339,7 +22339,7 @@ fn test_basic_vector_vec_uint64_5_nil() {
 #[should_panic]
 fn test_basic_vector_vec_bool_3_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_3_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_3_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 3>>(&encoding);
@@ -22349,7 +22349,7 @@ fn test_basic_vector_vec_bool_3_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_31_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_31_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_31_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 31>>(&encoding);
@@ -22359,7 +22359,7 @@ fn test_basic_vector_vec_uint32_31_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_3_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_3_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_3_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 3>>(&encoding);
@@ -22368,7 +22368,7 @@ fn test_basic_vector_vec_uint64_3_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_5_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_5_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_5_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 5>>(&encoding);
 }
@@ -22377,7 +22377,7 @@ fn test_basic_vector_vec_uint128_5_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_1_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_1_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_1_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 1>>(&encoding);
@@ -22386,7 +22386,7 @@ fn test_basic_vector_vec_uint128_1_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_4_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_4_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_4_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 4>>(&encoding);
 }
@@ -22395,7 +22395,7 @@ fn test_basic_vector_vec_uint128_4_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_16_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_16_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_16_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 16>>(&encoding);
@@ -22405,7 +22405,7 @@ fn test_basic_vector_vec_uint128_16_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_512_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_512_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_512_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 512>>(&encoding);
@@ -22414,7 +22414,7 @@ fn test_basic_vector_vec_uint32_512_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_4_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_4_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_4_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 4>>(&encoding);
 }
@@ -22423,7 +22423,7 @@ fn test_basic_vector_vec_uint8_4_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_1_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_1_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_1_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 1>>(&encoding);
@@ -22432,7 +22432,7 @@ fn test_basic_vector_vec_uint256_1_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_5_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_5_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_5_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 5>>(&encoding);
 }
@@ -22440,7 +22440,7 @@ fn test_basic_vector_vec_uint256_5_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_512_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_512_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_512_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 512>>(&encoding);
 }
@@ -22448,7 +22448,7 @@ fn test_basic_vector_vec_uint32_512_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_16_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_16_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_16_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 16>>(&encoding);
 }
@@ -22457,7 +22457,7 @@ fn test_basic_vector_vec_uint16_16_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_3_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_3_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_3_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 3>>(&encoding);
@@ -22467,7 +22467,7 @@ fn test_basic_vector_vec_uint8_3_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_31_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_31_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_31_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 31>>(&encoding);
@@ -22476,7 +22476,7 @@ fn test_basic_vector_vec_bool_31_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_513_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_513_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_513_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 513>>(&encoding);
 }
@@ -22485,7 +22485,7 @@ fn test_basic_vector_vec_uint16_513_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_1_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_1_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_1_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 1>>(&encoding);
@@ -22494,7 +22494,7 @@ fn test_basic_vector_vec_uint32_1_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_513_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_513_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_513_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 513>>(&encoding);
 }
@@ -22502,7 +22502,7 @@ fn test_basic_vector_vec_uint64_513_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_3_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_3_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_3_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 3>>(&encoding);
 }
@@ -22511,7 +22511,7 @@ fn test_basic_vector_vec_uint8_3_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_3_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_3_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_3_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 3>>(&encoding);
@@ -22521,7 +22521,7 @@ fn test_basic_vector_vec_uint8_3_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_2_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_2_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_2_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 2>>(&encoding);
@@ -22531,7 +22531,7 @@ fn test_basic_vector_vec_bool_2_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_31_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_31_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_31_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 31>>(&encoding);
@@ -22540,7 +22540,7 @@ fn test_basic_vector_vec_uint128_31_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_512_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_512_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_512_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 512>>(&encoding);
 }
@@ -22549,7 +22549,7 @@ fn test_basic_vector_vec_uint128_512_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_512_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_512_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_512_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 512>>(&encoding);
@@ -22559,7 +22559,7 @@ fn test_basic_vector_vec_uint256_512_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_31_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_31_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_31_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 31>>(&encoding);
@@ -22568,7 +22568,7 @@ fn test_basic_vector_vec_bool_31_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_512_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_512_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_512_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 512>>(&encoding);
 }
@@ -22577,7 +22577,7 @@ fn test_basic_vector_vec_uint32_512_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_16_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_16_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_16_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 16>>(&encoding);
@@ -22586,7 +22586,7 @@ fn test_basic_vector_vec_bool_16_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_513_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_513_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_513_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 513>>(&encoding);
 }
@@ -22595,7 +22595,7 @@ fn test_basic_vector_vec_uint64_513_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_4_max_one_byte_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_4_max_one_byte_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_4_max_one_byte_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 4>>(&encoding);
@@ -22604,7 +22604,7 @@ fn test_basic_vector_vec_bool_4_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_513_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_513_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_513_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 513>>(&encoding);
 }
@@ -22613,7 +22613,7 @@ fn test_basic_vector_vec_uint256_513_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_8_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_8_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_8_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 8>>(&encoding);
@@ -22622,7 +22622,7 @@ fn test_basic_vector_vec_uint8_8_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_513_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_513_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_513_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 513>>(&encoding);
 }
@@ -22630,7 +22630,7 @@ fn test_basic_vector_vec_uint64_513_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_4_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_4_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_4_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 4>>(&encoding);
 }
@@ -22638,7 +22638,7 @@ fn test_basic_vector_vec_uint256_4_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_2_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_2_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_2_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 2>>(&encoding);
 }
@@ -22647,7 +22647,7 @@ fn test_basic_vector_vec_uint256_2_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_16_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_16_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_16_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 16>>(&encoding);
@@ -22657,7 +22657,7 @@ fn test_basic_vector_vec_uint256_16_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_31_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_31_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_31_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 31>>(&encoding);
@@ -22667,7 +22667,7 @@ fn test_basic_vector_vec_uint16_31_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_31_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_31_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_31_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 31>>(&encoding);
@@ -22676,7 +22676,7 @@ fn test_basic_vector_vec_uint32_31_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_513_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_513_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_513_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 513>>(&encoding);
 }
@@ -22685,7 +22685,7 @@ fn test_basic_vector_vec_uint128_513_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_4_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_4_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_4_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 4>>(&encoding);
@@ -22694,7 +22694,7 @@ fn test_basic_vector_vec_uint64_4_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_16_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_16_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_16_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 16>>(&encoding);
 }
@@ -22702,7 +22702,7 @@ fn test_basic_vector_vec_uint8_16_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_31_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_31_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_31_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 31>>(&encoding);
 }
@@ -22710,7 +22710,7 @@ fn test_basic_vector_vec_uint8_31_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_31_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_31_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_31_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 31>>(&encoding);
 }
@@ -22719,7 +22719,7 @@ fn test_basic_vector_vec_uint8_31_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_513_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_513_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_513_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 513>>(&encoding);
@@ -22729,7 +22729,7 @@ fn test_basic_vector_vec_uint128_513_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_2_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_2_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_2_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 2>>(&encoding);
@@ -22738,7 +22738,7 @@ fn test_basic_vector_vec_uint16_2_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_1_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_1_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_1_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 1>>(&encoding);
 }
@@ -22746,7 +22746,7 @@ fn test_basic_vector_vec_uint8_1_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_16_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_16_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_16_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 16>>(&encoding);
 }
@@ -22755,7 +22755,7 @@ fn test_basic_vector_vec_uint128_16_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_8_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_8_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_8_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 8>>(&encoding);
@@ -22765,7 +22765,7 @@ fn test_basic_vector_vec_uint128_8_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_2_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_2_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_2_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 2>>(&encoding);
@@ -22775,7 +22775,7 @@ fn test_basic_vector_vec_bool_2_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_5_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_5_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_5_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 5>>(&encoding);
@@ -22785,7 +22785,7 @@ fn test_basic_vector_vec_uint128_5_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_512_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_512_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_512_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 512>>(&encoding);
@@ -22794,7 +22794,7 @@ fn test_basic_vector_vec_bool_512_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_5_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_5_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_5_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 5>>(&encoding);
 }
@@ -22803,7 +22803,7 @@ fn test_basic_vector_vec_uint8_5_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_8_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_8_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_8_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 8>>(&encoding);
@@ -22812,7 +22812,7 @@ fn test_basic_vector_vec_bool_8_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_513_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_513_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_513_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 513>>(&encoding);
 }
@@ -22820,7 +22820,7 @@ fn test_basic_vector_vec_uint8_513_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_512_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_512_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_512_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 512>>(&encoding);
 }
@@ -22828,7 +22828,7 @@ fn test_basic_vector_vec_uint256_512_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_5_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_5_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_5_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 5>>(&encoding);
 }
@@ -22837,7 +22837,7 @@ fn test_basic_vector_vec_uint16_5_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_4_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_4_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_4_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 4>>(&encoding);
@@ -22847,7 +22847,7 @@ fn test_basic_vector_vec_uint128_4_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_2_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_2_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_2_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 2>>(&encoding);
@@ -22857,7 +22857,7 @@ fn test_basic_vector_vec_uint8_2_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_513_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_513_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_513_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 513>>(&encoding);
@@ -22866,7 +22866,7 @@ fn test_basic_vector_vec_uint32_513_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_512_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_512_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_512_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 512>>(&encoding);
 }
@@ -22874,7 +22874,7 @@ fn test_basic_vector_vec_uint16_512_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_513_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_513_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_513_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 513>>(&encoding);
 }
@@ -22883,7 +22883,7 @@ fn test_basic_vector_vec_uint64_513_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_2_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_2_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_2_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 2>>(&encoding);
@@ -22892,7 +22892,7 @@ fn test_basic_vector_vec_uint64_2_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_31_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_31_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_31_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 31>>(&encoding);
 }
@@ -22901,7 +22901,7 @@ fn test_basic_vector_vec_uint256_31_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_8_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_8_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_8_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 8>>(&encoding);
@@ -22911,7 +22911,7 @@ fn test_basic_vector_vec_uint16_8_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_8_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_8_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_8_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 8>>(&encoding);
@@ -22920,7 +22920,7 @@ fn test_basic_vector_vec_uint64_8_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_513_zero_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_513_zero_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_513_zero_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 513>>(&encoding);
 }
@@ -22928,7 +22928,7 @@ fn test_basic_vector_vec_uint128_513_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_512_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_512_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_512_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 512>>(&encoding);
 }
@@ -22937,7 +22937,7 @@ fn test_basic_vector_vec_uint256_512_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_5_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_5_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_5_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 5>>(&encoding);
@@ -22947,7 +22947,7 @@ fn test_basic_vector_vec_uint64_5_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_1_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_1_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_1_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 1>>(&encoding);
@@ -22956,7 +22956,7 @@ fn test_basic_vector_vec_uint16_1_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_8_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_8_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_8_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 8>>(&encoding);
 }
@@ -22965,7 +22965,7 @@ fn test_basic_vector_vec_uint32_8_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_4_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_4_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_4_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 4>>(&encoding);
@@ -22975,7 +22975,7 @@ fn test_basic_vector_vec_uint256_4_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_5_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_5_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_5_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 5>>(&encoding);
@@ -22985,7 +22985,7 @@ fn test_basic_vector_vec_uint64_5_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_513_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_513_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_513_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 513>>(&encoding);
@@ -22994,7 +22994,7 @@ fn test_basic_vector_vec_uint16_513_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_8_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_8_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_8_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 8>>(&encoding);
 }
@@ -23002,7 +23002,7 @@ fn test_basic_vector_vec_uint256_8_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_512_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_512_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_512_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 512>>(&encoding);
 }
@@ -23011,7 +23011,7 @@ fn test_basic_vector_vec_uint128_512_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_1_max_one_byte_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_1_max_one_byte_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_1_max_one_byte_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 1>>(&encoding);
@@ -23021,7 +23021,7 @@ fn test_basic_vector_vec_bool_1_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_2_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_2_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_2_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 2>>(&encoding);
@@ -23030,7 +23030,7 @@ fn test_basic_vector_vec_uint32_2_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_5_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_5_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_5_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 5>>(&encoding);
 }
@@ -23039,7 +23039,7 @@ fn test_basic_vector_vec_uint16_5_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_3_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_3_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_3_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 3>>(&encoding);
@@ -23048,7 +23048,7 @@ fn test_basic_vector_vec_uint8_3_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_8_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_8_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_8_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 8>>(&encoding);
 }
@@ -23056,7 +23056,7 @@ fn test_basic_vector_vec_uint64_8_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_512_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_512_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_512_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 512>>(&encoding);
 }
@@ -23064,7 +23064,7 @@ fn test_basic_vector_vec_uint128_512_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_3_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_3_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_3_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 3>>(&encoding);
 }
@@ -23073,7 +23073,7 @@ fn test_basic_vector_vec_uint32_3_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_5_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_5_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_5_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 5>>(&encoding);
@@ -23082,7 +23082,7 @@ fn test_basic_vector_vec_uint64_5_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_31_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_31_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_31_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 31>>(&encoding);
 }
@@ -23091,7 +23091,7 @@ fn test_basic_vector_vec_uint16_31_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_4_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_4_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_4_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 4>>(&encoding);
@@ -23100,7 +23100,7 @@ fn test_basic_vector_vec_uint8_4_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_8_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_8_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_8_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 8>>(&encoding);
 }
@@ -23108,7 +23108,7 @@ fn test_basic_vector_vec_uint16_8_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_5_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_5_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_5_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 5>>(&encoding);
 }
@@ -23117,7 +23117,7 @@ fn test_basic_vector_vec_uint64_5_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_3_max_one_byte_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_3_max_one_byte_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_3_max_one_byte_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 3>>(&encoding);
@@ -23126,7 +23126,7 @@ fn test_basic_vector_vec_bool_3_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_513_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_513_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_513_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 513>>(&encoding);
 }
@@ -23135,7 +23135,7 @@ fn test_basic_vector_vec_uint128_513_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_1_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_1_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_1_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 1>>(&encoding);
@@ -23144,7 +23144,7 @@ fn test_basic_vector_vec_uint64_1_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_16_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_16_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_16_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 16>>(&encoding);
 }
@@ -23152,7 +23152,7 @@ fn test_basic_vector_vec_uint32_16_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_3_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_3_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_3_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 3>>(&encoding);
 }
@@ -23161,7 +23161,7 @@ fn test_basic_vector_vec_uint256_3_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_16_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_16_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_16_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 16>>(&encoding);
@@ -23171,7 +23171,7 @@ fn test_basic_vector_vec_uint256_16_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_5_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_5_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_5_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 5>>(&encoding);
@@ -23180,7 +23180,7 @@ fn test_basic_vector_vec_uint16_5_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_16_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_16_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_16_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 16>>(&encoding);
 }
@@ -23188,7 +23188,7 @@ fn test_basic_vector_vec_uint32_16_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_2_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_2_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_2_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 2>>(&encoding);
 }
@@ -23197,7 +23197,7 @@ fn test_basic_vector_vec_uint128_2_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_512_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_512_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_512_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 512>>(&encoding);
@@ -23207,7 +23207,7 @@ fn test_basic_vector_vec_uint16_512_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_3_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_3_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_3_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 3>>(&encoding);
@@ -23217,7 +23217,7 @@ fn test_basic_vector_vec_uint8_3_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_5_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_5_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_5_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 5>>(&encoding);
@@ -23226,7 +23226,7 @@ fn test_basic_vector_vec_uint128_5_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_5_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_5_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_5_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 5>>(&encoding);
 }
@@ -23234,7 +23234,7 @@ fn test_basic_vector_vec_uint256_5_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_512_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_512_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_512_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 512>>(&encoding);
 }
@@ -23243,7 +23243,7 @@ fn test_basic_vector_vec_uint32_512_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_5_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_5_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_5_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 5>>(&encoding);
@@ -23253,7 +23253,7 @@ fn test_basic_vector_vec_uint8_5_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_1_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_1_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_1_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 1>>(&encoding);
@@ -23263,7 +23263,7 @@ fn test_basic_vector_vec_bool_1_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_2_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_2_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_2_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 2>>(&encoding);
@@ -23272,7 +23272,7 @@ fn test_basic_vector_vec_uint16_2_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_512_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_512_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_512_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 512>>(&encoding);
 }
@@ -23280,7 +23280,7 @@ fn test_basic_vector_vec_uint256_512_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_512_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_512_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_512_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 512>>(&encoding);
 }
@@ -23289,7 +23289,7 @@ fn test_basic_vector_vec_uint64_512_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_5_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_5_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_5_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 5>>(&encoding);
@@ -23299,7 +23299,7 @@ fn test_basic_vector_vec_bool_5_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_8_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_8_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_8_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 8>>(&encoding);
@@ -23308,7 +23308,7 @@ fn test_basic_vector_vec_uint16_8_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_3_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_3_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_3_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 3>>(&encoding);
 }
@@ -23317,7 +23317,7 @@ fn test_basic_vector_vec_uint16_3_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_2_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_2_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_2_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 2>>(&encoding);
@@ -23327,7 +23327,7 @@ fn test_basic_vector_vec_uint8_2_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_512_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_512_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_512_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 512>>(&encoding);
@@ -23336,7 +23336,7 @@ fn test_basic_vector_vec_uint32_512_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_5_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_5_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_5_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 5>>(&encoding);
 }
@@ -23344,7 +23344,7 @@ fn test_basic_vector_vec_uint16_5_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_31_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_31_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_31_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 31>>(&encoding);
 }
@@ -23353,7 +23353,7 @@ fn test_basic_vector_vec_uint256_31_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_512_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_512_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_512_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 512>>(&encoding);
@@ -23362,7 +23362,7 @@ fn test_basic_vector_vec_bool_512_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_8_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_8_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_8_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 8>>(&encoding);
 }
@@ -23371,7 +23371,7 @@ fn test_basic_vector_vec_uint128_8_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_513_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_513_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_513_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 513>>(&encoding);
@@ -23381,7 +23381,7 @@ fn test_basic_vector_vec_uint256_513_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_1_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_1_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_1_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 1>>(&encoding);
@@ -23391,7 +23391,7 @@ fn test_basic_vector_vec_uint128_1_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_3_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_3_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_3_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 3>>(&encoding);
@@ -23400,7 +23400,7 @@ fn test_basic_vector_vec_uint64_3_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_5_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_5_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_5_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 5>>(&encoding);
 }
@@ -23408,7 +23408,7 @@ fn test_basic_vector_vec_uint128_5_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_4_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_4_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_4_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 4>>(&encoding);
 }
@@ -23416,7 +23416,7 @@ fn test_basic_vector_vec_uint256_4_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_1_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_1_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_1_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 1>>(&encoding);
 }
@@ -23424,7 +23424,7 @@ fn test_basic_vector_vec_uint16_1_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_16_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_16_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_16_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 16>>(&encoding);
 }
@@ -23432,7 +23432,7 @@ fn test_basic_vector_vec_uint32_16_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_8_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_8_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_8_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 8>>(&encoding);
 }
@@ -23440,7 +23440,7 @@ fn test_basic_vector_vec_uint128_8_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_4_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_4_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_4_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 4>>(&encoding);
 }
@@ -23449,7 +23449,7 @@ fn test_basic_vector_vec_uint64_4_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_513_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_513_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_513_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 513>>(&encoding);
@@ -23458,7 +23458,7 @@ fn test_basic_vector_vec_bool_513_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_512_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_512_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_512_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 512>>(&encoding);
 }
@@ -23467,7 +23467,7 @@ fn test_basic_vector_vec_bool_512_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_2_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_2_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_2_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 2>>(&encoding);
@@ -23476,7 +23476,7 @@ fn test_basic_vector_vec_uint64_2_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_16_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_16_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_16_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 16>>(&encoding);
 }
@@ -23484,7 +23484,7 @@ fn test_basic_vector_vec_uint32_16_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_3_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_3_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_3_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 3>>(&encoding);
 }
@@ -23493,7 +23493,7 @@ fn test_basic_vector_vec_uint128_3_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_512_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_512_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_512_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 512>>(&encoding);
@@ -23503,7 +23503,7 @@ fn test_basic_vector_vec_uint256_512_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_8_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_8_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_8_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 8>>(&encoding);
@@ -23513,7 +23513,7 @@ fn test_basic_vector_vec_uint16_8_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_5_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_5_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_5_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 5>>(&encoding);
@@ -23522,7 +23522,7 @@ fn test_basic_vector_vec_uint32_5_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_8_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_8_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_8_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 8>>(&encoding);
 }
@@ -23530,7 +23530,7 @@ fn test_basic_vector_vec_uint64_8_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_16_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_16_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_16_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 16>>(&encoding);
 }
@@ -23538,7 +23538,7 @@ fn test_basic_vector_vec_uint128_16_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_31_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_31_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_31_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 31>>(&encoding);
 }
@@ -23547,7 +23547,7 @@ fn test_basic_vector_vec_uint256_31_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_3_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_3_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_3_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 3>>(&encoding);
@@ -23556,7 +23556,7 @@ fn test_basic_vector_vec_uint128_3_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_16_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_16_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_16_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 16>>(&encoding);
 }
@@ -23565,7 +23565,7 @@ fn test_basic_vector_vec_uint64_16_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_2_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_2_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_2_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 2>>(&encoding);
@@ -23575,7 +23575,7 @@ fn test_basic_vector_vec_bool_2_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_513_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_513_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_513_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 513>>(&encoding);
@@ -23585,7 +23585,7 @@ fn test_basic_vector_vec_uint256_513_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_513_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_513_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_513_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 513>>(&encoding);
@@ -23595,7 +23595,7 @@ fn test_basic_vector_vec_uint128_513_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_513_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_513_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_513_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 513>>(&encoding);
@@ -23605,7 +23605,7 @@ fn test_basic_vector_vec_uint8_513_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_5_max_one_byte_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_5_max_one_byte_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_5_max_one_byte_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 5>>(&encoding);
@@ -23614,7 +23614,7 @@ fn test_basic_vector_vec_bool_5_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_513_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_513_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_513_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 513>>(&encoding);
 }
@@ -23622,7 +23622,7 @@ fn test_basic_vector_vec_uint32_513_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_512_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_512_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_512_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 512>>(&encoding);
 }
@@ -23631,7 +23631,7 @@ fn test_basic_vector_vec_uint128_512_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_4_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_4_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_4_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 4>>(&encoding);
@@ -23640,7 +23640,7 @@ fn test_basic_vector_vec_uint128_4_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_512_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_512_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_512_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 512>>(&encoding);
 }
@@ -23648,7 +23648,7 @@ fn test_basic_vector_vec_uint64_512_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_16_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_16_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_16_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 16>>(&encoding);
 }
@@ -23657,7 +23657,7 @@ fn test_basic_vector_vec_uint16_16_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_5_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_5_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_5_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 5>>(&encoding);
@@ -23667,7 +23667,7 @@ fn test_basic_vector_vec_bool_5_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_8_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_8_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_8_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 8>>(&encoding);
@@ -23676,7 +23676,7 @@ fn test_basic_vector_vec_uint64_8_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_8_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_8_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_8_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 8>>(&encoding);
 }
@@ -23684,7 +23684,7 @@ fn test_basic_vector_vec_uint32_8_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_3_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_3_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_3_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 3>>(&encoding);
 }
@@ -23692,7 +23692,7 @@ fn test_basic_vector_vec_uint64_3_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_31_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_31_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_31_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 31>>(&encoding);
 }
@@ -23701,7 +23701,7 @@ fn test_basic_vector_vec_bool_31_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_8_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_8_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_8_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 8>>(&encoding);
@@ -23711,7 +23711,7 @@ fn test_basic_vector_vec_uint32_8_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_31_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_31_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_31_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 31>>(&encoding);
@@ -23721,7 +23721,7 @@ fn test_basic_vector_vec_uint64_31_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_2_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_2_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_2_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 2>>(&encoding);
@@ -23731,7 +23731,7 @@ fn test_basic_vector_vec_uint64_2_nil() {
 #[should_panic]
 fn test_basic_vector_vec_bool_513_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_513_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_513_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 513>>(&encoding);
@@ -23740,7 +23740,7 @@ fn test_basic_vector_vec_bool_513_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_3_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_3_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_3_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 3>>(&encoding);
 }
@@ -23749,7 +23749,7 @@ fn test_basic_vector_vec_uint16_3_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_0() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_0/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 0>>(&encoding);
@@ -23759,7 +23759,7 @@ fn test_basic_vector_vec_uint64_0() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_513_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_513_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_513_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 513>>(&encoding);
@@ -23768,7 +23768,7 @@ fn test_basic_vector_vec_uint64_513_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_512_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_512_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_512_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 512>>(&encoding);
 }
@@ -23776,7 +23776,7 @@ fn test_basic_vector_vec_uint64_512_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_2_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_2_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_2_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 2>>(&encoding);
 }
@@ -23784,7 +23784,7 @@ fn test_basic_vector_vec_uint32_2_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_31_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_31_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_31_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 31>>(&encoding);
 }
@@ -23792,7 +23792,7 @@ fn test_basic_vector_vec_bool_31_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_31_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_31_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_31_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 31>>(&encoding);
 }
@@ -23800,7 +23800,7 @@ fn test_basic_vector_vec_uint64_31_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_5_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_5_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_5_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 5>>(&encoding);
 }
@@ -23809,7 +23809,7 @@ fn test_basic_vector_vec_uint32_5_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_513_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_513_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_513_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 513>>(&encoding);
@@ -23818,7 +23818,7 @@ fn test_basic_vector_vec_uint32_513_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_1_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_1_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_1_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 1>>(&encoding);
 }
@@ -23827,7 +23827,7 @@ fn test_basic_vector_vec_uint64_1_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_4_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_4_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_4_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 4>>(&encoding);
@@ -23837,7 +23837,7 @@ fn test_basic_vector_vec_bool_4_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_3_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_3_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_3_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 3>>(&encoding);
@@ -23847,7 +23847,7 @@ fn test_basic_vector_vec_uint256_3_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_513_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_513_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_513_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 513>>(&encoding);
@@ -23857,7 +23857,7 @@ fn test_basic_vector_vec_uint32_513_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_2_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_2_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_2_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 2>>(&encoding);
@@ -23867,7 +23867,7 @@ fn test_basic_vector_vec_uint64_2_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_513_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_513_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_513_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 513>>(&encoding);
@@ -23877,7 +23877,7 @@ fn test_basic_vector_vec_bool_513_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_5_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_5_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_5_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 5>>(&encoding);
@@ -23887,7 +23887,7 @@ fn test_basic_vector_vec_uint8_5_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_4_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_4_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_4_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 4>>(&encoding);
@@ -23897,7 +23897,7 @@ fn test_basic_vector_vec_uint8_4_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_5_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_5_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_5_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 5>>(&encoding);
@@ -23906,7 +23906,7 @@ fn test_basic_vector_vec_bool_5_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_5_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_5_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_5_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 5>>(&encoding);
 }
@@ -23914,7 +23914,7 @@ fn test_basic_vector_vec_uint64_5_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_513_zero_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_513_zero_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_513_zero_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 513>>(&encoding);
 }
@@ -23922,7 +23922,7 @@ fn test_basic_vector_vec_uint256_513_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_4_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_4_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_4_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 4>>(&encoding);
 }
@@ -23931,7 +23931,7 @@ fn test_basic_vector_vec_uint16_4_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_8_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_8_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_8_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 8>>(&encoding);
@@ -23940,7 +23940,7 @@ fn test_basic_vector_vec_bool_8_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_16_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_16_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_16_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 16>>(&encoding);
 }
@@ -23948,7 +23948,7 @@ fn test_basic_vector_vec_uint128_16_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_513_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_513_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_513_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 513>>(&encoding);
 }
@@ -23957,7 +23957,7 @@ fn test_basic_vector_vec_uint16_513_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_2_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_2_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_2_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 2>>(&encoding);
@@ -23967,7 +23967,7 @@ fn test_basic_vector_vec_uint8_2_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_4_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_4_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_4_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 4>>(&encoding);
@@ -23977,7 +23977,7 @@ fn test_basic_vector_vec_uint8_4_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_2_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_2_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_2_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 2>>(&encoding);
@@ -23987,7 +23987,7 @@ fn test_basic_vector_vec_uint128_2_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_1_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_1_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_1_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 1>>(&encoding);
@@ -23996,7 +23996,7 @@ fn test_basic_vector_vec_uint32_1_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_2_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_2_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_2_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 2>>(&encoding);
 }
@@ -24004,7 +24004,7 @@ fn test_basic_vector_vec_uint128_2_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_16_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_16_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_16_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 16>>(&encoding);
 }
@@ -24013,7 +24013,7 @@ fn test_basic_vector_vec_uint64_16_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_3_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_3_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_3_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 3>>(&encoding);
@@ -24022,7 +24022,7 @@ fn test_basic_vector_vec_uint16_3_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_3_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_3_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_3_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 3>>(&encoding);
 }
@@ -24031,7 +24031,7 @@ fn test_basic_vector_vec_uint128_3_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_31_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_31_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_31_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 31>>(&encoding);
@@ -24041,7 +24041,7 @@ fn test_basic_vector_vec_uint16_31_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_31_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_31_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_31_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 31>>(&encoding);
@@ -24050,7 +24050,7 @@ fn test_basic_vector_vec_uint8_31_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_513_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_513_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_513_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 513>>(&encoding);
 }
@@ -24059,7 +24059,7 @@ fn test_basic_vector_vec_uint8_513_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_31_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_31_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_31_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 31>>(&encoding);
@@ -24069,7 +24069,7 @@ fn test_basic_vector_vec_uint128_31_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_31_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_31_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_31_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 31>>(&encoding);
@@ -24079,7 +24079,7 @@ fn test_basic_vector_vec_uint16_31_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_4_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_4_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_4_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 4>>(&encoding);
@@ -24088,7 +24088,7 @@ fn test_basic_vector_vec_uint16_4_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_512_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_512_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_512_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 512>>(&encoding);
 }
@@ -24097,7 +24097,7 @@ fn test_basic_vector_vec_uint8_512_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_5_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_5_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_5_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 5>>(&encoding);
@@ -24106,7 +24106,7 @@ fn test_basic_vector_vec_uint16_5_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_1_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_1_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_1_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 1>>(&encoding);
 }
@@ -24114,7 +24114,7 @@ fn test_basic_vector_vec_uint256_1_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_513_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_513_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_513_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 513>>(&encoding);
 }
@@ -24123,7 +24123,7 @@ fn test_basic_vector_vec_uint256_513_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_2_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_2_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_2_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 2>>(&encoding);
@@ -24132,7 +24132,7 @@ fn test_basic_vector_vec_uint128_2_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_4_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_4_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_4_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 4>>(&encoding);
 }
@@ -24140,7 +24140,7 @@ fn test_basic_vector_vec_uint16_4_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_31_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_31_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_31_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 31>>(&encoding);
 }
@@ -24148,7 +24148,7 @@ fn test_basic_vector_vec_uint16_31_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_4_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_4_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_4_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 4>>(&encoding);
 }
@@ -24156,7 +24156,7 @@ fn test_basic_vector_vec_bool_4_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_513_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_513_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_513_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 513>>(&encoding);
 }
@@ -24165,7 +24165,7 @@ fn test_basic_vector_vec_uint256_513_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_8_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_8_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_8_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 8>>(&encoding);
@@ -24175,7 +24175,7 @@ fn test_basic_vector_vec_uint16_8_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_8_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_8_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_8_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 8>>(&encoding);
@@ -24185,7 +24185,7 @@ fn test_basic_vector_vec_uint32_8_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_4_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_4_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_4_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 4>>(&encoding);
@@ -24194,7 +24194,7 @@ fn test_basic_vector_vec_uint8_4_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_513_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_513_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_513_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 513>>(&encoding);
 }
@@ -24203,7 +24203,7 @@ fn test_basic_vector_vec_uint32_513_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_16_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_16_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_16_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 16>>(&encoding);
@@ -24212,7 +24212,7 @@ fn test_basic_vector_vec_uint16_16_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_513_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_513_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_513_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 513>>(&encoding);
 }
@@ -24220,7 +24220,7 @@ fn test_basic_vector_vec_uint128_513_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_16_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_16_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_16_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 16>>(&encoding);
 }
@@ -24228,7 +24228,7 @@ fn test_basic_vector_vec_uint128_16_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_8_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_8_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_8_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 8>>(&encoding);
 }
@@ -24237,7 +24237,7 @@ fn test_basic_vector_vec_uint32_8_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_5_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_5_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_5_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 5>>(&encoding);
@@ -24247,7 +24247,7 @@ fn test_basic_vector_vec_uint32_5_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_0() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_0/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 0>>(&encoding);
@@ -24256,7 +24256,7 @@ fn test_basic_vector_vec_uint256_0() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_1_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_1_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_1_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 1>>(&encoding);
 }
@@ -24264,7 +24264,7 @@ fn test_basic_vector_vec_bool_1_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_2_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_2_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_2_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 2>>(&encoding);
 }
@@ -24272,7 +24272,7 @@ fn test_basic_vector_vec_uint256_2_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_3_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_3_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_3_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 3>>(&encoding);
 }
@@ -24281,7 +24281,7 @@ fn test_basic_vector_vec_uint32_3_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_2_max_one_byte_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_2_max_one_byte_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_2_max_one_byte_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 2>>(&encoding);
@@ -24290,7 +24290,7 @@ fn test_basic_vector_vec_bool_2_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_4_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_4_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_4_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 4>>(&encoding);
 }
@@ -24299,7 +24299,7 @@ fn test_basic_vector_vec_uint256_4_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_1_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_1_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_1_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 1>>(&encoding);
@@ -24309,7 +24309,7 @@ fn test_basic_vector_vec_bool_1_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_8_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_8_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_8_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 8>>(&encoding);
@@ -24318,7 +24318,7 @@ fn test_basic_vector_vec_uint128_8_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_3_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_3_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_3_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 3>>(&encoding);
 }
@@ -24326,7 +24326,7 @@ fn test_basic_vector_vec_uint128_3_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_513_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_513_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_513_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 513>>(&encoding);
 }
@@ -24335,7 +24335,7 @@ fn test_basic_vector_vec_uint256_513_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_16_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_16_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_16_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 16>>(&encoding);
@@ -24344,7 +24344,7 @@ fn test_basic_vector_vec_uint8_16_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_1_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_1_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_1_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 1>>(&encoding);
 }
@@ -24353,7 +24353,7 @@ fn test_basic_vector_vec_uint16_1_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_4_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_4_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_4_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 4>>(&encoding);
@@ -24363,7 +24363,7 @@ fn test_basic_vector_vec_uint64_4_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_4_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_4_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_4_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 4>>(&encoding);
@@ -24372,7 +24372,7 @@ fn test_basic_vector_vec_uint64_4_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_16_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_16_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_16_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 16>>(&encoding);
 }
@@ -24381,7 +24381,7 @@ fn test_basic_vector_vec_uint64_16_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_512_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_512_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_512_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 512>>(&encoding);
@@ -24390,7 +24390,7 @@ fn test_basic_vector_vec_uint16_512_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_8_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_8_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_8_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 8>>(&encoding);
 }
@@ -24399,7 +24399,7 @@ fn test_basic_vector_vec_uint8_8_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_1_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_1_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_1_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 1>>(&encoding);
@@ -24409,7 +24409,7 @@ fn test_basic_vector_vec_uint64_1_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_1_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_1_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_1_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 1>>(&encoding);
@@ -24419,7 +24419,7 @@ fn test_basic_vector_vec_uint16_1_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_3_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_3_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_3_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 3>>(&encoding);
@@ -24429,7 +24429,7 @@ fn test_basic_vector_vec_uint128_3_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_31_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_31_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_31_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 31>>(&encoding);
@@ -24439,7 +24439,7 @@ fn test_basic_vector_vec_uint32_31_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_5_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_5_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_5_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 5>>(&encoding);
@@ -24449,7 +24449,7 @@ fn test_basic_vector_vec_uint8_5_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_3_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_3_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_3_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 3>>(&encoding);
@@ -24459,7 +24459,7 @@ fn test_basic_vector_vec_uint64_3_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_3_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_3_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_3_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 3>>(&encoding);
@@ -24468,7 +24468,7 @@ fn test_basic_vector_vec_uint32_3_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_5_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_5_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_5_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 5>>(&encoding);
 }
@@ -24476,7 +24476,7 @@ fn test_basic_vector_vec_uint8_5_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_8_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_8_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_8_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 8>>(&encoding);
 }
@@ -24485,7 +24485,7 @@ fn test_basic_vector_vec_uint8_8_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_3_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_3_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_3_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 3>>(&encoding);
@@ -24495,7 +24495,7 @@ fn test_basic_vector_vec_bool_3_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_2_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_2_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_2_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 2>>(&encoding);
@@ -24505,7 +24505,7 @@ fn test_basic_vector_vec_uint128_2_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_3_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_3_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_3_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 3>>(&encoding);
@@ -24515,7 +24515,7 @@ fn test_basic_vector_vec_uint64_3_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_31_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_31_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_31_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 31>>(&encoding);
@@ -24524,7 +24524,7 @@ fn test_basic_vector_vec_uint32_31_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_5_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_5_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_5_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 5>>(&encoding);
 }
@@ -24533,7 +24533,7 @@ fn test_basic_vector_vec_uint128_5_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_4_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_4_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_4_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 4>>(&encoding);
@@ -24542,7 +24542,7 @@ fn test_basic_vector_vec_bool_4_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_2_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_2_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_2_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 2>>(&encoding);
 }
@@ -24551,7 +24551,7 @@ fn test_basic_vector_vec_bool_2_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_4_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_4_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_4_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 4>>(&encoding);
@@ -24561,7 +24561,7 @@ fn test_basic_vector_vec_uint32_4_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_5_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_5_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_5_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 5>>(&encoding);
@@ -24570,7 +24570,7 @@ fn test_basic_vector_vec_uint128_5_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_2_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_2_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_2_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 2>>(&encoding);
 }
@@ -24578,7 +24578,7 @@ fn test_basic_vector_vec_uint16_2_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_16_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_16_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_16_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 16>>(&encoding);
 }
@@ -24587,7 +24587,7 @@ fn test_basic_vector_vec_uint256_16_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_31_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_31_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_31_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 31>>(&encoding);
@@ -24596,7 +24596,7 @@ fn test_basic_vector_vec_uint128_31_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_1_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_1_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_1_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 1>>(&encoding);
 }
@@ -24605,7 +24605,7 @@ fn test_basic_vector_vec_uint256_1_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_31_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_31_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_31_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 31>>(&encoding);
@@ -24615,7 +24615,7 @@ fn test_basic_vector_vec_uint256_31_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_512_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_512_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_512_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 512>>(&encoding);
@@ -24625,7 +24625,7 @@ fn test_basic_vector_vec_uint128_512_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_16_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_16_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_16_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 16>>(&encoding);
@@ -24634,7 +24634,7 @@ fn test_basic_vector_vec_uint32_16_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_8_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_8_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_8_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 8>>(&encoding);
 }
@@ -24643,7 +24643,7 @@ fn test_basic_vector_vec_uint128_8_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_2_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_2_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_2_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 2>>(&encoding);
@@ -24653,7 +24653,7 @@ fn test_basic_vector_vec_uint32_2_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_2_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_2_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_2_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 2>>(&encoding);
@@ -24662,7 +24662,7 @@ fn test_basic_vector_vec_uint256_2_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_513_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_513_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_513_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 513>>(&encoding);
 }
@@ -24671,7 +24671,7 @@ fn test_basic_vector_vec_uint16_513_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_31_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_31_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_31_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 31>>(&encoding);
@@ -24681,7 +24681,7 @@ fn test_basic_vector_vec_bool_31_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_1_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_1_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_1_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 1>>(&encoding);
@@ -24691,7 +24691,7 @@ fn test_basic_vector_vec_uint32_1_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_3_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_3_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_3_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 3>>(&encoding);
@@ -24701,7 +24701,7 @@ fn test_basic_vector_vec_uint8_3_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_16_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_16_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_16_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 16>>(&encoding);
@@ -24711,7 +24711,7 @@ fn test_basic_vector_vec_bool_16_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_16_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_16_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_16_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 16>>(&encoding);
@@ -24720,7 +24720,7 @@ fn test_basic_vector_vec_uint128_16_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_4_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_4_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_4_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 4>>(&encoding);
 }
@@ -24729,7 +24729,7 @@ fn test_basic_vector_vec_uint128_4_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_512_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_512_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_512_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 512>>(&encoding);
@@ -24739,7 +24739,7 @@ fn test_basic_vector_vec_uint32_512_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_1_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_1_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_1_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 1>>(&encoding);
@@ -24748,7 +24748,7 @@ fn test_basic_vector_vec_uint128_1_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_512_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_512_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_512_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 512>>(&encoding);
 }
@@ -24756,7 +24756,7 @@ fn test_basic_vector_vec_uint32_512_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_16_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_16_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_16_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 16>>(&encoding);
 }
@@ -24765,7 +24765,7 @@ fn test_basic_vector_vec_uint16_16_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_1_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_1_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_1_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 1>>(&encoding);
@@ -24774,7 +24774,7 @@ fn test_basic_vector_vec_uint256_1_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_4_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_4_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_4_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 4>>(&encoding);
 }
@@ -24782,7 +24782,7 @@ fn test_basic_vector_vec_uint8_4_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_5_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_5_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_5_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 5>>(&encoding);
 }
@@ -24790,7 +24790,7 @@ fn test_basic_vector_vec_uint256_5_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_513_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_513_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_513_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 513>>(&encoding);
 }
@@ -24798,7 +24798,7 @@ fn test_basic_vector_vec_uint256_513_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_512_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_512_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_512_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 512>>(&encoding);
 }
@@ -24807,7 +24807,7 @@ fn test_basic_vector_vec_uint32_512_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_31_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_31_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_31_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 31>>(&encoding);
@@ -24817,7 +24817,7 @@ fn test_basic_vector_vec_bool_31_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_4_max_one_byte_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_4_max_one_byte_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_4_max_one_byte_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 4>>(&encoding);
@@ -24826,7 +24826,7 @@ fn test_basic_vector_vec_bool_4_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_513_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_513_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_513_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 513>>(&encoding);
 }
@@ -24835,7 +24835,7 @@ fn test_basic_vector_vec_uint64_513_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_16_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_16_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_16_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 16>>(&encoding);
@@ -24844,7 +24844,7 @@ fn test_basic_vector_vec_bool_16_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_4_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_4_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_4_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 4>>(&encoding);
 }
@@ -24852,7 +24852,7 @@ fn test_basic_vector_vec_uint256_4_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_513_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_513_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_513_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 513>>(&encoding);
 }
@@ -24861,7 +24861,7 @@ fn test_basic_vector_vec_uint64_513_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_8_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_8_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_8_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 8>>(&encoding);
@@ -24871,7 +24871,7 @@ fn test_basic_vector_vec_uint8_8_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_3_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_3_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_3_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 3>>(&encoding);
@@ -24880,7 +24880,7 @@ fn test_basic_vector_vec_uint8_3_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_3_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_3_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_3_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 3>>(&encoding);
 }
@@ -24889,7 +24889,7 @@ fn test_basic_vector_vec_uint8_3_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_2_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_2_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_2_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 2>>(&encoding);
@@ -24898,7 +24898,7 @@ fn test_basic_vector_vec_bool_2_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_513_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_513_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_513_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 513>>(&encoding);
 }
@@ -24906,7 +24906,7 @@ fn test_basic_vector_vec_uint64_513_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_512_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_512_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_512_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 512>>(&encoding);
 }
@@ -24915,7 +24915,7 @@ fn test_basic_vector_vec_uint128_512_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_512_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_512_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_512_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 512>>(&encoding);
@@ -24925,7 +24925,7 @@ fn test_basic_vector_vec_uint256_512_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_3_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_3_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_3_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 3>>(&encoding);
@@ -24935,7 +24935,7 @@ fn test_basic_vector_vec_uint256_3_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_31_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_31_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_31_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 31>>(&encoding);
@@ -24945,7 +24945,7 @@ fn test_basic_vector_vec_uint128_31_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_2_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_2_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_2_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 2>>(&encoding);
@@ -24955,7 +24955,7 @@ fn test_basic_vector_vec_uint16_2_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_8_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_8_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_8_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 8>>(&encoding);
@@ -24964,7 +24964,7 @@ fn test_basic_vector_vec_uint128_8_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_16_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_16_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_16_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 16>>(&encoding);
 }
@@ -24972,7 +24972,7 @@ fn test_basic_vector_vec_uint128_16_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_1_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_1_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_1_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 1>>(&encoding);
 }
@@ -24980,7 +24980,7 @@ fn test_basic_vector_vec_uint8_1_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_31_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_31_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_31_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 31>>(&encoding);
 }
@@ -24988,7 +24988,7 @@ fn test_basic_vector_vec_uint8_31_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_31_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_31_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_31_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 31>>(&encoding);
 }
@@ -24997,7 +24997,7 @@ fn test_basic_vector_vec_uint8_31_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_5_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_5_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_5_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 5>>(&encoding);
@@ -25007,7 +25007,7 @@ fn test_basic_vector_vec_uint128_5_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_512_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_512_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_512_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 512>>(&encoding);
@@ -25017,7 +25017,7 @@ fn test_basic_vector_vec_bool_512_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_31_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_31_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_31_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 31>>(&encoding);
@@ -25026,7 +25026,7 @@ fn test_basic_vector_vec_uint32_31_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_2_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_2_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_2_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 2>>(&encoding);
 }
@@ -25035,7 +25035,7 @@ fn test_basic_vector_vec_uint256_2_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_16_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_16_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_16_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 16>>(&encoding);
@@ -25045,7 +25045,7 @@ fn test_basic_vector_vec_uint256_16_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_31_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_31_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_31_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 31>>(&encoding);
@@ -25054,7 +25054,7 @@ fn test_basic_vector_vec_uint16_31_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_16_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_16_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_16_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 16>>(&encoding);
 }
@@ -25062,7 +25062,7 @@ fn test_basic_vector_vec_uint8_16_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_513_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_513_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_513_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 513>>(&encoding);
 }
@@ -25071,7 +25071,7 @@ fn test_basic_vector_vec_uint128_513_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_513_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_513_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_513_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 513>>(&encoding);
@@ -25080,7 +25080,7 @@ fn test_basic_vector_vec_uint32_513_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_512_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_512_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_512_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 512>>(&encoding);
 }
@@ -25088,7 +25088,7 @@ fn test_basic_vector_vec_uint16_512_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_513_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_513_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_513_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 513>>(&encoding);
 }
@@ -25096,7 +25096,7 @@ fn test_basic_vector_vec_uint8_513_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_5_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_5_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_5_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 5>>(&encoding);
 }
@@ -25105,7 +25105,7 @@ fn test_basic_vector_vec_uint8_5_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_8_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_8_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_8_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 8>>(&encoding);
@@ -25114,7 +25114,7 @@ fn test_basic_vector_vec_bool_8_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_5_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_5_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_5_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 5>>(&encoding);
 }
@@ -25123,7 +25123,7 @@ fn test_basic_vector_vec_uint16_5_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_0() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_0/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 0>>(&encoding);
@@ -25132,7 +25132,7 @@ fn test_basic_vector_vec_uint16_0() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_512_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_512_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_512_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 512>>(&encoding);
 }
@@ -25141,7 +25141,7 @@ fn test_basic_vector_vec_uint256_512_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_513_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_513_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_513_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 513>>(&encoding);
@@ -25151,7 +25151,7 @@ fn test_basic_vector_vec_uint64_513_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_8_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_8_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_8_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 8>>(&encoding);
@@ -25161,7 +25161,7 @@ fn test_basic_vector_vec_uint64_8_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_1_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_1_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_1_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 1>>(&encoding);
@@ -25171,7 +25171,7 @@ fn test_basic_vector_vec_uint256_1_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_513_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_513_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_513_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 513>>(&encoding);
@@ -25180,7 +25180,7 @@ fn test_basic_vector_vec_uint16_513_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_513_zero_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_513_zero_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_513_zero_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 513>>(&encoding);
 }
@@ -25189,7 +25189,7 @@ fn test_basic_vector_vec_uint128_513_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_4_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_4_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_4_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 4>>(&encoding);
@@ -25198,7 +25198,7 @@ fn test_basic_vector_vec_uint256_4_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_8_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_8_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_8_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 8>>(&encoding);
 }
@@ -25207,7 +25207,7 @@ fn test_basic_vector_vec_uint32_8_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_513_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_513_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_513_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 513>>(&encoding);
@@ -25217,7 +25217,7 @@ fn test_basic_vector_vec_uint16_513_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_5_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_5_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_5_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 5>>(&encoding);
@@ -25227,7 +25227,7 @@ fn test_basic_vector_vec_uint64_5_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_5_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_5_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_5_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 5>>(&encoding);
@@ -25236,7 +25236,7 @@ fn test_basic_vector_vec_uint64_5_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_512_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_512_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_512_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 512>>(&encoding);
 }
@@ -25245,7 +25245,7 @@ fn test_basic_vector_vec_uint256_512_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_1_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_1_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_1_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 1>>(&encoding);
@@ -25254,7 +25254,7 @@ fn test_basic_vector_vec_uint16_1_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_513_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_513_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_513_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 513>>(&encoding);
 }
@@ -25262,7 +25262,7 @@ fn test_basic_vector_vec_uint64_513_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_31_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_31_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_31_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 31>>(&encoding);
 }
@@ -25271,7 +25271,7 @@ fn test_basic_vector_vec_uint256_31_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_8_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_8_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_8_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 8>>(&encoding);
@@ -25281,7 +25281,7 @@ fn test_basic_vector_vec_uint16_8_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_2_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_2_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_2_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 2>>(&encoding);
@@ -25290,7 +25290,7 @@ fn test_basic_vector_vec_uint64_2_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_31_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_31_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_31_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 31>>(&encoding);
 }
@@ -25299,7 +25299,7 @@ fn test_basic_vector_vec_uint16_31_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_5_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_5_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_5_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 5>>(&encoding);
@@ -25308,7 +25308,7 @@ fn test_basic_vector_vec_uint64_5_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_8_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_8_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_8_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 8>>(&encoding);
 }
@@ -25317,7 +25317,7 @@ fn test_basic_vector_vec_uint16_8_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_3_max_one_byte_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_3_max_one_byte_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_3_max_one_byte_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 3>>(&encoding);
@@ -25326,7 +25326,7 @@ fn test_basic_vector_vec_bool_3_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_5_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_5_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_5_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 5>>(&encoding);
 }
@@ -25335,7 +25335,7 @@ fn test_basic_vector_vec_uint64_5_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_4_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_4_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_4_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 4>>(&encoding);
@@ -25344,7 +25344,7 @@ fn test_basic_vector_vec_uint8_4_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_512_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_512_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_512_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 512>>(&encoding);
 }
@@ -25353,7 +25353,7 @@ fn test_basic_vector_vec_uint128_512_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_1_max_one_byte_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_1_max_one_byte_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_1_max_one_byte_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 1>>(&encoding);
@@ -25362,7 +25362,7 @@ fn test_basic_vector_vec_bool_1_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_8_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_8_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_8_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 8>>(&encoding);
 }
@@ -25370,7 +25370,7 @@ fn test_basic_vector_vec_uint256_8_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_3_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_3_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_3_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 3>>(&encoding);
 }
@@ -25378,7 +25378,7 @@ fn test_basic_vector_vec_uint32_3_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_512_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_512_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_512_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 512>>(&encoding);
 }
@@ -25386,7 +25386,7 @@ fn test_basic_vector_vec_uint128_512_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_5_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_5_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_5_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 5>>(&encoding);
 }
@@ -25395,7 +25395,7 @@ fn test_basic_vector_vec_uint16_5_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_3_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_3_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_3_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 3>>(&encoding);
@@ -25405,7 +25405,7 @@ fn test_basic_vector_vec_uint8_3_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_2_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_2_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_2_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 2>>(&encoding);
@@ -25415,7 +25415,7 @@ fn test_basic_vector_vec_uint32_2_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_512_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_512_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_512_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 512>>(&encoding);
@@ -25424,7 +25424,7 @@ fn test_basic_vector_vec_uint16_512_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_8_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_8_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_8_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 8>>(&encoding);
 }
@@ -25433,7 +25433,7 @@ fn test_basic_vector_vec_uint64_8_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_512_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_512_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_512_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 512>>(&encoding);
@@ -25443,7 +25443,7 @@ fn test_basic_vector_vec_uint64_512_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_5_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_5_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_5_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 5>>(&encoding);
@@ -25452,7 +25452,7 @@ fn test_basic_vector_vec_uint8_5_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_512_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_512_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_512_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 512>>(&encoding);
 }
@@ -25460,7 +25460,7 @@ fn test_basic_vector_vec_uint32_512_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_5_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_5_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_5_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 5>>(&encoding);
 }
@@ -25468,7 +25468,7 @@ fn test_basic_vector_vec_uint256_5_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_512_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_512_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_512_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 512>>(&encoding);
 }
@@ -25477,7 +25477,7 @@ fn test_basic_vector_vec_uint64_512_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_2_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_2_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_2_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 2>>(&encoding);
@@ -25486,7 +25486,7 @@ fn test_basic_vector_vec_uint16_2_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_512_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_512_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_512_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 512>>(&encoding);
 }
@@ -25494,7 +25494,7 @@ fn test_basic_vector_vec_uint256_512_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_16_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_16_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_16_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 16>>(&encoding);
 }
@@ -25502,7 +25502,7 @@ fn test_basic_vector_vec_uint32_16_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_3_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_3_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_3_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 3>>(&encoding);
 }
@@ -25511,7 +25511,7 @@ fn test_basic_vector_vec_uint256_3_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_16_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_16_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_16_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 16>>(&encoding);
@@ -25520,7 +25520,7 @@ fn test_basic_vector_vec_uint256_16_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_513_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_513_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_513_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 513>>(&encoding);
 }
@@ -25529,7 +25529,7 @@ fn test_basic_vector_vec_uint128_513_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_1_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_1_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_1_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 1>>(&encoding);
@@ -25539,7 +25539,7 @@ fn test_basic_vector_vec_uint64_1_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_31_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_31_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_31_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 31>>(&encoding);
@@ -25548,7 +25548,7 @@ fn test_basic_vector_vec_uint256_31_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_16_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_16_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_16_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 16>>(&encoding);
 }
@@ -25557,7 +25557,7 @@ fn test_basic_vector_vec_uint32_16_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_5_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_5_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_5_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 5>>(&encoding);
@@ -25567,7 +25567,7 @@ fn test_basic_vector_vec_uint16_5_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_512_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_512_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_512_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 512>>(&encoding);
@@ -25576,7 +25576,7 @@ fn test_basic_vector_vec_uint16_512_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_2_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_2_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_2_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 2>>(&encoding);
 }
@@ -25584,7 +25584,7 @@ fn test_basic_vector_vec_uint128_2_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_5_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_5_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_5_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 5>>(&encoding);
 }
@@ -25593,7 +25593,7 @@ fn test_basic_vector_vec_uint128_5_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_513_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_513_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_513_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 513>>(&encoding);
@@ -25602,7 +25602,7 @@ fn test_basic_vector_vec_uint256_513_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_31_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_31_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_31_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 31>>(&encoding);
 }
@@ -25610,7 +25610,7 @@ fn test_basic_vector_vec_uint256_31_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_5_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_5_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_5_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 5>>(&encoding);
 }
@@ -25618,7 +25618,7 @@ fn test_basic_vector_vec_uint16_5_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_8_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_8_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_8_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 8>>(&encoding);
 }
@@ -25626,7 +25626,7 @@ fn test_basic_vector_vec_uint128_8_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_1_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_1_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_1_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 1>>(&encoding);
 }
@@ -25634,7 +25634,7 @@ fn test_basic_vector_vec_uint16_1_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_16_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_16_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_16_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 16>>(&encoding);
 }
@@ -25642,7 +25642,7 @@ fn test_basic_vector_vec_uint32_16_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_4_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_4_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_4_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 4>>(&encoding);
 }
@@ -25650,7 +25650,7 @@ fn test_basic_vector_vec_uint256_4_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_3_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_3_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_3_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 3>>(&encoding);
 }
@@ -25659,7 +25659,7 @@ fn test_basic_vector_vec_uint16_3_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_2_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_2_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_2_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 2>>(&encoding);
@@ -25669,7 +25669,7 @@ fn test_basic_vector_vec_uint8_2_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_5_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_5_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_5_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 5>>(&encoding);
@@ -25679,7 +25679,7 @@ fn test_basic_vector_vec_uint32_5_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_4_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_4_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_4_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 4>>(&encoding);
@@ -25688,7 +25688,7 @@ fn test_basic_vector_vec_uint256_4_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_3_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_3_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_3_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 3>>(&encoding);
 }
@@ -25697,7 +25697,7 @@ fn test_basic_vector_vec_uint128_3_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_8_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_8_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_8_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 8>>(&encoding);
@@ -25706,7 +25706,7 @@ fn test_basic_vector_vec_uint16_8_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_8_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_8_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_8_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 8>>(&encoding);
 }
@@ -25715,7 +25715,7 @@ fn test_basic_vector_vec_uint64_8_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_513_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_513_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_513_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 513>>(&encoding);
@@ -25724,7 +25724,7 @@ fn test_basic_vector_vec_bool_513_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_4_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_4_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_4_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 4>>(&encoding);
 }
@@ -25732,7 +25732,7 @@ fn test_basic_vector_vec_uint64_4_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_8_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_8_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_8_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 8>>(&encoding);
 }
@@ -25741,7 +25741,7 @@ fn test_basic_vector_vec_uint128_8_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_2_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_2_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_2_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 2>>(&encoding);
@@ -25750,7 +25750,7 @@ fn test_basic_vector_vec_uint64_2_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_16_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_16_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_16_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 16>>(&encoding);
 }
@@ -25758,7 +25758,7 @@ fn test_basic_vector_vec_uint32_16_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_512_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_512_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_512_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 512>>(&encoding);
 }
@@ -25767,7 +25767,7 @@ fn test_basic_vector_vec_bool_512_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_513_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_513_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_513_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 513>>(&encoding);
@@ -25777,7 +25777,7 @@ fn test_basic_vector_vec_uint8_513_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_5_max_one_byte_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_5_max_one_byte_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_5_max_one_byte_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 5>>(&encoding);
@@ -25786,7 +25786,7 @@ fn test_basic_vector_vec_bool_5_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_513_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_513_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_513_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 513>>(&encoding);
 }
@@ -25795,7 +25795,7 @@ fn test_basic_vector_vec_uint32_513_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_513_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_513_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_513_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 513>>(&encoding);
@@ -25805,7 +25805,7 @@ fn test_basic_vector_vec_uint128_513_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_5_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_5_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_5_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 5>>(&encoding);
@@ -25814,7 +25814,7 @@ fn test_basic_vector_vec_bool_5_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_512_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_512_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_512_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 512>>(&encoding);
 }
@@ -25822,7 +25822,7 @@ fn test_basic_vector_vec_uint128_512_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_512_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_512_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_512_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 512>>(&encoding);
 }
@@ -25830,7 +25830,7 @@ fn test_basic_vector_vec_uint64_512_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_16_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_16_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_16_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 16>>(&encoding);
 }
@@ -25839,7 +25839,7 @@ fn test_basic_vector_vec_uint16_16_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_4_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_4_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_4_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 4>>(&encoding);
@@ -25848,7 +25848,7 @@ fn test_basic_vector_vec_uint128_4_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_31_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_31_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_31_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 31>>(&encoding);
 }
@@ -25856,7 +25856,7 @@ fn test_basic_vector_vec_uint256_31_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_16_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_16_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_16_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 16>>(&encoding);
 }
@@ -25864,7 +25864,7 @@ fn test_basic_vector_vec_uint128_16_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_16_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_16_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_16_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 16>>(&encoding);
 }
@@ -25873,7 +25873,7 @@ fn test_basic_vector_vec_uint64_16_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_5_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_5_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_5_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 5>>(&encoding);
@@ -25883,7 +25883,7 @@ fn test_basic_vector_vec_uint256_5_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_16_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_16_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_16_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 16>>(&encoding);
@@ -25893,7 +25893,7 @@ fn test_basic_vector_vec_uint8_16_nil() {
 #[should_panic]
 fn test_basic_vector_vec_bool_2_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_2_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_2_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 2>>(&encoding);
@@ -25903,7 +25903,7 @@ fn test_basic_vector_vec_bool_2_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_3_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_3_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_3_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 3>>(&encoding);
@@ -25912,7 +25912,7 @@ fn test_basic_vector_vec_uint128_3_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_31_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_31_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_31_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 31>>(&encoding);
 }
@@ -25920,7 +25920,7 @@ fn test_basic_vector_vec_bool_31_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_2_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_2_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_2_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 2>>(&encoding);
 }
@@ -25928,7 +25928,7 @@ fn test_basic_vector_vec_uint32_2_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_31_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_31_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_31_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 31>>(&encoding);
 }
@@ -25936,7 +25936,7 @@ fn test_basic_vector_vec_uint64_31_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_5_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_5_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_5_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 5>>(&encoding);
 }
@@ -25944,7 +25944,7 @@ fn test_basic_vector_vec_uint32_5_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_3_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_3_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_3_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 3>>(&encoding);
 }
@@ -25953,7 +25953,7 @@ fn test_basic_vector_vec_uint16_3_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_513_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_513_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_513_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 513>>(&encoding);
@@ -25962,7 +25962,7 @@ fn test_basic_vector_vec_uint64_513_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_512_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_512_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_512_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 512>>(&encoding);
 }
@@ -25971,7 +25971,7 @@ fn test_basic_vector_vec_uint64_512_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_513_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_513_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_513_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 513>>(&encoding);
@@ -25981,7 +25981,7 @@ fn test_basic_vector_vec_uint32_513_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_3_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_3_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_3_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 3>>(&encoding);
@@ -25991,7 +25991,7 @@ fn test_basic_vector_vec_uint256_3_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_2_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_2_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_2_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 2>>(&encoding);
@@ -26000,7 +26000,7 @@ fn test_basic_vector_vec_uint64_2_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_1_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_1_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_1_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 1>>(&encoding);
 }
@@ -26008,7 +26008,7 @@ fn test_basic_vector_vec_uint64_1_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_3_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_3_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_3_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 3>>(&encoding);
 }
@@ -26017,7 +26017,7 @@ fn test_basic_vector_vec_uint64_3_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_8_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_8_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_8_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 8>>(&encoding);
@@ -26026,7 +26026,7 @@ fn test_basic_vector_vec_uint64_8_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_8_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_8_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_8_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 8>>(&encoding);
 }
@@ -26035,7 +26035,7 @@ fn test_basic_vector_vec_uint32_8_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_31_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_31_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_31_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 31>>(&encoding);
@@ -26044,7 +26044,7 @@ fn test_basic_vector_vec_uint64_31_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_31_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_31_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_31_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 31>>(&encoding);
 }
@@ -26053,7 +26053,7 @@ fn test_basic_vector_vec_bool_31_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_1_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_1_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_1_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 1>>(&encoding);
@@ -26062,7 +26062,7 @@ fn test_basic_vector_vec_uint32_1_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_513_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_513_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_513_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 513>>(&encoding);
 }
@@ -26071,7 +26071,7 @@ fn test_basic_vector_vec_uint16_513_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_2_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_2_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_2_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 2>>(&encoding);
@@ -26080,7 +26080,7 @@ fn test_basic_vector_vec_uint8_2_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_2_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_2_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_2_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 2>>(&encoding);
 }
@@ -26089,7 +26089,7 @@ fn test_basic_vector_vec_uint128_2_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_4_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_4_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_4_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 4>>(&encoding);
@@ -26099,7 +26099,7 @@ fn test_basic_vector_vec_uint8_4_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_5_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_5_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_5_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 5>>(&encoding);
@@ -26109,7 +26109,7 @@ fn test_basic_vector_vec_bool_5_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_513_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_513_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_513_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 513>>(&encoding);
@@ -26119,7 +26119,7 @@ fn test_basic_vector_vec_bool_513_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_5_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_5_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_5_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 5>>(&encoding);
@@ -26128,7 +26128,7 @@ fn test_basic_vector_vec_uint8_5_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_16_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_16_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_16_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 16>>(&encoding);
 }
@@ -26137,7 +26137,7 @@ fn test_basic_vector_vec_uint128_16_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_8_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_8_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_8_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 8>>(&encoding);
@@ -26146,7 +26146,7 @@ fn test_basic_vector_vec_bool_8_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_5_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_5_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_5_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 5>>(&encoding);
 }
@@ -26154,7 +26154,7 @@ fn test_basic_vector_vec_uint64_5_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_513_zero_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_513_zero_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_513_zero_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 513>>(&encoding);
 }
@@ -26162,7 +26162,7 @@ fn test_basic_vector_vec_uint256_513_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_4_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_4_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_4_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 4>>(&encoding);
 }
@@ -26171,7 +26171,7 @@ fn test_basic_vector_vec_uint16_4_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_5_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_5_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_5_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 5>>(&encoding);
@@ -26180,7 +26180,7 @@ fn test_basic_vector_vec_uint16_5_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_512_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_512_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_512_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 512>>(&encoding);
 }
@@ -26188,7 +26188,7 @@ fn test_basic_vector_vec_uint8_512_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_1_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_1_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_1_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 1>>(&encoding);
 }
@@ -26197,7 +26197,7 @@ fn test_basic_vector_vec_uint256_1_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_4_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_4_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_4_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 4>>(&encoding);
@@ -26206,7 +26206,7 @@ fn test_basic_vector_vec_uint16_4_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_4_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_4_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_4_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 4>>(&encoding);
 }
@@ -26214,7 +26214,7 @@ fn test_basic_vector_vec_bool_4_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_31_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_31_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_31_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 31>>(&encoding);
 }
@@ -26222,7 +26222,7 @@ fn test_basic_vector_vec_uint16_31_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_4_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_4_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_4_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 4>>(&encoding);
 }
@@ -26231,7 +26231,7 @@ fn test_basic_vector_vec_uint16_4_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_2_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_2_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_2_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 2>>(&encoding);
@@ -26240,7 +26240,7 @@ fn test_basic_vector_vec_uint128_2_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_513_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_513_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_513_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 513>>(&encoding);
 }
@@ -26249,7 +26249,7 @@ fn test_basic_vector_vec_uint256_513_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_8_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_8_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_8_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 8>>(&encoding);
@@ -26258,7 +26258,7 @@ fn test_basic_vector_vec_uint16_8_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_513_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_513_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_513_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 513>>(&encoding);
 }
@@ -26267,7 +26267,7 @@ fn test_basic_vector_vec_uint256_513_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_31_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_31_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_31_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 31>>(&encoding);
@@ -26276,7 +26276,7 @@ fn test_basic_vector_vec_uint8_31_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_3_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_3_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_3_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 3>>(&encoding);
 }
@@ -26285,7 +26285,7 @@ fn test_basic_vector_vec_uint128_3_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_31_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_31_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_31_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 31>>(&encoding);
@@ -26294,7 +26294,7 @@ fn test_basic_vector_vec_uint16_31_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_16_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_16_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_16_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 16>>(&encoding);
 }
@@ -26303,7 +26303,7 @@ fn test_basic_vector_vec_uint64_16_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_3_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_3_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_3_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 3>>(&encoding);
@@ -26312,7 +26312,7 @@ fn test_basic_vector_vec_uint16_3_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_513_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_513_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_513_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 513>>(&encoding);
 }
@@ -26321,7 +26321,7 @@ fn test_basic_vector_vec_uint8_513_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_31_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_31_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_31_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 31>>(&encoding);
@@ -26330,7 +26330,7 @@ fn test_basic_vector_vec_uint128_31_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_2_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_2_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_2_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 2>>(&encoding);
 }
@@ -26338,7 +26338,7 @@ fn test_basic_vector_vec_uint256_2_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_1_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_1_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_1_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 1>>(&encoding);
 }
@@ -26346,7 +26346,7 @@ fn test_basic_vector_vec_bool_1_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_513_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_513_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_513_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 513>>(&encoding);
 }
@@ -26355,7 +26355,7 @@ fn test_basic_vector_vec_uint256_513_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_16_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_16_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_16_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 16>>(&encoding);
@@ -26364,7 +26364,7 @@ fn test_basic_vector_vec_uint8_16_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_4_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_4_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_4_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 4>>(&encoding);
 }
@@ -26373,7 +26373,7 @@ fn test_basic_vector_vec_uint256_4_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_2_max_one_byte_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_2_max_one_byte_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_2_max_one_byte_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 2>>(&encoding);
@@ -26382,7 +26382,7 @@ fn test_basic_vector_vec_bool_2_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_3_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_3_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_3_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 3>>(&encoding);
 }
@@ -26390,7 +26390,7 @@ fn test_basic_vector_vec_uint32_3_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_3_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_3_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_3_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 3>>(&encoding);
 }
@@ -26399,7 +26399,7 @@ fn test_basic_vector_vec_uint128_3_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_1_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_1_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_1_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 1>>(&encoding);
@@ -26409,7 +26409,7 @@ fn test_basic_vector_vec_bool_1_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_8_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_8_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_8_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 8>>(&encoding);
@@ -26418,7 +26418,7 @@ fn test_basic_vector_vec_uint128_8_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_513_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_513_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_513_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 513>>(&encoding);
 }
@@ -26427,7 +26427,7 @@ fn test_basic_vector_vec_uint32_513_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_4_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_4_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_4_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 4>>(&encoding);
@@ -26437,7 +26437,7 @@ fn test_basic_vector_vec_uint8_4_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_8_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_8_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_8_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 8>>(&encoding);
@@ -26446,7 +26446,7 @@ fn test_basic_vector_vec_uint32_8_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_16_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_16_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_16_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 16>>(&encoding);
 }
@@ -26454,7 +26454,7 @@ fn test_basic_vector_vec_uint128_16_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_8_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_8_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_8_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 8>>(&encoding);
 }
@@ -26462,7 +26462,7 @@ fn test_basic_vector_vec_uint32_8_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_513_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_513_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_513_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 513>>(&encoding);
 }
@@ -26471,7 +26471,7 @@ fn test_basic_vector_vec_uint128_513_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_16_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_16_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_16_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 16>>(&encoding);
@@ -26481,7 +26481,7 @@ fn test_basic_vector_vec_uint16_16_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_5_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_5_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_5_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 5>>(&encoding);
@@ -26491,7 +26491,7 @@ fn test_basic_vector_vec_uint32_5_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_3_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_3_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_3_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 3>>(&encoding);
@@ -26500,7 +26500,7 @@ fn test_basic_vector_vec_uint64_3_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_5_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_5_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_5_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 5>>(&encoding);
 }
@@ -26509,7 +26509,7 @@ fn test_basic_vector_vec_uint8_5_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_0() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_0/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 0>>(&encoding);
@@ -26518,7 +26518,7 @@ fn test_basic_vector_vec_bool_0() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_8_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_8_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_8_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 8>>(&encoding);
 }
@@ -26527,7 +26527,7 @@ fn test_basic_vector_vec_uint8_8_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_3_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_3_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_3_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 3>>(&encoding);
@@ -26537,7 +26537,7 @@ fn test_basic_vector_vec_uint32_3_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_512_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_512_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_512_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 512>>(&encoding);
@@ -26546,7 +26546,7 @@ fn test_basic_vector_vec_uint16_512_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_16_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_16_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_16_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 16>>(&encoding);
 }
@@ -26554,7 +26554,7 @@ fn test_basic_vector_vec_uint64_16_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_1_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_1_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_1_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 1>>(&encoding);
 }
@@ -26563,7 +26563,7 @@ fn test_basic_vector_vec_uint16_1_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_4_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_4_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_4_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 4>>(&encoding);
@@ -26573,7 +26573,7 @@ fn test_basic_vector_vec_uint64_4_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_4_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_4_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_4_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 4>>(&encoding);
@@ -26583,7 +26583,7 @@ fn test_basic_vector_vec_uint64_4_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_16_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_16_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_16_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 16>>(&encoding);
@@ -26592,7 +26592,7 @@ fn test_basic_vector_vec_uint64_16_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_8_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_8_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_8_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 8>>(&encoding);
 }
@@ -26601,7 +26601,7 @@ fn test_basic_vector_vec_uint8_8_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_1_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_1_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_1_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 1>>(&encoding);
@@ -26610,7 +26610,7 @@ fn test_basic_vector_vec_uint16_1_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_3_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_3_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_3_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 3>>(&encoding);
 }
@@ -26619,7 +26619,7 @@ fn test_basic_vector_vec_uint64_3_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_31_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_31_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_31_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 31>>(&encoding);
@@ -26628,7 +26628,7 @@ fn test_basic_vector_vec_uint256_31_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_4_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_4_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_4_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 4>>(&encoding);
 }
@@ -26637,7 +26637,7 @@ fn test_basic_vector_vec_uint64_4_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_512_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_512_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_512_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 512>>(&encoding);
@@ -26646,7 +26646,7 @@ fn test_basic_vector_vec_uint64_512_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_16_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_16_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_16_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 16>>(&encoding);
 }
@@ -26655,7 +26655,7 @@ fn test_basic_vector_vec_uint8_16_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_31_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_31_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_31_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 31>>(&encoding);
@@ -26664,7 +26664,7 @@ fn test_basic_vector_vec_uint8_31_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_8_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_8_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_8_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 8>>(&encoding);
 }
@@ -26672,7 +26672,7 @@ fn test_basic_vector_vec_uint64_8_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_4_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_4_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_4_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 4>>(&encoding);
 }
@@ -26681,7 +26681,7 @@ fn test_basic_vector_vec_uint128_4_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_2_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_2_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_2_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 2>>(&encoding);
@@ -26690,7 +26690,7 @@ fn test_basic_vector_vec_uint256_2_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_2_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_2_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_2_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 2>>(&encoding);
 }
@@ -26699,7 +26699,7 @@ fn test_basic_vector_vec_uint32_2_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_3_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_3_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_3_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 3>>(&encoding);
@@ -26708,7 +26708,7 @@ fn test_basic_vector_vec_uint64_3_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_31_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_31_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_31_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 31>>(&encoding);
 }
@@ -26716,7 +26716,7 @@ fn test_basic_vector_vec_uint128_31_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_16_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_16_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_16_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 16>>(&encoding);
 }
@@ -26725,7 +26725,7 @@ fn test_basic_vector_vec_uint8_16_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_5_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_5_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_5_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 5>>(&encoding);
@@ -26734,7 +26734,7 @@ fn test_basic_vector_vec_uint16_5_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_2_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_2_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_2_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 2>>(&encoding);
 }
@@ -26743,7 +26743,7 @@ fn test_basic_vector_vec_uint16_2_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_0() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_0/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 0>>(&encoding);
@@ -26752,7 +26752,7 @@ fn test_basic_vector_vec_uint8_0() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_4_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_4_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_4_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 4>>(&encoding);
 }
@@ -26760,7 +26760,7 @@ fn test_basic_vector_vec_uint32_4_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_512_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_512_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_512_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 512>>(&encoding);
 }
@@ -26769,7 +26769,7 @@ fn test_basic_vector_vec_uint8_512_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_512_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_512_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_512_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 512>>(&encoding);
@@ -26778,7 +26778,7 @@ fn test_basic_vector_vec_uint8_512_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_4_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_4_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_4_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 4>>(&encoding);
 }
@@ -26786,7 +26786,7 @@ fn test_basic_vector_vec_uint128_4_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_31_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_31_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_31_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 31>>(&encoding);
 }
@@ -26794,7 +26794,7 @@ fn test_basic_vector_vec_uint32_31_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_2_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_2_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_2_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 2>>(&encoding);
 }
@@ -26802,7 +26802,7 @@ fn test_basic_vector_vec_uint16_2_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_2_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_2_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_2_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 2>>(&encoding);
 }
@@ -26810,7 +26810,7 @@ fn test_basic_vector_vec_uint64_2_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_1_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_1_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_1_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 1>>(&encoding);
 }
@@ -26818,7 +26818,7 @@ fn test_basic_vector_vec_uint32_1_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_1_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_1_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_1_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 1>>(&encoding);
 }
@@ -26827,7 +26827,7 @@ fn test_basic_vector_vec_uint8_1_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_1_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_1_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_1_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 1>>(&encoding);
@@ -26836,7 +26836,7 @@ fn test_basic_vector_vec_uint64_1_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_1_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_1_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_1_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 1>>(&encoding);
 }
@@ -26845,7 +26845,7 @@ fn test_basic_vector_vec_uint128_1_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_2_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_2_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_2_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 2>>(&encoding);
@@ -26855,7 +26855,7 @@ fn test_basic_vector_vec_uint32_2_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_5_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_5_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_5_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 5>>(&encoding);
@@ -26865,7 +26865,7 @@ fn test_basic_vector_vec_uint256_5_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_8_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_8_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_8_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 8>>(&encoding);
@@ -26874,7 +26874,7 @@ fn test_basic_vector_vec_uint64_8_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_16_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_16_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_16_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 16>>(&encoding);
 }
@@ -26883,7 +26883,7 @@ fn test_basic_vector_vec_uint256_16_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_512_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_512_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_512_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 512>>(&encoding);
@@ -26892,7 +26892,7 @@ fn test_basic_vector_vec_uint8_512_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_31_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_31_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_31_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 31>>(&encoding);
 }
@@ -26901,7 +26901,7 @@ fn test_basic_vector_vec_uint256_31_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_5_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_5_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_5_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 5>>(&encoding);
@@ -26910,7 +26910,7 @@ fn test_basic_vector_vec_uint32_5_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_5_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_5_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_5_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 5>>(&encoding);
 }
@@ -26918,7 +26918,7 @@ fn test_basic_vector_vec_uint32_5_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_3_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_3_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_3_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 3>>(&encoding);
 }
@@ -26927,7 +26927,7 @@ fn test_basic_vector_vec_uint8_3_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_31_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_31_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_31_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 31>>(&encoding);
@@ -26937,7 +26937,7 @@ fn test_basic_vector_vec_uint8_31_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_2_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_2_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_2_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 2>>(&encoding);
@@ -26946,7 +26946,7 @@ fn test_basic_vector_vec_uint256_2_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_2_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_2_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_2_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 2>>(&encoding);
 }
@@ -26955,7 +26955,7 @@ fn test_basic_vector_vec_uint256_2_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_1_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_1_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_1_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 1>>(&encoding);
@@ -26965,7 +26965,7 @@ fn test_basic_vector_vec_uint8_1_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_1_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_1_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_1_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 1>>(&encoding);
@@ -26974,7 +26974,7 @@ fn test_basic_vector_vec_uint128_1_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_31_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_31_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_31_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 31>>(&encoding);
 }
@@ -26983,7 +26983,7 @@ fn test_basic_vector_vec_uint8_31_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_8_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_8_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_8_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 8>>(&encoding);
@@ -26992,7 +26992,7 @@ fn test_basic_vector_vec_uint8_8_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_513_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_513_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_513_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 513>>(&encoding);
 }
@@ -27001,7 +27001,7 @@ fn test_basic_vector_vec_bool_513_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_16_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_16_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_16_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 16>>(&encoding);
@@ -27010,7 +27010,7 @@ fn test_basic_vector_vec_uint8_16_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_31_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_31_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_31_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 31>>(&encoding);
 }
@@ -27018,7 +27018,7 @@ fn test_basic_vector_vec_uint16_31_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_8_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_8_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_8_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 8>>(&encoding);
 }
@@ -27026,7 +27026,7 @@ fn test_basic_vector_vec_uint16_8_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_513_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_513_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_513_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 513>>(&encoding);
 }
@@ -27034,7 +27034,7 @@ fn test_basic_vector_vec_bool_513_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_5_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_5_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_5_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 5>>(&encoding);
 }
@@ -27042,7 +27042,7 @@ fn test_basic_vector_vec_uint256_5_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_512_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_512_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_512_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 512>>(&encoding);
 }
@@ -27050,7 +27050,7 @@ fn test_basic_vector_vec_uint256_512_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_1_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_1_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_1_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 1>>(&encoding);
 }
@@ -27059,7 +27059,7 @@ fn test_basic_vector_vec_uint64_1_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_16_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_16_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_16_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 16>>(&encoding);
@@ -27069,7 +27069,7 @@ fn test_basic_vector_vec_uint16_16_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_1_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_1_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_1_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 1>>(&encoding);
@@ -27078,7 +27078,7 @@ fn test_basic_vector_vec_uint16_1_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_3_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_3_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_3_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 3>>(&encoding);
 }
@@ -27086,7 +27086,7 @@ fn test_basic_vector_vec_uint16_3_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_5_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_5_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_5_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 5>>(&encoding);
 }
@@ -27094,7 +27094,7 @@ fn test_basic_vector_vec_uint32_5_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_8_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_8_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_8_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 8>>(&encoding);
 }
@@ -27102,7 +27102,7 @@ fn test_basic_vector_vec_uint256_8_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_513_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_513_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_513_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 513>>(&encoding);
 }
@@ -27110,7 +27110,7 @@ fn test_basic_vector_vec_uint8_513_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_3_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_3_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_3_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 3>>(&encoding);
 }
@@ -27118,7 +27118,7 @@ fn test_basic_vector_vec_uint64_3_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_512_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_512_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_512_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 512>>(&encoding);
 }
@@ -27126,7 +27126,7 @@ fn test_basic_vector_vec_uint8_512_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_8_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_8_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_8_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 8>>(&encoding);
 }
@@ -27134,7 +27134,7 @@ fn test_basic_vector_vec_uint16_8_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_2_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_2_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_2_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 2>>(&encoding);
 }
@@ -27142,7 +27142,7 @@ fn test_basic_vector_vec_uint64_2_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_4_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_4_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_4_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 4>>(&encoding);
 }
@@ -27151,7 +27151,7 @@ fn test_basic_vector_vec_uint8_4_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_8_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_8_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_8_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 8>>(&encoding);
@@ -27161,7 +27161,7 @@ fn test_basic_vector_vec_uint256_8_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_4_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_4_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_4_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 4>>(&encoding);
@@ -27170,7 +27170,7 @@ fn test_basic_vector_vec_uint32_4_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_1_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_1_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_1_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 1>>(&encoding);
 }
@@ -27178,7 +27178,7 @@ fn test_basic_vector_vec_uint32_1_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_1_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_1_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_1_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 1>>(&encoding);
 }
@@ -27186,7 +27186,7 @@ fn test_basic_vector_vec_uint128_1_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_8_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_8_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_8_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 8>>(&encoding);
 }
@@ -27194,7 +27194,7 @@ fn test_basic_vector_vec_uint256_8_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_16_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_16_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_16_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 16>>(&encoding);
 }
@@ -27202,7 +27202,7 @@ fn test_basic_vector_vec_uint16_16_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_5_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_5_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_5_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 5>>(&encoding);
 }
@@ -27210,7 +27210,7 @@ fn test_basic_vector_vec_uint128_5_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_31_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_31_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_31_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 31>>(&encoding);
 }
@@ -27218,7 +27218,7 @@ fn test_basic_vector_vec_uint64_31_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_16_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_16_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_16_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 16>>(&encoding);
 }
@@ -27227,7 +27227,7 @@ fn test_basic_vector_vec_uint16_16_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_16_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_16_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_16_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 16>>(&encoding);
@@ -27236,7 +27236,7 @@ fn test_basic_vector_vec_uint8_16_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_3_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_3_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_3_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 3>>(&encoding);
 }
@@ -27244,7 +27244,7 @@ fn test_basic_vector_vec_uint128_3_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_1_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_1_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_1_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 1>>(&encoding);
 }
@@ -27253,7 +27253,7 @@ fn test_basic_vector_vec_uint256_1_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_1_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_1_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_1_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 1>>(&encoding);
@@ -27263,7 +27263,7 @@ fn test_basic_vector_vec_uint8_1_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_16_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_16_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_16_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 16>>(&encoding);
@@ -27272,7 +27272,7 @@ fn test_basic_vector_vec_bool_16_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_31_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_31_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_31_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 31>>(&encoding);
 }
@@ -27280,7 +27280,7 @@ fn test_basic_vector_vec_uint32_31_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_1_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_1_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_1_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 1>>(&encoding);
 }
@@ -27288,7 +27288,7 @@ fn test_basic_vector_vec_uint8_1_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_16_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_16_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_16_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 16>>(&encoding);
 }
@@ -27297,7 +27297,7 @@ fn test_basic_vector_vec_uint256_16_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_4_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_4_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_4_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 4>>(&encoding);
@@ -27306,7 +27306,7 @@ fn test_basic_vector_vec_uint16_4_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_4_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_4_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_4_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 4>>(&encoding);
 }
@@ -27314,7 +27314,7 @@ fn test_basic_vector_vec_uint8_4_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_31_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_31_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_31_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 31>>(&encoding);
 }
@@ -27323,7 +27323,7 @@ fn test_basic_vector_vec_uint128_31_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_3_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_3_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_3_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 3>>(&encoding);
@@ -27333,7 +27333,7 @@ fn test_basic_vector_vec_uint128_3_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_1_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_1_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_1_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 1>>(&encoding);
@@ -27343,7 +27343,7 @@ fn test_basic_vector_vec_uint64_1_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_513_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_513_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_513_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 513>>(&encoding);
@@ -27353,7 +27353,7 @@ fn test_basic_vector_vec_uint64_513_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_512_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_512_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_512_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 512>>(&encoding);
@@ -27362,7 +27362,7 @@ fn test_basic_vector_vec_bool_512_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_5_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_5_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_5_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 5>>(&encoding);
 }
@@ -27371,7 +27371,7 @@ fn test_basic_vector_vec_bool_5_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_5_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_5_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_5_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 5>>(&encoding);
@@ -27380,7 +27380,7 @@ fn test_basic_vector_vec_uint8_5_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_31_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_31_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_31_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 31>>(&encoding);
 }
@@ -27389,7 +27389,7 @@ fn test_basic_vector_vec_uint32_31_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_3_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_3_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_3_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 3>>(&encoding);
@@ -27399,7 +27399,7 @@ fn test_basic_vector_vec_uint16_3_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_4_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_4_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_4_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 4>>(&encoding);
@@ -27408,7 +27408,7 @@ fn test_basic_vector_vec_bool_4_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_512_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_512_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_512_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 512>>(&encoding);
 }
@@ -27416,7 +27416,7 @@ fn test_basic_vector_vec_uint16_512_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_512_zero_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_512_zero_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_512_zero_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 512>>(&encoding);
 }
@@ -27424,7 +27424,7 @@ fn test_basic_vector_vec_uint256_512_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_5_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_5_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_5_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 5>>(&encoding);
 }
@@ -27433,7 +27433,7 @@ fn test_basic_vector_vec_uint256_5_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_8_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_8_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_8_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 8>>(&encoding);
@@ -27443,7 +27443,7 @@ fn test_basic_vector_vec_uint8_8_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_16_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_16_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_16_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 16>>(&encoding);
@@ -27452,7 +27452,7 @@ fn test_basic_vector_vec_uint32_16_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_8_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_8_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_8_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 8>>(&encoding);
 }
@@ -27460,7 +27460,7 @@ fn test_basic_vector_vec_bool_8_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_512_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_512_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_512_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 512>>(&encoding);
 }
@@ -27468,7 +27468,7 @@ fn test_basic_vector_vec_uint8_512_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_4_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_4_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_4_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 4>>(&encoding);
 }
@@ -27477,7 +27477,7 @@ fn test_basic_vector_vec_uint32_4_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_0() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_0/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 0>>(&encoding);
@@ -27487,7 +27487,7 @@ fn test_basic_vector_vec_uint32_0() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_31_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_31_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_31_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 31>>(&encoding);
@@ -27496,7 +27496,7 @@ fn test_basic_vector_vec_uint64_31_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_2_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_2_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_2_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 2>>(&encoding);
 }
@@ -27505,7 +27505,7 @@ fn test_basic_vector_vec_uint128_2_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_4_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_4_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_4_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 4>>(&encoding);
@@ -27514,7 +27514,7 @@ fn test_basic_vector_vec_uint32_4_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_1_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_1_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_1_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 1>>(&encoding);
 }
@@ -27523,7 +27523,7 @@ fn test_basic_vector_vec_uint32_1_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_3_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_3_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_3_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 3>>(&encoding);
@@ -27532,7 +27532,7 @@ fn test_basic_vector_vec_uint256_3_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_3_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_3_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_3_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 3>>(&encoding);
 }
@@ -27541,7 +27541,7 @@ fn test_basic_vector_vec_uint8_3_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_513_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_513_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_513_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 513>>(&encoding);
@@ -27551,7 +27551,7 @@ fn test_basic_vector_vec_uint8_513_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_16_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_16_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_16_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 16>>(&encoding);
@@ -27561,7 +27561,7 @@ fn test_basic_vector_vec_uint128_16_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_3_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_3_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_3_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 3>>(&encoding);
@@ -27570,7 +27570,7 @@ fn test_basic_vector_vec_uint32_3_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_16_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_16_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_16_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 16>>(&encoding);
 }
@@ -27578,7 +27578,7 @@ fn test_basic_vector_vec_uint256_16_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_8_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_8_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_8_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 8>>(&encoding);
 }
@@ -27587,7 +27587,7 @@ fn test_basic_vector_vec_uint8_8_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_4_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_4_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_4_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 4>>(&encoding);
@@ -27597,7 +27597,7 @@ fn test_basic_vector_vec_uint256_4_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_3_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_3_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_3_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 3>>(&encoding);
@@ -27606,7 +27606,7 @@ fn test_basic_vector_vec_uint16_3_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_16_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_16_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_16_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 16>>(&encoding);
 }
@@ -27614,7 +27614,7 @@ fn test_basic_vector_vec_uint64_16_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_5_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_5_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_5_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 5>>(&encoding);
 }
@@ -27623,7 +27623,7 @@ fn test_basic_vector_vec_uint64_5_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_4_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_4_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_4_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 4>>(&encoding);
@@ -27632,7 +27632,7 @@ fn test_basic_vector_vec_uint16_4_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_3_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_3_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_3_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 3>>(&encoding);
 }
@@ -27641,7 +27641,7 @@ fn test_basic_vector_vec_uint32_3_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_4_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_4_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_4_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 4>>(&encoding);
@@ -27650,7 +27650,7 @@ fn test_basic_vector_vec_uint128_4_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_513_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_513_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_513_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 513>>(&encoding);
 }
@@ -27658,7 +27658,7 @@ fn test_basic_vector_vec_uint32_513_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_2_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_2_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_2_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 2>>(&encoding);
 }
@@ -27666,7 +27666,7 @@ fn test_basic_vector_vec_uint8_2_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_31_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_31_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_31_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 31>>(&encoding);
 }
@@ -27675,7 +27675,7 @@ fn test_basic_vector_vec_uint128_31_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_2_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_2_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_2_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 2>>(&encoding);
@@ -27685,7 +27685,7 @@ fn test_basic_vector_vec_uint8_2_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_3_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_3_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_3_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 3>>(&encoding);
@@ -27694,7 +27694,7 @@ fn test_basic_vector_vec_bool_3_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_1_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_1_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_1_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 1>>(&encoding);
 }
@@ -27703,7 +27703,7 @@ fn test_basic_vector_vec_uint128_1_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_31_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_31_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_31_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 31>>(&encoding);
@@ -27713,7 +27713,7 @@ fn test_basic_vector_vec_uint8_31_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_31_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_31_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_31_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 31>>(&encoding);
@@ -27722,7 +27722,7 @@ fn test_basic_vector_vec_bool_31_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_3_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_3_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_3_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 3>>(&encoding);
 }
@@ -27731,7 +27731,7 @@ fn test_basic_vector_vec_uint256_3_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_1_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_1_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_1_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 1>>(&encoding);
@@ -27740,7 +27740,7 @@ fn test_basic_vector_vec_bool_1_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_5_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_5_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_5_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 5>>(&encoding);
 }
@@ -27748,7 +27748,7 @@ fn test_basic_vector_vec_uint128_5_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_16_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_16_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_16_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 16>>(&encoding);
 }
@@ -27756,7 +27756,7 @@ fn test_basic_vector_vec_bool_16_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_4_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_4_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_4_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 4>>(&encoding);
 }
@@ -27765,7 +27765,7 @@ fn test_basic_vector_vec_uint128_4_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_16_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_16_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_16_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 16>>(&encoding);
@@ -27774,7 +27774,7 @@ fn test_basic_vector_vec_uint128_16_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_31_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_31_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_31_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 31>>(&encoding);
 }
@@ -27782,7 +27782,7 @@ fn test_basic_vector_vec_uint64_31_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_513_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_513_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_513_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 513>>(&encoding);
 }
@@ -27790,7 +27790,7 @@ fn test_basic_vector_vec_uint16_513_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_31_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_31_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_31_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 31>>(&encoding);
 }
@@ -27798,7 +27798,7 @@ fn test_basic_vector_vec_uint16_31_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_3_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_3_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_3_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 3>>(&encoding);
 }
@@ -27806,7 +27806,7 @@ fn test_basic_vector_vec_bool_3_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_2_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_2_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_2_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 2>>(&encoding);
 }
@@ -27814,7 +27814,7 @@ fn test_basic_vector_vec_uint8_2_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_8_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_8_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_8_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 8>>(&encoding);
 }
@@ -27822,7 +27822,7 @@ fn test_basic_vector_vec_uint256_8_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_3_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_3_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_3_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 3>>(&encoding);
 }
@@ -27830,7 +27830,7 @@ fn test_basic_vector_vec_uint256_3_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_512_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_512_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_512_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 512>>(&encoding);
 }
@@ -27839,7 +27839,7 @@ fn test_basic_vector_vec_uint16_512_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_3_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_3_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_3_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 3>>(&encoding);
@@ -27848,7 +27848,7 @@ fn test_basic_vector_vec_uint32_3_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_3_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_3_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_3_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 3>>(&encoding);
 }
@@ -27856,7 +27856,7 @@ fn test_basic_vector_vec_uint256_3_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_513_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_513_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_513_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 513>>(&encoding);
 }
@@ -27864,7 +27864,7 @@ fn test_basic_vector_vec_uint32_513_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_16_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_16_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_16_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 16>>(&encoding);
 }
@@ -27873,7 +27873,7 @@ fn test_basic_vector_vec_bool_16_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_8_max_one_byte_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_8_max_one_byte_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_8_max_one_byte_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 8>>(&encoding);
@@ -27882,7 +27882,7 @@ fn test_basic_vector_vec_bool_8_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_31_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_31_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_31_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 31>>(&encoding);
 }
@@ -27890,7 +27890,7 @@ fn test_basic_vector_vec_uint32_31_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_1_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_1_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_1_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 1>>(&encoding);
 }
@@ -27899,7 +27899,7 @@ fn test_basic_vector_vec_uint256_1_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_1_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_1_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_1_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 1>>(&encoding);
@@ -27909,7 +27909,7 @@ fn test_basic_vector_vec_uint256_1_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_8_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_8_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_8_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 8>>(&encoding);
@@ -27919,7 +27919,7 @@ fn test_basic_vector_vec_uint32_8_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_16_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_16_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_16_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 16>>(&encoding);
@@ -27929,7 +27929,7 @@ fn test_basic_vector_vec_uint64_16_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_512_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_512_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_512_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 512>>(&encoding);
@@ -27938,7 +27938,7 @@ fn test_basic_vector_vec_uint64_512_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_4_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_4_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_4_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 4>>(&encoding);
 }
@@ -27946,7 +27946,7 @@ fn test_basic_vector_vec_uint64_4_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_1_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_1_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_1_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 1>>(&encoding);
 }
@@ -27954,7 +27954,7 @@ fn test_basic_vector_vec_uint128_1_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_512_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_512_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_512_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 512>>(&encoding);
 }
@@ -27963,7 +27963,7 @@ fn test_basic_vector_vec_bool_512_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_513_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_513_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_513_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 513>>(&encoding);
@@ -27972,7 +27972,7 @@ fn test_basic_vector_vec_uint16_513_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_31_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_31_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_31_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 31>>(&encoding);
 }
@@ -27980,7 +27980,7 @@ fn test_basic_vector_vec_uint128_31_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_4_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_4_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_4_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 4>>(&encoding);
 }
@@ -27988,7 +27988,7 @@ fn test_basic_vector_vec_uint16_4_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_8_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_8_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_8_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 8>>(&encoding);
 }
@@ -27997,7 +27997,7 @@ fn test_basic_vector_vec_uint128_8_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_8_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_8_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_8_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 8>>(&encoding);
@@ -28006,7 +28006,7 @@ fn test_basic_vector_vec_uint256_8_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_4_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_4_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_4_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 4>>(&encoding);
 }
@@ -28014,7 +28014,7 @@ fn test_basic_vector_vec_uint32_4_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_2_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_2_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_2_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 2>>(&encoding);
 }
@@ -28022,7 +28022,7 @@ fn test_basic_vector_vec_uint32_2_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_513_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_513_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_513_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 513>>(&encoding);
 }
@@ -28030,7 +28030,7 @@ fn test_basic_vector_vec_uint8_513_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_2_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_2_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_2_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 2>>(&encoding);
 }
@@ -28038,7 +28038,7 @@ fn test_basic_vector_vec_uint64_2_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_513_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_513_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_513_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 513>>(&encoding);
 }
@@ -28047,7 +28047,7 @@ fn test_basic_vector_vec_uint128_513_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_1_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_1_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_1_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 1>>(&encoding);
@@ -28057,7 +28057,7 @@ fn test_basic_vector_vec_uint32_1_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_16_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_16_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_16_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 16>>(&encoding);
@@ -28066,7 +28066,7 @@ fn test_basic_vector_vec_uint64_16_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_2_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_2_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_2_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 2>>(&encoding);
 }
@@ -28074,7 +28074,7 @@ fn test_basic_vector_vec_uint8_2_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_512_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_512_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_512_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 512>>(&encoding);
 }
@@ -28083,7 +28083,7 @@ fn test_basic_vector_vec_uint32_512_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_8_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_8_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_8_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 8>>(&encoding);
@@ -28092,7 +28092,7 @@ fn test_basic_vector_vec_uint32_8_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_2_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_2_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_2_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 2>>(&encoding);
 }
@@ -28100,7 +28100,7 @@ fn test_basic_vector_vec_uint128_2_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_31_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_31_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_31_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 31>>(&encoding);
 }
@@ -28109,7 +28109,7 @@ fn test_basic_vector_vec_uint64_31_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_31_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_31_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_31_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 31>>(&encoding);
@@ -28118,7 +28118,7 @@ fn test_basic_vector_vec_uint64_31_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_5_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_5_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_5_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 5>>(&encoding);
 }
@@ -28127,7 +28127,7 @@ fn test_basic_vector_vec_uint8_5_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_8_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_8_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_8_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 8>>(&encoding);
@@ -28136,7 +28136,7 @@ fn test_basic_vector_vec_uint256_8_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_512_zero_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_512_zero_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_512_zero_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 512>>(&encoding);
 }
@@ -28145,7 +28145,7 @@ fn test_basic_vector_vec_uint128_512_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_2_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_2_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_2_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 2>>(&encoding);
@@ -28154,7 +28154,7 @@ fn test_basic_vector_vec_uint16_2_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_513_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_513_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_513_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 513>>(&encoding);
 }
@@ -28162,7 +28162,7 @@ fn test_basic_vector_vec_uint16_513_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_2_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_2_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_2_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 2>>(&encoding);
 }
@@ -28171,7 +28171,7 @@ fn test_basic_vector_vec_uint256_2_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_5_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_5_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_5_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 5>>(&encoding);
@@ -28181,7 +28181,7 @@ fn test_basic_vector_vec_uint256_5_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_4_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_4_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_4_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 4>>(&encoding);
@@ -28191,7 +28191,7 @@ fn test_basic_vector_vec_uint64_4_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_1_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_1_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_1_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 1>>(&encoding);
@@ -28200,7 +28200,7 @@ fn test_basic_vector_vec_uint8_1_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_1_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_1_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_1_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 1>>(&encoding);
 }
@@ -28208,7 +28208,7 @@ fn test_basic_vector_vec_uint64_1_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_4_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_4_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_4_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 4>>(&encoding);
 }
@@ -28217,7 +28217,7 @@ fn test_basic_vector_vec_uint256_4_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_512_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_512_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_512_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 512>>(&encoding);
@@ -28226,7 +28226,7 @@ fn test_basic_vector_vec_uint32_512_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_512_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_512_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_512_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 512>>(&encoding);
 }
@@ -28234,7 +28234,7 @@ fn test_basic_vector_vec_uint16_512_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_512_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_512_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_512_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 512>>(&encoding);
 }
@@ -28242,7 +28242,7 @@ fn test_basic_vector_vec_uint64_512_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_1_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_1_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_1_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 1>>(&encoding);
 }
@@ -28251,7 +28251,7 @@ fn test_basic_vector_vec_uint16_1_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_16_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_16_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_16_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 16>>(&encoding);
@@ -28261,7 +28261,7 @@ fn test_basic_vector_vec_uint256_16_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_31_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_31_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_31_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 31>>(&encoding);
@@ -28271,7 +28271,7 @@ fn test_basic_vector_vec_uint8_31_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_512_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_512_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_512_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 512>>(&encoding);
@@ -28280,7 +28280,7 @@ fn test_basic_vector_vec_uint64_512_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_4_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_4_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_4_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 4>>(&encoding);
 }
@@ -28288,7 +28288,7 @@ fn test_basic_vector_vec_uint64_4_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_16_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_16_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_16_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 16>>(&encoding);
 }
@@ -28297,7 +28297,7 @@ fn test_basic_vector_vec_uint8_16_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_2_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_2_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_2_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 2>>(&encoding);
@@ -28306,7 +28306,7 @@ fn test_basic_vector_vec_uint256_2_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_4_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_4_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_4_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 4>>(&encoding);
 }
@@ -28315,7 +28315,7 @@ fn test_basic_vector_vec_uint128_4_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_3_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_3_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_3_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 3>>(&encoding);
@@ -28324,7 +28324,7 @@ fn test_basic_vector_vec_uint64_3_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_2_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_2_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_2_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 2>>(&encoding);
 }
@@ -28332,7 +28332,7 @@ fn test_basic_vector_vec_uint32_2_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_8_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_8_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_8_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 8>>(&encoding);
 }
@@ -28341,7 +28341,7 @@ fn test_basic_vector_vec_uint64_8_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_0() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_0/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_0/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 0>>(&encoding);
@@ -28351,7 +28351,7 @@ fn test_basic_vector_vec_uint128_0() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_8_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_8_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_8_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 8>>(&encoding);
@@ -28361,7 +28361,7 @@ fn test_basic_vector_vec_uint8_8_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_512_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_512_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_512_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 512>>(&encoding);
@@ -28370,7 +28370,7 @@ fn test_basic_vector_vec_uint8_512_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_3_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_3_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_3_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 3>>(&encoding);
 }
@@ -28379,7 +28379,7 @@ fn test_basic_vector_vec_uint64_3_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_31_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_31_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_31_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 31>>(&encoding);
@@ -28389,7 +28389,7 @@ fn test_basic_vector_vec_uint256_31_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_512_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_512_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_512_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 512>>(&encoding);
@@ -28398,7 +28398,7 @@ fn test_basic_vector_vec_uint8_512_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_512_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_512_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_512_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 512>>(&encoding);
 }
@@ -28406,7 +28406,7 @@ fn test_basic_vector_vec_uint8_512_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_2_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_2_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_2_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 2>>(&encoding);
 }
@@ -28414,7 +28414,7 @@ fn test_basic_vector_vec_uint16_2_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_31_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_31_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_31_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 31>>(&encoding);
 }
@@ -28422,7 +28422,7 @@ fn test_basic_vector_vec_uint32_31_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_2_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_2_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_2_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 2>>(&encoding);
 }
@@ -28430,7 +28430,7 @@ fn test_basic_vector_vec_uint64_2_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_4_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_4_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_4_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 4>>(&encoding);
 }
@@ -28438,7 +28438,7 @@ fn test_basic_vector_vec_uint128_4_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_16_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_16_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_16_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 16>>(&encoding);
 }
@@ -28446,7 +28446,7 @@ fn test_basic_vector_vec_uint8_16_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_31_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_31_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_31_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 31>>(&encoding);
 }
@@ -28454,7 +28454,7 @@ fn test_basic_vector_vec_uint128_31_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_4_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_4_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_4_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 4>>(&encoding);
 }
@@ -28462,7 +28462,7 @@ fn test_basic_vector_vec_uint32_4_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_2_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_2_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_2_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 2>>(&encoding);
 }
@@ -28471,7 +28471,7 @@ fn test_basic_vector_vec_uint16_2_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_5_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_5_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_5_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 5>>(&encoding);
@@ -28481,7 +28481,7 @@ fn test_basic_vector_vec_uint16_5_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_512_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_512_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_512_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 512>>(&encoding);
@@ -28490,7 +28490,7 @@ fn test_basic_vector_vec_uint8_512_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_16_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_16_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_16_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 16>>(&encoding);
 }
@@ -28499,7 +28499,7 @@ fn test_basic_vector_vec_uint256_16_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_8_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_8_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_8_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 8>>(&encoding);
@@ -28508,7 +28508,7 @@ fn test_basic_vector_vec_uint64_8_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_31_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_31_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_31_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 31>>(&encoding);
 }
@@ -28517,7 +28517,7 @@ fn test_basic_vector_vec_uint256_31_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_2_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_2_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_2_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 2>>(&encoding);
@@ -28526,7 +28526,7 @@ fn test_basic_vector_vec_uint256_2_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_5_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_5_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_5_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 5>>(&encoding);
 }
@@ -28535,7 +28535,7 @@ fn test_basic_vector_vec_uint32_5_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_5_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_5_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_5_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 5>>(&encoding);
@@ -28544,7 +28544,7 @@ fn test_basic_vector_vec_uint32_5_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_3_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_3_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_3_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 3>>(&encoding);
 }
@@ -28552,7 +28552,7 @@ fn test_basic_vector_vec_uint8_3_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_1_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_1_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_1_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 1>>(&encoding);
 }
@@ -28560,7 +28560,7 @@ fn test_basic_vector_vec_uint32_1_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_1_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_1_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_1_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 1>>(&encoding);
 }
@@ -28569,7 +28569,7 @@ fn test_basic_vector_vec_uint8_1_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_1_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_1_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_1_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 1>>(&encoding);
@@ -28578,7 +28578,7 @@ fn test_basic_vector_vec_uint64_1_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_1_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_1_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_1_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 1>>(&encoding);
 }
@@ -28587,7 +28587,7 @@ fn test_basic_vector_vec_uint128_1_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_5_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_5_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_5_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 5>>(&encoding);
@@ -28597,7 +28597,7 @@ fn test_basic_vector_vec_uint256_5_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_2_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_2_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_2_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 2>>(&encoding);
@@ -28606,7 +28606,7 @@ fn test_basic_vector_vec_uint32_2_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_513_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_513_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_513_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 513>>(&encoding);
 }
@@ -28615,7 +28615,7 @@ fn test_basic_vector_vec_bool_513_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_8_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_8_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_8_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 8>>(&encoding);
@@ -28625,7 +28625,7 @@ fn test_basic_vector_vec_uint8_8_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_513_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_513_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_513_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 513>>(&encoding);
@@ -28634,7 +28634,7 @@ fn test_basic_vector_vec_uint8_513_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_31_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_31_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_31_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 31>>(&encoding);
 }
@@ -28643,7 +28643,7 @@ fn test_basic_vector_vec_uint16_31_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_16_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_16_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_16_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 16>>(&encoding);
@@ -28653,7 +28653,7 @@ fn test_basic_vector_vec_uint8_16_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_1_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_1_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_1_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 1>>(&encoding);
@@ -28663,7 +28663,7 @@ fn test_basic_vector_vec_uint8_1_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_1_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_1_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_1_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 1>>(&encoding);
@@ -28672,7 +28672,7 @@ fn test_basic_vector_vec_uint128_1_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_2_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_2_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_2_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 2>>(&encoding);
 }
@@ -28680,7 +28680,7 @@ fn test_basic_vector_vec_uint256_2_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_31_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_31_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_31_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 31>>(&encoding);
 }
@@ -28688,7 +28688,7 @@ fn test_basic_vector_vec_uint8_31_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_8_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_8_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_8_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 8>>(&encoding);
 }
@@ -28696,7 +28696,7 @@ fn test_basic_vector_vec_uint256_8_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_3_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_3_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_3_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 3>>(&encoding);
 }
@@ -28705,7 +28705,7 @@ fn test_basic_vector_vec_uint16_3_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_4_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_4_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_4_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 4>>(&encoding);
@@ -28714,7 +28714,7 @@ fn test_basic_vector_vec_uint16_4_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_5_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_5_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_5_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 5>>(&encoding);
 }
@@ -28722,7 +28722,7 @@ fn test_basic_vector_vec_uint32_5_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_512_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_512_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_512_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 512>>(&encoding);
 }
@@ -28730,7 +28730,7 @@ fn test_basic_vector_vec_uint8_512_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_3_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_3_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_3_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 3>>(&encoding);
 }
@@ -28738,7 +28738,7 @@ fn test_basic_vector_vec_uint64_3_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_513_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_513_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_513_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 513>>(&encoding);
 }
@@ -28746,7 +28746,7 @@ fn test_basic_vector_vec_uint8_513_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_512_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_512_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_512_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 512>>(&encoding);
 }
@@ -28754,7 +28754,7 @@ fn test_basic_vector_vec_uint256_512_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_1_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_1_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_1_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 1>>(&encoding);
 }
@@ -28762,7 +28762,7 @@ fn test_basic_vector_vec_uint64_1_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_5_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_5_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_5_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 5>>(&encoding);
 }
@@ -28771,7 +28771,7 @@ fn test_basic_vector_vec_uint256_5_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_5_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_5_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_5_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 5>>(&encoding);
@@ -28780,7 +28780,7 @@ fn test_basic_vector_vec_uint32_5_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_8_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_8_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_8_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 8>>(&encoding);
 }
@@ -28788,7 +28788,7 @@ fn test_basic_vector_vec_uint16_8_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_513_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_513_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_513_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 513>>(&encoding);
 }
@@ -28797,7 +28797,7 @@ fn test_basic_vector_vec_bool_513_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_1_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_1_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_1_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 1>>(&encoding);
@@ -28807,7 +28807,7 @@ fn test_basic_vector_vec_uint16_1_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_16_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_16_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_16_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 16>>(&encoding);
@@ -28817,7 +28817,7 @@ fn test_basic_vector_vec_uint16_16_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_16_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_16_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_16_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 16>>(&encoding);
@@ -28826,7 +28826,7 @@ fn test_basic_vector_vec_uint8_16_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_16_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_16_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_16_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 16>>(&encoding);
 }
@@ -28834,7 +28834,7 @@ fn test_basic_vector_vec_uint16_16_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_3_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_3_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_3_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 3>>(&encoding);
 }
@@ -28842,7 +28842,7 @@ fn test_basic_vector_vec_uint128_3_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_5_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_5_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_5_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 5>>(&encoding);
 }
@@ -28850,7 +28850,7 @@ fn test_basic_vector_vec_uint128_5_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_31_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_31_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_31_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 31>>(&encoding);
 }
@@ -28859,7 +28859,7 @@ fn test_basic_vector_vec_uint64_31_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_16_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_16_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_16_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 16>>(&encoding);
@@ -28869,7 +28869,7 @@ fn test_basic_vector_vec_bool_16_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_16_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_16_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_16_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 16>>(&encoding);
@@ -28878,7 +28878,7 @@ fn test_basic_vector_vec_uint16_16_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_31_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_31_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_31_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 31>>(&encoding);
 }
@@ -28887,7 +28887,7 @@ fn test_basic_vector_vec_uint32_31_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_1_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_1_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_1_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 1>>(&encoding);
@@ -28896,7 +28896,7 @@ fn test_basic_vector_vec_uint8_1_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_1_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_1_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_1_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 1>>(&encoding);
 }
@@ -28904,7 +28904,7 @@ fn test_basic_vector_vec_uint256_1_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_4_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_4_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_4_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 4>>(&encoding);
 }
@@ -28912,7 +28912,7 @@ fn test_basic_vector_vec_uint8_4_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_2_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_2_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_2_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 2>>(&encoding);
 }
@@ -28920,7 +28920,7 @@ fn test_basic_vector_vec_uint64_2_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_8_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_8_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_8_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 8>>(&encoding);
 }
@@ -28928,7 +28928,7 @@ fn test_basic_vector_vec_uint16_8_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_1_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_1_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_1_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 1>>(&encoding);
 }
@@ -28936,7 +28936,7 @@ fn test_basic_vector_vec_uint128_1_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_8_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_8_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_8_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 8>>(&encoding);
 }
@@ -28944,7 +28944,7 @@ fn test_basic_vector_vec_uint256_8_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_16_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_16_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_16_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 16>>(&encoding);
 }
@@ -28952,7 +28952,7 @@ fn test_basic_vector_vec_uint16_16_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_1_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_1_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_1_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 1>>(&encoding);
 }
@@ -28961,7 +28961,7 @@ fn test_basic_vector_vec_uint32_1_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_4_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_4_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_4_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 4>>(&encoding);
@@ -28971,7 +28971,7 @@ fn test_basic_vector_vec_uint32_4_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_4_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_4_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_4_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 4>>(&encoding);
@@ -28980,7 +28980,7 @@ fn test_basic_vector_vec_uint16_4_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_4_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_4_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_4_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 4>>(&encoding);
 }
@@ -28989,7 +28989,7 @@ fn test_basic_vector_vec_uint8_4_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_3_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_3_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_3_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 3>>(&encoding);
@@ -28999,7 +28999,7 @@ fn test_basic_vector_vec_uint128_3_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_1_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_1_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_1_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 1>>(&encoding);
@@ -29009,7 +29009,7 @@ fn test_basic_vector_vec_uint64_1_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_513_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_513_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_513_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 513>>(&encoding);
@@ -29018,7 +29018,7 @@ fn test_basic_vector_vec_uint64_513_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_31_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_31_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_31_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 31>>(&encoding);
 }
@@ -29026,7 +29026,7 @@ fn test_basic_vector_vec_uint128_31_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_16_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_16_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_16_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 16>>(&encoding);
 }
@@ -29034,7 +29034,7 @@ fn test_basic_vector_vec_uint256_16_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_1_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_1_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_1_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 1>>(&encoding);
 }
@@ -29042,7 +29042,7 @@ fn test_basic_vector_vec_uint8_1_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_4_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_4_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_4_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 4>>(&encoding);
 }
@@ -29050,7 +29050,7 @@ fn test_basic_vector_vec_uint32_4_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_8_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_8_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_8_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 8>>(&encoding);
 }
@@ -29058,7 +29058,7 @@ fn test_basic_vector_vec_bool_8_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_512_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_512_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_512_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 512>>(&encoding);
 }
@@ -29067,7 +29067,7 @@ fn test_basic_vector_vec_uint8_512_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_16_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_16_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_16_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 16>>(&encoding);
@@ -29077,7 +29077,7 @@ fn test_basic_vector_vec_uint32_16_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_4_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_4_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_4_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 4>>(&encoding);
@@ -29086,7 +29086,7 @@ fn test_basic_vector_vec_uint32_4_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_2_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_2_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_2_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 2>>(&encoding);
 }
@@ -29095,7 +29095,7 @@ fn test_basic_vector_vec_uint128_2_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_16_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_16_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_16_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 16>>(&encoding);
@@ -29104,7 +29104,7 @@ fn test_basic_vector_vec_uint32_16_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_5_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_5_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_5_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 5>>(&encoding);
 }
@@ -29113,7 +29113,7 @@ fn test_basic_vector_vec_bool_5_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_5_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_5_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_5_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 5>>(&encoding);
@@ -29123,7 +29123,7 @@ fn test_basic_vector_vec_uint8_5_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_4_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_4_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_4_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 4>>(&encoding);
@@ -29132,7 +29132,7 @@ fn test_basic_vector_vec_bool_4_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_31_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_31_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_31_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 31>>(&encoding);
 }
@@ -29141,7 +29141,7 @@ fn test_basic_vector_vec_uint32_31_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_3_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_3_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_3_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 3>>(&encoding);
@@ -29151,7 +29151,7 @@ fn test_basic_vector_vec_uint16_3_random_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_512_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_512_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_512_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 512>>(&encoding);
@@ -29161,7 +29161,7 @@ fn test_basic_vector_vec_bool_512_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_5_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_5_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_5_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 5>>(&encoding);
@@ -29171,7 +29171,7 @@ fn test_basic_vector_vec_uint16_5_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_8_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_8_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_8_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 8>>(&encoding);
@@ -29180,7 +29180,7 @@ fn test_basic_vector_vec_uint8_8_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_5_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_5_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_5_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 5>>(&encoding);
 }
@@ -29188,7 +29188,7 @@ fn test_basic_vector_vec_uint256_5_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_512_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_512_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_512_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 512>>(&encoding);
 }
@@ -29196,7 +29196,7 @@ fn test_basic_vector_vec_uint16_512_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_512_zero_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_512_zero_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_512_zero_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 512>>(&encoding);
 }
@@ -29205,7 +29205,7 @@ fn test_basic_vector_vec_uint256_512_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_8_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_8_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_8_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 8>>(&encoding);
@@ -29215,7 +29215,7 @@ fn test_basic_vector_vec_bool_8_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_3_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_3_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_3_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 3>>(&encoding);
@@ -29225,7 +29225,7 @@ fn test_basic_vector_vec_uint16_3_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_4_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_4_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_4_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 4>>(&encoding);
@@ -29234,7 +29234,7 @@ fn test_basic_vector_vec_uint256_4_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_8_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_8_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_8_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 8>>(&encoding);
 }
@@ -29242,7 +29242,7 @@ fn test_basic_vector_vec_uint8_8_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_5_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_5_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_5_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 5>>(&encoding);
 }
@@ -29251,7 +29251,7 @@ fn test_basic_vector_vec_uint64_5_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_1_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_1_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_1_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 1>>(&encoding);
@@ -29260,7 +29260,7 @@ fn test_basic_vector_vec_uint16_1_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_16_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_16_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_16_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 16>>(&encoding);
 }
@@ -29268,7 +29268,7 @@ fn test_basic_vector_vec_uint64_16_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_16_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_16_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_16_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 16>>(&encoding);
 }
@@ -29277,7 +29277,7 @@ fn test_basic_vector_vec_uint256_16_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_3_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_3_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_3_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 3>>(&encoding);
@@ -29287,7 +29287,7 @@ fn test_basic_vector_vec_uint32_3_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_4_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_4_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_4_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 4>>(&encoding);
@@ -29296,7 +29296,7 @@ fn test_basic_vector_vec_uint128_4_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_513_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_513_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_513_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 513>>(&encoding);
 }
@@ -29304,7 +29304,7 @@ fn test_basic_vector_vec_uint32_513_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_2_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_2_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_2_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 2>>(&encoding);
 }
@@ -29312,7 +29312,7 @@ fn test_basic_vector_vec_uint8_2_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_3_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_3_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_3_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 3>>(&encoding);
 }
@@ -29321,7 +29321,7 @@ fn test_basic_vector_vec_uint32_3_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_4_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_4_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_4_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 4>>(&encoding);
@@ -29330,7 +29330,7 @@ fn test_basic_vector_vec_uint16_4_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_3_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_3_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_3_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 3>>(&encoding);
 }
@@ -29339,7 +29339,7 @@ fn test_basic_vector_vec_uint8_3_random_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_3_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_3_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_3_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 3>>(&encoding);
@@ -29349,7 +29349,7 @@ fn test_basic_vector_vec_uint256_3_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_8_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_8_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_8_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 8>>(&encoding);
@@ -29359,7 +29359,7 @@ fn test_basic_vector_vec_uint128_8_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_4_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_4_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_4_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 4>>(&encoding);
@@ -29368,7 +29368,7 @@ fn test_basic_vector_vec_uint32_4_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_1_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_1_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_1_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 1>>(&encoding);
 }
@@ -29377,7 +29377,7 @@ fn test_basic_vector_vec_uint32_1_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_513_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_513_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_513_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 513>>(&encoding);
@@ -29387,7 +29387,7 @@ fn test_basic_vector_vec_uint8_513_max_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_31_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_31_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_31_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 31>>(&encoding);
@@ -29396,7 +29396,7 @@ fn test_basic_vector_vec_uint8_31_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_5_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_5_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_5_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 5>>(&encoding);
 }
@@ -29404,7 +29404,7 @@ fn test_basic_vector_vec_uint128_5_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_16_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_16_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_16_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 16>>(&encoding);
 }
@@ -29413,7 +29413,7 @@ fn test_basic_vector_vec_bool_16_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_bool_1_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_1_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_1_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 1>>(&encoding);
@@ -29422,7 +29422,7 @@ fn test_basic_vector_vec_bool_1_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_3_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_3_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_3_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 3>>(&encoding);
 }
@@ -29431,7 +29431,7 @@ fn test_basic_vector_vec_uint256_3_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_2_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_2_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_2_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 2>>(&encoding);
@@ -29441,7 +29441,7 @@ fn test_basic_vector_vec_uint8_2_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_bool_3_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_3_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_3_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 3>>(&encoding);
@@ -29450,7 +29450,7 @@ fn test_basic_vector_vec_bool_3_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_31_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_31_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_31_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 31>>(&encoding);
 }
@@ -29458,7 +29458,7 @@ fn test_basic_vector_vec_uint128_31_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_1_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_1_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_1_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 1>>(&encoding);
 }
@@ -29466,7 +29466,7 @@ fn test_basic_vector_vec_uint128_1_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_513_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_513_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_513_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 513>>(&encoding);
 }
@@ -29474,7 +29474,7 @@ fn test_basic_vector_vec_uint16_513_random_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_3_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_3_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_3_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 3>>(&encoding);
 }
@@ -29482,7 +29482,7 @@ fn test_basic_vector_vec_bool_3_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_2_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_2_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_2_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 2>>(&encoding);
 }
@@ -29490,7 +29490,7 @@ fn test_basic_vector_vec_uint8_2_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_31_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_31_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_31_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 31>>(&encoding);
 }
@@ -29499,7 +29499,7 @@ fn test_basic_vector_vec_uint16_31_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint128_16_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint128_16_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint128_16_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u128, 16>>(&encoding);
@@ -29508,7 +29508,7 @@ fn test_basic_vector_vec_uint128_16_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_4_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_4_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_4_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 4>>(&encoding);
 }
@@ -29516,7 +29516,7 @@ fn test_basic_vector_vec_uint128_4_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_31_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_31_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_31_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 31>>(&encoding);
 }
@@ -29524,7 +29524,7 @@ fn test_basic_vector_vec_uint64_31_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_513_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_513_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_513_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 513>>(&encoding);
 }
@@ -29532,7 +29532,7 @@ fn test_basic_vector_vec_uint32_513_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_16_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_16_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_16_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 16>>(&encoding);
 }
@@ -29540,7 +29540,7 @@ fn test_basic_vector_vec_bool_16_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_3_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_3_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_3_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 3>>(&encoding);
 }
@@ -29548,7 +29548,7 @@ fn test_basic_vector_vec_uint256_3_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_1_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_1_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_1_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 1>>(&encoding);
 }
@@ -29556,7 +29556,7 @@ fn test_basic_vector_vec_uint256_1_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_31_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_31_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_31_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 31>>(&encoding);
 }
@@ -29565,7 +29565,7 @@ fn test_basic_vector_vec_uint32_31_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_1_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_1_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_1_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 1>>(&encoding);
@@ -29575,7 +29575,7 @@ fn test_basic_vector_vec_uint32_1_nil() {
 #[should_panic]
 fn test_basic_vector_vec_bool_8_max_one_byte_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_bool_8_max_one_byte_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_bool_8_max_one_byte_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<bool, 8>>(&encoding);
@@ -29584,7 +29584,7 @@ fn test_basic_vector_vec_bool_8_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_3_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_3_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_3_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 3>>(&encoding);
 }
@@ -29592,7 +29592,7 @@ fn test_basic_vector_vec_uint256_3_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_512_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_512_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_512_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 512>>(&encoding);
 }
@@ -29600,7 +29600,7 @@ fn test_basic_vector_vec_uint16_512_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_8_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_8_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_8_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 8>>(&encoding);
 }
@@ -29609,7 +29609,7 @@ fn test_basic_vector_vec_uint256_8_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_3_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_3_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_3_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 3>>(&encoding);
@@ -29618,7 +29618,7 @@ fn test_basic_vector_vec_uint32_3_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_4_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_4_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_4_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 4>>(&encoding);
 }
@@ -29627,7 +29627,7 @@ fn test_basic_vector_vec_uint32_4_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_2_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_2_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_2_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 2>>(&encoding);
@@ -29637,7 +29637,7 @@ fn test_basic_vector_vec_uint16_2_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_8_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_8_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_8_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 8>>(&encoding);
@@ -29646,7 +29646,7 @@ fn test_basic_vector_vec_uint256_8_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_2_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_2_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_2_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 2>>(&encoding);
 }
@@ -29654,7 +29654,7 @@ fn test_basic_vector_vec_uint32_2_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_4_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_4_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_4_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 4>>(&encoding);
 }
@@ -29662,7 +29662,7 @@ fn test_basic_vector_vec_uint16_4_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_8_random_one_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_8_random_one_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_8_random_one_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 8>>(&encoding);
 }
@@ -29670,7 +29670,7 @@ fn test_basic_vector_vec_uint128_8_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_513_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_513_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_513_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 513>>(&encoding);
 }
@@ -29678,7 +29678,7 @@ fn test_basic_vector_vec_uint128_513_zero_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_2_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_2_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_2_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 2>>(&encoding);
 }
@@ -29686,7 +29686,7 @@ fn test_basic_vector_vec_uint64_2_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_513_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_513_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_513_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 513>>(&encoding);
 }
@@ -29695,7 +29695,7 @@ fn test_basic_vector_vec_uint8_513_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_16_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_16_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_16_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 16>>(&encoding);
@@ -29705,7 +29705,7 @@ fn test_basic_vector_vec_uint64_16_max_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_512_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_512_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_512_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 512>>(&encoding);
@@ -29714,7 +29714,7 @@ fn test_basic_vector_vec_uint64_512_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_1_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_1_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_1_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 1>>(&encoding);
 }
@@ -29722,7 +29722,7 @@ fn test_basic_vector_vec_uint128_1_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_bool_512_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_bool_512_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_bool_512_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<bool, 512>>(&encoding);
 }
@@ -29731,7 +29731,7 @@ fn test_basic_vector_vec_bool_512_max_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_3_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_3_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_3_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 3>>(&encoding);
@@ -29740,7 +29740,7 @@ fn test_basic_vector_vec_uint32_3_nil() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_4_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_4_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_4_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 4>>(&encoding);
 }
@@ -29749,7 +29749,7 @@ fn test_basic_vector_vec_uint64_4_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_1_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_1_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_1_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 1>>(&encoding);
@@ -29759,7 +29759,7 @@ fn test_basic_vector_vec_uint256_1_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_8_max_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_8_max_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_8_max_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 8>>(&encoding);
@@ -29768,7 +29768,7 @@ fn test_basic_vector_vec_uint32_8_max_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_31_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_31_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_31_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 31>>(&encoding);
 }
@@ -29777,7 +29777,7 @@ fn test_basic_vector_vec_uint128_31_max_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_513_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_513_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_513_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 513>>(&encoding);
@@ -29786,7 +29786,7 @@ fn test_basic_vector_vec_uint16_513_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_31_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_31_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_31_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 31>>(&encoding);
 }
@@ -29795,7 +29795,7 @@ fn test_basic_vector_vec_uint64_31_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_8_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_8_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_8_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 8>>(&encoding);
@@ -29804,7 +29804,7 @@ fn test_basic_vector_vec_uint32_8_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_2_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_2_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_2_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 2>>(&encoding);
 }
@@ -29812,7 +29812,7 @@ fn test_basic_vector_vec_uint128_2_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint32_512_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint32_512_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint32_512_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u32, 512>>(&encoding);
 }
@@ -29821,7 +29821,7 @@ fn test_basic_vector_vec_uint32_512_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_1_random_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_1_random_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_1_random_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 1>>(&encoding);
@@ -29830,7 +29830,7 @@ fn test_basic_vector_vec_uint32_1_random_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_2_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_2_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_2_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 2>>(&encoding);
 }
@@ -29839,7 +29839,7 @@ fn test_basic_vector_vec_uint8_2_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_16_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_16_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_16_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 16>>(&encoding);
@@ -29849,7 +29849,7 @@ fn test_basic_vector_vec_uint64_16_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_2_random_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_2_random_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_2_random_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 2>>(&encoding);
@@ -29858,7 +29858,7 @@ fn test_basic_vector_vec_uint16_2_random_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint128_512_zero_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint128_512_zero_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint128_512_zero_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u128, 512>>(&encoding);
 }
@@ -29867,7 +29867,7 @@ fn test_basic_vector_vec_uint128_512_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_8_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_8_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_8_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 8>>(&encoding);
@@ -29876,7 +29876,7 @@ fn test_basic_vector_vec_uint256_8_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint8_5_max_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint8_5_max_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint8_5_max_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u8, 5>>(&encoding);
 }
@@ -29884,7 +29884,7 @@ fn test_basic_vector_vec_uint8_5_max_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_2_random_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_2_random_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_2_random_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 2>>(&encoding);
 }
@@ -29893,7 +29893,7 @@ fn test_basic_vector_vec_uint256_2_random_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint256_5_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint256_5_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint256_5_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<U256, 5>>(&encoding);
@@ -29903,7 +29903,7 @@ fn test_basic_vector_vec_uint256_5_zero_one_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_4_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_4_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_4_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 4>>(&encoding);
@@ -29912,7 +29912,7 @@ fn test_basic_vector_vec_uint64_4_zero_one_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_513_random_one_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_513_random_one_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_513_random_one_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 513>>(&encoding);
 }
@@ -29921,7 +29921,7 @@ fn test_basic_vector_vec_uint16_513_random_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_31_zero_one_less() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_31_zero_one_less/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_31_zero_one_less/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 31>>(&encoding);
@@ -29931,7 +29931,7 @@ fn test_basic_vector_vec_uint64_31_zero_one_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_512_zero_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_512_zero_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_512_zero_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 512>>(&encoding);
@@ -29940,7 +29940,7 @@ fn test_basic_vector_vec_uint32_512_zero_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_512_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_512_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_512_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 512>>(&encoding);
 }
@@ -29948,7 +29948,7 @@ fn test_basic_vector_vec_uint64_512_zero_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_512_random_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_512_random_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_512_random_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 512>>(&encoding);
 }
@@ -29956,7 +29956,7 @@ fn test_basic_vector_vec_uint16_512_random_one_byte_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_1_zero_one_byte_more() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint16_1_zero_one_byte_more/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint16_1_zero_one_byte_more/serialized.ssz_snappy");
 
     deserialize::<Vector<u16, 1>>(&encoding);
 }
@@ -29965,7 +29965,7 @@ fn test_basic_vector_vec_uint16_1_zero_one_byte_more() {
 #[should_panic]
 fn test_basic_vector_vec_uint32_2_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint32_2_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint32_2_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u32, 2>>(&encoding);
@@ -29975,7 +29975,7 @@ fn test_basic_vector_vec_uint32_2_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint64_8_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint64_8_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint64_8_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u64, 8>>(&encoding);
@@ -29985,7 +29985,7 @@ fn test_basic_vector_vec_uint64_8_nil() {
 #[should_panic]
 fn test_basic_vector_vec_uint8_1_max_one_more() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint8_1_max_one_more/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint8_1_max_one_more/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u8, 1>>(&encoding);
@@ -29994,7 +29994,7 @@ fn test_basic_vector_vec_uint8_1_max_one_more() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint256_4_max_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint256_4_max_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint256_4_max_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<U256, 4>>(&encoding);
 }
@@ -30002,7 +30002,7 @@ fn test_basic_vector_vec_uint256_4_max_one_byte_less() {
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint64_1_zero_one_byte_less() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/basic_vector/invalid/vec_uint64_1_zero_one_byte_less/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/basic_vector/invalid/vec_uint64_1_zero_one_byte_less/serialized.ssz_snappy");
 
     deserialize::<Vector<u64, 1>>(&encoding);
 }
@@ -30011,7 +30011,7 @@ fn test_basic_vector_vec_uint64_1_zero_one_byte_less() {
 #[should_panic]
 fn test_basic_vector_vec_uint16_3_nil() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/basic_vector/invalid/vec_uint16_3_nil/serialized.ssz_snappy",
+        "ssz_rs/tests/data/basic_vector/invalid/vec_uint16_3_nil/serialized.ssz_snappy",
     );
 
     deserialize::<Vector<u16, 3>>(&encoding);
