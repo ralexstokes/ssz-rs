@@ -1,4 +1,6 @@
+use crate::de::{Deserialize, DeserializeError};
 use crate::ser::{Serialize, SerializeError};
+use crate::{SimpleSerialize, Sized};
 use sha2::{Digest, Sha256};
 use std::{cmp::Ordering, convert::TryInto, ops::Index};
 use thiserror::Error;
@@ -8,6 +10,52 @@ pub(crate) const BYTES_PER_CHUNK: usize = 32;
 pub(crate) const ZERO_CHUNK: &[u8] = &[0; BYTES_PER_CHUNK];
 
 pub type Root = [u8; 32];
+
+impl Sized for Root {
+    fn is_variable_size() -> bool {
+        false
+    }
+
+    fn size_hint() -> usize {
+        32
+    }
+}
+
+impl Serialize for Root {
+    fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
+        buffer.extend_from_slice(self);
+        Ok(Self::size_hint())
+    }
+}
+
+impl Deserialize for Root {
+    fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
+        let byte_size = Self::size_hint();
+        if encoding.len() < byte_size {
+            return Err(DeserializeError::InputTooShort);
+        }
+        if encoding.len() > byte_size {
+            return Err(DeserializeError::ExtraInput);
+        }
+
+        let root = encoding[..byte_size]
+            .try_into()
+            .expect("slice has right length");
+        Ok(root)
+    }
+}
+
+impl Merkleized for Root {
+    fn hash_tree_root(&self, _context: &Context) -> Result<Root, MerkleizationError> {
+        Ok(self.clone())
+    }
+}
+
+impl SimpleSerialize for Root {
+    fn is_composite_type() -> bool {
+        false
+    }
+}
 
 pub trait Merkleized {
     fn hash_tree_root(&self, context: &Context) -> Result<Root, MerkleizationError>;
@@ -536,5 +584,21 @@ mod tests {
             root,
             hex!("0063bfcfabbca567483a2ee859fcfafb958329489eb328ac7f07790c7df1b231")
         );
+    }
+
+    #[test]
+    fn test_simple_serialize_of_root() {
+        let root = Root::default();
+        let mut result = vec![];
+        let _ = root.serialize(&mut result).expect("can encode");
+        let expected_encoding = vec![0; 32];
+        assert_eq!(result, expected_encoding);
+
+        let recovered_root = Root::deserialize(&result).expect("can decode");
+        assert_eq!(recovered_root, Root::default());
+
+        let context = MerkleizationContext::new();
+        let hash_tree_root = root.hash_tree_root(&context).expect("can find root");
+        assert_eq!(hash_tree_root, Root::default());
     }
 }
