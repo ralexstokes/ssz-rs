@@ -56,14 +56,13 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
                         let mut element_buffer = Vec::with_capacity(<#field_type>::size_hint());
                         self.#field_name.serialize(&mut element_buffer)?;
 
+                        let buffer_len = element_buffer.len();
                         if <#field_type>::is_variable_size() {
-                            let buffer_len = element_buffer.len();
                             fixed.push(None);
                             fixed_lengths_sum += #BYTES_PER_LENGTH_OFFSET;
                             variable.push(element_buffer);
                             variable_lengths.push(buffer_len);
                         } else {
-                            let buffer_len = element_buffer.len();
                             fixed.push(Some(element_buffer));
                             fixed_lengths_sum += buffer_len;
                             variable_lengths.push(0)
@@ -366,7 +365,7 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                     fn hash_tree_root(&self, context: &ssz_rs::MerkleizationContext) -> Result<ssz_rs::Root, ssz_rs::MerkleizationError> {
                         let mut chunks = vec![0u8; #field_count * #BYTES_PER_CHUNK];
                         #(#impl_by_field)*
-                        Ok(ssz_rs::internal::merkleize(&chunks, None, context)?)
+                        ssz_rs::internal::merkleize(&chunks, None, context)
                     }
                 }
             }
