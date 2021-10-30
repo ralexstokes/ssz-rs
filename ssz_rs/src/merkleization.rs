@@ -47,7 +47,7 @@ impl Deserialize for Root {
 
 impl Merkleized for Root {
     fn hash_tree_root(&self, _context: &Context) -> Result<Root, MerkleizationError> {
-        Ok(self.clone())
+        Ok(*self)
     }
 }
 
