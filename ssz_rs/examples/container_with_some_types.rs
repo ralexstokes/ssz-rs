@@ -1,4 +1,3 @@
-use hex;
 use ssz_rs::prelude::*;
 use std::iter::FromIterator;
 
@@ -39,9 +38,9 @@ fn main() {
         f: Bitvector::from_iter([false, true, false, true]),
     };
 
-    println!("{:?}", foo);
+    println!("{:#?}", foo);
     let root = foo.hash_tree_root(&context).expect("can make root");
-    println!("{}", hex::encode(root));
+    println!("{:#?}", root);
 
     foo.b[2] = 44u32;
     foo.d.pop();
@@ -72,5 +71,5 @@ fn main() {
     let root = restored_foo
         .hash_tree_root(&context)
         .expect("can make root");
-    println!("{}", hex::encode(root));
+    println!("{:?}", root);
 }

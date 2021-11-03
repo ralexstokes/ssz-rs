@@ -46,7 +46,7 @@ macro_rules! define_uint {
                 let mut root = vec![];
                 let _ = self.serialize(&mut root)?;
                 pack_bytes(&mut root);
-                Ok(root.try_into().expect("is valid root"))
+                Ok(root.as_slice().try_into().expect("is valid root"))
             }
         }
 
@@ -103,7 +103,7 @@ impl Deserialize for U256 {
 
 impl Merkleized for U256 {
     fn hash_tree_root(&self, _context: &Context) -> Result<Root, MerkleizationError> {
-        Ok(self.0)
+        Ok(Root::from_bytes(self.0))
     }
 }
 

@@ -104,7 +104,7 @@ where
             for (i, elem) in self.iter().enumerate() {
                 let chunk = elem.hash_tree_root(context)?;
                 let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
-                chunks[range].copy_from_slice(&chunk);
+                chunks[range].copy_from_slice(chunk.as_ref());
             }
             let data_root = merkleize(&chunks, Some(N), context)?;
             Ok(mix_in_length(&data_root, self.len(), context))

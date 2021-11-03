@@ -1,10 +1,7 @@
 use crate::de::{Deserialize, DeserializeError};
-use crate::merkleization::{
-    mix_in_selector, Context, MerkleizationError, Merkleized, Root, ZERO_CHUNK,
-};
+use crate::merkleization::{mix_in_selector, Context, MerkleizationError, Merkleized, Root};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
-use std::convert::TryInto;
 
 /// `SimpleSerialize` is implemented for `Option` as a convenience
 /// when the schema is equivalent to one described by:
@@ -65,11 +62,7 @@ where
     fn hash_tree_root(&self, context: &Context) -> Result<Root, MerkleizationError> {
         match self {
             Some(value) => Ok(mix_in_selector(&value.hash_tree_root(context)?, 1, context)),
-            None => Ok(mix_in_selector(
-                ZERO_CHUNK.try_into().expect("is valid chunk"),
-                0,
-                context,
-            )),
+            None => Ok(mix_in_selector(&Root::default(), 0, context)),
         }
     }
 }

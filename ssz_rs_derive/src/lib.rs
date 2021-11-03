@@ -368,7 +368,7 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                     quote_spanned! { f.span() =>
                         let chunk = self.#field_name.hash_tree_root(context)?;
                         let range = #i*#BYTES_PER_CHUNK..(#i+1)*#BYTES_PER_CHUNK;
-                        chunks[range].copy_from_slice(&chunk);
+                        chunks[range].copy_from_slice(chunk.as_ref());
                     }
                 });
                 quote! {

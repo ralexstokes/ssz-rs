@@ -10,6 +10,7 @@ use std::path::PathBuf;
 pub fn root_from_hex(hex_str: &str) -> Root {
     hex::decode(hex_str)
         .expect("can read hex")
+        .as_slice()
         .try_into()
         .expect("can extract root")
 }

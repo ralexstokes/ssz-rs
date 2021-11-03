@@ -121,7 +121,7 @@ where
             for (i, elem) in self.iter().enumerate() {
                 let chunk = elem.hash_tree_root(context)?;
                 let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
-                chunks[range].copy_from_slice(&chunk);
+                chunks[range].copy_from_slice(chunk.as_ref());
             }
             Ok(merkleize(&chunks, None, context)?)
         } else {

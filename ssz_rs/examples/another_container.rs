@@ -101,5 +101,5 @@ fn main() {
     let context = MerkleizationContext::new();
     let root = value.hash_tree_root(&context).expect("can find root");
     let expected_root = "69b0ce69dfbc8abb8ae4fba564dcb813f5cc5b93c76d2b3d0689687c35821036";
-    assert_eq!(hex::encode(root), expected_root);
+    assert_eq!(hex::encode(root.as_ref()), expected_root);
 }
