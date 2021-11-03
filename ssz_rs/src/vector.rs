@@ -4,7 +4,6 @@ use crate::merkleization::{
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
-use std::convert::TryInto;
 use std::fmt;
 use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
@@ -12,7 +11,7 @@ use std::ops::{Deref, DerefMut};
 /// A homogenous collection of a fixed number of values.
 /// NOTE: a `Vector` of length `0` is illegal.
 #[derive(PartialEq, Eq, Clone)]
-pub struct Vector<T: SimpleSerialize, const N: usize>(pub [T; N]);
+pub struct Vector<T: SimpleSerialize, const N: usize>(Vec<T>);
 
 impl<T, const N: usize> fmt::Debug for Vector<T, N>
 where
@@ -29,12 +28,6 @@ where
 {
     fn default() -> Self {
         let inner = vec![T::default(); N];
-        let inner = inner.try_into().unwrap_or_else(|_| {
-            // NOTE: using the error from `try_into` demands that `T` also implement
-            // `fmt::Debug` which bubbles up into all instances of `Vector`.
-            // Just ignore the error with a simple panic for now...
-            panic!("could not construct inner array type from default vector")
-        });
         Self(inner)
     }
 }
@@ -43,7 +36,7 @@ impl<T, const N: usize> Deref for Vector<T, N>
 where
     T: SimpleSerialize,
 {
-    type Target = [T; N];
+    type Target = Vec<T>;
 
     fn deref(&self) -> &Self::Target {
         &self.0
@@ -102,10 +95,7 @@ where
             }
         }
         let elements = deserialize_homogeneous_composite(encoding)?;
-        elements
-            .try_into()
-            .map(Vector)
-            .map_err(|_| DeserializeError::InputTooShort)
+        Ok(Self(elements))
     }
 }
 
@@ -140,12 +130,6 @@ where
         I: IntoIterator<Item = T>,
     {
         let inner = iter.into_iter().take(N).collect::<Vec<_>>();
-        let inner = inner.try_into().unwrap_or_else(|_| {
-            // NOTE: using the error from `try_into` demands that `T` also implement
-            // `fmt::Debug` which bubbles up into all instances of `Vector`.
-            // Just ignore the error with a simple panic for now...
-            panic!("could not construct inner array type from default vector")
-        });
         Self(inner)
     }
 }
@@ -155,10 +139,10 @@ where
     T: SimpleSerialize,
 {
     type Item = T;
-    type IntoIter = std::array::IntoIter<T, N>;
+    type IntoIter = std::vec::IntoIter<T>;
 
     fn into_iter(self) -> Self::IntoIter {
-        std::array::IntoIter::new(self.0)
+        self.0.into_iter()
     }
 }
 
