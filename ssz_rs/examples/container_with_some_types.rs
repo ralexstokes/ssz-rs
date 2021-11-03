@@ -15,18 +15,18 @@ impl Default for Bar {
 }
 
 #[derive(PartialEq, Eq, Debug, Default, SimpleSerialize)]
-struct Foo {
+struct Foo<const N: usize> {
     a: u32,
     b: Vector<u32, 4>,
     c: bool,
     d: Bitlist<27>,
     e: Bar,
-    f: Bitvector<4>,
+    f: Bitvector<N>,
 }
 
 fn main() {
     let context = MerkleizationContext::new();
-    let mut foo = Foo {
+    let mut foo: Foo<4> = Foo {
         a: 16u32,
         b: Vector::from_iter([3u32, 2u32, 1u32, 10u32]),
         c: true,
@@ -60,7 +60,7 @@ fn main() {
         }
     };
 
-    let restored_foo = match Foo::deserialize(&encoding) {
+    let restored_foo = match Foo::<4>::deserialize(&encoding) {
         Ok(value) => value,
         Err(e) => {
             eprintln!("some error decoding: {}", e);

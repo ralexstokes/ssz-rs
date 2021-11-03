@@ -52,6 +52,13 @@ mod tests {
         c: u8,
     }
 
+    #[derive(Default, Debug, PartialEq, Eq, SimpleSerialize)]
+    struct VarWithGenericTestStruct<const N: usize> {
+        a: u16,
+        b: List<u16, N>,
+        c: u8,
+    }
+
     #[test]
     fn encode_container() {
         let value = Foo { a: 5u32 };
@@ -167,5 +174,16 @@ mod tests {
             c: 5,
         };
         assert_eq!(result, value);
+    }
+
+    #[test]
+    fn can_derive_struct_with_const_generics() {
+        let value = VarWithGenericTestStruct {
+            a: 2u16,
+            b: List::<u16, 2>::from_iter([1u16]),
+            c: 16u8,
+        };
+        let mut buffer = vec![];
+        let _ = value.serialize(&mut buffer).expect("can serialize");
     }
 }

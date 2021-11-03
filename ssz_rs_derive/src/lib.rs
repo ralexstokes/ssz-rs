@@ -4,14 +4,18 @@
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote, quote_spanned};
 use syn::spanned::Spanned;
-use syn::{parse_macro_input, Data, DeriveInput, Fields, Ident};
+use syn::{parse_macro_input, Data, DeriveInput, Fields, Generics, Ident};
 
 // NOTE: copied here from `ssz_rs` crate as it is unlikely to change
 // and can keep it out of the crate's public interface.
 const BYTES_PER_LENGTH_OFFSET: usize = 4;
 const BYTES_PER_CHUNK: usize = 32;
 
-fn derive_container_set_by_index_impl(name: &Ident, data: &Data) -> TokenStream {
+fn derive_container_set_by_index_impl(
+    name: &Ident,
+    data: &Data,
+    generics: &Generics,
+) -> TokenStream {
     match data {
         Data::Struct(ref data) => match data.fields {
             Fields::Named(ref fields) => {
@@ -26,8 +30,14 @@ fn derive_container_set_by_index_impl(name: &Ident, data: &Data) -> TokenStream 
                     }
                 });
 
+                let impl_impl = if generics.params.is_empty() {
+                    quote! { #name }
+                } else {
+                    let (_, ty_generics, _) = generics.split_for_impl();
+                    quote! { #generics #name #ty_generics }
+                };
                 quote! {
-                    impl #name {
+                    impl #impl_impl {
                         fn __ssz_rs_set_by_index(&mut self, index: usize, encoding: &[u8]) -> Result<(), ssz_rs::DeserializeError> {
                             match index {
                                 #(#set_by_field)*
@@ -428,25 +438,39 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
         ValidationState::Unvalidated(..) => panic!("do not process unvalidated input"),
     };
 
-    let set_by_index_impl = derive_container_set_by_index_impl(name, data);
+    let generics = &input.generics;
+    let set_by_index_impl = derive_container_set_by_index_impl(name, data, generics);
     let serialize_impl = derive_serialize_impl(data);
     let deserialize_impl = derive_deserialize_impl(data);
     let is_variable_size_impl = derive_variable_size_impl(data);
     let size_hint_impl = derive_size_hint_impl(data);
     let merkleization_impl = derive_merkleization_impl(data);
 
+    let impl_impl = if generics.params.is_empty() {
+        quote! { impl }
+    } else {
+        quote! { impl #generics }
+    };
+
+    let name_impl = if generics.params.is_empty() {
+        quote! { #name }
+    } else {
+        let (_, ty_generics, _) = generics.split_for_impl();
+        quote! { #name #ty_generics }
+    };
+
     let expansion = quote! {
         #set_by_index_impl
 
-        impl ssz_rs::Serialize for #name {
+        #impl_impl ssz_rs::Serialize for #name_impl {
             #serialize_impl
         }
 
-        impl ssz_rs::Deserialize for #name {
+        #impl_impl ssz_rs::Deserialize for #name_impl {
             #deserialize_impl
         }
 
-        impl ssz_rs::Sized for #name {
+        #impl_impl ssz_rs::Sized for #name_impl {
             fn is_variable_size() -> bool {
                 #is_variable_size_impl
             }
@@ -456,11 +480,11 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
             }
         }
 
-        impl ssz_rs::Merkleized for #name {
+        #impl_impl ssz_rs::Merkleized for #name_impl {
             #merkleization_impl
         }
 
-        impl ssz_rs::SimpleSerialize for #name {}
+        #impl_impl ssz_rs::SimpleSerialize for #name_impl {}
     };
 
     proc_macro::TokenStream::from(expansion)
