@@ -113,10 +113,10 @@ where
                 let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
                 chunks[range].copy_from_slice(chunk.as_ref());
             }
-            Ok(merkleize(&chunks, None, context)?)
+            merkleize(&chunks, None, context)
         } else {
             let chunks = pack(&self.0)?;
-            Ok(merkleize(&chunks, None, context)?)
+            merkleize(&chunks, None, context)
         }
     }
 }
