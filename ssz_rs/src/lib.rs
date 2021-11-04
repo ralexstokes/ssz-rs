@@ -68,7 +68,7 @@ pub mod prelude {
     pub use crate::de::DeserializeError;
     pub use crate::list::List;
     pub use crate::merkleization::{
-        merkleize, mix_in_selector, MerkleizationError, Merkleized, Root,
+        merkleize, mix_in_selector, pack, pack_bytes, MerkleizationError, Merkleized, Root,
     };
     pub use crate::ser::{Serialize, SerializeError};
     pub use crate::uint::U256;

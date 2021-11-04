@@ -128,7 +128,7 @@ pub enum MerkleizationError {
     InputExceedsLimit(usize),
 }
 
-pub(crate) fn pack_bytes(buffer: &mut Vec<u8>) {
+pub fn pack_bytes(buffer: &mut Vec<u8>) {
     let data_len = buffer.len();
     if data_len % BYTES_PER_CHUNK != 0 {
         let bytes_to_pad = BYTES_PER_CHUNK - data_len % BYTES_PER_CHUNK;
@@ -139,7 +139,7 @@ pub(crate) fn pack_bytes(buffer: &mut Vec<u8>) {
 
 // Packs serializations of `values` into the return buffer with the
 // guarantee that `buffer.len() % BYTES_PER_CHUNK == 0`
-pub(crate) fn pack<T>(values: &[T]) -> Result<Vec<u8>, MerkleizationError>
+pub fn pack<T>(values: &[T]) -> Result<Vec<u8>, MerkleizationError>
 where
     T: Serialize,
 {
