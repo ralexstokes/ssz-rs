@@ -1,6 +1,6 @@
 [package]
 name = "ssz_rs"
-version = "0.4.0"
+version = "0.5.0"
 authors = ["Alex Stokes <r.alex.stokes@gmail.com>"]
 edition = "2021"
 license = "MIT"
@@ -17,7 +17,7 @@ exclude = [
 [dependencies]
 thiserror = "1.0.25"
 bitvec = "0.22.3"
-ssz_rs_derive = { path = "../ssz_rs_derive", version = "0.4.0" }
+ssz_rs_derive = { path = "../ssz_rs_derive", version = "0.5.0" }
 sha2 = "0.9.8"
 
 [dev-dependencies]
