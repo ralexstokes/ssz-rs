@@ -67,7 +67,7 @@ pub mod prelude {
     use thiserror::Error;
     #[derive(Debug, Error)]
     #[error("{0}")]
-    pub enum Error {
+    pub enum SimpleSerializeError {
         Serialize(#[from] SerializeError),
         Deserialize(#[from] DeserializeError),
         Merkleization(#[from] MerkleizationError),
