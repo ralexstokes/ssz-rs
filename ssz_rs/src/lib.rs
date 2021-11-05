@@ -61,6 +61,16 @@ where
 /// The `prelude` contains common traits and types a user of this library
 /// would want to have handy with a simple (single) import.
 pub mod prelude {
+
+    use thiserror::Error;
+    #[derive(Debug, Error)]
+    #[error("{0}")]
+    pub enum Error {
+        Serialize(#[from] SerializeError),
+        Deserialize(#[from] DeserializeError),
+        Merkleization(#[from] MerkleizationError),
+    }
+
     pub use crate as ssz_rs;
     pub use crate::bitlist::Bitlist;
     pub use crate::bitvector::Bitvector;
