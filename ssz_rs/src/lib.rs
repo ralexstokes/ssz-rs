@@ -5,7 +5,6 @@ mod boolean;
 mod container;
 mod de;
 mod list;
-mod merkle_proofs;
 mod merkleization;
 mod ser;
 mod uint;
