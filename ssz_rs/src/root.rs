@@ -1,13 +1,10 @@
-use crate::de::{Deserialize, DeserializeError};
-use crate::merkleization::{Context, MerkleizationError, Merkleized};
-use crate::ser::{Serialize, SerializeError};
-use crate::{SimpleSerialize, Sized};
+use crate::prelude::*;
 use std::array::TryFromSliceError;
 use std::convert::AsRef;
 use std::fmt;
 use std::ops::{Index, IndexMut};
 
-#[derive(Default, Clone, Copy, PartialEq, Eq)]
+#[derive(Default, Clone, Copy, PartialEq, Eq, SimpleSerialize)]
 pub struct Root([u8; 32]);
 
 impl Root {
@@ -60,51 +57,5 @@ impl TryFrom<&[u8]> for Root {
     fn try_from(value: &[u8]) -> Result<Self, Self::Error> {
         let inner = value.try_into()?;
         Ok(Self(inner))
-    }
-}
-
-impl Sized for Root {
-    fn is_variable_size() -> bool {
-        false
-    }
-
-    fn size_hint() -> usize {
-        32
-    }
-}
-
-impl Serialize for Root {
-    fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
-        buffer.extend_from_slice(self.as_ref());
-        Ok(Self::size_hint())
-    }
-}
-
-impl Deserialize for Root {
-    fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
-        let byte_size = Self::size_hint();
-        if encoding.len() < byte_size {
-            return Err(DeserializeError::InputTooShort);
-        }
-        if encoding.len() > byte_size {
-            return Err(DeserializeError::ExtraInput);
-        }
-
-        let root = encoding[..byte_size]
-            .try_into()
-            .expect("slice has right length");
-        Ok(root)
-    }
-}
-
-impl Merkleized for Root {
-    fn hash_tree_root(&self, _context: &Context) -> Result<Root, MerkleizationError> {
-        Ok(Root(self.0))
-    }
-}
-
-impl SimpleSerialize for Root {
-    fn is_composite_type() -> bool {
-        false
     }
 }
