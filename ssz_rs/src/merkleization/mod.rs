@@ -8,6 +8,7 @@ use std::ops::Index;
 use thiserror::Error;
 
 pub use node::Node;
+pub use proofs::is_valid_merkle_branch;
 
 pub(crate) const BYTES_PER_CHUNK: usize = 32;
 

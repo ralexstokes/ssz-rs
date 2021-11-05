@@ -8,7 +8,7 @@ pub fn is_valid_merkle_branch<'a>(
     index: usize,
     root: &Node,
 ) -> bool {
-    let mut value: Node = leaf.clone();
+    let mut value = *leaf;
 
     let mut hasher = Sha256::new();
     for i in 0..depth {
@@ -19,12 +19,11 @@ pub fn is_valid_merkle_branch<'a>(
         if (index / 2usize.pow(i as u32)) % 2 != 0 {
             hasher.update(&next_node.0);
             hasher.update(&value.0);
-            value.0.copy_from_slice(&hasher.finalize_reset());
         } else {
             hasher.update(&value.0);
             hasher.update(&next_node.0);
-            value.0.copy_from_slice(&hasher.finalize_reset());
         }
+        value.0.copy_from_slice(&hasher.finalize_reset());
     }
     value == *root
 }
