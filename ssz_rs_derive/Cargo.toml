@@ -1,6 +1,6 @@
 [package]
 name = "ssz_rs_derive"
-version = "0.5.0"
+version = "0.6.0"
 authors = ["Alex Stokes <r.alex.stokes@gmail.com>"]
 edition = "2021"
 license = "MIT"
