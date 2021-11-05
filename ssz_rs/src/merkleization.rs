@@ -114,6 +114,10 @@ impl SimpleSerialize for Root {
 }
 
 pub trait Merkleized {
+    // Compute the "hash tree root" of `Self`.
+    // Note: the `Context` can be re-used across all calls to this function
+    // across all types. One `Context` can be safely used across the entire
+    // lifetime of your program.
     fn hash_tree_root(&self, context: &Context) -> Result<Root, MerkleizationError>;
 }
 
@@ -171,6 +175,10 @@ fn compute_zero_hashes() -> [u8; MAX_MERKLE_TREE_DEPTH * BYTES_PER_CHUNK] {
     buffer
 }
 
+// Some helpful information when computing `hash_tree_root`.
+// Users of a `Context` can safely re-use them across all types,
+// i.e. they do not contain any state specific to one type
+// or instance of a call to `hash_tree_root`.
 pub struct Context {
     zero_hashes: [u8; MAX_MERKLE_TREE_DEPTH * BYTES_PER_CHUNK],
 }
