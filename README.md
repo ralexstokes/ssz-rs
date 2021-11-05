@@ -1,5 +1,10 @@
 # ssz_rs ✂️
 
+[![build](https://github.com/ralexstokes/ssz_rs/actions/workflows/rust.yml/badge.svg?branch=main)](https://github.com/ralexstokes/ssz_rs/actions/workflows/rust.yml)
+![crates.io](https://img.shields.io/crates/v/ssz_rs.svg)
+![crates.io](https://img.shields.io/crates/v/ssz_rs_derive.svg)
+![docs.rs](https://img.shields.io/docsrs/ssz_rs)
+
 An implementation of the `SSZ` serialization scheme defined in the [consensus-specs repo](https://github.com/ethereum/consensus-specs).
 
 This repo aims to remain lightweight and relatively free-standing, rather than coupled to other ethereum consensus code/dependencies.
