@@ -50,7 +50,7 @@ where
     Ok(buffer)
 }
 
-fn hash_nodes(hasher: &mut Sha256, a: &[u8], b: &[u8], out: &mut [u8]) {
+pub(crate) fn hash_nodes(hasher: &mut Sha256, a: &[u8], b: &[u8], out: &mut [u8]) {
     hasher.update(a);
     hasher.update(b);
     out.copy_from_slice(&hasher.finalize_reset());
