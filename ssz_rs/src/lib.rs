@@ -6,6 +6,7 @@ mod container;
 mod de;
 mod list;
 mod merkleization;
+mod root;
 mod ser;
 mod uint;
 mod union;
