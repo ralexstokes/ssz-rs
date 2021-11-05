@@ -1,3 +1,4 @@
+mod array;
 mod bitlist;
 mod bitvector;
 mod boolean;
