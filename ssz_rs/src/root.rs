@@ -37,6 +37,12 @@ impl AsRef<[u8; 32]> for Root {
     }
 }
 
+impl AsRef<[u8]> for Root {
+    fn as_ref(&self) -> &[u8] {
+        &self.0
+    }
+}
+
 impl Index<usize> for Root {
     type Output = u8;
 
@@ -57,5 +63,11 @@ impl TryFrom<&[u8]> for Root {
     fn try_from(value: &[u8]) -> Result<Self, Self::Error> {
         let inner = value.try_into()?;
         Ok(Self(inner))
+    }
+}
+
+impl PartialEq<[u8; 32]> for Root {
+    fn eq(&self, other: &[u8; 32]) -> bool {
+        self.0 == *other
     }
 }
