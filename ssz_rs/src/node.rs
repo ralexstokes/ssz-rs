@@ -5,15 +5,19 @@ use std::fmt;
 use std::ops::{Index, IndexMut};
 
 #[derive(Default, Clone, Copy, PartialEq, Eq, SimpleSerialize)]
-pub struct Root([u8; 32]);
+pub struct Node(pub(crate) [u8; 32]);
 
-impl Root {
+impl Node {
     pub fn from_bytes(root: [u8; 32]) -> Self {
         Self(root)
     }
+
+    pub fn as_bytes(&self) -> &[u8] {
+        &self.0
+    }
 }
 
-impl fmt::LowerHex for Root {
+impl fmt::LowerHex for Node {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         if f.alternate() {
             write!(f, "0x")?;
@@ -25,25 +29,25 @@ impl fmt::LowerHex for Root {
     }
 }
 
-impl fmt::Debug for Root {
+impl fmt::Debug for Node {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "{:#x}", self)
     }
 }
 
-impl AsRef<[u8; 32]> for Root {
+impl AsRef<[u8; 32]> for Node {
     fn as_ref(&self) -> &[u8; 32] {
         &self.0
     }
 }
 
-impl AsRef<[u8]> for Root {
+impl AsRef<[u8]> for Node {
     fn as_ref(&self) -> &[u8] {
         &self.0
     }
 }
 
-impl Index<usize> for Root {
+impl Index<usize> for Node {
     type Output = u8;
 
     fn index(&self, index: usize) -> &Self::Output {
@@ -51,13 +55,13 @@ impl Index<usize> for Root {
     }
 }
 
-impl IndexMut<usize> for Root {
+impl IndexMut<usize> for Node {
     fn index_mut(&mut self, index: usize) -> &mut Self::Output {
         &mut self.0[index]
     }
 }
 
-impl TryFrom<&[u8]> for Root {
+impl TryFrom<&[u8]> for Node {
     type Error = TryFromSliceError;
 
     fn try_from(value: &[u8]) -> Result<Self, Self::Error> {
@@ -66,7 +70,7 @@ impl TryFrom<&[u8]> for Root {
     }
 }
 
-impl PartialEq<[u8; 32]> for Root {
+impl PartialEq<[u8; 32]> for Node {
     fn eq(&self, other: &[u8; 32]) -> bool {
         self.0 == *other
     }

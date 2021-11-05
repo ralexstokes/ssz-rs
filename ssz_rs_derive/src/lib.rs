@@ -380,7 +380,7 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                 },
             });
             quote! {
-                fn hash_tree_root(&self, context: &ssz_rs::MerkleizationContext) -> Result<ssz_rs::Root, ssz_rs::MerkleizationError> {
+                fn hash_tree_root(&self, context: &ssz_rs::MerkleizationContext) -> Result<ssz_rs::Node, ssz_rs::MerkleizationError> {
                     let mut chunks = vec![0u8; #field_count * #BYTES_PER_CHUNK];
                     #(#impl_by_field)*
                     ssz_rs::internal::merkleize(&chunks, None, context)
@@ -403,7 +403,7 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                     Fields::Unit => {
                         quote_spanned! { variant.span() =>
                             Self::None => Ok(ssz_rs::internal::mix_in_selector(
-                                &ssz_rs::Root::default(),
+                                &ssz_rs::Node::default(),
                                 0,
                                 context,
                             )),
@@ -413,7 +413,7 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                 }
             });
             quote! {
-                fn hash_tree_root(&self, context: &ssz_rs::MerkleizationContext) -> Result<ssz_rs::Root, ssz_rs::MerkleizationError> {
+                fn hash_tree_root(&self, context: &ssz_rs::MerkleizationContext) -> Result<ssz_rs::Node, ssz_rs::MerkleizationError> {
                     match self {
                             #(#hash_tree_root_by_variant)*
                     }
