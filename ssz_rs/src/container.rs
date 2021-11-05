@@ -59,6 +59,9 @@ mod tests {
         c: u8,
     }
 
+    #[derive(Default, Debug, PartialEq, Eq, SimpleSerialize)]
+    struct TupleStruct(u8);
+
     #[test]
     fn encode_container() {
         let value = Foo { a: 5u32 };
@@ -183,6 +186,13 @@ mod tests {
             b: List::<u16, 2>::from_iter([1u16]),
             c: 16u8,
         };
+        let mut buffer = vec![];
+        let _ = value.serialize(&mut buffer).expect("can serialize");
+    }
+
+    #[test]
+    fn can_derive_tuple_struct() {
+        let value = TupleStruct(22);
         let mut buffer = vec![];
         let _ = value.serialize(&mut buffer).expect("can serialize");
     }
