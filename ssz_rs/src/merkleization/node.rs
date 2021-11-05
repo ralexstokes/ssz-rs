@@ -35,15 +35,9 @@ impl fmt::Debug for Node {
     }
 }
 
-impl AsRef<[u8; 32]> for Node {
-    fn as_ref(&self) -> &[u8; 32] {
-        &self.0
-    }
-}
-
 impl AsRef<[u8]> for Node {
     fn as_ref(&self) -> &[u8] {
-        &self.0
+        self.as_bytes()
     }
 }
 
