@@ -51,7 +51,7 @@ fn derive_container_set_by_index_impl(
             _ => unreachable!(),
         },
         Data::Enum(..) => quote! {},
-        Data::Union(..) => unreachable!(),
+        Data::Union(..) => unreachable!("data was already validated to exclude union types"),
     }
 }
 
@@ -128,7 +128,7 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
                 }
             }
         }
-        Data::Union(..) => unreachable!(),
+        Data::Union(..) => unreachable!("data was already validated to exclude union types"),
     }
 }
 
@@ -229,7 +229,7 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                 }
             }
         }
-        Data::Union(..) => unreachable!(),
+        Data::Union(..) => unreachable!("data was already validated to exclude union types"),
     }
 }
 
@@ -253,7 +253,7 @@ fn derive_variable_size_impl(data: &Data) -> TokenStream {
         Data::Enum(..) => {
             quote! { true }
         }
-        Data::Union(..) => unreachable!(),
+        Data::Union(..) => unreachable!("data was already validated to exclude union types"),
     }
 }
 
@@ -281,7 +281,7 @@ fn derive_size_hint_impl(data: &Data) -> TokenStream {
         Data::Enum(..) => {
             quote! { 0 }
         }
-        Data::Union(..) => unreachable!(),
+        Data::Union(..) => unreachable!("data was already validated to exclude union types"),
     }
 }
 
@@ -414,7 +414,7 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                 }
             }
         }
-        Data::Union(..) => unreachable!(),
+        Data::Union(..) => unreachable!("data was already validated to exclude union types"),
     }
 }
 
