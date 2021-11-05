@@ -1,10 +1,14 @@
+mod node;
+mod proofs;
+
 use crate::ser::{Serialize, SerializeError};
 use sha2::{Digest, Sha256};
 use std::cmp::Ordering;
 use std::ops::Index;
 use thiserror::Error;
 
-pub use crate::root::Root;
+pub use node::Node;
+pub use proofs::is_valid_merkle_branch;
 
 pub(crate) const BYTES_PER_CHUNK: usize = 32;
 
@@ -13,7 +17,7 @@ pub trait Merkleized {
     // Note: the `Context` can be re-used across all calls to this function
     // across all types. One `Context` can be safely used across the entire
     // lifetime of your program.
-    fn hash_tree_root(&self, context: &Context) -> Result<Root, MerkleizationError>;
+    fn hash_tree_root(&self, context: &Context) -> Result<Node, MerkleizationError>;
 }
 
 #[derive(Error, Debug)]
@@ -112,7 +116,7 @@ fn merkleize_chunks_with_virtual_padding(
     chunks: &[u8],
     leaf_count: usize,
     context: &Context,
-) -> Result<Root, MerkleizationError> {
+) -> Result<Node, MerkleizationError> {
     let chunk_count = chunks.len() / BYTES_PER_CHUNK;
 
     let mut hasher = Sha256::new();
@@ -184,7 +188,7 @@ pub fn merkleize(
     chunks: &[u8],
     limit: Option<usize>,
     context: &Context,
-) -> Result<Root, MerkleizationError> {
+) -> Result<Node, MerkleizationError> {
     debug_assert!(chunks.len() % BYTES_PER_CHUNK == 0);
     let chunk_count = chunks.len() / BYTES_PER_CHUNK;
     let mut leaf_count = chunk_count.next_power_of_two();
@@ -197,7 +201,7 @@ pub fn merkleize(
     merkleize_chunks_with_virtual_padding(chunks, leaf_count, context)
 }
 
-fn mix_in_decoration(root: &Root, decoration: usize, context: &Context) -> Root {
+fn mix_in_decoration(root: &Node, decoration: usize, context: &Context) -> Node {
     let decoration_data = decoration
         .hash_tree_root(context)
         .expect("can merkleize usize");
@@ -213,11 +217,11 @@ fn mix_in_decoration(root: &Root, decoration: usize, context: &Context) -> Root 
     output.as_slice().try_into().expect("can extract root")
 }
 
-pub(crate) fn mix_in_length(root: &Root, length: usize, context: &Context) -> Root {
+pub(crate) fn mix_in_length(root: &Node, length: usize, context: &Context) -> Node {
     mix_in_decoration(root, length, context)
 }
 
-pub fn mix_in_selector(root: &Root, selector: usize, context: &Context) -> Root {
+pub fn mix_in_selector(root: &Node, selector: usize, context: &Context) -> Node {
     mix_in_decoration(root, selector, context)
 }
 
@@ -269,13 +273,13 @@ mod tests {
 
         let input = &[];
         let result = merkleize(input, None, &context).expect("can merkle");
-        assert_eq!(result, Root::default());
+        assert_eq!(result, Node::default());
 
         let b = true;
         let input = &[b];
         let input = pack(input).expect("can pack");
         let result = merkleize(&input, None, &context).expect("can merkle");
-        let mut expected = Root::default();
+        let mut expected = Node::default();
         expected[0] = 1u8;
         assert_eq!(result, expected);
     }
@@ -284,7 +288,7 @@ mod tests {
     // Invariant: `chunks.len() % BYTES_PER_CHUNK == 0`
     // Invariant: `leaf_count.next_power_of_two() == leaf_count`
     // NOTE: naive implementation, can make much more efficient
-    fn merkleize_chunks(chunks: &[u8], leaf_count: usize) -> Result<Root, MerkleizationError> {
+    fn merkleize_chunks(chunks: &[u8], leaf_count: usize) -> Result<Node, MerkleizationError> {
         debug_assert!(chunks.len() % BYTES_PER_CHUNK == 0);
         debug_assert!(leaf_count.next_power_of_two() == leaf_count);
 
@@ -553,17 +557,17 @@ mod tests {
 
     #[test]
     fn test_simple_serialize_of_root() {
-        let root = Root::default();
+        let root = Node::default();
         let mut result = vec![];
         let _ = root.serialize(&mut result).expect("can encode");
         let expected_encoding = vec![0; 32];
         assert_eq!(result, expected_encoding);
 
-        let recovered_root = Root::deserialize(&result).expect("can decode");
-        assert_eq!(recovered_root, Root::default());
+        let recovered_root = Node::deserialize(&result).expect("can decode");
+        assert_eq!(recovered_root, Node::default());
 
         let context = MerkleizationContext::new();
         let hash_tree_root = root.hash_tree_root(&context).expect("can find root");
-        assert_eq!(hash_tree_root, Root::default());
+        assert_eq!(hash_tree_root, Node::default());
     }
 }

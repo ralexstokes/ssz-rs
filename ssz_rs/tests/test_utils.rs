@@ -7,7 +7,7 @@ use std::fs::File;
 use std::io::Read;
 use std::path::PathBuf;
 
-pub fn root_from_hex(hex_str: &str) -> Root {
+pub fn root_from_hex(hex_str: &str) -> Node {
     hex::decode(hex_str)
         .expect("can read hex")
         .as_slice()
@@ -23,7 +23,7 @@ pub fn deserialize<T: SimpleSerialize>(encoding: &[u8]) -> T {
     ssz_rs::deserialize(encoding).expect("can deserialize")
 }
 
-pub fn hash_tree_root<T: SimpleSerialize>(value: &T) -> Root {
+pub fn hash_tree_root<T: SimpleSerialize>(value: &T) -> Node {
     let context = MerkleizationContext::new();
     value.hash_tree_root(&context).expect("can compute root")
 }

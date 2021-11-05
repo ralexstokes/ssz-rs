@@ -6,7 +6,6 @@ mod container;
 mod de;
 mod list;
 mod merkleization;
-mod root;
 mod ser;
 mod uint;
 mod union;
@@ -16,7 +15,7 @@ pub use bitlist::Bitlist;
 pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};
 pub use list::List;
-pub use merkleization::{Context as MerkleizationContext, MerkleizationError, Merkleized, Root};
+pub use merkleization::{Context as MerkleizationContext, MerkleizationError, Merkleized, Node};
 pub use ser::{Serialize, SerializeError};
 pub use uint::U256;
 pub use vector::Vector;
@@ -80,7 +79,8 @@ pub mod prelude {
     pub use crate::de::DeserializeError;
     pub use crate::list::List;
     pub use crate::merkleization::{
-        merkleize, mix_in_selector, pack, pack_bytes, MerkleizationError, Merkleized, Root,
+        is_valid_merkle_branch, merkleize, mix_in_selector, pack, pack_bytes, MerkleizationError,
+        Merkleized, Node,
     };
     pub use crate::ser::{Serialize, SerializeError};
     pub use crate::uint::U256;

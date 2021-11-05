@@ -1,5 +1,5 @@
 use crate::de::{Deserialize, DeserializeError};
-use crate::merkleization::{Context, MerkleizationError, Merkleized, Root};
+use crate::merkleization::{Context, MerkleizationError, Merkleized, Node};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 
@@ -36,13 +36,13 @@ impl Deserialize for bool {
 }
 
 impl Merkleized for bool {
-    fn hash_tree_root(&self, _context: &Context) -> Result<Root, MerkleizationError> {
+    fn hash_tree_root(&self, _context: &Context) -> Result<Node, MerkleizationError> {
         if *self {
-            let mut root = Root::default();
+            let mut root = Node::default();
             root[0] = 1u8;
             Ok(root)
         } else {
-            Ok(Root::default())
+            Ok(Node::default())
         }
     }
 }

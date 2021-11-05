@@ -4,7 +4,7 @@
 //! If/when this restriction is lifted in favor of const generics, the macro here
 //! can likely be simplified to a definition over `const N: usize`.
 use crate::de::{Deserialize, DeserializeError};
-use crate::merkleization::{Context, MerkleizationError, Merkleized, Root};
+use crate::merkleization::{Context, MerkleizationError, Merkleized, Node};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 
@@ -45,10 +45,10 @@ macro_rules! define_ssz_for_array_of_size {
         }
 
         impl Merkleized for [u8; $n] {
-            fn hash_tree_root(&self, _context: &Context) -> Result<Root, MerkleizationError> {
+            fn hash_tree_root(&self, _context: &Context) -> Result<Node, MerkleizationError> {
                 let mut root = [0u8; 32];
                 root.copy_from_slice(self);
-                Ok(Root::from_bytes(root))
+                Ok(Node::from_bytes(root))
             }
         }
 
