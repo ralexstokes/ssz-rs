@@ -1,3 +1,5 @@
+mod generalized_index;
+mod multiproofs;
 mod node;
 mod proofs;
 
@@ -7,6 +9,11 @@ use std::cmp::Ordering;
 use std::ops::Index;
 use thiserror::Error;
 
+pub use generalized_index::GeneralizedIndex;
+pub use multiproofs::{
+    calculate_merkle_root, calculate_multi_merkle_root, verify_merkle_multiproof,
+    verify_merkle_proof,
+};
 pub use node::Node;
 pub use proofs::is_valid_merkle_branch;
 
