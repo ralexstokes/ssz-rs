@@ -4,6 +4,7 @@ mod proofs;
 use crate::ser::{Serialize, SerializeError};
 use sha2::{Digest, Sha256};
 use std::cmp::Ordering;
+use std::fmt::Debug;
 use std::ops::Index;
 use thiserror::Error;
 
@@ -87,6 +88,14 @@ impl Context {
         Self {
             zero_hashes: compute_zero_hashes(),
         }
+    }
+}
+
+impl Debug for Context {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("Context")
+            .field("zero_hashes", &"...")
+            .finish()
     }
 }
 
