@@ -1,4 +1,4 @@
-//! This module provides `SimpleSerialize` implementations for arrays of size 0..=32.
+//! This module provides `SimpleSerialize` implementations for arrays of size 1..=32.
 //! These sizes are hard-coded as `SimpleSerialize` requires a `Default` implementation
 //! and Rust already defines `Default` for these special array sizes.
 //! If/when this restriction is lifted in favor of const generics, the macro here
@@ -93,10 +93,6 @@ macro_rules! define_ssz_for_array_of_size {
     };
 }
 
-// NOTE: version of this that uses const generics
-// requires `T: Default` which conflicts with an
-// existing definition in the core lib for `[T; N]`
-// for N in 1..=32. Revisit when this conflict is resolved.
 define_ssz_for_array_of_size!(1);
 define_ssz_for_array_of_size!(2);
 define_ssz_for_array_of_size!(3);
