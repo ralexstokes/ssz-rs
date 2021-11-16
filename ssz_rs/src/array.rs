@@ -3,65 +3,100 @@
 //! and Rust already defines `Default` for these special array sizes.
 //! If/when this restriction is lifted in favor of const generics, the macro here
 //! can likely be simplified to a definition over `const N: usize`.
-use crate::de::{Deserialize, DeserializeError};
-use crate::merkleization::{Context, MerkleizationError, Merkleized, Node};
-use crate::ser::{Serialize, SerializeError};
+use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
+use crate::merkleization::{
+    merkleize, pack, Context, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
+};
+use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 
 macro_rules! define_ssz_for_array_of_size {
     ($n: literal) => {
-        impl Sized for [u8; $n] {
+        impl<T> Sized for [T; $n]
+        where
+            T: SimpleSerialize,
+        {
             fn is_variable_size() -> bool {
-                false
+                T::is_variable_size()
             }
 
             fn size_hint() -> usize {
-                $n
+                T::size_hint() * $n
             }
         }
 
-        impl Serialize for [u8; $n] {
+        impl<T> Serialize for [T; $n]
+        where
+            T: SimpleSerialize,
+        {
             fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
-                buffer.extend_from_slice(self.as_ref());
-                Ok(Self::size_hint())
+                if $n == 0 {
+                    return Err(SerializeError::IllegalType { bound: $n });
+                }
+                serialize_composite(self, buffer)
             }
         }
 
-        impl Deserialize for [u8; $n] {
+        impl<T> Deserialize for [T; $n]
+        where
+            T: SimpleSerialize,
+        {
             fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
-                let byte_size = Self::size_hint();
-                if encoding.len() < byte_size {
-                    return Err(DeserializeError::InputTooShort);
-                }
-                if encoding.len() > byte_size {
-                    return Err(DeserializeError::ExtraInput);
+                if $n == 0 {
+                    return Err(DeserializeError::IllegalType { bound: $n });
                 }
 
-                let root = encoding[..byte_size]
+                if !T::is_variable_size() {
+                    let expected_length = $n * T::size_hint();
+                    if encoding.len() < expected_length {
+                        return Err(DeserializeError::InputTooShort);
+                    }
+                    if encoding.len() > expected_length {
+                        return Err(DeserializeError::ExtraInput);
+                    }
+                }
+                let elements = deserialize_homogeneous_composite(encoding)?;
+                elements
                     .try_into()
-                    .expect("slice has right length");
-                Ok(root)
+                    .map_err(|_| DeserializeError::InputTooShort)
             }
         }
 
-        impl Merkleized for [u8; $n] {
-            fn hash_tree_root(&self, _context: &Context) -> Result<Node, MerkleizationError> {
-                let mut root = [0u8; 32];
-                root.copy_from_slice(self);
-                Ok(Node::from_bytes(root))
+        impl<T> Merkleized for [T; $n]
+        where
+            T: SimpleSerialize,
+        {
+            fn hash_tree_root(&self, context: &Context) -> Result<Node, MerkleizationError> {
+                if T::is_composite_type() {
+                    let mut chunks = vec![0u8; self.len() * BYTES_PER_CHUNK];
+                    for (i, elem) in self.iter().enumerate() {
+                        let chunk = elem.hash_tree_root(context)?;
+                        let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
+                        chunks[range].copy_from_slice(chunk.as_ref());
+                    }
+                    merkleize(&chunks, None, context)
+                } else {
+                    let chunks = pack(self)?;
+                    merkleize(&chunks, None, context)
+                }
             }
         }
 
-        impl SimpleSerialize for [u8; $n] {
+        impl<T> SimpleSerialize for [T; $n]
+        where
+            T: SimpleSerialize,
+        {
             fn is_composite_type() -> bool {
-                false
+                T::is_composite_type()
             }
         }
     };
 }
 
-// NOTE
-define_ssz_for_array_of_size!(0);
+// NOTE: version of this that uses const generics
+// requires `T: Default` which conflicts with an
+// existing definition in the core lib for `[T; N]`
+// for N in 1..=32. Revisit when this conflict is resolved.
 define_ssz_for_array_of_size!(1);
 define_ssz_for_array_of_size!(2);
 define_ssz_for_array_of_size!(3);
