@@ -36,7 +36,7 @@ impl Deserialize for bool {
 }
 
 impl Merkleized for bool {
-    fn hash_tree_root(&self, _context: &Context) -> Result<Node, MerkleizationError> {
+    fn hash_tree_root(&mut self, _context: &Context) -> Result<Node, MerkleizationError> {
         if *self {
             let mut root = Node::default();
             root[0] = 1u8;

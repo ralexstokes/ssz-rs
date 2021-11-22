@@ -1,32 +1,68 @@
 use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
 use crate::merkleization::{
-    merkleize, mix_in_length, pack, Context, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
+    merkleize, mix_in_length, pack, Context, MerkleCache, MerkleizationError, Merkleized, Node,
+    BYTES_PER_CHUNK,
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 use std::fmt;
 use std::iter::FromIterator;
-use std::ops::{Deref, DerefMut};
+use std::ops::{Deref, Index, IndexMut};
+use std::slice::SliceIndex;
+use thiserror::Error;
+
+#[derive(Error, Debug)]
+pub enum Error {
+    #[error("{provided} elements given that exceeds the list bound of {expected}")]
+    IncorrectLength { expected: usize, provided: usize },
+}
 
 /// A homogenous collection of a variable number of values.
-#[derive(PartialEq, Eq, Clone)]
-pub struct List<T: SimpleSerialize, const N: usize>(Vec<T>);
+#[derive(Clone, Default)]
+pub struct List<T: SimpleSerialize, const N: usize> {
+    data: Vec<T>,
+    cache: MerkleCache,
+}
 
 impl<T, const N: usize> fmt::Debug for List<T, N>
 where
     T: SimpleSerialize + fmt::Debug,
 {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        write!(f, "List<len={}, cap={}>{:?}", self.len(), N, self.0)
+        write!(f, "List<len={}, cap={}>{:?}", self.len(), N, self.data)
     }
 }
 
-impl<T, const N: usize> Default for List<T, N>
+impl<T, const N: usize> PartialEq for List<T, N>
+where
+    T: SimpleSerialize + PartialEq,
+{
+    fn eq(&self, other: &Self) -> bool {
+        self.data == other.data
+    }
+}
+
+impl<T, const N: usize> Eq for List<T, N> where T: SimpleSerialize + Eq {}
+
+impl<T, const N: usize> TryFrom<Vec<T>> for List<T, N>
 where
     T: SimpleSerialize,
 {
-    fn default() -> Self {
-        Self(vec![])
+    type Error = Error;
+
+    fn try_from(data: Vec<T>) -> Result<Self, Self::Error> {
+        if data.len() > N {
+            Err(Error::IncorrectLength {
+                expected: N,
+                provided: data.len(),
+            })
+        } else {
+            let leaf_count = Self::get_leaf_count(data.len());
+            Ok(Self {
+                data,
+                cache: MerkleCache::with_leaves(leaf_count),
+            })
+        }
     }
 }
 
@@ -37,16 +73,36 @@ where
     type Target = Vec<T>;
 
     fn deref(&self) -> &Self::Target {
-        &self.0
+        &self.data
     }
 }
 
-impl<T, const N: usize> DerefMut for List<T, N>
+// NOTE: implement `IndexMut` rather than `DerefMut` to ensure
+// the `List`'s inner `Vec` is not mutated, but its elements
+// can change.
+impl<T, Idx: SliceIndex<[T]>, const N: usize> Index<Idx> for List<T, N>
 where
     T: SimpleSerialize,
 {
-    fn deref_mut(&mut self) -> &mut Self::Target {
-        &mut self.0
+    type Output = <Idx as SliceIndex<[T]>>::Output;
+
+    fn index(&self, index: Idx) -> &Self::Output {
+        &self.data[index]
+    }
+}
+
+// NOTE: had an issue unifying the use of `IndexMut::Idx` for `Vec`
+// and `BitVec` that may be unresolveable due to how lifetimes
+// are defined for this trait method. For now, only allow "one at a time"
+// mutation of the `List`s data.
+impl<T, const N: usize> IndexMut<usize> for List<T, N>
+where
+    T: SimpleSerialize,
+{
+    fn index_mut(&mut self, index: usize) -> &mut Self::Output {
+        let leaf_index = self.get_leaf_index(index);
+        self.cache.invalidate(leaf_index);
+        &mut self.data[index]
     }
 }
 
@@ -74,7 +130,7 @@ where
                 len: self.len(),
             });
         }
-        serialize_composite(&self.0, buffer)
+        serialize_composite(&self.data, buffer)
     }
 }
 
@@ -90,18 +146,37 @@ where
                 len: result.len(),
             });
         }
-        Ok(List(result))
+        Ok(result.try_into().unwrap())
     }
 }
 
-impl<T, const N: usize> Merkleized for List<T, N>
+impl<T, const N: usize> List<T, N>
 where
     T: SimpleSerialize,
 {
-    fn hash_tree_root(&self, context: &Context) -> Result<Node, MerkleizationError> {
+    // the number of leafs in the Merkle tree of this `Vector`
+    fn get_leaf_count(element_count: usize) -> usize {
+        if T::is_composite_type() {
+            element_count
+        } else {
+            let encoded_length = T::size_hint() * element_count;
+            (encoded_length + 31) / 32
+        }
+    }
+
+    fn get_leaf_index(&self, index: usize) -> usize {
+        if T::is_composite_type() {
+            index
+        } else {
+            // TODO: compute correct leaf index
+            index + 1
+        }
+    }
+
+    fn compute_hash_tree_root(&mut self, context: &Context) -> Result<Node, MerkleizationError> {
         if T::is_composite_type() {
             let mut chunks = Vec::with_capacity(self.len() * BYTES_PER_CHUNK);
-            for (i, elem) in self.iter().enumerate() {
+            for (i, elem) in self.data.iter_mut().enumerate() {
                 let chunk = elem.hash_tree_root(context)?;
                 let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
                 chunks[range].copy_from_slice(chunk.as_ref());
@@ -115,6 +190,26 @@ where
             Ok(mix_in_length(&data_root, self.len(), context))
         }
     }
+
+    pub fn push(&mut self, element: T) {
+        self.data.push(element);
+        self.cache.resize(self.len());
+    }
+
+    pub fn pop(&mut self) -> Option<T> {
+        let element = self.data.pop();
+        self.cache.resize(self.len());
+        element
+    }
+}
+
+impl<T, const N: usize> Merkleized for List<T, N>
+where
+    T: SimpleSerialize,
+{
+    fn hash_tree_root(&mut self, context: &Context) -> Result<Node, MerkleizationError> {
+        self.compute_hash_tree_root(context)
+    }
 }
 
 impl<T, const N: usize> SimpleSerialize for List<T, N> where T: SimpleSerialize {}
@@ -127,43 +222,7 @@ where
     where
         I: IntoIterator<Item = T>,
     {
-        Self(Vec::from_iter(iter))
-    }
-}
-
-impl<T, const N: usize> IntoIterator for List<T, N>
-where
-    T: SimpleSerialize,
-{
-    type Item = T;
-    type IntoIter = std::vec::IntoIter<T>;
-
-    fn into_iter(self) -> Self::IntoIter {
-        self.0.into_iter()
-    }
-}
-
-impl<'a, T, const N: usize> IntoIterator for &'a List<T, N>
-where
-    T: SimpleSerialize,
-{
-    type Item = &'a T;
-    type IntoIter = std::slice::Iter<'a, T>;
-
-    fn into_iter(self) -> Self::IntoIter {
-        self.0.iter()
-    }
-}
-
-impl<'a, T, const N: usize> IntoIterator for &'a mut List<T, N>
-where
-    T: SimpleSerialize,
-{
-    type Item = &'a mut T;
-    type IntoIter = std::slice::IterMut<'a, T>;
-
-    fn into_iter(self) -> Self::IntoIter {
-        self.0.iter_mut()
+        Vec::from_iter(iter.into_iter().take(N)).try_into().unwrap()
     }
 }
 
@@ -197,7 +256,7 @@ mod tests {
             1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8,
         ];
         let result = List::<u8, COUNT>::deserialize(&bytes).expect("can deserialize");
-        let expected: List<u8, COUNT> = List(bytes);
+        let expected: List<u8, COUNT> = bytes.try_into().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -207,7 +266,7 @@ mod tests {
             0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8,
             1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8,
         ];
-        let input: List<u8, COUNT> = List(bytes);
+        let input: List<u8, COUNT> = bytes.try_into().unwrap();
         let mut buffer = vec![];
         let _ = input.serialize(&mut buffer).expect("can serialize");
         let recovered = List::<u8, COUNT>::deserialize(&buffer).expect("can decode");
@@ -217,8 +276,12 @@ mod tests {
     #[test]
     fn roundtrip_list_of_list() {
         const COUNT: usize = 4;
-        let bytes = vec![List(vec![0u8]), List(vec![]), List(vec![1u8])];
-        let input: List<List<u8, 1>, COUNT> = List(bytes);
+        let bytes: Vec<List<u8, 1>> = vec![
+            vec![0u8].try_into().unwrap(),
+            Default::default(),
+            vec![1u8].try_into().unwrap(),
+        ];
+        let input: List<List<u8, 1>, COUNT> = bytes.try_into().unwrap();
         let mut buffer = vec![];
         let _ = input.serialize(&mut buffer).expect("can serialize");
         let recovered = List::<List<u8, 1>, COUNT>::deserialize(&buffer).expect("can decode");

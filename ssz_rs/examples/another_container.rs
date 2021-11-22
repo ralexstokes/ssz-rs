@@ -39,7 +39,7 @@ struct ComplexTestStruct {
 }
 
 fn main() {
-    let value = ComplexTestStruct {
+    let mut value = ComplexTestStruct {
         a: 51972,
         b: List::<u16, 128>::from_iter([48645]),
         c: 46,

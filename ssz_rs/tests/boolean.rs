@@ -7,7 +7,7 @@ use test_utils::{
 
 #[test]
 fn test_boolean_true() {
-    let value = true;
+    let mut value = true;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/boolean/valid/true/serialized.ssz_snappy",
@@ -17,7 +17,7 @@ fn test_boolean_true() {
     let recovered_value: bool = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0100000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -25,7 +25,7 @@ fn test_boolean_true() {
 
 #[test]
 fn test_boolean_false() {
-    let value = false;
+    let mut value = false;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/boolean/valid/false/serialized.ssz_snappy",
@@ -35,7 +35,7 @@ fn test_boolean_false() {
     let recovered_value: bool = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);

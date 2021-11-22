@@ -59,7 +59,7 @@ fn main() {
         }
     };
 
-    let restored_foo = match Foo::<4>::deserialize(&encoding) {
+    let mut restored_foo = match Foo::<4>::deserialize(&encoding) {
         Ok(value) => value,
         Err(e) => {
             eprintln!("some error decoding: {}", e);

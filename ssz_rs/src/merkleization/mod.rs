@@ -1,3 +1,4 @@
+mod cache;
 mod node;
 mod proofs;
 
@@ -8,6 +9,7 @@ use std::fmt::Debug;
 use std::ops::Index;
 use thiserror::Error;
 
+pub use cache::Cache as MerkleCache;
 pub use node::Node;
 pub use proofs::is_valid_merkle_branch;
 
@@ -18,7 +20,7 @@ pub trait Merkleized {
     // Note: the `Context` can be re-used across all calls to this function
     // across all types. One `Context` can be safely used across the entire
     // lifetime of your program.
-    fn hash_tree_root(&self, context: &Context) -> Result<Node, MerkleizationError>;
+    fn hash_tree_root(&mut self, context: &Context) -> Result<Node, MerkleizationError>;
 }
 
 #[derive(Error, Debug)]
@@ -210,7 +212,7 @@ pub fn merkleize(
     merkleize_chunks_with_virtual_padding(chunks, leaf_count, context)
 }
 
-fn mix_in_decoration(root: &Node, decoration: usize, context: &Context) -> Node {
+fn mix_in_decoration(root: &Node, mut decoration: usize, context: &Context) -> Node {
     let decoration_data = decoration
         .hash_tree_root(context)
         .expect("can merkleize usize");
@@ -427,7 +429,7 @@ mod tests {
     #[test]
     fn test_hash_tree_root_of_list() {
         let context = MerkleizationContext::new();
-        let a_list = List::<u16, 1024>::from_iter([
+        let mut a_list = List::<u16, 1024>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -466,7 +468,7 @@ mod tests {
     #[test]
     fn test_hash_tree_root_of_empty_list() {
         let context = MerkleizationContext::new();
-        let a_list = List::<u16, 1024>::from_iter([]);
+        let mut a_list = List::<u16, 1024>::from_iter([]);
         let root = a_list.hash_tree_root(&context).expect("can compute root");
         assert_eq!(
             root,
@@ -521,7 +523,7 @@ mod tests {
             hex!("7078155bf8f0dc42d8afccec8d9b5aeb54f0a2e8e58fcef3e723f6a867232ce7")
         );
 
-        let original_foo = foo.clone();
+        let mut original_foo = foo.clone();
 
         foo.b[2] = 44u32;
         foo.d.pop();
@@ -566,7 +568,7 @@ mod tests {
 
     #[test]
     fn test_simple_serialize_of_root() {
-        let root = Node::default();
+        let mut root = Node::default();
         let mut result = vec![];
         let _ = root.serialize(&mut result).expect("can encode");
         let expected_encoding = vec![0; 32];
