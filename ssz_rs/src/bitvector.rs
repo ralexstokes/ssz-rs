@@ -140,7 +140,7 @@ impl<const N: usize> Deserialize for Bitvector<N> {
 }
 
 impl<const N: usize> Merkleized for Bitvector<N> {
-    fn hash_tree_root(&self, context: &Context) -> Result<Node, MerkleizationError> {
+    fn hash_tree_root(&mut self, context: &Context) -> Result<Node, MerkleizationError> {
         let chunks = self.pack_bits()?;
         merkleize(&chunks, Some((N + 255) / 256), context)
     }

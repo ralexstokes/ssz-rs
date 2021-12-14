@@ -66,7 +66,7 @@ struct BitsStruct {
 valid_test_fmt = """
 #[test]
 fn test_{type}_{handler}() {{
-    let value = {value};
+    let mut value = {value};
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data("{data_path}");
     assert_eq!(encoding, expected_encoding);
@@ -74,7 +74,7 @@ fn test_{type}_{handler}() {{
     let recovered_value: {rust_type} = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root = root_from_hex("{root}");
     assert_eq!(root, expected_root);
 }}

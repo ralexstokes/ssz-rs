@@ -23,7 +23,7 @@ pub fn deserialize<T: SimpleSerialize>(encoding: &[u8]) -> T {
     ssz_rs::deserialize(encoding).expect("can deserialize")
 }
 
-pub fn hash_tree_root<T: SimpleSerialize>(value: &T) -> Node {
+pub fn hash_tree_root<T: SimpleSerialize>(value: &mut T) -> Node {
     let context = MerkleizationContext::new();
     value.hash_tree_root(&context).expect("can compute root")
 }

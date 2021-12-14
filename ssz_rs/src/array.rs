@@ -66,10 +66,10 @@ macro_rules! define_ssz_for_array_of_size {
         where
             T: SimpleSerialize,
         {
-            fn hash_tree_root(&self, context: &Context) -> Result<Node, MerkleizationError> {
+            fn hash_tree_root(&mut self, context: &Context) -> Result<Node, MerkleizationError> {
                 if T::is_composite_type() {
                     let mut chunks = vec![0u8; self.len() * BYTES_PER_CHUNK];
-                    for (i, elem) in self.iter().enumerate() {
+                    for (i, elem) in self.iter_mut().enumerate() {
                         let chunk = elem.hash_tree_root(context)?;
                         let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
                         chunks[range].copy_from_slice(chunk.as_ref());

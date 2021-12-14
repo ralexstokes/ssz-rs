@@ -59,7 +59,7 @@ impl<T> Merkleized for Option<T>
 where
     T: SimpleSerialize,
 {
-    fn hash_tree_root(&self, context: &Context) -> Result<Node, MerkleizationError> {
+    fn hash_tree_root(&mut self, context: &Context) -> Result<Node, MerkleizationError> {
         match self {
             Some(value) => Ok(mix_in_selector(&value.hash_tree_root(context)?, 1, context)),
             None => Ok(mix_in_selector(&Node::default(), 0, context)),

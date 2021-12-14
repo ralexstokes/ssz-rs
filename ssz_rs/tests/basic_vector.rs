@@ -7,7 +7,7 @@ use test_utils::{
 
 #[test]
 fn test_basic_vector_vec_uint256_16_max() {
-    let value = Vector::<U256, 16>::from_iter([
+    let mut value = Vector::<U256, 16>::from_iter([
         U256([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -82,7 +82,7 @@ fn test_basic_vector_vec_uint256_16_max() {
     let recovered_value: Vector<U256, 16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("006eed26f731a68917853879507d9fa9f4044f7af999f9df535fac29715db555");
     assert_eq!(root, expected_root);
@@ -90,7 +90,7 @@ fn test_basic_vector_vec_uint256_16_max() {
 
 #[test]
 fn test_basic_vector_vec_uint64_5_random() {
-    let value = Vector::<u64, 5>::from_iter([
+    let mut value = Vector::<u64, 5>::from_iter([
         5828194763697002133,
         3153164540286514337,
         17780602567657386724,
@@ -106,7 +106,7 @@ fn test_basic_vector_vec_uint64_5_random() {
     let recovered_value: Vector<u64, 5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("11f1f940a8342239bd6a9f7eb4f08eff81e1d4467df7399a6d8729c59aabb984");
     assert_eq!(root, expected_root);
@@ -114,7 +114,7 @@ fn test_basic_vector_vec_uint64_5_random() {
 
 #[test]
 fn test_basic_vector_vec_uint256_512_zero() {
-    let value = Vector::<U256, 512>::from_iter([
+    let mut value = Vector::<U256, 512>::from_iter([
         U256([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -2173,7 +2173,7 @@ fn test_basic_vector_vec_uint256_512_zero() {
     let recovered_value: Vector<U256, 512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("506d86582d252405b840018792cad2bf1259f1ef5aa5f887e13cb2f0094f51e1");
     assert_eq!(root, expected_root);
@@ -2181,7 +2181,7 @@ fn test_basic_vector_vec_uint256_512_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_513_zero() {
-    let value = Vector::<u16, 513>::from_iter([
+    let mut value = Vector::<u16, 513>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -2210,7 +2210,7 @@ fn test_basic_vector_vec_uint16_513_zero() {
     let recovered_value: Vector<u16, 513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("d88ddfeed400a8755596b21942c1497e114c302e6118290f91e6772976041fa1");
     assert_eq!(root, expected_root);
@@ -2218,7 +2218,7 @@ fn test_basic_vector_vec_uint16_513_zero() {
 
 #[test]
 fn test_basic_vector_vec_bool_4_zero() {
-    let value = Vector::<bool, 4>::from_iter([false, false, false, false]);
+    let mut value = Vector::<bool, 4>::from_iter([false, false, false, false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_bool_4_zero/serialized.ssz_snappy",
@@ -2228,7 +2228,7 @@ fn test_basic_vector_vec_bool_4_zero() {
     let recovered_value: Vector<bool, 4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -2236,7 +2236,7 @@ fn test_basic_vector_vec_bool_4_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint64_5_zero() {
-    let value = Vector::<u64, 5>::from_iter([0, 0, 0, 0, 0]);
+    let mut value = Vector::<u64, 5>::from_iter([0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint64_5_zero/serialized.ssz_snappy",
@@ -2246,7 +2246,7 @@ fn test_basic_vector_vec_uint64_5_zero() {
     let recovered_value: Vector<u64, 5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b");
     assert_eq!(root, expected_root);
@@ -2254,7 +2254,7 @@ fn test_basic_vector_vec_uint64_5_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint8_1_random() {
-    let value = Vector::<u8, 1>::from_iter([225]);
+    let mut value = Vector::<u8, 1>::from_iter([225]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint8_1_random/serialized.ssz_snappy",
@@ -2264,7 +2264,7 @@ fn test_basic_vector_vec_uint8_1_random() {
     let recovered_value: Vector<u8, 1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("e100000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -2272,7 +2272,7 @@ fn test_basic_vector_vec_uint8_1_random() {
 
 #[test]
 fn test_basic_vector_vec_uint32_513_random() {
-    let value = Vector::<u32, 513>::from_iter([
+    let mut value = Vector::<u32, 513>::from_iter([
         1506286316, 3340455671, 2249197219, 1137228810, 3708188369, 1032790960, 2037375995,
         2165993127, 4279139643, 2878934835, 2234060784, 3341241397, 2832291162, 1862974295,
         2889755957, 716023347, 1781425995, 2766618165, 430694095, 1734393401, 3038286926,
@@ -2356,7 +2356,7 @@ fn test_basic_vector_vec_uint32_513_random() {
     let recovered_value: Vector<u32, 513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("73d6601e80c118fe2d467dcc72a40e9a121608b87b5d1333a6a95fcbc93af038");
     assert_eq!(root, expected_root);
@@ -2364,7 +2364,7 @@ fn test_basic_vector_vec_uint32_513_random() {
 
 #[test]
 fn test_basic_vector_vec_uint32_4_random() {
-    let value = Vector::<u32, 4>::from_iter([2599571881, 2754953818, 2448479820, 3973051506]);
+    let mut value = Vector::<u32, 4>::from_iter([2599571881, 2754953818, 2448479820, 3973051506]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint32_4_random/serialized.ssz_snappy",
@@ -2374,7 +2374,7 @@ fn test_basic_vector_vec_uint32_4_random() {
     let recovered_value: Vector<u32, 4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("a951f29a5a4235a44cd6f09172f4cfec00000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -2382,7 +2382,7 @@ fn test_basic_vector_vec_uint32_4_random() {
 
 #[test]
 fn test_basic_vector_vec_bool_31_max() {
-    let value = Vector::<bool, 31>::from_iter([
+    let mut value = Vector::<bool, 31>::from_iter([
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
         true,
@@ -2396,7 +2396,7 @@ fn test_basic_vector_vec_bool_31_max() {
     let recovered_value: Vector<bool, 31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0101010101010101010101010101010101010101010101010101010101010100");
     assert_eq!(root, expected_root);
@@ -2404,7 +2404,7 @@ fn test_basic_vector_vec_bool_31_max() {
 
 #[test]
 fn test_basic_vector_vec_uint8_5_zero() {
-    let value = Vector::<u8, 5>::from_iter([0, 0, 0, 0, 0]);
+    let mut value = Vector::<u8, 5>::from_iter([0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint8_5_zero/serialized.ssz_snappy",
@@ -2414,7 +2414,7 @@ fn test_basic_vector_vec_uint8_5_zero() {
     let recovered_value: Vector<u8, 5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -2422,7 +2422,7 @@ fn test_basic_vector_vec_uint8_5_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_2_random() {
-    let value = Vector::<u16, 2>::from_iter([12188, 36886]);
+    let mut value = Vector::<u16, 2>::from_iter([12188, 36886]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint16_2_random/serialized.ssz_snappy",
@@ -2432,7 +2432,7 @@ fn test_basic_vector_vec_uint16_2_random() {
     let recovered_value: Vector<u16, 2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("9c2f169000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -2440,7 +2440,7 @@ fn test_basic_vector_vec_uint16_2_random() {
 
 #[test]
 fn test_basic_vector_vec_bool_8_zero() {
-    let value =
+    let mut value =
         Vector::<bool, 8>::from_iter([false, false, false, false, false, false, false, false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -2451,7 +2451,7 @@ fn test_basic_vector_vec_bool_8_zero() {
     let recovered_value: Vector<bool, 8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -2459,7 +2459,7 @@ fn test_basic_vector_vec_bool_8_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_16_max() {
-    let value = Vector::<u128, 16>::from_iter([
+    let mut value = Vector::<u128, 16>::from_iter([
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
@@ -2486,7 +2486,7 @@ fn test_basic_vector_vec_uint128_16_max() {
     let recovered_value: Vector<u128, 16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("be1b7015ed50d7490a51f1b11dff804a4440775cc808b9cfd26157805c1f8e86");
     assert_eq!(root, expected_root);
@@ -2494,7 +2494,7 @@ fn test_basic_vector_vec_uint128_16_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_8_random() {
-    let value = Vector::<u32, 8>::from_iter([
+    let mut value = Vector::<u32, 8>::from_iter([
         2255247108, 883929842, 2722841916, 3289001244, 3428769191, 4039771928, 1073577161,
         1629830620,
     ]);
@@ -2507,7 +2507,7 @@ fn test_basic_vector_vec_uint32_8_random() {
     let recovered_value: Vector<u32, 8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("04576c86f2b2af343c454ba21c2d0ac4a7dd5ecc1807caf0c97cfd3fdc3d2561");
     assert_eq!(root, expected_root);
@@ -2515,7 +2515,7 @@ fn test_basic_vector_vec_uint32_8_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_31_max() {
-    let value = Vector::<u64, 31>::from_iter([
+    let mut value = Vector::<u64, 31>::from_iter([
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
@@ -2557,7 +2557,7 @@ fn test_basic_vector_vec_uint64_31_max() {
     let recovered_value: Vector<u64, 31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("6323465d736a7126b4e2a25da8d76670d49d6bb0cdf9ffc77d0b007a9e86d77c");
     assert_eq!(root, expected_root);
@@ -2565,7 +2565,7 @@ fn test_basic_vector_vec_uint64_31_max() {
 
 #[test]
 fn test_basic_vector_vec_uint256_31_random() {
-    let value = Vector::<U256, 31>::from_iter([
+    let mut value = Vector::<U256, 31>::from_iter([
         U256([
             193, 221, 0, 27, 7, 14, 132, 79, 246, 169, 102, 206, 52, 7, 70, 134, 104, 201, 85, 248,
             190, 117, 18, 78, 173, 106, 20, 121, 246, 174, 52, 111,
@@ -2700,7 +2700,7 @@ fn test_basic_vector_vec_uint256_31_random() {
     let recovered_value: Vector<U256, 31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("a1bd4eec44b1f37b07b53f29daf2a3569be0d6ebe727e18539071206950a6813");
     assert_eq!(root, expected_root);
@@ -2708,7 +2708,7 @@ fn test_basic_vector_vec_uint256_31_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_8_zero() {
-    let value = Vector::<u64, 8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0]);
+    let mut value = Vector::<u64, 8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint64_8_zero/serialized.ssz_snappy",
@@ -2718,7 +2718,7 @@ fn test_basic_vector_vec_uint64_8_zero() {
     let recovered_value: Vector<u64, 8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b");
     assert_eq!(root, expected_root);
@@ -2726,7 +2726,7 @@ fn test_basic_vector_vec_uint64_8_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_512_random() {
-    let value = Vector::<u128, 512>::from_iter([
+    let mut value = Vector::<u128, 512>::from_iter([
         26828682623905485853721589978864387876,
         45362230084934828632880963081896644001,
         247417070223805448009596661148965288679,
@@ -3249,7 +3249,7 @@ fn test_basic_vector_vec_uint128_512_random() {
     let recovered_value: Vector<u128, 512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("a70c5dc4851c46df26580a4d719f454113421b5b078b1af7b8f6435f8d61b304");
     assert_eq!(root, expected_root);
@@ -3257,7 +3257,7 @@ fn test_basic_vector_vec_uint128_512_random() {
 
 #[test]
 fn test_basic_vector_vec_uint8_3_random() {
-    let value = Vector::<u8, 3>::from_iter([46, 17, 42]);
+    let mut value = Vector::<u8, 3>::from_iter([46, 17, 42]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint8_3_random/serialized.ssz_snappy",
@@ -3267,7 +3267,7 @@ fn test_basic_vector_vec_uint8_3_random() {
     let recovered_value: Vector<u8, 3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("2e112a0000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -3275,7 +3275,7 @@ fn test_basic_vector_vec_uint8_3_random() {
 
 #[test]
 fn test_basic_vector_vec_uint8_4_zero() {
-    let value = Vector::<u8, 4>::from_iter([0, 0, 0, 0]);
+    let mut value = Vector::<u8, 4>::from_iter([0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint8_4_zero/serialized.ssz_snappy",
@@ -3285,7 +3285,7 @@ fn test_basic_vector_vec_uint8_4_zero() {
     let recovered_value: Vector<u8, 4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -3293,7 +3293,7 @@ fn test_basic_vector_vec_uint8_4_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_2_random() {
-    let value = Vector::<U256, 2>::from_iter([
+    let mut value = Vector::<U256, 2>::from_iter([
         U256([
             205, 105, 106, 166, 152, 194, 84, 202, 219, 225, 56, 160, 68, 10, 149, 101, 132, 138,
             122, 138, 194, 11, 156, 151, 229, 118, 123, 132, 155, 190, 223, 147,
@@ -3312,7 +3312,7 @@ fn test_basic_vector_vec_uint256_2_random() {
     let recovered_value: Vector<U256, 2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("e765c4ca305f07d9e25e1c4c879528e9994b9fb5e4230bfda8c4b7805b1905c7");
     assert_eq!(root, expected_root);
@@ -3320,7 +3320,7 @@ fn test_basic_vector_vec_uint256_2_random() {
 
 #[test]
 fn test_basic_vector_vec_uint8_31_random() {
-    let value = Vector::<u8, 31>::from_iter([
+    let mut value = Vector::<u8, 31>::from_iter([
         170, 73, 242, 193, 85, 27, 39, 254, 83, 38, 110, 73, 13, 177, 56, 72, 156, 232, 20, 213,
         141, 20, 90, 139, 79, 153, 79, 237, 21, 197, 178,
     ]);
@@ -3333,7 +3333,7 @@ fn test_basic_vector_vec_uint8_31_random() {
     let recovered_value: Vector<u8, 31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("aa49f2c1551b27fe53266e490db138489ce814d58d145a8b4f994fed15c5b200");
     assert_eq!(root, expected_root);
@@ -3341,7 +3341,7 @@ fn test_basic_vector_vec_uint8_31_random() {
 
 #[test]
 fn test_basic_vector_vec_uint256_8_max() {
-    let value = Vector::<U256, 8>::from_iter([
+    let mut value = Vector::<U256, 8>::from_iter([
         U256([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -3384,7 +3384,7 @@ fn test_basic_vector_vec_uint256_8_max() {
     let recovered_value: Vector<U256, 8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("be1b7015ed50d7490a51f1b11dff804a4440775cc808b9cfd26157805c1f8e86");
     assert_eq!(root, expected_root);
@@ -3392,7 +3392,7 @@ fn test_basic_vector_vec_uint256_8_max() {
 
 #[test]
 fn test_basic_vector_vec_uint16_16_random() {
-    let value = Vector::<u16, 16>::from_iter([
+    let mut value = Vector::<u16, 16>::from_iter([
         14966, 37668, 46928, 65487, 22250, 24796, 7043, 49742, 46495, 44245, 5372, 46169, 36046,
         60670, 29615, 59474,
     ]);
@@ -3405,7 +3405,7 @@ fn test_basic_vector_vec_uint16_16_random() {
     let recovered_value: Vector<u16, 16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("763a249350b7cfffea56dc60831b4ec29fb5d5acfc1459b4ce8cfeecaf7352e8");
     assert_eq!(root, expected_root);
@@ -3413,7 +3413,7 @@ fn test_basic_vector_vec_uint16_16_random() {
 
 #[test]
 fn test_basic_vector_vec_uint32_1_zero() {
-    let value = Vector::<u32, 1>::from_iter([0]);
+    let mut value = Vector::<u32, 1>::from_iter([0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint32_1_zero/serialized.ssz_snappy",
@@ -3423,7 +3423,7 @@ fn test_basic_vector_vec_uint32_1_zero() {
     let recovered_value: Vector<u32, 1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -3431,7 +3431,7 @@ fn test_basic_vector_vec_uint32_1_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_8_random() {
-    let value = Vector::<u128, 8>::from_iter([
+    let mut value = Vector::<u128, 8>::from_iter([
         50419731819167183509591636238702702250,
         243160052554941226771061620517961416402,
         132077915854571525015052582449039997777,
@@ -3450,7 +3450,7 @@ fn test_basic_vector_vec_uint128_8_random() {
     let recovered_value: Vector<u128, 8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("5b77a9c4d86ba3e9079f98093f5e6da648e81f10f89f46c1fcab2a4c779c0363");
     assert_eq!(root, expected_root);
@@ -3458,7 +3458,7 @@ fn test_basic_vector_vec_uint128_8_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_4_zero() {
-    let value = Vector::<u64, 4>::from_iter([0, 0, 0, 0]);
+    let mut value = Vector::<u64, 4>::from_iter([0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint64_4_zero/serialized.ssz_snappy",
@@ -3468,7 +3468,7 @@ fn test_basic_vector_vec_uint64_4_zero() {
     let recovered_value: Vector<u64, 4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -3476,7 +3476,7 @@ fn test_basic_vector_vec_uint64_4_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint8_31_max() {
-    let value = Vector::<u8, 31>::from_iter([
+    let mut value = Vector::<u8, 31>::from_iter([
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
     ]);
@@ -3489,7 +3489,7 @@ fn test_basic_vector_vec_uint8_31_max() {
     let recovered_value: Vector<u8, 31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00");
     assert_eq!(root, expected_root);
@@ -3497,7 +3497,7 @@ fn test_basic_vector_vec_uint8_31_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_4_random() {
-    let value = Vector::<u128, 4>::from_iter([
+    let mut value = Vector::<u128, 4>::from_iter([
         131085251763681703650210983225134279210,
         204149994827974013891189432256283029251,
         138314451233364434501509339736780133583,
@@ -3512,7 +3512,7 @@ fn test_basic_vector_vec_uint128_4_random() {
     let recovered_value: Vector<u128, 4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("e7b9070421c5a3414fa58f06ad8bdf6f4a8e8464fe1dc5b1214aab2db1662e06");
     assert_eq!(root, expected_root);
@@ -3520,7 +3520,7 @@ fn test_basic_vector_vec_uint128_4_random() {
 
 #[test]
 fn test_basic_vector_vec_bool_5_zero() {
-    let value = Vector::<bool, 5>::from_iter([false, false, false, false, false]);
+    let mut value = Vector::<bool, 5>::from_iter([false, false, false, false, false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_bool_5_zero/serialized.ssz_snappy",
@@ -3530,7 +3530,7 @@ fn test_basic_vector_vec_bool_5_zero() {
     let recovered_value: Vector<bool, 5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -3538,7 +3538,7 @@ fn test_basic_vector_vec_bool_5_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_512_zero() {
-    let value = Vector::<u16, 512>::from_iter([
+    let mut value = Vector::<u16, 512>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -3567,7 +3567,7 @@ fn test_basic_vector_vec_uint16_512_zero() {
     let recovered_value: Vector<u16, 512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("9efde052aa15429fae05bad4d0b1d7c64da64d03d7a1854a588c2cb8430c0d30");
     assert_eq!(root, expected_root);
@@ -3575,7 +3575,7 @@ fn test_basic_vector_vec_uint16_512_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint8_31_zero() {
-    let value = Vector::<u8, 31>::from_iter([
+    let mut value = Vector::<u8, 31>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     ]);
     let encoding = serialize(&value);
@@ -3587,7 +3587,7 @@ fn test_basic_vector_vec_uint8_31_zero() {
     let recovered_value: Vector<u8, 31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -3595,7 +3595,7 @@ fn test_basic_vector_vec_uint8_31_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint8_8_zero() {
-    let value = Vector::<u8, 8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0]);
+    let mut value = Vector::<u8, 8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint8_8_zero/serialized.ssz_snappy",
@@ -3605,7 +3605,7 @@ fn test_basic_vector_vec_uint8_8_zero() {
     let recovered_value: Vector<u8, 8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -3613,7 +3613,7 @@ fn test_basic_vector_vec_uint8_8_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_1_zero() {
-    let value = Vector::<u16, 1>::from_iter([0]);
+    let mut value = Vector::<u16, 1>::from_iter([0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint16_1_zero/serialized.ssz_snappy",
@@ -3623,7 +3623,7 @@ fn test_basic_vector_vec_uint16_1_zero() {
     let recovered_value: Vector<u16, 1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -3631,7 +3631,7 @@ fn test_basic_vector_vec_uint16_1_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_513_zero() {
-    let value = Vector::<U256, 513>::from_iter([
+    let mut value = Vector::<U256, 513>::from_iter([
         U256([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -5694,7 +5694,7 @@ fn test_basic_vector_vec_uint256_513_zero() {
     let recovered_value: Vector<U256, 513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffff0ad7e659772f9534c195c815efc4014ef1e1daed4404c06385d11192e92b");
     assert_eq!(root, expected_root);
@@ -5702,7 +5702,7 @@ fn test_basic_vector_vec_uint256_513_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_3_max() {
-    let value = Vector::<u16, 3>::from_iter([65535, 65535, 65535]);
+    let mut value = Vector::<u16, 3>::from_iter([65535, 65535, 65535]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint16_3_max/serialized.ssz_snappy",
@@ -5712,7 +5712,7 @@ fn test_basic_vector_vec_uint16_3_max() {
     let recovered_value: Vector<u16, 3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffffff0000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -5720,7 +5720,7 @@ fn test_basic_vector_vec_uint16_3_max() {
 
 #[test]
 fn test_basic_vector_vec_bool_512_zero() {
-    let value = Vector::<bool, 512>::from_iter([
+    let mut value = Vector::<bool, 512>::from_iter([
         false, false, false, false, false, false, false, false, false, false, false, false, false,
         false, false, false, false, false, false, false, false, false, false, false, false, false,
         false, false, false, false, false, false, false, false, false, false, false, false, false,
@@ -5771,7 +5771,7 @@ fn test_basic_vector_vec_bool_512_zero() {
     let recovered_value: Vector<bool, 512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("536d98837f2dd165a55d5eeae91485954472d56f246df256bf3cae19352a123c");
     assert_eq!(root, expected_root);
@@ -5779,7 +5779,7 @@ fn test_basic_vector_vec_bool_512_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_512_zero() {
-    let value = Vector::<u128, 512>::from_iter([
+    let mut value = Vector::<u128, 512>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -5808,7 +5808,7 @@ fn test_basic_vector_vec_uint128_512_zero() {
     let recovered_value: Vector<u128, 512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("26846476fd5fc54a5d43385167c95144f2643f533cc85bb9d16b782f8d7db193");
     assert_eq!(root, expected_root);
@@ -5816,7 +5816,7 @@ fn test_basic_vector_vec_uint128_512_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint64_8_max() {
-    let value = Vector::<u64, 8>::from_iter([
+    let mut value = Vector::<u64, 8>::from_iter([
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
@@ -5835,7 +5835,7 @@ fn test_basic_vector_vec_uint64_8_max() {
     let recovered_value: Vector<u64, 8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("8667e718294e9e0df1d30600ba3eeb201f764aad2dad72748643e4a285e1d1f7");
     assert_eq!(root, expected_root);
@@ -5843,7 +5843,7 @@ fn test_basic_vector_vec_uint64_8_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_2_max() {
-    let value = Vector::<u32, 2>::from_iter([4294967295, 4294967295]);
+    let mut value = Vector::<u32, 2>::from_iter([4294967295, 4294967295]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint32_2_max/serialized.ssz_snappy",
@@ -5853,7 +5853,7 @@ fn test_basic_vector_vec_uint32_2_max() {
     let recovered_value: Vector<u32, 2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffffffffff000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -5861,7 +5861,7 @@ fn test_basic_vector_vec_uint32_2_max() {
 
 #[test]
 fn test_basic_vector_vec_uint16_4_random() {
-    let value = Vector::<u16, 4>::from_iter([15417, 28067, 51352, 59311]);
+    let mut value = Vector::<u16, 4>::from_iter([15417, 28067, 51352, 59311]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint16_4_random/serialized.ssz_snappy",
@@ -5871,7 +5871,7 @@ fn test_basic_vector_vec_uint16_4_random() {
     let recovered_value: Vector<u16, 4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("393ca36d98c8afe7000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -5879,7 +5879,7 @@ fn test_basic_vector_vec_uint16_4_random() {
 
 #[test]
 fn test_basic_vector_vec_uint32_2_random() {
-    let value = Vector::<u32, 2>::from_iter([2286406229, 3289673013]);
+    let mut value = Vector::<u32, 2>::from_iter([2286406229, 3289673013]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint32_2_random/serialized.ssz_snappy",
@@ -5889,7 +5889,7 @@ fn test_basic_vector_vec_uint32_2_random() {
     let recovered_value: Vector<u32, 2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("55ca4788356d14c4000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -5897,7 +5897,7 @@ fn test_basic_vector_vec_uint32_2_random() {
 
 #[test]
 fn test_basic_vector_vec_uint16_513_random() {
-    let value = Vector::<u16, 513>::from_iter([
+    let mut value = Vector::<u16, 513>::from_iter([
         27185, 40496, 45588, 22785, 5755, 5950, 14234, 16151, 23366, 48189, 28838, 47431, 22937,
         44687, 9960, 18008, 43796, 16472, 40344, 6307, 60750, 42176, 48076, 3047, 34291, 53364,
         5934, 35808, 39627, 16700, 61818, 17790, 2074, 12801, 14876, 34651, 31986, 54424, 35627,
@@ -5948,7 +5948,7 @@ fn test_basic_vector_vec_uint16_513_random() {
     let recovered_value: Vector<u16, 513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("188c519f6d8f57d2cc1232b7ad085ed707cec9537fb3912ffa095423dc614dea");
     assert_eq!(root, expected_root);
@@ -5956,7 +5956,7 @@ fn test_basic_vector_vec_uint16_513_random() {
 
 #[test]
 fn test_basic_vector_vec_uint16_8_random() {
-    let value =
+    let mut value =
         Vector::<u16, 8>::from_iter([48757, 12920, 33149, 59406, 48754, 39786, 12312, 58318]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -5967,7 +5967,7 @@ fn test_basic_vector_vec_uint16_8_random() {
     let recovered_value: Vector<u16, 8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("75be78327d810ee872be6a9b1830cee300000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -5975,7 +5975,7 @@ fn test_basic_vector_vec_uint16_8_random() {
 
 #[test]
 fn test_basic_vector_vec_uint8_16_zero() {
-    let value = Vector::<u8, 16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    let mut value = Vector::<u8, 16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint8_16_zero/serialized.ssz_snappy",
@@ -5985,7 +5985,7 @@ fn test_basic_vector_vec_uint8_16_zero() {
     let recovered_value: Vector<u8, 16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -5993,7 +5993,7 @@ fn test_basic_vector_vec_uint8_16_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint8_3_zero() {
-    let value = Vector::<u8, 3>::from_iter([0, 0, 0]);
+    let mut value = Vector::<u8, 3>::from_iter([0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint8_3_zero/serialized.ssz_snappy",
@@ -6003,7 +6003,7 @@ fn test_basic_vector_vec_uint8_3_zero() {
     let recovered_value: Vector<u8, 3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -6011,7 +6011,7 @@ fn test_basic_vector_vec_uint8_3_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint32_3_max() {
-    let value = Vector::<u32, 3>::from_iter([4294967295, 4294967295, 4294967295]);
+    let mut value = Vector::<u32, 3>::from_iter([4294967295, 4294967295, 4294967295]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint32_3_max/serialized.ssz_snappy",
@@ -6021,7 +6021,7 @@ fn test_basic_vector_vec_uint32_3_max() {
     let recovered_value: Vector<u32, 3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffffffffffffffffff0000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -6029,7 +6029,7 @@ fn test_basic_vector_vec_uint32_3_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_1_zero() {
-    let value = Vector::<u128, 1>::from_iter([0]);
+    let mut value = Vector::<u128, 1>::from_iter([0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint128_1_zero/serialized.ssz_snappy",
@@ -6039,7 +6039,7 @@ fn test_basic_vector_vec_uint128_1_zero() {
     let recovered_value: Vector<u128, 1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -6047,7 +6047,7 @@ fn test_basic_vector_vec_uint128_1_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_2_max() {
-    let value = Vector::<u16, 2>::from_iter([65535, 65535]);
+    let mut value = Vector::<u16, 2>::from_iter([65535, 65535]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint16_2_max/serialized.ssz_snappy",
@@ -6057,7 +6057,7 @@ fn test_basic_vector_vec_uint16_2_max() {
     let recovered_value: Vector<u16, 2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffff00000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -6065,7 +6065,7 @@ fn test_basic_vector_vec_uint16_2_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_1_max() {
-    let value = Vector::<u32, 1>::from_iter([4294967295]);
+    let mut value = Vector::<u32, 1>::from_iter([4294967295]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint32_1_max/serialized.ssz_snappy",
@@ -6075,7 +6075,7 @@ fn test_basic_vector_vec_uint32_1_max() {
     let recovered_value: Vector<u32, 1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffff00000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -6083,7 +6083,7 @@ fn test_basic_vector_vec_uint32_1_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_513_zero() {
-    let value = Vector::<u32, 513>::from_iter([
+    let mut value = Vector::<u32, 513>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -6112,7 +6112,7 @@ fn test_basic_vector_vec_uint32_513_zero() {
     let recovered_value: Vector<u32, 513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("87eb0ddba57e35f6d286673802a4af5975e22506c7cf4c64bb6be5ee11527f2c");
     assert_eq!(root, expected_root);
@@ -6120,7 +6120,7 @@ fn test_basic_vector_vec_uint32_513_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_1_zero() {
-    let value = Vector::<U256, 1>::from_iter([U256([
+    let mut value = Vector::<U256, 1>::from_iter([U256([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0,
     ])]);
@@ -6133,7 +6133,7 @@ fn test_basic_vector_vec_uint256_1_zero() {
     let recovered_value: Vector<U256, 1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -6141,7 +6141,7 @@ fn test_basic_vector_vec_uint256_1_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_16_random() {
-    let value = Vector::<u128, 16>::from_iter([
+    let mut value = Vector::<u128, 16>::from_iter([
         116865446011030976513736559583719158568,
         108209157078503776199170871747996541938,
         87702234582352091614673494037436374999,
@@ -6168,7 +6168,7 @@ fn test_basic_vector_vec_uint128_16_random() {
     let recovered_value: Vector<u128, 16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("817667c88413a5134f4f42a1d0eb8e128cb658f3b2c3956360d32ca62f287f3f");
     assert_eq!(root, expected_root);
@@ -6176,7 +6176,7 @@ fn test_basic_vector_vec_uint128_16_random() {
 
 #[test]
 fn test_basic_vector_vec_bool_2_zero() {
-    let value = Vector::<bool, 2>::from_iter([false, false]);
+    let mut value = Vector::<bool, 2>::from_iter([false, false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_bool_2_zero/serialized.ssz_snappy",
@@ -6186,7 +6186,7 @@ fn test_basic_vector_vec_bool_2_zero() {
     let recovered_value: Vector<bool, 2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -6194,7 +6194,7 @@ fn test_basic_vector_vec_bool_2_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_8_max() {
-    let value = Vector::<u128, 8>::from_iter([
+    let mut value = Vector::<u128, 8>::from_iter([
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
@@ -6213,7 +6213,7 @@ fn test_basic_vector_vec_uint128_8_max() {
     let recovered_value: Vector<u128, 8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("375d6c7b280a1e30f968db1d948da0f977bf9139b0d5516761ac874700208aba");
     assert_eq!(root, expected_root);
@@ -6221,7 +6221,7 @@ fn test_basic_vector_vec_uint128_8_max() {
 
 #[test]
 fn test_basic_vector_vec_uint64_3_zero() {
-    let value = Vector::<u64, 3>::from_iter([0, 0, 0]);
+    let mut value = Vector::<u64, 3>::from_iter([0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint64_3_zero/serialized.ssz_snappy",
@@ -6231,7 +6231,7 @@ fn test_basic_vector_vec_uint64_3_zero() {
     let recovered_value: Vector<u64, 3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -6239,7 +6239,7 @@ fn test_basic_vector_vec_uint64_3_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint64_3_random() {
-    let value = Vector::<u64, 3>::from_iter([
+    let mut value = Vector::<u64, 3>::from_iter([
         6167802979638570618,
         1670982671822494120,
         2649190588485934153,
@@ -6253,7 +6253,7 @@ fn test_basic_vector_vec_uint64_3_random() {
     let recovered_value: Vector<u64, 3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("7aeef3ad21709855a819d003e3853017491c03e1cdd0c3240000000000000000");
     assert_eq!(root, expected_root);
@@ -6261,7 +6261,7 @@ fn test_basic_vector_vec_uint64_3_random() {
 
 #[test]
 fn test_basic_vector_vec_uint16_1_max() {
-    let value = Vector::<u16, 1>::from_iter([65535]);
+    let mut value = Vector::<u16, 1>::from_iter([65535]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint16_1_max/serialized.ssz_snappy",
@@ -6271,7 +6271,7 @@ fn test_basic_vector_vec_uint16_1_max() {
     let recovered_value: Vector<u16, 1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffff000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -6279,7 +6279,7 @@ fn test_basic_vector_vec_uint16_1_max() {
 
 #[test]
 fn test_basic_vector_vec_bool_8_max() {
-    let value = Vector::<bool, 8>::from_iter([true, true, true, true, true, true, true, true]);
+    let mut value = Vector::<bool, 8>::from_iter([true, true, true, true, true, true, true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_bool_8_max/serialized.ssz_snappy",
@@ -6289,7 +6289,7 @@ fn test_basic_vector_vec_bool_8_max() {
     let recovered_value: Vector<bool, 8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0101010101010101000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -6297,7 +6297,7 @@ fn test_basic_vector_vec_bool_8_max() {
 
 #[test]
 fn test_basic_vector_vec_uint16_5_max() {
-    let value = Vector::<u16, 5>::from_iter([65535, 65535, 65535, 65535, 65535]);
+    let mut value = Vector::<u16, 5>::from_iter([65535, 65535, 65535, 65535, 65535]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint16_5_max/serialized.ssz_snappy",
@@ -6307,7 +6307,7 @@ fn test_basic_vector_vec_uint16_5_max() {
     let recovered_value: Vector<u16, 5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffffffffffffff00000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -6315,7 +6315,7 @@ fn test_basic_vector_vec_uint16_5_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_16_max() {
-    let value = Vector::<u32, 16>::from_iter([
+    let mut value = Vector::<u32, 16>::from_iter([
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295,
@@ -6329,7 +6329,7 @@ fn test_basic_vector_vec_uint32_16_max() {
     let recovered_value: Vector<u32, 16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("8667e718294e9e0df1d30600ba3eeb201f764aad2dad72748643e4a285e1d1f7");
     assert_eq!(root, expected_root);
@@ -6337,7 +6337,7 @@ fn test_basic_vector_vec_uint32_16_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_4_max() {
-    let value = Vector::<u32, 4>::from_iter([4294967295, 4294967295, 4294967295, 4294967295]);
+    let mut value = Vector::<u32, 4>::from_iter([4294967295, 4294967295, 4294967295, 4294967295]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint32_4_max/serialized.ssz_snappy",
@@ -6347,7 +6347,7 @@ fn test_basic_vector_vec_uint32_4_max() {
     let recovered_value: Vector<u32, 4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffffffffffffffffffffffffff00000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -6355,7 +6355,7 @@ fn test_basic_vector_vec_uint32_4_max() {
 
 #[test]
 fn test_basic_vector_vec_uint64_2_zero() {
-    let value = Vector::<u64, 2>::from_iter([0, 0]);
+    let mut value = Vector::<u64, 2>::from_iter([0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint64_2_zero/serialized.ssz_snappy",
@@ -6365,7 +6365,7 @@ fn test_basic_vector_vec_uint64_2_zero() {
     let recovered_value: Vector<u64, 2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -6373,7 +6373,7 @@ fn test_basic_vector_vec_uint64_2_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint8_512_random() {
-    let value = Vector::<u8, 512>::from_iter([
+    let mut value = Vector::<u8, 512>::from_iter([
         253, 174, 239, 243, 23, 241, 87, 225, 224, 151, 140, 63, 95, 213, 223, 61, 52, 248, 192,
         130, 98, 176, 55, 80, 137, 79, 165, 228, 36, 40, 202, 109, 24, 146, 19, 112, 44, 162, 156,
         235, 33, 131, 37, 218, 103, 51, 203, 99, 235, 120, 184, 105, 215, 89, 104, 154, 30, 180,
@@ -6411,7 +6411,7 @@ fn test_basic_vector_vec_uint8_512_random() {
     let recovered_value: Vector<u8, 512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("f4eb96b6673f096fe9ac07abad28b1ae70eeaf6704326b183ed57a02e22933e4");
     assert_eq!(root, expected_root);
@@ -6419,7 +6419,7 @@ fn test_basic_vector_vec_uint8_512_random() {
 
 #[test]
 fn test_basic_vector_vec_uint32_31_random() {
-    let value = Vector::<u32, 31>::from_iter([
+    let mut value = Vector::<u32, 31>::from_iter([
         508235682, 2308341395, 1525766118, 4136650562, 3621852454, 1567937308, 3269584467,
         1320546218, 2077416840, 739946730, 1282600407, 3203298029, 942979653, 497143087, 933745505,
         3794525861, 2714083317, 1289423485, 3524519556, 3497991789, 3711737680, 3061871525,
@@ -6435,7 +6435,7 @@ fn test_basic_vector_vec_uint32_31_random() {
     let recovered_value: Vector<u32, 31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("efa45b70c8a45a482800655c239ed2e8d91d1325666fd1755da23b6fea1405ee");
     assert_eq!(root, expected_root);
@@ -6443,7 +6443,7 @@ fn test_basic_vector_vec_uint32_31_random() {
 
 #[test]
 fn test_basic_vector_vec_bool_3_zero() {
-    let value = Vector::<bool, 3>::from_iter([false, false, false]);
+    let mut value = Vector::<bool, 3>::from_iter([false, false, false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_bool_3_zero/serialized.ssz_snappy",
@@ -6453,7 +6453,7 @@ fn test_basic_vector_vec_bool_3_zero() {
     let recovered_value: Vector<bool, 3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -6461,7 +6461,7 @@ fn test_basic_vector_vec_bool_3_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint64_512_random() {
-    let value = Vector::<u64, 512>::from_iter([
+    let mut value = Vector::<u64, 512>::from_iter([
         17241722399186003656,
         4508348299491693172,
         6390266777275510888,
@@ -6984,7 +6984,7 @@ fn test_basic_vector_vec_uint64_512_random() {
     let recovered_value: Vector<u64, 512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0dac791ef3e531baa9195787060367a1ea72df21153ceff38d53d67bdbf14cdb");
     assert_eq!(root, expected_root);
@@ -6992,7 +6992,7 @@ fn test_basic_vector_vec_uint64_512_random() {
 
 #[test]
 fn test_basic_vector_vec_uint16_16_max() {
-    let value = Vector::<u16, 16>::from_iter([
+    let mut value = Vector::<u16, 16>::from_iter([
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
         65535, 65535, 65535,
     ]);
@@ -7005,7 +7005,7 @@ fn test_basic_vector_vec_uint16_16_max() {
     let recovered_value: Vector<u16, 16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
     assert_eq!(root, expected_root);
@@ -7013,7 +7013,7 @@ fn test_basic_vector_vec_uint16_16_max() {
 
 #[test]
 fn test_basic_vector_vec_uint64_1_random() {
-    let value = Vector::<u64, 1>::from_iter([8914067055681793591]);
+    let mut value = Vector::<u64, 1>::from_iter([8914067055681793591]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint64_1_random/serialized.ssz_snappy",
@@ -7023,7 +7023,7 @@ fn test_basic_vector_vec_uint64_1_random() {
     let recovered_value: Vector<u64, 1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("37eeec25c220b57b000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -7031,7 +7031,7 @@ fn test_basic_vector_vec_uint64_1_random() {
 
 #[test]
 fn test_basic_vector_vec_uint32_512_zero() {
-    let value = Vector::<u32, 512>::from_iter([
+    let mut value = Vector::<u32, 512>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -7060,7 +7060,7 @@ fn test_basic_vector_vec_uint32_512_zero() {
     let recovered_value: Vector<u32, 512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("d88ddfeed400a8755596b21942c1497e114c302e6118290f91e6772976041fa1");
     assert_eq!(root, expected_root);
@@ -7068,7 +7068,7 @@ fn test_basic_vector_vec_uint32_512_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint32_5_max() {
-    let value =
+    let mut value =
         Vector::<u32, 5>::from_iter([4294967295, 4294967295, 4294967295, 4294967295, 4294967295]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -7079,7 +7079,7 @@ fn test_basic_vector_vec_uint32_5_max() {
     let recovered_value: Vector<u32, 5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffffffffffffffffffffffffffffffffff000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -7087,7 +7087,7 @@ fn test_basic_vector_vec_uint32_5_max() {
 
 #[test]
 fn test_basic_vector_vec_uint16_4_max() {
-    let value = Vector::<u16, 4>::from_iter([65535, 65535, 65535, 65535]);
+    let mut value = Vector::<u16, 4>::from_iter([65535, 65535, 65535, 65535]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint16_4_max/serialized.ssz_snappy",
@@ -7097,7 +7097,7 @@ fn test_basic_vector_vec_uint16_4_max() {
     let recovered_value: Vector<u16, 4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffffffffff000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -7105,7 +7105,7 @@ fn test_basic_vector_vec_uint16_4_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_2_random() {
-    let value = Vector::<u128, 2>::from_iter([
+    let mut value = Vector::<u128, 2>::from_iter([
         293619838168840684930947284175392625045,
         264388153583386100657556026933098957077,
     ]);
@@ -7118,7 +7118,7 @@ fn test_basic_vector_vec_uint128_2_random() {
     let recovered_value: Vector<u128, 2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("9551683c41029561557e6e42b51fe5dc15c90da19169c5900b46e5a5624ee7c6");
     assert_eq!(root, expected_root);
@@ -7126,7 +7126,7 @@ fn test_basic_vector_vec_uint128_2_random() {
 
 #[test]
 fn test_basic_vector_vec_uint256_4_random() {
-    let value = Vector::<U256, 4>::from_iter([
+    let mut value = Vector::<U256, 4>::from_iter([
         U256([
             71, 106, 105, 163, 151, 75, 86, 137, 3, 140, 57, 168, 63, 49, 156, 118, 90, 171, 234,
             173, 47, 5, 84, 194, 65, 72, 161, 55, 197, 219, 55, 187,
@@ -7153,7 +7153,7 @@ fn test_basic_vector_vec_uint256_4_random() {
     let recovered_value: Vector<U256, 4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("fa6875722e5f598b45c4b742d1156f397f73e5aeb1a6bb33eed523bdba40693d");
     assert_eq!(root, expected_root);
@@ -7161,7 +7161,7 @@ fn test_basic_vector_vec_uint256_4_random() {
 
 #[test]
 fn test_basic_vector_vec_uint8_513_max() {
-    let value = Vector::<u8, 513>::from_iter([
+    let mut value = Vector::<u8, 513>::from_iter([
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -7201,7 +7201,7 @@ fn test_basic_vector_vec_uint8_513_max() {
     let recovered_value: Vector<u8, 513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("711318b44d37a71b616d0747647acbe4b8cd24d42a19c6a3ed7b8743adc33bd4");
     assert_eq!(root, expected_root);
@@ -7209,7 +7209,7 @@ fn test_basic_vector_vec_uint8_513_max() {
 
 #[test]
 fn test_basic_vector_vec_uint256_8_random() {
-    let value = Vector::<U256, 8>::from_iter([
+    let mut value = Vector::<U256, 8>::from_iter([
         U256([
             101, 98, 195, 77, 141, 84, 10, 65, 199, 185, 225, 176, 137, 102, 31, 27, 37, 157, 156,
             98, 26, 68, 252, 14, 97, 110, 55, 40, 121, 83, 119, 1,
@@ -7252,7 +7252,7 @@ fn test_basic_vector_vec_uint256_8_random() {
     let recovered_value: Vector<U256, 8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("f37250ebb8bfc70f992eb9c95107ea4def905c0062cda51a2688641a19645505");
     assert_eq!(root, expected_root);
@@ -7260,7 +7260,7 @@ fn test_basic_vector_vec_uint256_8_random() {
 
 #[test]
 fn test_basic_vector_vec_uint8_2_zero() {
-    let value = Vector::<u8, 2>::from_iter([0, 0]);
+    let mut value = Vector::<u8, 2>::from_iter([0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint8_2_zero/serialized.ssz_snappy",
@@ -7270,7 +7270,7 @@ fn test_basic_vector_vec_uint8_2_zero() {
     let recovered_value: Vector<u8, 2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -7278,7 +7278,7 @@ fn test_basic_vector_vec_uint8_2_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_513_random() {
-    let value = Vector::<U256, 513>::from_iter([
+    let mut value = Vector::<U256, 513>::from_iter([
         U256([
             178, 71, 197, 209, 59, 6, 21, 36, 228, 31, 161, 186, 233, 29, 46, 37, 73, 216, 72, 86,
             69, 54, 206, 110, 221, 177, 166, 166, 186, 186, 215, 68,
@@ -9341,7 +9341,7 @@ fn test_basic_vector_vec_uint256_513_random() {
     let recovered_value: Vector<U256, 513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("cf114fb32b16706fc55188ad17f4dcced660baf4f31353048a5f51317134dc2b");
     assert_eq!(root, expected_root);
@@ -9349,7 +9349,7 @@ fn test_basic_vector_vec_uint256_513_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_31_random() {
-    let value = Vector::<u64, 31>::from_iter([
+    let mut value = Vector::<u64, 31>::from_iter([
         3052724393868548387,
         3810693530679841654,
         12585541796688525245,
@@ -9391,7 +9391,7 @@ fn test_basic_vector_vec_uint64_31_random() {
     let recovered_value: Vector<u64, 31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("692da28053f3e2d585e5359989519e2af9044140b7f50d0db8e36b89e5ddd6f3");
     assert_eq!(root, expected_root);
@@ -9399,7 +9399,7 @@ fn test_basic_vector_vec_uint64_31_random() {
 
 #[test]
 fn test_basic_vector_vec_uint8_512_max() {
-    let value = Vector::<u8, 512>::from_iter([
+    let mut value = Vector::<u8, 512>::from_iter([
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -9439,7 +9439,7 @@ fn test_basic_vector_vec_uint8_512_max() {
     let recovered_value: Vector<u8, 512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("006eed26f731a68917853879507d9fa9f4044f7af999f9df535fac29715db555");
     assert_eq!(root, expected_root);
@@ -9447,7 +9447,7 @@ fn test_basic_vector_vec_uint8_512_max() {
 
 #[test]
 fn test_basic_vector_vec_uint8_8_max() {
-    let value = Vector::<u8, 8>::from_iter([255, 255, 255, 255, 255, 255, 255, 255]);
+    let mut value = Vector::<u8, 8>::from_iter([255, 255, 255, 255, 255, 255, 255, 255]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint8_8_max/serialized.ssz_snappy",
@@ -9457,7 +9457,7 @@ fn test_basic_vector_vec_uint8_8_max() {
     let recovered_value: Vector<u8, 8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffffffffff000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -9465,7 +9465,7 @@ fn test_basic_vector_vec_uint8_8_max() {
 
 #[test]
 fn test_basic_vector_vec_uint8_5_random() {
-    let value = Vector::<u8, 5>::from_iter([15, 8, 177, 247, 237]);
+    let mut value = Vector::<u8, 5>::from_iter([15, 8, 177, 247, 237]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint8_5_random/serialized.ssz_snappy",
@@ -9475,7 +9475,7 @@ fn test_basic_vector_vec_uint8_5_random() {
     let recovered_value: Vector<u8, 5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0f08b1f7ed000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -9483,7 +9483,7 @@ fn test_basic_vector_vec_uint8_5_random() {
 
 #[test]
 fn test_basic_vector_vec_bool_513_zero() {
-    let value = Vector::<bool, 513>::from_iter([
+    let mut value = Vector::<bool, 513>::from_iter([
         false, false, false, false, false, false, false, false, false, false, false, false, false,
         false, false, false, false, false, false, false, false, false, false, false, false, false,
         false, false, false, false, false, false, false, false, false, false, false, false, false,
@@ -9534,7 +9534,7 @@ fn test_basic_vector_vec_bool_513_zero() {
     let recovered_value: Vector<bool, 513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("9efde052aa15429fae05bad4d0b1d7c64da64d03d7a1854a588c2cb8430c0d30");
     assert_eq!(root, expected_root);
@@ -9542,7 +9542,7 @@ fn test_basic_vector_vec_bool_513_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_513_zero() {
-    let value = Vector::<u128, 513>::from_iter([
+    let mut value = Vector::<u128, 513>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -9571,7 +9571,7 @@ fn test_basic_vector_vec_uint128_513_zero() {
     let recovered_value: Vector<u128, 513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("506d86582d252405b840018792cad2bf1259f1ef5aa5f887e13cb2f0094f51e1");
     assert_eq!(root, expected_root);
@@ -9579,7 +9579,7 @@ fn test_basic_vector_vec_uint128_513_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_3_zero() {
-    let value = Vector::<u128, 3>::from_iter([0, 0, 0]);
+    let mut value = Vector::<u128, 3>::from_iter([0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint128_3_zero/serialized.ssz_snappy",
@@ -9589,7 +9589,7 @@ fn test_basic_vector_vec_uint128_3_zero() {
     let recovered_value: Vector<u128, 3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b");
     assert_eq!(root, expected_root);
@@ -9597,7 +9597,7 @@ fn test_basic_vector_vec_uint128_3_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint32_8_zero() {
-    let value = Vector::<u32, 8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0]);
+    let mut value = Vector::<u32, 8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint32_8_zero/serialized.ssz_snappy",
@@ -9607,7 +9607,7 @@ fn test_basic_vector_vec_uint32_8_zero() {
     let recovered_value: Vector<u32, 8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -9615,7 +9615,7 @@ fn test_basic_vector_vec_uint32_8_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint8_5_max() {
-    let value = Vector::<u8, 5>::from_iter([255, 255, 255, 255, 255]);
+    let mut value = Vector::<u8, 5>::from_iter([255, 255, 255, 255, 255]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint8_5_max/serialized.ssz_snappy",
@@ -9625,7 +9625,7 @@ fn test_basic_vector_vec_uint8_5_max() {
     let recovered_value: Vector<u8, 5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffff000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -9633,7 +9633,7 @@ fn test_basic_vector_vec_uint8_5_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_31_max() {
-    let value = Vector::<u32, 31>::from_iter([
+    let mut value = Vector::<u32, 31>::from_iter([
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
@@ -9649,7 +9649,7 @@ fn test_basic_vector_vec_uint32_31_max() {
     let recovered_value: Vector<u32, 31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("e7492e2fb875c43b137514ed057ddfc23ddd1220431403c9a3395e2bbaf51407");
     assert_eq!(root, expected_root);
@@ -9657,7 +9657,7 @@ fn test_basic_vector_vec_uint32_31_max() {
 
 #[test]
 fn test_basic_vector_vec_uint16_3_random() {
-    let value = Vector::<u16, 3>::from_iter([55998, 58650, 32471]);
+    let mut value = Vector::<u16, 3>::from_iter([55998, 58650, 32471]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint16_3_random/serialized.ssz_snappy",
@@ -9667,7 +9667,7 @@ fn test_basic_vector_vec_uint16_3_random() {
     let recovered_value: Vector<u16, 3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("beda1ae5d77e0000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -9675,7 +9675,7 @@ fn test_basic_vector_vec_uint16_3_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_1_max() {
-    let value = Vector::<u64, 1>::from_iter([18446744073709551615]);
+    let mut value = Vector::<u64, 1>::from_iter([18446744073709551615]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint64_1_max/serialized.ssz_snappy",
@@ -9685,7 +9685,7 @@ fn test_basic_vector_vec_uint64_1_max() {
     let recovered_value: Vector<u64, 1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffffffffff000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -9693,7 +9693,7 @@ fn test_basic_vector_vec_uint64_1_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_3_max() {
-    let value = Vector::<u128, 3>::from_iter([
+    let mut value = Vector::<u128, 3>::from_iter([
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
@@ -9707,7 +9707,7 @@ fn test_basic_vector_vec_uint128_3_max() {
     let recovered_value: Vector<u128, 3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("1e3915ef9ca4ed8619d472b72fb1833448756054b4de9acb439da54dff7166aa");
     assert_eq!(root, expected_root);
@@ -9715,7 +9715,7 @@ fn test_basic_vector_vec_uint128_3_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_5_random() {
-    let value =
+    let mut value =
         Vector::<u32, 5>::from_iter([1051503312, 1875702585, 3338068896, 1062162289, 44280150]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -9726,7 +9726,7 @@ fn test_basic_vector_vec_uint32_5_random() {
     let recovered_value: Vector<u32, 5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("d0aaac3e39f3cc6fa0e3f6c6714f4f3f56a9a302000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -9734,7 +9734,7 @@ fn test_basic_vector_vec_uint32_5_random() {
 
 #[test]
 fn test_basic_vector_vec_uint256_1_random() {
-    let value = Vector::<U256, 1>::from_iter([U256([
+    let mut value = Vector::<U256, 1>::from_iter([U256([
         23, 198, 217, 240, 65, 96, 243, 95, 206, 232, 214, 26, 230, 80, 25, 35, 116, 138, 185, 248,
         165, 147, 63, 252, 41, 25, 209, 95, 73, 233, 26, 244,
     ])]);
@@ -9747,7 +9747,7 @@ fn test_basic_vector_vec_uint256_1_random() {
     let recovered_value: Vector<U256, 1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("17c6d9f04160f35fcee8d61ae6501923748ab9f8a5933ffc2919d15f49e91af4");
     assert_eq!(root, expected_root);
@@ -9755,7 +9755,7 @@ fn test_basic_vector_vec_uint256_1_random() {
 
 #[test]
 fn test_basic_vector_vec_uint8_1_zero() {
-    let value = Vector::<u8, 1>::from_iter([0]);
+    let mut value = Vector::<u8, 1>::from_iter([0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint8_1_zero/serialized.ssz_snappy",
@@ -9765,7 +9765,7 @@ fn test_basic_vector_vec_uint8_1_zero() {
     let recovered_value: Vector<u8, 1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -9773,7 +9773,7 @@ fn test_basic_vector_vec_uint8_1_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_16_zero() {
-    let value = Vector::<u128, 16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    let mut value = Vector::<u128, 16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint128_16_zero/serialized.ssz_snappy",
@@ -9783,7 +9783,7 @@ fn test_basic_vector_vec_uint128_16_zero() {
     let recovered_value: Vector<u128, 16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("c78009fdf07fc56a11f122370658a353aaa542ed63e44c4bc15ff4cd105ab33c");
     assert_eq!(root, expected_root);
@@ -9791,7 +9791,7 @@ fn test_basic_vector_vec_uint128_16_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_16_random() {
-    let value = Vector::<U256, 16>::from_iter([
+    let mut value = Vector::<U256, 16>::from_iter([
         U256([
             240, 52, 157, 62, 33, 82, 186, 76, 43, 156, 161, 241, 59, 31, 225, 79, 247, 97, 118,
             251, 234, 138, 47, 120, 129, 122, 206, 216, 201, 221, 67, 133,
@@ -9866,7 +9866,7 @@ fn test_basic_vector_vec_uint256_16_random() {
     let recovered_value: Vector<U256, 16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("1acf6f6a33e7a6642bf9f60d5c829ca9f09390bf30663f50ef1424796f582057");
     assert_eq!(root, expected_root);
@@ -9874,7 +9874,7 @@ fn test_basic_vector_vec_uint256_16_random() {
 
 #[test]
 fn test_basic_vector_vec_uint16_31_random() {
-    let value = Vector::<u16, 31>::from_iter([
+    let mut value = Vector::<u16, 31>::from_iter([
         2630, 4376, 65427, 13583, 41975, 15842, 27686, 33957, 45114, 56180, 24895, 4175, 40381,
         32830, 48421, 52207, 58611, 41821, 31373, 23853, 55119, 1957, 34877, 62496, 37311, 40303,
         44876, 36839, 47492, 53209, 24055,
@@ -9888,7 +9888,7 @@ fn test_basic_vector_vec_uint16_31_random() {
     let recovered_value: Vector<u16, 31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("29fab6cb24858519d6e8d3af2fdac7ec9fce5c08e978fb1a3cdb3fad6fe88f7f");
     assert_eq!(root, expected_root);
@@ -9896,7 +9896,7 @@ fn test_basic_vector_vec_uint16_31_random() {
 
 #[test]
 fn test_basic_vector_vec_uint32_512_random() {
-    let value = Vector::<u32, 512>::from_iter([
+    let mut value = Vector::<u32, 512>::from_iter([
         3535294352, 2244578171, 32943704, 3015817426, 2456157102, 219351158, 2006999311,
         1996972550, 2838712831, 1656769757, 3318502982, 4213769932, 2050078503, 4292367497,
         4290313471, 1262779699, 4083724714, 1323361645, 974092343, 710698434, 2984936844,
@@ -9979,7 +9979,7 @@ fn test_basic_vector_vec_uint32_512_random() {
     let recovered_value: Vector<u32, 512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("29520e549f20e52e3cd8ef74509a65c936a54c25207355c6c7d8b93b50c16b79");
     assert_eq!(root, expected_root);
@@ -9987,7 +9987,7 @@ fn test_basic_vector_vec_uint32_512_random() {
 
 #[test]
 fn test_basic_vector_vec_uint16_8_zero() {
-    let value = Vector::<u16, 8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0]);
+    let mut value = Vector::<u16, 8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint16_8_zero/serialized.ssz_snappy",
@@ -9997,7 +9997,7 @@ fn test_basic_vector_vec_uint16_8_zero() {
     let recovered_value: Vector<u16, 8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -10005,7 +10005,7 @@ fn test_basic_vector_vec_uint16_8_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_31_max() {
-    let value = Vector::<u16, 31>::from_iter([
+    let mut value = Vector::<u16, 31>::from_iter([
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
         65535, 65535, 65535, 65535, 65535,
@@ -10019,7 +10019,7 @@ fn test_basic_vector_vec_uint16_31_max() {
     let recovered_value: Vector<u16, 31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("43cbd26c37dcff8448ce8896f9b5e553a1047de0c59ec3b477decefbdea9c74b");
     assert_eq!(root, expected_root);
@@ -10027,7 +10027,7 @@ fn test_basic_vector_vec_uint16_31_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_2_max() {
-    let value = Vector::<u128, 2>::from_iter([
+    let mut value = Vector::<u128, 2>::from_iter([
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
     ]);
@@ -10040,7 +10040,7 @@ fn test_basic_vector_vec_uint128_2_max() {
     let recovered_value: Vector<u128, 2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
     assert_eq!(root, expected_root);
@@ -10048,7 +10048,7 @@ fn test_basic_vector_vec_uint128_2_max() {
 
 #[test]
 fn test_basic_vector_vec_uint8_4_max() {
-    let value = Vector::<u8, 4>::from_iter([255, 255, 255, 255]);
+    let mut value = Vector::<u8, 4>::from_iter([255, 255, 255, 255]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint8_4_max/serialized.ssz_snappy",
@@ -10058,7 +10058,7 @@ fn test_basic_vector_vec_uint8_4_max() {
     let recovered_value: Vector<u8, 4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffff00000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -10066,7 +10066,7 @@ fn test_basic_vector_vec_uint8_4_max() {
 
 #[test]
 fn test_basic_vector_vec_uint8_16_random() {
-    let value = Vector::<u8, 16>::from_iter([
+    let mut value = Vector::<u8, 16>::from_iter([
         238, 35, 45, 23, 138, 32, 154, 246, 181, 136, 127, 102, 232, 9, 36, 2,
     ]);
     let encoding = serialize(&value);
@@ -10078,7 +10078,7 @@ fn test_basic_vector_vec_uint8_16_random() {
     let recovered_value: Vector<u8, 16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ee232d178a209af6b5887f66e809240200000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -10086,7 +10086,7 @@ fn test_basic_vector_vec_uint8_16_random() {
 
 #[test]
 fn test_basic_vector_vec_uint8_512_zero() {
-    let value = Vector::<u8, 512>::from_iter([
+    let mut value = Vector::<u8, 512>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -10115,7 +10115,7 @@ fn test_basic_vector_vec_uint8_512_zero() {
     let recovered_value: Vector<u8, 512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("536d98837f2dd165a55d5eeae91485954472d56f246df256bf3cae19352a123c");
     assert_eq!(root, expected_root);
@@ -10123,7 +10123,7 @@ fn test_basic_vector_vec_uint8_512_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint32_4_zero() {
-    let value = Vector::<u32, 4>::from_iter([0, 0, 0, 0]);
+    let mut value = Vector::<u32, 4>::from_iter([0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint32_4_zero/serialized.ssz_snappy",
@@ -10133,7 +10133,7 @@ fn test_basic_vector_vec_uint32_4_zero() {
     let recovered_value: Vector<u32, 4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -10141,7 +10141,7 @@ fn test_basic_vector_vec_uint32_4_zero() {
 
 #[test]
 fn test_basic_vector_vec_bool_4_max() {
-    let value = Vector::<bool, 4>::from_iter([true, true, true, true]);
+    let mut value = Vector::<bool, 4>::from_iter([true, true, true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_bool_4_max/serialized.ssz_snappy",
@@ -10151,7 +10151,7 @@ fn test_basic_vector_vec_bool_4_max() {
     let recovered_value: Vector<bool, 4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0101010100000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -10159,7 +10159,7 @@ fn test_basic_vector_vec_bool_4_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_513_max() {
-    let value = Vector::<u32, 513>::from_iter([
+    let mut value = Vector::<u32, 513>::from_iter([
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
@@ -10244,7 +10244,7 @@ fn test_basic_vector_vec_uint32_513_max() {
     let recovered_value: Vector<u32, 513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("e243d140ab8d341e3cad517d2ba8cd3b8ef7df2ff6f6962f0aeaf20e366fe7e3");
     assert_eq!(root, expected_root);
@@ -10252,7 +10252,7 @@ fn test_basic_vector_vec_uint32_513_max() {
 
 #[test]
 fn test_basic_vector_vec_bool_513_max() {
-    let value = Vector::<bool, 513>::from_iter([
+    let mut value = Vector::<bool, 513>::from_iter([
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
@@ -10298,7 +10298,7 @@ fn test_basic_vector_vec_bool_513_max() {
     let recovered_value: Vector<bool, 513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("f5299a985b414f61b75a2c8c15f886b14a1a668135c01d9a44f094b893d72852");
     assert_eq!(root, expected_root);
@@ -10306,7 +10306,7 @@ fn test_basic_vector_vec_bool_513_max() {
 
 #[test]
 fn test_basic_vector_vec_uint64_1_zero() {
-    let value = Vector::<u64, 1>::from_iter([0]);
+    let mut value = Vector::<u64, 1>::from_iter([0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint64_1_zero/serialized.ssz_snappy",
@@ -10316,7 +10316,7 @@ fn test_basic_vector_vec_uint64_1_zero() {
     let recovered_value: Vector<u64, 1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -10324,7 +10324,7 @@ fn test_basic_vector_vec_uint64_1_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint64_2_max() {
-    let value = Vector::<u64, 2>::from_iter([18446744073709551615, 18446744073709551615]);
+    let mut value = Vector::<u64, 2>::from_iter([18446744073709551615, 18446744073709551615]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint64_2_max/serialized.ssz_snappy",
@@ -10334,7 +10334,7 @@ fn test_basic_vector_vec_uint64_2_max() {
     let recovered_value: Vector<u64, 2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffffffffffffffffffffffffff00000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -10342,7 +10342,7 @@ fn test_basic_vector_vec_uint64_2_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_8_max() {
-    let value = Vector::<u32, 8>::from_iter([
+    let mut value = Vector::<u32, 8>::from_iter([
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295,
     ]);
@@ -10355,7 +10355,7 @@ fn test_basic_vector_vec_uint32_8_max() {
     let recovered_value: Vector<u32, 8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
     assert_eq!(root, expected_root);
@@ -10363,7 +10363,7 @@ fn test_basic_vector_vec_uint32_8_max() {
 
 #[test]
 fn test_basic_vector_vec_uint256_513_max() {
-    let value = Vector::<U256, 513>::from_iter([
+    let mut value = Vector::<U256, 513>::from_iter([
         U256([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -12426,7 +12426,7 @@ fn test_basic_vector_vec_uint256_513_max() {
     let recovered_value: Vector<U256, 513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("8d90ae08c4b61479f6867707545ea8b26e91d9ef54e863a8daf7427f1e4d04c1");
     assert_eq!(root, expected_root);
@@ -12434,7 +12434,7 @@ fn test_basic_vector_vec_uint256_513_max() {
 
 #[test]
 fn test_basic_vector_vec_uint16_4_zero() {
-    let value = Vector::<u16, 4>::from_iter([0, 0, 0, 0]);
+    let mut value = Vector::<u16, 4>::from_iter([0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint16_4_zero/serialized.ssz_snappy",
@@ -12444,7 +12444,7 @@ fn test_basic_vector_vec_uint16_4_zero() {
     let recovered_value: Vector<u16, 4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -12452,7 +12452,7 @@ fn test_basic_vector_vec_uint16_4_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_512_max() {
-    let value = Vector::<U256, 512>::from_iter([
+    let mut value = Vector::<U256, 512>::from_iter([
         U256([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -14511,7 +14511,7 @@ fn test_basic_vector_vec_uint256_512_max() {
     let recovered_value: Vector<U256, 512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("a278cf32ca74f920b67a7b3d02447453d8883fecb4a7aa1ba4327079fa3d5162");
     assert_eq!(root, expected_root);
@@ -14519,7 +14519,7 @@ fn test_basic_vector_vec_uint256_512_max() {
 
 #[test]
 fn test_basic_vector_vec_uint64_8_random() {
-    let value = Vector::<u64, 8>::from_iter([
+    let mut value = Vector::<u64, 8>::from_iter([
         598083651574187315,
         16261093746939895763,
         11288686854153899408,
@@ -14538,7 +14538,7 @@ fn test_basic_vector_vec_uint64_8_random() {
     let recovered_value: Vector<u64, 8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("d5a3754afc2badf65538d7358ba6199e5433893701dafc2f775e6e3b49cf13ca");
     assert_eq!(root, expected_root);
@@ -14546,7 +14546,7 @@ fn test_basic_vector_vec_uint64_8_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_4_random() {
-    let value = Vector::<u64, 4>::from_iter([
+    let mut value = Vector::<u64, 4>::from_iter([
         7900660817174063737,
         6533979385570669156,
         4271747397033668748,
@@ -14561,7 +14561,7 @@ fn test_basic_vector_vec_uint64_4_random() {
     let recovered_value: Vector<u64, 4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("79ea815a27c9a46d6432aaf6a15bad5a8c3064fa9f4b483bda4bf4888173cf30");
     assert_eq!(root, expected_root);
@@ -14569,7 +14569,7 @@ fn test_basic_vector_vec_uint64_4_random() {
 
 #[test]
 fn test_basic_vector_vec_uint128_1_max() {
-    let value = Vector::<u128, 1>::from_iter([340282366920938463463374607431768211455]);
+    let mut value = Vector::<u128, 1>::from_iter([340282366920938463463374607431768211455]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint128_1_max/serialized.ssz_snappy",
@@ -14579,7 +14579,7 @@ fn test_basic_vector_vec_uint128_1_max() {
     let recovered_value: Vector<u128, 1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffffffffffffffffffffffffff00000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -14587,7 +14587,7 @@ fn test_basic_vector_vec_uint128_1_max() {
 
 #[test]
 fn test_basic_vector_vec_uint64_3_max() {
-    let value = Vector::<u64, 3>::from_iter([
+    let mut value = Vector::<u64, 3>::from_iter([
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
@@ -14601,7 +14601,7 @@ fn test_basic_vector_vec_uint64_3_max() {
     let recovered_value: Vector<u64, 3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000");
     assert_eq!(root, expected_root);
@@ -14609,7 +14609,7 @@ fn test_basic_vector_vec_uint64_3_max() {
 
 #[test]
 fn test_basic_vector_vec_uint256_3_zero() {
-    let value = Vector::<U256, 3>::from_iter([
+    let mut value = Vector::<U256, 3>::from_iter([
         U256([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -14632,7 +14632,7 @@ fn test_basic_vector_vec_uint256_3_zero() {
     let recovered_value: Vector<U256, 3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("db56114e00fdd4c1f85c892bf35ac9a89289aaecb1ebd0a96cde606a748b5d71");
     assert_eq!(root, expected_root);
@@ -14640,7 +14640,7 @@ fn test_basic_vector_vec_uint256_3_zero() {
 
 #[test]
 fn test_basic_vector_vec_bool_512_max() {
-    let value = Vector::<bool, 512>::from_iter([
+    let mut value = Vector::<bool, 512>::from_iter([
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
@@ -14686,7 +14686,7 @@ fn test_basic_vector_vec_bool_512_max() {
     let recovered_value: Vector<bool, 512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("bea533dbcce99238f8e459b813178182fbb2903627d119e0e6a91718dee93bec");
     assert_eq!(root, expected_root);
@@ -14694,7 +14694,7 @@ fn test_basic_vector_vec_bool_512_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_512_max() {
-    let value = Vector::<u32, 512>::from_iter([
+    let mut value = Vector::<u32, 512>::from_iter([
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
@@ -14779,7 +14779,7 @@ fn test_basic_vector_vec_uint32_512_max() {
     let recovered_value: Vector<u32, 512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("7c09b1cdfe9a7e172dfe2ca8715becf5132c036abbfdfb500daa9c51f365074d");
     assert_eq!(root, expected_root);
@@ -14787,7 +14787,7 @@ fn test_basic_vector_vec_uint32_512_max() {
 
 #[test]
 fn test_basic_vector_vec_uint16_8_max() {
-    let value =
+    let mut value =
         Vector::<u16, 8>::from_iter([65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -14798,7 +14798,7 @@ fn test_basic_vector_vec_uint16_8_max() {
     let recovered_value: Vector<u16, 8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffffffffffffffffffffffffff00000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -14806,7 +14806,7 @@ fn test_basic_vector_vec_uint16_8_max() {
 
 #[test]
 fn test_basic_vector_vec_bool_5_max() {
-    let value = Vector::<bool, 5>::from_iter([true, true, true, true, true]);
+    let mut value = Vector::<bool, 5>::from_iter([true, true, true, true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_bool_5_max/serialized.ssz_snappy",
@@ -14816,7 +14816,7 @@ fn test_basic_vector_vec_bool_5_max() {
     let recovered_value: Vector<bool, 5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0101010101000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -14824,7 +14824,7 @@ fn test_basic_vector_vec_bool_5_max() {
 
 #[test]
 fn test_basic_vector_vec_uint256_16_zero() {
-    let value = Vector::<U256, 16>::from_iter([
+    let mut value = Vector::<U256, 16>::from_iter([
         U256([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -14899,7 +14899,7 @@ fn test_basic_vector_vec_uint256_16_zero() {
     let recovered_value: Vector<U256, 16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("536d98837f2dd165a55d5eeae91485954472d56f246df256bf3cae19352a123c");
     assert_eq!(root, expected_root);
@@ -14907,7 +14907,7 @@ fn test_basic_vector_vec_uint256_16_zero() {
 
 #[test]
 fn test_basic_vector_vec_bool_1_max() {
-    let value = Vector::<bool, 1>::from_iter([true]);
+    let mut value = Vector::<bool, 1>::from_iter([true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_bool_1_max/serialized.ssz_snappy",
@@ -14917,7 +14917,7 @@ fn test_basic_vector_vec_bool_1_max() {
     let recovered_value: Vector<bool, 1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0100000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -14925,7 +14925,7 @@ fn test_basic_vector_vec_bool_1_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_5_max() {
-    let value = Vector::<u128, 5>::from_iter([
+    let mut value = Vector::<u128, 5>::from_iter([
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
@@ -14941,7 +14941,7 @@ fn test_basic_vector_vec_uint128_5_max() {
     let recovered_value: Vector<u128, 5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("42b2994e8f77b7cc4b05fe01a2d6570ab7d29be54e434582425697ee8cd8f2c2");
     assert_eq!(root, expected_root);
@@ -14949,7 +14949,7 @@ fn test_basic_vector_vec_uint128_5_max() {
 
 #[test]
 fn test_basic_vector_vec_uint8_3_max() {
-    let value = Vector::<u8, 3>::from_iter([255, 255, 255]);
+    let mut value = Vector::<u8, 3>::from_iter([255, 255, 255]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint8_3_max/serialized.ssz_snappy",
@@ -14959,7 +14959,7 @@ fn test_basic_vector_vec_uint8_3_max() {
     let recovered_value: Vector<u8, 3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffff0000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -14967,7 +14967,7 @@ fn test_basic_vector_vec_uint8_3_max() {
 
 #[test]
 fn test_basic_vector_vec_uint256_2_zero() {
-    let value = Vector::<U256, 2>::from_iter([
+    let mut value = Vector::<U256, 2>::from_iter([
         U256([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -14986,7 +14986,7 @@ fn test_basic_vector_vec_uint256_2_zero() {
     let recovered_value: Vector<U256, 2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b");
     assert_eq!(root, expected_root);
@@ -14994,7 +14994,7 @@ fn test_basic_vector_vec_uint256_2_zero() {
 
 #[test]
 fn test_basic_vector_vec_bool_16_zero() {
-    let value = Vector::<bool, 16>::from_iter([
+    let mut value = Vector::<bool, 16>::from_iter([
         false, false, false, false, false, false, false, false, false, false, false, false, false,
         false, false, false,
     ]);
@@ -15007,7 +15007,7 @@ fn test_basic_vector_vec_bool_16_zero() {
     let recovered_value: Vector<bool, 16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -15015,7 +15015,7 @@ fn test_basic_vector_vec_bool_16_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint32_16_zero() {
-    let value = Vector::<u32, 16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    let mut value = Vector::<u32, 16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint32_16_zero/serialized.ssz_snappy",
@@ -15025,7 +15025,7 @@ fn test_basic_vector_vec_uint32_16_zero() {
     let recovered_value: Vector<u32, 16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b");
     assert_eq!(root, expected_root);
@@ -15033,7 +15033,7 @@ fn test_basic_vector_vec_uint32_16_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_5_zero() {
-    let value = Vector::<u16, 5>::from_iter([0, 0, 0, 0, 0]);
+    let mut value = Vector::<u16, 5>::from_iter([0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint16_5_zero/serialized.ssz_snappy",
@@ -15043,7 +15043,7 @@ fn test_basic_vector_vec_uint16_5_zero() {
     let recovered_value: Vector<u16, 5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -15051,7 +15051,7 @@ fn test_basic_vector_vec_uint16_5_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint64_31_zero() {
-    let value = Vector::<u64, 31>::from_iter([
+    let mut value = Vector::<u64, 31>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     ]);
     let encoding = serialize(&value);
@@ -15063,7 +15063,7 @@ fn test_basic_vector_vec_uint64_31_zero() {
     let recovered_value: Vector<u64, 31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("c78009fdf07fc56a11f122370658a353aaa542ed63e44c4bc15ff4cd105ab33c");
     assert_eq!(root, expected_root);
@@ -15071,7 +15071,7 @@ fn test_basic_vector_vec_uint64_31_zero() {
 
 #[test]
 fn test_basic_vector_vec_bool_1_zero() {
-    let value = Vector::<bool, 1>::from_iter([false]);
+    let mut value = Vector::<bool, 1>::from_iter([false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_bool_1_zero/serialized.ssz_snappy",
@@ -15081,7 +15081,7 @@ fn test_basic_vector_vec_bool_1_zero() {
     let recovered_value: Vector<bool, 1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -15089,7 +15089,7 @@ fn test_basic_vector_vec_bool_1_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint8_2_max() {
-    let value = Vector::<u8, 2>::from_iter([255, 255]);
+    let mut value = Vector::<u8, 2>::from_iter([255, 255]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint8_2_max/serialized.ssz_snappy",
@@ -15099,7 +15099,7 @@ fn test_basic_vector_vec_uint8_2_max() {
     let recovered_value: Vector<u8, 2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffff000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -15107,7 +15107,7 @@ fn test_basic_vector_vec_uint8_2_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_4_max() {
-    let value = Vector::<u128, 4>::from_iter([
+    let mut value = Vector::<u128, 4>::from_iter([
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
@@ -15122,7 +15122,7 @@ fn test_basic_vector_vec_uint128_4_max() {
     let recovered_value: Vector<u128, 4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("8667e718294e9e0df1d30600ba3eeb201f764aad2dad72748643e4a285e1d1f7");
     assert_eq!(root, expected_root);
@@ -15130,7 +15130,7 @@ fn test_basic_vector_vec_uint128_4_max() {
 
 #[test]
 fn test_basic_vector_vec_uint8_513_zero() {
-    let value = Vector::<u8, 513>::from_iter([
+    let mut value = Vector::<u8, 513>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -15159,7 +15159,7 @@ fn test_basic_vector_vec_uint8_513_zero() {
     let recovered_value: Vector<u8, 513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("9efde052aa15429fae05bad4d0b1d7c64da64d03d7a1854a588c2cb8430c0d30");
     assert_eq!(root, expected_root);
@@ -15167,7 +15167,7 @@ fn test_basic_vector_vec_uint8_513_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint32_5_zero() {
-    let value = Vector::<u32, 5>::from_iter([0, 0, 0, 0, 0]);
+    let mut value = Vector::<u32, 5>::from_iter([0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint32_5_zero/serialized.ssz_snappy",
@@ -15177,7 +15177,7 @@ fn test_basic_vector_vec_uint32_5_zero() {
     let recovered_value: Vector<u32, 5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -15185,7 +15185,7 @@ fn test_basic_vector_vec_uint32_5_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_31_zero() {
-    let value = Vector::<u16, 31>::from_iter([
+    let mut value = Vector::<u16, 31>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     ]);
     let encoding = serialize(&value);
@@ -15197,7 +15197,7 @@ fn test_basic_vector_vec_uint16_31_zero() {
     let recovered_value: Vector<u16, 31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b");
     assert_eq!(root, expected_root);
@@ -15205,7 +15205,7 @@ fn test_basic_vector_vec_uint16_31_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_5_random() {
-    let value = Vector::<u128, 5>::from_iter([
+    let mut value = Vector::<u128, 5>::from_iter([
         194578830033788736352569855138204668708,
         222404791245710801707639009374583541271,
         300921627290141104382250227469409620613,
@@ -15221,7 +15221,7 @@ fn test_basic_vector_vec_uint128_5_random() {
     let recovered_value: Vector<u128, 5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("3783f4ecb6a705af305039d2f104b57616a40fd279144e6723358ca561a22a51");
     assert_eq!(root, expected_root);
@@ -15229,7 +15229,7 @@ fn test_basic_vector_vec_uint128_5_random() {
 
 #[test]
 fn test_basic_vector_vec_bool_2_max() {
-    let value = Vector::<bool, 2>::from_iter([true, true]);
+    let mut value = Vector::<bool, 2>::from_iter([true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_bool_2_max/serialized.ssz_snappy",
@@ -15239,7 +15239,7 @@ fn test_basic_vector_vec_bool_2_max() {
     let recovered_value: Vector<bool, 2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0101000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -15247,7 +15247,7 @@ fn test_basic_vector_vec_bool_2_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_513_max() {
-    let value = Vector::<u128, 513>::from_iter([
+    let mut value = Vector::<u128, 513>::from_iter([
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
@@ -15771,7 +15771,7 @@ fn test_basic_vector_vec_uint128_513_max() {
     let recovered_value: Vector<u128, 513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("71b09f3b6e5e978c55a3e8e88640e9abbfe68c41e61e96424cffa42b63bfa413");
     assert_eq!(root, expected_root);
@@ -15779,7 +15779,7 @@ fn test_basic_vector_vec_uint128_513_max() {
 
 #[test]
 fn test_basic_vector_vec_uint64_4_max() {
-    let value = Vector::<u64, 4>::from_iter([
+    let mut value = Vector::<u64, 4>::from_iter([
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
@@ -15794,7 +15794,7 @@ fn test_basic_vector_vec_uint64_4_max() {
     let recovered_value: Vector<u64, 4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
     assert_eq!(root, expected_root);
@@ -15802,7 +15802,7 @@ fn test_basic_vector_vec_uint64_4_max() {
 
 #[test]
 fn test_basic_vector_vec_uint256_3_random() {
-    let value = Vector::<U256, 3>::from_iter([
+    let mut value = Vector::<U256, 3>::from_iter([
         U256([
             180, 21, 110, 11, 140, 206, 247, 50, 116, 42, 151, 240, 95, 129, 184, 145, 10, 60, 171,
             40, 120, 79, 137, 163, 69, 100, 70, 1, 173, 244, 248, 44,
@@ -15825,7 +15825,7 @@ fn test_basic_vector_vec_uint256_3_random() {
     let recovered_value: Vector<U256, 3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0d0ad5da1149666a95382488e4164f5eaf34c9a5d4616dabaf74fc5c1cb5416c");
     assert_eq!(root, expected_root);
@@ -15833,7 +15833,7 @@ fn test_basic_vector_vec_uint256_3_random() {
 
 #[test]
 fn test_basic_vector_vec_uint16_1_random() {
-    let value = Vector::<u16, 1>::from_iter([58671]);
+    let mut value = Vector::<u16, 1>::from_iter([58671]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint16_1_random/serialized.ssz_snappy",
@@ -15843,7 +15843,7 @@ fn test_basic_vector_vec_uint16_1_random() {
     let recovered_value: Vector<u16, 1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("2fe5000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -15851,7 +15851,7 @@ fn test_basic_vector_vec_uint16_1_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_5_max() {
-    let value = Vector::<u64, 5>::from_iter([
+    let mut value = Vector::<u64, 5>::from_iter([
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
@@ -15867,7 +15867,7 @@ fn test_basic_vector_vec_uint64_5_max() {
     let recovered_value: Vector<u64, 5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("f0b46c4ab8cd5720de9457addeff0a7267e475c09fd5abb6661e32faf9dd30cd");
     assert_eq!(root, expected_root);
@@ -15875,7 +15875,7 @@ fn test_basic_vector_vec_uint64_5_max() {
 
 #[test]
 fn test_basic_vector_vec_uint8_1_max() {
-    let value = Vector::<u8, 1>::from_iter([255]);
+    let mut value = Vector::<u8, 1>::from_iter([255]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint8_1_max/serialized.ssz_snappy",
@@ -15885,7 +15885,7 @@ fn test_basic_vector_vec_uint8_1_max() {
     let recovered_value: Vector<u8, 1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ff00000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -15893,7 +15893,7 @@ fn test_basic_vector_vec_uint8_1_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_513_random() {
-    let value = Vector::<u128, 513>::from_iter([
+    let mut value = Vector::<u128, 513>::from_iter([
         34806233895606943316594477386264063388,
         269482665842274191832954812547223680643,
         98566888497380199723262118438348948905,
@@ -16417,7 +16417,7 @@ fn test_basic_vector_vec_uint128_513_random() {
     let recovered_value: Vector<u128, 513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("7c9e8b3a007dbdcf573b837b5ace3e186a390e605306d95a3c9c4fc893b62088");
     assert_eq!(root, expected_root);
@@ -16425,7 +16425,7 @@ fn test_basic_vector_vec_uint128_513_random() {
 
 #[test]
 fn test_basic_vector_vec_uint8_2_random() {
-    let value = Vector::<u8, 2>::from_iter([59, 3]);
+    let mut value = Vector::<u8, 2>::from_iter([59, 3]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint8_2_random/serialized.ssz_snappy",
@@ -16435,7 +16435,7 @@ fn test_basic_vector_vec_uint8_2_random() {
     let recovered_value: Vector<u8, 2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("3b03000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -16443,7 +16443,7 @@ fn test_basic_vector_vec_uint8_2_random() {
 
 #[test]
 fn test_basic_vector_vec_uint128_512_max() {
-    let value = Vector::<u128, 512>::from_iter([
+    let mut value = Vector::<u128, 512>::from_iter([
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
@@ -16966,7 +16966,7 @@ fn test_basic_vector_vec_uint128_512_max() {
     let recovered_value: Vector<u128, 512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("d13fb49c7c7e17c33d7bfb88c3e3d674e602b53315c769a4b9f053ffba656cc3");
     assert_eq!(root, expected_root);
@@ -16974,7 +16974,7 @@ fn test_basic_vector_vec_uint128_512_max() {
 
 #[test]
 fn test_basic_vector_vec_bool_3_max() {
-    let value = Vector::<bool, 3>::from_iter([true, true, true]);
+    let mut value = Vector::<bool, 3>::from_iter([true, true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_bool_3_max/serialized.ssz_snappy",
@@ -16984,7 +16984,7 @@ fn test_basic_vector_vec_bool_3_max() {
     let recovered_value: Vector<bool, 3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0101010000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -16992,7 +16992,7 @@ fn test_basic_vector_vec_bool_3_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_2_zero() {
-    let value = Vector::<u128, 2>::from_iter([0, 0]);
+    let mut value = Vector::<u128, 2>::from_iter([0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint128_2_zero/serialized.ssz_snappy",
@@ -17002,7 +17002,7 @@ fn test_basic_vector_vec_uint128_2_zero() {
     let recovered_value: Vector<u128, 2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -17010,7 +17010,7 @@ fn test_basic_vector_vec_uint128_2_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint32_2_zero() {
-    let value = Vector::<u32, 2>::from_iter([0, 0]);
+    let mut value = Vector::<u32, 2>::from_iter([0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint32_2_zero/serialized.ssz_snappy",
@@ -17020,7 +17020,7 @@ fn test_basic_vector_vec_uint32_2_zero() {
     let recovered_value: Vector<u32, 2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -17028,7 +17028,7 @@ fn test_basic_vector_vec_uint32_2_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint64_16_max() {
-    let value = Vector::<u64, 16>::from_iter([
+    let mut value = Vector::<u64, 16>::from_iter([
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
@@ -17055,7 +17055,7 @@ fn test_basic_vector_vec_uint64_16_max() {
     let recovered_value: Vector<u64, 16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("375d6c7b280a1e30f968db1d948da0f977bf9139b0d5516761ac874700208aba");
     assert_eq!(root, expected_root);
@@ -17063,7 +17063,7 @@ fn test_basic_vector_vec_uint64_16_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_1_random() {
-    let value = Vector::<u128, 1>::from_iter([209794508200186098054846448654859096491]);
+    let mut value = Vector::<u128, 1>::from_iter([209794508200186098054846448654859096491]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint128_1_random/serialized.ssz_snappy",
@@ -17073,7 +17073,7 @@ fn test_basic_vector_vec_uint128_1_random() {
     let recovered_value: Vector<u128, 1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("abd1d3e35caaf8d7c91f1b63daf3d49d00000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -17081,7 +17081,7 @@ fn test_basic_vector_vec_uint128_1_random() {
 
 #[test]
 fn test_basic_vector_vec_uint32_16_random() {
-    let value = Vector::<u32, 16>::from_iter([
+    let mut value = Vector::<u32, 16>::from_iter([
         1381494992, 3456058494, 3316673465, 2895863808, 3039979229, 2658482247, 324065072,
         1118337861, 3690875953, 98201721, 1227056475, 2365715743, 1634445540, 616917765,
         1742195761, 2632010539,
@@ -17095,7 +17095,7 @@ fn test_basic_vector_vec_uint32_16_random() {
     let recovered_value: Vector<u32, 16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("83aab501333050d1fbd420a889c52af0f2c274a1e4529a5c287b805ed477ccf6");
     assert_eq!(root, expected_root);
@@ -17103,7 +17103,7 @@ fn test_basic_vector_vec_uint32_16_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_2_random() {
-    let value = Vector::<u64, 2>::from_iter([16527226978582771838, 7558561043290308816]);
+    let mut value = Vector::<u64, 2>::from_iter([16527226978582771838, 7558561043290308816]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint64_2_random/serialized.ssz_snappy",
@@ -17113,7 +17113,7 @@ fn test_basic_vector_vec_uint64_2_random() {
     let recovered_value: Vector<u64, 2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("7eb8ad3c5f815ce5d0c06cce3867e56800000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -17121,7 +17121,7 @@ fn test_basic_vector_vec_uint64_2_random() {
 
 #[test]
 fn test_basic_vector_vec_uint16_2_zero() {
-    let value = Vector::<u16, 2>::from_iter([0, 0]);
+    let mut value = Vector::<u16, 2>::from_iter([0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint16_2_zero/serialized.ssz_snappy",
@@ -17131,7 +17131,7 @@ fn test_basic_vector_vec_uint16_2_zero() {
     let recovered_value: Vector<u16, 2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -17139,7 +17139,7 @@ fn test_basic_vector_vec_uint16_2_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_5_zero() {
-    let value = Vector::<U256, 5>::from_iter([
+    let mut value = Vector::<U256, 5>::from_iter([
         U256([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -17170,7 +17170,7 @@ fn test_basic_vector_vec_uint256_5_zero() {
     let recovered_value: Vector<U256, 5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("c78009fdf07fc56a11f122370658a353aaa542ed63e44c4bc15ff4cd105ab33c");
     assert_eq!(root, expected_root);
@@ -17178,7 +17178,7 @@ fn test_basic_vector_vec_uint256_5_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_5_zero() {
-    let value = Vector::<u128, 5>::from_iter([0, 0, 0, 0, 0]);
+    let mut value = Vector::<u128, 5>::from_iter([0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint128_5_zero/serialized.ssz_snappy",
@@ -17188,7 +17188,7 @@ fn test_basic_vector_vec_uint128_5_zero() {
     let recovered_value: Vector<u128, 5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("db56114e00fdd4c1f85c892bf35ac9a89289aaecb1ebd0a96cde606a748b5d71");
     assert_eq!(root, expected_root);
@@ -17196,7 +17196,7 @@ fn test_basic_vector_vec_uint128_5_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_31_zero() {
-    let value = Vector::<U256, 31>::from_iter([
+    let mut value = Vector::<U256, 31>::from_iter([
         U256([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -17331,7 +17331,7 @@ fn test_basic_vector_vec_uint256_31_zero() {
     let recovered_value: Vector<U256, 31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("9efde052aa15429fae05bad4d0b1d7c64da64d03d7a1854a588c2cb8430c0d30");
     assert_eq!(root, expected_root);
@@ -17339,7 +17339,7 @@ fn test_basic_vector_vec_uint256_31_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint8_16_max() {
-    let value = Vector::<u8, 16>::from_iter([
+    let mut value = Vector::<u8, 16>::from_iter([
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
     ]);
     let encoding = serialize(&value);
@@ -17351,7 +17351,7 @@ fn test_basic_vector_vec_uint8_16_max() {
     let recovered_value: Vector<u8, 16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffffffffffffffffffffffffff00000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -17359,7 +17359,7 @@ fn test_basic_vector_vec_uint8_16_max() {
 
 #[test]
 fn test_basic_vector_vec_uint256_5_max() {
-    let value = Vector::<U256, 5>::from_iter([
+    let mut value = Vector::<U256, 5>::from_iter([
         U256([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -17390,7 +17390,7 @@ fn test_basic_vector_vec_uint256_5_max() {
     let recovered_value: Vector<U256, 5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("8a70016e9e63b5927d8575c08b19132107772e149f3d1ba4e1b4306dce9b7aa5");
     assert_eq!(root, expected_root);
@@ -17398,7 +17398,7 @@ fn test_basic_vector_vec_uint256_5_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_31_zero() {
-    let value = Vector::<u32, 31>::from_iter([
+    let mut value = Vector::<u32, 31>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     ]);
     let encoding = serialize(&value);
@@ -17410,7 +17410,7 @@ fn test_basic_vector_vec_uint32_31_zero() {
     let recovered_value: Vector<u32, 31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("db56114e00fdd4c1f85c892bf35ac9a89289aaecb1ebd0a96cde606a748b5d71");
     assert_eq!(root, expected_root);
@@ -17418,7 +17418,7 @@ fn test_basic_vector_vec_uint32_31_zero() {
 
 #[test]
 fn test_basic_vector_vec_bool_31_zero() {
-    let value = Vector::<bool, 31>::from_iter([
+    let mut value = Vector::<bool, 31>::from_iter([
         false, false, false, false, false, false, false, false, false, false, false, false, false,
         false, false, false, false, false, false, false, false, false, false, false, false, false,
         false, false, false, false, false,
@@ -17432,7 +17432,7 @@ fn test_basic_vector_vec_bool_31_zero() {
     let recovered_value: Vector<bool, 31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -17440,7 +17440,7 @@ fn test_basic_vector_vec_bool_31_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint64_513_zero() {
-    let value = Vector::<u64, 513>::from_iter([
+    let mut value = Vector::<u64, 513>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -17469,7 +17469,7 @@ fn test_basic_vector_vec_uint64_513_zero() {
     let recovered_value: Vector<u64, 513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("26846476fd5fc54a5d43385167c95144f2643f533cc85bb9d16b782f8d7db193");
     assert_eq!(root, expected_root);
@@ -17477,7 +17477,7 @@ fn test_basic_vector_vec_uint64_513_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint32_3_random() {
-    let value = Vector::<u32, 3>::from_iter([414721764, 1396444802, 4099449558]);
+    let mut value = Vector::<u32, 3>::from_iter([414721764, 1396444802, 4099449558]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint32_3_random/serialized.ssz_snappy",
@@ -17487,7 +17487,7 @@ fn test_basic_vector_vec_uint32_3_random() {
     let recovered_value: Vector<u32, 3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("e426b818820e3c53d6a258f40000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -17495,7 +17495,7 @@ fn test_basic_vector_vec_uint32_3_random() {
 
 #[test]
 fn test_basic_vector_vec_uint16_5_random() {
-    let value = Vector::<u16, 5>::from_iter([35919, 34593, 14706, 39574, 53868]);
+    let mut value = Vector::<u16, 5>::from_iter([35919, 34593, 14706, 39574, 53868]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint16_5_random/serialized.ssz_snappy",
@@ -17505,7 +17505,7 @@ fn test_basic_vector_vec_uint16_5_random() {
     let recovered_value: Vector<u16, 5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("4f8c21877239969a6cd200000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -17513,7 +17513,7 @@ fn test_basic_vector_vec_uint16_5_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_16_random() {
-    let value = Vector::<u64, 16>::from_iter([
+    let mut value = Vector::<u64, 16>::from_iter([
         14973315493487554254,
         14609512114016110986,
         10032323568597029119,
@@ -17540,7 +17540,7 @@ fn test_basic_vector_vec_uint64_16_random() {
     let recovered_value: Vector<u64, 16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("18efd70dfb660ebe73c72c6f8d0258f97495b3bf86a98741e3c9bfb2aeab5d28");
     assert_eq!(root, expected_root);
@@ -17548,7 +17548,7 @@ fn test_basic_vector_vec_uint64_16_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_16_zero() {
-    let value = Vector::<u64, 16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    let mut value = Vector::<u64, 16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint64_16_zero/serialized.ssz_snappy",
@@ -17558,7 +17558,7 @@ fn test_basic_vector_vec_uint64_16_zero() {
     let recovered_value: Vector<u64, 16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("db56114e00fdd4c1f85c892bf35ac9a89289aaecb1ebd0a96cde606a748b5d71");
     assert_eq!(root, expected_root);
@@ -17566,7 +17566,7 @@ fn test_basic_vector_vec_uint64_16_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_4_max() {
-    let value = Vector::<U256, 4>::from_iter([
+    let mut value = Vector::<U256, 4>::from_iter([
         U256([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -17593,7 +17593,7 @@ fn test_basic_vector_vec_uint256_4_max() {
     let recovered_value: Vector<U256, 4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("375d6c7b280a1e30f968db1d948da0f977bf9139b0d5516761ac874700208aba");
     assert_eq!(root, expected_root);
@@ -17601,7 +17601,7 @@ fn test_basic_vector_vec_uint256_4_max() {
 
 #[test]
 fn test_basic_vector_vec_uint16_16_zero() {
-    let value = Vector::<u16, 16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    let mut value = Vector::<u16, 16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint16_16_zero/serialized.ssz_snappy",
@@ -17611,7 +17611,7 @@ fn test_basic_vector_vec_uint16_16_zero() {
     let recovered_value: Vector<u16, 16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -17619,7 +17619,7 @@ fn test_basic_vector_vec_uint16_16_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_512_random() {
-    let value = Vector::<u16, 512>::from_iter([
+    let mut value = Vector::<u16, 512>::from_iter([
         39340, 21094, 12815, 18079, 3546, 9133, 45047, 41320, 3878, 13753, 38525, 64568, 43355,
         62649, 55650, 30889, 7989, 16810, 53928, 52810, 54272, 34111, 43130, 14634, 55804, 24247,
         2549, 37573, 53039, 1273, 63106, 10081, 35901, 22063, 65529, 36398, 22557, 6548, 49942,
@@ -17670,7 +17670,7 @@ fn test_basic_vector_vec_uint16_512_random() {
     let recovered_value: Vector<u16, 512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("01f2508b1eb51699811c789fd266764f6c2831cbbfd862c91b860066149970e9");
     assert_eq!(root, expected_root);
@@ -17678,7 +17678,7 @@ fn test_basic_vector_vec_uint16_512_random() {
 
 #[test]
 fn test_basic_vector_vec_uint256_31_max() {
-    let value = Vector::<U256, 31>::from_iter([
+    let mut value = Vector::<U256, 31>::from_iter([
         U256([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -17813,7 +17813,7 @@ fn test_basic_vector_vec_uint256_31_max() {
     let recovered_value: Vector<U256, 31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("7399c0e47ac1d2d1e38e8ee039ef6242bd17bc41816dd9c49d0c7720687950df");
     assert_eq!(root, expected_root);
@@ -17821,7 +17821,7 @@ fn test_basic_vector_vec_uint256_31_max() {
 
 #[test]
 fn test_basic_vector_vec_uint256_512_random() {
-    let value = Vector::<U256, 512>::from_iter([
+    let mut value = Vector::<U256, 512>::from_iter([
         U256([
             139, 35, 218, 181, 245, 36, 123, 0, 134, 153, 41, 134, 218, 150, 141, 38, 149, 194,
             111, 25, 214, 237, 163, 176, 43, 132, 142, 30, 4, 87, 68, 59,
@@ -19880,7 +19880,7 @@ fn test_basic_vector_vec_uint256_512_random() {
     let recovered_value: Vector<U256, 512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("88320d2bead34a47f2ef4e1e8e415b42bcb9955ad04e06ff309d49681c2628f2");
     assert_eq!(root, expected_root);
@@ -19888,7 +19888,7 @@ fn test_basic_vector_vec_uint256_512_random() {
 
 #[test]
 fn test_basic_vector_vec_uint256_8_zero() {
-    let value = Vector::<U256, 8>::from_iter([
+    let mut value = Vector::<U256, 8>::from_iter([
         U256([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -19931,7 +19931,7 @@ fn test_basic_vector_vec_uint256_8_zero() {
     let recovered_value: Vector<U256, 8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("c78009fdf07fc56a11f122370658a353aaa542ed63e44c4bc15ff4cd105ab33c");
     assert_eq!(root, expected_root);
@@ -19939,7 +19939,7 @@ fn test_basic_vector_vec_uint256_8_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint64_512_max() {
-    let value = Vector::<u64, 512>::from_iter([
+    let mut value = Vector::<u64, 512>::from_iter([
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
@@ -20462,7 +20462,7 @@ fn test_basic_vector_vec_uint64_512_max() {
     let recovered_value: Vector<u64, 512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("8f711e9197bcd96314b8d20425eac7dce4aee7c9a0579e901d636d3256db3672");
     assert_eq!(root, expected_root);
@@ -20470,7 +20470,7 @@ fn test_basic_vector_vec_uint64_512_max() {
 
 #[test]
 fn test_basic_vector_vec_uint8_8_random() {
-    let value = Vector::<u8, 8>::from_iter([76, 46, 93, 58, 7, 249, 127, 33]);
+    let mut value = Vector::<u8, 8>::from_iter([76, 46, 93, 58, 7, 249, 127, 33]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint8_8_random/serialized.ssz_snappy",
@@ -20480,7 +20480,7 @@ fn test_basic_vector_vec_uint8_8_random() {
     let recovered_value: Vector<u8, 8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("4c2e5d3a07f97f21000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -20488,7 +20488,7 @@ fn test_basic_vector_vec_uint8_8_random() {
 
 #[test]
 fn test_basic_vector_vec_uint16_512_max() {
-    let value = Vector::<u16, 512>::from_iter([
+    let mut value = Vector::<u16, 512>::from_iter([
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -20539,7 +20539,7 @@ fn test_basic_vector_vec_uint16_512_max() {
     let recovered_value: Vector<u16, 512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("d3313908d702519e871c34a2b5f7d84108966149289a16d7795ef15ebaa42b25");
     assert_eq!(root, expected_root);
@@ -20547,7 +20547,7 @@ fn test_basic_vector_vec_uint16_512_max() {
 
 #[test]
 fn test_basic_vector_vec_uint8_4_random() {
-    let value = Vector::<u8, 4>::from_iter([50, 181, 121, 8]);
+    let mut value = Vector::<u8, 4>::from_iter([50, 181, 121, 8]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint8_4_random/serialized.ssz_snappy",
@@ -20557,7 +20557,7 @@ fn test_basic_vector_vec_uint8_4_random() {
     let recovered_value: Vector<u8, 4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("32b5790800000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -20565,7 +20565,7 @@ fn test_basic_vector_vec_uint8_4_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_512_zero() {
-    let value = Vector::<u64, 512>::from_iter([
+    let mut value = Vector::<u64, 512>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -20594,7 +20594,7 @@ fn test_basic_vector_vec_uint64_512_zero() {
     let recovered_value: Vector<u64, 512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("87eb0ddba57e35f6d286673802a4af5975e22506c7cf4c64bb6be5ee11527f2c");
     assert_eq!(root, expected_root);
@@ -20602,7 +20602,7 @@ fn test_basic_vector_vec_uint64_512_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_5_random() {
-    let value = Vector::<U256, 5>::from_iter([
+    let mut value = Vector::<U256, 5>::from_iter([
         U256([
             179, 22, 196, 129, 77, 158, 184, 168, 7, 100, 123, 93, 196, 11, 104, 117, 250, 160,
             128, 244, 88, 117, 73, 178, 87, 111, 186, 153, 1, 54, 206, 160,
@@ -20633,7 +20633,7 @@ fn test_basic_vector_vec_uint256_5_random() {
     let recovered_value: Vector<U256, 5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("2080573f384b29b3453b8cc44a967325a2e9ad22cb1b3f1d81554bb11479c2bc");
     assert_eq!(root, expected_root);
@@ -20641,7 +20641,7 @@ fn test_basic_vector_vec_uint256_5_random() {
 
 #[test]
 fn test_basic_vector_vec_uint256_1_max() {
-    let value = Vector::<U256, 1>::from_iter([U256([
+    let mut value = Vector::<U256, 1>::from_iter([U256([
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
     ])]);
@@ -20654,7 +20654,7 @@ fn test_basic_vector_vec_uint256_1_max() {
     let recovered_value: Vector<U256, 1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
     assert_eq!(root, expected_root);
@@ -20662,7 +20662,7 @@ fn test_basic_vector_vec_uint256_1_max() {
 
 #[test]
 fn test_basic_vector_vec_uint16_513_max() {
-    let value = Vector::<u16, 513>::from_iter([
+    let mut value = Vector::<u16, 513>::from_iter([
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -20713,7 +20713,7 @@ fn test_basic_vector_vec_uint16_513_max() {
     let recovered_value: Vector<u16, 513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("193411b011bc1acbf600803324bc5dc359acef14c1be285ef7565186c0ea9b10");
     assert_eq!(root, expected_root);
@@ -20721,7 +20721,7 @@ fn test_basic_vector_vec_uint16_513_max() {
 
 #[test]
 fn test_basic_vector_vec_uint64_513_max() {
-    let value = Vector::<u64, 513>::from_iter([
+    let mut value = Vector::<u64, 513>::from_iter([
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
@@ -21245,7 +21245,7 @@ fn test_basic_vector_vec_uint64_513_max() {
     let recovered_value: Vector<u64, 513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("76e07c25312b02171801bc5bfa77a4c4f65ca1a93464d9812362009307ecfb55");
     assert_eq!(root, expected_root);
@@ -21253,7 +21253,7 @@ fn test_basic_vector_vec_uint64_513_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_1_random() {
-    let value = Vector::<u32, 1>::from_iter([1797257601]);
+    let mut value = Vector::<u32, 1>::from_iter([1797257601]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint32_1_random/serialized.ssz_snappy",
@@ -21263,7 +21263,7 @@ fn test_basic_vector_vec_uint32_1_random() {
     let recovered_value: Vector<u32, 1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("81f91f6b00000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -21271,7 +21271,7 @@ fn test_basic_vector_vec_uint32_1_random() {
 
 #[test]
 fn test_basic_vector_vec_uint128_4_zero() {
-    let value = Vector::<u128, 4>::from_iter([0, 0, 0, 0]);
+    let mut value = Vector::<u128, 4>::from_iter([0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint128_4_zero/serialized.ssz_snappy",
@@ -21281,7 +21281,7 @@ fn test_basic_vector_vec_uint128_4_zero() {
     let recovered_value: Vector<u128, 4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b");
     assert_eq!(root, expected_root);
@@ -21289,7 +21289,7 @@ fn test_basic_vector_vec_uint128_4_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_4_zero() {
-    let value = Vector::<U256, 4>::from_iter([
+    let mut value = Vector::<U256, 4>::from_iter([
         U256([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -21316,7 +21316,7 @@ fn test_basic_vector_vec_uint256_4_zero() {
     let recovered_value: Vector<U256, 4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("db56114e00fdd4c1f85c892bf35ac9a89289aaecb1ebd0a96cde606a748b5d71");
     assert_eq!(root, expected_root);
@@ -21324,7 +21324,7 @@ fn test_basic_vector_vec_uint256_4_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_3_random() {
-    let value = Vector::<u128, 3>::from_iter([
+    let mut value = Vector::<u128, 3>::from_iter([
         220301989141709271334326095341414922102,
         210235080945710533958926333282570767995,
         38717160196772117737433576948282568669,
@@ -21338,7 +21338,7 @@ fn test_basic_vector_vec_uint128_3_random() {
     let recovered_value: Vector<u128, 3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("5376f444f73d42d4319e96d18c1d78ffab3f12464280dee8cf1df519ff50d628");
     assert_eq!(root, expected_root);
@@ -21346,7 +21346,7 @@ fn test_basic_vector_vec_uint128_3_random() {
 
 #[test]
 fn test_basic_vector_vec_uint256_3_max() {
-    let value = Vector::<U256, 3>::from_iter([
+    let mut value = Vector::<U256, 3>::from_iter([
         U256([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -21369,7 +21369,7 @@ fn test_basic_vector_vec_uint256_3_max() {
     let recovered_value: Vector<U256, 3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("4a6ba660d16b4dde152d00ba82cdde34827411f341c56b102e7962410924ad36");
     assert_eq!(root, expected_root);
@@ -21377,7 +21377,7 @@ fn test_basic_vector_vec_uint256_3_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_31_zero() {
-    let value = Vector::<u128, 31>::from_iter([
+    let mut value = Vector::<u128, 31>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     ]);
     let encoding = serialize(&value);
@@ -21389,7 +21389,7 @@ fn test_basic_vector_vec_uint128_31_zero() {
     let recovered_value: Vector<u128, 31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("536d98837f2dd165a55d5eeae91485954472d56f246df256bf3cae19352a123c");
     assert_eq!(root, expected_root);
@@ -21397,7 +21397,7 @@ fn test_basic_vector_vec_uint128_31_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_3_zero() {
-    let value = Vector::<u16, 3>::from_iter([0, 0, 0]);
+    let mut value = Vector::<u16, 3>::from_iter([0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint16_3_zero/serialized.ssz_snappy",
@@ -21407,7 +21407,7 @@ fn test_basic_vector_vec_uint16_3_zero() {
     let recovered_value: Vector<u16, 3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -21415,7 +21415,7 @@ fn test_basic_vector_vec_uint16_3_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint8_513_random() {
-    let value = Vector::<u8, 513>::from_iter([
+    let mut value = Vector::<u8, 513>::from_iter([
         43, 14, 152, 176, 220, 9, 200, 233, 44, 111, 40, 178, 171, 180, 198, 181, 48, 15, 66, 68,
         230, 183, 64, 49, 31, 136, 81, 16, 173, 252, 42, 222, 184, 9, 215, 161, 98, 84, 117, 216,
         87, 221, 255, 71, 194, 243, 197, 156, 141, 132, 73, 183, 67, 133, 159, 127, 151, 85, 79,
@@ -21453,7 +21453,7 @@ fn test_basic_vector_vec_uint8_513_random() {
     let recovered_value: Vector<u8, 513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("fd0fdfd0c2ccb9a01421e330f2054910070c6b53353a8ddefad470286f00c6f0");
     assert_eq!(root, expected_root);
@@ -21461,7 +21461,7 @@ fn test_basic_vector_vec_uint8_513_random() {
 
 #[test]
 fn test_basic_vector_vec_bool_16_max() {
-    let value = Vector::<bool, 16>::from_iter([
+    let mut value = Vector::<bool, 16>::from_iter([
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
         true,
     ]);
@@ -21474,7 +21474,7 @@ fn test_basic_vector_vec_bool_16_max() {
     let recovered_value: Vector<bool, 16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0101010101010101010101010101010100000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -21482,7 +21482,7 @@ fn test_basic_vector_vec_bool_16_max() {
 
 #[test]
 fn test_basic_vector_vec_uint256_2_max() {
-    let value = Vector::<U256, 2>::from_iter([
+    let mut value = Vector::<U256, 2>::from_iter([
         U256([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -21501,7 +21501,7 @@ fn test_basic_vector_vec_uint256_2_max() {
     let recovered_value: Vector<U256, 2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("8667e718294e9e0df1d30600ba3eeb201f764aad2dad72748643e4a285e1d1f7");
     assert_eq!(root, expected_root);
@@ -21509,7 +21509,7 @@ fn test_basic_vector_vec_uint256_2_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_31_max() {
-    let value = Vector::<u128, 31>::from_iter([
+    let mut value = Vector::<u128, 31>::from_iter([
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
@@ -21551,7 +21551,7 @@ fn test_basic_vector_vec_uint128_31_max() {
     let recovered_value: Vector<u128, 31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("661455692304dacd704fda4ac469deedd8783f5353c7120b35ceab4309536e81");
     assert_eq!(root, expected_root);
@@ -21559,7 +21559,7 @@ fn test_basic_vector_vec_uint128_31_max() {
 
 #[test]
 fn test_basic_vector_vec_uint64_513_random() {
-    let value = Vector::<u64, 513>::from_iter([
+    let mut value = Vector::<u64, 513>::from_iter([
         977103724348450572,
         16638432304304789571,
         12981575418293692183,
@@ -22083,7 +22083,7 @@ fn test_basic_vector_vec_uint64_513_random() {
     let recovered_value: Vector<u64, 513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("f6fe5bb836cca4115fcca592f3ca646c0d56b4ab316eb8f469c372846ec6d7f6");
     assert_eq!(root, expected_root);
@@ -22091,7 +22091,7 @@ fn test_basic_vector_vec_uint64_513_random() {
 
 #[test]
 fn test_basic_vector_vec_uint128_31_random() {
-    let value = Vector::<u128, 31>::from_iter([
+    let mut value = Vector::<u128, 31>::from_iter([
         322161099503949134246875383873042092581,
         48424120129033191202980611955490263589,
         83525771833522514138478832606095687392,
@@ -22133,7 +22133,7 @@ fn test_basic_vector_vec_uint128_31_random() {
     let recovered_value: Vector<u128, 31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("6f8bfa11523cb7f78e6dabe9796ad0cb5b4730f6647c77164474985034ce1eba");
     assert_eq!(root, expected_root);
@@ -22141,7 +22141,7 @@ fn test_basic_vector_vec_uint128_31_random() {
 
 #[test]
 fn test_basic_vector_vec_uint128_8_zero() {
-    let value = Vector::<u128, 8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0]);
+    let mut value = Vector::<u128, 8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint128_8_zero/serialized.ssz_snappy",
@@ -22151,7 +22151,7 @@ fn test_basic_vector_vec_uint128_8_zero() {
     let recovered_value: Vector<u128, 8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("db56114e00fdd4c1f85c892bf35ac9a89289aaecb1ebd0a96cde606a748b5d71");
     assert_eq!(root, expected_root);
@@ -22159,7 +22159,7 @@ fn test_basic_vector_vec_uint128_8_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint32_3_zero() {
-    let value = Vector::<u32, 3>::from_iter([0, 0, 0]);
+    let mut value = Vector::<u32, 3>::from_iter([0, 0, 0]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz_rs/tests/data/basic_vector/valid/vec_uint32_3_zero/serialized.ssz_snappy",
@@ -22169,7 +22169,7 @@ fn test_basic_vector_vec_uint32_3_zero() {
     let recovered_value: Vector<u32, 3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&value);
+    let root = hash_tree_root(&mut value);
     let expected_root =
         root_from_hex("0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);

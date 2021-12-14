@@ -42,7 +42,7 @@ macro_rules! define_uint {
         }
 
         impl Merkleized for $uint {
-            fn hash_tree_root(&self, _context: &Context) -> Result<Node, MerkleizationError> {
+            fn hash_tree_root(&mut self, _context: &Context) -> Result<Node, MerkleizationError> {
                 let mut root = vec![];
                 let _ = self.serialize(&mut root)?;
                 pack_bytes(&mut root);
@@ -102,7 +102,7 @@ impl Deserialize for U256 {
 }
 
 impl Merkleized for U256 {
-    fn hash_tree_root(&self, _context: &Context) -> Result<Node, MerkleizationError> {
+    fn hash_tree_root(&mut self, _context: &Context) -> Result<Node, MerkleizationError> {
         Ok(Node::from_bytes(self.0))
     }
 }
