@@ -1,5 +1,5 @@
 use crate::de::{Deserialize, DeserializeError};
-use crate::merkleization::{mix_in_selector, Context, MerkleizationError, Merkleized, Node};
+use crate::merkleization::{mix_in_selector, MerkleizationError, Merkleized, Node};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 
@@ -59,10 +59,10 @@ impl<T> Merkleized for Option<T>
 where
     T: SimpleSerialize,
 {
-    fn hash_tree_root(&mut self, context: &Context) -> Result<Node, MerkleizationError> {
+    fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         match self {
-            Some(value) => Ok(mix_in_selector(&value.hash_tree_root(context)?, 1, context)),
-            None => Ok(mix_in_selector(&Node::default(), 0, context)),
+            Some(value) => Ok(mix_in_selector(&value.hash_tree_root()?, 1)),
+            None => Ok(mix_in_selector(&Node::default(), 0)),
         }
     }
 }

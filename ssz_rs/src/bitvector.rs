@@ -1,5 +1,5 @@
 use crate::de::{Deserialize, DeserializeError};
-use crate::merkleization::{merkleize, pack_bytes, Context, MerkleizationError, Merkleized, Node};
+use crate::merkleization::{merkleize, pack_bytes, MerkleizationError, Merkleized, Node};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 use bitvec::field::BitField;
@@ -140,9 +140,9 @@ impl<const N: usize> Deserialize for Bitvector<N> {
 }
 
 impl<const N: usize> Merkleized for Bitvector<N> {
-    fn hash_tree_root(&mut self, context: &Context) -> Result<Node, MerkleizationError> {
+    fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         let chunks = self.pack_bits()?;
-        merkleize(&chunks, Some((N + 255) / 256), context)
+        merkleize(&chunks, Some((N + 255) / 256))
     }
 }
 

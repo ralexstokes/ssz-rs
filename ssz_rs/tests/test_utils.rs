@@ -24,8 +24,7 @@ pub fn deserialize<T: SimpleSerialize>(encoding: &[u8]) -> T {
 }
 
 pub fn hash_tree_root<T: SimpleSerialize>(value: &mut T) -> Node {
-    let context = MerkleizationContext::new();
-    value.hash_tree_root(&context).expect("can compute root")
+    value.hash_tree_root().expect("can compute root")
 }
 
 // Return SSZ-encoded bytes from test file at `target_path`

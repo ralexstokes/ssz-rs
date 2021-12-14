@@ -1,6 +1,6 @@
 use crate::de::{Deserialize, DeserializeError};
 use crate::merkleization::{
-    merkleize, mix_in_length, pack_bytes, Context, MerkleizationError, Merkleized, Node,
+    merkleize, mix_in_length, pack_bytes, MerkleizationError, Merkleized, Node,
 };
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
@@ -154,10 +154,10 @@ impl<const N: usize> Deserialize for Bitlist<N> {
 }
 
 impl<const N: usize> Merkleized for Bitlist<N> {
-    fn hash_tree_root(&mut self, context: &Context) -> Result<Node, MerkleizationError> {
+    fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         let chunks = self.pack_bits()?;
-        let data_root = merkleize(&chunks, Some((N + 255) / 256), context)?;
-        Ok(mix_in_length(&data_root, self.len(), context))
+        let data_root = merkleize(&chunks, Some((N + 255) / 256))?;
+        Ok(mix_in_length(&data_root, self.len()))
     }
 }
 
