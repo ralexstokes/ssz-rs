@@ -1,6 +1,6 @@
 use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
 use crate::merkleization::{
-    merkleize, pack, Context, MerkleCache, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
+    merkleize, pack, MerkleCache, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
@@ -189,18 +189,18 @@ where
         }
     }
 
-    fn compute_hash_tree_root(&mut self, context: &Context) -> Result<Node, MerkleizationError> {
+    fn compute_hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         if T::is_composite_type() {
             let mut chunks = vec![0u8; self.len() * BYTES_PER_CHUNK];
             for (i, elem) in self.data.iter_mut().enumerate() {
-                let chunk = elem.hash_tree_root(context)?;
+                let chunk = elem.hash_tree_root()?;
                 let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
                 chunks[range].copy_from_slice(chunk.as_ref());
             }
-            merkleize(&chunks, None, context)
+            merkleize(&chunks, None)
         } else {
             let chunks = pack(&self.data)?;
-            merkleize(&chunks, None, context)
+            merkleize(&chunks, None)
         }
     }
 }
@@ -209,12 +209,12 @@ impl<T, const N: usize> Merkleized for Vector<T, N>
 where
     T: SimpleSerialize,
 {
-    fn hash_tree_root(&mut self, context: &Context) -> Result<Node, MerkleizationError> {
+    fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         if !self.cache.valid() {
             // which leaves are dirty
             // figure out which elements are needed and recompute leaves
             // update cache w/ new leaves
-            let root = self.compute_hash_tree_root(context)?;
+            let root = self.compute_hash_tree_root()?;
             self.cache.update(root);
         }
         Ok(self.cache.root())

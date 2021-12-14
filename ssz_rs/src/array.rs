@@ -5,7 +5,7 @@
 //! can likely be simplified to a definition over `const N: usize`.
 use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
 use crate::merkleization::{
-    merkleize, pack, Context, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
+    merkleize, pack, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
@@ -66,18 +66,18 @@ macro_rules! define_ssz_for_array_of_size {
         where
             T: SimpleSerialize,
         {
-            fn hash_tree_root(&mut self, context: &Context) -> Result<Node, MerkleizationError> {
+            fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
                 if T::is_composite_type() {
                     let mut chunks = vec![0u8; self.len() * BYTES_PER_CHUNK];
                     for (i, elem) in self.iter_mut().enumerate() {
-                        let chunk = elem.hash_tree_root(context)?;
+                        let chunk = elem.hash_tree_root()?;
                         let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
                         chunks[range].copy_from_slice(chunk.as_ref());
                     }
-                    merkleize(&chunks, None, context)
+                    merkleize(&chunks, None)
                 } else {
                     let chunks = pack(self)?;
-                    merkleize(&chunks, None, context)
+                    merkleize(&chunks, None)
                 }
             }
         }

@@ -1,6 +1,6 @@
 use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
 use crate::merkleization::{
-    merkleize, mix_in_length, pack, Context, MerkleCache, MerkleizationError, Merkleized, Node,
+    merkleize, mix_in_length, pack, MerkleCache, MerkleizationError, Merkleized, Node,
     BYTES_PER_CHUNK,
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
@@ -173,21 +173,21 @@ where
         }
     }
 
-    fn compute_hash_tree_root(&mut self, context: &Context) -> Result<Node, MerkleizationError> {
+    fn compute_hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         if T::is_composite_type() {
             let mut chunks = Vec::with_capacity(self.len() * BYTES_PER_CHUNK);
             for (i, elem) in self.data.iter_mut().enumerate() {
-                let chunk = elem.hash_tree_root(context)?;
+                let chunk = elem.hash_tree_root()?;
                 let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
                 chunks[range].copy_from_slice(chunk.as_ref());
             }
-            let data_root = merkleize(&chunks, Some(N), context)?;
-            Ok(mix_in_length(&data_root, self.len(), context))
+            let data_root = merkleize(&chunks, Some(N))?;
+            Ok(mix_in_length(&data_root, self.len()))
         } else {
             let chunks = pack(self)?;
             let chunk_count = (N * T::size_hint() + 31) / 32;
-            let data_root = merkleize(&chunks, Some(chunk_count), context)?;
-            Ok(mix_in_length(&data_root, self.len(), context))
+            let data_root = merkleize(&chunks, Some(chunk_count))?;
+            Ok(mix_in_length(&data_root, self.len()))
         }
     }
 
@@ -207,8 +207,8 @@ impl<T, const N: usize> Merkleized for List<T, N>
 where
     T: SimpleSerialize,
 {
-    fn hash_tree_root(&mut self, context: &Context) -> Result<Node, MerkleizationError> {
-        self.compute_hash_tree_root(context)
+    fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+        self.compute_hash_tree_root()
     }
 }
 
