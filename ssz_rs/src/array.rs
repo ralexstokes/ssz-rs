@@ -82,14 +82,7 @@ macro_rules! define_ssz_for_array_of_size {
             }
         }
 
-        impl<T> SimpleSerialize for [T; $n]
-        where
-            T: SimpleSerialize,
-        {
-            fn is_composite_type() -> bool {
-                T::is_composite_type()
-            }
-        }
+        impl<T> SimpleSerialize for [T; $n] where T: SimpleSerialize {}
     };
 }
 
