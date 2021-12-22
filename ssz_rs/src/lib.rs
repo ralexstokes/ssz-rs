@@ -11,12 +11,15 @@ mod uint;
 mod union;
 mod vector;
 
+use crate::list::Error as ListError;
+use crate::vector::Error as VectorError;
 pub use bitlist::Bitlist;
 pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};
 pub use list::List;
 pub use merkleization::{Context as MerkleizationContext, MerkleizationError, Merkleized, Node};
 pub use ser::{Serialize, SerializeError};
+use thiserror::Error;
 pub use uint::U256;
 pub use vector::Vector;
 
@@ -59,19 +62,19 @@ where
     T::deserialize(encoding)
 }
 
+#[derive(Debug, Error)]
+#[error("{0}")]
+pub enum SimpleSerializeError {
+    Serialize(#[from] SerializeError),
+    Deserialize(#[from] DeserializeError),
+    Merkleization(#[from] MerkleizationError),
+    List(#[from] ListError),
+    Vector(#[from] VectorError),
+}
+
 /// The `prelude` contains common traits and types a user of this library
 /// would want to have handy with a simple (single) import.
 pub mod prelude {
-
-    use thiserror::Error;
-    #[derive(Debug, Error)]
-    #[error("{0}")]
-    pub enum SimpleSerializeError {
-        Serialize(#[from] SerializeError),
-        Deserialize(#[from] DeserializeError),
-        Merkleization(#[from] MerkleizationError),
-    }
-
     pub use crate as ssz_rs;
     pub use crate::bitlist::Bitlist;
     pub use crate::bitvector::Bitvector;
@@ -87,6 +90,7 @@ pub mod prelude {
     pub use crate::vector::Vector;
     pub use crate::MerkleizationContext;
     pub use crate::SimpleSerialize;
+    pub use crate::SimpleSerializeError;
     pub use crate::Sized;
     pub use crate::{deserialize, serialize};
     pub use ssz_rs_derive::SimpleSerialize;

@@ -4,7 +4,7 @@ use crate::merkleization::{
     BYTES_PER_CHUNK,
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
-use crate::{SimpleSerialize, Sized};
+use crate::{SimpleSerialize, SimpleSerializeError, Sized};
 use std::fmt;
 use std::iter::FromIterator;
 use std::ops::{Deref, Index, IndexMut};
@@ -48,14 +48,14 @@ impl<T, const N: usize> TryFrom<Vec<T>> for List<T, N>
 where
     T: SimpleSerialize,
 {
-    type Error = Error;
+    type Error = SimpleSerializeError;
 
     fn try_from(data: Vec<T>) -> Result<Self, Self::Error> {
         if data.len() > N {
-            Err(Error::IncorrectLength {
+            Err(SimpleSerializeError::List(Error::IncorrectLength {
                 expected: N,
                 provided: data.len(),
-            })
+            }))
         } else {
             let leaf_count = Self::get_leaf_count(data.len());
             Ok(Self {

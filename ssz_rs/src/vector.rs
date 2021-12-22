@@ -3,7 +3,7 @@ use crate::merkleization::{
     merkleize, pack, MerkleCache, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
-use crate::{SimpleSerialize, Sized};
+use crate::{SimpleSerialize, SimpleSerializeError, Sized};
 use std::convert::TryFrom;
 use std::fmt;
 use std::iter::FromIterator;
@@ -34,14 +34,14 @@ impl<T: SimpleSerialize + PartialEq, const N: usize> PartialEq for Vector<T, N> 
 impl<T: SimpleSerialize + Eq, const N: usize> Eq for Vector<T, N> {}
 
 impl<T: SimpleSerialize, const N: usize> TryFrom<Vec<T>> for Vector<T, N> {
-    type Error = Error;
+    type Error = SimpleSerializeError;
 
     fn try_from(data: Vec<T>) -> Result<Self, Self::Error> {
         if data.len() != N {
-            Err(Error::IncorrectLength {
+            Err(SimpleSerializeError::Vector(Error::IncorrectLength {
                 expected: N,
                 provided: data.len(),
-            })
+            }))
         } else {
             let leaf_count = Self::get_leaf_count();
             Ok(Self {
@@ -155,13 +155,14 @@ where
         }
         let data = deserialize_homogeneous_composite(encoding)?;
         data.try_into().map_err(|err| match err {
-            Error::IncorrectLength { expected, provided } => {
+            SimpleSerializeError::Vector(Error::IncorrectLength { expected, provided }) => {
                 if expected < provided {
                     DeserializeError::ExtraInput
                 } else {
                     DeserializeError::InputTooShort
                 }
             }
+            _ => unreachable!("variants not returned from `try_into`"),
         })
     }
 }
