@@ -11,6 +11,7 @@ use std::ops::Index;
 use thiserror::Error;
 
 pub use cache::Cache as MerkleCache;
+pub use cache::CacheWithLimit as MerkleCacheWithLimit;
 pub use node::Node;
 pub use proofs::is_valid_merkle_branch;
 
@@ -113,7 +114,7 @@ impl Index<usize> for Context {
 }
 
 lazy_static! {
-    static ref CONTEXT: Context = Context::new();
+    pub(crate) static ref CONTEXT: Context = Context::new();
 }
 
 // Return the root of the Merklization of a binary tree formed from `chunks`.

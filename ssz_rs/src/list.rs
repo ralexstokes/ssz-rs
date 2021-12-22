@@ -1,6 +1,6 @@
 use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
 use crate::merkleization::{
-    merkleize, mix_in_length, pack, MerkleCache, MerkleizationError, Merkleized, Node,
+    merkleize, mix_in_length, pack, MerkleCacheWithLimit, MerkleizationError, Merkleized, Node,
     BYTES_PER_CHUNK,
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
@@ -15,13 +15,15 @@ use thiserror::Error;
 pub enum Error {
     #[error("{provided} elements given that exceeds the list bound of {expected}")]
     IncorrectLength { expected: usize, provided: usize },
+    #[error("{0}")]
+    MerkleizationError(#[from] MerkleizationError),
 }
 
 /// A homogenous collection of a variable number of values.
 #[derive(Clone, Default)]
 pub struct List<T: SimpleSerialize, const N: usize> {
     data: Vec<T>,
-    cache: MerkleCache,
+    cache: MerkleCacheWithLimit,
 }
 
 impl<T, const N: usize> fmt::Debug for List<T, N>
@@ -58,9 +60,10 @@ where
             }))
         } else {
             let leaf_count = Self::get_leaf_count(data.len());
+            let leaf_limit = Self::get_leaf_limit();
             Ok(Self {
                 data,
-                cache: MerkleCache::with_leaves(leaf_count),
+                cache: MerkleCacheWithLimit::new(leaf_count, leaf_limit)?,
             })
         }
     }
@@ -173,7 +176,15 @@ where
         }
     }
 
-    fn compute_hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+    fn get_leaf_limit() -> usize {
+        if T::is_composite_type() {
+            N
+        } else {
+            (N * T::size_hint() + 31) / 32
+        }
+    }
+
+    fn get_chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
         if T::is_composite_type() {
             let mut chunks = Vec::with_capacity(self.len() * BYTES_PER_CHUNK);
             for (i, elem) in self.data.iter_mut().enumerate() {
@@ -181,24 +192,27 @@ where
                 let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
                 chunks[range].copy_from_slice(chunk.as_ref());
             }
-            let data_root = merkleize(&chunks, Some(N))?;
-            Ok(mix_in_length(&data_root, self.len()))
+            Ok(chunks)
         } else {
-            let chunks = pack(self)?;
-            let chunk_count = (N * T::size_hint() + 31) / 32;
-            let data_root = merkleize(&chunks, Some(chunk_count))?;
-            Ok(mix_in_length(&data_root, self.len()))
+            pack(self)
         }
+    }
+
+    fn compute_hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+        let leaf_limit = Self::get_leaf_limit();
+        let chunks = self.get_chunks()?;
+        let data_root = merkleize(&chunks, Some(leaf_limit))?;
+        Ok(mix_in_length(&data_root, self.len()))
     }
 
     pub fn push(&mut self, element: T) {
         self.data.push(element);
-        self.cache.resize(self.len());
+        self.cache.resize(self.data.len());
     }
 
     pub fn pop(&mut self) -> Option<T> {
         let element = self.data.pop();
-        self.cache.resize(self.len());
+        self.cache.resize(self.data.len());
         element
     }
 }
