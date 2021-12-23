@@ -103,8 +103,8 @@ where
     T: SimpleSerialize,
 {
     fn index_mut(&mut self, index: usize) -> &mut Self::Output {
-        let leaf_index = self.get_leaf_index(index);
-        self.cache.invalidate(leaf_index);
+        // let leaf_index = self.get_leaf_index(index);
+        // self.cache.invalidate(leaf_index);
         &mut self.data[index]
     }
 }
