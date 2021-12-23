@@ -218,7 +218,7 @@ where
                 BYTES_PER_CHUNK
             );
 
-            let mut buffer = vec![0u8; BYTES_PER_CHUNK];
+            let mut buffer = Vec::with_capacity(BYTES_PER_CHUNK);
             for i in element_start..element_end {
                 data[i].serialize(&mut buffer)?;
             }
@@ -268,6 +268,7 @@ mod tests {
     use super::*;
     use crate::list::List;
     use crate::serialize;
+    use crate::U256;
 
     const COUNT: usize = 32;
 
@@ -352,5 +353,26 @@ mod tests {
         let _ = input.serialize(&mut buffer).expect("can serialize");
         let recovered = Vector::<List<u8, 1>, COUNT>::deserialize(&buffer).expect("can decode");
         assert_eq!(input, recovered);
+    }
+
+    #[test]
+    fn test_vector_hash_tree_root() {
+        let mut data = Vector::<U256, 4>::default();
+        let root = data.hash_tree_root().expect("can find root");
+
+        let expected_root =
+            hex::decode("db56114e00fdd4c1f85c892bf35ac9a89289aaecb1ebd0a96cde606a748b5d71")
+                .expect("is hex");
+        assert_eq!(root.as_bytes(), &expected_root);
+
+        let root = data.hash_tree_root().expect("can find root");
+        assert_eq!(root.as_bytes(), &expected_root);
+
+        data[3] = U256([13u8; 32]);
+        let expected_root =
+            hex::decode("722b4901a0c4b92192dad232c88bf84bf06d0c7ca77be4cf64e4fcef56dcba64")
+                .expect("is hex");
+        let root = data.hash_tree_root().expect("can find root");
+        assert_eq!(root.as_bytes(), &expected_root);
     }
 }

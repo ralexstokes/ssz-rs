@@ -25,7 +25,8 @@ impl TreeNode {
     fn as_mut_bytes(&mut self) -> &mut [u8] {
         match self {
             TreeNode::Zero(_) => {
-                unreachable!("this variant does not have children so cannot be a parent")
+                *self = TreeNode::Data(Node::default());
+                self.as_mut_bytes()
             }
             TreeNode::Data(node) => &mut node.0,
         }
@@ -68,14 +69,7 @@ pub struct Cache {
 }
 
 fn compute_tree_size(chunk_count: usize, leaf_count: usize) -> usize {
-    let materialized_leaves = if chunk_count % 2 == 0 {
-        chunk_count
-    } else {
-        chunk_count + 1
-    };
-    let zero_leaves = leaf_count - chunk_count;
-    let chunk_count = 2 * leaf_count - 1;
-    BYTES_PER_CHUNK * chunk_count
+    2 * leaf_count - 1
 }
 
 // NOTE: we skip storing the "extra" node in the tree backing at tree index 0
@@ -85,24 +79,20 @@ fn storage_index_from(generalized_index: GeneralizedIndex) -> usize {
 
 fn update_branch(hasher: &mut Sha256, tree: &mut Vec<TreeNode>, mut focus: GeneralizedIndex) {
     while focus != 1 {
-        let (left, right) = if focus % 2 == 0 {
-            let left_index = storage_index_from(focus);
-            let left = &tree[left_index];
-            let sibling = focus ^ 1;
-            let right_index = storage_index_from(sibling);
-            let right = &tree[right_index];
-            (left, right)
+        let split_index = if focus % 2 == 0 {
+            storage_index_from(focus)
         } else {
-            let right_index = storage_index_from(focus);
-            let right = &tree[right_index];
-            let sibling = focus ^ 1;
-            let left_index = storage_index_from(sibling);
-            let left = &tree[left_index];
-            (left, right)
+            storage_index_from(focus ^ 1)
         };
+        let (first, rest) = tree.split_at_mut(split_index);
+
+        let left = &rest[0];
+        let right = &rest[1];
+
         focus = focus / 2;
         let parent_index = storage_index_from(focus);
-        let parent = &mut tree[parent_index];
+        let parent = &mut first[parent_index];
+
         hash_nodes(
             hasher,
             left.as_bytes(),
@@ -125,7 +115,7 @@ impl Cache {
         let tree_size = compute_tree_size(chunk_count, leaf_count);
         Self {
             dirty_chunks: bitvec![1; chunk_count],
-            chunks_start: 0,
+            chunks_start: leaf_count,
             tree: vec![TreeNode::default(); tree_size],
             hasher: Sha256::new(),
         }
@@ -140,7 +130,6 @@ impl Cache {
         C: FnMut(usize) -> Result<Node, MerkleizationError>,
     {
         for chunk_index in self.dirty_chunks.iter_ones() {
-            // update chunk
             let chunk = chunk_provider(chunk_index)?;
             let generalized_index = self.generalized_index_for(chunk_index);
             let storage_index = storage_index_from(generalized_index);
@@ -159,7 +148,7 @@ impl Cache {
         // !(has_dirty_chunks || did_resize)
 
         // TODO: compute actual validity
-        true
+        self.dirty_chunks.any()
     }
 
     pub fn invalidate(&mut self, chunk_index: usize) {
