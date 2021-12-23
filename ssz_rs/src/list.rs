@@ -201,6 +201,11 @@ where
         self.cache.resize(self.len());
         element
     }
+
+    pub fn clear(&mut self) {
+        self.data.clear();
+        self.cache.resize(0);
+    }
 }
 
 impl<T, const N: usize> Merkleized for List<T, N>
