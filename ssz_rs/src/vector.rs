@@ -214,17 +214,16 @@ where
         } else {
             let chunk_span = chunk_index * BYTES_PER_CHUNK..(chunk_index + 1) * BYTES_PER_CHUNK;
             let element_start = chunk_span.start / T::size_hint();
-            let element_end = chunk_span.end / T::size_hint();
+            let element_end = usize::min(data.len(), chunk_span.end / T::size_hint());
 
-            debug_assert_eq!(
-                (element_end - element_start) * T::size_hint(),
-                BYTES_PER_CHUNK
-            );
+            debug_assert!(((element_end - element_start) * T::size_hint()) <= BYTES_PER_CHUNK);
 
             let mut buffer = Vec::with_capacity(BYTES_PER_CHUNK);
             for i in element_start..element_end {
                 data[i].serialize(&mut buffer)?;
             }
+            buffer.resize(BYTES_PER_CHUNK, 0u8);
+
             let node = Node::from_bytes(buffer.try_into().expect("correct size"));
             Ok(node)
         }
