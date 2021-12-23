@@ -57,7 +57,11 @@ where
     T: SimpleSerialize + fmt::Debug,
 {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        write!(f, "Vector<{}>{:?}", N, self.data)
+        if f.alternate() {
+            write!(f, "Vector<{}>{:#?}({:#?})", N, self.data, self.cache)
+        } else {
+            write!(f, "Vector<{}>{:?}", N, self.data)
+        }
     }
 }
 
