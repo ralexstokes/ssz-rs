@@ -189,8 +189,7 @@ where
         if T::is_composite_type() {
             index
         } else {
-            let element_size = T::size_hint();
-            ((index * element_size) + BYTES_PER_CHUNK - 1) / BYTES_PER_CHUNK
+            (index * T::size_hint()) / BYTES_PER_CHUNK
         }
     }
 
