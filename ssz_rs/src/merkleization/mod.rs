@@ -11,6 +11,7 @@ use std::ops::Index;
 use thiserror::Error;
 
 pub use cache::Cache as MerkleCache;
+pub use cache::CacheWithLimit as MerkleCacheWithLimit;
 pub use node::Node;
 pub use proofs::is_valid_merkle_branch;
 
@@ -39,8 +40,7 @@ pub fn pack_bytes(buffer: &mut Vec<u8>) {
     let data_len = buffer.len();
     if data_len % BYTES_PER_CHUNK != 0 {
         let bytes_to_pad = BYTES_PER_CHUNK - data_len % BYTES_PER_CHUNK;
-        let pad = vec![0u8; bytes_to_pad];
-        buffer.extend_from_slice(&pad);
+        buffer.resize(buffer.len() + bytes_to_pad, 0u8);
     }
 }
 
@@ -113,7 +113,7 @@ impl Index<usize> for Context {
 }
 
 lazy_static! {
-    static ref CONTEXT: Context = Context::new();
+    pub(crate) static ref CONTEXT: Context = Context::new();
 }
 
 // Return the root of the Merklization of a binary tree formed from `chunks`.

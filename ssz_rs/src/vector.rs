@@ -43,10 +43,10 @@ impl<T: SimpleSerialize, const N: usize> TryFrom<Vec<T>> for Vector<T, N> {
                 provided: data.len(),
             }))
         } else {
-            let leaf_count = Self::get_leaf_count();
+            let chunk_count = Self::get_leaf_chunks();
             Ok(Self {
                 data,
-                cache: MerkleCache::with_leaves(leaf_count),
+                cache: MerkleCache::with_chunks(chunk_count),
             })
         }
     }
@@ -57,7 +57,11 @@ where
     T: SimpleSerialize + fmt::Debug,
 {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        write!(f, "Vector<{}>{:?}", N, self.data)
+        if f.alternate() {
+            write!(f, "Vector<{}>{:#?}({:#?})", N, self.data, self.cache)
+        } else {
+            write!(f, "Vector<{}>{:?}", N, self.data)
+        }
     }
 }
 
@@ -105,8 +109,8 @@ where
     T: SimpleSerialize,
 {
     fn index_mut(&mut self, index: usize) -> &mut Self::Output {
-        let leaf_index = self.get_leaf_index(index);
-        self.cache.invalidate(leaf_index);
+        let chunk_index = Self::chunk_index_for(index);
+        self.cache.invalidate(chunk_index);
         &mut self.data[index]
     }
 }
@@ -171,37 +175,57 @@ impl<T, const N: usize> Vector<T, N>
 where
     T: SimpleSerialize,
 {
-    // the number of leafs in the Merkle tree of this `Vector`
-    fn get_leaf_count() -> usize {
+    // the number of leaf chunks in the Merkle tree of this `Vector`
+    fn get_leaf_chunks() -> usize {
         if T::is_composite_type() {
             N
         } else {
             let encoded_length = Self::size_hint();
-            (encoded_length + 31) / 32
+            (encoded_length + BYTES_PER_CHUNK - 1) / BYTES_PER_CHUNK
         }
     }
 
-    fn get_leaf_index(&self, index: usize) -> usize {
+    fn chunk_index_for(index: usize) -> usize {
         if T::is_composite_type() {
             index
         } else {
-            // TODO: compute correct leaf index
-            index + 1
+            (index * T::size_hint()) / BYTES_PER_CHUNK
         }
     }
 
     fn compute_hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
-        if T::is_composite_type() {
+        let chunks = if T::is_composite_type() {
             let mut chunks = vec![0u8; self.len() * BYTES_PER_CHUNK];
             for (i, elem) in self.data.iter_mut().enumerate() {
                 let chunk = elem.hash_tree_root()?;
                 let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
                 chunks[range].copy_from_slice(chunk.as_ref());
             }
-            merkleize(&chunks, None)
+            chunks
         } else {
-            let chunks = pack(&self.data)?;
-            merkleize(&chunks, None)
+            pack(&self.data)?
+        };
+        merkleize(&chunks, None)
+    }
+
+    fn chunk_at(data: &mut Vec<T>, chunk_index: usize) -> Result<Node, MerkleizationError> {
+        if T::is_composite_type() {
+            data[chunk_index].hash_tree_root()
+        } else {
+            let chunk_span = chunk_index * BYTES_PER_CHUNK..(chunk_index + 1) * BYTES_PER_CHUNK;
+            let element_start = chunk_span.start / T::size_hint();
+            let element_end = usize::min(data.len(), chunk_span.end / T::size_hint());
+
+            debug_assert!(((element_end - element_start) * T::size_hint()) <= BYTES_PER_CHUNK);
+
+            let mut buffer = Vec::with_capacity(BYTES_PER_CHUNK);
+            for i in element_start..element_end {
+                data[i].serialize(&mut buffer)?;
+            }
+            buffer.resize(BYTES_PER_CHUNK, 0u8);
+
+            let node = Node::from_bytes(buffer.try_into().expect("correct size"));
+            Ok(node)
         }
     }
 }
@@ -211,12 +235,9 @@ where
     T: SimpleSerialize,
 {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
-        if !self.cache.valid() {
-            // which leaves are dirty
-            // figure out which elements are needed and recompute leaves
-            // update cache w/ new leaves
-            let root = self.compute_hash_tree_root()?;
-            self.cache.update(root);
+        if self.cache.is_stale() {
+            self.cache
+                .update(|index| Self::chunk_at(&mut self.data, index))?;
         }
         Ok(self.cache.root())
     }
@@ -249,6 +270,7 @@ mod tests {
     use super::*;
     use crate::list::List;
     use crate::serialize;
+    use crate::U256;
 
     const COUNT: usize = 32;
 
@@ -333,5 +355,26 @@ mod tests {
         let _ = input.serialize(&mut buffer).expect("can serialize");
         let recovered = Vector::<List<u8, 1>, COUNT>::deserialize(&buffer).expect("can decode");
         assert_eq!(input, recovered);
+    }
+
+    #[test]
+    fn test_vector_hash_tree_root() {
+        let mut data = Vector::<U256, 4>::default();
+        let root = data.hash_tree_root().expect("can find root");
+
+        let expected_root =
+            hex::decode("db56114e00fdd4c1f85c892bf35ac9a89289aaecb1ebd0a96cde606a748b5d71")
+                .expect("is hex");
+        assert_eq!(root.as_bytes(), &expected_root);
+
+        let root = data.hash_tree_root().expect("can find root");
+        assert_eq!(root.as_bytes(), &expected_root);
+
+        data[3] = U256([13u8; 32]);
+        let expected_root =
+            hex::decode("722b4901a0c4b92192dad232c88bf84bf06d0c7ca77be4cf64e4fcef56dcba64")
+                .expect("is hex");
+        let root = data.hash_tree_root().expect("can find root");
+        assert_eq!(root.as_bytes(), &expected_root);
     }
 }
