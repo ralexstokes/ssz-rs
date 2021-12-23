@@ -40,8 +40,7 @@ pub fn pack_bytes(buffer: &mut Vec<u8>) {
     let data_len = buffer.len();
     if data_len % BYTES_PER_CHUNK != 0 {
         let bytes_to_pad = BYTES_PER_CHUNK - data_len % BYTES_PER_CHUNK;
-        let pad = vec![0u8; bytes_to_pad];
-        buffer.extend_from_slice(&pad);
+        buffer.resize(buffer.len() + bytes_to_pad, 0u8);
     }
 }
 
