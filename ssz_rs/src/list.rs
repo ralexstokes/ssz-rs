@@ -5,10 +5,10 @@ use crate::merkleization::{
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::{SimpleSerialize, SimpleSerializeError, Sized};
-use std::fmt;
-use std::iter::FromIterator;
+use std::iter::{Enumerate, FromIterator};
 use std::ops::{Deref, Index, IndexMut};
 use std::slice::SliceIndex;
+use std::{fmt, slice};
 use thiserror::Error;
 
 #[derive(Error, Debug)]
@@ -100,7 +100,7 @@ where
     T: SimpleSerialize,
 {
     fn index_mut(&mut self, index: usize) -> &mut Self::Output {
-        let leaf_index = self.get_leaf_index(index);
+        let leaf_index = Self::get_leaf_index(index);
         self.cache.invalidate(leaf_index);
         &mut self.data[index]
     }
@@ -164,7 +164,7 @@ where
         }
     }
 
-    fn get_leaf_index(&self, index: usize) -> usize {
+    fn get_leaf_index(index: usize) -> usize {
         if T::is_composite_type() {
             index
         } else {
@@ -205,6 +205,38 @@ where
     pub fn clear(&mut self) {
         self.data.clear();
         self.cache.resize(0);
+    }
+
+    pub fn iter_mut(&mut self) -> IterMut<'_, T, N> {
+        IterMut {
+            inner: self.data.iter_mut().enumerate(),
+            cache: &mut self.cache,
+        }
+    }
+}
+
+pub struct IterMut<'a, T, const N: usize>
+where
+    T: SimpleSerialize,
+{
+    inner: Enumerate<slice::IterMut<'a, T>>,
+    cache: &'a mut MerkleCache,
+}
+
+impl<'a, T, const N: usize> Iterator for IterMut<'a, T, N>
+where
+    T: SimpleSerialize,
+{
+    type Item = &'a mut T;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        if let Some((index, next)) = self.inner.next() {
+            let leaf_index = List::<T, N>::get_leaf_index(index);
+            self.cache.invalidate(leaf_index);
+            Some(next)
+        } else {
+            None
+        }
     }
 }
 
