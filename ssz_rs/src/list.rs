@@ -332,7 +332,6 @@ mod tests {
 
         let value = Foo::default();
         let encoding = ssz_rs::serialize(&value).unwrap();
-        dbg!(&encoding);
 
         let recovered: Foo = ssz_rs::deserialize(&encoding).unwrap();
         assert_eq!(value, recovered);
