@@ -47,6 +47,10 @@ fn deserialize_variable_homogeneous_composite<T>(
 where
     T: SimpleSerialize,
 {
+    if encoding.is_empty() {
+        return Ok(vec![]);
+    }
+
     let data_pointer = u32::deserialize(&encoding[..BYTES_PER_LENGTH_OFFSET])?;
     let data_pointer = data_pointer as usize;
     if encoding.len() < data_pointer {

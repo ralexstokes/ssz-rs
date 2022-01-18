@@ -324,4 +324,17 @@ mod tests {
         let recovered = List::<List<u8, 1>, COUNT>::deserialize(&buffer).expect("can decode");
         assert_eq!(input, recovered);
     }
+
+    #[test]
+    fn test_serde_of_nested_list() {
+        use crate::prelude::*;
+        type Foo = List<List<u8, 16>, 32>;
+
+        let value = Foo::default();
+        let encoding = ssz_rs::serialize(&value).unwrap();
+        dbg!(&encoding);
+
+        let recovered: Foo = ssz_rs::deserialize(&encoding).unwrap();
+        assert_eq!(value, recovered);
+    }
 }
