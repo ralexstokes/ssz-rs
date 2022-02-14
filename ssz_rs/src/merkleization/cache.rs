@@ -1,5 +1,5 @@
 use crate::merkleization::Node;
-use bitvec::prelude::{bitvec, BitVec};
+use bitvec::prelude::{bitvec, BitVec, Lsb0};
 
 #[derive(Default, Debug, Clone)]
 pub struct Cache {
@@ -12,7 +12,7 @@ impl Cache {
     pub fn with_leaves(leaf_count: usize) -> Self {
         Self {
             leaf_count,
-            dirty_leaves: bitvec![1; leaf_count],
+            dirty_leaves: bitvec![1,],
             ..Default::default()
         }
     }
