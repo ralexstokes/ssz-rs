@@ -1,5 +1,5 @@
 use crate::merkleization::Node;
-use bitvec::prelude::{bitvec, BitVec, Lsb0};
+use bitvec::prelude::{BitVec};
 
 #[derive(Default, Debug, Clone)]
 pub struct Cache {
@@ -10,9 +10,22 @@ pub struct Cache {
 
 impl Cache {
     pub fn with_leaves(leaf_count: usize) -> Self {
+        // ensure dirty_leaves is length of leaf_count
+        // and initialized to ones
+        let mut dirty_leaves = BitVec::new();
+        for _i in 0..leaf_count {
+            dirty_leaves.push(true);
+        }
+        // quick checks (panic if not equal)
+        // 1) is length ok?
+        // 2) all elems == 1?
+        assert_eq!(dirty_leaves.len(), leaf_count);
+        assert_eq!(leaf_count, dirty_leaves.count_ones());
+
+        // pass dirty_leaves to Self, return Self
         Self {
             leaf_count,
-            dirty_leaves: bitvec![1,],
+            dirty_leaves,
             ..Default::default()
         }
     }
