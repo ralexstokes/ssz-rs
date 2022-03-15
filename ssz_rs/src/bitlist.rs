@@ -4,7 +4,7 @@ use crate::merkleization::{
 };
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
-use bitvec::prelude::{BitVec, Lsb0};
+use bitvec::prelude::{BitSlice, BitVec, Lsb0};
 use std::fmt;
 use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
@@ -132,9 +132,23 @@ impl<const N: usize> Deserialize for Bitlist<N> {
         }
 
         let (last_byte, prefix) = encoding.split_last().unwrap();
-        let mut result = BitlistInner::from_slice(prefix).expect("can read slice");
-        let last = BitlistInner::from_element(*last_byte);
-        let high_bit_index = 8 - last.trailing_zeros();
+
+        let prefix_bit_slice = BitSlice::<Lsb0, _>::from_slice(prefix).unwrap();
+        let mut result = BitlistInner::from_bitslice(prefix_bit_slice);
+
+        let tmp_slice = &[*last_byte];
+        let last_bit_slice = BitSlice::<Lsb0, _>::from_slice(tmp_slice).unwrap();
+        let last = BitlistInner::from_bitslice(last_bit_slice);
+
+        let mut high_bit_index: usize = 0;
+        let mut counter = last.capacity();
+        for bit in last.iter().rev() {
+            if *bit.deref() == true {
+                high_bit_index = counter;
+                break
+            }
+            counter = counter - 1;
+        }
 
         if !last[high_bit_index - 1] {
             return Err(DeserializeError::InvalidInput);
