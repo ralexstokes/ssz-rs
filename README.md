@@ -1,6 +1,6 @@
 # Snowfork... fork
 
-The Snowfork fork of Alex Stoke's SSZ lib, mainly to pin the `bitvec` crate to a version compatible with the Substrate `bitvec` version (0.20.*).
+The Snowfork fork of Alex Stoke's SSZ lib, mainly to pin the `bitvec` crate to a version compatible with the Substrate `bitvec` version (`0.20.*`).
 
 # ssz_rs ✂️
 
