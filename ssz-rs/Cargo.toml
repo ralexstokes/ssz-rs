@@ -16,8 +16,13 @@ exclude = [
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [features]
-default = ["serde"]
+default = ["std", "serde"]
 serde = ["dep:serde", "dep:hex"]
+std = [
+    "bitvec/std",
+    "sha2/std",
+    "lazy_static/spin",
+]
 
 [dependencies]
 thiserror = "1.0.25"

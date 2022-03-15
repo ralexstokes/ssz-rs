@@ -1,3 +1,8 @@
+#![cfg_attr(not(feature = "std"), no_std)]
+
+#[cfg(not(feature = "std"))]
+extern crate alloc;
+
 mod array;
 mod bitlist;
 mod bitvector;
@@ -14,6 +19,7 @@ mod uint;
 mod union;
 mod utils;
 mod vector;
+mod std;
 
 pub use bitlist::Bitlist;
 pub use bitvector::Bitvector;
