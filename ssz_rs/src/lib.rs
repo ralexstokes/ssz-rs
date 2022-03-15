@@ -1,3 +1,8 @@
+#![cfg_attr(not(feature = "std"), no_std)]
+
+#[cfg(not(feature = "std"))]
+extern crate alloc;
+
 mod array;
 mod bitlist;
 mod bitvector;
@@ -10,6 +15,7 @@ mod ser;
 mod uint;
 mod union;
 mod vector;
+mod std;
 
 use crate::list::Error as ListError;
 use crate::vector::Error as VectorError;

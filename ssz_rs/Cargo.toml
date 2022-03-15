@@ -20,9 +20,18 @@ bitvec = "0.20.1"
 ssz_rs_derive = { path = "../ssz_rs_derive", version = "0.7.0" }
 sha2 = "0.9.8"
 lazy_static = "1.4.0"
+# funty = "=1.1.0"
 
 [dev-dependencies]
 hex-literal = "0.3.3"
 hex = "0.4.3"
 snap = "1.0"
 project-root = "0.2.2"
+
+[features]
+default = ["std"]
+std = [
+    "bitvec/std",
+    "sha2/std",
+    "lazy_static/spin",
+]
