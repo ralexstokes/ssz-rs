@@ -3,10 +3,9 @@ use crate::error::TypeError;
 use crate::merkleization::{merkleize, pack_bytes, MerkleizationError, Merkleized, Node};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
+use crate::std::{Vec, vec, Deref, DerefMut, fmt};
 use bitvec::field::BitField;
 use bitvec::prelude::{BitVec, Lsb0};
-use std::fmt;
-use std::ops::{Deref, DerefMut};
 
 fn byte_length(bound: usize) -> usize {
     (bound + 7) / 8
@@ -104,7 +103,7 @@ impl<const N: usize> Bitvector<N> {
 
     fn pack_bits(&self) -> Result<Vec<u8>, MerkleizationError> {
         let mut data = vec![];
-        let _ = self.serialize(&mut data)?;
+        let _ = self.serialize(&mut data).map_err(|_| MerkleizationError::SerializationError);
         pack_bytes(&mut data);
         Ok(data)
     }

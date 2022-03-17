@@ -21,6 +21,7 @@ mod utils;
 mod vector;
 mod std;
 
+pub use crate::std::{Vec, vec, Option};
 pub use bitlist::Bitlist;
 pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};
@@ -47,6 +48,37 @@ pub trait SimpleSerialize: Serialize + Deserialize + Sized + Merkleized + Defaul
     fn is_composite_type() -> bool {
         true
     }
+}
+
+/// `serialize` is a convenience function for taking a value that
+/// implements `SimpleSerialize` and attempting to encode it to
+/// a `Vec<u8>` according to the SSZ spec.
+pub fn serialize<T>(value: &T) -> Result<Vec<u8>, SerializeError>
+where
+    T: SimpleSerialize,
+{
+    let mut result = vec![];
+    value.serialize(&mut result)?;
+    Ok(result)
+}
+
+/// `deserialize` is a convenience function for taking an encoding
+/// for some value that implements `SimpleSerialize` in a `&[u8]`
+/// and attempting to deserialize that value from the byte representation.
+pub fn deserialize<T>(encoding: &[u8]) -> Result<T, DeserializeError>
+where
+    T: SimpleSerialize,
+{
+    T::deserialize(encoding)
+}
+
+#[derive(Debug)]
+pub enum SimpleSerializeError {
+    Serialize,
+    Deserialize,
+    Merkleization,
+    List,
+    Vector,
 }
 
 /// The `prelude` contains common traits and types a user of this library

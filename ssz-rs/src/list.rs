@@ -5,6 +5,10 @@ use crate::merkleization::{
     BYTES_PER_CHUNK,
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
+use crate::std::{
+    fmt, Deref, Enumerate, FromIterator, Index, IndexMut, IterMut as StdIterMut, SliceIndex, Vec,
+};
+use crate::{SimpleSerialize, Sized};
 use crate::{SimpleSerialize, Sized};
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
@@ -290,7 +294,7 @@ pub struct IterMut<'a, T, const N: usize>
 where
     T: SimpleSerialize,
 {
-    inner: Enumerate<slice::IterMut<'a, T>>,
+    inner: Enumerate<StdIterMut<'a, T>>,
     cache: &'a mut MerkleCache,
 }
 

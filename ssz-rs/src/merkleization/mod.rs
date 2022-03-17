@@ -2,13 +2,10 @@ mod cache;
 mod node;
 mod proofs;
 
-use crate::ser::{Serialize, SerializeError};
+use crate::ser::Serialize;
+use crate::std::{fmt, fmt::Debug, vec, Index, Option, Ordering, Vec};
 use lazy_static::lazy_static;
 use sha2::{Digest, Sha256};
-use std::cmp::Ordering;
-use std::fmt::Debug;
-use std::ops::Index;
-use thiserror::Error;
 
 pub use cache::Cache as MerkleCache;
 pub use node::Node;
@@ -21,11 +18,11 @@ pub trait Merkleized {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError>;
 }
 
-#[derive(Error, Debug)]
+#[derive(Debug)]
 pub enum MerkleizationError {
-    #[error("failed to serialize value: {0}")]
-    SerializationError(#[from] SerializeError),
-    #[error("cannot merkleize data that exceeds the declared limit {0}")]
+    // #[error("failed to serialize value: {0}")]
+    SerializationError(/*#[from]*/ SerializeError),
+    // #[error("cannot merkleize data that exceeds the declared limit {0}")]
     InputExceedsLimit(usize),
 }
 
@@ -46,7 +43,9 @@ where
 {
     let mut buffer = vec![];
     for value in values {
-        value.serialize(&mut buffer)?;
+        value
+            .serialize(&mut buffer)
+            .map_err(|_| MerkleizationError::SerializationError)?;
     }
     pack_bytes(&mut buffer);
     Ok(buffer)

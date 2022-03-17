@@ -1,20 +1,20 @@
 use crate::error::{InstanceError, TypeError};
 use crate::ser::BYTES_PER_LENGTH_OFFSET;
+use crate::std::{vec, Vec};
 use crate::SimpleSerialize;
-use thiserror::Error;
 
-#[derive(Error, Debug)]
+#[derive(Debug)]
 pub enum DeserializeError {
-    #[error("expected at least {expected} bytes when decoding but provided only {provided} bytes")]
+    // #[error("expected at least {expected} bytes when decoding but provided only {provided} bytes")]
     ExpectedFurtherInput { provided: usize, expected: usize },
-    #[error("{provided} bytes given but only expected {expected} bytes")]
+    // #[error("{provided} bytes given but only expected {expected} bytes")]
     AdditionalInput { provided: usize, expected: usize },
-    #[error("invalid byte {0:x} when decoding data of the expected type")]
+    // #[error("invalid byte {0:x} when decoding data of the expected type")]
     InvalidByte(u8),
-    #[error("invalid instance: {0}")]
-    InvalidInstance(#[from] InstanceError),
-    #[error("invalid type: {0}")]
-    InvalidType(#[from] TypeError),
+    // #[error("invalid instance: {0}")]
+    InvalidInstance(InstanceError),
+    // #[error("invalid type: {0}")]
+    InvalidType(TypeError),
 }
 
 pub trait Deserialize {
