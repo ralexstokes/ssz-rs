@@ -4,21 +4,29 @@ name: Build and Test
 
 jobs:
   build_and_test:
-    name: Snowfork ssz rs
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        name: Checkout
+
       - uses: actions-rs/toolchain@v1
+        name: Checkout stable toolchain
         with:
           toolchain: stable
+
       - uses: actions-rs/cargo@v1
+        name: Build std
         with:
           command: build
           args: --release
+
       - uses: actions-rs/cargo@v1
+        name: Build no-std
         with:
           command: build
           args: --release --no-default-features
+
       - uses: actions-rs/cargo@v1
+        name: Tests
         with:
           command: test
