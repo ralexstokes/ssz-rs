@@ -2,13 +2,13 @@ use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError
 use crate::merkleization::{
     merkleize, pack, MerkleCache, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
 };
-use crate::ser::{serialize_composite, Serialize, SerializeError};
-use crate::{SimpleSerialize, Sized};
+use crate::ser::{serialize_composite, Serialize};
+use crate::{SerializeError, SimpleSerialize, Sized};
 use crate::std::{Vec, vec, SliceIndex, IndexMut, Index, Deref, TryFrom, fmt};
 
 #[derive(Debug)]
 pub enum VectorError {
-    IncorrectLengthVector, // incorrect number of elements {provided} to make a Vector of length {expected}
+    IncorrectLength { expected: usize, provided: usize }, // incorrect number of elements {provided} to make a Vector of length {expected}
 }
 
 /// A homogenous collection of a fixed number of values.
@@ -32,7 +32,10 @@ impl<T: SimpleSerialize, const N: usize> TryFrom<Vec<T>> for Vector<T, N> {
 
     fn try_from(data: Vec<T>) -> Result<Self, Self::Error> {
         if data.len() != N {
-            Err(VectorError::IncorrectLengthVector)
+            Err(VectorError::IncorrectLength {
+                expected: N,
+                provided: data.len(),
+            })
         } else {
             let leaf_count = Self::get_leaf_count();
             Ok(Self {
@@ -145,7 +148,16 @@ where
             }
         }
         let data = deserialize_homogeneous_composite(encoding)?;
-        data.try_into().map_err(|_| DeserializeError::ExtraInput) // TODO fix error here
+        data.try_into().map_err(|err| match err {
+            VectorError::IncorrectLength { expected, provided } => {
+                if expected < provided {
+                    DeserializeError::ExtraInput
+                } else {
+                    DeserializeError::InputTooShort
+                }
+            }
+            _ => unreachable!("variants not returned from `try_into`"),
+        })
     }
 }
 

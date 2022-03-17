@@ -6,10 +6,10 @@ use crate::std::{Vec, vec};
 pub enum DeserializeError {
     InputTooShort, // unexpected additional data provided when decoding
     ExtraInput, // invalid data for expected type
-    InvalidInput,
+    InvalidInput, // invalid data for expected type
     IOError,
-    TypeBoundsViolated { bound: usize, len: usize },
-    IllegalType { bound: usize },
+    TypeBoundsViolated { bound: usize, len: usize }, // the type for this value has a bound of {bound} but the value has {len} elements
+    IllegalType { bound: usize }, // the type for this value has an illegal bound of {bound}
 }
 
 pub trait Deserialize {

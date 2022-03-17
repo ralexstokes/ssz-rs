@@ -7,9 +7,9 @@
 // copied, modified, or distributed except according to those terms.
 
 #[cfg(feature = "std")]
-pub use std::{ops::DerefMut, ops::Deref, ops::Index, ops::IndexMut, array::TryFromSliceError, slice::IterMut, vec, vec::Vec, error, option::Option, cmp::Ordering, convert::AsRef, convert::TryFrom, convert::TryInto, fmt, iter::FromIterator, iter::Enumerate, slice::SliceIndex, fmt::Debug, default::Default};
+pub use std::{array::TryFromSliceError, cmp::Ordering, convert::AsRef, convert::TryFrom, convert::TryInto, default::Default, fmt, fmt::Debug, iter::FromIterator, iter::Enumerate, ops::DerefMut, ops::Deref, ops::Index, ops::IndexMut, option::Option, slice::IterMut, slice::SliceIndex, vec, vec::Vec};
 
 #[cfg(not(feature = "std"))]
 pub use alloc::{vec, vec::Vec};
 #[cfg(not(feature = "std"))]
-pub use core::{ops::DerefMut, ops::Deref, ops::Index, ops::IndexMut, slice::SliceIndex, slice::IterMut, option::Option, array::TryFromSliceError, iter::FromIterator, iter::Enumerate, convert::TryFrom, convert::TryInto, convert::AsRef, fmt, fmt::Debug, cmp::Ordering, default::Default};
+pub use core::{array::TryFromSliceError, cmp::Ordering, convert::AsRef, convert::TryFrom, convert::TryInto, default::Default, fmt, fmt::Debug, iter::Enumerate, iter::FromIterator, ops::DerefMut, ops::Deref, ops::Index, ops::IndexMut, option::Option, slice::IterMut, slice::SliceIndex};

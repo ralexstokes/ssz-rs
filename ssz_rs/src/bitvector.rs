@@ -2,7 +2,7 @@ use crate::de::{Deserialize, DeserializeError};
 use crate::merkleization::{merkleize, pack_bytes, MerkleizationError, Merkleized, Node};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
-use crate::std::{Vec, vec, Deref, DerefMut, fmt};
+use crate::std::{Vec, vec, Deref, DerefMut, fmt, FromIterator};
 use bitvec::field::BitField;
 use bitvec::prelude::{BitVec, Lsb0};
 

@@ -4,7 +4,7 @@ use crate::merkleization::{
 };
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
-use crate::std::{Vec, vec, Deref, DerefMut, fmt};
+use crate::std::{Vec, vec, Deref, DerefMut, fmt, FromIterator};
 use bitvec::prelude::{BitSlice, BitVec, Lsb0};
 
 type BitlistInner = BitVec<Lsb0, u8>;

@@ -3,7 +3,7 @@ mod node;
 mod proofs;
 
 use crate::ser::{Serialize};
-use crate::std::{Index, Vec, vec, Option, fmt::Debug, Ordering, fmt};
+use crate::std::{Index, Vec, vec, Option, Debug, Ordering, fmt};
 use lazy_static::lazy_static;
 use sha2::{Digest, Sha256};
 
@@ -23,9 +23,9 @@ pub trait Merkleized {
 
 #[derive(Debug)]
 pub enum MerkleizationError {
-    SerializationError,
-    PartialChunk(Vec<u8>, usize),
-    InputExceedsLimit(usize),
+    SerializationError, // failed to serialize value
+    PartialChunk(Vec<u8>, usize), // cannot merkleize a partial chunk of length {1} (data: {0:?})
+    InputExceedsLimit(usize), // cannot merkleize data that exceeds the declared limit {0}
 }
 
 pub fn pack_bytes(buffer: &mut Vec<u8>) {
