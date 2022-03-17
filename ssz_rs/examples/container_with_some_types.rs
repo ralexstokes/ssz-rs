@@ -53,7 +53,7 @@ fn main() {
     let encoding = match serialize(&foo) {
         Ok(encoding) => encoding,
         Err(e) => {
-            eprintln!("some error encoding: {}", e);
+            eprintln!("some error encoding: {:?}", e);
             return;
         }
     };
@@ -61,7 +61,7 @@ fn main() {
     let mut restored_foo = match Foo::<4>::deserialize(&encoding) {
         Ok(value) => value,
         Err(e) => {
-            eprintln!("some error decoding: {}", e);
+            eprintln!("some error decoding: {:?}", e);
             return;
         }
     };

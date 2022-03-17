@@ -2,13 +2,10 @@ mod cache;
 mod node;
 mod proofs;
 
-use crate::ser::{Serialize, SerializeError};
+use crate::ser::{Serialize};
+use crate::std::{Index, Vec, vec, Option, fmt::Debug, Ordering, fmt};
 use lazy_static::lazy_static;
 use sha2::{Digest, Sha256};
-use std::cmp::Ordering;
-use std::fmt::Debug;
-use std::ops::Index;
-use thiserror::Error;
 
 pub use cache::Cache as MerkleCache;
 pub use node::Node;
@@ -24,14 +21,10 @@ pub trait Merkleized {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError>;
 }
 
-#[derive(Error, Debug)]
-#[error("the value could not be merkleized: {0}")]
+#[derive(Debug)]
 pub enum MerkleizationError {
-    #[error("failed to serialize value: {0}")]
-    SerializationError(#[from] SerializeError),
-    #[error("cannot merkleize a partial chunk of length {1} (data: {0:?})")]
+    SerializationError,
     PartialChunk(Vec<u8>, usize),
-    #[error("cannot merkleize data that exceeds the declared limit {0}")]
     InputExceedsLimit(usize),
 }
 
@@ -52,7 +45,7 @@ where
 {
     let mut buffer = vec![];
     for value in values {
-        value.serialize(&mut buffer)?;
+        value.serialize(&mut buffer).map_err(|_| MerkleizationError::SerializationError)?;
     }
     pack_bytes(&mut buffer);
     Ok(buffer)
@@ -97,7 +90,7 @@ impl Default for Context {
 }
 
 impl Debug for Context {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("Context")
             .field("zero_hashes", &"...")
             .finish()
