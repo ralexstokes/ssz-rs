@@ -1,6 +1,6 @@
 on: [push]
 
-name: Build and Test
+name: Rust
 
 jobs:
   build_and_test:
@@ -13,6 +13,8 @@ jobs:
         name: Checkout stable toolchain
         with:
           toolchain: stable
+
+      - uses: Swatinem/rust-cache@v1
 
       - uses: actions-rs/cargo@v1
         name: Build std
