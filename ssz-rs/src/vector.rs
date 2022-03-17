@@ -242,7 +242,6 @@ where
                     DeserializeError::InputTooShort
                 }
             }
-            _ => unreachable!("variants not returned from `try_into`"),
         })
 >>>>>>> 1b04857 (Cleanup and improvements.)
     }
