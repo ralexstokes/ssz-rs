@@ -2,8 +2,8 @@ mod cache;
 mod node;
 mod proofs;
 
-use crate::ser::Serialize;
-use crate::std::{fmt, fmt::Debug, vec, Index, Option, Ordering, Vec};
+use crate::ser::{Serialize, SerializeError};
+use crate::std::{fmt::Debug, vec, Index, Option, Ordering, Vec};
 use lazy_static::lazy_static;
 use sha2::{Digest, Sha256};
 

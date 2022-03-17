@@ -230,7 +230,21 @@ where
                 });
             }
         }
+<<<<<<< HEAD
         deserialize_homogeneous_composite(encoding)?.try_into()
+=======
+        let data = deserialize_homogeneous_composite(encoding)?;
+        data.try_into().map_err(|err| match err {
+            Error::IncorrectLength { expected, provided } => {
+                if expected < provided {
+                    DeserializeError::ExtraInput
+                } else {
+                    DeserializeError::InputTooShort
+                }
+            }
+            _ => unreachable!("variants not returned from `try_into`"),
+        })
+>>>>>>> 1b04857 (Cleanup and improvements.)
     }
 }
 

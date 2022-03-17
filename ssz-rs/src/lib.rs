@@ -21,7 +21,7 @@ mod utils;
 mod vector;
 mod std;
 
-pub use crate::std::{Vec, vec, Option};
+pub use crate::std::{Vec, vec};
 pub use bitlist::Bitlist;
 pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};

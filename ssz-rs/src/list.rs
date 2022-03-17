@@ -8,7 +8,9 @@ use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::std::{
     fmt, Deref, Enumerate, FromIterator, Index, IndexMut, IterMut as StdIterMut, SliceIndex, Vec,
 };
-use crate::{SimpleSerialize, Sized};
+use crate::std::{
+    fmt, Deref, Enumerate, FromIterator, Index, IndexMut, IterMut as StdIterMut, SliceIndex, Vec,
+};
 use crate::{SimpleSerialize, Sized};
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
