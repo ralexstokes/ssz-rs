@@ -2,7 +2,7 @@
 name = "ssz_rs_derive"
 version = "0.7.0"
 authors = ["Alex Stokes <r.alex.stokes@gmail.com>"]
-edition = "2021"
+edition = "2018"
 license = "MIT"
 description = "utility crate for deriving simple serialize implementations"
 repository = "https://github.com/ralexstokes/ssz_rs"
