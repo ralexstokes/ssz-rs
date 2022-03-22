@@ -17,17 +17,14 @@ mod union;
 mod vector;
 mod std;
 
-use crate::list::Error as ListError;
-use crate::vector::Error as VectorError;
+pub use crate::std::{Vec, vec};
 pub use bitlist::Bitlist;
 pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};
 pub use list::List;
 pub use merkleization::{Context as MerkleizationContext, MerkleizationError, Merkleized, Node};
 pub use ser::{Serialize, SerializeError};
-use thiserror::Error;
 pub use uint::U256;
-pub use vector::Vector;
 
 /// `Sized` is a trait for types that can
 /// provide sizing information relevant for the SSZ spec.
@@ -68,14 +65,13 @@ where
     T::deserialize(encoding)
 }
 
-#[derive(Debug, Error)]
-#[error("{0}")]
+#[derive(Debug)]
 pub enum SimpleSerializeError {
-    Serialize(#[from] SerializeError),
-    Deserialize(#[from] DeserializeError),
-    Merkleization(#[from] MerkleizationError),
-    List(#[from] ListError),
-    Vector(#[from] VectorError),
+    Serialize,
+    Deserialize,
+    Merkleization,
+    List,
+    Vector,
 }
 
 /// The `prelude` contains common traits and types a user of this library

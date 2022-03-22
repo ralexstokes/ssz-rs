@@ -2,6 +2,7 @@ use crate::de::{Deserialize, DeserializeError};
 use crate::merkleization::{mix_in_selector, MerkleizationError, Merkleized, Node};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
+use crate::std::Vec;
 
 /// `SimpleSerialize` is implemented for `Option` as a convenience
 /// when the schema is equivalent to one described by:
