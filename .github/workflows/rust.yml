@@ -32,3 +32,7 @@ jobs:
         name: Tests
         with:
           command: test
+
+      - uses: actions-rs/cargo@v1
+        name: Run clippy
+        run: cargo clippy --verbose -- -D warnings
