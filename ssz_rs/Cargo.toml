@@ -15,11 +15,11 @@ exclude = [
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-bitvec = "0.20.1"
+thiserror = "1.0.25"
+bitvec = "0.22.3"
 ssz_rs_derive = { path = "../ssz_rs_derive", version = "0.7.0" }
 sha2 = "0.9.8"
 lazy_static = "1.4.0"
-funty = "=1.1.0"
 
 [dev-dependencies]
 hex-literal = "0.3.3"
