@@ -16,7 +16,7 @@ exclude = [
 
 [dependencies]
 thiserror = "1.0.25"
-bitvec = "0.22.3"
+bitvec = "1.0.0"
 ssz_rs_derive = { path = "../ssz_rs_derive", version = "0.7.0" }
 sha2 = "0.9.8"
 lazy_static = "1.4.0"

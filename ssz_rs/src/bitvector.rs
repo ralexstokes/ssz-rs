@@ -8,7 +8,7 @@ use std::fmt;
 use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
 
-type BitvectorInner = BitVec<Lsb0, u8>;
+type BitvectorInner = BitVec<u8, Lsb0>;
 
 /// A homogenous collection of a fixed number of boolean values.
 ///

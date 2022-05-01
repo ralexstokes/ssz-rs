@@ -9,7 +9,7 @@ use std::fmt;
 use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
 
-type BitlistInner = BitVec<Lsb0, u8>;
+type BitlistInner = BitVec<u8, Lsb0>;
 
 /// A homogenous collection of a variable number of boolean values.
 #[derive(PartialEq, Eq, Clone)]
@@ -132,7 +132,7 @@ impl<const N: usize> Deserialize for Bitlist<N> {
         }
 
         let (last_byte, prefix) = encoding.split_last().unwrap();
-        let mut result = BitlistInner::from_slice(prefix).expect("can read slice");
+        let mut result = BitlistInner::from_slice(prefix);
         let last = BitlistInner::from_element(*last_byte);
         let high_bit_index = 8 - last.trailing_zeros();
 
