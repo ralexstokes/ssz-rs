@@ -20,8 +20,11 @@ pub enum Error {
 /// A homogenous collection of a fixed number of values.
 /// NOTE: a `Vector` of length `0` is illegal.
 #[derive(Clone)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Vector<T: SimpleSerialize, const N: usize> {
     data: Vec<T>,
+
+    #[serde(skip)]
     cache: MerkleCache,
 }
 

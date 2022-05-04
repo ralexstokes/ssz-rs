@@ -19,8 +19,11 @@ pub enum Error {
 
 /// A homogenous collection of a variable number of values.
 #[derive(Clone, Default)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct List<T: SimpleSerialize, const N: usize> {
     data: Vec<T>,
+
+    #[serde(skip)]
     cache: MerkleCache,
 }
 
