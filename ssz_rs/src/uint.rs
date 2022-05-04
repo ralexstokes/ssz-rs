@@ -2,8 +2,6 @@ use crate::de::{Deserialize, DeserializeError};
 use crate::merkleization::{pack_bytes, MerkleizationError, Merkleized, Node};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
-#[cfg(feature = "serde")]
-use hex;
 use std::convert::TryInto;
 use std::default::Default;
 

@@ -1,5 +1,5 @@
 test:
-    cargo test
+    cargo test --all-features
 fmt:
     cargo fmt
 lint: fmt

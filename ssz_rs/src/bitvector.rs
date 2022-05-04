@@ -4,8 +4,6 @@ use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 use bitvec::field::BitField;
 use bitvec::prelude::{BitVec, Lsb0};
-#[cfg(feature = "serde")]
-use hex;
 use std::fmt;
 use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
@@ -30,7 +28,7 @@ impl<const N: usize> serde::Serialize for Bitvector<N> {
     where
         S: serde::Serializer,
     {
-        let mut buf = Vec::with_capacity(N + 7 / 8);
+        let mut buf = Vec::with_capacity((N + 7) / 8);
         let _ = crate::Serialize::serialize(self, &mut buf).map_err(serde::ser::Error::custom)?;
         serializer.collect_str(&hex::encode(buf))
     }
