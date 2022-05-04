@@ -4,10 +4,8 @@ use crate::merkleization::{
 };
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
-use bitvec::prelude::{BitVec, Lsb0};
-use std::fmt;
-use std::iter::FromIterator;
-use std::ops::{Deref, DerefMut};
+use crate::std::{Vec, vec, Deref, DerefMut, fmt, FromIterator};
+use bitvec::prelude::{BitSlice, BitVec, Lsb0};
 
 type BitlistInner = BitVec<u8, Lsb0>;
 
@@ -57,7 +55,7 @@ impl<const N: usize> Bitlist<N> {
 
     fn pack_bits(&self) -> Result<Vec<u8>, MerkleizationError> {
         let mut data = vec![];
-        let _ = self.serialize_with_length(&mut data, false)?;
+        let _ = self.serialize_with_length(&mut data, false).map_err(|_| MerkleizationError::SerializationError);
         pack_bytes(&mut data);
         Ok(data)
     }
@@ -166,8 +164,8 @@ impl<const N: usize> SimpleSerialize for Bitlist<N> {}
 impl<const N: usize> FromIterator<bool> for Bitlist<N> {
     // NOTE: only takes the first `N` values from `iter`.
     fn from_iter<I>(iter: I) -> Self
-    where
-        I: IntoIterator<Item = bool>,
+        where
+            I: IntoIterator<Item = bool>,
     {
         let mut result: Bitlist<N> = Default::default();
         for bit in iter.into_iter().take(N) {

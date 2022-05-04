@@ -1,22 +1,15 @@
 use crate::ser::BYTES_PER_LENGTH_OFFSET;
 use crate::SimpleSerialize;
-use thiserror::Error;
+use crate::std::{Vec, vec};
 
-#[derive(Error, Debug)]
-#[error("the value could not be deserialized: {0}")]
+#[derive(Debug)]
 pub enum DeserializeError {
-    #[error("expected further data when decoding")]
-    InputTooShort,
-    #[error("unexpected additional data provided when decoding")]
-    ExtraInput,
-    #[error("invalid data for expected type")]
-    InvalidInput,
-    #[error("{0}")]
-    IOError(#[from] std::io::Error),
-    #[error("the type for this value has a bound of {bound} but the value has {len} elements")]
-    TypeBoundsViolated { bound: usize, len: usize },
-    #[error("the type for this value has an illegal bound of {bound}")]
-    IllegalType { bound: usize },
+    InputTooShort, // unexpected additional data provided when decoding
+    ExtraInput, // invalid data for expected type
+    InvalidInput, // invalid data for expected type
+    IOError,
+    TypeBoundsViolated { bound: usize, len: usize }, // the type for this value has a bound of {bound} but the value has {len} elements
+    IllegalType { bound: usize }, // the type for this value has an illegal bound of {bound}
 }
 
 pub trait Deserialize {

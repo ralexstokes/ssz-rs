@@ -2,19 +2,13 @@ use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError
 use crate::merkleization::{
     merkleize, pack, MerkleCache, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
 };
-use crate::ser::{serialize_composite, Serialize, SerializeError};
-use crate::{SimpleSerialize, SimpleSerializeError, Sized};
-use std::convert::TryFrom;
-use std::fmt;
-use std::iter::FromIterator;
-use std::ops::{Deref, Index, IndexMut};
-use std::slice::SliceIndex;
-use thiserror::Error;
+use crate::ser::{serialize_composite, Serialize};
+use crate::{SerializeError, SimpleSerialize, Sized};
+use crate::std::{Vec, vec, SliceIndex, IndexMut, Index, Deref, TryFrom, fmt};
 
-#[derive(Error, Debug)]
-pub enum Error {
-    #[error("incorrect number of elements {provided} to make a Vector of length {expected}")]
-    IncorrectLength { expected: usize, provided: usize },
+#[derive(Debug)]
+pub enum VectorError {
+    IncorrectLength { expected: usize, provided: usize }, // incorrect number of elements {provided} to make a Vector of length {expected}
 }
 
 /// A homogenous collection of a fixed number of values.
@@ -34,14 +28,14 @@ impl<T: SimpleSerialize + PartialEq, const N: usize> PartialEq for Vector<T, N> 
 impl<T: SimpleSerialize + Eq, const N: usize> Eq for Vector<T, N> {}
 
 impl<T: SimpleSerialize, const N: usize> TryFrom<Vec<T>> for Vector<T, N> {
-    type Error = SimpleSerializeError;
+    type Error = VectorError;
 
     fn try_from(data: Vec<T>) -> Result<Self, Self::Error> {
         if data.len() != N {
-            Err(SimpleSerializeError::Vector(Error::IncorrectLength {
+            Err(VectorError::IncorrectLength {
                 expected: N,
                 provided: data.len(),
-            }))
+            })
         } else {
             let leaf_count = Self::get_leaf_count();
             Ok(Self {
@@ -155,14 +149,13 @@ where
         }
         let data = deserialize_homogeneous_composite(encoding)?;
         data.try_into().map_err(|err| match err {
-            SimpleSerializeError::Vector(Error::IncorrectLength { expected, provided }) => {
+            VectorError::IncorrectLength { expected, provided } => {
                 if expected < provided {
                     DeserializeError::ExtraInput
                 } else {
                     DeserializeError::InputTooShort
                 }
             }
-            _ => unreachable!("variants not returned from `try_into`"),
         })
     }
 }

@@ -2,8 +2,7 @@ use crate::de::{Deserialize, DeserializeError};
 use crate::merkleization::{pack_bytes, MerkleizationError, Merkleized, Node};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
-use std::convert::TryInto;
-use std::default::Default;
+use crate::std::{Vec, vec, Debug, Default, TryInto};
 
 macro_rules! define_uint {
     ($uint:ty) => {
@@ -44,7 +43,7 @@ macro_rules! define_uint {
         impl Merkleized for $uint {
             fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
                 let mut root = vec![];
-                let _ = self.serialize(&mut root)?;
+                let _ = self.serialize(&mut root).map_err(|_| MerkleizationError::SerializationError);
                 pack_bytes(&mut root);
                 Ok(root.as_slice().try_into().expect("is valid root"))
             }

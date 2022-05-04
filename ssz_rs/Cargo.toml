@@ -26,3 +26,11 @@ hex-literal = "0.3.3"
 hex = "0.4.3"
 snap = "1.0"
 project-root = "0.2.2"
+
+[features]
+default = ["std"]
+std = [
+    "bitvec/std",
+    "sha2/std",
+    "lazy_static/spin",
+]
