@@ -65,10 +65,33 @@ define_uint!(u64);
 define_uint!(u128);
 define_uint!(usize);
 
-#[repr(transparent)]
 #[derive(Default, Debug, PartialEq, Eq, Clone, Copy)]
 // inner slice is little-endian
 pub struct U256(pub [u8; 32]);
+
+#[cfg(feature = "serde")]
+impl serde::Serialize for U256 {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.collect_str(&hex::encode(&self.0))
+    }
+}
+
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for U256 {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let s = <String>::deserialize(deserializer)?;
+        let bytes = hex::decode(s).map_err(serde::de::Error::custom)?;
+        let value: U256 =
+            crate::Deserialize::deserialize(&bytes).map_err(serde::de::Error::custom)?;
+        Ok(value)
+    }
+}
 
 impl Sized for U256 {
     fn is_variable_size() -> bool {

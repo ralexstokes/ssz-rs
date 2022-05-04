@@ -20,8 +20,11 @@ pub enum Error {
 /// A homogenous collection of a fixed number of values.
 /// NOTE: a `Vector` of length `0` is illegal.
 #[derive(Clone)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Vector<T: SimpleSerialize, const N: usize> {
     data: Vec<T>,
+
+    #[serde(skip)]
     cache: MerkleCache,
 }
 
@@ -295,9 +298,7 @@ mod tests {
     #[test]
     fn decode_variable_vector() {
         const COUNT: usize = 4;
-        let mut inner: Vec<List<u8, 1>> = (0..4)
-            .map(|i| std::array::IntoIter::new([i as u8]).collect())
-            .collect();
+        let mut inner: Vec<List<u8, 1>> = (0..4).map(|i| [i].into_iter().collect()).collect();
         let permutation = &mut inner[3];
         let _ = permutation.pop().expect("test data correct");
         let input: Vector<List<u8, 1>, COUNT> = inner.try_into().expect("test data correct");
@@ -323,9 +324,7 @@ mod tests {
     #[test]
     fn roundtrip_variable_vector() {
         const COUNT: usize = 4;
-        let mut inner: Vec<List<u8, 1>> = (0..4)
-            .map(|i| std::array::IntoIter::new([i as u8]).collect())
-            .collect();
+        let mut inner: Vec<List<u8, 1>> = (0..4).map(|i| [i].into_iter().collect()).collect();
         let permutation = &mut inner[3];
         let _ = permutation.pop().expect("test data correct");
         let input: Vector<List<u8, 1>, COUNT> = inner.try_into().expect("test data correct");

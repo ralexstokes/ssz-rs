@@ -15,6 +15,32 @@ type BitlistInner = BitVec<u8, Lsb0>;
 #[derive(PartialEq, Eq, Clone)]
 pub struct Bitlist<const N: usize>(BitlistInner);
 
+#[cfg(feature = "serde")]
+impl<const N: usize> serde::Serialize for Bitlist<N> {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        let byte_count = (self.len() + 7 + 1) / 8;
+        let mut buf = Vec::with_capacity(byte_count);
+        let _ = crate::Serialize::serialize(self, &mut buf).map_err(serde::ser::Error::custom)?;
+        serializer.collect_str(&hex::encode(buf))
+    }
+}
+
+#[cfg(feature = "serde")]
+impl<'de, const N: usize> serde::Deserialize<'de> for Bitlist<N> {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let s = <String>::deserialize(deserializer)?;
+        let bytes = hex::decode(s).map_err(serde::de::Error::custom)?;
+        let value = crate::Deserialize::deserialize(&bytes).map_err(serde::de::Error::custom)?;
+        Ok(value)
+    }
+}
+
 impl<const N: usize> fmt::Debug for Bitlist<N> {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
         write!(f, "Bitlist<len={}, cap={}>[", self.len(), N)?;
