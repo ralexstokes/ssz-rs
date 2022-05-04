@@ -7,6 +7,29 @@ use std::ops::{Index, IndexMut};
 #[derive(Default, Clone, Copy, PartialEq, Eq, SimpleSerialize)]
 pub struct Node(pub(crate) [u8; 32]);
 
+#[cfg(feature = "serde")]
+impl serde::Serialize for Node {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.collect_str(&hex::encode(&self.0))
+    }
+}
+
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for Node {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let s = <String>::deserialize(deserializer)?;
+        let bytes = hex::decode(s).map_err(serde::de::Error::custom)?;
+        let value = crate::Deserialize::deserialize(&bytes).map_err(serde::de::Error::custom)?;
+        Ok(value)
+    }
+}
+
 impl Node {
     pub fn from_bytes(root: [u8; 32]) -> Self {
         Self(root)
