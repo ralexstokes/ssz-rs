@@ -13,7 +13,7 @@ impl serde::Serialize for Node {
     where
         S: serde::Serializer,
     {
-        serializer.collect_str(&hex::encode(&self.0))
+        serializer.collect_str(&format!("{}", self))
     }
 }
 
@@ -24,7 +24,7 @@ impl<'de> serde::Deserialize<'de> for Node {
         D: serde::Deserializer<'de>,
     {
         let s = <String>::deserialize(deserializer)?;
-        let bytes = hex::decode(s).map_err(serde::de::Error::custom)?;
+        let bytes = hex::decode(&s[2..]).map_err(serde::de::Error::custom)?;
         let value = crate::Deserialize::deserialize(&bytes).map_err(serde::de::Error::custom)?;
         Ok(value)
     }
@@ -53,6 +53,12 @@ impl fmt::LowerHex for Node {
 }
 
 impl fmt::Debug for Node {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "Node({:x})", self)
+    }
+}
+
+impl fmt::Display for Node {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "{:#x}", self)
     }
