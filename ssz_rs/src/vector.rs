@@ -28,6 +28,12 @@ pub struct Vector<T: SimpleSerialize, const N: usize> {
     cache: MerkleCache,
 }
 
+impl<T: SimpleSerialize, const N: usize> AsRef<[T]> for Vector<T, N> {
+    fn as_ref(&self) -> &[T] {
+        &self.data
+    }
+}
+
 impl<T: SimpleSerialize + PartialEq, const N: usize> PartialEq for Vector<T, N> {
     fn eq(&self, other: &Self) -> bool {
         self.data == other.data

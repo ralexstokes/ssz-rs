@@ -27,6 +27,12 @@ pub struct List<T: SimpleSerialize, const N: usize> {
     cache: MerkleCache,
 }
 
+impl<T: SimpleSerialize, const N: usize> AsRef<[T]> for List<T, N> {
+    fn as_ref(&self) -> &[T] {
+        &self.data
+    }
+}
+
 impl<T, const N: usize> fmt::Debug for List<T, N>
 where
     T: SimpleSerialize + fmt::Debug,
