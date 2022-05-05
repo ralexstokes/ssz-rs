@@ -65,7 +65,7 @@ define_uint!(u64);
 define_uint!(u128);
 define_uint!(usize);
 
-#[derive(Default, Debug, PartialEq, Eq, Clone, Copy, Ord)]
+#[derive(Default, Debug, PartialEq, Eq, Clone, Copy, PartialOrd, Ord)]
 // inner slice is little-endian
 pub struct U256(pub [u8; 32]);
 
