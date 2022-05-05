@@ -4,9 +4,13 @@ use crate::merkleization::{
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::{SimpleSerialize, SimpleSerializeError, Sized};
+#[cfg(feature = "serde")]
+use serde::ser::SerializeSeq;
 use std::convert::TryFrom;
 use std::fmt;
 use std::iter::FromIterator;
+#[cfg(feature = "serde")]
+use std::marker::PhantomData;
 use std::ops::{Deref, Index, IndexMut};
 use std::slice::SliceIndex;
 use thiserror::Error;
@@ -20,12 +24,57 @@ pub enum Error {
 /// A homogenous collection of a fixed number of values.
 /// NOTE: a `Vector` of length `0` is illegal.
 #[derive(Clone)]
-#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Vector<T: SimpleSerialize, const N: usize> {
     data: Vec<T>,
-
-    #[serde(skip)]
     cache: MerkleCache,
+}
+
+#[cfg(feature = "serde")]
+impl<T: SimpleSerialize + serde::Serialize, const N: usize> serde::Serialize for Vector<T, N> {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        let mut seq = serializer.serialize_seq(Some(N))?;
+        for element in &self.data {
+            seq.serialize_element(element)?;
+        }
+        seq.end()
+    }
+}
+
+#[cfg(feature = "serde")]
+struct VectorVisitor<T: SimpleSerialize>(PhantomData<Vec<T>>);
+
+#[cfg(feature = "serde")]
+impl<'de, T: SimpleSerialize + serde::Deserialize<'de>> serde::de::Visitor<'de>
+    for VectorVisitor<T>
+{
+    type Value = Vec<T>;
+
+    fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+        formatter.write_str("array of objects")
+    }
+
+    fn visit_seq<S>(self, visitor: S) -> Result<Self::Value, S::Error>
+    where
+        S: serde::de::SeqAccess<'de>,
+    {
+        serde::Deserialize::deserialize(serde::de::value::SeqAccessDeserializer::new(visitor))
+    }
+}
+
+#[cfg(feature = "serde")]
+impl<'de, T: SimpleSerialize + serde::de::Deserialize<'de>, const N: usize> serde::Deserialize<'de>
+    for Vector<T, N>
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let data = deserializer.deserialize_seq(VectorVisitor(PhantomData))?;
+        Vector::<T, N>::try_from(data).map_err(serde::de::Error::custom)
+    }
 }
 
 impl<T: SimpleSerialize, const N: usize> AsRef<[T]> for Vector<T, N> {
