@@ -81,7 +81,7 @@ fn main() {
         ]),
         h: Bitvector::from_iter([true, false, false, true, false, false, false, true, true]),
         i: Bitlist::from_iter([true, false, true, true]),
-        j: U256([12u8; 32]),
+        j: U256::from_bytes_le([12u8; 32]),
     };
     let json_repr = serde_json::to_value(&value).unwrap();
     dbg!(&json_repr);
