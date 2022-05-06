@@ -66,7 +66,7 @@ define_uint!(u64);
 define_uint!(u128);
 define_uint!(usize);
 
-#[derive(Default, Debug, PartialEq, Eq, Clone, PartialOrd, Ord)]
+#[derive(Default, Debug, PartialEq, Eq, Clone, PartialOrd, Ord, Hash)]
 pub struct U256(BigUint);
 
 impl U256 {
