@@ -24,7 +24,9 @@ impl<const N: usize> serde::Serialize for Bitlist<N> {
         let byte_count = (self.len() + 7 + 1) / 8;
         let mut buf = Vec::with_capacity(byte_count);
         let _ = crate::Serialize::serialize(self, &mut buf).map_err(serde::ser::Error::custom)?;
-        serializer.collect_str(&hex::encode(buf))
+        let encoding = hex::encode(buf);
+        let output = format!("0x{encoding}");
+        serializer.collect_str(&output)
     }
 }
 
@@ -35,7 +37,10 @@ impl<'de, const N: usize> serde::Deserialize<'de> for Bitlist<N> {
         D: serde::Deserializer<'de>,
     {
         let s = <String>::deserialize(deserializer)?;
-        let bytes = hex::decode(s).map_err(serde::de::Error::custom)?;
+        if s.len() < 2 {
+            return Err(serde::de::Error::custom(DeserializeError::InputTooShort));
+        }
+        let bytes = hex::decode(&s[2..]).map_err(serde::de::Error::custom)?;
         let value = crate::Deserialize::deserialize(&bytes).map_err(serde::de::Error::custom)?;
         Ok(value)
     }
