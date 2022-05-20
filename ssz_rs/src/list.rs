@@ -232,7 +232,7 @@ where
 
     fn compute_hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         if T::is_composite_type() {
-            let mut chunks = Vec::with_capacity(self.len() * BYTES_PER_CHUNK);
+            let mut chunks = vec![0u8; self.len() * BYTES_PER_CHUNK];
             for (i, elem) in self.data.iter_mut().enumerate() {
                 let chunk = elem.hash_tree_root()?;
                 let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
@@ -383,14 +383,17 @@ mod tests {
     }
 
     #[test]
-    fn test_serde_of_nested_list() {
+    fn test_ssz_of_nested_list() {
         use crate::prelude::*;
         type Foo = List<List<u8, 16>, 32>;
 
-        let value = Foo::default();
+        let mut value = Foo::default();
+        value.push(Default::default());
         let encoding = ssz_rs::serialize(&value).unwrap();
 
-        let recovered: Foo = ssz_rs::deserialize(&encoding).unwrap();
+        let mut recovered: Foo = ssz_rs::deserialize(&encoding).unwrap();
         assert_eq!(value, recovered);
+
+        let _ = recovered.hash_tree_root().unwrap();
     }
 }
