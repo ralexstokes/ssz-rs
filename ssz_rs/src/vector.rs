@@ -4,9 +4,12 @@ use crate::merkleization::{
 };
 use crate::ser::{serialize_composite, Serialize};
 use crate::{SerializeError, SimpleSerialize, Sized};
-use crate::std::{Vec, vec, SliceIndex, IndexMut, Index, Deref, TryFrom, fmt};
+use crate::std::{Vec, vec, SliceIndex, IndexMut, Index, Deref, TryFrom, fmt, Debug, Display, Formatter};
+#[cfg(feature = "serde")]
+use serde::ser::SerializeSeq;
+#[cfg(feature = "serde")]
+use std::marker::PhantomData;
 
-#[derive(Debug)]
 pub enum VectorError {
     IncorrectLength { expected: usize, provided: usize }, // incorrect number of elements {provided} to make a Vector of length {expected}
 }
@@ -17,6 +20,72 @@ pub enum VectorError {
 pub struct Vector<T: SimpleSerialize, const N: usize> {
     data: Vec<T>,
     cache: MerkleCache,
+}
+
+impl Debug for VectorError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}
+
+impl Display for VectorError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}
+
+#[cfg(feature = "serde")]
+impl<T: SimpleSerialize + serde::Serialize, const N: usize> serde::Serialize for Vector<T, N> {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        let mut seq = serializer.serialize_seq(Some(N))?;
+        for element in &self.data {
+            seq.serialize_element(element)?;
+        }
+        seq.end()
+    }
+}
+
+#[cfg(feature = "serde")]
+struct VectorVisitor<T: SimpleSerialize>(PhantomData<Vec<T>>);
+
+#[cfg(feature = "serde")]
+impl<'de, T: SimpleSerialize + serde::Deserialize<'de>> serde::de::Visitor<'de>
+    for VectorVisitor<T>
+{
+    type Value = Vec<T>;
+
+    fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+        formatter.write_str("array of objects")
+    }
+
+    fn visit_seq<S>(self, visitor: S) -> Result<Self::Value, S::Error>
+    where
+        S: serde::de::SeqAccess<'de>,
+    {
+        serde::Deserialize::deserialize(serde::de::value::SeqAccessDeserializer::new(visitor))
+    }
+}
+
+#[cfg(feature = "serde")]
+impl<'de, T: SimpleSerialize + serde::de::Deserialize<'de>, const N: usize> serde::Deserialize<'de>
+    for Vector<T, N>
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let data = deserializer.deserialize_seq(VectorVisitor(PhantomData))?;
+        Vector::<T, N>::try_from(data).map_err(serde::de::Error::custom)
+    }
+}
+
+impl<T: SimpleSerialize, const N: usize> AsRef<[T]> for Vector<T, N> {
+    fn as_ref(&self) -> &[T] {
+        &self.data
+    }
 }
 
 impl<T: SimpleSerialize + PartialEq, const N: usize> PartialEq for Vector<T, N> {
@@ -288,9 +357,7 @@ mod tests {
     #[test]
     fn decode_variable_vector() {
         const COUNT: usize = 4;
-        let mut inner: Vec<List<u8, 1>> = (0..4)
-            .map(|i| std::array::IntoIter::new([i as u8]).collect())
-            .collect();
+        let mut inner: Vec<List<u8, 1>> = (0..4).map(|i| [i].into_iter().collect()).collect();
         let permutation = &mut inner[3];
         let _ = permutation.pop().expect("test data correct");
         let input: Vector<List<u8, 1>, COUNT> = inner.try_into().expect("test data correct");
@@ -316,9 +383,7 @@ mod tests {
     #[test]
     fn roundtrip_variable_vector() {
         const COUNT: usize = 4;
-        let mut inner: Vec<List<u8, 1>> = (0..4)
-            .map(|i| std::array::IntoIter::new([i as u8]).collect())
-            .collect();
+        let mut inner: Vec<List<u8, 1>> = (0..4).map(|i| [i].into_iter().collect()).collect();
         let permutation = &mut inner[3];
         let _ = permutation.pop().expect("test data correct");
         let input: Vector<List<u8, 1>, COUNT> = inner.try_into().expect("test data correct");

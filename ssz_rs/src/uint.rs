@@ -3,6 +3,7 @@ use crate::merkleization::{pack_bytes, MerkleizationError, Merkleized, Node};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 use crate::std::{Vec, vec, Debug, Default, TryInto};
+use num_bigint::BigUint;
 
 macro_rules! define_uint {
     ($uint:ty) => {
@@ -64,10 +65,51 @@ define_uint!(u64);
 define_uint!(u128);
 define_uint!(usize);
 
-#[repr(transparent)]
-#[derive(Default, Debug, PartialEq, Eq, Clone, Copy)]
-// inner slice is little-endian
-pub struct U256(pub [u8; 32]);
+#[derive(Default, Debug, PartialEq, Eq, Clone, PartialOrd, Ord, Hash)]
+pub struct U256(BigUint);
+
+impl U256 {
+    pub fn new() -> Self {
+        Self(BigUint::default())
+    }
+
+    pub fn try_from_bytes_le(bytes: &[u8]) -> Result<Self, DeserializeError> {
+        Self::deserialize(bytes)
+    }
+
+    pub fn from_bytes_le(bytes: [u8; 32]) -> Self {
+        Self::deserialize(&bytes).unwrap()
+    }
+
+    pub fn to_bytes_le(&self) -> Vec<u8> {
+        let mut bytes = self.0.to_bytes_le();
+        bytes.resize(32, 0u8);
+        bytes
+    }
+}
+
+#[cfg(feature = "serde")]
+impl serde::Serialize for U256 {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        let output = format!("{}", self.0);
+        serializer.collect_str(&output)
+    }
+}
+
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for U256 {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let s = <String>::deserialize(deserializer)?;
+        let value = s.parse::<BigUint>().map_err(serde::de::Error::custom)?;
+        Ok(Self(value))
+    }
+}
 
 impl Sized for U256 {
     fn is_variable_size() -> bool {
@@ -81,7 +123,7 @@ impl Sized for U256 {
 
 impl Serialize for U256 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
-        buffer.extend_from_slice(&self.0);
+        buffer.extend_from_slice(&self.to_bytes_le());
         Ok(32)
     }
 }
@@ -95,14 +137,16 @@ impl Deserialize for U256 {
             return Err(DeserializeError::ExtraInput);
         }
 
-        let bytes = encoding[..32].try_into().expect("slice has right length");
-        Ok(Self(bytes))
+        let value = BigUint::from_bytes_le(&encoding[..32]);
+        Ok(Self(value))
     }
 }
 
 impl Merkleized for U256 {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
-        Ok(Node::from_bytes(self.0))
+        Ok(Node::from_bytes(
+            self.to_bytes_le().try_into().expect("works"),
+        ))
     }
 }
 
@@ -171,8 +215,11 @@ mod tests {
             assert_eq!(result, expected);
         }
         let tests = vec![
-            (U256([2u8; 32]), [2u8; 32]),
-            (U256([u8::MAX; 32]), [u8::MAX; 32]),
+            (U256::try_from_bytes_le(&[2u8; 32]).unwrap(), [2u8; 32]),
+            (
+                U256::try_from_bytes_le(&[u8::MAX; 32]).unwrap(),
+                [u8::MAX; 32],
+            ),
         ];
         for (value, expected) in tests {
             let result = serialize(&value).expect("can encode");
@@ -234,8 +281,11 @@ mod tests {
             assert_eq!(result, expected);
         }
         let tests = vec![
-            (U256([2u8; 32]), [2u8; 32]),
-            (U256([u8::MAX; 32]), [u8::MAX; 32]),
+            (U256::try_from_bytes_le(&[2u8; 32]).unwrap(), [2u8; 32]),
+            (
+                U256::try_from_bytes_le(&[u8::MAX; 32]).unwrap(),
+                [u8::MAX; 32],
+            ),
         ];
         for (expected, bytes) in tests {
             let result = U256::deserialize(&bytes).expect("can encode");

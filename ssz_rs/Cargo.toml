@@ -1,12 +1,13 @@
 [package]
 name = "ssz_rs"
 version = "0.7.0"
+rust-version = "1.60"
 authors = ["Alex Stokes <r.alex.stokes@gmail.com>"]
 edition = "2021"
 license = "MIT"
 readme = "../README.md"
 description = "ethereum's simple serialize"
-repository = "https://github.com/ralexstokes/ssz_rs"
+repository = "https://github.com/snowfork/ssz_rs"
 exclude = [
     "scripts",
     "tests/data",
@@ -15,22 +16,27 @@ exclude = [
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-bitvec = { version = "0.20.4", default-features = false, features=["alloc"]}
+bitvec = { version = "1.0.0", default-features = false, features=["alloc"]}
 ssz_rs_derive = { path = "../ssz_rs_derive", version = "0.7.0" }
 sha2 = { version ="0.9.8", default-features = false}
 lazy_static = { version = "1.4.0", features=["spin_no_std"]}
-funty = { version = "=1.1.0", default-features = false}
+serde = { version = "1.0", features = ["derive"], optional = true }
+hex = {version = "0.4.3", optional = true }
+num-bigint = "0.4.3"
 
 [dev-dependencies]
 hex-literal = "0.3.3"
-hex = "0.4.3"
 snap = "1.0"
 project-root = "0.2.2"
+serde_json = "1.0.81"
 
 [features]
-default = ["std"]
+default = ["std", "serde"]
 std = [
     "bitvec/std",
     "sha2/std",
-    "funty/std"
+]
+serde = [
+    "dep:serde",
+    "dep:hex"
 ]

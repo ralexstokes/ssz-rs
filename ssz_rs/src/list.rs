@@ -5,11 +5,26 @@ use crate::merkleization::{
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
-use crate::std::{Enumerate, FromIterator, Vec, fmt, SliceIndex, Deref, Index, IndexMut, IterMut as StdIterMut};
+use crate::std::{Enumerate, FromIterator, Vec, fmt, SliceIndex, Deref, Index, IndexMut, IterMut as StdIterMut, Debug, Display, Formatter};
+#[cfg(feature = "serde")]
+use serde::ser::SerializeSeq;
+#[cfg(feature = "serde")]
+use std::marker::PhantomData;
 
-#[derive(Debug)]
 pub enum ListError {
     IncorrectLength { expected: usize, provided: usize }, // elements given that exceeds the list bound of
+}
+
+impl Debug for ListError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}
+
+impl Display for ListError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+        write!(f, "{:?}", self)
+    }
 }
 
 /// A homogenous collection of a variable number of values.
@@ -17,6 +32,59 @@ pub enum ListError {
 pub struct List<T: SimpleSerialize, const N: usize> {
     data: Vec<T>,
     cache: MerkleCache,
+}
+
+// TODO clean up impls here for Vector and List...
+#[cfg(feature = "serde")]
+impl<T: SimpleSerialize + serde::Serialize, const N: usize> serde::Serialize for List<T, N> {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        let mut seq = serializer.serialize_seq(Some(N))?;
+        for element in &self.data {
+            seq.serialize_element(element)?;
+        }
+        seq.end()
+    }
+}
+
+#[cfg(feature = "serde")]
+struct ListVisitor<T: SimpleSerialize>(PhantomData<Vec<T>>);
+
+#[cfg(feature = "serde")]
+impl<'de, T: SimpleSerialize + serde::Deserialize<'de>> serde::de::Visitor<'de> for ListVisitor<T> {
+    type Value = Vec<T>;
+
+    fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+        formatter.write_str("array of objects")
+    }
+
+    fn visit_seq<S>(self, visitor: S) -> Result<Self::Value, S::Error>
+    where
+        S: serde::de::SeqAccess<'de>,
+    {
+        serde::Deserialize::deserialize(serde::de::value::SeqAccessDeserializer::new(visitor))
+    }
+}
+
+#[cfg(feature = "serde")]
+impl<'de, T: SimpleSerialize + serde::de::Deserialize<'de>, const N: usize> serde::Deserialize<'de>
+    for List<T, N>
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let data = deserializer.deserialize_seq(ListVisitor(PhantomData))?;
+        List::<T, N>::try_from(data).map_err(serde::de::Error::custom)
+    }
+}
+
+impl<T: SimpleSerialize, const N: usize> AsRef<[T]> for List<T, N> {
+    fn as_ref(&self) -> &[T] {
+        &self.data
+    }
 }
 
 impl<T, const N: usize> fmt::Debug for List<T, N>
@@ -170,7 +238,7 @@ where
 
     fn compute_hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         if T::is_composite_type() {
-            let mut chunks = Vec::with_capacity(self.len() * BYTES_PER_CHUNK);
+            let mut chunks = vec![0u8; self.len() * BYTES_PER_CHUNK];
             for (i, elem) in self.data.iter_mut().enumerate() {
                 let chunk = elem.hash_tree_root()?;
                 let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
@@ -321,14 +389,17 @@ mod tests {
     }
 
     #[test]
-    fn test_serde_of_nested_list() {
+    fn test_ssz_of_nested_list() {
         use crate::prelude::*;
         type Foo = List<List<u8, 16>, 32>;
 
-        let value = Foo::default();
+        let mut value = Foo::default();
+        value.push(Default::default());
         let encoding = ssz_rs::serialize(&value).unwrap();
 
-        let recovered: Foo = ssz_rs::deserialize(&encoding).unwrap();
+        let mut recovered: Foo = ssz_rs::deserialize(&encoding).unwrap();
         assert_eq!(value, recovered);
+
+        let _ = recovered.hash_tree_root().unwrap();
     }
 }

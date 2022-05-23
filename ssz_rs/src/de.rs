@@ -1,26 +1,33 @@
 use crate::ser::BYTES_PER_LENGTH_OFFSET;
 use crate::SimpleSerialize;
-use crate::std::{Vec, vec};
+use thiserror::Error;
 
-#[derive(Debug)]
+#[derive(Error, Debug)]
+#[error("the value could not be deserialized: {0}")]
 pub enum DeserializeError {
-    InputTooShort, // unexpected additional data provided when decoding
-    ExtraInput, // invalid data for expected type
-    InvalidInput, // invalid data for expected type
-    IOError,
-    TypeBoundsViolated { bound: usize, len: usize }, // the type for this value has a bound of {bound} but the value has {len} elements
-    IllegalType { bound: usize }, // the type for this value has an illegal bound of {bound}
+    #[error("expected further data when decoding")]
+    InputTooShort,
+    #[error("unexpected additional data provided when decoding")]
+    ExtraInput,
+    #[error("invalid data for expected type")]
+    InvalidInput,
+    #[error("{0}")]
+    IOError(#[from] std::io::Error),
+    #[error("the type for this value has a bound of {bound} but the value has {len} elements")]
+    TypeBoundsViolated { bound: usize, len: usize },
+    #[error("the type for this value has an illegal bound of {bound}")]
+    IllegalType { bound: usize },
 }
 
 pub trait Deserialize {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError>
-    where
-        Self: Sized;
+        where
+            Self: Sized;
 }
 
 fn deserialize_fixed_homogeneous_composite<T>(encoding: &[u8]) -> Result<Vec<T>, DeserializeError>
-where
-    T: SimpleSerialize,
+    where
+        T: SimpleSerialize,
 {
     if encoding.len() % T::size_hint() != 0 {
         return Err(DeserializeError::InvalidInput);
@@ -37,8 +44,8 @@ where
 fn deserialize_variable_homogeneous_composite<T>(
     encoding: &[u8],
 ) -> Result<Vec<T>, DeserializeError>
-where
-    T: SimpleSerialize,
+    where
+        T: SimpleSerialize,
 {
     if encoding.is_empty() {
         return Ok(vec![]);
@@ -68,8 +75,8 @@ where
 }
 
 pub fn deserialize_homogeneous_composite<T>(encoding: &[u8]) -> Result<Vec<T>, DeserializeError>
-where
-    T: SimpleSerialize,
+    where
+        T: SimpleSerialize,
 {
     if T::is_variable_size() {
         deserialize_variable_homogeneous_composite(encoding)

@@ -5,13 +5,44 @@ use crate::merkleization::{
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 use crate::std::{Vec, vec, Deref, DerefMut, fmt, FromIterator};
-use bitvec::prelude::{BitSlice, BitVec, Lsb0};
+use bitvec::prelude::{BitVec, Lsb0};
 
-type BitlistInner = BitVec<Lsb0, u8>;
+type BitlistInner = BitVec<u8, Lsb0>;
 
 /// A homogenous collection of a variable number of boolean values.
 #[derive(PartialEq, Eq, Clone)]
 pub struct Bitlist<const N: usize>(BitlistInner);
+
+#[cfg(feature = "serde")]
+impl<const N: usize> serde::Serialize for Bitlist<N> {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        let byte_count = (self.len() + 7 + 1) / 8;
+        let mut buf = Vec::with_capacity(byte_count);
+        let _ = crate::Serialize::serialize(self, &mut buf).map_err(serde::ser::Error::custom)?;
+        let encoding = hex::encode(buf);
+        let output = format!("0x{encoding}");
+        serializer.collect_str(&output)
+    }
+}
+
+#[cfg(feature = "serde")]
+impl<'de, const N: usize> serde::Deserialize<'de> for Bitlist<N> {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let s = <String>::deserialize(deserializer)?;
+        if s.len() < 2 {
+            return Err(serde::de::Error::custom(DeserializeError::InputTooShort));
+        }
+        let bytes = hex::decode(&s[2..]).map_err(serde::de::Error::custom)?;
+        let value = crate::Deserialize::deserialize(&bytes).map_err(serde::de::Error::custom)?;
+        Ok(value)
+    }
+}
 
 impl<const N: usize> fmt::Debug for Bitlist<N> {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
@@ -130,23 +161,9 @@ impl<const N: usize> Deserialize for Bitlist<N> {
         }
 
         let (last_byte, prefix) = encoding.split_last().unwrap();
-
-        let prefix_bit_slice = BitSlice::<Lsb0, _>::from_slice(prefix).unwrap();
-        let mut result = BitlistInner::from_bitslice(prefix_bit_slice);
-
-        let tmp_slice = &[*last_byte];
-        let last_bit_slice = BitSlice::<Lsb0, _>::from_slice(tmp_slice).unwrap();
-        let last = BitlistInner::from_bitslice(last_bit_slice);
-
-        let mut high_bit_index: usize = 0;
-        let mut counter = last.capacity();
-        for bit in last.iter().rev() {
-            if *bit.deref() == true {
-                high_bit_index = counter;
-                break
-            }
-            counter = counter - 1;
-        }
+        let mut result = BitlistInner::from_slice(prefix);
+        let last = BitlistInner::from_element(*last_byte);
+        let high_bit_index = 8 - last.trailing_zeros();
 
         if !last[high_bit_index - 1] {
             return Err(DeserializeError::InvalidInput);

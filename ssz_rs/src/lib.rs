@@ -2,6 +2,8 @@
 
 #[cfg(not(feature = "std"))]
 extern crate alloc;
+#[cfg(not(feature = "std"))]
+extern crate core;
 
 mod array;
 mod bitlist;
@@ -12,6 +14,8 @@ mod de;
 mod list;
 mod merkleization;
 mod ser;
+#[cfg(feature = "serde")]
+mod serde_test;
 mod uint;
 mod union;
 mod vector;
