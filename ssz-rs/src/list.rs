@@ -6,20 +6,14 @@ use crate::merkleization::{
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::std::{
-    fmt, Deref, Enumerate, FromIterator, Index, IndexMut, IterMut as StdIterMut, SliceIndex, Vec,
-};
-use crate::std::{
-    fmt, Deref, Enumerate, FromIterator, Index, IndexMut, IterMut as StdIterMut, SliceIndex, Vec,
+    fmt, vec, Deref, Enumerate, FromIterator, Index, IndexMut, IterMut as StdIterMut, SliceIndex,
+    Vec,
 };
 use crate::{SimpleSerialize, Sized};
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
-use std::iter::Enumerate;
 #[cfg(feature = "serde")]
 use std::marker::PhantomData;
-use std::ops::{Deref, Index, IndexMut};
-use std::slice::SliceIndex;
-use std::{fmt, slice};
 
 /// A homogenous collection of a variable number of values.
 #[derive(Clone, Default)]
