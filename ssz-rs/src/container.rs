@@ -170,7 +170,6 @@ mod tests {
     fn decode_container_with_extra_input() {
         let data = vec![5u8, 0u8, 7u8, 0u8, 0u8, 0u8, 5u8, 255u8];
         let result = VarTestStruct::deserialize(&data).expect("can deserialize");
-        assert!(false);
         let value = VarTestStruct {
             a: 5,
             b: List::from_iter([]),
