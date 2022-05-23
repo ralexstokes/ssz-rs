@@ -10,7 +10,7 @@ fn test_bitvector_bitvec_5_max() {
     let mut value = Bitvector::<5>::from_iter([true, true, true, true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_5_max/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_5_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -28,7 +28,7 @@ fn test_bitvector_bitvec_1_random() {
     let mut value = Bitvector::<1>::from_iter([false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_1_random/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_1_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -85,7 +85,7 @@ fn test_bitvector_bitvec_512_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_512_random/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_512_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -103,7 +103,7 @@ fn test_bitvector_bitvec_4_max() {
     let mut value = Bitvector::<4>::from_iter([true, true, true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_4_max/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_4_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -121,7 +121,7 @@ fn test_bitvector_bitvec_5_zero() {
     let mut value = Bitvector::<5>::from_iter([false, false, false, false, false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_5_zero/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_5_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -139,7 +139,7 @@ fn test_bitvector_bitvec_3_max() {
     let mut value = Bitvector::<3>::from_iter([true, true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_3_max/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_3_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -157,7 +157,7 @@ fn test_bitvector_bitvec_4_zero() {
     let mut value = Bitvector::<4>::from_iter([false, false, false, false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_4_zero/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_4_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -179,7 +179,7 @@ fn test_bitvector_bitvec_31_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_31_zero/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_31_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -197,7 +197,7 @@ fn test_bitvector_bitvec_2_max() {
     let mut value = Bitvector::<2>::from_iter([true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_2_max/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_2_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -215,7 +215,7 @@ fn test_bitvector_bitvec_3_random() {
     let mut value = Bitvector::<3>::from_iter([true, true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_3_random/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_3_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -234,7 +234,7 @@ fn test_bitvector_bitvec_8_zero() {
         Bitvector::<8>::from_iter([false, false, false, false, false, false, false, false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_8_zero/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_8_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -256,7 +256,7 @@ fn test_bitvector_bitvec_31_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_31_max/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_31_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -277,7 +277,7 @@ fn test_bitvector_bitvec_16_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_16_random/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_16_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -295,7 +295,7 @@ fn test_bitvector_bitvec_1_max() {
     let mut value = Bitvector::<1>::from_iter([true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_1_max/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_1_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -313,7 +313,7 @@ fn test_bitvector_bitvec_3_zero() {
     let mut value = Bitvector::<3>::from_iter([false, false, false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_3_zero/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_3_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -334,7 +334,7 @@ fn test_bitvector_bitvec_16_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_16_zero/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_16_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -388,7 +388,7 @@ fn test_bitvector_bitvec_512_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_512_max/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_512_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -406,7 +406,7 @@ fn test_bitvector_bitvec_5_random() {
     let mut value = Bitvector::<5>::from_iter([true, true, false, false, false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_5_random/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_5_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -460,7 +460,7 @@ fn test_bitvector_bitvec_513_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_513_max/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_513_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -478,7 +478,7 @@ fn test_bitvector_bitvec_2_zero() {
     let mut value = Bitvector::<2>::from_iter([false, false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_2_zero/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_2_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -496,7 +496,7 @@ fn test_bitvector_bitvec_1_zero() {
     let mut value = Bitvector::<1>::from_iter([false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_1_zero/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_1_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -555,7 +555,7 @@ fn test_bitvector_bitvec_512_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_512_zero/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_512_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -612,7 +612,7 @@ fn test_bitvector_bitvec_513_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_513_random/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_513_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -634,7 +634,7 @@ fn test_bitvector_bitvec_31_random() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_31_random/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_31_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -652,7 +652,7 @@ fn test_bitvector_bitvec_2_random() {
     let mut value = Bitvector::<2>::from_iter([true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_2_random/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_2_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -711,7 +711,7 @@ fn test_bitvector_bitvec_513_zero() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_513_zero/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_513_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -732,7 +732,7 @@ fn test_bitvector_bitvec_16_max() {
     ]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_16_max/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_16_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -750,7 +750,7 @@ fn test_bitvector_bitvec_4_random() {
     let mut value = Bitvector::<4>::from_iter([true, false, true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_4_random/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_4_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -768,7 +768,7 @@ fn test_bitvector_bitvec_8_random() {
     let mut value = Bitvector::<8>::from_iter([true, true, true, true, true, false, true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_8_random/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_8_random/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -786,7 +786,7 @@ fn test_bitvector_bitvec_8_max() {
     let mut value = Bitvector::<8>::from_iter([true, true, true, true, true, true, true, true]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/valid/bitvec_8_max/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/valid/bitvec_8_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -803,7 +803,7 @@ fn test_bitvector_bitvec_8_max() {
 #[should_panic]
 fn test_bitvector_bitvec_9_max_8() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_9_max_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_9_max_8/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<9>>(&encoding);
@@ -813,7 +813,7 @@ fn test_bitvector_bitvec_9_max_8() {
 #[should_panic]
 fn test_bitvector_bitvec_5_random_6() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_5_random_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_5_random_6/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<5>>(&encoding);
@@ -823,7 +823,7 @@ fn test_bitvector_bitvec_5_random_6() {
 #[should_panic]
 fn test_bitvector_bitvec_2_zero_3() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_2_zero_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_2_zero_3/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<2>>(&encoding);
@@ -833,7 +833,7 @@ fn test_bitvector_bitvec_2_zero_3() {
 #[should_panic]
 fn test_bitvector_bitvec_2_max_3() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_2_max_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_2_max_3/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<2>>(&encoding);
@@ -843,7 +843,7 @@ fn test_bitvector_bitvec_2_max_3() {
 #[should_panic]
 fn test_bitvector_bitvec_16_zero_8() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_16_zero_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_16_zero_8/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<16>>(&encoding);
@@ -853,7 +853,7 @@ fn test_bitvector_bitvec_16_zero_8() {
 #[should_panic]
 fn test_bitvector_bitvec_4_max_5() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_4_max_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_4_max_5/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<4>>(&encoding);
@@ -863,7 +863,7 @@ fn test_bitvector_bitvec_4_max_5() {
 #[should_panic]
 fn test_bitvector_bitvec_512_zero_513() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_512_zero_513/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_512_zero_513/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<512>>(&encoding);
@@ -873,7 +873,7 @@ fn test_bitvector_bitvec_512_zero_513() {
 #[should_panic]
 fn test_bitvector_bitvec_512_max_513() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_512_max_513/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_512_max_513/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<512>>(&encoding);
@@ -883,7 +883,7 @@ fn test_bitvector_bitvec_512_max_513() {
 #[should_panic]
 fn test_bitvector_bitvec_3_max_4() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_3_max_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_3_max_4/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<3>>(&encoding);
@@ -893,7 +893,7 @@ fn test_bitvector_bitvec_3_max_4() {
 #[should_panic]
 fn test_bitvector_bitvec_8_max_9() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_8_max_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_8_max_9/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<8>>(&encoding);
@@ -903,7 +903,7 @@ fn test_bitvector_bitvec_8_max_9() {
 #[should_panic]
 fn test_bitvector_bitvec_32_max_33() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_32_max_33/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_32_max_33/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<32>>(&encoding);
@@ -913,7 +913,7 @@ fn test_bitvector_bitvec_32_max_33() {
 #[should_panic]
 fn test_bitvector_bitvec_512_random_513() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_512_random_513/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_512_random_513/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<512>>(&encoding);
@@ -923,7 +923,7 @@ fn test_bitvector_bitvec_512_random_513() {
 #[should_panic]
 fn test_bitvector_bitvec_32_zero_33() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_32_zero_33/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_32_zero_33/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<32>>(&encoding);
@@ -933,7 +933,7 @@ fn test_bitvector_bitvec_32_zero_33() {
 #[should_panic]
 fn test_bitvector_bitvec_1_max_2() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_1_max_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_1_max_2/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<1>>(&encoding);
@@ -943,7 +943,7 @@ fn test_bitvector_bitvec_1_max_2() {
 #[should_panic]
 fn test_bitvector_bitvec_5_zero_6() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_5_zero_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_5_zero_6/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<5>>(&encoding);
@@ -953,7 +953,7 @@ fn test_bitvector_bitvec_5_zero_6() {
 #[should_panic]
 fn test_bitvector_bitvec_9_zero_8() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_9_zero_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_9_zero_8/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<9>>(&encoding);
@@ -963,7 +963,7 @@ fn test_bitvector_bitvec_9_zero_8() {
 #[should_panic]
 fn test_bitvector_bitvec_1_random_2() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_1_random_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_1_random_2/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<1>>(&encoding);
@@ -973,7 +973,7 @@ fn test_bitvector_bitvec_1_random_2() {
 #[should_panic]
 fn test_bitvector_bitvec_4_zero_5() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_4_zero_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_4_zero_5/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<4>>(&encoding);
@@ -983,7 +983,7 @@ fn test_bitvector_bitvec_4_zero_5() {
 #[should_panic]
 fn test_bitvector_bitvec_8_random_9() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_8_random_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_8_random_9/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<8>>(&encoding);
@@ -993,7 +993,7 @@ fn test_bitvector_bitvec_8_random_9() {
 #[should_panic]
 fn test_bitvector_bitvec_9_random_8() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_9_random_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_9_random_8/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<9>>(&encoding);
@@ -1003,7 +1003,7 @@ fn test_bitvector_bitvec_9_random_8() {
 #[should_panic]
 fn test_bitvector_bitvec_4_random_5() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_4_random_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_4_random_5/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<4>>(&encoding);
@@ -1013,7 +1013,7 @@ fn test_bitvector_bitvec_4_random_5() {
 #[should_panic]
 fn test_bitvector_bitvec_3_zero_4() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_3_zero_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_3_zero_4/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<3>>(&encoding);
@@ -1023,7 +1023,7 @@ fn test_bitvector_bitvec_3_zero_4() {
 #[should_panic]
 fn test_bitvector_bitvec_16_max_8() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_16_max_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_16_max_8/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<16>>(&encoding);
@@ -1033,7 +1033,7 @@ fn test_bitvector_bitvec_16_max_8() {
 #[should_panic]
 fn test_bitvector_bitvec_32_random_33() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_32_random_33/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_32_random_33/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<32>>(&encoding);
@@ -1043,7 +1043,7 @@ fn test_bitvector_bitvec_32_random_33() {
 #[should_panic]
 fn test_bitvector_bitvec_1_zero_2() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_1_zero_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_1_zero_2/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<1>>(&encoding);
@@ -1053,7 +1053,7 @@ fn test_bitvector_bitvec_1_zero_2() {
 #[should_panic]
 fn test_bitvector_bitvec_8_zero_9() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_8_zero_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_8_zero_9/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<8>>(&encoding);
@@ -1063,7 +1063,7 @@ fn test_bitvector_bitvec_8_zero_9() {
 #[should_panic]
 fn test_bitvector_bitvec_0() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_0/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<0>>(&encoding);
@@ -1073,7 +1073,7 @@ fn test_bitvector_bitvec_0() {
 #[should_panic]
 fn test_bitvector_bitvec_2_random_3() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_2_random_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_2_random_3/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<2>>(&encoding);
@@ -1083,7 +1083,7 @@ fn test_bitvector_bitvec_2_random_3() {
 #[should_panic]
 fn test_bitvector_bitvec_3_random_4() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_3_random_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_3_random_4/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<3>>(&encoding);
@@ -1093,7 +1093,7 @@ fn test_bitvector_bitvec_3_random_4() {
 #[should_panic]
 fn test_bitvector_bitvec_5_max_6() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_5_max_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_5_max_6/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<5>>(&encoding);
@@ -1103,7 +1103,7 @@ fn test_bitvector_bitvec_5_max_6() {
 #[should_panic]
 fn test_bitvector_bitvec_16_random_8() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/bitvector/invalid/bitvec_16_random_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/bitvector/invalid/bitvec_16_random_8/serialized.ssz_snappy",
     );
 
     deserialize::<Bitvector<16>>(&encoding);

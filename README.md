@@ -1,7 +1,6 @@
-# ssz_rs ✂️
+# ssz-rs ✂️️
 
-[![build](https://github.com/ralexstokes/ssz_rs/actions/workflows/rust.yml/badge.svg?branch=main)](https://github.com/ralexstokes/ssz_rs/actions/workflows/rust.yml)
-[![docs.rs](https://img.shields.io/docsrs/ssz_rs)](https://docs.rs/ssz_rs/)
+[![build](https://github.com/ralexstokes/ssz-rs/actions/workflows/rust.yml/badge.svg?branch=main)](https://github.com/ralexstokes/ssz-rs/actions/workflows/rust.yml)
 
 An implementation of the `SSZ` serialization scheme defined in the [consensus-specs repo](https://github.com/ethereum/consensus-specs).
 
@@ -45,5 +44,8 @@ This library is still very much in flux so I suggest using the git remote featur
 
 Once things settle down, a version bump will be published to `crates.io`.
 
+This means the following badges refer to **outdated** software. This message will be removed when this is no longer the case.
+
 [![crates.io](https://img.shields.io/crates/v/ssz_rs.svg)](https://crates.io/crates/ssz_rs)
 [![crates.io](https://img.shields.io/crates/v/ssz_rs_derive.svg)](https://crates.io/crates/ssz_rs_derive)
+[![docs.rs](https://img.shields.io/docsrs/ssz-rs)](https://docs.rs/ssz-rs/)

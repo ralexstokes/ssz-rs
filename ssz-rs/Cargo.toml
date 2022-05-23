@@ -1,13 +1,13 @@
 [package]
-name = "ssz_rs"
-version = "0.7.0"
+name = "ssz-rs"
+version = "0.8.0"
 rust-version = "1.60"
 authors = ["Alex Stokes <r.alex.stokes@gmail.com>"]
 edition = "2021"
 license = "MIT"
 readme = "../README.md"
 description = "ethereum's simple serialize"
-repository = "https://github.com/ralexstokes/ssz_rs"
+repository = "https://github.com/ralexstokes/ssz-rs"
 exclude = [
     "scripts",
     "tests/data",
@@ -22,7 +22,7 @@ serde = ["dep:serde", "dep:hex"]
 [dependencies]
 thiserror = "1.0.25"
 bitvec = "1.0.0"
-ssz_rs_derive = { path = "../ssz_rs_derive", version = "0.7.0" }
+ssz-rs-derive = { path = "../ssz-rs-derive"}
 sha2 = "0.9.8"
 lazy_static = "1.4.0"
 serde = { version = "1.0", features = ["derive"], optional = true }

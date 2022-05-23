@@ -10,7 +10,7 @@ fn test_boolean_true() {
     let mut value = true;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/boolean/valid/true/serialized.ssz_snappy",
+        "ssz-rs/tests/data/boolean/valid/true/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -28,7 +28,7 @@ fn test_boolean_false() {
     let mut value = false;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/boolean/valid/false/serialized.ssz_snappy",
+        "ssz-rs/tests/data/boolean/valid/false/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -45,7 +45,7 @@ fn test_boolean_false() {
 #[should_panic]
 fn test_boolean_byte_0x80() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/boolean/invalid/byte_0x80/serialized.ssz_snappy",
+        "ssz-rs/tests/data/boolean/invalid/byte_0x80/serialized.ssz_snappy",
     );
 
     deserialize::<bool>(&encoding);
@@ -55,7 +55,7 @@ fn test_boolean_byte_0x80() {
 #[should_panic]
 fn test_boolean_byte_2() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/boolean/invalid/byte_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/boolean/invalid/byte_2/serialized.ssz_snappy",
     );
 
     deserialize::<bool>(&encoding);
@@ -65,7 +65,7 @@ fn test_boolean_byte_2() {
 #[should_panic]
 fn test_boolean_byte_full() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/boolean/invalid/byte_full/serialized.ssz_snappy",
+        "ssz-rs/tests/data/boolean/invalid/byte_full/serialized.ssz_snappy",
     );
 
     deserialize::<bool>(&encoding);
@@ -75,7 +75,7 @@ fn test_boolean_byte_full() {
 #[should_panic]
 fn test_boolean_byte_rev_nibble() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/boolean/invalid/byte_rev_nibble/serialized.ssz_snappy",
+        "ssz-rs/tests/data/boolean/invalid/byte_rev_nibble/serialized.ssz_snappy",
     );
 
     deserialize::<bool>(&encoding);
