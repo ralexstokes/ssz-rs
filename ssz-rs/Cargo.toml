@@ -35,7 +35,9 @@ std = [
     "bitvec/std",
     "sha2/std",
     "lazy_static/spin",
-    "num-bigint/std"
+    "num-bigint/std",
+    "serde/std",
+    "hex/std"
 ]
 serde-rs = [
     "serde",
