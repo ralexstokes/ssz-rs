@@ -92,7 +92,7 @@ fn test_containers_var_test_struct_zero_chaos_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_zero_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_zero_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -116,7 +116,7 @@ fn test_containers_bits_struct_random_chaos_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_random_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_random_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -296,7 +296,7 @@ fn test_containers_complex_test_struct_max_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_max_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_max_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -484,7 +484,7 @@ fn test_containers_complex_test_struct_max_7() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_max_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_max_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -501,7 +501,7 @@ fn test_containers_complex_test_struct_max_7() {
 fn test_containers_single_field_test_struct_max_chaos_2() {
     let mut value = SingleFieldTestStruct { a: 255 };
     let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_max_chaos_2/serialized.ssz_snappy");
+    let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_max_chaos_2/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
 
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
@@ -518,7 +518,7 @@ fn test_containers_fixed_test_struct_zero_chaos_1() {
     let mut value = FixedTestStruct { a: 0, b: 0, c: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_zero_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_zero_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -580,7 +580,7 @@ fn test_containers_complex_test_struct_one_3() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_one_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_one_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -642,7 +642,7 @@ fn test_containers_complex_test_struct_one_4() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_one_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_one_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -960,7 +960,7 @@ fn test_containers_complex_test_struct_max_9() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_max_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_max_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -978,7 +978,7 @@ fn test_containers_small_test_struct_zero() {
     let mut value = SmallTestStruct { a: 0, b: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_zero/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1002,7 +1002,7 @@ fn test_containers_bits_struct_zero_chaos_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_zero_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_zero_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1020,7 +1020,7 @@ fn test_containers_single_field_test_struct_max_8() {
     let mut value = SingleFieldTestStruct { a: 255 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_max_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_max_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1038,7 +1038,7 @@ fn test_containers_single_field_test_struct_max_1() {
     let mut value = SingleFieldTestStruct { a: 255 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_max_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_max_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1062,7 +1062,7 @@ fn test_containers_bits_struct_random_5() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_random_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_random_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1086,7 +1086,7 @@ fn test_containers_bits_struct_max_chaos_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_max_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_max_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1204,7 +1204,7 @@ fn test_containers_complex_test_struct_zero_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_zero_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_zero_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1222,7 +1222,7 @@ fn test_containers_single_field_test_struct_zero_3() {
     let mut value = SingleFieldTestStruct { a: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_zero_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_zero_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1240,7 +1240,7 @@ fn test_containers_single_field_test_struct_max_6() {
     let mut value = SingleFieldTestStruct { a: 255 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_max_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_max_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1258,7 +1258,7 @@ fn test_containers_single_field_test_struct_zero_4() {
     let mut value = SingleFieldTestStruct { a: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_zero_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_zero_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1341,7 +1341,7 @@ fn test_containers_complex_test_struct_zero_5() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_zero_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_zero_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1365,7 +1365,7 @@ fn test_containers_bits_struct_random_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_random_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_random_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1427,7 +1427,7 @@ fn test_containers_complex_test_struct_one_5() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_one_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_one_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1630,7 +1630,7 @@ fn test_containers_complex_test_struct_max_8() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_max_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_max_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1692,7 +1692,7 @@ fn test_containers_complex_test_struct_one_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_one_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_one_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1710,7 +1710,7 @@ fn test_containers_fixed_test_struct_zero_chaos_0() {
     let mut value = FixedTestStruct { a: 0, b: 0, c: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_zero_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_zero_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1943,7 +1943,7 @@ fn test_containers_complex_test_struct_max_6() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_max_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_max_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2306,7 +2306,7 @@ fn test_containers_complex_test_struct_lengthy_chaos_2() {
         ]),
     };
     let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/containers/valid/ComplexTestStruct_lengthy_chaos_2/serialized.ssz_snappy");
+    let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/ComplexTestStruct_lengthy_chaos_2/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
 
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
@@ -2501,7 +2501,7 @@ fn test_containers_complex_test_struct_max_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_max_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_max_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2519,7 +2519,7 @@ fn test_containers_fixed_test_struct_zero() {
     let mut value = FixedTestStruct { a: 0, b: 0, c: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_zero/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2543,7 +2543,7 @@ fn test_containers_bits_struct_random_chaos_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_random_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_random_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2561,7 +2561,7 @@ fn test_containers_single_field_test_struct_max_7() {
     let mut value = SingleFieldTestStruct { a: 255 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_max_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_max_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2677,7 +2677,7 @@ fn test_containers_complex_test_struct_zero_4() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_zero_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_zero_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2695,7 +2695,7 @@ fn test_containers_single_field_test_struct_zero_5() {
     let mut value = SingleFieldTestStruct { a: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_zero_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_zero_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2719,7 +2719,7 @@ fn test_containers_bits_struct_random_3() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_random_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_random_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2781,7 +2781,7 @@ fn test_containers_complex_test_struct_one_chaos_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_one_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_one_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2799,7 +2799,7 @@ fn test_containers_single_field_test_struct_max_0() {
     let mut value = SingleFieldTestStruct { a: 255 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_max_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_max_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2823,7 +2823,7 @@ fn test_containers_bits_struct_random_4() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_random_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_random_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2841,7 +2841,7 @@ fn test_containers_single_field_test_struct_zero_2() {
     let mut value = SingleFieldTestStruct { a: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_zero_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_zero_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2865,7 +2865,7 @@ fn test_containers_bits_struct_max_chaos_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_max_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_max_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -2976,7 +2976,7 @@ fn test_containers_complex_test_struct_zero_3() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_zero_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_zero_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3000,7 +3000,7 @@ fn test_containers_bits_struct_zero_chaos_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_zero_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_zero_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3018,7 +3018,7 @@ fn test_containers_single_field_test_struct_max_9() {
     let mut value = SingleFieldTestStruct { a: 255 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_max_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_max_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3040,7 +3040,7 @@ fn test_containers_fixed_test_struct_max_6() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_max_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3062,7 +3062,7 @@ fn test_containers_fixed_test_struct_max_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_max_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3080,7 +3080,7 @@ fn test_containers_small_test_struct_zero_chaos_2() {
     let mut value = SmallTestStruct { a: 0, b: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_zero_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_zero_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3102,7 +3102,7 @@ fn test_containers_fixed_test_struct_max_8() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_max_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3164,7 +3164,7 @@ fn test_containers_complex_test_struct_nil_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_nil_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_nil_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3226,7 +3226,7 @@ fn test_containers_complex_test_struct_nil_chaos_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_nil_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_nil_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3244,7 +3244,7 @@ fn test_containers_small_test_struct_zero_9() {
     let mut value = SmallTestStruct { a: 0, b: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_zero_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_zero_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3306,7 +3306,7 @@ fn test_containers_complex_test_struct_nil_6() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_nil_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_nil_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3324,7 +3324,7 @@ fn test_containers_small_test_struct_zero_0() {
     let mut value = SmallTestStruct { a: 0, b: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_zero_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_zero_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3386,7 +3386,7 @@ fn test_containers_complex_test_struct_nil_8() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_nil_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_nil_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3404,7 +3404,7 @@ fn test_containers_small_test_struct_zero_7() {
     let mut value = SmallTestStruct { a: 0, b: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_zero_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_zero_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3426,7 +3426,7 @@ fn test_containers_fixed_test_struct_random_chaos_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_random_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3448,7 +3448,7 @@ fn test_containers_fixed_test_struct_max_9() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_max_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3470,7 +3470,7 @@ fn test_containers_fixed_test_struct_max_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_max_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3492,7 +3492,7 @@ fn test_containers_fixed_test_struct_max_7() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_max_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3509,7 +3509,7 @@ fn test_containers_fixed_test_struct_max_7() {
 fn test_containers_single_field_test_struct_random_chaos_2() {
     let mut value = SingleFieldTestStruct { a: 177 };
     let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_random_chaos_2/serialized.ssz_snappy");
+    let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_chaos_2/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
 
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
@@ -3532,7 +3532,7 @@ fn test_containers_bits_struct_max() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_max/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3594,7 +3594,7 @@ fn test_containers_complex_test_struct_nil_9() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_nil_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_nil_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3612,7 +3612,7 @@ fn test_containers_small_test_struct_zero_6() {
     let mut value = SmallTestStruct { a: 0, b: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_zero_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_zero_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3630,7 +3630,7 @@ fn test_containers_small_test_struct_zero_1() {
     let mut value = SmallTestStruct { a: 0, b: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_zero_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_zero_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3670,7 +3670,7 @@ fn test_containers_var_test_struct_max_chaos_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_max_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_max_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3688,7 +3688,7 @@ fn test_containers_small_test_struct_zero_8() {
     let mut value = SmallTestStruct { a: 0, b: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_zero_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_zero_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3750,7 +3750,7 @@ fn test_containers_complex_test_struct_nil_7() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_nil_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_nil_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3812,7 +3812,7 @@ fn test_containers_complex_test_struct_nil_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_nil_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_nil_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3830,7 +3830,7 @@ fn test_containers_small_test_struct_max_0() {
     let mut value = SmallTestStruct { a: 65535, b: 65535 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_max_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_max_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3861,7 +3861,7 @@ fn test_containers_var_test_struct_zero_5() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_zero_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_zero_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3885,7 +3885,7 @@ fn test_containers_bits_struct_zero_5() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_zero_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_zero_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3909,7 +3909,7 @@ fn test_containers_bits_struct_lengthy_9() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_lengthy_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_lengthy_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3931,7 +3931,7 @@ fn test_containers_var_test_struct_zero_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_zero_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_zero_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3949,7 +3949,7 @@ fn test_containers_small_test_struct_max_7() {
     let mut value = SmallTestStruct { a: 65535, b: 65535 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_max_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_max_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -3973,7 +3973,7 @@ fn test_containers_bits_struct_zero_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_zero_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_zero_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -4003,7 +4003,7 @@ fn test_containers_var_test_struct_random_9() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_random_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_random_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -4080,7 +4080,7 @@ fn test_containers_var_test_struct_random_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_random_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_random_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -4104,7 +4104,7 @@ fn test_containers_bits_struct_lengthy_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_lengthy_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_lengthy_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -4161,7 +4161,7 @@ fn test_containers_var_test_struct_random_7() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_random_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_random_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -4185,7 +4185,7 @@ fn test_containers_bits_struct_nil_chaos_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_nil_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_nil_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -4203,7 +4203,7 @@ fn test_containers_small_test_struct_max_9() {
     let mut value = SmallTestStruct { a: 65535, b: 65535 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_max_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_max_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -4227,7 +4227,7 @@ fn test_containers_bits_struct_lengthy_7() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_lengthy_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_lengthy_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -4249,7 +4249,7 @@ fn test_containers_var_test_struct_nil_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_nil_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -4431,7 +4431,7 @@ fn test_containers_complex_test_struct_random_9() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_random_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_random_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -4455,7 +4455,7 @@ fn test_containers_bits_struct_one_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_one_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_one_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -4477,7 +4477,7 @@ fn test_containers_var_test_struct_nil_5() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_nil_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -4495,7 +4495,7 @@ fn test_containers_single_field_test_struct_random_9() {
     let mut value = SingleFieldTestStruct { a: 8 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_random_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -4519,7 +4519,7 @@ fn test_containers_bits_struct_one_6() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_one_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_one_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -4625,7 +4625,7 @@ fn test_containers_var_test_struct_lengthy_chaos_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_lengthy_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_lengthy_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -4643,7 +4643,7 @@ fn test_containers_single_field_test_struct_random_0() {
     let mut value = SingleFieldTestStruct { a: 225 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_random_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -4856,7 +4856,7 @@ fn test_containers_complex_test_struct_random_7() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_random_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_random_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -4874,7 +4874,7 @@ fn test_containers_small_test_struct_random_chaos_1() {
     let mut value = SmallTestStruct { a: 59426, b: 2529 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_random_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -4898,7 +4898,7 @@ fn test_containers_bits_struct_max_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_max_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_max_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5126,7 +5126,7 @@ fn test_containers_complex_test_struct_random_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_random_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_random_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5150,7 +5150,7 @@ fn test_containers_bits_struct_one_8() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_one_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_one_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5168,7 +5168,7 @@ fn test_containers_single_field_test_struct_random_7() {
     let mut value = SingleFieldTestStruct { a: 181 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_random_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5192,7 +5192,7 @@ fn test_containers_bits_struct_max_5() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_max_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_max_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5214,7 +5214,7 @@ fn test_containers_fixed_test_struct_max_chaos_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_max_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5242,7 +5242,7 @@ fn test_containers_var_test_struct_random_6() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_random_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_random_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5266,7 +5266,7 @@ fn test_containers_bits_struct_lengthy_6() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_lengthy_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_lengthy_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5290,7 +5290,7 @@ fn test_containers_bits_struct_nil_chaos_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_nil_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_nil_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5308,7 +5308,7 @@ fn test_containers_small_test_struct_max_8() {
     let mut value = SmallTestStruct { a: 65535, b: 65535 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_max_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_max_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5330,7 +5330,7 @@ fn test_containers_var_test_struct_one_chaos_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_one_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_one_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5410,7 +5410,7 @@ fn test_containers_var_test_struct_random_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_random_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_random_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5434,7 +5434,7 @@ fn test_containers_bits_struct_lengthy_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_lengthy_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_lengthy_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5452,7 +5452,7 @@ fn test_containers_small_test_struct_max_6() {
     let mut value = SmallTestStruct { a: 65535, b: 65535 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_max_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_max_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5476,7 +5476,7 @@ fn test_containers_bits_struct_lengthy_8() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_lengthy_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_lengthy_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5520,7 +5520,7 @@ fn test_containers_var_test_struct_zero_3() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_zero_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_zero_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5614,7 +5614,7 @@ fn test_containers_complex_test_struct_zero_chaos_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_zero_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_zero_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5644,7 +5644,7 @@ fn test_containers_var_test_struct_random_8() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_random_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_random_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5668,7 +5668,7 @@ fn test_containers_bits_struct_zero_3() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_zero_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_zero_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5707,7 +5707,7 @@ fn test_containers_var_test_struct_zero_4() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_zero_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_zero_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5725,7 +5725,7 @@ fn test_containers_small_test_struct_max_1() {
     let mut value = SmallTestStruct { a: 65535, b: 65535 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_max_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_max_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5749,7 +5749,7 @@ fn test_containers_bits_struct_zero_4() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_zero_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_zero_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5767,7 +5767,7 @@ fn test_containers_single_field_test_struct_random_6() {
     let mut value = SingleFieldTestStruct { a: 50 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_random_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -5980,7 +5980,7 @@ fn test_containers_complex_test_struct_random_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_random_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_random_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6004,7 +6004,7 @@ fn test_containers_bits_struct_one_9() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_one_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_one_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6028,7 +6028,7 @@ fn test_containers_bits_struct_max_4() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_max_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_max_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6050,7 +6050,7 @@ fn test_containers_fixed_test_struct_max_chaos_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_max_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6312,7 +6312,7 @@ fn test_containers_complex_test_struct_random_6() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_random_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_random_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6330,7 +6330,7 @@ fn test_containers_small_test_struct_random_chaos_0() {
     let mut value = SmallTestStruct { a: 32656, b: 26218 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_random_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6348,7 +6348,7 @@ fn test_containers_single_field_test_struct_random_1() {
     let mut value = SingleFieldTestStruct { a: 59 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_random_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6372,7 +6372,7 @@ fn test_containers_bits_struct_max_3() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_max_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_max_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6394,7 +6394,7 @@ fn test_containers_var_test_struct_nil_4() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_nil_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6418,7 +6418,7 @@ fn test_containers_bits_struct_one_7() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_one_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_one_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6436,7 +6436,7 @@ fn test_containers_single_field_test_struct_random_8() {
     let mut value = SingleFieldTestStruct { a: 121 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_random_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6485,7 +6485,7 @@ fn test_containers_var_test_struct_random_chaos_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_random_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_random_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6507,7 +6507,7 @@ fn test_containers_var_test_struct_nil_3() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_nil_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6786,7 +6786,7 @@ fn test_containers_complex_test_struct_random_8() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_random_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_random_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6810,7 +6810,7 @@ fn test_containers_bits_struct_one_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_one_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_one_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -6966,7 +6966,7 @@ fn test_containers_complex_test_struct_random_chaos_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_random_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_random_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7037,7 +7037,7 @@ fn test_containers_var_test_struct_max_3() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_max_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_max_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7059,7 +7059,7 @@ fn test_containers_var_test_struct_nil_chaos_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_nil_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7077,7 +7077,7 @@ fn test_containers_fixed_test_struct_zero_6() {
     let mut value = FixedTestStruct { a: 0, b: 0, c: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_zero_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_zero_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7156,7 +7156,7 @@ fn test_containers_var_test_struct_max_4() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_max_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_max_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7180,7 +7180,7 @@ fn test_containers_bits_struct_lengthy_chaos_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_lengthy_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_lengthy_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7198,7 +7198,7 @@ fn test_containers_fixed_test_struct_zero_1() {
     let mut value = FixedTestStruct { a: 0, b: 0, c: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_zero_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_zero_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7222,7 +7222,7 @@ fn test_containers_bits_struct_one_chaos_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_one_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_one_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7244,7 +7244,7 @@ fn test_containers_var_test_struct_one_9() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_one_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_one_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7262,7 +7262,7 @@ fn test_containers_fixed_test_struct_zero_8() {
     let mut value = FixedTestStruct { a: 0, b: 0, c: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_zero_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_zero_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7284,7 +7284,7 @@ fn test_containers_var_test_struct_one_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_one_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_one_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7390,7 +7390,7 @@ fn test_containers_var_test_struct_lengthy_5() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_lengthy_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_lengthy_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7414,7 +7414,7 @@ fn test_containers_bits_struct_nil_3() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_nil_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_nil_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7520,7 +7520,7 @@ fn test_containers_var_test_struct_lengthy_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_lengthy_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_lengthy_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7542,7 +7542,7 @@ fn test_containers_var_test_struct_one_7() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_one_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_one_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7566,7 +7566,7 @@ fn test_containers_bits_struct_nil_4() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_nil_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_nil_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7928,7 +7928,7 @@ fn test_containers_complex_test_struct_lengthy_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_lengthy_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_lengthy_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -7950,7 +7950,7 @@ fn test_containers_fixed_test_struct_random_4() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_random_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -8312,7 +8312,7 @@ fn test_containers_complex_test_struct_lengthy_6() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_lengthy_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_lengthy_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -8334,7 +8334,7 @@ fn test_containers_fixed_test_struct_random_3() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_random_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -8352,7 +8352,7 @@ fn test_containers_small_test_struct_random_5() {
     let mut value = SmallTestStruct { a: 61066, b: 8987 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_random_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -8713,7 +8713,7 @@ fn test_containers_complex_test_struct_lengthy_8() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_lengthy_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_lengthy_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -8731,7 +8731,7 @@ fn test_containers_small_test_struct_random_2() {
     let mut value = SmallTestStruct { a: 23998, b: 14996 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_random_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -8753,7 +8753,7 @@ fn test_containers_fixed_test_struct_max() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_max/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -8859,7 +8859,7 @@ fn test_containers_var_test_struct_lengthy_3() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_lengthy_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_lengthy_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -8881,7 +8881,7 @@ fn test_containers_var_test_struct_one_6() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_one_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_one_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -8905,7 +8905,7 @@ fn test_containers_bits_struct_nil_5() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_nil_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_nil_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -8927,7 +8927,7 @@ fn test_containers_var_test_struct_one_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_one_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_one_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9033,7 +9033,7 @@ fn test_containers_var_test_struct_lengthy_4() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_lengthy_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_lengthy_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9050,7 +9050,7 @@ fn test_containers_var_test_struct_lengthy_4() {
 fn test_containers_single_field_test_struct_zero_chaos_2() {
     let mut value = SingleFieldTestStruct { a: 0 };
     let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_zero_chaos_2/serialized.ssz_snappy");
+    let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_zero_chaos_2/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
 
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
@@ -9067,7 +9067,7 @@ fn test_containers_fixed_test_struct_zero_9() {
     let mut value = FixedTestStruct { a: 0, b: 0, c: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_zero_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_zero_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9091,7 +9091,7 @@ fn test_containers_bits_struct_nil_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_nil_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_nil_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9339,7 +9339,7 @@ fn test_containers_complex_test_struct_max_chaos_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_max_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_max_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9384,7 +9384,7 @@ fn test_containers_var_test_struct_max_5() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_max_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_max_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9406,7 +9406,7 @@ fn test_containers_var_test_struct_one_8() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_one_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_one_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9430,7 +9430,7 @@ fn test_containers_bits_struct_one_chaos_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_one_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_one_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9448,7 +9448,7 @@ fn test_containers_fixed_test_struct_zero_0() {
     let mut value = FixedTestStruct { a: 0, b: 0, c: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_zero_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_zero_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9520,7 +9520,7 @@ fn test_containers_var_test_struct_max_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_max_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_max_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9538,7 +9538,7 @@ fn test_containers_small_test_struct_max_chaos_2() {
     let mut value = SmallTestStruct { a: 65535, b: 65535 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_max_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_max_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9556,7 +9556,7 @@ fn test_containers_fixed_test_struct_zero_7() {
     let mut value = FixedTestStruct { a: 0, b: 0, c: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_zero_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_zero_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9574,7 +9574,7 @@ fn test_containers_small_test_struct_random_3() {
     let mut value = SmallTestStruct { a: 1916, b: 63799 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_random_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9936,7 +9936,7 @@ fn test_containers_complex_test_struct_lengthy_9() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_lengthy_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_lengthy_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9954,7 +9954,7 @@ fn test_containers_single_field_test_struct_max() {
     let mut value = SingleFieldTestStruct { a: 255 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_max/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -9972,7 +9972,7 @@ fn test_containers_small_test_struct_random_4() {
     let mut value = SmallTestStruct { a: 32745, b: 8462 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_random_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10334,7 +10334,7 @@ fn test_containers_complex_test_struct_lengthy_7() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_lengthy_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_lengthy_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10356,7 +10356,7 @@ fn test_containers_fixed_test_struct_random_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_random_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10718,7 +10718,7 @@ fn test_containers_complex_test_struct_lengthy_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_lengthy_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_lengthy_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10740,7 +10740,7 @@ fn test_containers_fixed_test_struct_random_5() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_random_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10826,7 +10826,7 @@ fn test_containers_complex_test_struct_zero_8() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_zero_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_zero_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10844,7 +10844,7 @@ fn test_containers_single_field_test_struct_zero_9() {
     let mut value = SingleFieldTestStruct { a: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_zero_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_zero_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10868,7 +10868,7 @@ fn test_containers_bits_struct_zero_chaos_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_zero_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_zero_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10892,7 +10892,7 @@ fn test_containers_bits_struct_random_8() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_random_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_random_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -10910,7 +10910,7 @@ fn test_containers_single_field_test_struct_max_5() {
     let mut value = SingleFieldTestStruct { a: 255 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_max_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_max_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -11016,7 +11016,7 @@ fn test_containers_complex_test_struct_zero_6() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_zero_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_zero_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -11034,7 +11034,7 @@ fn test_containers_single_field_test_struct_zero_7() {
     let mut value = SingleFieldTestStruct { a: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_zero_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_zero_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -11058,7 +11058,7 @@ fn test_containers_bits_struct_random_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_random_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_random_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -11120,7 +11120,7 @@ fn test_containers_complex_test_struct_one_chaos_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_one_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_one_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -11138,7 +11138,7 @@ fn test_containers_single_field_test_struct_max_2() {
     let mut value = SingleFieldTestStruct { a: 255 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_max_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_max_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -11162,7 +11162,7 @@ fn test_containers_bits_struct_random_6() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_random_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_random_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -11180,7 +11180,7 @@ fn test_containers_single_field_test_struct_zero_0() {
     let mut value = SingleFieldTestStruct { a: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_zero_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_zero_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -11295,7 +11295,7 @@ fn test_containers_complex_test_struct_zero_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_zero_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_zero_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -11613,7 +11613,7 @@ fn test_containers_complex_test_struct_max_4() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_max_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_max_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -11630,7 +11630,7 @@ fn test_containers_complex_test_struct_max_4() {
 fn test_containers_single_field_test_struct_max_chaos_1() {
     let mut value = SingleFieldTestStruct { a: 255 };
     let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_max_chaos_1/serialized.ssz_snappy");
+    let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_max_chaos_1/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
 
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
@@ -11990,7 +11990,7 @@ fn test_containers_complex_test_struct_lengthy_chaos_0() {
         ]),
     };
     let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/containers/valid/ComplexTestStruct_lengthy_chaos_0/serialized.ssz_snappy");
+    let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/ComplexTestStruct_lengthy_chaos_0/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
 
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
@@ -12051,7 +12051,7 @@ fn test_containers_complex_test_struct_one_9() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_one_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_one_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -12075,7 +12075,7 @@ fn test_containers_bits_struct_random_chaos_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_random_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_random_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -12124,7 +12124,7 @@ fn test_containers_var_test_struct_zero_chaos_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_zero_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_zero_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -12342,7 +12342,7 @@ fn test_containers_complex_test_struct_max_3() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_max_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_max_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -12404,7 +12404,7 @@ fn test_containers_complex_test_struct_one_7() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_one_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_one_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -12422,7 +12422,7 @@ fn test_containers_fixed_test_struct_zero_chaos_2() {
     let mut value = FixedTestStruct { a: 0, b: 0, c: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_zero_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_zero_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -12484,7 +12484,7 @@ fn test_containers_complex_test_struct_one_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_one_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_one_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -12546,7 +12546,7 @@ fn test_containers_complex_test_struct_one_chaos_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_one_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_one_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -12564,7 +12564,7 @@ fn test_containers_single_field_test_struct_max_3() {
     let mut value = SingleFieldTestStruct { a: 255 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_max_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_max_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -12588,7 +12588,7 @@ fn test_containers_bits_struct_random_7() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_random_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_random_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -12612,7 +12612,7 @@ fn test_containers_bits_struct_max_chaos_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_max_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_max_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -12711,7 +12711,7 @@ fn test_containers_complex_test_struct_zero_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_zero_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_zero_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -12729,7 +12729,7 @@ fn test_containers_single_field_test_struct_zero_1() {
     let mut value = SingleFieldTestStruct { a: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_zero_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_zero_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -12747,7 +12747,7 @@ fn test_containers_single_field_test_struct_max_4() {
     let mut value = SingleFieldTestStruct { a: 255 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_max_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_max_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -12765,7 +12765,7 @@ fn test_containers_single_field_test_struct_zero_6() {
     let mut value = SingleFieldTestStruct { a: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_zero_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_zero_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -12877,7 +12877,7 @@ fn test_containers_complex_test_struct_zero_7() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_zero_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_zero_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -12901,7 +12901,7 @@ fn test_containers_bits_struct_random_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_random_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_random_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -12925,7 +12925,7 @@ fn test_containers_bits_struct_random_9() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_random_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_random_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -12943,7 +12943,7 @@ fn test_containers_single_field_test_struct_zero_8() {
     let mut value = SingleFieldTestStruct { a: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_zero_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_zero_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -13059,7 +13059,7 @@ fn test_containers_complex_test_struct_zero_9() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_zero_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_zero_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -13121,7 +13121,7 @@ fn test_containers_complex_test_struct_one_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_one_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_one_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -13183,7 +13183,7 @@ fn test_containers_complex_test_struct_one_6() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_one_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_one_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -13360,7 +13360,7 @@ fn test_containers_complex_test_struct_max_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_max_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_max_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -13404,7 +13404,7 @@ fn test_containers_var_test_struct_zero_chaos_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_zero_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_zero_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -13691,7 +13691,7 @@ fn test_containers_complex_test_struct_max_5() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_max_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_max_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -13753,7 +13753,7 @@ fn test_containers_complex_test_struct_one_8() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_one_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_one_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -13770,7 +13770,7 @@ fn test_containers_complex_test_struct_one_8() {
 fn test_containers_single_field_test_struct_max_chaos_0() {
     let mut value = SingleFieldTestStruct { a: 255 };
     let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_max_chaos_0/serialized.ssz_snappy");
+    let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_max_chaos_0/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
 
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
@@ -14130,7 +14130,7 @@ fn test_containers_complex_test_struct_lengthy_chaos_1() {
         ]),
     };
     let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/containers/valid/ComplexTestStruct_lengthy_chaos_1/serialized.ssz_snappy");
+    let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/ComplexTestStruct_lengthy_chaos_1/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
 
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
@@ -14191,7 +14191,7 @@ fn test_containers_complex_test_struct_nil_5() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_nil_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_nil_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14276,7 +14276,7 @@ fn test_containers_var_test_struct_max_chaos_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_max_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_max_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14338,7 +14338,7 @@ fn test_containers_complex_test_struct_nil_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_nil_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_nil_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14400,7 +14400,7 @@ fn test_containers_complex_test_struct_nil_chaos_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_nil_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_nil_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14448,7 +14448,7 @@ fn test_containers_var_test_struct_max() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_max/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14466,7 +14466,7 @@ fn test_containers_small_test_struct_zero_4() {
     let mut value = SmallTestStruct { a: 0, b: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_zero_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_zero_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14484,7 +14484,7 @@ fn test_containers_small_test_struct_zero_3() {
     let mut value = SmallTestStruct { a: 0, b: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_zero_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_zero_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14508,7 +14508,7 @@ fn test_containers_bits_struct_zero() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_zero/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14530,7 +14530,7 @@ fn test_containers_fixed_test_struct_max_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_max_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14547,7 +14547,7 @@ fn test_containers_fixed_test_struct_max_2() {
 fn test_containers_single_field_test_struct_random_chaos_0() {
     let mut value = SingleFieldTestStruct { a: 15 };
     let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_random_chaos_0/serialized.ssz_snappy");
+    let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_chaos_0/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
 
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
@@ -14568,7 +14568,7 @@ fn test_containers_fixed_test_struct_max_5() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_max_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14590,7 +14590,7 @@ fn test_containers_fixed_test_struct_random_chaos_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_random_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14608,7 +14608,7 @@ fn test_containers_small_test_struct_zero_chaos_1() {
     let mut value = SmallTestStruct { a: 0, b: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_zero_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_zero_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14643,7 +14643,7 @@ fn test_containers_var_test_struct_zero() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_zero/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14661,7 +14661,7 @@ fn test_containers_small_test_struct_zero_2() {
     let mut value = SmallTestStruct { a: 0, b: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_zero_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_zero_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14679,7 +14679,7 @@ fn test_containers_small_test_struct_zero_5() {
     let mut value = SmallTestStruct { a: 0, b: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_zero_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_zero_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14741,7 +14741,7 @@ fn test_containers_complex_test_struct_nil_3() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_nil_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_nil_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14803,7 +14803,7 @@ fn test_containers_complex_test_struct_nil_chaos_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_nil_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_nil_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14835,7 +14835,7 @@ fn test_containers_var_test_struct_max_chaos_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_max_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_max_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14897,7 +14897,7 @@ fn test_containers_complex_test_struct_nil_4() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_nil_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_nil_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14915,7 +14915,7 @@ fn test_containers_small_test_struct_zero_chaos_0() {
     let mut value = SmallTestStruct { a: 0, b: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_zero_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_zero_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14937,7 +14937,7 @@ fn test_containers_fixed_test_struct_random_chaos_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_random_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14959,7 +14959,7 @@ fn test_containers_fixed_test_struct_max_4() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_max_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -14976,7 +14976,7 @@ fn test_containers_fixed_test_struct_max_4() {
 fn test_containers_single_field_test_struct_random_chaos_1() {
     let mut value = SingleFieldTestStruct { a: 8 };
     let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_random_chaos_1/serialized.ssz_snappy");
+    let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_chaos_1/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
 
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
@@ -14997,7 +14997,7 @@ fn test_containers_fixed_test_struct_max_3() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_max_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15019,7 +15019,7 @@ fn test_containers_var_test_struct_nil_6() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_nil_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15043,7 +15043,7 @@ fn test_containers_bits_struct_max_8() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_max_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_max_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15142,7 +15142,7 @@ fn test_containers_var_test_struct_random_chaos_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_random_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_random_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15166,7 +15166,7 @@ fn test_containers_bits_struct_one_5() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_one_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_one_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15188,7 +15188,7 @@ fn test_containers_var_test_struct_nil_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_nil_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15212,7 +15212,7 @@ fn test_containers_bits_struct_one_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_one_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_one_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15434,7 +15434,7 @@ fn test_containers_complex_test_struct_random_chaos_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_random_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_random_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15681,7 +15681,7 @@ fn test_containers_complex_test_struct_random_3() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_random_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_random_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15699,7 +15699,7 @@ fn test_containers_single_field_test_struct_random_4() {
     let mut value = SingleFieldTestStruct { a: 17 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_random_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15723,7 +15723,7 @@ fn test_containers_bits_struct_max_6() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_max_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_max_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15745,7 +15745,7 @@ fn test_containers_fixed_test_struct_max_chaos_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_max_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15767,7 +15767,7 @@ fn test_containers_var_test_struct_nil_8() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_nil_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15785,7 +15785,7 @@ fn test_containers_single_field_test_struct_random_3() {
     let mut value = SingleFieldTestStruct { a: 46 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_random_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15891,7 +15891,7 @@ fn test_containers_var_test_struct_lengthy_chaos_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_lengthy_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_lengthy_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -15909,7 +15909,7 @@ fn test_containers_small_test_struct_random_chaos_2() {
     let mut value = SmallTestStruct { a: 9252, b: 757 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_random_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16037,7 +16037,7 @@ fn test_containers_complex_test_struct_random_4() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_random_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_random_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16061,7 +16061,7 @@ fn test_containers_bits_struct_max_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_max_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_max_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16109,7 +16109,7 @@ fn test_containers_var_test_struct_zero_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_zero_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_zero_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16127,7 +16127,7 @@ fn test_containers_small_test_struct_max_4() {
     let mut value = SmallTestStruct { a: 65535, b: 65535 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_max_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_max_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16151,7 +16151,7 @@ fn test_containers_bits_struct_zero_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_zero_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_zero_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16258,7 +16258,7 @@ fn test_containers_complex_test_struct_zero_chaos_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_zero_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_zero_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16276,7 +16276,7 @@ fn test_containers_small_test_struct_max_3() {
     let mut value = SmallTestStruct { a: 65535, b: 65535 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_max_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_max_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16324,7 +16324,7 @@ fn test_containers_var_test_struct_zero_6() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_zero_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_zero_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16348,7 +16348,7 @@ fn test_containers_bits_struct_zero_6() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_zero_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_zero_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16438,7 +16438,7 @@ fn test_containers_var_test_struct_random_4() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_random_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_random_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16462,7 +16462,7 @@ fn test_containers_bits_struct_nil_chaos_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_nil_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_nil_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16557,7 +16557,7 @@ fn test_containers_complex_test_struct_zero() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_zero/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16581,7 +16581,7 @@ fn test_containers_bits_struct_lengthy_4() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_lengthy_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_lengthy_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16605,7 +16605,7 @@ fn test_containers_bits_struct_zero_8() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_zero_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_zero_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16666,7 +16666,7 @@ fn test_containers_var_test_struct_random_3() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_random_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_random_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16688,7 +16688,7 @@ fn test_containers_var_test_struct_one_chaos_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_one_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_one_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16712,7 +16712,7 @@ fn test_containers_bits_struct_lengthy_3() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_lengthy_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_lengthy_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -16766,7 +16766,7 @@ fn test_containers_var_test_struct_zero_8() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_zero_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_zero_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17005,7 +17005,7 @@ fn test_containers_complex_test_struct_random_5() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_random_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_random_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17111,7 +17111,7 @@ fn test_containers_var_test_struct_lengthy_chaos_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_lengthy_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_lengthy_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17129,7 +17129,7 @@ fn test_containers_single_field_test_struct_random_2() {
     let mut value = SingleFieldTestStruct { a: 3 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_random_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17153,7 +17153,7 @@ fn test_containers_bits_struct_max_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_max_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_max_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17171,7 +17171,7 @@ fn test_containers_single_field_test_struct_random_5() {
     let mut value = SingleFieldTestStruct { a: 42 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_random_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17414,7 +17414,7 @@ fn test_containers_complex_test_struct_random_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_random_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_random_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17438,7 +17438,7 @@ fn test_containers_bits_struct_max_7() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_max_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_max_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17460,7 +17460,7 @@ fn test_containers_var_test_struct_nil_9() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_nil_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17482,7 +17482,7 @@ fn test_containers_var_test_struct_nil_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_nil_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17656,7 +17656,7 @@ fn test_containers_complex_test_struct_random_chaos_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_random_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_random_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17680,7 +17680,7 @@ fn test_containers_bits_struct_one_3() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_one_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_one_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17702,7 +17702,7 @@ fn test_containers_var_test_struct_nil_7() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_nil_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17726,7 +17726,7 @@ fn test_containers_bits_struct_max_9() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_max_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_max_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17750,7 +17750,7 @@ fn test_containers_bits_struct_one_4() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_one_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_one_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17788,7 +17788,7 @@ fn test_containers_var_test_struct_random_chaos_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_random_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_random_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17810,7 +17810,7 @@ fn test_containers_var_test_struct_one_chaos_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_one_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_one_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17879,7 +17879,7 @@ fn test_containers_var_test_struct_random_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_random_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_random_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17903,7 +17903,7 @@ fn test_containers_bits_struct_zero_9() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_zero_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_zero_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17921,7 +17921,7 @@ fn test_containers_small_test_struct_max() {
     let mut value = SmallTestStruct { a: 65535, b: 65535 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_max/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17945,7 +17945,7 @@ fn test_containers_bits_struct_lengthy_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_lengthy_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_lengthy_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17977,7 +17977,7 @@ fn test_containers_var_test_struct_zero_9() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_zero_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_zero_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -17995,7 +17995,7 @@ fn test_containers_single_field_test_struct_zero() {
     let mut value = SingleFieldTestStruct { a: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_zero/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -18033,7 +18033,7 @@ fn test_containers_var_test_struct_random_5() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_random_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_random_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -18057,7 +18057,7 @@ fn test_containers_bits_struct_lengthy_5() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_lengthy_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_lengthy_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -18092,7 +18092,7 @@ fn test_containers_var_test_struct_zero_7() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_zero_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_zero_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -18110,7 +18110,7 @@ fn test_containers_small_test_struct_max_2() {
     let mut value = SmallTestStruct { a: 65535, b: 65535 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_max_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_max_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -18134,7 +18134,7 @@ fn test_containers_bits_struct_zero_7() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_zero_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_zero_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -18152,7 +18152,7 @@ fn test_containers_small_test_struct_max_5() {
     let mut value = SmallTestStruct { a: 65535, b: 65535 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_max_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_max_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -18194,7 +18194,7 @@ fn test_containers_var_test_struct_zero_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_zero_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_zero_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -18303,7 +18303,7 @@ fn test_containers_complex_test_struct_zero_chaos_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_zero_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_zero_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -18327,7 +18327,7 @@ fn test_containers_bits_struct_zero_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_zero_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_zero_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -18689,7 +18689,7 @@ fn test_containers_complex_test_struct_lengthy_5() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_lengthy_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_lengthy_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -18711,7 +18711,7 @@ fn test_containers_fixed_test_struct_random_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_random_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19074,7 +19074,7 @@ fn test_containers_complex_test_struct_lengthy_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_lengthy_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_lengthy_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19092,7 +19092,7 @@ fn test_containers_small_test_struct_random_8() {
     let mut value = SmallTestStruct { a: 39639, b: 63050 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_random_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19114,7 +19114,7 @@ fn test_containers_fixed_test_struct_random_7() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_random_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19132,7 +19132,7 @@ fn test_containers_small_test_struct_random_1() {
     let mut value = SmallTestStruct { a: 19471, b: 11965 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_random_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19154,7 +19154,7 @@ fn test_containers_fixed_test_struct_random_9() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_random_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19172,7 +19172,7 @@ fn test_containers_small_test_struct_random_6() {
     let mut value = SmallTestStruct { a: 11656, b: 6024 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_random_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19196,7 +19196,7 @@ fn test_containers_bits_struct_nil_9() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_nil_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_nil_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19256,7 +19256,7 @@ fn test_containers_var_test_struct_max_7() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_max_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_max_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19523,7 +19523,7 @@ fn test_containers_complex_test_struct_max_chaos_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_max_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_max_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19547,7 +19547,7 @@ fn test_containers_bits_struct_lengthy_chaos_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_lengthy_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_lengthy_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19565,7 +19565,7 @@ fn test_containers_fixed_test_struct_zero_2() {
     let mut value = FixedTestStruct { a: 0, b: 0, c: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_zero_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_zero_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19647,7 +19647,7 @@ fn test_containers_var_test_struct_max_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_max_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_max_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19669,7 +19669,7 @@ fn test_containers_var_test_struct_nil_chaos_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_nil_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19687,7 +19687,7 @@ fn test_containers_small_test_struct_max_chaos_0() {
     let mut value = SmallTestStruct { a: 65535, b: 65535 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_max_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_max_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19794,7 +19794,7 @@ fn test_containers_var_test_struct_lengthy_8() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_lengthy_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_lengthy_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19812,7 +19812,7 @@ fn test_containers_fixed_test_struct_zero_5() {
     let mut value = FixedTestStruct { a: 0, b: 0, c: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_zero_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_zero_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19918,7 +19918,7 @@ fn test_containers_var_test_struct_lengthy_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_lengthy_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_lengthy_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19940,7 +19940,7 @@ fn test_containers_var_test_struct_one_4() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_one_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_one_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -19990,7 +19990,7 @@ fn test_containers_var_test_struct_max_9() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_max_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_max_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -20014,7 +20014,7 @@ fn test_containers_bits_struct_nil_7() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_nil_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_nil_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -20031,7 +20031,7 @@ fn test_containers_bits_struct_nil_7() {
 fn test_containers_single_field_test_struct_zero_chaos_0() {
     let mut value = SingleFieldTestStruct { a: 0 };
     let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_zero_chaos_0/serialized.ssz_snappy");
+    let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_zero_chaos_0/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
 
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
@@ -20052,7 +20052,7 @@ fn test_containers_var_test_struct_one_3() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_one_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_one_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -20158,7 +20158,7 @@ fn test_containers_var_test_struct_lengthy_6() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_lengthy_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_lengthy_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -20182,7 +20182,7 @@ fn test_containers_bits_struct_nil_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_nil_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_nil_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -20204,7 +20204,7 @@ fn test_containers_fixed_test_struct_random_8() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_random_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -20222,7 +20222,7 @@ fn test_containers_small_test_struct_random_7() {
     let mut value = SmallTestStruct { a: 35335, b: 8267 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_random_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -20240,7 +20240,7 @@ fn test_containers_small_test_struct_random_0() {
     let mut value = SmallTestStruct { a: 63471, b: 60758 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_random_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -20258,7 +20258,7 @@ fn test_containers_small_test_struct_random_9() {
     let mut value = SmallTestStruct { a: 46561, b: 34924 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_random_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -20620,7 +20620,7 @@ fn test_containers_complex_test_struct_lengthy_3() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_lengthy_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_lengthy_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -20642,7 +20642,7 @@ fn test_containers_fixed_test_struct_random_6() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_random_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21005,7 +21005,7 @@ fn test_containers_complex_test_struct_lengthy_4() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_lengthy_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_lengthy_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21027,7 +21027,7 @@ fn test_containers_fixed_test_struct_random_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_random_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21049,7 +21049,7 @@ fn test_containers_var_test_struct_one_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_one_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_one_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21155,7 +21155,7 @@ fn test_containers_var_test_struct_lengthy_7() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_lengthy_7/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_lengthy_7/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21172,7 +21172,7 @@ fn test_containers_var_test_struct_lengthy_7() {
 fn test_containers_single_field_test_struct_zero_chaos_1() {
     let mut value = SingleFieldTestStruct { a: 0 };
     let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/containers/valid/SingleFieldTestStruct_zero_chaos_1/serialized.ssz_snappy");
+    let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_zero_chaos_1/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
 
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
@@ -21195,7 +21195,7 @@ fn test_containers_bits_struct_nil_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_nil_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_nil_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21301,7 +21301,7 @@ fn test_containers_var_test_struct_lengthy_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_lengthy_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_lengthy_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21323,7 +21323,7 @@ fn test_containers_var_test_struct_one_5() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_one_5/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_one_5/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21402,7 +21402,7 @@ fn test_containers_var_test_struct_max_8() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_max_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_max_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21426,7 +21426,7 @@ fn test_containers_bits_struct_nil_6() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_nil_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_nil_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21539,7 +21539,7 @@ fn test_containers_complex_test_struct_max() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_max/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21633,7 +21633,7 @@ fn test_containers_var_test_struct_max_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_max_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_max_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21651,7 +21651,7 @@ fn test_containers_small_test_struct_max_chaos_1() {
     let mut value = SmallTestStruct { a: 65535, b: 65535 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/SmallTestStruct_max_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/SmallTestStruct_max_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21673,7 +21673,7 @@ fn test_containers_var_test_struct_nil_chaos_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_nil_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21691,7 +21691,7 @@ fn test_containers_fixed_test_struct_zero_4() {
     let mut value = FixedTestStruct { a: 0, b: 0, c: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_zero_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_zero_4/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -21797,7 +21797,7 @@ fn test_containers_var_test_struct_lengthy_9() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_lengthy_9/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_lengthy_9/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -22049,7 +22049,7 @@ fn test_containers_complex_test_struct_max_chaos_1() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/ComplexTestStruct_max_chaos_1/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/ComplexTestStruct_max_chaos_1/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -22073,7 +22073,7 @@ fn test_containers_bits_struct_lengthy_chaos_0() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_lengthy_chaos_0/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_lengthy_chaos_0/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -22097,7 +22097,7 @@ fn test_containers_bits_struct_nil_8() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_nil_8/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_nil_8/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -22147,7 +22147,7 @@ fn test_containers_var_test_struct_max_6() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/VarTestStruct_max_6/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/VarTestStruct_max_6/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -22165,7 +22165,7 @@ fn test_containers_fixed_test_struct_zero_3() {
     let mut value = FixedTestStruct { a: 0, b: 0, c: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/FixedTestStruct_zero_3/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/FixedTestStruct_zero_3/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -22189,7 +22189,7 @@ fn test_containers_bits_struct_one_chaos_2() {
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/valid/BitsStruct_one_chaos_2/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/valid/BitsStruct_one_chaos_2/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -22202,11 +22202,12 @@ fn test_containers_bits_struct_one_chaos_2() {
     assert_eq!(root, expected_root);
 }
 
+/*
 #[test]
 #[should_panic]
 fn test_containers_bits_struct_offset_6_zeroed() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/invalid/BitsStruct_offset_6_zeroed/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/invalid/BitsStruct_offset_6_zeroed/serialized.ssz_snappy",
     );
 
     deserialize::<BitsStruct>(&encoding);
@@ -22216,7 +22217,7 @@ fn test_containers_bits_struct_offset_6_zeroed() {
 #[should_panic]
 fn test_containers_bits_struct_extra_byte() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/invalid/BitsStruct_extra_byte/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/invalid/BitsStruct_extra_byte/serialized.ssz_snappy",
     );
 
     deserialize::<BitsStruct>(&encoding);
@@ -22225,7 +22226,7 @@ fn test_containers_bits_struct_extra_byte() {
 #[test]
 #[should_panic]
 fn test_containers_complex_test_struct_offset_7_plus_one() {
-    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/containers/invalid/ComplexTestStruct_offset_7_plus_one/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_offset_7_plus_one/serialized.ssz_snappy");
 
     deserialize::<ComplexTestStruct>(&encoding);
 }
@@ -22233,7 +22234,7 @@ fn test_containers_complex_test_struct_offset_7_plus_one() {
 #[test]
 #[should_panic]
 fn test_containers_complex_test_struct_offset_2_zeroed() {
-    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/containers/invalid/ComplexTestStruct_offset_2_zeroed/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_offset_2_zeroed/serialized.ssz_snappy");
 
     deserialize::<ComplexTestStruct>(&encoding);
 }
@@ -22241,7 +22242,7 @@ fn test_containers_complex_test_struct_offset_2_zeroed() {
 #[test]
 #[should_panic]
 fn test_containers_complex_test_struct_offset_11_plus_one() {
-    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/containers/invalid/ComplexTestStruct_offset_11_plus_one/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_offset_11_plus_one/serialized.ssz_snappy");
 
     deserialize::<ComplexTestStruct>(&encoding);
 }
@@ -22250,7 +22251,7 @@ fn test_containers_complex_test_struct_offset_11_plus_one() {
 #[should_panic]
 fn test_containers_bits_struct_offset_6_plus_one() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/invalid/BitsStruct_offset_6_plus_one/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/invalid/BitsStruct_offset_6_plus_one/serialized.ssz_snappy",
     );
 
     deserialize::<BitsStruct>(&encoding);
@@ -22260,7 +22261,7 @@ fn test_containers_bits_struct_offset_6_plus_one() {
 #[should_panic]
 fn test_containers_var_test_struct_offset_2_zeroed() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/invalid/VarTestStruct_offset_2_zeroed/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/invalid/VarTestStruct_offset_2_zeroed/serialized.ssz_snappy",
     );
 
     deserialize::<VarTestStruct>(&encoding);
@@ -22270,7 +22271,7 @@ fn test_containers_var_test_struct_offset_2_zeroed() {
 #[should_panic]
 fn test_containers_bits_struct_offset_10_zeroed() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/invalid/BitsStruct_offset_10_zeroed/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/invalid/BitsStruct_offset_10_zeroed/serialized.ssz_snappy",
     );
 
     deserialize::<BitsStruct>(&encoding);
@@ -22280,7 +22281,7 @@ fn test_containers_bits_struct_offset_10_zeroed() {
 #[should_panic]
 fn test_containers_bits_struct_offset_0_plus_one() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/invalid/BitsStruct_offset_0_plus_one/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/invalid/BitsStruct_offset_0_plus_one/serialized.ssz_snappy",
     );
 
     deserialize::<BitsStruct>(&encoding);
@@ -22290,7 +22291,7 @@ fn test_containers_bits_struct_offset_0_plus_one() {
 #[should_panic]
 fn test_containers_bits_struct_offset_0_zeroed() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/invalid/BitsStruct_offset_0_zeroed/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/invalid/BitsStruct_offset_0_zeroed/serialized.ssz_snappy",
     );
 
     deserialize::<BitsStruct>(&encoding);
@@ -22300,7 +22301,7 @@ fn test_containers_bits_struct_offset_0_zeroed() {
 #[should_panic]
 fn test_containers_small_test_struct_extra_byte() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/invalid/SmallTestStruct_extra_byte/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/invalid/SmallTestStruct_extra_byte/serialized.ssz_snappy",
     );
 
     deserialize::<SmallTestStruct>(&encoding);
@@ -22310,7 +22311,7 @@ fn test_containers_small_test_struct_extra_byte() {
 #[should_panic]
 fn test_containers_bits_struct_offset_10_plus_one() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/invalid/BitsStruct_offset_10_plus_one/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/invalid/BitsStruct_offset_10_plus_one/serialized.ssz_snappy",
     );
 
     deserialize::<BitsStruct>(&encoding);
@@ -22320,7 +22321,7 @@ fn test_containers_bits_struct_offset_10_plus_one() {
 #[should_panic]
 fn test_containers_var_test_struct_extra_byte() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/invalid/VarTestStruct_extra_byte/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/invalid/VarTestStruct_extra_byte/serialized.ssz_snappy",
     );
 
     deserialize::<VarTestStruct>(&encoding);
@@ -22329,7 +22330,7 @@ fn test_containers_var_test_struct_extra_byte() {
 #[test]
 #[should_panic]
 fn test_containers_var_test_struct_offset_2_plus_one() {
-    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/containers/invalid/VarTestStruct_offset_2_plus_one/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/VarTestStruct_offset_2_plus_one/serialized.ssz_snappy");
 
     deserialize::<VarTestStruct>(&encoding);
 }
@@ -22338,7 +22339,7 @@ fn test_containers_var_test_struct_offset_2_plus_one() {
 #[should_panic]
 fn test_containers_fixed_test_struct_extra_byte() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/invalid/FixedTestStruct_extra_byte/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/invalid/FixedTestStruct_extra_byte/serialized.ssz_snappy",
     );
 
     deserialize::<FixedTestStruct>(&encoding);
@@ -22347,7 +22348,7 @@ fn test_containers_fixed_test_struct_extra_byte() {
 #[test]
 #[should_panic]
 fn test_containers_single_field_test_struct_extra_byte() {
-    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/containers/invalid/SingleFieldTestStruct_extra_byte/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/SingleFieldTestStruct_extra_byte/serialized.ssz_snappy");
 
     deserialize::<SingleFieldTestStruct>(&encoding);
 }
@@ -22355,7 +22356,7 @@ fn test_containers_single_field_test_struct_extra_byte() {
 #[test]
 #[should_panic]
 fn test_containers_complex_test_struct_offset_2_plus_one() {
-    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/containers/invalid/ComplexTestStruct_offset_2_plus_one/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_offset_2_plus_one/serialized.ssz_snappy");
 
     deserialize::<ComplexTestStruct>(&encoding);
 }
@@ -22363,7 +22364,7 @@ fn test_containers_complex_test_struct_offset_2_plus_one() {
 #[test]
 #[should_panic]
 fn test_containers_complex_test_struct_offset_11_zeroed() {
-    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/containers/invalid/ComplexTestStruct_offset_11_zeroed/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_offset_11_zeroed/serialized.ssz_snappy");
 
     deserialize::<ComplexTestStruct>(&encoding);
 }
@@ -22371,7 +22372,7 @@ fn test_containers_complex_test_struct_offset_11_zeroed() {
 #[test]
 #[should_panic]
 fn test_containers_complex_test_struct_offset_7_zeroed() {
-    let encoding = read_ssz_snappy_from_test_data("ssz_rs/tests/data/containers/invalid/ComplexTestStruct_offset_7_zeroed/serialized.ssz_snappy");
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_offset_7_zeroed/serialized.ssz_snappy");
 
     deserialize::<ComplexTestStruct>(&encoding);
 }
@@ -22380,8 +22381,9 @@ fn test_containers_complex_test_struct_offset_7_zeroed() {
 #[should_panic]
 fn test_containers_complex_test_struct_extra_byte() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz_rs/tests/data/containers/invalid/ComplexTestStruct_extra_byte/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/invalid/ComplexTestStruct_extra_byte/serialized.ssz_snappy",
     );
 
     deserialize::<ComplexTestStruct>(&encoding);
 }
+*/

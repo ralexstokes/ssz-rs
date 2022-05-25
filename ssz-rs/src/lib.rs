@@ -14,7 +14,7 @@ mod de;
 mod list;
 mod merkleization;
 mod ser;
-#[cfg(feature = "serde")]
+#[cfg(feature = "serde-rs")]
 mod serde_test;
 mod uint;
 mod union;

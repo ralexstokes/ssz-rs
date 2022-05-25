@@ -88,7 +88,7 @@ impl U256 {
     }
 }
 
-#[cfg(feature = "serde")]
+#[cfg(feature = "serde-rs")]
 impl serde::Serialize for U256 {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -99,7 +99,7 @@ impl serde::Serialize for U256 {
     }
 }
 
-#[cfg(feature = "serde")]
+#[cfg(feature = "serde-rs")]
 impl<'de> serde::Deserialize<'de> for U256 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where

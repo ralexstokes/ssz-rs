@@ -5,9 +5,9 @@ use crate::merkleization::{
 use crate::ser::{serialize_composite, Serialize};
 use crate::{SerializeError, SimpleSerialize, Sized};
 use crate::std::{Vec, vec, SliceIndex, IndexMut, Index, Deref, TryFrom, fmt, Debug, Display, Formatter};
-#[cfg(feature = "serde")]
+#[cfg(feature = "serde-rs")]
 use serde::ser::SerializeSeq;
-#[cfg(feature = "serde")]
+#[cfg(feature = "serde-rs")]
 use std::marker::PhantomData;
 
 pub enum VectorError {
@@ -34,7 +34,7 @@ impl Display for VectorError {
     }
 }
 
-#[cfg(feature = "serde")]
+#[cfg(feature = "serde-rs")]
 impl<T: SimpleSerialize + serde::Serialize, const N: usize> serde::Serialize for Vector<T, N> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -48,10 +48,10 @@ impl<T: SimpleSerialize + serde::Serialize, const N: usize> serde::Serialize for
     }
 }
 
-#[cfg(feature = "serde")]
+#[cfg(feature = "serde-rs")]
 struct VectorVisitor<T: SimpleSerialize>(PhantomData<Vec<T>>);
 
-#[cfg(feature = "serde")]
+#[cfg(feature = "serde-rs")]
 impl<'de, T: SimpleSerialize + serde::Deserialize<'de>> serde::de::Visitor<'de>
     for VectorVisitor<T>
 {
@@ -69,7 +69,7 @@ impl<'de, T: SimpleSerialize + serde::Deserialize<'de>> serde::de::Visitor<'de>
     }
 }
 
-#[cfg(feature = "serde")]
+#[cfg(feature = "serde-rs")]
 impl<'de, T: SimpleSerialize + serde::de::Deserialize<'de>, const N: usize> serde::Deserialize<'de>
     for Vector<T, N>
 {

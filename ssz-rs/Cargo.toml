@@ -1,13 +1,13 @@
 [package]
-name = "ssz_rs"
-version = "0.7.0"
+name = "ssz-rs"
+version = "0.8.0"
 rust-version = "1.60"
 authors = ["Alex Stokes <r.alex.stokes@gmail.com>"]
 edition = "2021"
 license = "MIT"
 readme = "../README.md"
 description = "ethereum's simple serialize"
-repository = "https://github.com/snowfork/ssz_rs"
+repository = "https://github.com/ralexstokes/ssz-rs"
 exclude = [
     "scripts",
     "tests/data",
@@ -17,7 +17,7 @@ exclude = [
 
 [dependencies]
 bitvec = { version = "1.0.0", default-features = false, features=["alloc"]}
-ssz_rs_derive = { path = "../ssz_rs_derive", version = "0.7.0" }
+ssz-rs-derive = { path = "../ssz-rs-derive"}
 sha2 = { version ="0.9.8", default-features = false}
 lazy_static = { version = "1.4.0", features=["spin_no_std"]}
 serde = { version = "1.0", features = ["derive"], optional = true }
@@ -31,12 +31,12 @@ project-root = "0.2.2"
 serde_json = "1.0.81"
 
 [features]
-default = ["std", "serde"]
+default = ["std", "serde-rs"]
 std = [
     "bitvec/std",
     "sha2/std",
 ]
-serde = [
-    "dep:serde",
-    "dep:hex"
+serde-rs = [
+    "serde",
+    "hex"
 ]
