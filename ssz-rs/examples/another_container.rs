@@ -1,6 +1,6 @@
 use hex;
 use ssz_rs::prelude::*;
-use std::iter::FromIterator;
+use ssz_rs::std::{FromIterator, vec};
 
 #[derive(PartialEq, Eq, Debug, Default, SimpleSerialize)]
 struct SingleFieldTestStruct {

@@ -230,7 +230,7 @@ mod tests {
     use crate::prelude::*;
     use hex_literal::hex;
     use ssz_rs_derive::SimpleSerialize;
-    use std::iter::FromIterator;
+    use crate::std::FromIterator;
 
     #[test]
     fn test_packing_basic_types_simple() {
