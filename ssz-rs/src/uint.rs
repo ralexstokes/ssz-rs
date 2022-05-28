@@ -74,6 +74,10 @@ impl U256 {
         Self(BigUint::default())
     }
 
+    pub fn zero() -> Self {
+        Self::default()
+    }
+
     pub fn try_from_bytes_le(bytes: &[u8]) -> Result<Self, DeserializeError> {
         Self::deserialize(bytes)
     }
