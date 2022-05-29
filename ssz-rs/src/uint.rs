@@ -93,6 +93,12 @@ impl U256 {
     }
 }
 
+impl From<u64> for U256 {
+    fn from(x: u64) -> Self {
+        Self(x.into())
+    }
+}
+
 #[cfg(feature = "serde")]
 impl serde::Serialize for U256 {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
