@@ -86,7 +86,25 @@ where
     T: SimpleSerialize + fmt::Debug,
 {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        write!(f, "List<len={}, cap={}>{:?}", self.len(), N, self.data)
+        if f.alternate() {
+            write!(
+                f,
+                "List<{}, {}>(len={}){:#?}",
+                std::any::type_name::<T>(),
+                N,
+                self.len(),
+                self.data
+            )
+        } else {
+            write!(
+                f,
+                "List<{}, {}>(len={}){:?}",
+                std::any::type_name::<T>(),
+                N,
+                self.len(),
+                self.data
+            )
+        }
     }
 }
 
