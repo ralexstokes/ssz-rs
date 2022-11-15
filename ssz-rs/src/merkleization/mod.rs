@@ -15,9 +15,6 @@ pub(crate) const BYTES_PER_CHUNK: usize = 32;
 
 pub trait Merkleized {
     // Compute the "hash tree root" of `Self`.
-    // Note: the `Context` can be re-used across all calls to this function
-    // across all types. One `Context` can be safely used across the entire
-    // lifetime of your program.
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError>;
 }
 
