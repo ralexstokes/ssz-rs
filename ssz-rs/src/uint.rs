@@ -73,6 +73,10 @@ impl U256 {
         Self(BigUint::default())
     }
 
+    pub fn zero() -> Self {
+        Self::default()
+    }
+
     pub fn try_from_bytes_le(bytes: &[u8]) -> Result<Self, DeserializeError> {
         Self::deserialize(bytes)
     }
@@ -89,6 +93,13 @@ impl U256 {
 }
 
 #[cfg(feature = "serde-rs")]
+impl From<u64> for U256 {
+    fn from(x: u64) -> Self {
+        Self(x.into())
+    }
+}
+
+#[cfg(feature = "serde")]
 impl serde::Serialize for U256 {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where

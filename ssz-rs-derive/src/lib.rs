@@ -78,7 +78,13 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
                 Fields::Named(ref fields) => &fields.named,
                 // "tuple" struct
                 // only support the case with one unnamed field, to support "newtype" pattern
-                Fields::Unnamed(ref fields) => &fields.unnamed,
+                Fields::Unnamed(..) => {
+                    return quote! {
+                        fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, ssz_rs::SerializeError> {
+                                self.0.serialize(buffer)
+                        }
+                    };
+                }
                 _ => unimplemented!(
                     "this type of struct is currently not supported by this derive macro"
                 ),
@@ -102,22 +108,7 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
                             variable_lengths.push(0)
                         }
                     },
-                    None => quote_spanned! { f.span() =>
-                        let mut element_buffer = Vec::with_capacity(<#field_type>::size_hint());
-                        self.0.serialize(&mut element_buffer)?;
-
-                        let buffer_len = element_buffer.len();
-                        if <#field_type>::is_variable_size() {
-                            fixed.push(None);
-                            fixed_lengths_sum += #BYTES_PER_LENGTH_OFFSET;
-                            variable.push(element_buffer);
-                            variable_lengths.push(buffer_len);
-                        } else {
-                            fixed.push(Some(element_buffer));
-                            fixed_lengths_sum += buffer_len;
-                            variable_lengths.push(0)
-                        }
-                    },
+                    None => panic!("should have already returned an impl"),
                 }
             });
 
@@ -179,7 +170,19 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                 Fields::Named(ref fields) => &fields.named,
                 // "tuple" struct
                 // only support the case with one unnamed field, to support "newtype" pattern
-                Fields::Unnamed(ref fields) => &fields.unnamed,
+                Fields::Unnamed(ref fields) => {
+                    let f = &fields.unnamed[0];
+                    let field_type = &f.ty;
+                    return quote! {
+                        fn deserialize(encoding: &[u8]) -> Result<Self, ssz_rs::DeserializeError> {
+                            let mut container = Self::default();
+                            let result = <#field_type>::deserialize(&encoding)?;
+                            container.0 = result;
+
+                            Ok(container)
+                        }
+                    };
+                }
                 _ => unimplemented!(
                     "this type of struct is currently not supported by this derive macro"
                 ),
@@ -203,22 +206,7 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                         };
                         start += bytes_read;
                     },
-                    None => quote_spanned! { f.span() =>
-                        let bytes_read = if <#field_type>::is_variable_size() {
-                            let end = start + #BYTES_PER_LENGTH_OFFSET;
-                            let next_offset = u32::deserialize(&encoding[start..end])?;
-                            offsets.push((#i, next_offset as usize));
-
-                            #BYTES_PER_LENGTH_OFFSET
-                        } else {
-                            let encoded_length = <#field_type>::size_hint();
-                            let end = start + encoded_length;
-                            let result = <#field_type>::deserialize(&encoding[start..end])?;
-                            container.0 = result;
-                            encoded_length
-                        };
-                        start += bytes_read;
-                    },
+                    None => panic!("should have already returned an impl"),
                 }
             });
 
