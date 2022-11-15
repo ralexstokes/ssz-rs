@@ -4,10 +4,10 @@ use crate::merkleization::{
 };
 use crate::ser::{serialize_composite, Serialize};
 use crate::{SerializeError, SimpleSerialize, Sized};
-use crate::std::{Vec, vec, SliceIndex, IndexMut, Index, Deref, TryFrom, fmt, Debug, Display, Formatter};
-#[cfg(feature = "serde-rs")]
+use crate::std::{Vec, vec, SliceIndex, IndexMut, Index, Deref, TryFrom, fmt, Debug, Display, Formatter, any};
+#[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
-#[cfg(feature = "serde-rs")]
+#[cfg(feature = "serde")]
 use std::marker::PhantomData;
 
 pub enum VectorError {
@@ -34,7 +34,7 @@ impl Display for VectorError {
     }
 }
 
-#[cfg(feature = "serde-rs")]
+#[cfg(feature = "serde")]
 impl<T: SimpleSerialize + serde::Serialize, const N: usize> serde::Serialize for Vector<T, N> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -48,10 +48,10 @@ impl<T: SimpleSerialize + serde::Serialize, const N: usize> serde::Serialize for
     }
 }
 
-#[cfg(feature = "serde-rs")]
+#[cfg(feature = "serde")]
 struct VectorVisitor<T: SimpleSerialize>(PhantomData<Vec<T>>);
 
-#[cfg(feature = "serde-rs")]
+#[cfg(feature = "serde")]
 impl<'de, T: SimpleSerialize + serde::Deserialize<'de>> serde::de::Visitor<'de>
     for VectorVisitor<T>
 {
@@ -69,7 +69,7 @@ impl<'de, T: SimpleSerialize + serde::Deserialize<'de>> serde::de::Visitor<'de>
     }
 }
 
-#[cfg(feature = "serde-rs")]
+#[cfg(feature = "serde")]
 impl<'de, T: SimpleSerialize + serde::de::Deserialize<'de>, const N: usize> serde::Deserialize<'de>
     for Vector<T, N>
 {
@@ -124,7 +124,7 @@ where
             write!(
                 f,
                 "Vector<{}, {}>{:#?}",
-                std::any::type_name::<T>(),
+                any::type_name::<T>(),
                 N,
                 self.data
             )
@@ -132,7 +132,7 @@ where
             write!(
                 f,
                 "Vector<{}, {}>{:?}",
-                std::any::type_name::<T>(),
+                any::type_name::<T>(),
                 N,
                 self.data
             )

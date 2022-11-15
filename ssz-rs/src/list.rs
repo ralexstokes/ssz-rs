@@ -5,10 +5,10 @@ use crate::merkleization::{
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
-use crate::std::{Enumerate, FromIterator, vec, Vec, fmt, SliceIndex, Deref, Index, IndexMut, IterMut as StdIterMut, Debug, Display, Formatter};
-#[cfg(feature = "serde-rs")]
+use crate::std::{Enumerate, FromIterator, vec, Vec, fmt, SliceIndex, Deref, Index, IndexMut, IterMut as StdIterMut, Debug, Display, Formatter, any};
+#[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
-#[cfg(feature = "serde-rs")]
+#[cfg(feature = "serde")]
 use std::marker::PhantomData;
 
 pub enum ListError {
@@ -35,7 +35,7 @@ pub struct List<T: SimpleSerialize, const N: usize> {
 }
 
 // TODO clean up impls here for Vector and List...
-#[cfg(feature = "serde-rs")]
+#[cfg(feature = "serde")]
 impl<T: SimpleSerialize + serde::Serialize, const N: usize> serde::Serialize for List<T, N> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -49,10 +49,10 @@ impl<T: SimpleSerialize + serde::Serialize, const N: usize> serde::Serialize for
     }
 }
 
-#[cfg(feature = "serde-rs")]
+#[cfg(feature = "serde")]
 struct ListVisitor<T: SimpleSerialize>(PhantomData<Vec<T>>);
 
-#[cfg(feature = "serde-rs")]
+#[cfg(feature = "serde")]
 impl<'de, T: SimpleSerialize + serde::Deserialize<'de>> serde::de::Visitor<'de> for ListVisitor<T> {
     type Value = Vec<T>;
 
@@ -68,7 +68,7 @@ impl<'de, T: SimpleSerialize + serde::Deserialize<'de>> serde::de::Visitor<'de> 
     }
 }
 
-#[cfg(feature = "serde-rs")]
+#[cfg(feature = "serde")]
 impl<'de, T: SimpleSerialize + serde::de::Deserialize<'de>, const N: usize> serde::Deserialize<'de>
     for List<T, N>
 {
@@ -96,7 +96,7 @@ where
             write!(
                 f,
                 "List<{}, {}>(len={}){:#?}",
-                std::any::type_name::<T>(),
+                any::type_name::<T>(),
                 N,
                 self.len(),
                 self.data
@@ -105,7 +105,7 @@ where
             write!(
                 f,
                 "List<{}, {}>(len={}){:?}",
-                std::any::type_name::<T>(),
+                any::type_name::<T>(),
                 N,
                 self.len(),
                 self.data
