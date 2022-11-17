@@ -3,30 +3,29 @@ use crate::std::{Vec, vec, Debug, Display, Formatter};
 
 // NOTE: if this is changed, go change in `ssz_derive` as well!
 pub const BYTES_PER_LENGTH_OFFSET: usize = 4;
-//const MAXIMUM_LENGTH: usize = 2usize.pow((BYTES_PER_LENGTH_OFFSET * 8) as u32);
+const MAXIMUM_LENGTH: usize = 2usize.pow((BYTES_PER_LENGTH_OFFSET * 8) as u32);
 
+#[derive(Debug)]
 pub enum SerializeError {
     MaximumEncodedLengthExceeded(usize), // the encoded length is {0} which exceeds the maximum length {MAXIMUM_LENGTH}
     TypeBoundsViolated { bound: usize, len: usize }, // the type for this value has a bound of {bound} but the value has {len} elements"
     IllegalType { bound: usize }, // the type for this value has an illegal bound of {bound}
 }
 
+impl Display for SerializeError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+        match *self {
+            SerializeError::MaximumEncodedLengthExceeded(size) => write!(f, "the encoded length is {} which exceeds the maximum length {}", size, MAXIMUM_LENGTH),
+            SerializeError::TypeBoundsViolated{ bound, len } => write!(f, "the type for this value has a bound of {} but the value has {} elements", bound, len),
+            SerializeError::IllegalType{ bound } => write!(f, "the type for this value has an illegal bound of {}", bound),
+        }
+    }
+}
+
 pub trait Serialize {
     /// Append an encoding of `self` to the `buffer`.
     /// Return the number of bytes written.
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError>;
-}
-
-impl Debug for SerializeError {
-    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
-        write!(f, "{:?}", self)
-    }
-}
-
-impl Display for SerializeError {
-    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
-        write!(f, "{:?}", self)
-    }
 }
 
 pub fn serialize_composite_from_components(
@@ -37,7 +36,7 @@ pub fn serialize_composite_from_components(
     buffer: &mut Vec<u8>,
 ) -> Result<usize, SerializeError> {
     let total_size = fixed_lengths_sum + variable_lengths.iter().sum::<usize>();
-    if total_size >= 4294967296 {
+    if total_size >= MAXIMUM_LENGTH {
         return Err(SerializeError::MaximumEncodedLengthExceeded(total_size));
     }
 
