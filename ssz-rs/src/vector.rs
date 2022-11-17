@@ -10,6 +10,7 @@ use serde::ser::SerializeSeq;
 #[cfg(feature = "serde")]
 use std::marker::PhantomData;
 
+#[derive(Debug)]
 pub enum VectorError {
     IncorrectLength { expected: usize, provided: usize }, // incorrect number of elements {provided} to make a Vector of length {expected}
 }
@@ -22,15 +23,11 @@ pub struct Vector<T: SimpleSerialize, const N: usize> {
     cache: MerkleCache,
 }
 
-impl Debug for VectorError {
-    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
-        write!(f, "{:?}", self)
-    }
-}
-
 impl Display for VectorError {
     fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
-        write!(f, "{:?}", self)
+        match *self {
+            VectorError::IncorrectLength{ expected, provided } => write!(f, "incorrect number of elements {} to make a Vector of length {}", provided, expected),
+        }
     }
 }
 
