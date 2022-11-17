@@ -17,15 +17,16 @@ pub enum DeserializeError {
     InvalidType(TypeError),
 }
 
-impl Debug for DeserializeError {
-    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
-        write!(f, "{:?}", self)
-    }
-}
-
 impl Display for DeserializeError {
     fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
-        write!(f, "{:?}", self)
+        match *self {
+            DeserializeError::InputTooShort => write!(f, "InputTooShort"),
+            DeserializeError::ExtraInput => write!(f, "ExtraInput"),
+            DeserializeError::InvalidInput => write!(f, "InvalidInput"),
+            DeserializeError::IOError => write!(f, "IOError"),
+            DeserializeError::TypeBoundsViolated { bound, len } => write!(f, "TypeBoundsViolated bound: {} len {}", bound, len),
+            DeserializeError::IllegalType { bound } => write!(f, "IllegalType bound: {}", bound),
+        }
     }
 }
 
