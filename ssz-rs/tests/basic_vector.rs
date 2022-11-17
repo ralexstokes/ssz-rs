@@ -22175,7 +22175,6 @@ fn test_basic_vector_vec_uint32_3_zero() {
     assert_eq!(root, expected_root);
 }
 
-/*
 #[test]
 #[should_panic]
 fn test_basic_vector_vec_uint16_2_max_one_byte_less() {
@@ -30018,4 +30017,3 @@ fn test_basic_vector_vec_uint16_3_nil() {
 
     deserialize::<Vector<u16, 3>>(&encoding);
 }
-*/

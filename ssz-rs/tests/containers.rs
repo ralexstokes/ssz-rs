@@ -22202,7 +22202,6 @@ fn test_containers_bits_struct_one_chaos_2() {
     assert_eq!(root, expected_root);
 }
 
-/*
 #[test]
 #[should_panic]
 fn test_containers_bits_struct_offset_6_zeroed() {
@@ -22386,4 +22385,3 @@ fn test_containers_complex_test_struct_extra_byte() {
 
     deserialize::<ComplexTestStruct>(&encoding);
 }
-*/

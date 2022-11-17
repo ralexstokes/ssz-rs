@@ -41,7 +41,6 @@ fn test_boolean_false() {
     assert_eq!(root, expected_root);
 }
 
-/*
 #[test]
 #[should_panic]
 fn test_boolean_byte_0x80() {
@@ -80,4 +79,4 @@ fn test_boolean_byte_rev_nibble() {
     );
 
     deserialize::<bool>(&encoding);
-}*/
+}

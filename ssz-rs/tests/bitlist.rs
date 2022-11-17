@@ -5507,7 +5507,6 @@ fn test_bitlist_bitlist_1_zero_4() {
     assert_eq!(root, expected_root);
 }
 
-/*
 #[test]
 #[should_panic]
 fn test_bitlist_bitlist_1_but_2() {
@@ -5647,4 +5646,3 @@ fn test_bitlist_bitlist_no_delimiter_zeroes() {
 
     deserialize::<Bitlist<256>>(&encoding);
 }
-*/

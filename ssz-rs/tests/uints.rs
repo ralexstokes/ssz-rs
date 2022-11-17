@@ -1781,7 +1781,6 @@ fn test_uints_uint_64_last_byte_empty() {
     assert_eq!(root, expected_root);
 }
 
-/*
 #[test]
 #[should_panic]
 fn test_uints_uint_128_one_too_high() {
@@ -1960,4 +1959,4 @@ fn test_uints_uint_8_one_byte_shorter() {
     );
 
     deserialize::<u8>(&encoding);
-}*/
+}

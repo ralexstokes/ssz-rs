@@ -799,7 +799,6 @@ fn test_bitvector_bitvec_8_max() {
     assert_eq!(root, expected_root);
 }
 
-/*
 #[test]
 #[should_panic]
 fn test_bitvector_bitvec_9_max_8() {
@@ -1109,4 +1108,3 @@ fn test_bitvector_bitvec_16_random_8() {
 
     deserialize::<Bitvector<16>>(&encoding);
 }
-*/
