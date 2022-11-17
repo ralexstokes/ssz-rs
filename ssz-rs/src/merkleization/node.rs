@@ -4,7 +4,7 @@ use crate::std::{Index, IndexMut, Vec, vec, TryFromSliceError, fmt, AsRef};
 #[derive(Default, Clone, Copy, PartialEq, Eq, SimpleSerialize)]
 pub struct Node(pub(crate) [u8; 32]);
 
-#[cfg(feature = "serde-rs")]
+#[cfg(feature = "serde")]
 impl serde::Serialize for Node {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -14,7 +14,7 @@ impl serde::Serialize for Node {
     }
 }
 
-#[cfg(feature = "serde-rs")]
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for Node {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where

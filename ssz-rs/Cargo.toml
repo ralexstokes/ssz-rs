@@ -1,6 +1,7 @@
 [package]
 name = "ssz-rs"
 version = "0.8.0"
+rust-version = "1.60"
 authors = ["Alex Stokes <r.alex.stokes@gmail.com>", "Clara van Staden <clara@snowfork.com>"]
 edition = "2021"
 license = "MIT"
@@ -14,13 +15,25 @@ exclude = [
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[features]
+default = ["serde", "std"]
+std = [
+    "bitvec/std",
+    "sha2/std",
+    "lazy_static/spin",
+    "num-bigint/std",
+    "serde/std"
+]
+serde = ["dep:serde", "dep:hex"]
+
 [dependencies]
+thiserror = "1.0.25"
 bitvec = { version = "1.0.0", default-features = false, features=["alloc"]}
 ssz-rs-derive = { path = "../ssz-rs-derive"}
 sha2 = { version ="0.9.8", default-features = false}
 lazy_static = { version = "1.4.0", features=["spin_no_std"]}
-serde = { version = "1.0", features = ["derive"], optional = true }
-hex = {version = "0.4.3", optional = true }
+serde = { version = "1.0", features = ["derive"], optional=true }
+hex = {version = "0.4.3", optional=true }
 num-bigint = { version ="0.4.3", default-features = false}
 
 [dev-dependencies]
@@ -28,18 +41,3 @@ hex-literal = "0.3.3"
 snap = "1.0"
 project-root = "0.2.2"
 serde_json = "1.0.81"
-
-[features]
-default = ["std", "serde-rs"]
-std = [
-    "bitvec/std",
-    "sha2/std",
-    "lazy_static/spin",
-    "num-bigint/std",
-    "serde/std",
-    "hex/std"
-]
-serde-rs = [
-    "serde",
-    "hex"
-]

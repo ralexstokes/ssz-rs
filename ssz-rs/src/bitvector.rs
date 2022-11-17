@@ -20,7 +20,7 @@ type BitvectorInner = BitVec<u8, Lsb0>;
 #[derive(PartialEq, Eq, Clone)]
 pub struct Bitvector<const N: usize>(BitvectorInner);
 
-#[cfg(feature = "serde-rs")]
+#[cfg(feature = "serde")]
 impl<const N: usize> serde::Serialize for Bitvector<N> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -34,7 +34,7 @@ impl<const N: usize> serde::Serialize for Bitvector<N> {
     }
 }
 
-#[cfg(feature = "serde-rs")]
+#[cfg(feature = "serde")]
 impl<'de, const N: usize> serde::Deserialize<'de> for Bitvector<N> {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where

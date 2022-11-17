@@ -3,7 +3,6 @@
 The Snowfork fork of Alex Stoke's SSZ lib, mainly to pin the `bitvec` crate to a version compatible with the Substrate `bitvec` version (`0.20.*`). It also supports running in a no-std environment.
 
 # ssz_rs ✂️
-# ssz-rs ✂️️
 
 [![build](https://github.com/ralexstokes/ssz-rs/actions/workflows/rust.yml/badge.svg?branch=main)](https://github.com/ralexstokes/ssz-rs/actions/workflows/rust.yml)
 

@@ -92,7 +92,7 @@ impl U256 {
     }
 }
 
-#[cfg(feature = "serde-rs")]
+#[cfg(feature = "serde")]
 impl From<u64> for U256 {
     fn from(x: u64) -> Self {
         Self(x.into())
@@ -110,7 +110,7 @@ impl serde::Serialize for U256 {
     }
 }
 
-#[cfg(feature = "serde-rs")]
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for U256 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
