@@ -2,12 +2,12 @@
 name = "ssz-rs"
 version = "0.8.0"
 rust-version = "1.60"
-authors = ["Alex Stokes <r.alex.stokes@gmail.com>", "Clara van Staden <clara@snowfork.com>"]
+authors = ["Alex Stokes <r.alex.stokes@gmail.com>"]
 edition = "2021"
 license = "MIT"
 readme = "../README.md"
 description = "ethereum's simple serialize"
-repository = "https://github.com/Snowfork/ssz_rs"
+repository = "https://github.com/ralexstokes/ssz-rs"
 exclude = [
     "scripts",
     "tests/data",
