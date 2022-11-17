@@ -16,6 +16,16 @@ pub enum SerializeError {
     InvalidType(/*#[from]*/ TypeError),
 }
 
+impl Display for SerializeError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+        match *self {
+            SerializeError::MaximumEncodedLengthExceeded(size) => write!(f, "the encoded length is {} which exceeds the maximum length {}", size, MAXIMUM_LENGTH),
+            SerializeError::TypeBoundsViolated{ bound, len } => write!(f, "the type for this value has a bound of {} but the value has {} elements", bound, len),
+            SerializeError::IllegalType{ bound } => write!(f, "the type for this value has an illegal bound of {}", bound),
+        }
+    }
+}
+
 pub trait Serialize {
     /// Append an encoding of `self` to the `buffer`.
     /// Return the number of bytes written.

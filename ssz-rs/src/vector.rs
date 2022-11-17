@@ -19,15 +19,11 @@ pub struct Vector<T: SimpleSerialize, const N: usize> {
     cache: MerkleCache,
 }
 
-impl Debug for VectorError {
-    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
-        write!(f, "{:?}", self)
-    }
-}
-
 impl Display for VectorError {
     fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
-        write!(f, "{:?}", self)
+        match *self {
+            VectorError::IncorrectLength{ expected, provided } => write!(f, "incorrect number of elements {} to make a Vector of length {}", provided, expected),
+        }
     }
 }
 

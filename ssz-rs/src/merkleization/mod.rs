@@ -3,7 +3,7 @@ mod node;
 mod proofs;
 
 use crate::ser::{Serialize, SerializeError};
-use crate::std::{fmt::Debug, vec, Index, Option, Ordering, Vec};
+use crate::std::{fmt::Debug, vec, Display, Formatter, Index, Option, Ordering, Vec};
 use lazy_static::lazy_static;
 use sha2::{Digest, Sha256};
 
@@ -24,6 +24,20 @@ pub enum MerkleizationError {
     SerializationError(/*#[from]*/ SerializeError),
     // #[error("cannot merkleize data that exceeds the declared limit {0}")]
     InputExceedsLimit(usize),
+}
+
+impl Display for MerkleizationError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+        match self {
+            Self::SerializationError(err) => {
+                write!(f, "failed to serialize value: {err}")
+            }
+            Self::InputExceedsLimit(size) => write!(
+                f,
+                "cannot merkleize data that exceeds the declared limit: {size}",
+            ),
+        }
+    }
 }
 
 pub fn pack_bytes(buffer: &mut Vec<u8>) {
