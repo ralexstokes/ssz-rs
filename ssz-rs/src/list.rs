@@ -6,8 +6,8 @@ use crate::merkleization::{
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::std::{
-    fmt, vec, Deref, Enumerate, FromIterator, Index, IndexMut, IterMut as StdIterMut, SliceIndex,
-    Vec,
+    any, fmt, vec, Deref, Enumerate, FromIterator, Index, IndexMut, IterMut as StdIterMut,
+    SliceIndex, Vec,
 };
 use crate::{SimpleSerialize, Sized};
 #[cfg(feature = "serde")]
@@ -84,7 +84,7 @@ where
             write!(
                 f,
                 "List<{}, {}>(len={}){:#?}",
-                std::any::type_name::<T>(),
+                any::type_name::<T>(),
                 N,
                 self.len(),
                 self.data
@@ -93,7 +93,7 @@ where
             write!(
                 f,
                 "List<{}, {}>(len={}){:?}",
-                std::any::type_name::<T>(),
+                any::type_name::<T>(),
                 N,
                 self.len(),
                 self.data

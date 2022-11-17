@@ -3,16 +3,13 @@ use crate::error::{InstanceError, TypeError};
 use crate::merkleization::{
     merkleize, pack, MerkleCache, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
 };
-use crate::ser::{serialize_composite, Serialize, SerializeError};
+use crate::ser::{serialize_composite, Serialize};
 use crate::{SimpleSerialize, Sized};
+use crate::std::{Vec, vec, SliceIndex, IndexMut, Index, Deref, TryFrom, fmt, Debug, Display, Formatter, any};
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
-use std::convert::TryFrom;
-use std::fmt;
 #[cfg(feature = "serde")]
 use std::marker::PhantomData;
-use std::ops::{Deref, Index, IndexMut};
-use std::slice::SliceIndex;
 
 /// A homogenous collection of a fixed number of values.
 /// NOTE: a `Vector` of length `0` is illegal.
@@ -20,6 +17,18 @@ use std::slice::SliceIndex;
 pub struct Vector<T: SimpleSerialize, const N: usize> {
     data: Vec<T>,
     cache: MerkleCache,
+}
+
+impl Debug for VectorError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}
+
+impl Display for VectorError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+        write!(f, "{:?}", self)
+    }
 }
 
 #[cfg(feature = "serde")]
@@ -116,7 +125,7 @@ where
             write!(
                 f,
                 "Vector<{}, {}>{:#?}",
-                std::any::type_name::<T>(),
+                any::type_name::<T>(),
                 N,
                 self.data
             )
@@ -124,7 +133,7 @@ where
             write!(
                 f,
                 "Vector<{}, {}>{:?}",
-                std::any::type_name::<T>(),
+                any::type_name::<T>(),
                 N,
                 self.data
             )
