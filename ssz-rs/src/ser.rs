@@ -3,7 +3,7 @@ use crate::std::{Vec, vec, Debug, Display, Formatter};
 
 // NOTE: if this is changed, go change in `ssz_derive` as well!
 pub const BYTES_PER_LENGTH_OFFSET: usize = 4;
-const MAXIMUM_LENGTH: usize = 2usize.pow((BYTES_PER_LENGTH_OFFSET * 8) as u32);
+const MAXIMUM_LENGTH: u64 = 2u64.pow((BYTES_PER_LENGTH_OFFSET * 8) as u32);
 
 #[derive(Debug)]
 pub enum SerializeError {
@@ -36,7 +36,7 @@ pub fn serialize_composite_from_components(
     buffer: &mut Vec<u8>,
 ) -> Result<usize, SerializeError> {
     let total_size = fixed_lengths_sum + variable_lengths.iter().sum::<usize>();
-    if total_size >= MAXIMUM_LENGTH {
+    if total_size as u64 >= MAXIMUM_LENGTH {
         return Err(SerializeError::MaximumEncodedLengthExceeded(total_size));
     }
 
