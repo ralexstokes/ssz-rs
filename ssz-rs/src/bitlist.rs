@@ -52,7 +52,7 @@ impl<const N: usize> fmt::Debug for Bitlist<N> {
         let len = self.len();
         let mut bits_written = 0;
         for (index, bit) in self.iter().enumerate() {
-            let value = if *bit { 1 } else { 0 };
+            let value = i32::from(*bit);
             write!(f, "{}", value)?;
             bits_written += 1;
             if bits_written % 4 == 0 && index != len - 1 {

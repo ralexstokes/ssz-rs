@@ -15,7 +15,7 @@ impl Sized for bool {
 
 impl Serialize for bool {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
-        let value = if *self { 1u8 } else { 0u8 };
+        let value = u8::from(*self);
         buffer.push(value);
         Ok(1)
     }
