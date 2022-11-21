@@ -17,11 +17,11 @@ pub fn is_valid_merkle_branch<'a>(
             None => return false,
         };
         if (index / 2usize.pow(i as u32)) % 2 != 0 {
-            hasher.update(&next_node.0);
-            hasher.update(&value.0);
+            hasher.update(next_node.0);
+            hasher.update(value.0);
         } else {
-            hasher.update(&value.0);
-            hasher.update(&next_node.0);
+            hasher.update(value.0);
+            hasher.update(next_node.0);
         }
         value.0.copy_from_slice(&hasher.finalize_reset());
     }
