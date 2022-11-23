@@ -19,7 +19,7 @@ mod uint;
 mod union;
 mod utils;
 mod vector;
-pub mod std;
+mod std;
 
 pub use crate::std::{Vec, vec};
 pub use bitlist::Bitlist;
