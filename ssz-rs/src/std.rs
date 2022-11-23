@@ -5,17 +5,17 @@ mod core {
     pub use std::*;
 }
 
-pub use self::core::{cmp, iter, slice, any};
+pub use self::core::{any, cmp, iter, slice};
 
-pub use self::core::fmt::{self, Debug, Display, Formatter};
-pub use self::core::ops::{Index, IndexMut, Deref, DerefMut};
-pub use self::core::slice::{IterMut, SliceIndex};
-pub use self::core::array::TryFromSliceError;
-pub use self::iter::Enumerate;
 pub use self::cmp::Ordering;
+pub use self::core::array::TryFromSliceError;
+pub use self::core::fmt::{self, Debug, Display, Formatter};
+pub use self::core::ops::{Deref, DerefMut, Index, IndexMut};
+pub use self::core::slice::{IterMut, SliceIndex};
+pub use self::iter::Enumerate;
 
 #[cfg(not(feature = "std"))]
-pub use alloc::{vec::Vec, vec};
+pub use alloc::{vec, vec::Vec};
 
 #[cfg(feature = "std")]
 pub use std::vec::Vec;

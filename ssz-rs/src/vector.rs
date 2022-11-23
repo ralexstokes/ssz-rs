@@ -4,8 +4,8 @@ use crate::merkleization::{
     merkleize, pack, MerkleCache, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
 };
 use crate::ser::{serialize_composite, Serialize};
-use crate::{SimpleSerialize, Sized};
 use crate::std::*;
+use crate::{SimpleSerialize, Sized};
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
 #[cfg(feature = "serde")]
@@ -19,10 +19,14 @@ pub struct Vector<T: SimpleSerialize, const N: usize> {
     cache: MerkleCache,
 }
 
-impl Display for VectorError {
+impl Display for Error {
     fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
         match *self {
-            VectorError::IncorrectLength{ expected, provided } => write!(f, "incorrect number of elements {} to make a Vector of length {}", provided, expected),
+            Error::IncorrectLengthVector { expected, provided } => write!(
+                f,
+                "incorrect number of elements {} to make a Vector of length {}",
+                provided, expected
+            ),
         }
     }
 }
@@ -126,13 +130,7 @@ where
                 self.data
             )
         } else {
-            write!(
-                f,
-                "Vector<{}, {}>{:?}",
-                any::type_name::<T>(),
-                N,
-                self.data
-            )
+            write!(f, "Vector<{}, {}>{:?}", any::type_name::<T>(), N, self.data)
         }
     }
 }
@@ -235,20 +233,7 @@ where
                 });
             }
         }
-<<<<<<< HEAD
         deserialize_homogeneous_composite(encoding)?.try_into()
-=======
-        let data = deserialize_homogeneous_composite(encoding)?;
-        data.try_into().map_err(|err| match err {
-            Error::IncorrectLength { expected, provided } => {
-                if expected < provided {
-                    DeserializeError::ExtraInput
-                } else {
-                    DeserializeError::InputTooShort
-                }
-            }
-        })
->>>>>>> 1b04857 (Cleanup and improvements.)
     }
 }
 

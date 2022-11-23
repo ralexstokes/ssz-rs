@@ -1,8 +1,8 @@
 use crate::de::{Deserialize, DeserializeError};
 use crate::merkleization::{MerkleizationError, Merkleized, Node};
 use crate::ser::{Serialize, SerializeError};
-use crate::{SimpleSerialize, Sized};
 use crate::std::*;
+use crate::{SimpleSerialize, Sized};
 
 impl Sized for bool {
     fn is_variable_size() -> bool {

@@ -10,7 +10,6 @@ use crate::merkleization::{
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::std::*;
-use crate::std::{vec, Vec};
 use crate::{SimpleSerialize, Sized};
 
 macro_rules! define_ssz_for_array_of_size {

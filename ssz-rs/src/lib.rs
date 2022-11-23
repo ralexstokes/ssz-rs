@@ -15,11 +15,11 @@ mod merkleization;
 mod ser;
 #[cfg(feature = "serde")]
 mod serde_test;
+mod std;
 mod uint;
 mod union;
 mod utils;
 mod vector;
-mod std;
 
 pub use crate::std::*;
 pub use bitlist::Bitlist;
