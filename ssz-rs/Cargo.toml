@@ -20,7 +20,6 @@ default = ["serde", "std"]
 std = [
     "bitvec/std",
     "sha2/std",
-    "lazy_static/spin",
     "num-bigint/std",
     "serde/std"
 ]
