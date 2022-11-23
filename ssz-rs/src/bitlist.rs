@@ -5,7 +5,7 @@ use crate::merkleization::{
 };
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
-use crate::std::{Vec, vec, Deref, DerefMut, fmt, FromIterator};
+use crate::std::*;
 use bitvec::prelude::{BitVec, Lsb0};
 
 // +1 for length bit

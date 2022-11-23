@@ -9,6 +9,7 @@ use crate::merkleization::{
     merkleize, pack, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
+use crate::std::*;
 use crate::std::{vec, Vec};
 use crate::{SimpleSerialize, Sized};
 

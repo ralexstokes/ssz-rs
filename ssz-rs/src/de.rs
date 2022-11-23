@@ -1,6 +1,6 @@
 use crate::error::{InstanceError, TypeError};
 use crate::ser::BYTES_PER_LENGTH_OFFSET;
-use crate::std::{vec, Debug, Display, Formatter, Vec};
+use crate::std::*;
 use crate::SimpleSerialize;
 
 #[derive(Debug)]
@@ -21,11 +21,21 @@ impl Display for DeserializeError {
     fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
         match *self {
             DeserializeError::InputTooShort => write!(f, "expected further data when decoding"),
-            DeserializeError::ExtraInput => write!(f, "unexpected additional data provided when decoding"),
+            DeserializeError::ExtraInput => {
+                write!(f, "unexpected additional data provided when decoding")
+            }
             DeserializeError::InvalidInput => write!(f, "invalid data for expected type"),
             DeserializeError::IOError => write!(f, "IOError"),
-            DeserializeError::TypeBoundsViolated { bound, len } => write!(f, "the type for this value has a bound of {} but the value has {} elements", bound, len),
-            DeserializeError::IllegalType { bound } => write!(f, "the type for this value has an illegal bound of {}", bound),
+            DeserializeError::TypeBoundsViolated { bound, len } => write!(
+                f,
+                "the type for this value has a bound of {} but the value has {} elements",
+                bound, len
+            ),
+            DeserializeError::IllegalType { bound } => write!(
+                f,
+                "the type for this value has an illegal bound of {}",
+                bound
+            ),
         }
     }
 }
