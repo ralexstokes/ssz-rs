@@ -1,5 +1,4 @@
 use ssz_rs::prelude::*;
-use std::iter::FromIterator;
 
 #[derive(PartialEq, Eq, Debug, SimpleSerialize)]
 enum Bar {
