@@ -1,7 +1,6 @@
 #[cfg(test)]
 mod tests {
     use crate::prelude::*;
-    use std::iter::FromIterator;
 
     #[derive(Default, Debug, PartialEq, Eq, SimpleSerialize)]
     struct Foo {

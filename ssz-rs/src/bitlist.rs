@@ -6,7 +6,6 @@ use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 use bitvec::prelude::{BitVec, Lsb0};
 use std::fmt;
-use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
 
 type BitlistInner = BitVec<u8, Lsb0>;
