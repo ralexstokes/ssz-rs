@@ -8,7 +8,6 @@ use crate::{SimpleSerialize, SimpleSerializeError, Sized};
 use serde::ser::SerializeSeq;
 use std::convert::TryFrom;
 use std::fmt;
-use std::iter::FromIterator;
 #[cfg(feature = "serde")]
 use std::marker::PhantomData;
 use std::ops::{Deref, Index, IndexMut};

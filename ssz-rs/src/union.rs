@@ -72,7 +72,6 @@ impl<T> SimpleSerialize for Option<T> where T: SimpleSerialize {}
 #[cfg(test)]
 mod tests {
     use crate::prelude::*;
-    use std::iter::FromIterator;
 
     #[derive(Debug, PartialEq, Eq, SimpleSerialize)]
     enum AnotherOption {

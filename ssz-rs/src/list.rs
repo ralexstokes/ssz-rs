@@ -7,7 +7,7 @@ use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::{SimpleSerialize, SimpleSerializeError, Sized};
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
-use std::iter::{Enumerate, FromIterator};
+use std::iter::Enumerate;
 #[cfg(feature = "serde")]
 use std::marker::PhantomData;
 use std::ops::{Deref, Index, IndexMut};

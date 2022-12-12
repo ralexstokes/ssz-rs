@@ -5,7 +5,6 @@ use crate::{SimpleSerialize, Sized};
 use bitvec::field::BitField;
 use bitvec::prelude::{BitVec, Lsb0};
 use std::fmt;
-use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
 
 type BitvectorInner = BitVec<u8, Lsb0>;
