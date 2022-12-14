@@ -21,7 +21,7 @@ mod union;
 mod utils;
 mod vector;
 
-pub use crate::std::*;
+use crate::std::*;
 pub use bitlist::Bitlist;
 pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};
