@@ -31,6 +31,8 @@ pub use uint::U256;
 pub use utils::*;
 pub use vector::Vector;
 use crate::lib::*;
+use crate::list::ListError;
+use crate::vector::VectorError;
 
 mod lib {
     mod core {
@@ -97,11 +99,23 @@ where
 
 #[derive(Debug)]
 pub enum SimpleSerializeError {
-    Serialize,
-    Deserialize,
-    Merkleization,
-    List,
-    Vector,
+    Serialize(SerializeError),
+    Deserialize(DeserializeError),
+    Merkleization(MerkleizationError),
+    List(ListError),
+    Vector(VectorError),
+}
+
+impl Display for SimpleSerializeError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+        match self {
+            SimpleSerializeError::Serialize(error) => write!(f, "serialize error: {}", error),
+            SimpleSerializeError::Deserialize(error) => write!(f, "deserialize error: {}", error),
+            SimpleSerializeError::Merkleization(error) => write!(f, "merkleization error: {}", error),
+            SimpleSerializeError::List(error) => write!(f, "list error: {}", error),
+            SimpleSerializeError::Vector(error) => write!(f, "vector error: {}", error),
+        }
+    }
 }
 
 /// The `prelude` contains common traits and types a user of this library

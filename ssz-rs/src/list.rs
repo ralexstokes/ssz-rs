@@ -1,12 +1,12 @@
 use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
 use crate::error::InstanceError;
+use crate::lib::*;
 use crate::merkleization::{
     merkleize, mix_in_length, pack, MerkleCache, MerkleizationError, Merkleized, Node,
     BYTES_PER_CHUNK,
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
-use crate::lib::*;
-use crate::{SimpleSerialize, Sized};
+use crate::{SimpleSerialize, SimpleSerializeError, Sized};
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
 #[cfg(feature = "serde")]
