@@ -10,6 +10,7 @@ use sha2::{Digest, Sha256};
 pub use cache::Cache as MerkleCache;
 pub use node::Node;
 pub use proofs::is_valid_merkle_branch;
+use crate::SerializeError;
 
 pub(crate) const BYTES_PER_CHUNK: usize = 32;
 
@@ -24,6 +25,12 @@ pub enum MerkleizationError {
     SerializationError(/*#[from]*/ SerializeError),
     // #[error("cannot merkleize data that exceeds the declared limit {0}")]
     InputExceedsLimit(usize),
+}
+
+impl From<SerializeError> for MerkleizationError {
+    fn from(_: SerializeError) -> Self {
+        return MerkleizationError::SerializationError
+    }
 }
 
 impl Display for MerkleizationError {
@@ -57,9 +64,7 @@ where
 {
     let mut buffer = vec![];
     for value in values {
-        value
-            .serialize(&mut buffer)
-            .map_err(|_| MerkleizationError::SerializationError)?;
+        value.serialize(&mut buffer);
     }
     pack_bytes(&mut buffer);
     Ok(buffer)

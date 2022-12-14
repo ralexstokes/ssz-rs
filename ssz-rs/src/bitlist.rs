@@ -97,9 +97,7 @@ impl<const N: usize> Bitlist<N> {
 
     fn pack_bits(&self) -> Result<Vec<u8>, MerkleizationError> {
         let mut data = vec![];
-        let _ = self
-            .serialize_with_length(&mut data, false)
-            .map_err(|_| MerkleizationError::SerializationError);
+        let _ = self.serialize_with_length(&mut data, false);
         pack_bytes(&mut data);
         Ok(data)
     }
@@ -230,6 +228,7 @@ impl<const N: usize> FromIterator<bool> for Bitlist<N> {
 
 #[cfg(test)]
 mod tests {
+    use std::hash::Hash;
     use super::*;
     use crate::serialize;
 
