@@ -9,7 +9,7 @@ use crate::merkleization::{
     merkleize, pack, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
-use crate::std::*;
+use crate::lib::*;
 use crate::{SimpleSerialize, Sized};
 
 macro_rules! define_ssz_for_array_of_size {

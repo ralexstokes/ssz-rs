@@ -2,15 +2,15 @@ mod cache;
 mod node;
 mod proofs;
 
+use crate::lib::*;
 use crate::ser::{Serialize, SerializeError};
-use crate::std::*;
 use lazy_static::lazy_static;
 use sha2::{Digest, Sha256};
 
+use crate::SerializeError;
 pub use cache::Cache as MerkleCache;
 pub use node::Node;
 pub use proofs::is_valid_merkle_branch;
-use crate::SerializeError;
 
 pub(crate) const BYTES_PER_CHUNK: usize = 32;
 
@@ -29,7 +29,7 @@ pub enum MerkleizationError {
 
 impl From<SerializeError> for MerkleizationError {
     fn from(_: SerializeError) -> Self {
-        return MerkleizationError::SerializationError
+        return MerkleizationError::SerializationError;
     }
 }
 
@@ -64,7 +64,7 @@ where
 {
     let mut buffer = vec![];
     for value in values {
-        value.serialize(&mut buffer);
+        value.serialize(&mut buffer)?;
     }
     pack_bytes(&mut buffer);
     Ok(buffer)

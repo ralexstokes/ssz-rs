@@ -4,7 +4,7 @@ use crate::merkleization::{
     merkleize, mix_in_length, pack_bytes, MerkleizationError, Merkleized, Node,
 };
 use crate::ser::{Serialize, SerializeError};
-use crate::std::*;
+use crate::lib::*;
 use crate::{SimpleSerialize, Sized};
 use bitvec::prelude::{BitVec, Lsb0};
 
@@ -228,7 +228,6 @@ impl<const N: usize> FromIterator<bool> for Bitlist<N> {
 
 #[cfg(test)]
 mod tests {
-    use std::hash::Hash;
     use super::*;
     use crate::serialize;
 
