@@ -45,24 +45,24 @@ fn main() {
     match &mut foo.e {
         Bar::B(inner) => {
             inner.pop();
-        }
-        _ => {}
+        },
+        _ => {},
     }
 
     let encoding = match serialize(&foo) {
         Ok(encoding) => encoding,
         Err(e) => {
             eprintln!("some error encoding: {}", e);
-            return;
-        }
+            return
+        },
     };
 
     let mut restored_foo = match Foo::<4>::deserialize(&encoding) {
         Ok(value) => value,
         Err(e) => {
             eprintln!("some error decoding: {}", e);
-            return;
-        }
+            return
+        },
     };
 
     println!("{:#?}", restored_foo);

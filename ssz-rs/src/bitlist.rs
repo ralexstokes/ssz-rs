@@ -1,12 +1,16 @@
-use crate::de::{Deserialize, DeserializeError};
-use crate::merkleization::{
-    merkleize, mix_in_length, pack_bytes, MerkleizationError, Merkleized, Node,
+use crate::{
+    de::{Deserialize, DeserializeError},
+    merkleization::{
+        merkleize, mix_in_length, pack_bytes, MerkleizationError, Merkleized, Node, SszReflect,
+    },
+    ser::{Serialize, SerializeError},
+    SimpleSerialize, Sized, SszTypeClass,
 };
-use crate::ser::{Serialize, SerializeError};
-use crate::{SimpleSerialize, Sized};
 use bitvec::prelude::{BitVec, Lsb0};
-use std::fmt;
-use std::ops::{Deref, DerefMut};
+use std::{
+    fmt,
+    ops::{Deref, DerefMut},
+};
 
 type BitlistInner = BitVec<u8, Lsb0>;
 
@@ -37,7 +41,7 @@ impl<'de, const N: usize> serde::Deserialize<'de> for Bitlist<N> {
     {
         let s = <String>::deserialize(deserializer)?;
         if s.len() < 2 {
-            return Err(serde::de::Error::custom(DeserializeError::InputTooShort));
+            return Err(serde::de::Error::custom(DeserializeError::InputTooShort))
         }
         let bytes = hex::decode(&s[2..]).map_err(serde::de::Error::custom)?;
         let value = crate::Deserialize::deserialize(&bytes).map_err(serde::de::Error::custom)?;
@@ -98,10 +102,7 @@ impl<const N: usize> Bitlist<N> {
         with_length_bit: bool,
     ) -> Result<usize, SerializeError> {
         if self.len() > N {
-            return Err(SerializeError::TypeBoundsViolated {
-                bound: N,
-                len: self.len(),
-            });
+            return Err(SerializeError::TypeBoundsViolated { bound: N, len: self.len() })
         }
         let start_len = buffer.len();
         buffer.extend_from_slice(self.as_raw_slice());
@@ -153,12 +154,12 @@ impl<const N: usize> Serialize for Bitlist<N> {
 impl<const N: usize> Deserialize for Bitlist<N> {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if encoding.is_empty() {
-            return Err(DeserializeError::InputTooShort);
+            return Err(DeserializeError::InputTooShort)
         }
 
         // +1 for length bit
         if encoding.len() > (N + 7 + 1) / 8 {
-            return Err(DeserializeError::ExtraInput);
+            return Err(DeserializeError::ExtraInput)
         }
 
         let (last_byte, prefix) = encoding.split_last().unwrap();
@@ -167,17 +168,14 @@ impl<const N: usize> Deserialize for Bitlist<N> {
         let high_bit_index = 8 - last.trailing_zeros();
 
         if !last[high_bit_index - 1] {
-            return Err(DeserializeError::InvalidInput);
+            return Err(DeserializeError::InvalidInput)
         }
 
         for bit in last.iter().take(high_bit_index - 1) {
             result.push(*bit);
         }
         if result.len() > N {
-            return Err(DeserializeError::TypeBoundsViolated {
-                bound: N,
-                len: result.len(),
-            });
+            return Err(DeserializeError::TypeBoundsViolated { bound: N, len: result.len() })
         }
         Ok(Self(result))
     }
@@ -190,8 +188,21 @@ impl<const N: usize> Merkleized for Bitlist<N> {
         Ok(mix_in_length(&data_root, self.len()))
     }
 }
-
 impl<const N: usize> SimpleSerialize for Bitlist<N> {}
+
+impl<const N: usize> SszReflect for Bitlist<N> {
+    fn ssz_type_class(&self) -> SszTypeClass {
+        SszTypeClass::Bits
+    }
+
+    fn list_elem_type(&self) -> Option<&dyn SszReflect> {
+        Some(&0u8)
+    }
+
+    fn list_length(&self) -> Option<usize> {
+        Some(self.len())
+    }
+}
 
 impl<const N: usize> FromIterator<bool> for Bitlist<N> {
     // NOTE: only takes the first `N` values from `iter`.
@@ -261,15 +272,13 @@ mod tests {
 
         let bytes = vec![24u8, 2u8];
         let result = Bitlist::<COUNT>::deserialize(&bytes).expect("test data is correct");
-        let expected = Bitlist::from_iter(vec![
-            false, false, false, true, true, false, false, false, false,
-        ]);
+        let expected =
+            Bitlist::from_iter(vec![false, false, false, true, true, false, false, false, false]);
         assert_eq!(result, expected);
         let bytes = vec![24u8, 3u8];
         let result = Bitlist::<COUNT>::deserialize(&bytes).expect("test data is correct");
-        let expected = Bitlist::from_iter(vec![
-            false, false, false, true, true, false, false, false, true,
-        ]);
+        let expected =
+            Bitlist::from_iter(vec![false, false, false, true, true, false, false, false, true]);
         assert_eq!(result, expected);
     }
 

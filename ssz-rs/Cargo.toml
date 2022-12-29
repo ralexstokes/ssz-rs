@@ -28,6 +28,8 @@ lazy_static = "1.4.0"
 serde = { version = "1.0", features = ["derive"], optional = true }
 hex = {version = "0.4.3", optional = true }
 num-bigint = "0.4.3"
+fields-iter = "0.0.3"
+as-any = "0.3.0"
 
 [dev-dependencies]
 hex-literal = "0.3.3"

@@ -13,13 +13,15 @@ mod uint;
 mod union;
 mod vector;
 
-use crate::list::Error as ListError;
-use crate::vector::Error as VectorError;
+use crate::{list::Error as ListError, vector::Error as VectorError};
 pub use bitlist::Bitlist;
 pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};
 pub use list::List;
-pub use merkleization::{Context as MerkleizationContext, MerkleizationError, Merkleized, Node};
+pub use merkleization::{
+    field_inspect, get_generalized_index, Context as MerkleizationContext, MerkleizationError,
+    Merkleized, Node, SszReflect, SszVariableOrIndex,
+};
 pub use ser::{Serialize, SerializeError};
 use thiserror::Error;
 pub use uint::U256;
@@ -27,11 +29,28 @@ pub use vector::Vector;
 
 /// `Sized` is a trait for types that can
 /// provide sizing information relevant for the SSZ spec.
-pub trait Sized {
+pub trait Sized
+where
+    Self: std::marker::Sized,
+{
     // is this type variable or fixed size?
     fn is_variable_size() -> bool;
 
     fn size_hint() -> usize;
+}
+
+#[derive(Ord, PartialOrd, Eq, PartialEq, Debug)]
+pub enum ElementsType {
+    Vector,
+    List,
+}
+
+#[derive(Ord, PartialOrd, Eq, PartialEq, Debug)]
+pub enum SszTypeClass {
+    Basic,
+    Bits,
+    Elements(ElementsType),
+    Container,
 }
 
 /// `SimpleSerialize` is a trait for types
@@ -78,29 +97,30 @@ pub enum SimpleSerializeError {
 /// would want to have handy with a simple (single) import.
 pub mod prelude {
     pub use crate as ssz_rs;
-    pub use crate::bitlist::Bitlist;
-    pub use crate::bitvector::Bitvector;
-    pub use crate::de::Deserialize;
-    pub use crate::de::DeserializeError;
-    pub use crate::list::List;
-    pub use crate::merkleization::{
-        is_valid_merkle_branch, merkleize, mix_in_selector, pack, pack_bytes, MerkleizationError,
-        Merkleized, Node,
+    pub use crate::{
+        bitlist::Bitlist,
+        bitvector::Bitvector,
+        de::{Deserialize, DeserializeError},
+        deserialize,
+        list::List,
+        merkleization::{
+            is_valid_merkle_branch, merkleize, mix_in_selector, pack, pack_bytes,
+            MerkleizationError, Merkleized, Node,
+        },
+        ser::{Serialize, SerializeError},
+        serialize,
+        uint::U256,
+        vector::Vector,
+        MerkleizationContext, SimpleSerialize, SimpleSerializeError, Sized,
     };
-    pub use crate::ser::{Serialize, SerializeError};
-    pub use crate::uint::U256;
-    pub use crate::vector::Vector;
-    pub use crate::MerkleizationContext;
-    pub use crate::SimpleSerialize;
-    pub use crate::SimpleSerializeError;
-    pub use crate::Sized;
-    pub use crate::{deserialize, serialize};
     pub use ssz_rs_derive::SimpleSerialize;
 }
 
 /// `internal` contains functionality that is exposed purely for the derive proc macro crate
 pub mod internal {
     // exported for derive macro to avoid code duplication...
-    pub use crate::merkleization::{merkleize, mix_in_selector};
-    pub use crate::ser::serialize_composite_from_components;
+    pub use crate::{
+        merkleization::{merkleize, mix_in_selector},
+        ser::serialize_composite_from_components,
+    };
 }

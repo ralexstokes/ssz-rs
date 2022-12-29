@@ -31,7 +31,7 @@ pub fn serialize_composite_from_components(
 ) -> Result<usize, SerializeError> {
     let total_size = fixed_lengths_sum + variable_lengths.iter().sum::<usize>();
     if total_size as u64 >= MAXIMUM_LENGTH {
-        return Err(SerializeError::MaximumEncodedLengthExceeded(total_size));
+        return Err(SerializeError::MaximumEncodedLengthExceeded(total_size))
     }
 
     let mut total_bytes_written = 0;
@@ -44,9 +44,7 @@ pub fn serialize_composite_from_components(
             let variable_lengths_sum = variable_lengths[0..i].iter().sum::<usize>();
             let length = (fixed_lengths_sum + variable_lengths_sum) as u32;
             let mut offset_buffer = Vec::with_capacity(4);
-            let _ = length
-                .serialize(&mut offset_buffer)
-                .expect("can serialize simple type");
+            let _ = length.serialize(&mut offset_buffer).expect("can serialize simple type");
             buffer.append(&mut offset_buffer);
             total_bytes_written += 4;
         }

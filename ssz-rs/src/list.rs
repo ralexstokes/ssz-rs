@@ -1,18 +1,24 @@
-use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
-use crate::merkleization::{
-    merkleize, mix_in_length, pack, MerkleCache, MerkleizationError, Merkleized, Node,
-    BYTES_PER_CHUNK,
+use crate::{
+    de::{deserialize_homogeneous_composite, Deserialize, DeserializeError},
+    merkleization::{
+        merkleize, mix_in_length, pack, MerkleCache, MerkleizationError, Merkleized, Node,
+        SszReflect, BYTES_PER_CHUNK,
+    },
+    ser::{serialize_composite, Serialize, SerializeError},
+    ElementsType, SimpleSerialize, SimpleSerializeError, Sized, SszTypeClass,
 };
-use crate::ser::{serialize_composite, Serialize, SerializeError};
-use crate::{SimpleSerialize, SimpleSerializeError, Sized};
+use as_any::AsAny;
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
-use std::iter::Enumerate;
 #[cfg(feature = "serde")]
 use std::marker::PhantomData;
-use std::ops::{Deref, Index, IndexMut};
-use std::slice::SliceIndex;
-use std::{fmt, slice};
+use std::{
+    fmt,
+    iter::Enumerate,
+    ops::{Deref, Index, IndexMut},
+    slice,
+    slice::SliceIndex,
+};
 use thiserror::Error;
 
 #[derive(Error, Debug)]
@@ -133,10 +139,7 @@ where
             }))
         } else {
             let leaf_count = Self::get_leaf_count(data.len());
-            Ok(Self {
-                data,
-                cache: MerkleCache::with_leaves(leaf_count),
-            })
+            Ok(Self { data, cache: MerkleCache::with_leaves(leaf_count) })
         }
     }
 }
@@ -200,10 +203,7 @@ where
 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         if self.len() > N {
-            return Err(SerializeError::TypeBoundsViolated {
-                bound: N,
-                len: self.len(),
-            });
+            return Err(SerializeError::TypeBoundsViolated { bound: N, len: self.len() })
         }
         serialize_composite(&self.data, buffer)
     }
@@ -216,10 +216,7 @@ where
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         let result = deserialize_homogeneous_composite(encoding)?;
         if result.len() > N {
-            return Err(DeserializeError::TypeBoundsViolated {
-                bound: N,
-                len: result.len(),
-            });
+            return Err(DeserializeError::TypeBoundsViolated { bound: N, len: result.len() })
         }
         Ok(result.try_into().unwrap())
     }
@@ -283,10 +280,7 @@ where
     }
 
     pub fn iter_mut(&mut self) -> IterMut<'_, T, N> {
-        IterMut {
-            inner: self.data.iter_mut().enumerate(),
-            cache: &mut self.cache,
-        }
+        IterMut { inner: self.data.iter_mut().enumerate(), cache: &mut self.cache }
     }
 }
 
@@ -325,6 +319,23 @@ where
 }
 
 impl<T, const N: usize> SimpleSerialize for List<T, N> where T: SimpleSerialize {}
+
+impl<T, const N: usize> SszReflect for List<T, N>
+where
+    T: SimpleSerialize + SszReflect + AsAny,
+{
+    fn ssz_type_class(&self) -> SszTypeClass {
+        SszTypeClass::Elements(ElementsType::List)
+    }
+
+    fn list_elem_type(&self) -> Option<&dyn SszReflect> {
+        Some(self.index(0))
+    }
+
+    fn list_length(&self) -> Option<usize> {
+        Some(self.len())
+    }
+}
 
 impl<T, const N: usize> FromIterator<T> for List<T, N>
 where
@@ -388,11 +399,8 @@ mod tests {
     #[test]
     fn roundtrip_list_of_list() {
         const COUNT: usize = 4;
-        let bytes: Vec<List<u8, 1>> = vec![
-            vec![0u8].try_into().unwrap(),
-            Default::default(),
-            vec![1u8].try_into().unwrap(),
-        ];
+        let bytes: Vec<List<u8, 1>> =
+            vec![vec![0u8].try_into().unwrap(), Default::default(), vec![1u8].try_into().unwrap()];
         let input: List<List<u8, 1>, COUNT> = bytes.try_into().unwrap();
         let mut buffer = vec![];
         let _ = input.serialize(&mut buffer).expect("can serialize");

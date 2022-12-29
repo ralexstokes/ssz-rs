@@ -1,4 +1,4 @@
-use crate::merkleization::Node;
+use crate::{merkleization::Node, SimpleSerialize};
 use sha2::{Digest, Sha256};
 
 pub fn is_valid_merkle_branch<'a>(
@@ -28,18 +28,20 @@ pub fn is_valid_merkle_branch<'a>(
     value == *root
 }
 
+pub fn generate_proof<T: SimpleSerialize>(_data: T, _indices: &[u64]) -> Vec<Vec<u8>> {
+    // first merklize the data, then return a list of the mapping of the nodes to their generalized
+    // index Vec<(Node, u64)> next calculate the proof indices for given indices to prove.
+    // return the nodes for those proof indices.
+    unimplemented!()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use hex;
 
     fn decode_node_from_hex(hex: &str) -> Node {
-        Node::from_bytes(
-            hex::decode(hex)
-                .expect("is hex")
-                .try_into()
-                .expect("is right size"),
-        )
+        Node::from_bytes(hex::decode(hex).expect("is hex").try_into().expect("is right size"))
     }
 
     #[test]
@@ -62,12 +64,6 @@ mod tests {
             "27097c728aade54ff1376d5954681f6d45c282a81596ef19183148441b754abb",
         );
 
-        assert!(is_valid_merkle_branch(
-            &leaf,
-            branch.iter(),
-            depth,
-            index,
-            &root
-        ))
+        assert!(is_valid_merkle_branch(&leaf, branch.iter(), depth, index, &root,))
     }
 }

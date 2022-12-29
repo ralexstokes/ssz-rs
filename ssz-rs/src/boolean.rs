@@ -1,7 +1,9 @@
-use crate::de::{Deserialize, DeserializeError};
-use crate::merkleization::{MerkleizationError, Merkleized, Node};
-use crate::ser::{Serialize, SerializeError};
-use crate::{SimpleSerialize, Sized};
+use crate::{
+    de::{Deserialize, DeserializeError},
+    merkleization::{MerkleizationError, Merkleized, Node, SszReflect},
+    ser::{Serialize, SerializeError},
+    SimpleSerialize, Sized, SszTypeClass,
+};
 
 impl Sized for bool {
     fn is_variable_size() -> bool {
@@ -50,6 +52,12 @@ impl Merkleized for bool {
 impl SimpleSerialize for bool {
     fn is_composite_type() -> bool {
         false
+    }
+}
+
+impl SszReflect for bool {
+    fn ssz_type_class(&self) -> SszTypeClass {
+        SszTypeClass::Basic
     }
 }
 
