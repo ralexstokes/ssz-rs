@@ -9,17 +9,23 @@ pub enum SszVariableOrIndex {
     Index(usize),
 }
 
+/// This trait is intended to enable runtime reflection for types that implement it
 pub trait SszReflect: AsAny {
+    /// Should return the SszTypeClass see:
+    /// https://github.com/ethereum/consensus-specs/blob/dev/ssz/simple-serialize.md#typing
     fn ssz_type_class(&self) -> SszTypeClass;
 
+    /// Should return an instance of the list element type.
     fn list_elem_type(&self) -> Option<&dyn SszReflect> {
         None
     }
 
+    /// Should return the size of the list, if it's a list
     fn list_length(&self) -> Option<usize> {
         None
     }
 
+    /// Should return itself, if it is a container type.
     fn as_field_inspectable(&self) -> Option<&dyn FieldsInspect> {
         None
     }
@@ -131,7 +137,11 @@ fn get_item_position(
 fn chunk_count(typ: &dyn SszReflect) -> usize {
     match typ.ssz_type_class() {
         SszTypeClass::Basic => 1,
-        SszTypeClass::Container => FieldsIter::new(typ.as_field_inspectable().unwrap()).len(),
+        SszTypeClass::Container => FieldsIter::new(
+            typ.as_field_inspectable()
+                .expect("Container should have FieldInspect implemented; qed"),
+        )
+        .len(),
         SszTypeClass::Elements(_) => {
             let item = typ.list_elem_type().expect("illegal operation!");
             let len = typ.list_length().expect("illegal operation!");
