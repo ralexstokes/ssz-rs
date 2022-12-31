@@ -6,7 +6,7 @@ mod proofs;
 
 use crate::ser::{Serialize, SerializeError};
 use lazy_static::lazy_static;
-use sha2::{Digest, Sha256};
+use sha2::{digest::Update, Digest, Sha256};
 use std::{cmp::Ordering, fmt::Debug, ops::Index};
 use thiserror::Error;
 
@@ -14,7 +14,7 @@ pub use cache::Cache as MerkleCache;
 pub use field_inspect::*;
 pub use generalized_index::*;
 pub use node::Node;
-pub use proofs::is_valid_merkle_branch;
+pub use proofs::{generate_proof, is_valid_merkle_branch};
 
 pub(crate) const BYTES_PER_CHUNK: usize = 32;
 
@@ -32,6 +32,8 @@ pub enum MerkleizationError {
     PartialChunk(Vec<u8>, usize),
     #[error("cannot merkleize data that exceeds the declared limit {0}")]
     InputExceedsLimit(usize),
+    #[error("cannot generate proofs for a basic/union type!")]
+    CannotMerkleize,
 }
 
 pub fn pack_bytes(buffer: &mut Vec<u8>) {
@@ -58,8 +60,8 @@ where
 }
 
 fn hash_nodes(hasher: &mut Sha256, a: &[u8], b: &[u8], out: &mut [u8]) {
-    hasher.update(a);
-    hasher.update(b);
+    Update::update(hasher, a);
+    Update::update(hasher, b);
     out.copy_from_slice(&hasher.finalize_reset());
 }
 
@@ -137,7 +139,7 @@ fn merkleize_chunks_with_virtual_padding(
     }
 
     let mut layer = chunks.to_vec();
-    let mut last_index = chunk_count - 1; // 7
+    let mut last_index = chunk_count - 1;
     for k in (1..height).rev() {
         // for each layer
         for i in (0..2usize.pow(k)).step_by(2) {
@@ -153,8 +155,8 @@ fn merkleize_chunks_with_virtual_padding(
                     if parent.is_empty() {
                         // NOTE: have to specially handle the situation where the children nodes and
                         // parent node share memory
-                        hasher.update(&left);
-                        hasher.update(right);
+                        Update::update(&mut hasher, &left);
+                        Update::update(&mut hasher, right);
                         left.copy_from_slice(&hasher.finalize_reset());
                     } else {
                         hash_nodes(&mut hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
@@ -171,8 +173,8 @@ fn merkleize_chunks_with_virtual_padding(
                     if parent.is_empty() {
                         // NOTE: have to specially handle the situation where the children nodes and
                         // parent node share memory
-                        hasher.update(&left);
-                        hasher.update(right);
+                        Update::update(&mut hasher, &left);
+                        Update::update(&mut hasher, right);
                         left.copy_from_slice(&hasher.finalize_reset());
                     } else {
                         hash_nodes(&mut hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
@@ -201,6 +203,32 @@ pub fn merkleize(chunks: &[u8], limit: Option<usize>) -> Result<Node, Merkleizat
         leaf_count = limit.next_power_of_two();
     }
     merkleize_chunks_with_virtual_padding(chunks, leaf_count)
+}
+
+/// Return an array representing the tree nodes by generalized index:
+/// [0, 1, 2, 3, 4, 5, 6, 7], where each layer is a power of 2. The 0 index is ignored. The 1 index
+/// is the root. The result will be twice the size as the padded bottom layer for the input leaves.
+pub fn merkleize_to_virtual_tree(leaves: Vec<Node>) -> Vec<Node> {
+    let mut hasher = Sha256::new();
+    let leaves_len = leaves.len();
+    let bottom_len = leaves_len.next_power_of_two();
+    let mut out = (0..bottom_len)
+        .map(|_| Node::default())
+        .chain(leaves.into_iter())
+        .chain((0..bottom_len - leaves_len).map(|_| Node::default()))
+        .collect::<Vec<_>>();
+
+    for i in (0..bottom_len - 1).rev() {
+        Update::update(&mut hasher, &out[i * 2]);
+        Update::update(&mut hasher, &out[i * 2 + 1]);
+        out[i] = hasher
+            .finalize_reset()
+            .as_slice()
+            .try_into()
+            .expect("Sha256 digest size is 32; qed");
+    }
+
+    out
 }
 
 fn mix_in_decoration(root: &Node, mut decoration: usize) -> Node {

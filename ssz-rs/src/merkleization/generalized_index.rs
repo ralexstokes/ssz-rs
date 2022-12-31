@@ -1,5 +1,5 @@
 use super::field_inspect::{FieldsInspect, FieldsIter};
-use crate::{ElementsType, SszTypeClass};
+use crate::{ElementsType, Merkleized, SszTypeClass, U256};
 use as_any::AsAny;
 use std::any::{Any, TypeId};
 
@@ -10,7 +10,7 @@ pub enum SszVariableOrIndex {
 }
 
 /// This trait is intended to enable runtime reflection for types that implement it
-pub trait SszReflect: AsAny {
+pub trait SszReflect: Merkleized + AsAny {
     /// Should return the SszTypeClass see:
     /// https://github.com/ethereum/consensus-specs/blob/dev/ssz/simple-serialize.md#typing
     fn ssz_type_class(&self) -> SszTypeClass;
@@ -29,10 +29,14 @@ pub trait SszReflect: AsAny {
     fn as_field_inspectable(&self) -> Option<&dyn FieldsInspect> {
         None
     }
+
+    fn as_mut_field_inspectable(&mut self) -> Option<&mut dyn FieldsInspect> {
+        None
+    }
 }
 
 /// Converts a path (eg. `[7, "foo", 3]` for `x[7].foo[3]`, `[12, "bar", "__len__"]` for
-//  `len(x[12].bar)`) into the generalized index representing its position in the Merkle tree.
+///  `len(x[12].bar)`) into the generalized index representing its position in the Merkle tree.
 pub fn get_generalized_index(
     mut typ: &dyn SszReflect,
     path: &'static [SszVariableOrIndex],
@@ -69,7 +73,7 @@ fn get_elem_type<'a>(
     index_or_name: &'a SszVariableOrIndex,
 ) -> &'a dyn SszReflect {
     match (typ.ssz_type_class(), index_or_name) {
-        (SszTypeClass::Elements(_) | SszTypeClass::Bits, SszVariableOrIndex::Index(_)) =>
+        (SszTypeClass::Elements(_) | SszTypeClass::Bits(_), SszVariableOrIndex::Index(_)) =>
             typ.list_elem_type().expect("illegal operation! type isn't a list!"),
         (SszTypeClass::Container, SszVariableOrIndex::Name(name)) => {
             let inspectable = typ
@@ -77,7 +81,7 @@ fn get_elem_type<'a>(
                 .expect("Container should have FieldInspect implemented; qed");
             let (_name, value) = FieldsIter::new(inspectable)
                 .find(|(field_name, _)| field_name == name)
-                .expect("illegal operation! type isn't a container!");
+                .expect("illegal operation! field name not found!");
             value
         },
         (a, b) => panic!("illegal type {a:?} supplied with selector {b:?}."),
@@ -95,7 +99,7 @@ fn get_item_position(
     index_or_name: &SszVariableOrIndex,
 ) -> (usize, usize, usize) {
     match typ.ssz_type_class() {
-        SszTypeClass::Elements(_) | SszTypeClass::Bits =>
+        SszTypeClass::Elements(_) | SszTypeClass::Bits(_) =>
             match (index_or_name, typ.list_elem_type()) {
                 (SszVariableOrIndex::Index(index), Some(elem_typ)) => {
                     let item_len = item_length(elem_typ.as_any());
@@ -125,7 +129,7 @@ fn get_item_position(
             (index, 0, item_length(value.as_any()))
         },
 
-        SszTypeClass::Basic => panic!("illegal operation, basic types cannot be indexed"),
+        typ => panic!("illegal operation, {typ:?} cannot be indexed"),
     }
 }
 
@@ -147,10 +151,11 @@ fn chunk_count(typ: &dyn SszReflect) -> usize {
             let len = typ.list_length().expect("illegal operation!");
             (len * item_length(item.as_any()) + 31) / 32
         },
-        SszTypeClass::Bits => {
+        SszTypeClass::Bits(_) => {
             let len = typ.list_length().expect("illegal operation!");
             (len + 255) / 256
         },
+        typ => panic!("Type not supported: {typ:?}"),
     }
 }
 
@@ -161,6 +166,7 @@ fn item_length(typ: &dyn Any) -> usize {
     let u32_type_id = TypeId::of::<u32>();
     let u64_type_id = TypeId::of::<u64>();
     let u128_type_id = TypeId::of::<u128>();
+    let u256_type_id = TypeId::of::<U256>();
     let bool_type_id = TypeId::of::<bool>();
 
     match typ.type_id() {
@@ -169,7 +175,63 @@ fn item_length(typ: &dyn Any) -> usize {
         b if b == u32_type_id => std::mem::size_of::<u32>(),
         b if b == u64_type_id => std::mem::size_of::<u64>(),
         b if b == u128_type_id => std::mem::size_of::<u128>(),
+        b if b == u256_type_id => 32, // can't rely on mem::size_of here.
         b if b == bool_type_id => std::mem::size_of::<bool>(),
         _ => 32,
+    }
+}
+
+// From: https://users.rust-lang.org/t/logarithm-of-integers/8506/5
+const fn num_bits<T>() -> usize {
+    std::mem::size_of::<T>() * 8
+}
+
+fn log_2(x: usize) -> u32 {
+    assert!(x > 0);
+    num_bits::<usize>() as u32 - x.leading_zeros() - 1
+}
+
+fn get_power_of_two_ceil(x: usize) -> usize {
+    if x <= 1 {
+        1
+    } else if x == 2 {
+        2
+    } else {
+        2 * get_power_of_two_ceil((x + 1) / 2)
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
+pub struct GeneralizedIndex(pub usize);
+
+impl Default for GeneralizedIndex {
+    fn default() -> Self {
+        Self(1)
+    }
+}
+
+impl GeneralizedIndex {
+    pub fn get_path_length(&self) -> usize {
+        log_2(self.0) as usize
+    }
+
+    pub fn get_bit(&self, position: usize) -> bool {
+        self.0 & (1 << position) > 0
+    }
+
+    pub fn sibling(&self) -> Self {
+        Self(self.0 ^ 1)
+    }
+
+    pub fn child_left(&self) -> Self {
+        Self(self.0 * 2)
+    }
+
+    pub fn child_right(&self) -> Self {
+        Self(self.0 * 2 + 1)
+    }
+
+    pub fn parent(&self) -> Self {
+        Self(self.0 / 2)
     }
 }

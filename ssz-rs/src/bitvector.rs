@@ -2,7 +2,7 @@ use crate::{
     de::{Deserialize, DeserializeError},
     merkleization::{merkleize, pack_bytes, MerkleizationError, Merkleized, Node, SszReflect},
     ser::{Serialize, SerializeError},
-    SimpleSerialize, Sized, SszTypeClass,
+    ElementsType, SimpleSerialize, Sized, SszTypeClass,
 };
 use bitvec::{
     field::BitField,
@@ -185,7 +185,7 @@ impl<const N: usize> SimpleSerialize for Bitvector<N> {}
 
 impl<const N: usize> SszReflect for Bitvector<N> {
     fn ssz_type_class(&self) -> SszTypeClass {
-        SszTypeClass::Bits
+        SszTypeClass::Bits(ElementsType::Vector)
     }
 
     fn list_elem_type(&self) -> Option<&dyn SszReflect> {

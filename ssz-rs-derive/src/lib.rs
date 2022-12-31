@@ -355,17 +355,17 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                 ),
             };
             let field_count = fields.iter().len();
-            let impl_by_field = fields.iter().enumerate().map(|(i, f)| match &f.ident {
-                Some(field_name) => quote_spanned! { f.span() =>
-                    let chunk = self.#field_name.hash_tree_root()?;
+            let impl_by_field = fields.iter().enumerate().map(|(i, f)| {
+                let member = match &f.ident {
+                    Some(name) => Member::Named(name.clone()),
+                    None => Member::Unnamed(Index { index: i as u32, span: f.span() }),
+                };
+                quote_spanned! { f.span() =>
+                    // now we support all elements in the tuple
+                    let chunk = self.#member.hash_tree_root()?;
                     let range = #i*#BYTES_PER_CHUNK..(#i+1)*#BYTES_PER_CHUNK;
                     chunks[range].copy_from_slice(chunk.as_ref());
-                },
-                None => quote_spanned! { f.span() =>
-                    let chunk = self.0.hash_tree_root()?;
-                    let range = #i*#BYTES_PER_CHUNK..(#i+1)*#BYTES_PER_CHUNK;
-                    chunks[range].copy_from_slice(chunk.as_ref());
-                },
+                }
             });
             quote! {
                 fn hash_tree_root(&mut self) -> Result<ssz_rs::Node, ssz_rs::MerkleizationError> {
@@ -415,9 +415,9 @@ fn is_valid_none_identifier(ident: &Ident) -> bool {
     *ident == format_ident!("None")
 }
 
-fn derive_fields_inspect(item: DeriveInput) -> (TokenStream, TokenStream) {
+fn derive_fields_inspect(item: DeriveInput) -> (TokenStream, TokenStream, TokenStream) {
     let Data::Struct(strukt) = item.data else {
-		return (quote! { None }, quote!());
+		return (quote! { None }, quote! { None }, quote!());
 	};
 
     let name = &item.ident;
@@ -428,7 +428,7 @@ fn derive_fields_inspect(item: DeriveInput) -> (TokenStream, TokenStream) {
         Fields::Unit => syn::punctuated::Punctuated::new(),
     };
     let fields_count = fields.len() as u32;
-    let (field_names, field_refs): (Vec<_>, Vec<_>) = fields
+    let ((field_names, field_refs), field_muts): ((Vec<_>, Vec<_>), Vec<_>) = fields
         .iter()
         .enumerate()
         .map(|(idx, field)| {
@@ -446,7 +446,17 @@ fn derive_fields_inspect(item: DeriveInput) -> (TokenStream, TokenStream) {
             let field_ref = quote_spanned! {field.ty.span() =>
                 #idx => &self.#member as &dyn ssz_rs::SszReflect,
             };
-            (name, field_ref)
+
+            let field_mut = quote_spanned! {field.ty.span() =>
+                // SAFETY: By precondition, `this` points to a valid `Self`.
+                #idx => unsafe {
+                    &mut *(
+                        ssz_rs::field_inspect::addr_of_mut!((*this).#member)
+                            as *mut dyn ssz_rs::SszReflect
+                    )
+                }
+            };
+            ((name, field_ref), field_mut)
         })
         .unzip();
     let (impl_generics, type_generics, where_clause) = item.generics.split_for_impl();
@@ -471,10 +481,18 @@ fn derive_fields_inspect(item: DeriveInput) -> (TokenStream, TokenStream) {
                     _ => ssz_rs::field_inspect::field_out_of_bounds(#name_string, n),
                 }
             }
+
+            unsafe fn field_mut(this: *mut (), n: u32) -> &'static mut dyn ssz_rs::SszReflect {
+                let this = this.cast::<Self>();
+                match n {
+                    #(#field_muts)*
+                    _ => ssz_rs::field_inspect::field_out_of_bounds(#name_string, n),
+                }
+            }
         }
     };
 
-    (quote! { Some(&*self) }, trait_impl)
+    (quote! { Some(&*self) }, quote! { Some(&mut *self) }, trait_impl)
 }
 
 // Refers to the validation state of proc macro's input
@@ -573,7 +591,7 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let is_variable_size_impl = derive_variable_size_impl(data);
     let size_hint_impl = derive_size_hint_impl(data);
     let merkleization_impl = derive_merkleization_impl(data);
-    let (inspectable, fields_inspect_impl) = derive_fields_inspect(input.clone());
+    let (inspectable, inspectable_mut, fields_inspect_impl) = derive_fields_inspect(input.clone());
 
     let impl_impl = if generics.params.is_empty() {
         quote! { impl }
@@ -624,6 +642,10 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
 
             fn as_field_inspectable(&self) -> Option<&dyn ssz_rs::field_inspect::FieldsInspect> {
                 #inspectable
+            }
+
+            fn as_mut_field_inspectable(&mut self) -> Option<&mut dyn ssz_rs::field_inspect::FieldsInspect> {
+                #inspectable_mut
             }
         }
     };

@@ -1,3 +1,5 @@
+extern crate core;
+
 mod array;
 mod bitlist;
 mod bitvector;
@@ -19,8 +21,9 @@ pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};
 pub use list::List;
 pub use merkleization::{
-    field_inspect, get_generalized_index, Context as MerkleizationContext, MerkleizationError,
-    Merkleized, Node, SszReflect, SszVariableOrIndex,
+    field_inspect, generate_proof, get_generalized_index, is_valid_merkle_branch,
+    Context as MerkleizationContext, MerkleizationError, Merkleized, Node, SszReflect,
+    SszVariableOrIndex,
 };
 pub use ser::{Serialize, SerializeError};
 use thiserror::Error;
@@ -48,9 +51,10 @@ pub enum ElementsType {
 #[derive(Ord, PartialOrd, Eq, PartialEq, Debug)]
 pub enum SszTypeClass {
     Basic,
-    Bits,
+    Bits(ElementsType),
     Elements(ElementsType),
     Container,
+    Union,
 }
 
 /// `SimpleSerialize` is a trait for types

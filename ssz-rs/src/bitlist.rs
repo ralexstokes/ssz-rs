@@ -4,7 +4,7 @@ use crate::{
         merkleize, mix_in_length, pack_bytes, MerkleizationError, Merkleized, Node, SszReflect,
     },
     ser::{Serialize, SerializeError},
-    SimpleSerialize, Sized, SszTypeClass,
+    ElementsType, SimpleSerialize, Sized, SszTypeClass,
 };
 use bitvec::prelude::{BitVec, Lsb0};
 use std::{
@@ -192,7 +192,7 @@ impl<const N: usize> SimpleSerialize for Bitlist<N> {}
 
 impl<const N: usize> SszReflect for Bitlist<N> {
     fn ssz_type_class(&self) -> SszTypeClass {
-        SszTypeClass::Bits
+        SszTypeClass::Bits(ElementsType::List)
     }
 
     fn list_elem_type(&self) -> Option<&dyn SszReflect> {
