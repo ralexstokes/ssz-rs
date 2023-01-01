@@ -1,9 +1,6 @@
 use crate::{
     field_inspect::FieldsIterMut,
-    merkleization::{
-        merkleize_to_virtual_tree, GeneralizedIndex, Node,
-        BYTES_PER_CHUNK,
-    },
+    merkleization::{merkleize_to_virtual_tree, GeneralizedIndex, Node, BYTES_PER_CHUNK},
     MerkleizationError, SimpleSerialize, SszReflect, SszTypeClass,
 };
 use itertools::Itertools;
@@ -37,6 +34,7 @@ pub fn is_valid_merkle_branch<'a>(
     value == *root
 }
 
+/// Generates a proof for potentially multiple elements in an SszObject.
 pub fn generate_proof<T: SimpleSerialize + SszReflect>(
     mut data: T,
     indices: &[usize],
@@ -58,7 +56,7 @@ pub fn generate_proof<T: SimpleSerialize + SszReflect>(
                 chunks[range].copy_from_slice(chunk.as_ref());
             }
 
-            let nodes = chunks
+            let leaves = chunks
                 .into_iter()
                 .chunks(BYTES_PER_CHUNK)
                 .into_iter()
@@ -68,7 +66,7 @@ pub fn generate_proof<T: SimpleSerialize + SszReflect>(
                 })
                 .collect::<Vec<_>>();
 
-            let virtual_tree = merkleize_to_virtual_tree(nodes);
+            let virtual_tree = merkleize_to_virtual_tree(leaves);
             let indices = indices.into_iter().cloned().map(GeneralizedIndex).collect::<Vec<_>>();
             let proof_indices = get_helper_indices(&indices);
             let mut proof_nodes = Vec::new();

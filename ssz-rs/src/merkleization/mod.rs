@@ -14,7 +14,10 @@ pub use cache::Cache as MerkleCache;
 pub use field_inspect::*;
 pub use generalized_index::*;
 pub use node::Node;
-pub use proofs::{generate_proof, is_valid_merkle_branch};
+pub use proofs::{
+    calculate_merkle_root, calculate_multi_merkle_root, generate_proof, is_valid_merkle_branch,
+    verify_merkle_multiproof, verify_merkle_proof,
+};
 
 pub(crate) const BYTES_PER_CHUNK: usize = 32;
 
@@ -218,6 +221,8 @@ pub fn merkleize_to_virtual_tree(leaves: Vec<Node>) -> Vec<Node> {
         .chain((0..bottom_len - leaves_len).map(|_| Node::default()))
         .collect::<Vec<_>>();
 
+    dbg!(out.len(), bottom_len);
+
     for i in (0..bottom_len - 1).rev() {
         Update::update(&mut hasher, &out[i * 2]);
         Update::update(&mut hasher, &out[i * 2 + 1]);
@@ -225,7 +230,7 @@ pub fn merkleize_to_virtual_tree(leaves: Vec<Node>) -> Vec<Node> {
             .finalize_reset()
             .as_slice()
             .try_into()
-            .expect("Sha256 digest size is 32; qed");
+            .expect("SHA256 digest size is 32; qed");
     }
 
     out

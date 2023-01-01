@@ -21,9 +21,10 @@ pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};
 pub use list::List;
 pub use merkleization::{
-    field_inspect, generate_proof, get_generalized_index, is_valid_merkle_branch,
-    Context as MerkleizationContext, MerkleizationError, Merkleized, Node, SszReflect,
-    SszVariableOrIndex,
+    calculate_merkle_root, calculate_multi_merkle_root, field_inspect, generate_proof,
+    get_generalized_index, is_valid_merkle_branch, verify_merkle_multiproof, verify_merkle_proof,
+    Context as MerkleizationContext, GeneralizedIndex, MerkleizationError, Merkleized, Node,
+    SszReflect, SszVariableOrIndex,
 };
 pub use ser::{Serialize, SerializeError};
 use thiserror::Error;
