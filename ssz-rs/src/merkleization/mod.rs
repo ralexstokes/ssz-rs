@@ -380,10 +380,16 @@ mod tests {
 
         let chunks = vec![1u8; 5 * BYTES_PER_CHUNK];
         let root = merkleize_chunks_with_virtual_padding(&chunks, 8).expect("can merkleize");
+        let nodes = (0..5).map(|_| Node([1u8; 32])).collect::<Vec<_>>();
+        let calculated = merkleize_to_virtual_tree(nodes);
+        assert_eq!(root, calculated[1]);
         assert_eq!(root, hex!("0ae67e34cba4ad2bbfea5dc39e6679b444021522d861fab00f05063c54341289"));
 
         let chunks = vec![1u8; 6 * BYTES_PER_CHUNK];
         let root = merkleize_chunks_with_virtual_padding(&chunks, 8).expect("can merkleize");
+        let nodes = (0..6).map(|_| Node([1u8; 32])).collect::<Vec<_>>();
+        let calculated = merkleize_to_virtual_tree(nodes);
+        assert_eq!(root, calculated[1]);
         assert_eq!(root, hex!("0ef7df63c204ef203d76145627b8083c49aa7c55ebdee2967556f55a4f65a238"));
     }
 
