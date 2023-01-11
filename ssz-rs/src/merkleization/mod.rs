@@ -215,15 +215,14 @@ pub fn merkleize_to_virtual_tree(leaves: Vec<Node>) -> Vec<Node> {
     let mut hasher = Sha256::new();
     let leaves_len = leaves.len();
     let bottom_len = leaves_len.next_power_of_two();
+    let padding = bottom_len - leaves_len;
     let mut out = (0..bottom_len)
         .map(|_| Node::default())
         .chain(leaves.into_iter())
-        .chain((0..bottom_len - leaves_len).map(|_| Node::default()))
+        .chain((0..padding).map(|_| Node::default()))
         .collect::<Vec<_>>();
 
-    dbg!(out.len(), bottom_len);
-
-    for i in (0..bottom_len - 1).rev() {
+    for i in (0..bottom_len).rev() {
         Update::update(&mut hasher, &out[i * 2]);
         Update::update(&mut hasher, &out[i * 2 + 1]);
         out[i] = hasher
@@ -374,6 +373,9 @@ mod tests {
     fn test_merkleize_chunks() {
         let chunks = vec![1u8; 3 * BYTES_PER_CHUNK];
         let root = merkleize_chunks_with_virtual_padding(&chunks, 4).expect("can merkleize");
+        let nodes = (0..3).map(|_| Node([1u8; 32])).collect::<Vec<_>>();
+        let calculated = merkleize_to_virtual_tree(nodes);
+        assert_eq!(root, calculated[1]);
         assert_eq!(root, hex!("65aa94f2b59e517abd400cab655f42821374e433e41b8fe599f6bb15484adcec"));
 
         let chunks = vec![1u8; 5 * BYTES_PER_CHUNK];
