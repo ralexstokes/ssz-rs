@@ -1,5 +1,4 @@
-use crate::ser::BYTES_PER_LENGTH_OFFSET;
-use crate::SimpleSerialize;
+use crate::{ser::BYTES_PER_LENGTH_OFFSET, SimpleSerialize};
 use thiserror::Error;
 
 #[derive(Error, Debug)]
@@ -30,7 +29,7 @@ where
     T: SimpleSerialize,
 {
     if encoding.len() % T::size_hint() != 0 {
-        return Err(DeserializeError::InvalidInput);
+        return Err(DeserializeError::InvalidInput)
     }
 
     let mut elements = vec![];
@@ -48,13 +47,13 @@ where
     T: SimpleSerialize,
 {
     if encoding.is_empty() {
-        return Ok(vec![]);
+        return Ok(vec![])
     }
 
     let data_pointer = u32::deserialize(&encoding[..BYTES_PER_LENGTH_OFFSET])?;
     let data_pointer = data_pointer as usize;
     if encoding.len() < data_pointer {
-        return Err(DeserializeError::InputTooShort);
+        return Err(DeserializeError::InputTooShort)
     }
 
     let offsets = &mut encoding[..data_pointer]

@@ -1,11 +1,17 @@
-use crate::de::{Deserialize, DeserializeError};
-use crate::merkleization::{merkleize, pack_bytes, MerkleizationError, Merkleized, Node};
-use crate::ser::{Serialize, SerializeError};
-use crate::{SimpleSerialize, Sized};
-use bitvec::field::BitField;
-use bitvec::prelude::{BitVec, Lsb0};
-use std::fmt;
-use std::ops::{Deref, DerefMut};
+use crate::{
+    de::{Deserialize, DeserializeError},
+    merkleization::{merkleize, pack_bytes, MerkleizationError, Merkleized, Node},
+    ser::{Serialize, SerializeError},
+    SimpleSerialize, Sized,
+};
+use bitvec::{
+    field::BitField,
+    prelude::{BitVec, Lsb0},
+};
+use std::{
+    fmt,
+    ops::{Deref, DerefMut},
+};
 
 type BitvectorInner = BitVec<u8, Lsb0>;
 
@@ -43,7 +49,7 @@ impl<'de, const N: usize> serde::Deserialize<'de> for Bitvector<N> {
     {
         let s = <String>::deserialize(deserializer)?;
         if s.len() < 2 {
-            return Err(serde::de::Error::custom(DeserializeError::InputTooShort));
+            return Err(serde::de::Error::custom(DeserializeError::InputTooShort))
         }
         let bytes = hex::decode(&s[2..]).map_err(serde::de::Error::custom)?;
         let value = crate::Deserialize::deserialize(&bytes).map_err(serde::de::Error::custom)?;
@@ -127,7 +133,7 @@ impl<const N: usize> Sized for Bitvector<N> {
 impl<const N: usize> Serialize for Bitvector<N> {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         if N == 0 {
-            return Err(SerializeError::IllegalType { bound: N });
+            return Err(SerializeError::IllegalType { bound: N })
         }
         let bytes_to_write = Self::size_hint();
         buffer.reserve(bytes_to_write);
@@ -141,15 +147,15 @@ impl<const N: usize> Serialize for Bitvector<N> {
 impl<const N: usize> Deserialize for Bitvector<N> {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if N == 0 {
-            return Err(DeserializeError::IllegalType { bound: N });
+            return Err(DeserializeError::IllegalType { bound: N })
         }
 
         let expected_length = (N + 7) / 8;
         if encoding.len() < expected_length {
-            return Err(DeserializeError::InputTooShort);
+            return Err(DeserializeError::InputTooShort)
         }
         if encoding.len() > expected_length {
-            return Err(DeserializeError::ExtraInput);
+            return Err(DeserializeError::ExtraInput)
         }
 
         let mut result = Self::default();
@@ -161,7 +167,7 @@ impl<const N: usize> Deserialize for Bitvector<N> {
             let last_byte = encoding.last().unwrap();
             let remainder_bits = last_byte >> remainder_count;
             if remainder_bits != 0 {
-                return Err(DeserializeError::ExtraInput);
+                return Err(DeserializeError::ExtraInput)
             }
         }
         Ok(result)

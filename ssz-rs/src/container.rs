@@ -71,9 +71,7 @@ mod tests {
         let expected = [5u8, 0u8, 0u8, 0u8];
         assert_eq!(buffer, expected);
 
-        let value = Bar {
-            a: Default::default(),
-        };
+        let value = Bar { a: Default::default() };
 
         let mut buffer = vec![];
         let result = value.serialize(&mut buffer).expect("can serialize");
@@ -92,11 +90,7 @@ mod tests {
 
     #[test]
     fn encode_container2() {
-        let value = SomeContainer {
-            a: 5u32,
-            b: true,
-            c: List::from_iter([true, false]),
-        };
+        let value = SomeContainer { a: 5u32, b: true, c: List::from_iter([true, false]) };
 
         let mut buffer = vec![];
         let result = value.serialize(&mut buffer).expect("can serialize");
@@ -118,9 +112,8 @@ mod tests {
         let mut buffer = vec![];
         let result = value.serialize(&mut buffer).expect("can serialize");
         assert_eq!(result, 16);
-        let expected = [
-            5u8, 0u8, 0u8, 0u8, 1u8, 14u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 12u8, 1u8, 0u8,
-        ];
+        let expected =
+            [5u8, 0u8, 0u8, 0u8, 1u8, 14u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 12u8, 1u8, 0u8];
         assert_eq!(buffer, expected);
     }
 
@@ -128,11 +121,7 @@ mod tests {
     fn decode_container() {
         let data = vec![5u8, 0u8, 0u8, 0u8, 1u8, 9u8, 0u8, 0u8, 0u8, 1u8, 0u8];
         let result = SomeContainer::deserialize(&data).expect("can deserialize");
-        let value = SomeContainer {
-            a: 5u32,
-            b: true,
-            c: List::from_iter([true, false]),
-        };
+        let value = SomeContainer { a: 5u32, b: true, c: List::from_iter([true, false]) };
         assert_eq!(result, value);
     }
 
@@ -173,11 +162,8 @@ mod tests {
 
     #[test]
     fn can_derive_struct_with_const_generics() {
-        let value = VarWithGenericTestStruct {
-            a: 2u16,
-            b: List::<u16, 2>::from_iter([1u16]),
-            c: 16u8,
-        };
+        let value =
+            VarWithGenericTestStruct { a: 2u16, b: List::<u16, 2>::from_iter([1u16]), c: 16u8 };
         let mut buffer = vec![];
         let _ = value.serialize(&mut buffer).expect("can serialize");
     }

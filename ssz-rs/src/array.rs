@@ -3,12 +3,12 @@
 //! and Rust already defines `Default` for these special array sizes.
 //! If/when this restriction is lifted in favor of const generics, the macro here
 //! can likely be simplified to a definition over `const N: usize`.
-use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
-use crate::merkleization::{
-    merkleize, pack, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
+use crate::{
+    de::{deserialize_homogeneous_composite, Deserialize, DeserializeError},
+    merkleization::{merkleize, pack, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK},
+    ser::{serialize_composite, Serialize, SerializeError},
+    SimpleSerialize, Sized,
 };
-use crate::ser::{serialize_composite, Serialize, SerializeError};
-use crate::{SimpleSerialize, Sized};
 
 macro_rules! define_ssz_for_array_of_size {
     ($n: literal) => {
@@ -31,7 +31,7 @@ macro_rules! define_ssz_for_array_of_size {
         {
             fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
                 if $n == 0 {
-                    return Err(SerializeError::IllegalType { bound: $n });
+                    return Err(SerializeError::IllegalType { bound: $n })
                 }
                 serialize_composite(self, buffer)
             }
@@ -43,22 +43,20 @@ macro_rules! define_ssz_for_array_of_size {
         {
             fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
                 if $n == 0 {
-                    return Err(DeserializeError::IllegalType { bound: $n });
+                    return Err(DeserializeError::IllegalType { bound: $n })
                 }
 
                 if !T::is_variable_size() {
                     let expected_length = $n * T::size_hint();
                     if encoding.len() < expected_length {
-                        return Err(DeserializeError::InputTooShort);
+                        return Err(DeserializeError::InputTooShort)
                     }
                     if encoding.len() > expected_length {
-                        return Err(DeserializeError::ExtraInput);
+                        return Err(DeserializeError::ExtraInput)
                     }
                 }
                 let elements = deserialize_homogeneous_composite(encoding)?;
-                elements
-                    .try_into()
-                    .map_err(|_| DeserializeError::InputTooShort)
+                elements.try_into().map_err(|_| DeserializeError::InputTooShort)
             }
         }
 

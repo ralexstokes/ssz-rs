@@ -53,7 +53,7 @@ fn main() {
         Ok(encoding) => encoding,
         Err(e) => {
             eprintln!("some error encoding: {}", e);
-            return;
+            return
         }
     };
 
@@ -61,7 +61,7 @@ fn main() {
         Ok(value) => value,
         Err(e) => {
             eprintln!("some error decoding: {}", e);
-            return;
+            return
         }
     };
 

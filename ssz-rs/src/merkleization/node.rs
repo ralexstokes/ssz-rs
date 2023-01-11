@@ -1,8 +1,10 @@
 use crate::prelude::*;
-use std::array::TryFromSliceError;
-use std::convert::AsRef;
-use std::fmt;
-use std::ops::{Index, IndexMut};
+use std::{
+    array::TryFromSliceError,
+    convert::AsRef,
+    fmt,
+    ops::{Index, IndexMut},
+};
 
 #[derive(Default, Clone, Copy, PartialEq, Eq, SimpleSerialize)]
 pub struct Node(pub(crate) [u8; 32]);

@@ -1,17 +1,21 @@
-use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
-use crate::merkleization::{
-    merkleize, pack, MerkleCache, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
+use crate::{
+    de::{deserialize_homogeneous_composite, Deserialize, DeserializeError},
+    merkleization::{
+        merkleize, pack, MerkleCache, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
+    },
+    ser::{serialize_composite, Serialize, SerializeError},
+    SimpleSerialize, SimpleSerializeError, Sized,
 };
-use crate::ser::{serialize_composite, Serialize, SerializeError};
-use crate::{SimpleSerialize, SimpleSerializeError, Sized};
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
-use std::convert::TryFrom;
-use std::fmt;
 #[cfg(feature = "serde")]
 use std::marker::PhantomData;
-use std::ops::{Deref, Index, IndexMut};
-use std::slice::SliceIndex;
+use std::{
+    convert::TryFrom,
+    fmt,
+    ops::{Deref, Index, IndexMut},
+    slice::SliceIndex,
+};
 use thiserror::Error;
 
 #[derive(Error, Debug)]
@@ -101,10 +105,7 @@ impl<T: SimpleSerialize, const N: usize> TryFrom<Vec<T>> for Vector<T, N> {
             }))
         } else {
             let leaf_count = Self::get_leaf_count();
-            Ok(Self {
-                data,
-                cache: MerkleCache::with_leaves(leaf_count),
-            })
+            Ok(Self { data, cache: MerkleCache::with_leaves(leaf_count) })
         }
     }
 }
@@ -115,21 +116,9 @@ where
 {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
         if f.alternate() {
-            write!(
-                f,
-                "Vector<{}, {}>{:#?}",
-                std::any::type_name::<T>(),
-                N,
-                self.data
-            )
+            write!(f, "Vector<{}, {}>{:#?}", std::any::type_name::<T>(), N, self.data)
         } else {
-            write!(
-                f,
-                "Vector<{}, {}>{:?}",
-                std::any::type_name::<T>(),
-                N,
-                self.data
-            )
+            write!(f, "Vector<{}, {}>{:?}", std::any::type_name::<T>(), N, self.data)
         }
     }
 }
@@ -203,7 +192,7 @@ where
 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         if N == 0 {
-            return Err(SerializeError::IllegalType { bound: N });
+            return Err(SerializeError::IllegalType { bound: N })
         }
         serialize_composite(&self.data, buffer)
     }
@@ -215,15 +204,15 @@ where
 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if N == 0 {
-            return Err(DeserializeError::IllegalType { bound: N });
+            return Err(DeserializeError::IllegalType { bound: N })
         }
         if !T::is_variable_size() {
             let expected_length = N * T::size_hint();
             if encoding.len() < expected_length {
-                return Err(DeserializeError::InputTooShort);
+                return Err(DeserializeError::InputTooShort)
             }
             if encoding.len() > expected_length {
-                return Err(DeserializeError::ExtraInput);
+                return Err(DeserializeError::ExtraInput)
             }
         }
         let data = deserialize_homogeneous_composite(encoding)?;
@@ -320,8 +309,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::list::List;
-    use crate::serialize;
+    use crate::{list::List, serialize};
 
     const COUNT: usize = 32;
 

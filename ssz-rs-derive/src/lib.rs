@@ -3,8 +3,7 @@
 //! Refer to the `examples` in the `ssz_rs` crate for a better idea on how to use this derive macro.
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote, quote_spanned};
-use syn::spanned::Spanned;
-use syn::{parse_macro_input, Data, DeriveInput, Fields, Generics, Ident};
+use syn::{parse_macro_input, spanned::Spanned, Data, DeriveInput, Fields, Generics, Ident};
 
 // NOTE: copied here from `ssz_rs` crate as it is unlikely to change
 // and can keep it out of the crate's public interface.
@@ -83,7 +82,7 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
                         fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, ssz_rs::SerializeError> {
                                 self.0.serialize(buffer)
                         }
-                    };
+                    }
                 }
                 _ => unimplemented!(
                     "this type of struct is currently not supported by this derive macro"
@@ -181,7 +180,7 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
 
                             Ok(container)
                         }
-                    };
+                    }
                 }
                 _ => unimplemented!(
                     "this type of struct is currently not supported by this derive macro"

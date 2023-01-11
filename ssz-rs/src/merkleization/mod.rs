@@ -5,9 +5,7 @@ mod proofs;
 use crate::ser::{Serialize, SerializeError};
 use lazy_static::lazy_static;
 use sha2::{Digest, Sha256};
-use std::cmp::Ordering;
-use std::fmt::Debug;
-use std::ops::Index;
+use std::{cmp::Ordering, fmt::Debug, ops::Index};
 use thiserror::Error;
 
 pub use cache::Cache as MerkleCache;
@@ -81,9 +79,7 @@ pub struct Context {
 
 impl Context {
     pub fn new() -> Self {
-        Self {
-            zero_hashes: compute_zero_hashes(),
-        }
+        Self { zero_hashes: compute_zero_hashes() }
     }
 }
 
@@ -95,9 +91,7 @@ impl Default for Context {
 
 impl Debug for Context {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("Context")
-            .field("zero_hashes", &"...")
-            .finish()
+        f.debug_struct("Context").field("zero_hashes", &"...").finish()
     }
 }
 
@@ -135,9 +129,7 @@ fn merkleize_chunks_with_virtual_padding(
 
     if chunk_count == 0 {
         let depth = height - 1;
-        return Ok(CONTEXT[depth as usize]
-            .try_into()
-            .expect("can produce a single root chunk"));
+        return Ok(CONTEXT[depth as usize].try_into().expect("can produce a single root chunk"))
     }
 
     let mut layer = chunks.to_vec();
@@ -153,7 +145,8 @@ fn merkleize_chunks_with_virtual_padding(
                     let (parent, children) = focus.split_at_mut(children_index);
                     let (left, right) = children.split_at_mut(BYTES_PER_CHUNK);
                     if parent.is_empty() {
-                        // NOTE: have to specially handle the situation where the children nodes and parent node share memory
+                        // NOTE: have to specially handle the situation where the children nodes and
+                        // parent node share memory
                         hasher.update(&left);
                         hasher.update(right);
                         left.copy_from_slice(&hasher.finalize_reset());
@@ -170,7 +163,8 @@ fn merkleize_chunks_with_virtual_padding(
                     let depth = height - k - 1;
                     let right = &CONTEXT[depth as usize];
                     if parent.is_empty() {
-                        // NOTE: have to specially handle the situation where the children nodes and parent node share memory
+                        // NOTE: have to specially handle the situation where the children nodes and
+                        // parent node share memory
                         hasher.update(&left);
                         hasher.update(right);
                         left.copy_from_slice(&hasher.finalize_reset());
@@ -184,9 +178,7 @@ fn merkleize_chunks_with_virtual_padding(
         last_index /= 2;
     }
 
-    Ok(layer[..BYTES_PER_CHUNK]
-        .try_into()
-        .expect("can produce a single root chunk"))
+    Ok(layer[..BYTES_PER_CHUNK].try_into().expect("can produce a single root chunk"))
 }
 
 // Return the root of the Merklization of a binary tree
@@ -198,7 +190,7 @@ pub fn merkleize(chunks: &[u8], limit: Option<usize>) -> Result<Node, Merkleizat
     let mut leaf_count = chunk_count.next_power_of_two();
     if let Some(limit) = limit {
         if limit < chunk_count {
-            return Err(MerkleizationError::InputExceedsLimit(limit));
+            return Err(MerkleizationError::InputExceedsLimit(limit))
         }
         leaf_count = limit.next_power_of_two();
     }
@@ -210,12 +202,7 @@ fn mix_in_decoration(root: &Node, mut decoration: usize) -> Node {
 
     let mut hasher = Sha256::new();
     let mut output = vec![0u8; BYTES_PER_CHUNK];
-    hash_nodes(
-        &mut hasher,
-        root.as_ref(),
-        decoration_data.as_ref(),
-        &mut output,
-    );
+    hash_nodes(&mut hasher, root.as_ref(), decoration_data.as_ref(), &mut output);
     output.as_slice().try_into().expect("can extract root")
 }
 
@@ -314,78 +301,49 @@ mod tests {
             let right = &children[BYTES_PER_CHUNK..2 * BYTES_PER_CHUNK];
             hash_nodes(&mut hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
         }
-        Ok(buffer[0..BYTES_PER_CHUNK]
-            .try_into()
-            .expect("can produce a single root chunk"))
+        Ok(buffer[0..BYTES_PER_CHUNK].try_into().expect("can produce a single root chunk"))
     }
 
     #[test]
     fn test_naive_merkleize_chunks() {
         let chunks = vec![0u8; 2 * BYTES_PER_CHUNK];
         let root = merkleize_chunks(&chunks, 2).expect("can merkleize");
-        assert_eq!(
-            root,
-            hex!("f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b")
-        );
+        assert_eq!(root, hex!("f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b"));
 
         let chunks = vec![1u8; 2 * BYTES_PER_CHUNK];
         let root = merkleize_chunks(&chunks, 2).expect("can merkleize");
-        assert_eq!(
-            root,
-            hex!("7c8975e1e60a5c8337f28edf8c33c3b180360b7279644a9bc1af3c51e6220bf5")
-        );
+        assert_eq!(root, hex!("7c8975e1e60a5c8337f28edf8c33c3b180360b7279644a9bc1af3c51e6220bf5"));
 
         let chunks = vec![0u8; BYTES_PER_CHUNK];
         let root = merkleize_chunks(&chunks, 4).expect("can merkleize");
-        assert_eq!(
-            root,
-            hex!("db56114e00fdd4c1f85c892bf35ac9a89289aaecb1ebd0a96cde606a748b5d71")
-        );
+        assert_eq!(root, hex!("db56114e00fdd4c1f85c892bf35ac9a89289aaecb1ebd0a96cde606a748b5d71"));
 
         let chunks = vec![1u8; BYTES_PER_CHUNK];
         let root = merkleize_chunks(&chunks, 4).expect("can merkleize");
-        assert_eq!(
-            root,
-            hex!("29797eded0e83376b70f2bf034cc0811ae7f1414653b1d720dfd18f74cf13309")
-        );
+        assert_eq!(root, hex!("29797eded0e83376b70f2bf034cc0811ae7f1414653b1d720dfd18f74cf13309"));
 
         let chunks = vec![2u8; BYTES_PER_CHUNK];
         let root = merkleize_chunks(&chunks, 8).expect("can merkleize");
-        assert_eq!(
-            root,
-            hex!("fa4cf775712aa8a2fe5dcb5a517d19b2e9effcf58ff311b9fd8e4a7d308e6d00")
-        );
+        assert_eq!(root, hex!("fa4cf775712aa8a2fe5dcb5a517d19b2e9effcf58ff311b9fd8e4a7d308e6d00"));
 
         let chunks = vec![1u8; 5 * BYTES_PER_CHUNK];
         let root = merkleize_chunks(&chunks, 8).expect("can merkleize");
-        assert_eq!(
-            root,
-            hex!("0ae67e34cba4ad2bbfea5dc39e6679b444021522d861fab00f05063c54341289")
-        );
+        assert_eq!(root, hex!("0ae67e34cba4ad2bbfea5dc39e6679b444021522d861fab00f05063c54341289"));
     }
 
     #[test]
     fn test_merkleize_chunks() {
         let chunks = vec![1u8; 3 * BYTES_PER_CHUNK];
         let root = merkleize_chunks_with_virtual_padding(&chunks, 4).expect("can merkleize");
-        assert_eq!(
-            root,
-            hex!("65aa94f2b59e517abd400cab655f42821374e433e41b8fe599f6bb15484adcec")
-        );
+        assert_eq!(root, hex!("65aa94f2b59e517abd400cab655f42821374e433e41b8fe599f6bb15484adcec"));
 
         let chunks = vec![1u8; 5 * BYTES_PER_CHUNK];
         let root = merkleize_chunks_with_virtual_padding(&chunks, 8).expect("can merkleize");
-        assert_eq!(
-            root,
-            hex!("0ae67e34cba4ad2bbfea5dc39e6679b444021522d861fab00f05063c54341289")
-        );
+        assert_eq!(root, hex!("0ae67e34cba4ad2bbfea5dc39e6679b444021522d861fab00f05063c54341289"));
 
         let chunks = vec![1u8; 6 * BYTES_PER_CHUNK];
         let root = merkleize_chunks_with_virtual_padding(&chunks, 8).expect("can merkleize");
-        assert_eq!(
-            root,
-            hex!("0ef7df63c204ef203d76145627b8083c49aa7c55ebdee2967556f55a4f65a238")
-        );
+        assert_eq!(root, hex!("0ef7df63c204ef203d76145627b8083c49aa7c55ebdee2967556f55a4f65a238"));
     }
 
     #[test]
@@ -393,18 +351,12 @@ mod tests {
         let chunks = vec![1u8; 5 * BYTES_PER_CHUNK];
         let root =
             merkleize_chunks_with_virtual_padding(&chunks, 2usize.pow(10)).expect("can merkleize");
-        assert_eq!(
-            root,
-            hex!("2647cb9e26bd83eeb0982814b2ac4d6cc4a65d0d98637f1a73a4c06d3db0e6ce")
-        );
+        assert_eq!(root, hex!("2647cb9e26bd83eeb0982814b2ac4d6cc4a65d0d98637f1a73a4c06d3db0e6ce"));
 
         let chunks = vec![1u8; 70 * BYTES_PER_CHUNK];
         let root =
             merkleize_chunks_with_virtual_padding(&chunks, 2usize.pow(63)).expect("can merkleize");
-        assert_eq!(
-            root,
-            hex!("9317695d95b5a3b46e976b5a9cbfcfccb600accaddeda9ac867cc9669b862979")
-        );
+        assert_eq!(root, hex!("9317695d95b5a3b46e976b5a9cbfcfccb600accaddeda9ac867cc9669b862979"));
     }
 
     #[test]
@@ -439,20 +391,14 @@ mod tests {
             65535, 65535, 65535, 65535,
         ]);
         let root = a_list.hash_tree_root().expect("can compute root");
-        assert_eq!(
-            root,
-            hex!("d20d2246e1438d88de46f6f41c7b041f92b673845e51f2de93b944bf599e63b1")
-        );
+        assert_eq!(root, hex!("d20d2246e1438d88de46f6f41c7b041f92b673845e51f2de93b944bf599e63b1"));
     }
 
     #[test]
     fn test_hash_tree_root_of_empty_list() {
         let mut a_list = List::<u16, 1024>::from_iter([]);
         let root = a_list.hash_tree_root().expect("can compute root");
-        assert_eq!(
-            root,
-            hex!("c9eece3e14d3c3db45c38bbf69a4cb7464981e2506d8424a0ba450dad9b9af30")
-        );
+        assert_eq!(root, hex!("c9eece3e14d3c3db45c38bbf69a4cb7464981e2506d8424a0ba450dad9b9af30"));
     }
 
     #[test]
@@ -495,10 +441,7 @@ mod tests {
         };
 
         let root = foo.hash_tree_root().expect("can make root");
-        assert_eq!(
-            root,
-            hex!("7078155bf8f0dc42d8afccec8d9b5aeb54f0a2e8e58fcef3e723f6a867232ce7")
-        );
+        assert_eq!(root, hex!("7078155bf8f0dc42d8afccec8d9b5aeb54f0a2e8e58fcef3e723f6a867232ce7"));
 
         let mut original_foo = foo.clone();
 
@@ -507,36 +450,24 @@ mod tests {
         foo.e = Bar::A(33);
 
         let root = original_foo.hash_tree_root().expect("can make root");
-        assert_eq!(
-            root,
-            hex!("7078155bf8f0dc42d8afccec8d9b5aeb54f0a2e8e58fcef3e723f6a867232ce7")
-        );
+        assert_eq!(root, hex!("7078155bf8f0dc42d8afccec8d9b5aeb54f0a2e8e58fcef3e723f6a867232ce7"));
 
         let root = foo.hash_tree_root().expect("can make root");
-        assert_eq!(
-            root,
-            hex!("0063bfcfabbca567483a2ee859fcfafb958329489eb328ac7f07790c7df1b231")
-        );
+        assert_eq!(root, hex!("0063bfcfabbca567483a2ee859fcfafb958329489eb328ac7f07790c7df1b231"));
 
         let encoding = serialize(&original_foo).expect("can serialize");
 
         let mut restored_foo = Foo::deserialize(&encoding).expect("can deserialize");
 
         let root = restored_foo.hash_tree_root().expect("can make root");
-        assert_eq!(
-            root,
-            hex!("7078155bf8f0dc42d8afccec8d9b5aeb54f0a2e8e58fcef3e723f6a867232ce7")
-        );
+        assert_eq!(root, hex!("7078155bf8f0dc42d8afccec8d9b5aeb54f0a2e8e58fcef3e723f6a867232ce7"));
 
         restored_foo.b[2] = 44u32;
         restored_foo.d.pop();
         restored_foo.e = Bar::A(33);
 
         let root = foo.hash_tree_root().expect("can make root");
-        assert_eq!(
-            root,
-            hex!("0063bfcfabbca567483a2ee859fcfafb958329489eb328ac7f07790c7df1b231")
-        );
+        assert_eq!(root, hex!("0063bfcfabbca567483a2ee859fcfafb958329489eb328ac7f07790c7df1b231"));
     }
 
     #[test]

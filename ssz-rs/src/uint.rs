@@ -1,10 +1,11 @@
-use crate::de::{Deserialize, DeserializeError};
-use crate::merkleization::{pack_bytes, MerkleizationError, Merkleized, Node};
-use crate::ser::{Serialize, SerializeError};
-use crate::{SimpleSerialize, Sized};
+use crate::{
+    de::{Deserialize, DeserializeError},
+    merkleization::{pack_bytes, MerkleizationError, Merkleized, Node},
+    ser::{Serialize, SerializeError},
+    SimpleSerialize, Sized,
+};
 use num_bigint::BigUint;
-use std::convert::TryInto;
-use std::default::Default;
+use std::{convert::TryInto, default::Default};
 
 macro_rules! define_uint {
     ($uint:ty) => {
@@ -29,15 +30,13 @@ macro_rules! define_uint {
             fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
                 let byte_size = (<$uint>::BITS / 8) as usize;
                 if encoding.len() < byte_size {
-                    return Err(DeserializeError::InputTooShort);
+                    return Err(DeserializeError::InputTooShort)
                 }
                 if encoding.len() > byte_size {
-                    return Err(DeserializeError::ExtraInput);
+                    return Err(DeserializeError::ExtraInput)
                 }
 
-                let bytes = encoding[..byte_size]
-                    .try_into()
-                    .expect("slice has right length");
+                let bytes = encoding[..byte_size].try_into().expect("slice has right length");
                 Ok(<$uint>::from_le_bytes(bytes))
             }
         }
@@ -142,10 +141,10 @@ impl Serialize for U256 {
 impl Deserialize for U256 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if encoding.len() < 32 {
-            return Err(DeserializeError::InputTooShort);
+            return Err(DeserializeError::InputTooShort)
         }
         if encoding.len() > 32 {
-            return Err(DeserializeError::ExtraInput);
+            return Err(DeserializeError::ExtraInput)
         }
 
         let value = BigUint::from_bytes_le(&encoding[..32]);
@@ -155,9 +154,7 @@ impl Deserialize for U256 {
 
 impl Merkleized for U256 {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
-        Ok(Node::from_bytes(
-            self.to_bytes_le().try_into().expect("works"),
-        ))
+        Ok(Node::from_bytes(self.to_bytes_le().try_into().expect("works")))
     }
 }
 
@@ -179,11 +176,8 @@ mod tests {
             let result = serialize(&value).expect("can encode");
             assert_eq!(result, expected);
         }
-        let tests = vec![
-            (2u16, [2u8, 0u8]),
-            (1337u16, [57u8, 5u8]),
-            (u16::MAX, [u8::MAX, u8::MAX]),
-        ];
+        let tests =
+            vec![(2u16, [2u8, 0u8]), (1337u16, [57u8, 5u8]), (u16::MAX, [u8::MAX, u8::MAX])];
         for (value, expected) in tests {
             let result = serialize(&value).expect("can encode");
             assert_eq!(result, expected);
@@ -209,15 +203,11 @@ mod tests {
         let tests = vec![
             (
                 2u128,
-                [
-                    2u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
-                ],
+                [2u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8],
             ),
             (
                 1337u128,
-                [
-                    57u8, 5u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
-                ],
+                [57u8, 5u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8],
             ),
             (u128::MAX, [u8::MAX; 16]),
         ];
@@ -227,10 +217,7 @@ mod tests {
         }
         let tests = vec![
             (U256::try_from_bytes_le(&[2u8; 32]).unwrap(), [2u8; 32]),
-            (
-                U256::try_from_bytes_le(&[u8::MAX; 32]).unwrap(),
-                [u8::MAX; 32],
-            ),
+            (U256::try_from_bytes_le(&[u8::MAX; 32]).unwrap(), [u8::MAX; 32]),
         ];
         for (value, expected) in tests {
             let result = serialize(&value).expect("can encode");
@@ -245,11 +232,8 @@ mod tests {
             let result = u8::deserialize(&bytes).expect("can encode");
             assert_eq!(result, expected);
         }
-        let tests = vec![
-            (2u16, [2u8, 0u8]),
-            (1337u16, [57u8, 5u8]),
-            (u16::MAX, [u8::MAX, u8::MAX]),
-        ];
+        let tests =
+            vec![(2u16, [2u8, 0u8]), (1337u16, [57u8, 5u8]), (u16::MAX, [u8::MAX, u8::MAX])];
         for (expected, bytes) in tests {
             let result = u16::deserialize(&bytes).expect("can encode");
             assert_eq!(result, expected);
@@ -275,15 +259,11 @@ mod tests {
         let tests = vec![
             (
                 2u128,
-                [
-                    2u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
-                ],
+                [2u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8],
             ),
             (
                 1337u128,
-                [
-                    57u8, 5u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
-                ],
+                [57u8, 5u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8],
             ),
             (u128::MAX, [u8::MAX; 16]),
         ];
@@ -293,10 +273,7 @@ mod tests {
         }
         let tests = vec![
             (U256::try_from_bytes_le(&[2u8; 32]).unwrap(), [2u8; 32]),
-            (
-                U256::try_from_bytes_le(&[u8::MAX; 32]).unwrap(),
-                [u8::MAX; 32],
-            ),
+            (U256::try_from_bytes_le(&[u8::MAX; 32]).unwrap(), [u8::MAX; 32]),
         ];
         for (expected, bytes) in tests {
             let result = U256::deserialize(&bytes).expect("can encode");

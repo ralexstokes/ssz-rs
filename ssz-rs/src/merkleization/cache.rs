@@ -10,11 +10,7 @@ pub struct Cache {
 
 impl Cache {
     pub fn with_leaves(leaf_count: usize) -> Self {
-        Self {
-            leaf_count,
-            dirty_leaves: bitvec![usize, Lsb0; 1; leaf_count],
-            ..Default::default()
-        }
+        Self { leaf_count, dirty_leaves: bitvec![usize, Lsb0; 1; leaf_count], ..Default::default() }
     }
 
     pub fn valid(&self) -> bool {

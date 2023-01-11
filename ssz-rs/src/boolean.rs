@@ -1,7 +1,9 @@
-use crate::de::{Deserialize, DeserializeError};
-use crate::merkleization::{MerkleizationError, Merkleized, Node};
-use crate::ser::{Serialize, SerializeError};
-use crate::{SimpleSerialize, Sized};
+use crate::{
+    de::{Deserialize, DeserializeError},
+    merkleization::{MerkleizationError, Merkleized, Node},
+    ser::{Serialize, SerializeError},
+    SimpleSerialize, Sized,
+};
 
 impl Sized for bool {
     fn is_variable_size() -> bool {

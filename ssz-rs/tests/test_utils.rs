@@ -2,17 +2,10 @@ use hex;
 use project_root;
 use snap;
 use ssz_rs::prelude::*;
-use std::convert::TryInto;
-use std::fs::File;
-use std::io::Read;
-use std::path::PathBuf;
+use std::{convert::TryInto, fs::File, io::Read, path::PathBuf};
 
 pub fn root_from_hex(hex_str: &str) -> Node {
-    hex::decode(hex_str)
-        .expect("can read hex")
-        .as_slice()
-        .try_into()
-        .expect("can extract root")
+    hex::decode(hex_str).expect("can read hex").as_slice().try_into().expect("can extract root")
 }
 
 pub fn serialize<T: SimpleSerialize>(value: &T) -> Vec<u8> {
@@ -36,7 +29,5 @@ pub fn read_ssz_snappy_from_test_data(target_path: &str) -> Vec<u8> {
     let mut data = vec![];
     let _ = file.read_to_end(&mut data).expect("can read file data");
     let mut decoder = snap::raw::Decoder::new();
-    decoder
-        .decompress_vec(&data)
-        .expect("can decompress snappy")
+    decoder.decompress_vec(&data).expect("can decompress snappy")
 }
