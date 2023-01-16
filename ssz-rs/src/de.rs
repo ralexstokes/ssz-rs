@@ -63,7 +63,7 @@ where
         .collect::<Result<Vec<usize>, DeserializeError>>()?;
     offsets.push(encoding.len());
 
-    let element_count = data_pointer as usize / BYTES_PER_LENGTH_OFFSET;
+    let element_count = data_pointer / BYTES_PER_LENGTH_OFFSET;
     let mut result = Vec::with_capacity(element_count);
     for span in offsets.windows(2) {
         let start = span[0];
