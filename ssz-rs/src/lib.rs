@@ -52,7 +52,7 @@ mod lib {
     pub use self::iter::Enumerate;
 
     #[cfg(not(feature = "std"))]
-    pub use alloc::{vec, vec::Vec};
+    pub use alloc::{format, string::String, vec, vec::Vec};
 
     #[cfg(feature = "std")]
     pub use std::vec::Vec;

@@ -10,7 +10,7 @@ use crate::{SimpleSerialize, SimpleSerializeError, Sized};
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
 #[cfg(feature = "serde")]
-use std::marker::PhantomData;
+use core::marker::PhantomData;
 
 /// A homogenous collection of a variable number of values.
 #[derive(Clone, Default)]
