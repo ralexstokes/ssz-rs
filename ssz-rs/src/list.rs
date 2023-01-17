@@ -8,9 +8,9 @@ use crate::merkleization::{
 use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::{SimpleSerialize, SimpleSerializeError, Sized};
 #[cfg(feature = "serde")]
-use serde::ser::SerializeSeq;
-#[cfg(feature = "serde")]
 use core::marker::PhantomData;
+#[cfg(feature = "serde")]
+use serde::ser::SerializeSeq;
 
 /// A homogenous collection of a variable number of values.
 #[derive(Clone, Default)]

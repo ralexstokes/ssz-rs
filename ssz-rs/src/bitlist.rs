@@ -1,10 +1,10 @@
 use crate::de::{Deserialize, DeserializeError};
 use crate::error::InstanceError;
+use crate::lib::*;
 use crate::merkleization::{
     merkleize, mix_in_length, pack_bytes, MerkleizationError, Merkleized, Node,
 };
 use crate::ser::{Serialize, SerializeError};
-use crate::lib::*;
 use crate::{SimpleSerialize, Sized};
 use bitvec::prelude::{BitVec, Lsb0};
 

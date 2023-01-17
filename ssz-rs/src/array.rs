@@ -5,11 +5,11 @@
 //! can likely be simplified to a definition over `const N: usize`.
 use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
 use crate::error::{InstanceError, TypeError};
+use crate::lib::*;
 use crate::merkleization::{
     merkleize, pack, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
-use crate::lib::*;
 use crate::{SimpleSerialize, Sized};
 
 macro_rules! define_ssz_for_array_of_size {

@@ -1,6 +1,6 @@
 use crate::error::{InstanceError, TypeError};
-use crate::ser::BYTES_PER_LENGTH_OFFSET;
 use crate::lib::*;
+use crate::ser::BYTES_PER_LENGTH_OFFSET;
 use crate::SimpleSerialize;
 
 #[derive(Debug)]

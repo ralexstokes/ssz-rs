@@ -1,5 +1,5 @@
-use crate::prelude::*;
 use crate::lib::*;
+use crate::prelude::*;
 
 #[derive(Default, Clone, Copy, PartialEq, Eq, SimpleSerialize)]
 pub struct Node(pub(crate) [u8; 32]);

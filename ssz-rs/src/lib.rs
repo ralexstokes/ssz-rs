@@ -20,6 +20,9 @@ mod union;
 mod utils;
 mod vector;
 
+use crate::lib::*;
+use crate::list::ListError;
+use crate::vector::VectorError;
 pub use bitlist::Bitlist;
 pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};
@@ -30,9 +33,6 @@ pub use ser::{Serialize, SerializeError};
 pub use uint::U256;
 pub use utils::*;
 pub use vector::Vector;
-use crate::lib::*;
-use crate::list::ListError;
-use crate::vector::VectorError;
 
 mod lib {
     mod core {
@@ -111,7 +111,9 @@ impl Display for SimpleSerializeError {
         match self {
             SimpleSerializeError::Serialize(error) => write!(f, "serialize error: {}", error),
             SimpleSerializeError::Deserialize(error) => write!(f, "deserialize error: {}", error),
-            SimpleSerializeError::Merkleization(error) => write!(f, "merkleization error: {}", error),
+            SimpleSerializeError::Merkleization(error) => {
+                write!(f, "merkleization error: {}", error)
+            }
             SimpleSerializeError::List(error) => write!(f, "list error: {}", error),
             SimpleSerializeError::Vector(error) => write!(f, "vector error: {}", error),
         }

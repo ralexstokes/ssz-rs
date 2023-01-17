@@ -1,8 +1,8 @@
 use crate::de::{Deserialize, DeserializeError};
 use crate::error::TypeError;
+use crate::lib::*;
 use crate::merkleization::{merkleize, pack_bytes, MerkleizationError, Merkleized, Node};
 use crate::ser::{Serialize, SerializeError};
-use crate::lib::*;
 use crate::{SimpleSerialize, Sized};
 use bitvec::field::BitField;
 use bitvec::prelude::{BitVec, Lsb0};
