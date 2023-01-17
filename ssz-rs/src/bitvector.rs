@@ -103,7 +103,7 @@ impl<const N: usize> Bitvector<N> {
 
     fn pack_bits(&self) -> Result<Vec<u8>, MerkleizationError> {
         let mut data = vec![];
-        let _ = self.serialize(&mut data);
+        let _ = self.serialize(&mut data)?;
         pack_bytes(&mut data);
         Ok(data)
     }

@@ -28,8 +28,8 @@ pub enum MerkleizationError {
 }
 
 impl From<SerializeError> for MerkleizationError {
-    fn from(_: SerializeError) -> Self {
-        return MerkleizationError::SerializationError;
+    fn from(e: SerializeError) -> Self {
+        return MerkleizationError::SerializationError(e);
     }
 }
 
