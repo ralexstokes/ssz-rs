@@ -3,7 +3,7 @@ use crate::merkleization::{
     merkleize, pack, MerkleCache, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
-use crate::{SimpleSerialize, SimpleSerializeError, Sized};
+use crate::{SimpleSerialize, Sized};
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
 use std::convert::TryFrom;
@@ -16,7 +16,7 @@ use thiserror::Error;
 
 #[derive(Error, Debug)]
 pub enum Error {
-    #[error("incorrect number of elements {provided} to make a Vector of length {expected}")]
+    #[error("{provided} elements given that exceeds the length bound of the Vector of {expected}")]
     IncorrectLength { expected: usize, provided: usize },
 }
 
@@ -91,14 +91,14 @@ impl<T: SimpleSerialize + PartialEq, const N: usize> PartialEq for Vector<T, N> 
 impl<T: SimpleSerialize + Eq, const N: usize> Eq for Vector<T, N> {}
 
 impl<T: SimpleSerialize, const N: usize> TryFrom<Vec<T>> for Vector<T, N> {
-    type Error = SimpleSerializeError;
+    type Error = Error;
 
     fn try_from(data: Vec<T>) -> Result<Self, Self::Error> {
         if data.len() != N {
-            Err(SimpleSerializeError::Vector(Error::IncorrectLength {
+            Err(Error::IncorrectLength {
                 expected: N,
                 provided: data.len(),
-            }))
+            })
         } else {
             let leaf_count = Self::get_leaf_count();
             Ok(Self {
@@ -228,14 +228,13 @@ where
         }
         let data = deserialize_homogeneous_composite(encoding)?;
         data.try_into().map_err(|err| match err {
-            SimpleSerializeError::Vector(Error::IncorrectLength { expected, provided }) => {
+            Error::IncorrectLength { expected, provided } => {
                 if expected < provided {
                     DeserializeError::ExtraInput
                 } else {
                     DeserializeError::InputTooShort
                 }
             }
-            _ => unreachable!("variants not returned from `try_into`"),
         })
     }
 }

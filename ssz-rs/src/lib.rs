@@ -4,6 +4,7 @@ mod bitvector;
 mod boolean;
 mod container;
 mod de;
+mod error;
 mod list;
 mod merkleization;
 mod ser;
@@ -14,15 +15,13 @@ mod union;
 mod utils;
 mod vector;
 
-use crate::list::Error as ListError;
-use crate::vector::Error as VectorError;
 pub use bitlist::Bitlist;
 pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};
+pub use error::Error;
 pub use list::List;
 pub use merkleization::{Context as MerkleizationContext, MerkleizationError, Merkleized, Node};
 pub use ser::{Serialize, SerializeError};
-use thiserror::Error;
 pub use uint::U256;
 pub use utils::*;
 pub use vector::Vector;
@@ -61,9 +60,9 @@ pub mod prelude {
     pub use crate::uint::U256;
     pub use crate::utils::{deserialize, serialize};
     pub use crate::vector::Vector;
+    pub use crate::Error;
     pub use crate::MerkleizationContext;
     pub use crate::SimpleSerialize;
-    pub use crate::SimpleSerializeError;
     pub use crate::Sized;
     pub use ssz_rs_derive::SimpleSerialize;
 }

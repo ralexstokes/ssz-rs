@@ -4,7 +4,7 @@ use crate::merkleization::{
     BYTES_PER_CHUNK,
 };
 use crate::ser::{serialize_composite, Serialize, SerializeError};
-use crate::{SimpleSerialize, SimpleSerializeError, Sized};
+use crate::{SimpleSerialize, Sized};
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
 use std::iter::Enumerate;
@@ -17,7 +17,7 @@ use thiserror::Error;
 
 #[derive(Error, Debug)]
 pub enum Error {
-    #[error("{provided} elements given that exceeds the list bound of {expected}")]
+    #[error("{provided} elements given that exceeds the List bound of {expected}")]
     IncorrectLength { expected: usize, provided: usize },
 }
 
@@ -123,14 +123,14 @@ impl<T, const N: usize> TryFrom<Vec<T>> for List<T, N>
 where
     T: SimpleSerialize,
 {
-    type Error = SimpleSerializeError;
+    type Error = Error;
 
     fn try_from(data: Vec<T>) -> Result<Self, Self::Error> {
         if data.len() > N {
-            Err(SimpleSerializeError::List(Error::IncorrectLength {
+            Err(Error::IncorrectLength {
                 expected: N,
                 provided: data.len(),
-            }))
+            })
         } else {
             let leaf_count = Self::get_leaf_count(data.len());
             Ok(Self {
