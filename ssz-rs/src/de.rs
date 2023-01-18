@@ -11,8 +11,6 @@ pub enum DeserializeError {
     ExtraInput,
     #[error("invalid data for expected type")]
     InvalidInput,
-    #[error("{0}")]
-    IOError(#[from] std::io::Error),
     #[error("the type for this value has a bound of {bound} but the value has {len} elements")]
     TypeBoundsViolated { bound: usize, len: usize },
     #[error("the type for this value has an illegal bound of {bound}")]
