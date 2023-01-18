@@ -78,8 +78,8 @@ impl U256 {
         Self::default()
     }
 
-    pub fn try_from_bytes_le(bytes: &[u8]) -> Result<Self, DeserializeError> {
-        Self::deserialize(bytes)
+    pub fn try_from_bytes_le(bytes: impl AsRef<[u8]>) -> Result<Self, DeserializeError> {
+        Self::deserialize(bytes.as_ref())
     }
 
     pub fn from_bytes_le(bytes: [u8; 32]) -> Self {
