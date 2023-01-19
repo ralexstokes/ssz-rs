@@ -18,7 +18,8 @@ pub enum SerializeError {
 
 impl Display for SerializeError {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        match *self {
+        write!(f, "the value could not be serialized: ")?;
+        match self {
             SerializeError::MaximumEncodedLengthExceeded(size) => write!(
                 f,
                 "the encoded length is {} which exceeds the maximum length {}",

@@ -7,7 +7,6 @@ use crate::ser::{Serialize, SerializeError};
 use lazy_static::lazy_static;
 use sha2::{Digest, Sha256};
 
-use crate::SerializeError;
 pub use cache::Cache as MerkleCache;
 pub use node::Node;
 pub use proofs::is_valid_merkle_branch;
@@ -35,6 +34,7 @@ impl From<SerializeError> for MerkleizationError {
 
 impl Display for MerkleizationError {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        write!(f, "the value could not be merkleized: ")?;
         match self {
             Self::SerializationError(err) => {
                 write!(f, "failed to serialize value: {err}")

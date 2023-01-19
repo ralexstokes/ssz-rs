@@ -21,10 +21,10 @@ pub struct Vector<T: SimpleSerialize, const N: usize> {
 
 impl Display for Error {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        match *self {
-            Error::IncorrectLengthVector { expected, provided } => write!(
+        match self {
+            Error::IncorrectLength { expected, provided } => write!(
                 f,
-                "incorrect number of elements {} to make a Vector of length {}",
+                "{} elements given that exceeds the length bound of the Vector of {}",
                 provided, expected
             ),
         }
