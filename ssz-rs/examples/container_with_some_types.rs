@@ -52,7 +52,7 @@ fn main() {
     let encoding = match serialize(&foo) {
         Ok(encoding) => encoding,
         Err(e) => {
-            eprintln!("some error encoding: {:?}", e);
+            eprintln!("some error encoding: {}", e);
             return;
         }
     };

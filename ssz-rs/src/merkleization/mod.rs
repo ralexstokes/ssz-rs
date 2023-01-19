@@ -34,7 +34,7 @@ impl From<SerializeError> for MerkleizationError {
 }
 
 impl Display for MerkleizationError {
-    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         match self {
             Self::SerializationError(err) => {
                 write!(f, "failed to serialize value: {err}")

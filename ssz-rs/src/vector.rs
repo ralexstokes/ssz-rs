@@ -5,7 +5,7 @@ use crate::merkleization::{
     merkleize, pack, MerkleCache, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
 };
 use crate::ser::{serialize_composite, Serialize};
-use crate::{SimpleSerialize, SimpleSerializeError, Sized};
+use crate::{SerializeError, SimpleSerialize, Sized};
 #[cfg(feature = "serde")]
 use core::marker::PhantomData;
 #[cfg(feature = "serde")]
@@ -20,7 +20,7 @@ pub struct Vector<T: SimpleSerialize, const N: usize> {
 }
 
 impl Display for Error {
-    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         match *self {
             Error::IncorrectLengthVector { expected, provided } => write!(
                 f,

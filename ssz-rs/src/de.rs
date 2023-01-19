@@ -18,14 +18,14 @@ pub enum DeserializeError {
 }
 
 impl Display for DeserializeError {
-    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        write!(f, "the value could not be deserialized: ")?; // TODO get value
         match *self {
             DeserializeError::InputTooShort => write!(f, "expected further data when decoding"),
             DeserializeError::ExtraInput => {
                 write!(f, "unexpected additional data provided when decoding")
             }
             DeserializeError::InvalidInput => write!(f, "invalid data for expected type"),
-            DeserializeError::IOError => write!(f, "IOError"),
             DeserializeError::TypeBoundsViolated { bound, len } => write!(
                 f,
                 "the type for this value has a bound of {} but the value has {} elements",
