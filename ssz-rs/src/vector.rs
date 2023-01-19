@@ -4,8 +4,8 @@ use crate::lib::*;
 use crate::merkleization::{
     merkleize, pack, MerkleCache, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
 };
-use crate::ser::{serialize_composite, Serialize};
-use crate::{SerializeError, SimpleSerialize, Sized};
+use crate::ser::{serialize_composite, Serialize, SerializeError};
+use crate::{SimpleSerialize, Sized};
 #[cfg(feature = "serde")]
 use core::marker::PhantomData;
 #[cfg(feature = "serde")]
