@@ -19,7 +19,7 @@ pub enum DeserializeError {
 
 impl Display for DeserializeError {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        write!(f, "the value could not be deserialized: ")?; // TODO get value
+        write!(f, "the value could not be deserialized: ")?;
         match self {
             DeserializeError::InputTooShort => write!(f, "expected further data when decoding"),
             DeserializeError::ExtraInput => {
