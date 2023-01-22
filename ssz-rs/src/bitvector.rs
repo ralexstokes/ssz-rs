@@ -1,4 +1,5 @@
 use crate::de::{Deserialize, DeserializeError};
+use crate::error::TypeError;
 use crate::merkleization::{merkleize, pack_bytes, MerkleizationError, Merkleized, Node};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
@@ -127,7 +128,7 @@ impl<const N: usize> Sized for Bitvector<N> {
 impl<const N: usize> Serialize for Bitvector<N> {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         if N == 0 {
-            return Err(SerializeError::IllegalType { bound: N });
+            return Err(TypeError::Invalid(N).into());
         }
         let bytes_to_write = Self::size_hint();
         buffer.reserve(bytes_to_write);
@@ -141,7 +142,7 @@ impl<const N: usize> Serialize for Bitvector<N> {
 impl<const N: usize> Deserialize for Bitvector<N> {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if N == 0 {
-            return Err(DeserializeError::IllegalType { bound: N });
+            return Err(TypeError::Invalid(N).into());
         }
 
         let expected_length = (N + 7) / 8;

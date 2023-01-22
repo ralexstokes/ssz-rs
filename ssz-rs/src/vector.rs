@@ -1,4 +1,5 @@
 use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
+use crate::error::{BoundsError, TypeError};
 use crate::merkleization::{
     merkleize, pack, MerkleCache, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
 };
@@ -12,13 +13,6 @@ use std::fmt;
 use std::marker::PhantomData;
 use std::ops::{Deref, Index, IndexMut};
 use std::slice::SliceIndex;
-use thiserror::Error;
-
-#[derive(Error, Debug)]
-pub enum Error {
-    #[error("{provided} elements given that exceeds the length bound of the Vector of {expected}")]
-    IncorrectLength { expected: usize, provided: usize },
-}
 
 /// A homogenous collection of a fixed number of values.
 /// NOTE: a `Vector` of length `0` is illegal.
@@ -91,11 +85,11 @@ impl<T: SimpleSerialize + PartialEq, const N: usize> PartialEq for Vector<T, N> 
 impl<T: SimpleSerialize + Eq, const N: usize> Eq for Vector<T, N> {}
 
 impl<T: SimpleSerialize, const N: usize> TryFrom<Vec<T>> for Vector<T, N> {
-    type Error = Error;
+    type Error = BoundsError;
 
     fn try_from(data: Vec<T>) -> Result<Self, Self::Error> {
         if data.len() != N {
-            Err(Error::IncorrectLength {
+            Err(BoundsError::ExcessElements {
                 expected: N,
                 provided: data.len(),
             })
@@ -203,7 +197,7 @@ where
 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         if N == 0 {
-            return Err(SerializeError::IllegalType { bound: N });
+            return Err(TypeError::Invalid(N).into());
         }
         serialize_composite(&self.data, buffer)
     }
@@ -215,7 +209,7 @@ where
 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if N == 0 {
-            return Err(DeserializeError::IllegalType { bound: N });
+            return Err(TypeError::Invalid(N).into());
         }
         if !T::is_variable_size() {
             let expected_length = N * T::size_hint();
@@ -228,7 +222,7 @@ where
         }
         let data = deserialize_homogeneous_composite(encoding)?;
         data.try_into().map_err(|err| match err {
-            Error::IncorrectLength { expected, provided } => {
+            BoundsError::ExcessElements { expected, provided } => {
                 if expected < provided {
                     DeserializeError::ExtraInput
                 } else {

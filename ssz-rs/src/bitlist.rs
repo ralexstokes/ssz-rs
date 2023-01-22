@@ -1,4 +1,5 @@
 use crate::de::{Deserialize, DeserializeError};
+use crate::error::TypeError;
 use crate::merkleization::{
     merkleize, mix_in_length, pack_bytes, MerkleizationError, Merkleized, Node,
 };
@@ -98,10 +99,11 @@ impl<const N: usize> Bitlist<N> {
         with_length_bit: bool,
     ) -> Result<usize, SerializeError> {
         if self.len() > N {
-            return Err(SerializeError::TypeBoundsViolated {
+            return Err(TypeError::BoundsViolated {
                 bound: N,
                 len: self.len(),
-            });
+            }
+            .into());
         }
         let start_len = buffer.len();
         buffer.extend_from_slice(self.as_raw_slice());
@@ -174,10 +176,11 @@ impl<const N: usize> Deserialize for Bitlist<N> {
             result.push(*bit);
         }
         if result.len() > N {
-            return Err(DeserializeError::TypeBoundsViolated {
+            return Err(TypeError::BoundsViolated {
                 bound: N,
                 len: result.len(),
-            });
+            }
+            .into());
         }
         Ok(Self(result))
     }

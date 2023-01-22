@@ -4,6 +4,7 @@
 //! If/when this restriction is lifted in favor of const generics, the macro here
 //! can likely be simplified to a definition over `const N: usize`.
 use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
+use crate::error::TypeError;
 use crate::merkleization::{
     merkleize, pack, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
 };
@@ -31,7 +32,7 @@ macro_rules! define_ssz_for_array_of_size {
         {
             fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
                 if $n == 0 {
-                    return Err(SerializeError::IllegalType { bound: $n });
+                    return Err(TypeError::Invalid($n).into());
                 }
                 serialize_composite(self, buffer)
             }
@@ -43,7 +44,7 @@ macro_rules! define_ssz_for_array_of_size {
         {
             fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
                 if $n == 0 {
-                    return Err(DeserializeError::IllegalType { bound: $n });
+                    return Err(TypeError::Invalid($n).into());
                 }
 
                 if !T::is_variable_size() {
