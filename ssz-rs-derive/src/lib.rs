@@ -233,11 +233,17 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                     }
 
                     if total_bytes_read > encoding.len() {
-                        return Err(ssz_rs::DeserializeError::InputTooShort);
+                        return Err(ssz_rs::DeserializeError::ExpectedFurtherInput {
+                            provided: encoding.len(),
+                            expected: total_bytes_read,
+                        });
                     }
 
                     if total_bytes_read < encoding.len() {
-                        return Err(ssz_rs::DeserializeError::ExtraInput);
+                        return Err(ssz_rs::DeserializeError::AdditionalInput {
+                            provided: encoding.len(),
+                            expected: total_bytes_read,
+                        });
                     }
 
                     Ok(container)
@@ -247,6 +253,8 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
         Data::Enum(ref data) => {
             let deserialization_by_variant =
                 data.variants.iter().enumerate().map(|(i, variant)| {
+                    // NOTE: this is "safe" as the number of legal variants fits into `u8`
+                    let i = i as u8;
                     let variant_name = &variant.ident;
                     match &variant.fields {
                         Fields::Unnamed(inner) => {
@@ -270,12 +278,15 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
             quote! {
                 fn deserialize(encoding: &[u8]) -> Result<Self, ssz_rs::DeserializeError> {
                     if encoding.is_empty() {
-                        return Err(ssz_rs::DeserializeError::InputTooShort);
+                        return Err(ssz_rs::DeserializeError::ExpectedFurtherInput {
+                            provided: 0,
+                            expected: 1,
+                        });
                     }
 
-                    match &encoding[0].into() {
+                    match encoding[0] {
                         #(#deserialization_by_variant)*
-                        _ => Err(ssz_rs::DeserializeError::InvalidInput),
+                        b => Err(ssz_rs::DeserializeError::InvalidByte(b)),
                     }
                 }
             }
@@ -382,7 +393,7 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                     Fields::Unnamed(..) => {
                         quote_spanned! { variant.span() =>
                             Self::#variant_name(value) => {
-                                let selector = #i as u8 as usize;
+                                let selector = #i;
                                 let data_root  = value.hash_tree_root()?;
                                 Ok(ssz_rs::internal::mix_in_selector(&data_root, selector))
                             }

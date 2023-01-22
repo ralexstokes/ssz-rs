@@ -12,22 +12,18 @@ pub enum Error {
     Deserialize(#[from] DeserializeError),
     #[error("merkleization error: {0}")]
     Merkleization(#[from] MerkleizationError),
-    #[error("{0}")]
-    Bounds(#[from] BoundsError),
 }
 
 #[derive(Error, Debug)]
 pub enum TypeError {
-    #[error("the type for this value has a bound of {bound} but the value has {len} elements")]
-    BoundsViolated { bound: usize, len: usize },
-    #[error("the type for this value is not valid SSZ with bound {0}")]
-    Invalid(usize),
+    #[error("the type for this value is invalid with bound {0}")]
+    InvalidBound(usize),
 }
 
 #[derive(Error, Debug)]
-pub enum BoundsError {
-    #[error(
-        "{provided} elements provided that exceed the expected bound {expected} for this type"
-    )]
-    ExcessElements { expected: usize, provided: usize },
+pub enum InstanceError {
+    #[error("required {required} elements for this type but {provided} elements given")]
+    Exact { required: usize, provided: usize },
+    #[error("{provided} elements given for a type with (inclusive) upper bound {bound}")]
+    Bounded { bound: usize, provided: usize },
 }

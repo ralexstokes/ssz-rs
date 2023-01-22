@@ -1,4 +1,4 @@
-use crate::error::TypeError;
+use crate::error::{InstanceError, TypeError};
 use crate::SimpleSerialize;
 use thiserror::Error;
 
@@ -10,7 +10,9 @@ const MAXIMUM_LENGTH: u64 = 2u64.pow((8 * BYTES_PER_LENGTH_OFFSET) as u32);
 pub enum SerializeError {
     #[error("the encoded length is {0} which exceeds the maximum length {MAXIMUM_LENGTH}")]
     MaximumEncodedLengthExceeded(usize),
-    #[error("{0}")]
+    #[error("invalid instance: {0}")]
+    InvalidInstance(#[from] InstanceError),
+    #[error("invalid type: {0}")]
     InvalidType(#[from] TypeError),
 }
 
@@ -42,9 +44,7 @@ pub fn serialize_composite_from_components(
             let variable_lengths_sum = variable_lengths[0..i].iter().sum::<usize>();
             let length = (fixed_lengths_sum + variable_lengths_sum) as u32;
             let mut offset_buffer = Vec::with_capacity(4);
-            let _ = length
-                .serialize(&mut offset_buffer)
-                .expect("can serialize simple type");
+            let _ = length.serialize(&mut offset_buffer)?;
             buffer.append(&mut offset_buffer);
             total_bytes_written += 4;
         }
