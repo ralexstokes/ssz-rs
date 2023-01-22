@@ -19,18 +19,6 @@ pub struct Vector<T: SimpleSerialize, const N: usize> {
     cache: MerkleCache,
 }
 
-impl Display for Error {
-    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        match self {
-            Error::IncorrectLength { expected, provided } => write!(
-                f,
-                "{} elements given that exceeds the length bound of the Vector of {}",
-                provided, expected
-            ),
-        }
-    }
-}
-
 #[cfg(feature = "serde")]
 impl<T: SimpleSerialize + serde::Serialize, const N: usize> serde::Serialize for Vector<T, N> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>

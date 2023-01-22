@@ -16,25 +16,27 @@ pub enum SerializeError {
     InvalidType(/*#[from]*/ TypeError),
 }
 
+impl From<InstanceError> for SerializeError {
+    fn from(err: InstanceError) -> Self {
+        Self::InvalidInstance(err)
+    }
+}
+
+impl From<TypeError> for SerializeError {
+    fn from(err: TypeError) -> Self {
+        Self::InvalidType(err)
+    }
+}
+
 impl Display for SerializeError {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        write!(f, "the value could not be serialized: ")?;
         match self {
             SerializeError::MaximumEncodedLengthExceeded(size) => write!(
                 f,
-                "the encoded length is {} which exceeds the maximum length {}",
-                size, MAXIMUM_LENGTH
+                "the encoded length is {size} which exceeds the maximum length {MAXIMUM_LENGTH}",
             ),
-            SerializeError::TypeBoundsViolated { bound, len } => write!(
-                f,
-                "the type for this value has a bound of {} but the value has {} elements",
-                bound, len
-            ),
-            SerializeError::IllegalType { bound } => write!(
-                f,
-                "the type for this value has an illegal bound of {}",
-                bound
-            ),
+            SerializeError::InvalidInstance(err) => write!(f, "invalid instance: {err}"),
+            SerializeError::InvalidType(err) => write!(f, "invalid type: {err}"),
         }
     }
 }

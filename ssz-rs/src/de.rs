@@ -5,37 +5,36 @@ use crate::SimpleSerialize;
 
 #[derive(Debug)]
 pub enum DeserializeError {
-    // #[error("expected at least {expected} bytes when decoding but provided only {provided} bytes")]
     ExpectedFurtherInput { provided: usize, expected: usize },
-    // #[error("{provided} bytes given but only expected {expected} bytes")]
     AdditionalInput { provided: usize, expected: usize },
-    // #[error("invalid byte {0:x} when decoding data of the expected type")]
     InvalidByte(u8),
-    // #[error("invalid instance: {0}")]
     InvalidInstance(InstanceError),
-    // #[error("invalid type: {0}")]
     InvalidType(TypeError),
+}
+
+impl From<InstanceError> for DeserializeError {
+    fn from(err: InstanceError) -> Self {
+        Self::InvalidInstance(err)
+    }
+}
+
+impl From<TypeError> for DeserializeError {
+    fn from(err: TypeError) -> Self {
+        Self::InvalidType(err)
+    }
 }
 
 impl Display for DeserializeError {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        write!(f, "the value could not be deserialized: ")?;
         match self {
-            DeserializeError::InputTooShort => write!(f, "expected further data when decoding"),
-            DeserializeError::ExtraInput => {
-                write!(f, "unexpected additional data provided when decoding")
-            }
-            DeserializeError::InvalidInput => write!(f, "invalid data for expected type"),
-            DeserializeError::TypeBoundsViolated { bound, len } => write!(
+            DeserializeError::ExpectedFurtherInput { provided, expected } => write!(f, "expected at least {expected} bytes when decoding but provided only {provided} bytes"),
+            DeserializeError::AdditionalInput { provided, expected } => write!(f, "{provided} bytes given but only expected {expected} bytes"),
+            DeserializeError::InvalidByte(b) => write!(
                 f,
-                "the type for this value has a bound of {} but the value has {} elements",
-                bound, len
+                "invalid byte {b:x} when decoding data of the expected type"
             ),
-            DeserializeError::IllegalType { bound } => write!(
-                f,
-                "the type for this value has an illegal bound of {}",
-                bound
-            ),
+            DeserializeError::InvalidInstance(err) => write!(f, "invalid instance: {err}"),
+            DeserializeError::InvalidType(err) => write!(f, "invalid type: {err}"),
         }
     }
 }
