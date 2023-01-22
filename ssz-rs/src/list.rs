@@ -1,4 +1,5 @@
 use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
+use crate::error::InstanceError;
 use crate::merkleization::{
     merkleize, mix_in_length, pack, MerkleCache, MerkleizationError, Merkleized, Node,
     BYTES_PER_CHUNK,
@@ -13,13 +14,6 @@ use std::marker::PhantomData;
 use std::ops::{Deref, Index, IndexMut};
 use std::slice::SliceIndex;
 use std::{fmt, slice};
-use thiserror::Error;
-
-#[derive(Error, Debug)]
-pub enum Error {
-    #[error("{provided} elements given that exceeds the List bound of {expected}")]
-    IncorrectLength { expected: usize, provided: usize },
-}
 
 /// A homogenous collection of a variable number of values.
 #[derive(Clone, Default)]
@@ -123,12 +117,12 @@ impl<T, const N: usize> TryFrom<Vec<T>> for List<T, N>
 where
     T: SimpleSerialize,
 {
-    type Error = Error;
+    type Error = InstanceError;
 
     fn try_from(data: Vec<T>) -> Result<Self, Self::Error> {
         if data.len() > N {
-            Err(Error::IncorrectLength {
-                expected: N,
+            Err(InstanceError::Bounded {
+                bound: N,
                 provided: data.len(),
             })
         } else {
@@ -200,10 +194,11 @@ where
 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         if self.len() > N {
-            return Err(SerializeError::TypeBoundsViolated {
+            return Err(InstanceError::Bounded {
                 bound: N,
-                len: self.len(),
-            });
+                provided: self.len(),
+            }
+            .into());
         }
         serialize_composite(&self.data, buffer)
     }
@@ -216,10 +211,11 @@ where
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         let result = deserialize_homogeneous_composite(encoding)?;
         if result.len() > N {
-            return Err(DeserializeError::TypeBoundsViolated {
+            return Err(InstanceError::Bounded {
                 bound: N,
-                len: result.len(),
-            });
+                provided: result.len(),
+            }
+            .into());
         }
         Ok(result.try_into().unwrap())
     }
@@ -334,6 +330,7 @@ where
     where
         I: IntoIterator<Item = T>,
     {
+        // TODO: this should be `try_from` the iter...
         Vec::from_iter(iter.into_iter().take(N)).try_into().unwrap()
     }
 }

@@ -22,12 +22,9 @@ pub trait Merkleized {
 }
 
 #[derive(Error, Debug)]
-#[error("the value could not be merkleized: {0}")]
 pub enum MerkleizationError {
     #[error("failed to serialize value: {0}")]
     SerializationError(#[from] SerializeError),
-    #[error("cannot merkleize a partial chunk of length {1} (data: {0:?})")]
-    PartialChunk(Vec<u8>, usize),
     #[error("cannot merkleize data that exceeds the declared limit {0}")]
     InputExceedsLimit(usize),
 }
@@ -75,29 +72,16 @@ fn compute_zero_hashes() -> [u8; MAX_MERKLE_TREE_DEPTH * BYTES_PER_CHUNK] {
     buffer
 }
 
+#[derive(Debug)]
 pub struct Context {
     zero_hashes: [u8; MAX_MERKLE_TREE_DEPTH * BYTES_PER_CHUNK],
 }
 
-impl Context {
-    pub fn new() -> Self {
+impl Default for Context {
+    fn default() -> Self {
         Self {
             zero_hashes: compute_zero_hashes(),
         }
-    }
-}
-
-impl Default for Context {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
-impl Debug for Context {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("Context")
-            .field("zero_hashes", &"...")
-            .finish()
     }
 }
 
@@ -110,7 +94,7 @@ impl Index<usize> for Context {
 }
 
 lazy_static! {
-    static ref CONTEXT: Context = Context::new();
+    static ref CONTEXT: Context = Context::default();
 }
 
 // Return the root of the Merklization of a binary tree formed from `chunks`.
@@ -189,8 +173,7 @@ fn merkleize_chunks_with_virtual_padding(
         .expect("can produce a single root chunk"))
 }
 
-// Return the root of the Merklization of a binary tree
-// formed from `chunks`.
+// Return the root of the Merklization of a binary tree formed from `chunks`.
 // Invariant: `chunks.len() % BYTES_PER_CHUNK == 0`
 pub fn merkleize(chunks: &[u8], limit: Option<usize>) -> Result<Node, MerkleizationError> {
     debug_assert!(chunks.len() % BYTES_PER_CHUNK == 0);

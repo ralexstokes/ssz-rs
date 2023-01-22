@@ -41,16 +41,19 @@ where
 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if encoding.is_empty() {
-            return Err(DeserializeError::InputTooShort);
+            return Err(DeserializeError::ExpectedFurtherInput {
+                provided: 0,
+                expected: 1,
+            });
         }
 
-        match &encoding[0].into() {
+        match encoding[0] {
             0 => Ok(None),
             1 => {
                 let inner = T::deserialize(&encoding[1..])?;
                 Ok(Some(inner))
             }
-            _ => Err(DeserializeError::InvalidInput),
+            b => Err(DeserializeError::InvalidByte(b)),
         }
     }
 }

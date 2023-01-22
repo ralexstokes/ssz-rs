@@ -1,20 +1,20 @@
+use crate::error::{InstanceError, TypeError};
 use crate::ser::BYTES_PER_LENGTH_OFFSET;
 use crate::SimpleSerialize;
 use thiserror::Error;
 
 #[derive(Error, Debug)]
-#[error("the value could not be deserialized: {0}")]
 pub enum DeserializeError {
-    #[error("expected further data when decoding")]
-    InputTooShort,
-    #[error("unexpected additional data provided when decoding")]
-    ExtraInput,
-    #[error("invalid data for expected type")]
-    InvalidInput,
-    #[error("the type for this value has a bound of {bound} but the value has {len} elements")]
-    TypeBoundsViolated { bound: usize, len: usize },
-    #[error("the type for this value has an illegal bound of {bound}")]
-    IllegalType { bound: usize },
+    #[error("expected at least {expected} bytes when decoding but provided only {provided} bytes")]
+    ExpectedFurtherInput { provided: usize, expected: usize },
+    #[error("{provided} bytes given but only expected {expected} bytes")]
+    AdditionalInput { provided: usize, expected: usize },
+    #[error("invalid byte {0:x} when decoding data of the expected type")]
+    InvalidByte(u8),
+    #[error("invalid instance: {0}")]
+    InvalidInstance(#[from] InstanceError),
+    #[error("invalid type: {0}")]
+    InvalidType(#[from] TypeError),
 }
 
 pub trait Deserialize {
@@ -27,8 +27,12 @@ fn deserialize_fixed_homogeneous_composite<T>(encoding: &[u8]) -> Result<Vec<T>,
 where
     T: SimpleSerialize,
 {
-    if encoding.len() % T::size_hint() != 0 {
-        return Err(DeserializeError::InvalidInput);
+    let remainder = encoding.len() % T::size_hint();
+    if remainder != 0 {
+        return Err(DeserializeError::AdditionalInput {
+            provided: encoding.len(),
+            expected: encoding.len() - remainder,
+        });
     }
 
     let mut elements = vec![];
@@ -52,7 +56,10 @@ where
     let data_pointer = u32::deserialize(&encoding[..BYTES_PER_LENGTH_OFFSET])?;
     let data_pointer = data_pointer as usize;
     if encoding.len() < data_pointer {
-        return Err(DeserializeError::InputTooShort);
+        return Err(DeserializeError::ExpectedFurtherInput {
+            provided: encoding.len(),
+            expected: data_pointer,
+        });
     }
 
     let offsets = &mut encoding[..data_pointer]

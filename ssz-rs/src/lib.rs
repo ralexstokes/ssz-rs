@@ -60,7 +60,7 @@ pub mod prelude {
     pub use crate::uint::U256;
     pub use crate::utils::{deserialize, serialize};
     pub use crate::vector::Vector;
-    pub use crate::Error;
+    pub use crate::Error as SimpleSerializeError;
     pub use crate::MerkleizationContext;
     pub use crate::SimpleSerialize;
     pub use crate::Sized;
