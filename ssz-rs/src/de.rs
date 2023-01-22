@@ -1,6 +1,6 @@
 use crate::error::{InstanceError, TypeError};
 use crate::ser::BYTES_PER_LENGTH_OFFSET;
-use crate::std::{vec, Vec};
+use crate::std::{vec, Debug, Display, Formatter, Vec};
 use crate::SimpleSerialize;
 
 #[derive(Debug)]
@@ -15,6 +15,18 @@ pub enum DeserializeError {
     InvalidInstance(InstanceError),
     // #[error("invalid type: {0}")]
     InvalidType(TypeError),
+}
+
+impl Debug for DeserializeError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}
+
+impl Display for DeserializeError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+        write!(f, "{:?}", self)
+    }
 }
 
 pub trait Deserialize {

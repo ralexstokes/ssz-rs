@@ -1,5 +1,5 @@
 use crate::error::{InstanceError, TypeError};
-use crate::std::{vec, Vec};
+use crate::std::{vec, Debug, Display, Formatter, Vec};
 use crate::SimpleSerialize;
 
 // NOTE: if this is changed, go change in `ssz_derive` as well!
