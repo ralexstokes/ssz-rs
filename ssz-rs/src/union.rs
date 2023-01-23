@@ -1,8 +1,10 @@
-use crate::de::{Deserialize, DeserializeError};
-use crate::lib::*;
-use crate::merkleization::{mix_in_selector, MerkleizationError, Merkleized, Node};
-use crate::ser::{Serialize, SerializeError};
-use crate::{SimpleSerialize, Sized};
+use crate::{
+    de::{Deserialize, DeserializeError},
+    lib::*,
+    merkleization::{mix_in_selector, MerkleizationError, Merkleized, Node},
+    ser::{Serialize, SerializeError},
+    SimpleSerialize, Sized,
+};
 
 /// `SimpleSerialize` is implemented for `Option` as a convenience
 /// when the schema is equivalent to one described by:
@@ -42,10 +44,7 @@ where
 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if encoding.is_empty() {
-            return Err(DeserializeError::ExpectedFurtherInput {
-                provided: 0,
-                expected: 1,
-            });
+            return Err(DeserializeError::ExpectedFurtherInput { provided: 0, expected: 1 })
         }
 
         match encoding[0] {
@@ -234,9 +233,7 @@ mod tests {
         let expected = [0u8, 12u8, 0u8, 0u8, 0u8];
         assert_eq!(buffer, expected);
 
-        let value = Baz::B(Inner {
-            data: List::from_iter([123u8]),
-        });
+        let value = Baz::B(Inner { data: List::from_iter([123u8]) });
 
         let mut buffer = vec![];
         let result = value.serialize(&mut buffer).expect("can serialize");
@@ -260,9 +257,7 @@ mod tests {
         let expected = [0u8, 12u8, 0u8, 0u8, 0u8];
         assert_eq!(buffer, expected);
 
-        let value = Boo::B(Inner {
-            data: List::from_iter([123u8]),
-        });
+        let value = Boo::B(Inner { data: List::from_iter([123u8]) });
 
         let mut buffer = vec![];
         let result = value.serialize(&mut buffer).expect("can serialize");
@@ -296,9 +291,7 @@ mod tests {
 
         let data = [1u8, 4u8, 0u8, 0u8, 0u8, 123u8];
         let result = Boo::deserialize(&data).expect("can decode");
-        let value = Boo::B(Inner {
-            data: List::from_iter([123u8]),
-        });
+        let value = Boo::B(Inner { data: List::from_iter([123u8]) });
         assert_eq!(result, value);
 
         let data = [2u8, 123u8, 253u8];
@@ -321,9 +314,7 @@ mod tests {
         assert_eq!(value, recovered);
         assert_eq!(value, Boo::A(u32::default()));
 
-        let value = Boo::B(Inner {
-            data: List::from_iter([123u8]),
-        });
+        let value = Boo::B(Inner { data: List::from_iter([123u8]) });
         let mut buffer = vec![];
         let _ = value.serialize(&mut buffer).expect("can serialize");
         let recovered = Boo::deserialize(&buffer).expect("can decode");

@@ -31,15 +31,9 @@ pub fn is_valid_merkle_branch<'a>(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use hex;
 
     fn decode_node_from_hex(hex: &str) -> Node {
-        Node::from_bytes(
-            hex::decode(hex)
-                .expect("is hex")
-                .try_into()
-                .expect("is right size"),
-        )
+        Node::from_bytes(hex::decode(hex).expect("is hex").try_into().expect("is right size"))
     }
 
     #[test]
@@ -62,12 +56,6 @@ mod tests {
             "27097c728aade54ff1376d5954681f6d45c282a81596ef19183148441b754abb",
         );
 
-        assert!(is_valid_merkle_branch(
-            &leaf,
-            branch.iter(),
-            depth,
-            index,
-            &root
-        ))
+        assert!(is_valid_merkle_branch(&leaf, branch.iter(), depth, index, &root))
     }
 }

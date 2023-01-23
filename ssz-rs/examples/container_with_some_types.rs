@@ -23,7 +23,7 @@ struct Foo<const N: usize> {
 }
 
 fn main() {
-    let mut foo: Foo<4> = Foo {
+    let mut example: Foo<4> = Foo {
         a: 16u32,
         b: Vector::from_iter([3u32, 2u32, 1u32, 10u32]),
         c: true,
@@ -36,36 +36,33 @@ fn main() {
         f: Bitvector::from_iter([false, true, false, true]),
     };
 
-    println!("{:#?}", foo);
-    let root = foo.hash_tree_root().expect("can make root");
-    println!("{:#?}", root);
+    println!("{example:#?}");
+    let root = example.hash_tree_root().expect("can make root");
+    println!("{root:#?}");
 
-    foo.b[2] = 44u32;
-    foo.d.pop();
-    match &mut foo.e {
-        Bar::B(inner) => {
-            inner.pop();
-        }
-        _ => {}
+    example.b[2] = 44u32;
+    example.d.pop();
+    if let Bar::B(inner) = &mut example.e {
+        inner.pop();
     }
 
-    let encoding = match serialize(&foo) {
+    let encoding = match serialize(&example) {
         Ok(encoding) => encoding,
-        Err(e) => {
-            eprintln!("some error encoding: {}", e);
-            return;
+        Err(err) => {
+            eprintln!("some error encoding: {err}");
+            return
         }
     };
 
-    let mut restored_foo = match Foo::<4>::deserialize(&encoding) {
+    let mut restored_example = match Foo::<4>::deserialize(&encoding) {
         Ok(value) => value,
-        Err(e) => {
-            eprintln!("some error decoding: {}", e);
-            return;
+        Err(err) => {
+            eprintln!("some error decoding: {err}");
+            return
         }
     };
 
-    println!("{:#?}", restored_foo);
-    let root = restored_foo.hash_tree_root().expect("can make root");
-    println!("{:?}", root);
+    println!("{restored_example:#?}");
+    let root = restored_example.hash_tree_root().expect("can make root");
+    println!("{root:?}");
 }

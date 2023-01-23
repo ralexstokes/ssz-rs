@@ -1,5 +1,4 @@
-use crate::lib::*;
-use crate::prelude::*;
+use crate::{lib::*, prelude::*};
 
 #[derive(Default, Clone, Copy, PartialEq, Eq, SimpleSerialize)]
 pub struct Node(pub(crate) [u8; 32]);
@@ -10,7 +9,7 @@ impl serde::Serialize for Node {
     where
         S: serde::Serializer,
     {
-        serializer.collect_str(&format!("{}", self))
+        serializer.collect_str(&format!("{self}"))
     }
 }
 
@@ -43,7 +42,7 @@ impl fmt::LowerHex for Node {
             write!(f, "0x")?;
         }
         for i in &self.0[..] {
-            write!(f, "{:02x}", i)?;
+            write!(f, "{i:02x}")?;
         }
         Ok(())
     }
@@ -51,13 +50,13 @@ impl fmt::LowerHex for Node {
 
 impl fmt::Debug for Node {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "Node({:x})", self)
+        write!(f, "Node({self:x})")
     }
 }
 
 impl fmt::Display for Node {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{:#x}", self)
+        write!(f, "{self:#x}")
     }
 }
 

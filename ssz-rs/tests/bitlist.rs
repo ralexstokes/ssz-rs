@@ -5363,9 +5363,8 @@ fn test_bitlist_bitlist_31_random_3() {
 
 #[test]
 fn test_bitlist_bitlist_16_zero_1() {
-    let mut value = Bitlist::<16>::from_iter([
-        false, false, false, false, false, false, false, false, false,
-    ]);
+    let mut value =
+        Bitlist::<16>::from_iter([false, false, false, false, false, false, false, false, false]);
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_zero_1/serialized.ssz_snappy",

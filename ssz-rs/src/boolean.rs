@@ -1,8 +1,10 @@
-use crate::de::{Deserialize, DeserializeError};
-use crate::lib::*;
-use crate::merkleization::{MerkleizationError, Merkleized, Node};
-use crate::ser::{Serialize, SerializeError};
-use crate::{SimpleSerialize, Sized};
+use crate::{
+    de::{Deserialize, DeserializeError},
+    lib::*,
+    merkleization::{MerkleizationError, Merkleized, Node},
+    ser::{Serialize, SerializeError},
+    SimpleSerialize, Sized,
+};
 
 impl Sized for bool {
     fn is_variable_size() -> bool {
@@ -25,19 +27,13 @@ impl Serialize for bool {
 impl Deserialize for bool {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         match encoding.len() {
-            0 => Err(DeserializeError::ExpectedFurtherInput {
-                provided: 0,
-                expected: 1,
-            }),
+            0 => Err(DeserializeError::ExpectedFurtherInput { provided: 0, expected: 1 }),
             1 => match encoding[0] {
                 0u8 => Ok(false),
                 1u8 => Ok(true),
                 b => Err(DeserializeError::InvalidByte(b)),
             },
-            n => Err(DeserializeError::AdditionalInput {
-                provided: n,
-                expected: 1,
-            }),
+            n => Err(DeserializeError::AdditionalInput { provided: n, expected: 1 }),
         }
     }
 }
