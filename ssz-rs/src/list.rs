@@ -8,9 +8,9 @@ use crate::merkleization::{
 use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 #[cfg(feature = "serde")]
-use core::marker::PhantomData;
-#[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
+#[cfg(feature = "serde")]
+use std::marker::PhantomData;
 
 /// A homogenous collection of a variable number of values.
 #[derive(Clone, Default)]
@@ -287,7 +287,7 @@ pub struct IterMut<'a, T, const N: usize>
 where
     T: SimpleSerialize,
 {
-    inner: Enumerate<crate::lib::IterMut<'a, T>>,
+    inner: Enumerate<slice::IterMut<'a, T>>,
     cache: &'a mut MerkleCache,
 }
 

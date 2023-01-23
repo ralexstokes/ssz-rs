@@ -8,12 +8,9 @@ const MAXIMUM_LENGTH: u64 = 2u64.pow((8 * BYTES_PER_LENGTH_OFFSET) as u32);
 
 #[derive(Debug)]
 pub enum SerializeError {
-    // #[error("the encoded length is {0} which exceeds the maximum length {MAXIMUM_LENGTH}")]
     MaximumEncodedLengthExceeded(usize),
-    // #[error("invalid instance: {0}")]
-    InvalidInstance(/*#[from]*/ InstanceError),
-    // #[error("invalid type: {0}")]
-    InvalidType(/*#[from]*/ TypeError),
+    InvalidInstance(InstanceError),
+    InvalidType(TypeError),
 }
 
 impl From<InstanceError> for SerializeError {

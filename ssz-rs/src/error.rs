@@ -6,9 +6,9 @@ use crate::ser::SerializeError;
 // Top-level error to wrap all child errors in crate
 #[derive(Debug)]
 pub enum Error {
-    Serialize(/*#[from]*/ SerializeError),
-    Deserialize(/*#[from]*/ DeserializeError),
-    Merkleization(/*#[from]*/ MerkleizationError),
+    Serialize(SerializeError),
+    Deserialize(DeserializeError),
+    Merkleization(MerkleizationError),
 }
 
 impl From<SerializeError> for Error {

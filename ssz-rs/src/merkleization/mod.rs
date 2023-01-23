@@ -19,9 +19,7 @@ pub trait Merkleized {
 
 #[derive(Debug)]
 pub enum MerkleizationError {
-    // #[error("failed to serialize value: {0}")]
-    SerializationError(/*#[from]*/ SerializeError),
-    // #[error("cannot merkleize data that exceeds the declared limit {0}")]
+    SerializationError(SerializeError),
     InputExceedsLimit(usize),
 }
 
@@ -33,15 +31,11 @@ impl From<SerializeError> for MerkleizationError {
 
 impl Display for MerkleizationError {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        write!(f, "the value could not be merkleized: ")?;
         match self {
             Self::SerializationError(err) => {
                 write!(f, "failed to serialize value: {err}")
             }
-            Self::InputExceedsLimit(size) => write!(
-                f,
-                "cannot merkleize data that exceeds the declared limit: {size}",
-            ),
+            Self::InputExceedsLimit(size) => write!(f, "data exceeds the declared limit {size}"),
         }
     }
 }

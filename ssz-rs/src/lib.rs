@@ -39,11 +39,11 @@ mod lib {
         pub use std::*;
     }
 
-    pub use self::core::{any, cmp, iter, slice};
+    pub use self::core::{any, cmp, fmt, iter, slice};
 
     pub use self::cmp::Ordering;
     pub use self::core::array::TryFromSliceError;
-    pub use self::core::fmt::{self, Debug, Display, Formatter};
+    pub use self::core::fmt::{Debug, Display, Formatter};
     pub use self::core::ops::{Deref, DerefMut, Index, IndexMut};
     pub use self::core::slice::{IterMut, SliceIndex};
     pub use self::iter::Enumerate;
