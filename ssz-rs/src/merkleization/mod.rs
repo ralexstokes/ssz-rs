@@ -4,7 +4,6 @@ mod proofs;
 
 use crate::lib::*;
 use crate::ser::{Serialize, SerializeError};
-use lazy_static::lazy_static;
 use sha2::{Digest, Sha256};
 
 pub use cache::Cache as MerkleCache;
@@ -78,29 +77,9 @@ fn hash_nodes(hasher: &mut Sha256, a: &[u8], b: &[u8], out: &mut [u8]) {
 
 const MAX_MERKLE_TREE_DEPTH: usize = 64;
 
-fn compute_zero_hashes() -> [u8; MAX_MERKLE_TREE_DEPTH * BYTES_PER_CHUNK] {
-    let mut hasher = Sha256::new();
-    let mut buffer = [0u8; MAX_MERKLE_TREE_DEPTH * BYTES_PER_CHUNK];
-    for i in 0..MAX_MERKLE_TREE_DEPTH - 1 {
-        let focus_range = i * BYTES_PER_CHUNK..(i + 2) * BYTES_PER_CHUNK;
-        let focus = &mut buffer[focus_range];
-        let (source, target) = focus.split_at_mut(BYTES_PER_CHUNK);
-        hash_nodes(&mut hasher, source, source, target);
-    }
-    buffer
-}
-
 #[derive(Debug)]
 pub struct Context {
     zero_hashes: [u8; MAX_MERKLE_TREE_DEPTH * BYTES_PER_CHUNK],
-}
-
-impl Default for Context {
-    fn default() -> Self {
-        Self {
-            zero_hashes: compute_zero_hashes(),
-        }
-    }
 }
 
 impl Index<usize> for Context {
@@ -111,9 +90,8 @@ impl Index<usize> for Context {
     }
 }
 
-lazy_static! {
-    static ref CONTEXT: Context = Context::default();
-}
+// Grab the precomputed context from the build stage
+include!(concat!(env!("OUT_DIR"), "/context.rs"));
 
 // Return the root of the Merklization of a binary tree formed from `chunks`.
 // `chunks` forms the bottom layer of a binary tree that is Merkleized.
