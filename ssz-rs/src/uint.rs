@@ -1,10 +1,9 @@
 use crate::de::{Deserialize, DeserializeError};
+use crate::lib::*;
 use crate::merkleization::{pack_bytes, MerkleizationError, Merkleized, Node};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 use num_bigint::BigUint;
-use std::convert::TryInto;
-use std::default::Default;
 
 macro_rules! define_uint {
     ($uint:ty) => {

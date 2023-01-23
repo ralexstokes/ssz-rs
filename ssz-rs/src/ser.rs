@@ -1,19 +1,41 @@
 use crate::error::{InstanceError, TypeError};
+use crate::lib::*;
 use crate::SimpleSerialize;
-use thiserror::Error;
 
 // NOTE: if this is changed, go change in `ssz_derive` as well!
 pub const BYTES_PER_LENGTH_OFFSET: usize = 4;
 const MAXIMUM_LENGTH: u64 = 2u64.pow((8 * BYTES_PER_LENGTH_OFFSET) as u32);
 
-#[derive(Error, Debug)]
+#[derive(Debug)]
 pub enum SerializeError {
-    #[error("the encoded length is {0} which exceeds the maximum length {MAXIMUM_LENGTH}")]
     MaximumEncodedLengthExceeded(usize),
-    #[error("invalid instance: {0}")]
-    InvalidInstance(#[from] InstanceError),
-    #[error("invalid type: {0}")]
-    InvalidType(#[from] TypeError),
+    InvalidInstance(InstanceError),
+    InvalidType(TypeError),
+}
+
+impl From<InstanceError> for SerializeError {
+    fn from(err: InstanceError) -> Self {
+        Self::InvalidInstance(err)
+    }
+}
+
+impl From<TypeError> for SerializeError {
+    fn from(err: TypeError) -> Self {
+        Self::InvalidType(err)
+    }
+}
+
+impl Display for SerializeError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        match self {
+            SerializeError::MaximumEncodedLengthExceeded(size) => write!(
+                f,
+                "the encoded length is {size} which exceeds the maximum length {MAXIMUM_LENGTH}",
+            ),
+            SerializeError::InvalidInstance(err) => write!(f, "invalid instance: {err}"),
+            SerializeError::InvalidType(err) => write!(f, "invalid type: {err}"),
+        }
+    }
 }
 
 pub trait Serialize {

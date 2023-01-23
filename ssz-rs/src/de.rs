@@ -1,20 +1,42 @@
 use crate::error::{InstanceError, TypeError};
+use crate::lib::*;
 use crate::ser::BYTES_PER_LENGTH_OFFSET;
 use crate::SimpleSerialize;
-use thiserror::Error;
 
-#[derive(Error, Debug)]
+#[derive(Debug)]
 pub enum DeserializeError {
-    #[error("expected at least {expected} bytes when decoding but provided only {provided} bytes")]
     ExpectedFurtherInput { provided: usize, expected: usize },
-    #[error("{provided} bytes given but only expected {expected} bytes")]
     AdditionalInput { provided: usize, expected: usize },
-    #[error("invalid byte {0:x} when decoding data of the expected type")]
     InvalidByte(u8),
-    #[error("invalid instance: {0}")]
-    InvalidInstance(#[from] InstanceError),
-    #[error("invalid type: {0}")]
-    InvalidType(#[from] TypeError),
+    InvalidInstance(InstanceError),
+    InvalidType(TypeError),
+}
+
+impl From<InstanceError> for DeserializeError {
+    fn from(err: InstanceError) -> Self {
+        Self::InvalidInstance(err)
+    }
+}
+
+impl From<TypeError> for DeserializeError {
+    fn from(err: TypeError) -> Self {
+        Self::InvalidType(err)
+    }
+}
+
+impl Display for DeserializeError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        match self {
+            DeserializeError::ExpectedFurtherInput { provided, expected } => write!(f, "expected at least {expected} bytes when decoding but provided only {provided} bytes"),
+            DeserializeError::AdditionalInput { provided, expected } => write!(f, "{provided} bytes given but only expected {expected} bytes"),
+            DeserializeError::InvalidByte(b) => write!(
+                f,
+                "invalid byte {b:x} when decoding data of the expected type"
+            ),
+            DeserializeError::InvalidInstance(err) => write!(f, "invalid instance: {err}"),
+            DeserializeError::InvalidType(err) => write!(f, "invalid type: {err}"),
+        }
+    }
 }
 
 pub trait Deserialize {

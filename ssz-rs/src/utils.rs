@@ -1,4 +1,5 @@
 use crate::de::DeserializeError;
+use crate::lib::*;
 use crate::ser::SerializeError;
 use crate::SimpleSerialize;
 

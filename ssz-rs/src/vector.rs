@@ -1,5 +1,6 @@
 use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
 use crate::error::{InstanceError, TypeError};
+use crate::lib::*;
 use crate::merkleization::{
     merkleize, pack, MerkleCache, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
 };
@@ -7,12 +8,8 @@ use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
-use std::convert::TryFrom;
-use std::fmt;
 #[cfg(feature = "serde")]
 use std::marker::PhantomData;
-use std::ops::{Deref, Index, IndexMut};
-use std::slice::SliceIndex;
 
 /// A homogenous collection of a fixed number of values.
 /// NOTE: a `Vector` of length `0` is illegal.
@@ -116,18 +113,12 @@ where
             write!(
                 f,
                 "Vector<{}, {}>{:#?}",
-                std::any::type_name::<T>(),
+                any::type_name::<T>(),
                 N,
                 self.data
             )
         } else {
-            write!(
-                f,
-                "Vector<{}, {}>{:?}",
-                std::any::type_name::<T>(),
-                N,
-                self.data
-            )
+            write!(f, "Vector<{}, {}>{:?}", any::type_name::<T>(), N, self.data)
         }
     }
 }

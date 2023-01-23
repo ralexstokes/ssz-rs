@@ -1,5 +1,6 @@
 use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
 use crate::error::InstanceError;
+use crate::lib::*;
 use crate::merkleization::{
     merkleize, mix_in_length, pack, MerkleCache, MerkleizationError, Merkleized, Node,
     BYTES_PER_CHUNK,
@@ -8,12 +9,8 @@ use crate::ser::{serialize_composite, Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
-use std::iter::Enumerate;
 #[cfg(feature = "serde")]
 use std::marker::PhantomData;
-use std::ops::{Deref, Index, IndexMut};
-use std::slice::SliceIndex;
-use std::{fmt, slice};
 
 /// A homogenous collection of a variable number of values.
 #[derive(Clone, Default)]
@@ -84,7 +81,7 @@ where
             write!(
                 f,
                 "List<{}, {}>(len={}){:#?}",
-                std::any::type_name::<T>(),
+                any::type_name::<T>(),
                 N,
                 self.len(),
                 self.data
@@ -93,7 +90,7 @@ where
             write!(
                 f,
                 "List<{}, {}>(len={}){:?}",
-                std::any::type_name::<T>(),
+                any::type_name::<T>(),
                 N,
                 self.len(),
                 self.data

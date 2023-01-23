@@ -1,13 +1,12 @@
 use crate::de::{Deserialize, DeserializeError};
 use crate::error::InstanceError;
+use crate::lib::*;
 use crate::merkleization::{
     merkleize, mix_in_length, pack_bytes, MerkleizationError, Merkleized, Node,
 };
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};
 use bitvec::prelude::{BitVec, Lsb0};
-use std::fmt;
-use std::ops::{Deref, DerefMut};
 
 // +1 for length bit
 fn byte_length(bound: usize) -> usize {

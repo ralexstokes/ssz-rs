@@ -1,4 +1,5 @@
 use crate::de::{Deserialize, DeserializeError};
+use crate::lib::*;
 use crate::merkleization::{MerkleizationError, Merkleized, Node};
 use crate::ser::{Serialize, SerializeError};
 use crate::{SimpleSerialize, Sized};

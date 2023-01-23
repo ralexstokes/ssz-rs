@@ -2,12 +2,9 @@ mod cache;
 mod node;
 mod proofs;
 
+use crate::lib::*;
 use crate::ser::{Serialize, SerializeError};
 use sha2::{Digest, Sha256};
-use std::cmp::Ordering;
-use std::fmt::Debug;
-use std::ops::Index;
-use thiserror::Error;
 
 pub use cache::Cache as MerkleCache;
 pub use node::Node;
@@ -20,12 +17,27 @@ pub trait Merkleized {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError>;
 }
 
-#[derive(Error, Debug)]
+#[derive(Debug)]
 pub enum MerkleizationError {
-    #[error("failed to serialize value: {0}")]
-    SerializationError(#[from] SerializeError),
-    #[error("cannot merkleize data that exceeds the declared limit {0}")]
+    SerializationError(SerializeError),
     InputExceedsLimit(usize),
+}
+
+impl From<SerializeError> for MerkleizationError {
+    fn from(err: SerializeError) -> Self {
+        MerkleizationError::SerializationError(err)
+    }
+}
+
+impl Display for MerkleizationError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::SerializationError(err) => {
+                write!(f, "failed to serialize value: {err}")
+            }
+            Self::InputExceedsLimit(size) => write!(f, "data exceeds the declared limit {size}"),
+        }
+    }
 }
 
 pub fn pack_bytes(buffer: &mut Vec<u8>) {
@@ -60,7 +72,7 @@ fn hash_nodes(hasher: &mut Sha256, a: &[u8], b: &[u8], out: &mut [u8]) {
 const MAX_MERKLE_TREE_DEPTH: usize = 64;
 
 #[derive(Debug)]
-pub struct Context {
+struct Context {
     zero_hashes: [u8; MAX_MERKLE_TREE_DEPTH * BYTES_PER_CHUNK],
 }
 
