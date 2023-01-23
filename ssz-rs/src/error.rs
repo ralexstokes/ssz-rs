@@ -6,11 +6,8 @@ use crate::ser::SerializeError;
 // Top-level error to wrap all child errors in crate
 #[derive(Debug)]
 pub enum Error {
-    // #[error("could not serialize: {0}")]
     Serialize(/*#[from]*/ SerializeError),
-    // #[error("could not deserialize: {0}")]
     Deserialize(/*#[from]*/ DeserializeError),
-    // #[error("merkleization error: {0}")]
     Merkleization(/*#[from]*/ MerkleizationError),
 }
 
