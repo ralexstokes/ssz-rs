@@ -78,7 +78,7 @@ fn hash_nodes(hasher: &mut Sha256, a: &[u8], b: &[u8], out: &mut [u8]) {
 const MAX_MERKLE_TREE_DEPTH: usize = 64;
 
 #[derive(Debug)]
-pub struct Context {
+struct Context {
     zero_hashes: [u8; MAX_MERKLE_TREE_DEPTH * BYTES_PER_CHUNK],
 }
 

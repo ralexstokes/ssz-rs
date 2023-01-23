@@ -25,7 +25,7 @@ pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};
 pub use error::Error;
 pub use list::List;
-pub use merkleization::{Context as MerkleizationContext, MerkleizationError, Merkleized, Node};
+pub use merkleization::{MerkleizationError, Merkleized, Node};
 pub use ser::{Serialize, SerializeError};
 pub use uint::U256;
 pub use utils::*;
@@ -80,6 +80,7 @@ pub mod prelude {
     pub use crate::bitvector::Bitvector;
     pub use crate::de::Deserialize;
     pub use crate::de::DeserializeError;
+    pub use crate::error::{InstanceError, TypeError};
     pub use crate::list::List;
     pub use crate::merkleization::{
         is_valid_merkle_branch, merkleize, mix_in_selector, pack, pack_bytes, MerkleizationError,
@@ -90,7 +91,6 @@ pub mod prelude {
     pub use crate::utils::{deserialize, serialize};
     pub use crate::vector::Vector;
     pub use crate::Error as SimpleSerializeError;
-    pub use crate::MerkleizationContext;
     pub use crate::SimpleSerialize;
     pub use crate::Sized;
     pub use ssz_rs_derive::SimpleSerialize;
