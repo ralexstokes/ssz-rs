@@ -164,26 +164,10 @@ fn test_containers_complex_test_struct_max_0() {
             c: 255,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -352,26 +336,10 @@ fn test_containers_complex_test_struct_max_7() {
             c: 255,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -538,44 +506,16 @@ fn test_containers_complex_test_struct_one_3() {
         b: List::<u16, 128>::from_iter([15653]),
         c: 239,
         d: List::<u8, 256>::from_iter([148]),
-        e: VarTestStruct {
-            a: 56933,
-            b: List::<u16, 1024>::from_iter([51513]),
-            c: 227,
-        },
+        e: VarTestStruct { a: 56933, b: List::<u16, 1024>::from_iter([51513]), c: 227 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 198,
-                b: 207392827392641159,
-                c: 1227551918,
-            },
-            FixedTestStruct {
-                a: 84,
-                b: 10977915993707539152,
-                c: 2750630791,
-            },
-            FixedTestStruct {
-                a: 153,
-                b: 4650923157821976456,
-                c: 1619878481,
-            },
-            FixedTestStruct {
-                a: 152,
-                b: 8681817436929663740,
-                c: 1036507554,
-            },
+            FixedTestStruct { a: 198, b: 207392827392641159, c: 1227551918 },
+            FixedTestStruct { a: 84, b: 10977915993707539152, c: 2750630791 },
+            FixedTestStruct { a: 153, b: 4650923157821976456, c: 1619878481 },
+            FixedTestStruct { a: 152, b: 8681817436929663740, c: 1036507554 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 50540,
-                b: List::<u16, 1024>::from_iter([62171]),
-                c: 33,
-            },
-            VarTestStruct {
-                a: 37202,
-                b: List::<u16, 1024>::from_iter([64409]),
-                c: 142,
-            },
+            VarTestStruct { a: 50540, b: List::<u16, 1024>::from_iter([62171]), c: 33 },
+            VarTestStruct { a: 37202, b: List::<u16, 1024>::from_iter([64409]), c: 142 },
         ]),
     };
     let encoding = serialize(&value);
@@ -600,44 +540,16 @@ fn test_containers_complex_test_struct_one_4() {
         b: List::<u16, 128>::from_iter([11465]),
         c: 54,
         d: List::<u8, 256>::from_iter([146]),
-        e: VarTestStruct {
-            a: 18361,
-            b: List::<u16, 1024>::from_iter([27935]),
-            c: 175,
-        },
+        e: VarTestStruct { a: 18361, b: List::<u16, 1024>::from_iter([27935]), c: 175 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 253,
-                b: 4615349917584694335,
-                c: 872999527,
-            },
-            FixedTestStruct {
-                a: 196,
-                b: 943453220127137753,
-                c: 1191989886,
-            },
-            FixedTestStruct {
-                a: 222,
-                b: 16035451323611208354,
-                c: 3434643610,
-            },
-            FixedTestStruct {
-                a: 17,
-                b: 2846087815058082165,
-                c: 837051951,
-            },
+            FixedTestStruct { a: 253, b: 4615349917584694335, c: 872999527 },
+            FixedTestStruct { a: 196, b: 943453220127137753, c: 1191989886 },
+            FixedTestStruct { a: 222, b: 16035451323611208354, c: 3434643610 },
+            FixedTestStruct { a: 17, b: 2846087815058082165, c: 837051951 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 37931,
-                b: List::<u16, 1024>::from_iter([29047]),
-                c: 70,
-            },
-            VarTestStruct {
-                a: 25348,
-                b: List::<u16, 1024>::from_iter([18965]),
-                c: 186,
-            },
+            VarTestStruct { a: 37931, b: List::<u16, 1024>::from_iter([29047]), c: 70 },
+            VarTestStruct { a: 25348, b: List::<u16, 1024>::from_iter([18965]), c: 186 },
         ]),
     };
     let encoding = serialize(&value);
@@ -742,26 +654,10 @@ fn test_containers_complex_test_struct_max_9() {
             c: 255,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -1385,44 +1281,16 @@ fn test_containers_complex_test_struct_one_5() {
         b: List::<u16, 128>::from_iter([58016]),
         c: 1,
         d: List::<u8, 256>::from_iter([219]),
-        e: VarTestStruct {
-            a: 55674,
-            b: List::<u16, 1024>::from_iter([51843]),
-            c: 103,
-        },
+        e: VarTestStruct { a: 55674, b: List::<u16, 1024>::from_iter([51843]), c: 103 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 51,
-                b: 8951864537982408591,
-                c: 648765584,
-            },
-            FixedTestStruct {
-                a: 123,
-                b: 4699791381600974666,
-                c: 2038553040,
-            },
-            FixedTestStruct {
-                a: 170,
-                b: 1053862214600258695,
-                c: 1813309682,
-            },
-            FixedTestStruct {
-                a: 254,
-                b: 4682841909108083768,
-                c: 3230963302,
-            },
+            FixedTestStruct { a: 51, b: 8951864537982408591, c: 648765584 },
+            FixedTestStruct { a: 123, b: 4699791381600974666, c: 2038553040 },
+            FixedTestStruct { a: 170, b: 1053862214600258695, c: 1813309682 },
+            FixedTestStruct { a: 254, b: 4682841909108083768, c: 3230963302 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 5130,
-                b: List::<u16, 1024>::from_iter([59171]),
-                c: 150,
-            },
-            VarTestStruct {
-                a: 48351,
-                b: List::<u16, 1024>::from_iter([14640]),
-                c: 9,
-            },
+            VarTestStruct { a: 5130, b: List::<u16, 1024>::from_iter([59171]), c: 150 },
+            VarTestStruct { a: 48351, b: List::<u16, 1024>::from_iter([14640]), c: 9 },
         ]),
     };
     let encoding = serialize(&value);
@@ -1531,26 +1399,10 @@ fn test_containers_complex_test_struct_max_8() {
             c: 255,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -1650,44 +1502,16 @@ fn test_containers_complex_test_struct_one_2() {
         b: List::<u16, 128>::from_iter([2249]),
         c: 53,
         d: List::<u8, 256>::from_iter([126]),
-        e: VarTestStruct {
-            a: 37873,
-            b: List::<u16, 1024>::from_iter([24680]),
-            c: 104,
-        },
+        e: VarTestStruct { a: 37873, b: List::<u16, 1024>::from_iter([24680]), c: 104 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 111,
-                b: 9187765509688476407,
-                c: 1210202299,
-            },
-            FixedTestStruct {
-                a: 158,
-                b: 18103802857683004608,
-                c: 3789132591,
-            },
-            FixedTestStruct {
-                a: 124,
-                b: 1767260191485559055,
-                c: 2679810848,
-            },
-            FixedTestStruct {
-                a: 146,
-                b: 10731242871815542387,
-                c: 1584483294,
-            },
+            FixedTestStruct { a: 111, b: 9187765509688476407, c: 1210202299 },
+            FixedTestStruct { a: 158, b: 18103802857683004608, c: 3789132591 },
+            FixedTestStruct { a: 124, b: 1767260191485559055, c: 2679810848 },
+            FixedTestStruct { a: 146, b: 10731242871815542387, c: 1584483294 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 49176,
-                b: List::<u16, 1024>::from_iter([36844]),
-                c: 150,
-            },
-            VarTestStruct {
-                a: 3399,
-                b: List::<u16, 1024>::from_iter([39383]),
-                c: 4,
-            },
+            VarTestStruct { a: 49176, b: List::<u16, 1024>::from_iter([36844]), c: 150 },
+            VarTestStruct { a: 3399, b: List::<u16, 1024>::from_iter([39383]), c: 4 },
         ]),
     };
     let encoding = serialize(&value);
@@ -1823,26 +1647,10 @@ fn test_containers_complex_test_struct_max_6() {
             c: 255,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -2083,26 +1891,10 @@ fn test_containers_complex_test_struct_lengthy_chaos_2() {
             c: 132,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 159,
-                b: 16295530782191573869,
-                c: 898963900,
-            },
-            FixedTestStruct {
-                a: 192,
-                b: 1126888825704345083,
-                c: 621551181,
-            },
-            FixedTestStruct {
-                a: 76,
-                b: 5513933778385349547,
-                c: 203149383,
-            },
-            FixedTestStruct {
-                a: 121,
-                b: 16663028344398051269,
-                c: 3304510184,
-            },
+            FixedTestStruct { a: 159, b: 16295530782191573869, c: 898963900 },
+            FixedTestStruct { a: 192, b: 1126888825704345083, c: 621551181 },
+            FixedTestStruct { a: 76, b: 5513933778385349547, c: 203149383 },
+            FixedTestStruct { a: 121, b: 16663028344398051269, c: 3304510184 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -2372,26 +2164,10 @@ fn test_containers_complex_test_struct_max_1() {
             c: 255,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -2739,44 +2515,16 @@ fn test_containers_complex_test_struct_one_chaos_2() {
         b: List::<u16, 128>::from_iter([9712]),
         c: 0,
         d: List::<u8, 256>::from_iter([70]),
-        e: VarTestStruct {
-            a: 50066,
-            b: List::<u16, 1024>::from_iter([3290]),
-            c: 58,
-        },
+        e: VarTestStruct { a: 50066, b: List::<u16, 1024>::from_iter([3290]), c: 58 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 139,
-                b: 7928507530719916828,
-                c: 4282303815,
-            },
-            FixedTestStruct {
-                a: 51,
-                b: 4745801933491683654,
-                c: 1707679012,
-            },
-            FixedTestStruct {
-                a: 162,
-                b: 9136612036359568408,
-                c: 168035181,
-            },
-            FixedTestStruct {
-                a: 135,
-                b: 15428331690937311254,
-                c: 3775273129,
-            },
+            FixedTestStruct { a: 139, b: 7928507530719916828, c: 4282303815 },
+            FixedTestStruct { a: 51, b: 4745801933491683654, c: 1707679012 },
+            FixedTestStruct { a: 162, b: 9136612036359568408, c: 168035181 },
+            FixedTestStruct { a: 135, b: 15428331690937311254, c: 3775273129 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 31574,
-                b: List::<u16, 1024>::from_iter([50627]),
-                c: 188,
-            },
-            VarTestStruct {
-                a: 38077,
-                b: List::<u16, 1024>::from_iter([18972]),
-                c: 184,
-            },
+            VarTestStruct { a: 31574, b: List::<u16, 1024>::from_iter([50627]), c: 188 },
+            VarTestStruct { a: 38077, b: List::<u16, 1024>::from_iter([18972]), c: 184 },
         ]),
     };
     let encoding = serialize(&value);
@@ -3033,11 +2781,7 @@ fn test_containers_single_field_test_struct_max_9() {
 
 #[test]
 fn test_containers_fixed_test_struct_max_6() {
-    let mut value = FixedTestStruct {
-        a: 255,
-        b: 18446744073709551615,
-        c: 4294967295,
-    };
+    let mut value = FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_6/serialized.ssz_snappy",
@@ -3055,11 +2799,7 @@ fn test_containers_fixed_test_struct_max_6() {
 
 #[test]
 fn test_containers_fixed_test_struct_max_1() {
-    let mut value = FixedTestStruct {
-        a: 255,
-        b: 18446744073709551615,
-        c: 4294967295,
-    };
+    let mut value = FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_1/serialized.ssz_snappy",
@@ -3095,11 +2835,7 @@ fn test_containers_small_test_struct_zero_chaos_2() {
 
 #[test]
 fn test_containers_fixed_test_struct_max_8() {
-    let mut value = FixedTestStruct {
-        a: 255,
-        b: 18446744073709551615,
-        c: 4294967295,
-    };
+    let mut value = FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_8/serialized.ssz_snappy",
@@ -3122,44 +2858,16 @@ fn test_containers_complex_test_struct_nil_1() {
         b: List::<u16, 128>::from_iter([]),
         c: 216,
         d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct {
-            a: 9582,
-            b: List::<u16, 1024>::from_iter([]),
-            c: 179,
-        },
+        e: VarTestStruct { a: 9582, b: List::<u16, 1024>::from_iter([]), c: 179 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 113,
-                b: 8308260144033443154,
-                c: 856314353,
-            },
-            FixedTestStruct {
-                a: 88,
-                b: 18286529193086391033,
-                c: 3373857601,
-            },
-            FixedTestStruct {
-                a: 10,
-                b: 866825965816182963,
-                c: 3877443397,
-            },
-            FixedTestStruct {
-                a: 73,
-                b: 16810218414276843777,
-                c: 184057769,
-            },
+            FixedTestStruct { a: 113, b: 8308260144033443154, c: 856314353 },
+            FixedTestStruct { a: 88, b: 18286529193086391033, c: 3373857601 },
+            FixedTestStruct { a: 10, b: 866825965816182963, c: 3877443397 },
+            FixedTestStruct { a: 73, b: 16810218414276843777, c: 184057769 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 56619,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 32,
-            },
-            VarTestStruct {
-                a: 28432,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 148,
-            },
+            VarTestStruct { a: 56619, b: List::<u16, 1024>::from_iter([]), c: 32 },
+            VarTestStruct { a: 28432, b: List::<u16, 1024>::from_iter([]), c: 148 },
         ]),
     };
     let encoding = serialize(&value);
@@ -3184,44 +2892,16 @@ fn test_containers_complex_test_struct_nil_chaos_2() {
         b: List::<u16, 128>::from_iter([]),
         c: 74,
         d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct {
-            a: 3088,
-            b: List::<u16, 1024>::from_iter([]),
-            c: 230,
-        },
+        e: VarTestStruct { a: 3088, b: List::<u16, 1024>::from_iter([]), c: 230 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 80,
-                b: 12261896720768000582,
-                c: 1113008435,
-            },
-            FixedTestStruct {
-                a: 167,
-                b: 13074400124343650680,
-                c: 250375806,
-            },
-            FixedTestStruct {
-                a: 106,
-                b: 9461353936973742711,
-                c: 613200224,
-            },
-            FixedTestStruct {
-                a: 114,
-                b: 15818203515089967829,
-                c: 143907859,
-            },
+            FixedTestStruct { a: 80, b: 12261896720768000582, c: 1113008435 },
+            FixedTestStruct { a: 167, b: 13074400124343650680, c: 250375806 },
+            FixedTestStruct { a: 106, b: 9461353936973742711, c: 613200224 },
+            FixedTestStruct { a: 114, b: 15818203515089967829, c: 143907859 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 61793,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 214,
-            },
-            VarTestStruct {
-                a: 56893,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 6,
-            },
+            VarTestStruct { a: 61793, b: List::<u16, 1024>::from_iter([]), c: 214 },
+            VarTestStruct { a: 56893, b: List::<u16, 1024>::from_iter([]), c: 6 },
         ]),
     };
     let encoding = serialize(&value);
@@ -3264,44 +2944,16 @@ fn test_containers_complex_test_struct_nil_6() {
         b: List::<u16, 128>::from_iter([]),
         c: 128,
         d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct {
-            a: 11314,
-            b: List::<u16, 1024>::from_iter([]),
-            c: 88,
-        },
+        e: VarTestStruct { a: 11314, b: List::<u16, 1024>::from_iter([]), c: 88 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 69,
-                b: 2289519359095941959,
-                c: 4055974165,
-            },
-            FixedTestStruct {
-                a: 207,
-                b: 9671730801211586811,
-                c: 3033394329,
-            },
-            FixedTestStruct {
-                a: 210,
-                b: 15954635843475561660,
-                c: 3723422315,
-            },
-            FixedTestStruct {
-                a: 121,
-                b: 12464746318130489510,
-                c: 2445696058,
-            },
+            FixedTestStruct { a: 69, b: 2289519359095941959, c: 4055974165 },
+            FixedTestStruct { a: 207, b: 9671730801211586811, c: 3033394329 },
+            FixedTestStruct { a: 210, b: 15954635843475561660, c: 3723422315 },
+            FixedTestStruct { a: 121, b: 12464746318130489510, c: 2445696058 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 57485,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 228,
-            },
-            VarTestStruct {
-                a: 15604,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 201,
-            },
+            VarTestStruct { a: 57485, b: List::<u16, 1024>::from_iter([]), c: 228 },
+            VarTestStruct { a: 15604, b: List::<u16, 1024>::from_iter([]), c: 201 },
         ]),
     };
     let encoding = serialize(&value);
@@ -3344,44 +2996,16 @@ fn test_containers_complex_test_struct_nil_8() {
         b: List::<u16, 128>::from_iter([]),
         c: 129,
         d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct {
-            a: 52567,
-            b: List::<u16, 1024>::from_iter([]),
-            c: 0,
-        },
+        e: VarTestStruct { a: 52567, b: List::<u16, 1024>::from_iter([]), c: 0 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 155,
-                b: 8632484518626447911,
-                c: 4093634018,
-            },
-            FixedTestStruct {
-                a: 229,
-                b: 17748644962945795383,
-                c: 2079529187,
-            },
-            FixedTestStruct {
-                a: 210,
-                b: 3312027085582884946,
-                c: 3589310165,
-            },
-            FixedTestStruct {
-                a: 99,
-                b: 9084020690761810545,
-                c: 2773076247,
-            },
+            FixedTestStruct { a: 155, b: 8632484518626447911, c: 4093634018 },
+            FixedTestStruct { a: 229, b: 17748644962945795383, c: 2079529187 },
+            FixedTestStruct { a: 210, b: 3312027085582884946, c: 3589310165 },
+            FixedTestStruct { a: 99, b: 9084020690761810545, c: 2773076247 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 65501,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 183,
-            },
-            VarTestStruct {
-                a: 13237,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 155,
-            },
+            VarTestStruct { a: 65501, b: List::<u16, 1024>::from_iter([]), c: 183 },
+            VarTestStruct { a: 13237, b: List::<u16, 1024>::from_iter([]), c: 155 },
         ]),
     };
     let encoding = serialize(&value);
@@ -3419,11 +3043,7 @@ fn test_containers_small_test_struct_zero_7() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_chaos_2() {
-    let mut value = FixedTestStruct {
-        a: 30,
-        b: 6156748712181862619,
-        c: 562352362,
-    };
+    let mut value = FixedTestStruct { a: 30, b: 6156748712181862619, c: 562352362 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_chaos_2/serialized.ssz_snappy",
@@ -3441,11 +3061,7 @@ fn test_containers_fixed_test_struct_random_chaos_2() {
 
 #[test]
 fn test_containers_fixed_test_struct_max_9() {
-    let mut value = FixedTestStruct {
-        a: 255,
-        b: 18446744073709551615,
-        c: 4294967295,
-    };
+    let mut value = FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_9/serialized.ssz_snappy",
@@ -3463,11 +3079,7 @@ fn test_containers_fixed_test_struct_max_9() {
 
 #[test]
 fn test_containers_fixed_test_struct_max_0() {
-    let mut value = FixedTestStruct {
-        a: 255,
-        b: 18446744073709551615,
-        c: 4294967295,
-    };
+    let mut value = FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_0/serialized.ssz_snappy",
@@ -3485,11 +3097,7 @@ fn test_containers_fixed_test_struct_max_0() {
 
 #[test]
 fn test_containers_fixed_test_struct_max_7() {
-    let mut value = FixedTestStruct {
-        a: 255,
-        b: 18446744073709551615,
-        c: 4294967295,
-    };
+    let mut value = FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_7/serialized.ssz_snappy",
@@ -3552,44 +3160,16 @@ fn test_containers_complex_test_struct_nil_9() {
         b: List::<u16, 128>::from_iter([]),
         c: 175,
         d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct {
-            a: 52190,
-            b: List::<u16, 1024>::from_iter([]),
-            c: 120,
-        },
+        e: VarTestStruct { a: 52190, b: List::<u16, 1024>::from_iter([]), c: 120 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 179,
-                b: 14068119846896464581,
-                c: 1617655325,
-            },
-            FixedTestStruct {
-                a: 205,
-                b: 9540752016240576228,
-                c: 779151254,
-            },
-            FixedTestStruct {
-                a: 62,
-                b: 57390556918623452,
-                c: 3205281123,
-            },
-            FixedTestStruct {
-                a: 209,
-                b: 2652996980740976958,
-                c: 1890472584,
-            },
+            FixedTestStruct { a: 179, b: 14068119846896464581, c: 1617655325 },
+            FixedTestStruct { a: 205, b: 9540752016240576228, c: 779151254 },
+            FixedTestStruct { a: 62, b: 57390556918623452, c: 3205281123 },
+            FixedTestStruct { a: 209, b: 2652996980740976958, c: 1890472584 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 18553,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 151,
-            },
-            VarTestStruct {
-                a: 61674,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 65,
-            },
+            VarTestStruct { a: 18553, b: List::<u16, 1024>::from_iter([]), c: 151 },
+            VarTestStruct { a: 61674, b: List::<u16, 1024>::from_iter([]), c: 65 },
         ]),
     };
     let encoding = serialize(&value);
@@ -3708,44 +3288,16 @@ fn test_containers_complex_test_struct_nil_7() {
         b: List::<u16, 128>::from_iter([]),
         c: 128,
         d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct {
-            a: 48844,
-            b: List::<u16, 1024>::from_iter([]),
-            c: 156,
-        },
+        e: VarTestStruct { a: 48844, b: List::<u16, 1024>::from_iter([]), c: 156 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 111,
-                b: 9308979922821387243,
-                c: 1304134955,
-            },
-            FixedTestStruct {
-                a: 39,
-                b: 16163096394648852761,
-                c: 2955079535,
-            },
-            FixedTestStruct {
-                a: 220,
-                b: 13508351431752869162,
-                c: 2371579308,
-            },
-            FixedTestStruct {
-                a: 69,
-                b: 4382219926106737506,
-                c: 1420285418,
-            },
+            FixedTestStruct { a: 111, b: 9308979922821387243, c: 1304134955 },
+            FixedTestStruct { a: 39, b: 16163096394648852761, c: 2955079535 },
+            FixedTestStruct { a: 220, b: 13508351431752869162, c: 2371579308 },
+            FixedTestStruct { a: 69, b: 4382219926106737506, c: 1420285418 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 25187,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 165,
-            },
-            VarTestStruct {
-                a: 33983,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 251,
-            },
+            VarTestStruct { a: 25187, b: List::<u16, 1024>::from_iter([]), c: 165 },
+            VarTestStruct { a: 33983, b: List::<u16, 1024>::from_iter([]), c: 251 },
         ]),
     };
     let encoding = serialize(&value);
@@ -3770,44 +3322,16 @@ fn test_containers_complex_test_struct_nil_0() {
         b: List::<u16, 128>::from_iter([]),
         c: 231,
         d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct {
-            a: 61305,
-            b: List::<u16, 1024>::from_iter([]),
-            c: 147,
-        },
+        e: VarTestStruct { a: 61305, b: List::<u16, 1024>::from_iter([]), c: 147 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 141,
-                b: 10953418948196676936,
-                c: 1290597142,
-            },
-            FixedTestStruct {
-                a: 218,
-                b: 10485599593819308885,
-                c: 2568442688,
-            },
-            FixedTestStruct {
-                a: 148,
-                b: 7829464349203048716,
-                c: 2940052654,
-            },
-            FixedTestStruct {
-                a: 130,
-                b: 12125340572984727979,
-                c: 2441735511,
-            },
+            FixedTestStruct { a: 141, b: 10953418948196676936, c: 1290597142 },
+            FixedTestStruct { a: 218, b: 10485599593819308885, c: 2568442688 },
+            FixedTestStruct { a: 148, b: 7829464349203048716, c: 2940052654 },
+            FixedTestStruct { a: 130, b: 12125340572984727979, c: 2441735511 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 59231,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 103,
-            },
-            VarTestStruct {
-                a: 5969,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 211,
-            },
+            VarTestStruct { a: 59231, b: List::<u16, 1024>::from_iter([]), c: 103 },
+            VarTestStruct { a: 5969, b: List::<u16, 1024>::from_iter([]), c: 211 },
         ]),
     };
     let encoding = serialize(&value);
@@ -3924,11 +3448,7 @@ fn test_containers_bits_struct_lengthy_9() {
 
 #[test]
 fn test_containers_var_test_struct_zero_2() {
-    let mut value = VarTestStruct {
-        a: 0,
-        b: List::<u16, 1024>::from_iter([0, 0, 0]),
-        c: 0,
-    };
+    let mut value = VarTestStruct { a: 0, b: List::<u16, 1024>::from_iter([0, 0, 0]), c: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_zero_2/serialized.ssz_snappy",
@@ -4242,11 +3762,7 @@ fn test_containers_bits_struct_lengthy_7() {
 
 #[test]
 fn test_containers_var_test_struct_nil_2() {
-    let mut value = VarTestStruct {
-        a: 54253,
-        b: List::<u16, 1024>::from_iter([]),
-        c: 113,
-    };
+    let mut value = VarTestStruct { a: 54253, b: List::<u16, 1024>::from_iter([]), c: 113 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_2/serialized.ssz_snappy",
@@ -4311,26 +3827,10 @@ fn test_containers_complex_test_struct_random_9() {
             c: 236,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 244,
-                b: 10736787368015739932,
-                c: 2999381551,
-            },
-            FixedTestStruct {
-                a: 118,
-                b: 8708320525189144534,
-                c: 4021318982,
-            },
-            FixedTestStruct {
-                a: 212,
-                b: 11980052676225444100,
-                c: 3164386682,
-            },
-            FixedTestStruct {
-                a: 250,
-                b: 2578982393630105132,
-                c: 1941069318,
-            },
+            FixedTestStruct { a: 244, b: 10736787368015739932, c: 2999381551 },
+            FixedTestStruct { a: 118, b: 8708320525189144534, c: 4021318982 },
+            FixedTestStruct { a: 212, b: 11980052676225444100, c: 3164386682 },
+            FixedTestStruct { a: 250, b: 2578982393630105132, c: 1941069318 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -4470,11 +3970,7 @@ fn test_containers_bits_struct_one_1() {
 
 #[test]
 fn test_containers_var_test_struct_nil_5() {
-    let mut value = VarTestStruct {
-        a: 33408,
-        b: List::<u16, 1024>::from_iter([]),
-        c: 65,
-    };
+    let mut value = VarTestStruct { a: 33408, b: List::<u16, 1024>::from_iter([]), c: 65 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_5/serialized.ssz_snappy",
@@ -4713,26 +4209,10 @@ fn test_containers_complex_test_struct_random_7() {
             c: 41,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 236,
-                b: 7317836259427658061,
-                c: 4070989328,
-            },
-            FixedTestStruct {
-                a: 241,
-                b: 2866003389764641033,
-                c: 1136948491,
-            },
-            FixedTestStruct {
-                a: 121,
-                b: 18232523595989838681,
-                c: 1887266280,
-            },
-            FixedTestStruct {
-                a: 94,
-                b: 6612092953144428216,
-                c: 3128966878,
-            },
+            FixedTestStruct { a: 236, b: 7317836259427658061, c: 4070989328 },
+            FixedTestStruct { a: 241, b: 2866003389764641033, c: 1136948491 },
+            FixedTestStruct { a: 121, b: 18232523595989838681, c: 1887266280 },
+            FixedTestStruct { a: 94, b: 6612092953144428216, c: 3128966878 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -4978,26 +4458,10 @@ fn test_containers_complex_test_struct_random_0() {
             c: 96,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 188,
-                b: 9730166158537326586,
-                c: 582055670,
-            },
-            FixedTestStruct {
-                a: 142,
-                b: 12146156903005665865,
-                c: 481599615,
-            },
-            FixedTestStruct {
-                a: 68,
-                b: 14644856350027584855,
-                c: 637057914,
-            },
-            FixedTestStruct {
-                a: 161,
-                b: 15243040026072936985,
-                c: 1682921351,
-            },
+            FixedTestStruct { a: 188, b: 9730166158537326586, c: 582055670 },
+            FixedTestStruct { a: 142, b: 12146156903005665865, c: 481599615 },
+            FixedTestStruct { a: 68, b: 14644856350027584855, c: 637057914 },
+            FixedTestStruct { a: 161, b: 15243040026072936985, c: 1682921351 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -5207,11 +4671,7 @@ fn test_containers_bits_struct_max_5() {
 
 #[test]
 fn test_containers_fixed_test_struct_max_chaos_1() {
-    let mut value = FixedTestStruct {
-        a: 255,
-        b: 18446744073709551615,
-        c: 4294967295,
-    };
+    let mut value = FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_chaos_1/serialized.ssz_snappy",
@@ -5323,11 +4783,7 @@ fn test_containers_small_test_struct_max_8() {
 
 #[test]
 fn test_containers_var_test_struct_one_chaos_2() {
-    let mut value = VarTestStruct {
-        a: 7706,
-        b: List::<u16, 1024>::from_iter([40992]),
-        c: 148,
-    };
+    let mut value = VarTestStruct { a: 7706, b: List::<u16, 1024>::from_iter([40992]), c: 148 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_chaos_2/serialized.ssz_snappy",
@@ -5864,26 +5320,10 @@ fn test_containers_complex_test_struct_random_1() {
             c: 230,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 231,
-                b: 1863231633934349380,
-                c: 2790073216,
-            },
-            FixedTestStruct {
-                a: 37,
-                b: 14159239175366384790,
-                c: 3878144546,
-            },
-            FixedTestStruct {
-                a: 172,
-                b: 10223347348532532647,
-                c: 3873962530,
-            },
-            FixedTestStruct {
-                a: 228,
-                b: 6481981747729743213,
-                c: 817324705,
-            },
+            FixedTestStruct { a: 231, b: 1863231633934349380, c: 2790073216 },
+            FixedTestStruct { a: 37, b: 14159239175366384790, c: 3878144546 },
+            FixedTestStruct { a: 172, b: 10223347348532532647, c: 3873962530 },
+            FixedTestStruct { a: 228, b: 6481981747729743213, c: 817324705 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -6043,11 +5483,7 @@ fn test_containers_bits_struct_max_4() {
 
 #[test]
 fn test_containers_fixed_test_struct_max_chaos_0() {
-    let mut value = FixedTestStruct {
-        a: 255,
-        b: 18446744073709551615,
-        c: 4294967295,
-    };
+    let mut value = FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_chaos_0/serialized.ssz_snappy",
@@ -6153,26 +5589,10 @@ fn test_containers_complex_test_struct_random_6() {
             c: 101,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 222,
-                b: 15123379162607136266,
-                c: 1353896497,
-            },
-            FixedTestStruct {
-                a: 133,
-                b: 12301823266505627415,
-                c: 2049419971,
-            },
-            FixedTestStruct {
-                a: 74,
-                b: 14612473027338292713,
-                c: 3280573163,
-            },
-            FixedTestStruct {
-                a: 182,
-                b: 13293144499800156659,
-                c: 1044267296,
-            },
+            FixedTestStruct { a: 222, b: 15123379162607136266, c: 1353896497 },
+            FixedTestStruct { a: 133, b: 12301823266505627415, c: 2049419971 },
+            FixedTestStruct { a: 74, b: 14612473027338292713, c: 3280573163 },
+            FixedTestStruct { a: 182, b: 13293144499800156659, c: 1044267296 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -6387,11 +5807,7 @@ fn test_containers_bits_struct_max_3() {
 
 #[test]
 fn test_containers_var_test_struct_nil_4() {
-    let mut value = VarTestStruct {
-        a: 28577,
-        b: List::<u16, 1024>::from_iter([]),
-        c: 222,
-    };
+    let mut value = VarTestStruct { a: 28577, b: List::<u16, 1024>::from_iter([]), c: 222 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_4/serialized.ssz_snappy",
@@ -6500,11 +5916,7 @@ fn test_containers_var_test_struct_random_chaos_2() {
 
 #[test]
 fn test_containers_var_test_struct_nil_3() {
-    let mut value = VarTestStruct {
-        a: 16239,
-        b: List::<u16, 1024>::from_iter([]),
-        c: 51,
-    };
+    let mut value = VarTestStruct { a: 16239, b: List::<u16, 1024>::from_iter([]), c: 51 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_3/serialized.ssz_snappy",
@@ -6634,26 +6046,10 @@ fn test_containers_complex_test_struct_random_8() {
             c: 159,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 35,
-                b: 13234913345360785102,
-                c: 172363296,
-            },
-            FixedTestStruct {
-                a: 143,
-                b: 15275530587653726896,
-                c: 1598380581,
-            },
-            FixedTestStruct {
-                a: 87,
-                b: 11938384569861367173,
-                c: 4135857227,
-            },
-            FixedTestStruct {
-                a: 174,
-                b: 2815096997284796480,
-                c: 3314608453,
-            },
+            FixedTestStruct { a: 35, b: 13234913345360785102, c: 172363296 },
+            FixedTestStruct { a: 143, b: 15275530587653726896, c: 1598380581 },
+            FixedTestStruct { a: 87, b: 11938384569861367173, c: 4135857227 },
+            FixedTestStruct { a: 174, b: 2815096997284796480, c: 3314608453 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -6905,26 +6301,10 @@ fn test_containers_complex_test_struct_random_chaos_2() {
             c: 114,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 249,
-                b: 4107181588698988535,
-                c: 2407634107,
-            },
-            FixedTestStruct {
-                a: 106,
-                b: 18323237399640037470,
-                c: 1699273180,
-            },
-            FixedTestStruct {
-                a: 23,
-                b: 3936185887010202334,
-                c: 892696758,
-            },
-            FixedTestStruct {
-                a: 136,
-                b: 351826920636170295,
-                c: 3961519671,
-            },
+            FixedTestStruct { a: 249, b: 4107181588698988535, c: 2407634107 },
+            FixedTestStruct { a: 106, b: 18323237399640037470, c: 1699273180 },
+            FixedTestStruct { a: 23, b: 3936185887010202334, c: 892696758 },
+            FixedTestStruct { a: 136, b: 351826920636170295, c: 3961519671 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -7052,11 +6432,7 @@ fn test_containers_var_test_struct_max_3() {
 
 #[test]
 fn test_containers_var_test_struct_nil_chaos_2() {
-    let mut value = VarTestStruct {
-        a: 57138,
-        b: List::<u16, 1024>::from_iter([]),
-        c: 18,
-    };
+    let mut value = VarTestStruct { a: 57138, b: List::<u16, 1024>::from_iter([]), c: 18 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_chaos_2/serialized.ssz_snappy",
@@ -7237,11 +6613,7 @@ fn test_containers_bits_struct_one_chaos_0() {
 
 #[test]
 fn test_containers_var_test_struct_one_9() {
-    let mut value = VarTestStruct {
-        a: 34750,
-        b: List::<u16, 1024>::from_iter([11259]),
-        c: 43,
-    };
+    let mut value = VarTestStruct { a: 34750, b: List::<u16, 1024>::from_iter([11259]), c: 43 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_9/serialized.ssz_snappy",
@@ -7277,11 +6649,7 @@ fn test_containers_fixed_test_struct_zero_8() {
 
 #[test]
 fn test_containers_var_test_struct_one_0() {
-    let mut value = VarTestStruct {
-        a: 61255,
-        b: List::<u16, 1024>::from_iter([17467]),
-        c: 65,
-    };
+    let mut value = VarTestStruct { a: 61255, b: List::<u16, 1024>::from_iter([17467]), c: 65 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_0/serialized.ssz_snappy",
@@ -7535,11 +6903,7 @@ fn test_containers_var_test_struct_lengthy_2() {
 
 #[test]
 fn test_containers_var_test_struct_one_7() {
-    let mut value = VarTestStruct {
-        a: 14149,
-        b: List::<u16, 1024>::from_iter([16482]),
-        c: 230,
-    };
+    let mut value = VarTestStruct { a: 14149, b: List::<u16, 1024>::from_iter([16482]), c: 230 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_7/serialized.ssz_snappy",
@@ -7706,26 +7070,10 @@ fn test_containers_complex_test_struct_lengthy_1() {
             c: 172,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 228,
-                b: 3400495176621689780,
-                c: 2782837041,
-            },
-            FixedTestStruct {
-                a: 242,
-                b: 11524830070205099188,
-                c: 745207975,
-            },
-            FixedTestStruct {
-                a: 86,
-                b: 4411883652197834213,
-                c: 1172881869,
-            },
-            FixedTestStruct {
-                a: 43,
-                b: 14564562638993582932,
-                c: 1949588893,
-            },
+            FixedTestStruct { a: 228, b: 3400495176621689780, c: 2782837041 },
+            FixedTestStruct { a: 242, b: 11524830070205099188, c: 745207975 },
+            FixedTestStruct { a: 86, b: 4411883652197834213, c: 1172881869 },
+            FixedTestStruct { a: 43, b: 14564562638993582932, c: 1949588893 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -7943,11 +7291,7 @@ fn test_containers_complex_test_struct_lengthy_1() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_4() {
-    let mut value = FixedTestStruct {
-        a: 141,
-        b: 14877529853037520628,
-        c: 761682555,
-    };
+    let mut value = FixedTestStruct { a: 141, b: 14877529853037520628, c: 761682555 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_4/serialized.ssz_snappy",
@@ -8090,26 +7434,10 @@ fn test_containers_complex_test_struct_lengthy_6() {
             c: 72,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 250,
-                b: 6141795178871855673,
-                c: 240645572,
-            },
-            FixedTestStruct {
-                a: 21,
-                b: 4877910149201583175,
-                c: 1417391071,
-            },
-            FixedTestStruct {
-                a: 84,
-                b: 7661562362140687688,
-                c: 34213759,
-            },
-            FixedTestStruct {
-                a: 148,
-                b: 17897429674566788394,
-                c: 859275185,
-            },
+            FixedTestStruct { a: 250, b: 6141795178871855673, c: 240645572 },
+            FixedTestStruct { a: 21, b: 4877910149201583175, c: 1417391071 },
+            FixedTestStruct { a: 84, b: 7661562362140687688, c: 34213759 },
+            FixedTestStruct { a: 148, b: 17897429674566788394, c: 859275185 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -8327,11 +7655,7 @@ fn test_containers_complex_test_struct_lengthy_6() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_3() {
-    let mut value = FixedTestStruct {
-        a: 72,
-        b: 5633501076518207946,
-        c: 170036136,
-    };
+    let mut value = FixedTestStruct { a: 72, b: 5633501076518207946, c: 170036136 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_3/serialized.ssz_snappy",
@@ -8492,26 +7816,10 @@ fn test_containers_complex_test_struct_lengthy_8() {
             c: 233,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 82,
-                b: 642531935108670539,
-                c: 1838776326,
-            },
-            FixedTestStruct {
-                a: 131,
-                b: 5961421925085947308,
-                c: 1737832730,
-            },
-            FixedTestStruct {
-                a: 192,
-                b: 10876950485646554345,
-                c: 3013846498,
-            },
-            FixedTestStruct {
-                a: 40,
-                b: 10429973492576791947,
-                c: 2638874374,
-            },
+            FixedTestStruct { a: 82, b: 642531935108670539, c: 1838776326 },
+            FixedTestStruct { a: 131, b: 5961421925085947308, c: 1737832730 },
+            FixedTestStruct { a: 192, b: 10876950485646554345, c: 3013846498 },
+            FixedTestStruct { a: 40, b: 10429973492576791947, c: 2638874374 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -8746,11 +8054,7 @@ fn test_containers_small_test_struct_random_2() {
 
 #[test]
 fn test_containers_fixed_test_struct_max() {
-    let mut value = FixedTestStruct {
-        a: 255,
-        b: 18446744073709551615,
-        c: 4294967295,
-    };
+    let mut value = FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_max/serialized.ssz_snappy",
@@ -8874,11 +8178,7 @@ fn test_containers_var_test_struct_lengthy_3() {
 
 #[test]
 fn test_containers_var_test_struct_one_6() {
-    let mut value = VarTestStruct {
-        a: 5264,
-        b: List::<u16, 1024>::from_iter([12220]),
-        c: 50,
-    };
+    let mut value = VarTestStruct { a: 5264, b: List::<u16, 1024>::from_iter([12220]), c: 50 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_6/serialized.ssz_snappy",
@@ -8920,11 +8220,7 @@ fn test_containers_bits_struct_nil_5() {
 
 #[test]
 fn test_containers_var_test_struct_one_1() {
-    let mut value = VarTestStruct {
-        a: 47389,
-        b: List::<u16, 1024>::from_iter([45887]),
-        c: 140,
-    };
+    let mut value = VarTestStruct { a: 47389, b: List::<u16, 1024>::from_iter([45887]), c: 140 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_1/serialized.ssz_snappy",
@@ -9205,26 +8501,10 @@ fn test_containers_complex_test_struct_max_chaos_2() {
             c: 255,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -9399,11 +8679,7 @@ fn test_containers_var_test_struct_max_5() {
 
 #[test]
 fn test_containers_var_test_struct_one_8() {
-    let mut value = VarTestStruct {
-        a: 32967,
-        b: List::<u16, 1024>::from_iter([65174]),
-        c: 29,
-    };
+    let mut value = VarTestStruct { a: 32967, b: List::<u16, 1024>::from_iter([65174]), c: 29 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_8/serialized.ssz_snappy",
@@ -9714,26 +8990,10 @@ fn test_containers_complex_test_struct_lengthy_9() {
             c: 207,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 8,
-                b: 9407325527306457431,
-                c: 2933613952,
-            },
-            FixedTestStruct {
-                a: 182,
-                b: 8329657173333432997,
-                c: 4042190449,
-            },
-            FixedTestStruct {
-                a: 21,
-                b: 6255070391095125444,
-                c: 196984688,
-            },
-            FixedTestStruct {
-                a: 218,
-                b: 5821387191283060247,
-                c: 1932683805,
-            },
+            FixedTestStruct { a: 8, b: 9407325527306457431, c: 2933613952 },
+            FixedTestStruct { a: 182, b: 8329657173333432997, c: 4042190449 },
+            FixedTestStruct { a: 21, b: 6255070391095125444, c: 196984688 },
+            FixedTestStruct { a: 218, b: 5821387191283060247, c: 1932683805 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -10112,26 +9372,10 @@ fn test_containers_complex_test_struct_lengthy_7() {
             c: 141,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 2,
-                b: 7841558952321562465,
-                c: 3857359829,
-            },
-            FixedTestStruct {
-                a: 156,
-                b: 694470498189668020,
-                c: 2697873136,
-            },
-            FixedTestStruct {
-                a: 190,
-                b: 7482312537342053811,
-                c: 4045907139,
-            },
-            FixedTestStruct {
-                a: 250,
-                b: 4865241528780669066,
-                c: 2811081156,
-            },
+            FixedTestStruct { a: 2, b: 7841558952321562465, c: 3857359829 },
+            FixedTestStruct { a: 156, b: 694470498189668020, c: 2697873136 },
+            FixedTestStruct { a: 190, b: 7482312537342053811, c: 4045907139 },
+            FixedTestStruct { a: 250, b: 4865241528780669066, c: 2811081156 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -10349,11 +9593,7 @@ fn test_containers_complex_test_struct_lengthy_7() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_2() {
-    let mut value = FixedTestStruct {
-        a: 73,
-        b: 17290263866691938161,
-        c: 3311333766,
-    };
+    let mut value = FixedTestStruct { a: 73, b: 17290263866691938161, c: 3311333766 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_2/serialized.ssz_snappy",
@@ -10496,26 +9736,10 @@ fn test_containers_complex_test_struct_lengthy_0() {
             c: 105,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 129,
-                b: 4365870474151103771,
-                c: 3073914233,
-            },
-            FixedTestStruct {
-                a: 27,
-                b: 34960855107345240,
-                c: 2881905467,
-            },
-            FixedTestStruct {
-                a: 79,
-                b: 258237538561784111,
-                c: 2295427765,
-            },
-            FixedTestStruct {
-                a: 39,
-                b: 9916630652249637025,
-                c: 3021856725,
-            },
+            FixedTestStruct { a: 129, b: 4365870474151103771, c: 3073914233 },
+            FixedTestStruct { a: 27, b: 34960855107345240, c: 2881905467 },
+            FixedTestStruct { a: 79, b: 258237538561784111, c: 2295427765 },
+            FixedTestStruct { a: 39, b: 9916630652249637025, c: 3021856725 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -10733,11 +9957,7 @@ fn test_containers_complex_test_struct_lengthy_0() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_5() {
-    let mut value = FixedTestStruct {
-        a: 79,
-        b: 14098080771816090726,
-        c: 2129688544,
-    };
+    let mut value = FixedTestStruct { a: 79, b: 14098080771816090726, c: 2129688544 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_5/serialized.ssz_snappy",
@@ -11078,44 +10298,16 @@ fn test_containers_complex_test_struct_one_chaos_0() {
         b: List::<u16, 128>::from_iter([43827]),
         c: 197,
         d: List::<u8, 256>::from_iter([24]),
-        e: VarTestStruct {
-            a: 2938,
-            b: List::<u16, 1024>::from_iter([13314]),
-            c: 230,
-        },
+        e: VarTestStruct { a: 2938, b: List::<u16, 1024>::from_iter([13314]), c: 230 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 251,
-                b: 10114294449636136645,
-                c: 3440022400,
-            },
-            FixedTestStruct {
-                a: 92,
-                b: 4270638512643996390,
-                c: 2080063790,
-            },
-            FixedTestStruct {
-                a: 181,
-                b: 6361529668076857388,
-                c: 3692475116,
-            },
-            FixedTestStruct {
-                a: 58,
-                b: 12444896282347205507,
-                c: 36692008,
-            },
+            FixedTestStruct { a: 251, b: 10114294449636136645, c: 3440022400 },
+            FixedTestStruct { a: 92, b: 4270638512643996390, c: 2080063790 },
+            FixedTestStruct { a: 181, b: 6361529668076857388, c: 3692475116 },
+            FixedTestStruct { a: 58, b: 12444896282347205507, c: 36692008 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 45027,
-                b: List::<u16, 1024>::from_iter([44189]),
-                c: 188,
-            },
-            VarTestStruct {
-                a: 19339,
-                b: List::<u16, 1024>::from_iter([60067]),
-                c: 62,
-            },
+            VarTestStruct { a: 45027, b: List::<u16, 1024>::from_iter([44189]), c: 188 },
+            VarTestStruct { a: 19339, b: List::<u16, 1024>::from_iter([60067]), c: 62 },
         ]),
     };
     let encoding = serialize(&value);
@@ -11400,26 +10592,10 @@ fn test_containers_complex_test_struct_max_4() {
             c: 255,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -11769,26 +10945,10 @@ fn test_containers_complex_test_struct_lengthy_chaos_0() {
             c: 197,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 126,
-                b: 3435762523509387151,
-                c: 3665221517,
-            },
-            FixedTestStruct {
-                a: 243,
-                b: 943513122303052545,
-                c: 1401396655,
-            },
-            FixedTestStruct {
-                a: 249,
-                b: 8873799629985696120,
-                c: 1314056729,
-            },
-            FixedTestStruct {
-                a: 152,
-                b: 3484830523848989111,
-                c: 2938394908,
-            },
+            FixedTestStruct { a: 126, b: 3435762523509387151, c: 3665221517 },
+            FixedTestStruct { a: 243, b: 943513122303052545, c: 1401396655 },
+            FixedTestStruct { a: 249, b: 8873799629985696120, c: 1314056729 },
+            FixedTestStruct { a: 152, b: 3484830523848989111, c: 2938394908 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -12009,44 +11169,16 @@ fn test_containers_complex_test_struct_one_9() {
         b: List::<u16, 128>::from_iter([52269]),
         c: 179,
         d: List::<u8, 256>::from_iter([166]),
-        e: VarTestStruct {
-            a: 47224,
-            b: List::<u16, 1024>::from_iter([27133]),
-            c: 46,
-        },
+        e: VarTestStruct { a: 47224, b: List::<u16, 1024>::from_iter([27133]), c: 46 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 190,
-                b: 17267852126418429692,
-                c: 1192183507,
-            },
-            FixedTestStruct {
-                a: 86,
-                b: 5812480785575976468,
-                c: 517726582,
-            },
-            FixedTestStruct {
-                a: 70,
-                b: 14751118928048906008,
-                c: 2949562141,
-            },
-            FixedTestStruct {
-                a: 25,
-                b: 6477487707159203533,
-                c: 627300018,
-            },
+            FixedTestStruct { a: 190, b: 17267852126418429692, c: 1192183507 },
+            FixedTestStruct { a: 86, b: 5812480785575976468, c: 517726582 },
+            FixedTestStruct { a: 70, b: 14751118928048906008, c: 2949562141 },
+            FixedTestStruct { a: 25, b: 6477487707159203533, c: 627300018 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 53608,
-                b: List::<u16, 1024>::from_iter([33375]),
-                c: 209,
-            },
-            VarTestStruct {
-                a: 33550,
-                b: List::<u16, 1024>::from_iter([39605]),
-                c: 19,
-            },
+            VarTestStruct { a: 53608, b: List::<u16, 1024>::from_iter([33375]), c: 209 },
+            VarTestStruct { a: 33550, b: List::<u16, 1024>::from_iter([39605]), c: 19 },
         ]),
     };
     let encoding = serialize(&value);
@@ -12166,26 +11298,10 @@ fn test_containers_complex_test_struct_max_3() {
             c: 255,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -12362,44 +11478,16 @@ fn test_containers_complex_test_struct_one_7() {
         b: List::<u16, 128>::from_iter([51108]),
         c: 232,
         d: List::<u8, 256>::from_iter([51]),
-        e: VarTestStruct {
-            a: 61296,
-            b: List::<u16, 1024>::from_iter([50107]),
-            c: 80,
-        },
+        e: VarTestStruct { a: 61296, b: List::<u16, 1024>::from_iter([50107]), c: 80 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 142,
-                b: 16391694718469767627,
-                c: 1723717716,
-            },
-            FixedTestStruct {
-                a: 150,
-                b: 18231846756020050949,
-                c: 4085824434,
-            },
-            FixedTestStruct {
-                a: 242,
-                b: 3167723324830397151,
-                c: 3505585751,
-            },
-            FixedTestStruct {
-                a: 54,
-                b: 11608704772362674523,
-                c: 2197949526,
-            },
+            FixedTestStruct { a: 142, b: 16391694718469767627, c: 1723717716 },
+            FixedTestStruct { a: 150, b: 18231846756020050949, c: 4085824434 },
+            FixedTestStruct { a: 242, b: 3167723324830397151, c: 3505585751 },
+            FixedTestStruct { a: 54, b: 11608704772362674523, c: 2197949526 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 35151,
-                b: List::<u16, 1024>::from_iter([47168]),
-                c: 175,
-            },
-            VarTestStruct {
-                a: 49526,
-                b: List::<u16, 1024>::from_iter([16871]),
-                c: 223,
-            },
+            VarTestStruct { a: 35151, b: List::<u16, 1024>::from_iter([47168]), c: 175 },
+            VarTestStruct { a: 49526, b: List::<u16, 1024>::from_iter([16871]), c: 223 },
         ]),
     };
     let encoding = serialize(&value);
@@ -12442,44 +11530,16 @@ fn test_containers_complex_test_struct_one_0() {
         b: List::<u16, 128>::from_iter([9378]),
         c: 223,
         d: List::<u8, 256>::from_iter([88]),
-        e: VarTestStruct {
-            a: 35646,
-            b: List::<u16, 1024>::from_iter([45153]),
-            c: 194,
-        },
+        e: VarTestStruct { a: 35646, b: List::<u16, 1024>::from_iter([45153]), c: 194 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 223,
-                b: 15858315646050493180,
-                c: 1035175295,
-            },
-            FixedTestStruct {
-                a: 238,
-                b: 8214804078873394894,
-                c: 211540354,
-            },
-            FixedTestStruct {
-                a: 206,
-                b: 2768604207237255181,
-                c: 1481584540,
-            },
-            FixedTestStruct {
-                a: 21,
-                b: 8252301037967392689,
-                c: 3525266586,
-            },
+            FixedTestStruct { a: 223, b: 15858315646050493180, c: 1035175295 },
+            FixedTestStruct { a: 238, b: 8214804078873394894, c: 211540354 },
+            FixedTestStruct { a: 206, b: 2768604207237255181, c: 1481584540 },
+            FixedTestStruct { a: 21, b: 8252301037967392689, c: 3525266586 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 35378,
-                b: List::<u16, 1024>::from_iter([35733]),
-                c: 226,
-            },
-            VarTestStruct {
-                a: 63219,
-                b: List::<u16, 1024>::from_iter([29843]),
-                c: 106,
-            },
+            VarTestStruct { a: 35378, b: List::<u16, 1024>::from_iter([35733]), c: 226 },
+            VarTestStruct { a: 63219, b: List::<u16, 1024>::from_iter([29843]), c: 106 },
         ]),
     };
     let encoding = serialize(&value);
@@ -12504,44 +11564,16 @@ fn test_containers_complex_test_struct_one_chaos_1() {
         b: List::<u16, 128>::from_iter([22188]),
         c: 189,
         d: List::<u8, 256>::from_iter([137]),
-        e: VarTestStruct {
-            a: 27201,
-            b: List::<u16, 1024>::from_iter([3990]),
-            c: 169,
-        },
+        e: VarTestStruct { a: 27201, b: List::<u16, 1024>::from_iter([3990]), c: 169 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 244,
-                b: 17680911497750963160,
-                c: 2820605766,
-            },
-            FixedTestStruct {
-                a: 41,
-                b: 6582973943842155323,
-                c: 3930139073,
-            },
-            FixedTestStruct {
-                a: 181,
-                b: 5035412352079054455,
-                c: 1060450728,
-            },
-            FixedTestStruct {
-                a: 161,
-                b: 16594572392883778734,
-                c: 925588037,
-            },
+            FixedTestStruct { a: 244, b: 17680911497750963160, c: 2820605766 },
+            FixedTestStruct { a: 41, b: 6582973943842155323, c: 3930139073 },
+            FixedTestStruct { a: 181, b: 5035412352079054455, c: 1060450728 },
+            FixedTestStruct { a: 161, b: 16594572392883778734, c: 925588037 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 6057,
-                b: List::<u16, 1024>::from_iter([55]),
-                c: 169,
-            },
-            VarTestStruct {
-                a: 32091,
-                b: List::<u16, 1024>::from_iter([21718]),
-                c: 207,
-            },
+            VarTestStruct { a: 6057, b: List::<u16, 1024>::from_iter([55]), c: 169 },
+            VarTestStruct { a: 32091, b: List::<u16, 1024>::from_iter([21718]), c: 207 },
         ]),
     };
     let encoding = serialize(&value);
@@ -13079,44 +12111,16 @@ fn test_containers_complex_test_struct_one_1() {
         b: List::<u16, 128>::from_iter([13623]),
         c: 59,
         d: List::<u8, 256>::from_iter([216]),
-        e: VarTestStruct {
-            a: 14337,
-            b: List::<u16, 1024>::from_iter([57158]),
-            c: 73,
-        },
+        e: VarTestStruct { a: 14337, b: List::<u16, 1024>::from_iter([57158]), c: 73 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 205,
-                b: 5393092458938150238,
-                c: 3739864261,
-            },
-            FixedTestStruct {
-                a: 146,
-                b: 7554862186025036695,
-                c: 759065969,
-            },
-            FixedTestStruct {
-                a: 152,
-                b: 10256506337230585302,
-                c: 478033645,
-            },
-            FixedTestStruct {
-                a: 171,
-                b: 4506016525792096404,
-                c: 3824862461,
-            },
+            FixedTestStruct { a: 205, b: 5393092458938150238, c: 3739864261 },
+            FixedTestStruct { a: 146, b: 7554862186025036695, c: 759065969 },
+            FixedTestStruct { a: 152, b: 10256506337230585302, c: 478033645 },
+            FixedTestStruct { a: 171, b: 4506016525792096404, c: 3824862461 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 52933,
-                b: List::<u16, 1024>::from_iter([37049]),
-                c: 141,
-            },
-            VarTestStruct {
-                a: 26191,
-                b: List::<u16, 1024>::from_iter([45926]),
-                c: 141,
-            },
+            VarTestStruct { a: 52933, b: List::<u16, 1024>::from_iter([37049]), c: 141 },
+            VarTestStruct { a: 26191, b: List::<u16, 1024>::from_iter([45926]), c: 141 },
         ]),
     };
     let encoding = serialize(&value);
@@ -13141,44 +12145,16 @@ fn test_containers_complex_test_struct_one_6() {
         b: List::<u16, 128>::from_iter([48645]),
         c: 46,
         d: List::<u8, 256>::from_iter([105]),
-        e: VarTestStruct {
-            a: 1558,
-            b: List::<u16, 1024>::from_iter([39947]),
-            c: 65,
-        },
+        e: VarTestStruct { a: 1558, b: List::<u16, 1024>::from_iter([39947]), c: 65 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 70,
-                b: 905948488145107787,
-                c: 2675781419,
-            },
-            FixedTestStruct {
-                a: 3,
-                b: 12539792087931462647,
-                c: 4719259,
-            },
-            FixedTestStruct {
-                a: 73,
-                b: 13544872847030609257,
-                c: 2819826618,
-            },
-            FixedTestStruct {
-                a: 159,
-                b: 16328658841145598323,
-                c: 2375225558,
-            },
+            FixedTestStruct { a: 70, b: 905948488145107787, c: 2675781419 },
+            FixedTestStruct { a: 3, b: 12539792087931462647, c: 4719259 },
+            FixedTestStruct { a: 73, b: 13544872847030609257, c: 2819826618 },
+            FixedTestStruct { a: 159, b: 16328658841145598323, c: 2375225558 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 30336,
-                b: List::<u16, 1024>::from_iter([30909]),
-                c: 240,
-            },
-            VarTestStruct {
-                a: 64263,
-                b: List::<u16, 1024>::from_iter([38121]),
-                c: 100,
-            },
+            VarTestStruct { a: 30336, b: List::<u16, 1024>::from_iter([30909]), c: 240 },
+            VarTestStruct { a: 64263, b: List::<u16, 1024>::from_iter([38121]), c: 100 },
         ]),
     };
     let encoding = serialize(&value);
@@ -13241,26 +12217,10 @@ fn test_containers_complex_test_struct_max_2() {
             c: 255,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -13487,26 +12447,10 @@ fn test_containers_complex_test_struct_max_5() {
             c: 255,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -13711,44 +12655,16 @@ fn test_containers_complex_test_struct_one_8() {
         b: List::<u16, 128>::from_iter([62632]),
         c: 161,
         d: List::<u8, 256>::from_iter([170]),
-        e: VarTestStruct {
-            a: 34470,
-            b: List::<u16, 1024>::from_iter([49333]),
-            c: 243,
-        },
+        e: VarTestStruct { a: 34470, b: List::<u16, 1024>::from_iter([49333]), c: 243 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 120,
-                b: 1523648906580514715,
-                c: 791591623,
-            },
-            FixedTestStruct {
-                a: 12,
-                b: 16621022813318247745,
-                c: 1103698378,
-            },
-            FixedTestStruct {
-                a: 156,
-                b: 9403042551474992172,
-                c: 3829124548,
-            },
-            FixedTestStruct {
-                a: 86,
-                b: 6955517517277308905,
-                c: 3651778934,
-            },
+            FixedTestStruct { a: 120, b: 1523648906580514715, c: 791591623 },
+            FixedTestStruct { a: 12, b: 16621022813318247745, c: 1103698378 },
+            FixedTestStruct { a: 156, b: 9403042551474992172, c: 3829124548 },
+            FixedTestStruct { a: 86, b: 6955517517277308905, c: 3651778934 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 7919,
-                b: List::<u16, 1024>::from_iter([5167]),
-                c: 3,
-            },
-            VarTestStruct {
-                a: 27175,
-                b: List::<u16, 1024>::from_iter([53104]),
-                c: 220,
-            },
+            VarTestStruct { a: 7919, b: List::<u16, 1024>::from_iter([5167]), c: 3 },
+            VarTestStruct { a: 27175, b: List::<u16, 1024>::from_iter([53104]), c: 220 },
         ]),
     };
     let encoding = serialize(&value);
@@ -13909,26 +12825,10 @@ fn test_containers_complex_test_struct_lengthy_chaos_1() {
             c: 225,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 33,
-                b: 7895405943655935510,
-                c: 2142447552,
-            },
-            FixedTestStruct {
-                a: 22,
-                b: 18002124139429285600,
-                c: 992281172,
-            },
-            FixedTestStruct {
-                a: 233,
-                b: 4015541180465670820,
-                c: 859454356,
-            },
-            FixedTestStruct {
-                a: 189,
-                b: 6174994657624261209,
-                c: 2497554522,
-            },
+            FixedTestStruct { a: 33, b: 7895405943655935510, c: 2142447552 },
+            FixedTestStruct { a: 22, b: 18002124139429285600, c: 992281172 },
+            FixedTestStruct { a: 233, b: 4015541180465670820, c: 859454356 },
+            FixedTestStruct { a: 189, b: 6174994657624261209, c: 2497554522 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -14149,44 +13049,16 @@ fn test_containers_complex_test_struct_nil_5() {
         b: List::<u16, 128>::from_iter([]),
         c: 33,
         d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct {
-            a: 32909,
-            b: List::<u16, 1024>::from_iter([]),
-            c: 160,
-        },
+        e: VarTestStruct { a: 32909, b: List::<u16, 1024>::from_iter([]), c: 160 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 88,
-                b: 4508311636793282544,
-                c: 415305280,
-            },
-            FixedTestStruct {
-                a: 81,
-                b: 7176574044321399517,
-                c: 3531697000,
-            },
-            FixedTestStruct {
-                a: 148,
-                b: 10325477718060625155,
-                c: 2170710618,
-            },
-            FixedTestStruct {
-                a: 213,
-                b: 10147841225099919266,
-                c: 364863742,
-            },
+            FixedTestStruct { a: 88, b: 4508311636793282544, c: 415305280 },
+            FixedTestStruct { a: 81, b: 7176574044321399517, c: 3531697000 },
+            FixedTestStruct { a: 148, b: 10325477718060625155, c: 2170710618 },
+            FixedTestStruct { a: 213, b: 10147841225099919266, c: 364863742 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 44590,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 43,
-            },
-            VarTestStruct {
-                a: 2413,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 252,
-            },
+            VarTestStruct { a: 44590, b: List::<u16, 1024>::from_iter([]), c: 43 },
+            VarTestStruct { a: 2413, b: List::<u16, 1024>::from_iter([]), c: 252 },
         ]),
     };
     let encoding = serialize(&value);
@@ -14296,44 +13168,16 @@ fn test_containers_complex_test_struct_nil_2() {
         b: List::<u16, 128>::from_iter([]),
         c: 24,
         d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct {
-            a: 53715,
-            b: List::<u16, 1024>::from_iter([]),
-            c: 87,
-        },
+        e: VarTestStruct { a: 53715, b: List::<u16, 1024>::from_iter([]), c: 87 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 112,
-                b: 6113442914607827252,
-                c: 2881063212,
-            },
-            FixedTestStruct {
-                a: 51,
-                b: 1725127278526211301,
-                c: 638134721,
-            },
-            FixedTestStruct {
-                a: 217,
-                b: 14421469423501165880,
-                c: 3735440152,
-            },
-            FixedTestStruct {
-                a: 123,
-                b: 2364172394143535253,
-                c: 3578914154,
-            },
+            FixedTestStruct { a: 112, b: 6113442914607827252, c: 2881063212 },
+            FixedTestStruct { a: 51, b: 1725127278526211301, c: 638134721 },
+            FixedTestStruct { a: 217, b: 14421469423501165880, c: 3735440152 },
+            FixedTestStruct { a: 123, b: 2364172394143535253, c: 3578914154 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 28075,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 109,
-            },
-            VarTestStruct {
-                a: 52080,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 183,
-            },
+            VarTestStruct { a: 28075, b: List::<u16, 1024>::from_iter([]), c: 109 },
+            VarTestStruct { a: 52080, b: List::<u16, 1024>::from_iter([]), c: 183 },
         ]),
     };
     let encoding = serialize(&value);
@@ -14358,44 +13202,16 @@ fn test_containers_complex_test_struct_nil_chaos_1() {
         b: List::<u16, 128>::from_iter([]),
         c: 229,
         d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct {
-            a: 60733,
-            b: List::<u16, 1024>::from_iter([]),
-            c: 201,
-        },
+        e: VarTestStruct { a: 60733, b: List::<u16, 1024>::from_iter([]), c: 201 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 2,
-                b: 384053484578005994,
-                c: 870669292,
-            },
-            FixedTestStruct {
-                a: 192,
-                b: 8050360655543648157,
-                c: 2676129625,
-            },
-            FixedTestStruct {
-                a: 68,
-                b: 3997619651490197308,
-                c: 793030358,
-            },
-            FixedTestStruct {
-                a: 214,
-                b: 14099480025000544619,
-                c: 1206054754,
-            },
+            FixedTestStruct { a: 2, b: 384053484578005994, c: 870669292 },
+            FixedTestStruct { a: 192, b: 8050360655543648157, c: 2676129625 },
+            FixedTestStruct { a: 68, b: 3997619651490197308, c: 793030358 },
+            FixedTestStruct { a: 214, b: 14099480025000544619, c: 1206054754 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 23399,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 162,
-            },
-            VarTestStruct {
-                a: 6205,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 80,
-            },
+            VarTestStruct { a: 23399, b: List::<u16, 1024>::from_iter([]), c: 162 },
+            VarTestStruct { a: 6205, b: List::<u16, 1024>::from_iter([]), c: 80 },
         ]),
     };
     let encoding = serialize(&value);
@@ -14523,11 +13339,7 @@ fn test_containers_bits_struct_zero() {
 
 #[test]
 fn test_containers_fixed_test_struct_max_2() {
-    let mut value = FixedTestStruct {
-        a: 255,
-        b: 18446744073709551615,
-        c: 4294967295,
-    };
+    let mut value = FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_2/serialized.ssz_snappy",
@@ -14561,11 +13373,7 @@ fn test_containers_single_field_test_struct_random_chaos_0() {
 
 #[test]
 fn test_containers_fixed_test_struct_max_5() {
-    let mut value = FixedTestStruct {
-        a: 255,
-        b: 18446744073709551615,
-        c: 4294967295,
-    };
+    let mut value = FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_5/serialized.ssz_snappy",
@@ -14583,11 +13391,7 @@ fn test_containers_fixed_test_struct_max_5() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_chaos_0() {
-    let mut value = FixedTestStruct {
-        a: 162,
-        b: 17433115223182371175,
-        c: 867140057,
-    };
+    let mut value = FixedTestStruct { a: 162, b: 17433115223182371175, c: 867140057 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_chaos_0/serialized.ssz_snappy",
@@ -14699,44 +13503,16 @@ fn test_containers_complex_test_struct_nil_3() {
         b: List::<u16, 128>::from_iter([]),
         c: 120,
         d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct {
-            a: 9471,
-            b: List::<u16, 1024>::from_iter([]),
-            c: 162,
-        },
+        e: VarTestStruct { a: 9471, b: List::<u16, 1024>::from_iter([]), c: 162 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 220,
-                b: 15034598248334105810,
-                c: 3955824760,
-            },
-            FixedTestStruct {
-                a: 175,
-                b: 17553500545866453449,
-                c: 542828098,
-            },
-            FixedTestStruct {
-                a: 140,
-                b: 2940978812180365208,
-                c: 3410385304,
-            },
-            FixedTestStruct {
-                a: 219,
-                b: 13559886729958279487,
-                c: 3025496256,
-            },
+            FixedTestStruct { a: 220, b: 15034598248334105810, c: 3955824760 },
+            FixedTestStruct { a: 175, b: 17553500545866453449, c: 542828098 },
+            FixedTestStruct { a: 140, b: 2940978812180365208, c: 3410385304 },
+            FixedTestStruct { a: 219, b: 13559886729958279487, c: 3025496256 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 34009,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 98,
-            },
-            VarTestStruct {
-                a: 55878,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 150,
-            },
+            VarTestStruct { a: 34009, b: List::<u16, 1024>::from_iter([]), c: 98 },
+            VarTestStruct { a: 55878, b: List::<u16, 1024>::from_iter([]), c: 150 },
         ]),
     };
     let encoding = serialize(&value);
@@ -14761,44 +13537,16 @@ fn test_containers_complex_test_struct_nil_chaos_0() {
         b: List::<u16, 128>::from_iter([]),
         c: 27,
         d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct {
-            a: 25023,
-            b: List::<u16, 1024>::from_iter([]),
-            c: 192,
-        },
+        e: VarTestStruct { a: 25023, b: List::<u16, 1024>::from_iter([]), c: 192 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 232,
-                b: 3780683719095057064,
-                c: 1934241831,
-            },
-            FixedTestStruct {
-                a: 138,
-                b: 5487763393146156444,
-                c: 1481858532,
-            },
-            FixedTestStruct {
-                a: 183,
-                b: 6392067212513580675,
-                c: 1590857235,
-            },
-            FixedTestStruct {
-                a: 215,
-                b: 10047526190675975666,
-                c: 3987494123,
-            },
+            FixedTestStruct { a: 232, b: 3780683719095057064, c: 1934241831 },
+            FixedTestStruct { a: 138, b: 5487763393146156444, c: 1481858532 },
+            FixedTestStruct { a: 183, b: 6392067212513580675, c: 1590857235 },
+            FixedTestStruct { a: 215, b: 10047526190675975666, c: 3987494123 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 17308,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 78,
-            },
-            VarTestStruct {
-                a: 23441,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 130,
-            },
+            VarTestStruct { a: 17308, b: List::<u16, 1024>::from_iter([]), c: 78 },
+            VarTestStruct { a: 23441, b: List::<u16, 1024>::from_iter([]), c: 130 },
         ]),
     };
     let encoding = serialize(&value);
@@ -14855,44 +13603,16 @@ fn test_containers_complex_test_struct_nil_4() {
         b: List::<u16, 128>::from_iter([]),
         c: 144,
         d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct {
-            a: 35688,
-            b: List::<u16, 1024>::from_iter([]),
-            c: 125,
-        },
+        e: VarTestStruct { a: 35688, b: List::<u16, 1024>::from_iter([]), c: 125 },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 102,
-                b: 1970672590229388203,
-                c: 4291083769,
-            },
-            FixedTestStruct {
-                a: 20,
-                b: 17267026789235764353,
-                c: 4169619511,
-            },
-            FixedTestStruct {
-                a: 174,
-                b: 16712701607286209302,
-                c: 1877382468,
-            },
-            FixedTestStruct {
-                a: 216,
-                b: 3418735781718036586,
-                c: 3896879220,
-            },
+            FixedTestStruct { a: 102, b: 1970672590229388203, c: 4291083769 },
+            FixedTestStruct { a: 20, b: 17267026789235764353, c: 4169619511 },
+            FixedTestStruct { a: 174, b: 16712701607286209302, c: 1877382468 },
+            FixedTestStruct { a: 216, b: 3418735781718036586, c: 3896879220 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct {
-                a: 37923,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 146,
-            },
-            VarTestStruct {
-                a: 31848,
-                b: List::<u16, 1024>::from_iter([]),
-                c: 206,
-            },
+            VarTestStruct { a: 37923, b: List::<u16, 1024>::from_iter([]), c: 146 },
+            VarTestStruct { a: 31848, b: List::<u16, 1024>::from_iter([]), c: 206 },
         ]),
     };
     let encoding = serialize(&value);
@@ -14930,11 +13650,7 @@ fn test_containers_small_test_struct_zero_chaos_0() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_chaos_1() {
-    let mut value = FixedTestStruct {
-        a: 203,
-        b: 7769282278803472418,
-        c: 872994431,
-    };
+    let mut value = FixedTestStruct { a: 203, b: 7769282278803472418, c: 872994431 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_chaos_1/serialized.ssz_snappy",
@@ -14952,11 +13668,7 @@ fn test_containers_fixed_test_struct_random_chaos_1() {
 
 #[test]
 fn test_containers_fixed_test_struct_max_4() {
-    let mut value = FixedTestStruct {
-        a: 255,
-        b: 18446744073709551615,
-        c: 4294967295,
-    };
+    let mut value = FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_4/serialized.ssz_snappy",
@@ -14990,11 +13702,7 @@ fn test_containers_single_field_test_struct_random_chaos_1() {
 
 #[test]
 fn test_containers_fixed_test_struct_max_3() {
-    let mut value = FixedTestStruct {
-        a: 255,
-        b: 18446744073709551615,
-        c: 4294967295,
-    };
+    let mut value = FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_3/serialized.ssz_snappy",
@@ -15012,11 +13720,7 @@ fn test_containers_fixed_test_struct_max_3() {
 
 #[test]
 fn test_containers_var_test_struct_nil_6() {
-    let mut value = VarTestStruct {
-        a: 15781,
-        b: List::<u16, 1024>::from_iter([]),
-        c: 117,
-    };
+    let mut value = VarTestStruct { a: 15781, b: List::<u16, 1024>::from_iter([]), c: 117 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_6/serialized.ssz_snappy",
@@ -15181,11 +13885,7 @@ fn test_containers_bits_struct_one_5() {
 
 #[test]
 fn test_containers_var_test_struct_nil_1() {
-    let mut value = VarTestStruct {
-        a: 57718,
-        b: List::<u16, 1024>::from_iter([]),
-        c: 30,
-    };
+    let mut value = VarTestStruct { a: 57718, b: List::<u16, 1024>::from_iter([]), c: 30 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_1/serialized.ssz_snappy",
@@ -15296,26 +13996,10 @@ fn test_containers_complex_test_struct_random_chaos_0() {
             c: 138,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 3,
-                b: 10543900606472943020,
-                c: 3667820647,
-            },
-            FixedTestStruct {
-                a: 140,
-                b: 3106764529416694417,
-                c: 3299042996,
-            },
-            FixedTestStruct {
-                a: 90,
-                b: 7465421768114232817,
-                c: 4159847108,
-            },
-            FixedTestStruct {
-                a: 203,
-                b: 2684306830788579479,
-                c: 1893894578,
-            },
+            FixedTestStruct { a: 3, b: 10543900606472943020, c: 3667820647 },
+            FixedTestStruct { a: 140, b: 3106764529416694417, c: 3299042996 },
+            FixedTestStruct { a: 90, b: 7465421768114232817, c: 4159847108 },
+            FixedTestStruct { a: 203, b: 2684306830788579479, c: 1893894578 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -15514,26 +14198,10 @@ fn test_containers_complex_test_struct_random_3() {
             c: 227,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 48,
-                b: 3998434500497351183,
-                c: 1718012518,
-            },
-            FixedTestStruct {
-                a: 251,
-                b: 4416660904362289185,
-                c: 1596040344,
-            },
-            FixedTestStruct {
-                a: 69,
-                b: 5158912912770106064,
-                c: 241204715,
-            },
-            FixedTestStruct {
-                a: 123,
-                b: 8382074815237110674,
-                c: 1679281156,
-            },
+            FixedTestStruct { a: 48, b: 3998434500497351183, c: 1718012518 },
+            FixedTestStruct { a: 251, b: 4416660904362289185, c: 1596040344 },
+            FixedTestStruct { a: 69, b: 5158912912770106064, c: 241204715 },
+            FixedTestStruct { a: 123, b: 8382074815237110674, c: 1679281156 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -15738,11 +14406,7 @@ fn test_containers_bits_struct_max_6() {
 
 #[test]
 fn test_containers_fixed_test_struct_max_chaos_2() {
-    let mut value = FixedTestStruct {
-        a: 255,
-        b: 18446744073709551615,
-        c: 4294967295,
-    };
+    let mut value = FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_chaos_2/serialized.ssz_snappy",
@@ -15760,11 +14424,7 @@ fn test_containers_fixed_test_struct_max_chaos_2() {
 
 #[test]
 fn test_containers_var_test_struct_nil_8() {
-    let mut value = VarTestStruct {
-        a: 45577,
-        b: List::<u16, 1024>::from_iter([]),
-        c: 105,
-    };
+    let mut value = VarTestStruct { a: 45577, b: List::<u16, 1024>::from_iter([]), c: 105 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_8/serialized.ssz_snappy",
@@ -15971,26 +14631,10 @@ fn test_containers_complex_test_struct_random_4() {
             c: 237,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 52,
-                b: 12728543440427803475,
-                c: 794847716,
-            },
-            FixedTestStruct {
-                a: 129,
-                b: 16258032708543429508,
-                c: 2773321321,
-            },
-            FixedTestStruct {
-                a: 3,
-                b: 16027621960155161403,
-                c: 3849861284,
-            },
-            FixedTestStruct {
-                a: 246,
-                b: 5528410490619814594,
-                c: 22081984,
-            },
+            FixedTestStruct { a: 52, b: 12728543440427803475, c: 794847716 },
+            FixedTestStruct { a: 129, b: 16258032708543429508, c: 2773321321 },
+            FixedTestStruct { a: 3, b: 16027621960155161403, c: 3849861284 },
+            FixedTestStruct { a: 246, b: 5528410490619814594, c: 22081984 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -16681,11 +15325,7 @@ fn test_containers_var_test_struct_random_3() {
 
 #[test]
 fn test_containers_var_test_struct_one_chaos_0() {
-    let mut value = VarTestStruct {
-        a: 6367,
-        b: List::<u16, 1024>::from_iter([33756]),
-        c: 52,
-    };
+    let mut value = VarTestStruct { a: 6367, b: List::<u16, 1024>::from_iter([33756]), c: 52 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_chaos_0/serialized.ssz_snappy",
@@ -16858,26 +15498,10 @@ fn test_containers_complex_test_struct_random_5() {
             c: 130,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 185,
-                b: 6572514143696592295,
-                c: 3258127834,
-            },
-            FixedTestStruct {
-                a: 117,
-                b: 8175813056618882816,
-                c: 4063679543,
-            },
-            FixedTestStruct {
-                a: 133,
-                b: 12689249717164430483,
-                c: 2008300373,
-            },
-            FixedTestStruct {
-                a: 50,
-                b: 6498855893583129950,
-                c: 1341694256,
-            },
+            FixedTestStruct { a: 185, b: 6572514143696592295, c: 3258127834 },
+            FixedTestStruct { a: 117, b: 8175813056618882816, c: 4063679543 },
+            FixedTestStruct { a: 133, b: 12689249717164430483, c: 2008300373 },
+            FixedTestStruct { a: 50, b: 6498855893583129950, c: 1341694256 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -17231,26 +15855,10 @@ fn test_containers_complex_test_struct_random_2() {
             c: 46,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 143,
-                b: 15369598333677722387,
-                c: 3618353484,
-            },
-            FixedTestStruct {
-                a: 95,
-                b: 7342862960844619183,
-                c: 2024225401,
-            },
-            FixedTestStruct {
-                a: 34,
-                b: 13071154624305027972,
-                c: 349713642,
-            },
-            FixedTestStruct {
-                a: 118,
-                b: 5488186923479738561,
-                c: 151832036,
-            },
+            FixedTestStruct { a: 143, b: 15369598333677722387, c: 3618353484 },
+            FixedTestStruct { a: 95, b: 7342862960844619183, c: 2024225401 },
+            FixedTestStruct { a: 34, b: 13071154624305027972, c: 349713642 },
+            FixedTestStruct { a: 118, b: 5488186923479738561, c: 151832036 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -17453,11 +16061,7 @@ fn test_containers_bits_struct_max_7() {
 
 #[test]
 fn test_containers_var_test_struct_nil_9() {
-    let mut value = VarTestStruct {
-        a: 26413,
-        b: List::<u16, 1024>::from_iter([]),
-        c: 229,
-    };
+    let mut value = VarTestStruct { a: 26413, b: List::<u16, 1024>::from_iter([]), c: 229 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_9/serialized.ssz_snappy",
@@ -17475,11 +16079,7 @@ fn test_containers_var_test_struct_nil_9() {
 
 #[test]
 fn test_containers_var_test_struct_nil_0() {
-    let mut value = VarTestStruct {
-        a: 19247,
-        b: List::<u16, 1024>::from_iter([]),
-        c: 218,
-    };
+    let mut value = VarTestStruct { a: 19247, b: List::<u16, 1024>::from_iter([]), c: 218 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_0/serialized.ssz_snappy",
@@ -17570,26 +16170,10 @@ fn test_containers_complex_test_struct_random_chaos_1() {
             c: 75,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 34,
-                b: 7985948794710290703,
-                c: 758635405,
-            },
-            FixedTestStruct {
-                a: 75,
-                b: 12296680574802004172,
-                c: 1408694452,
-            },
-            FixedTestStruct {
-                a: 26,
-                b: 15043939724872014544,
-                c: 1533134107,
-            },
-            FixedTestStruct {
-                a: 218,
-                b: 5434121257617466598,
-                c: 1140150850,
-            },
+            FixedTestStruct { a: 34, b: 7985948794710290703, c: 758635405 },
+            FixedTestStruct { a: 75, b: 12296680574802004172, c: 1408694452 },
+            FixedTestStruct { a: 26, b: 15043939724872014544, c: 1533134107 },
+            FixedTestStruct { a: 218, b: 5434121257617466598, c: 1140150850 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -17695,11 +16279,7 @@ fn test_containers_bits_struct_one_3() {
 
 #[test]
 fn test_containers_var_test_struct_nil_7() {
-    let mut value = VarTestStruct {
-        a: 64459,
-        b: List::<u16, 1024>::from_iter([]),
-        c: 222,
-    };
+    let mut value = VarTestStruct { a: 64459, b: List::<u16, 1024>::from_iter([]), c: 222 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_7/serialized.ssz_snappy",
@@ -17803,11 +16383,7 @@ fn test_containers_var_test_struct_random_chaos_1() {
 
 #[test]
 fn test_containers_var_test_struct_one_chaos_1() {
-    let mut value = VarTestStruct {
-        a: 28881,
-        b: List::<u16, 1024>::from_iter([18944]),
-        c: 105,
-    };
+    let mut value = VarTestStruct { a: 28881, b: List::<u16, 1024>::from_iter([18944]), c: 105 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_chaos_1/serialized.ssz_snappy",
@@ -18467,26 +17043,10 @@ fn test_containers_complex_test_struct_lengthy_5() {
             c: 29,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 195,
-                b: 12761296427842794216,
-                c: 2887424490,
-            },
-            FixedTestStruct {
-                a: 19,
-                b: 12673970782303023911,
-                c: 1882120908,
-            },
-            FixedTestStruct {
-                a: 33,
-                b: 3414619537641842921,
-                c: 803319402,
-            },
-            FixedTestStruct {
-                a: 184,
-                b: 15746415222302789656,
-                c: 1398072405,
-            },
+            FixedTestStruct { a: 195, b: 12761296427842794216, c: 2887424490 },
+            FixedTestStruct { a: 19, b: 12673970782303023911, c: 1882120908 },
+            FixedTestStruct { a: 33, b: 3414619537641842921, c: 803319402 },
+            FixedTestStruct { a: 184, b: 15746415222302789656, c: 1398072405 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -18704,11 +17264,7 @@ fn test_containers_complex_test_struct_lengthy_5() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_0() {
-    let mut value = FixedTestStruct {
-        a: 170,
-        b: 13097433917148758497,
-        c: 2823316065,
-    };
+    let mut value = FixedTestStruct { a: 170, b: 13097433917148758497, c: 2823316065 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_0/serialized.ssz_snappy",
@@ -18851,26 +17407,10 @@ fn test_containers_complex_test_struct_lengthy_2() {
             c: 253,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 172,
-                b: 7406654203415557862,
-                c: 4220772448,
-            },
-            FixedTestStruct {
-                a: 98,
-                b: 7652742876362695881,
-                c: 3808688629,
-            },
-            FixedTestStruct {
-                a: 176,
-                b: 1379592184773335083,
-                c: 2839628004,
-            },
-            FixedTestStruct {
-                a: 164,
-                b: 4672589617281835669,
-                c: 3697546643,
-            },
+            FixedTestStruct { a: 172, b: 7406654203415557862, c: 4220772448 },
+            FixedTestStruct { a: 98, b: 7652742876362695881, c: 3808688629 },
+            FixedTestStruct { a: 176, b: 1379592184773335083, c: 2839628004 },
+            FixedTestStruct { a: 164, b: 4672589617281835669, c: 3697546643 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -19107,11 +17647,7 @@ fn test_containers_small_test_struct_random_8() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_7() {
-    let mut value = FixedTestStruct {
-        a: 223,
-        b: 8950381518244519629,
-        c: 2819180549,
-    };
+    let mut value = FixedTestStruct { a: 223, b: 8950381518244519629, c: 2819180549 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_7/serialized.ssz_snappy",
@@ -19147,11 +17683,7 @@ fn test_containers_small_test_struct_random_1() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_9() {
-    let mut value = FixedTestStruct {
-        a: 202,
-        b: 14820154409811446657,
-        c: 3563199940,
-    };
+    let mut value = FixedTestStruct { a: 202, b: 14820154409811446657, c: 3563199940 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_9/serialized.ssz_snappy",
@@ -19338,26 +17870,10 @@ fn test_containers_complex_test_struct_max_chaos_0() {
             c: 255,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -19662,11 +18178,7 @@ fn test_containers_var_test_struct_max_0() {
 
 #[test]
 fn test_containers_var_test_struct_nil_chaos_1() {
-    let mut value = VarTestStruct {
-        a: 35832,
-        b: List::<u16, 1024>::from_iter([]),
-        c: 217,
-    };
+    let mut value = VarTestStruct { a: 35832, b: List::<u16, 1024>::from_iter([]), c: 217 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_chaos_1/serialized.ssz_snappy",
@@ -19933,11 +18445,7 @@ fn test_containers_var_test_struct_lengthy_1() {
 
 #[test]
 fn test_containers_var_test_struct_one_4() {
-    let mut value = VarTestStruct {
-        a: 20579,
-        b: List::<u16, 1024>::from_iter([59691]),
-        c: 90,
-    };
+    let mut value = VarTestStruct { a: 20579, b: List::<u16, 1024>::from_iter([59691]), c: 90 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_4/serialized.ssz_snappy",
@@ -20045,11 +18553,7 @@ fn test_containers_single_field_test_struct_zero_chaos_0() {
 
 #[test]
 fn test_containers_var_test_struct_one_3() {
-    let mut value = VarTestStruct {
-        a: 22598,
-        b: List::<u16, 1024>::from_iter([37706]),
-        c: 49,
-    };
+    let mut value = VarTestStruct { a: 22598, b: List::<u16, 1024>::from_iter([37706]), c: 49 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_3/serialized.ssz_snappy",
@@ -20197,11 +18701,7 @@ fn test_containers_bits_struct_nil_0() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_8() {
-    let mut value = FixedTestStruct {
-        a: 98,
-        b: 13284016551454210865,
-        c: 303971524,
-    };
+    let mut value = FixedTestStruct { a: 98, b: 13284016551454210865, c: 303971524 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_8/serialized.ssz_snappy",
@@ -20398,26 +18898,10 @@ fn test_containers_complex_test_struct_lengthy_3() {
             c: 245,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 68,
-                b: 12267952658191999941,
-                c: 3332230928,
-            },
-            FixedTestStruct {
-                a: 165,
-                b: 3575481553412658987,
-                c: 1650490765,
-            },
-            FixedTestStruct {
-                a: 8,
-                b: 1803749896546999,
-                c: 73003565,
-            },
-            FixedTestStruct {
-                a: 160,
-                b: 3069288440817187109,
-                c: 408150667,
-            },
+            FixedTestStruct { a: 68, b: 12267952658191999941, c: 3332230928 },
+            FixedTestStruct { a: 165, b: 3575481553412658987, c: 1650490765 },
+            FixedTestStruct { a: 8, b: 1803749896546999, c: 73003565 },
+            FixedTestStruct { a: 160, b: 3069288440817187109, c: 408150667 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -20635,11 +19119,7 @@ fn test_containers_complex_test_struct_lengthy_3() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_6() {
-    let mut value = FixedTestStruct {
-        a: 239,
-        b: 5454313257518522816,
-        c: 797239823,
-    };
+    let mut value = FixedTestStruct { a: 239, b: 5454313257518522816, c: 797239823 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_6/serialized.ssz_snappy",
@@ -20782,26 +19262,10 @@ fn test_containers_complex_test_struct_lengthy_4() {
             c: 244,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 200,
-                b: 8265131358398570295,
-                c: 617210979,
-            },
-            FixedTestStruct {
-                a: 238,
-                b: 8877155163157513854,
-                c: 493753517,
-            },
-            FixedTestStruct {
-                a: 34,
-                b: 623966954658313443,
-                c: 2195408706,
-            },
-            FixedTestStruct {
-                a: 141,
-                b: 3004917036006819299,
-                c: 4005898075,
-            },
+            FixedTestStruct { a: 200, b: 8265131358398570295, c: 617210979 },
+            FixedTestStruct { a: 238, b: 8877155163157513854, c: 493753517 },
+            FixedTestStruct { a: 34, b: 623966954658313443, c: 2195408706 },
+            FixedTestStruct { a: 141, b: 3004917036006819299, c: 4005898075 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -21020,11 +19484,7 @@ fn test_containers_complex_test_struct_lengthy_4() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_1() {
-    let mut value = FixedTestStruct {
-        a: 85,
-        b: 3025325611966003710,
-        c: 2393715144,
-    };
+    let mut value = FixedTestStruct { a: 85, b: 3025325611966003710, c: 2393715144 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_1/serialized.ssz_snappy",
@@ -21042,11 +19502,7 @@ fn test_containers_fixed_test_struct_random_1() {
 
 #[test]
 fn test_containers_var_test_struct_one_2() {
-    let mut value = VarTestStruct {
-        a: 31642,
-        b: List::<u16, 1024>::from_iter([59815]),
-        c: 220,
-    };
+    let mut value = VarTestStruct { a: 31642, b: List::<u16, 1024>::from_iter([59815]), c: 220 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_2/serialized.ssz_snappy",
@@ -21316,11 +19772,7 @@ fn test_containers_var_test_struct_lengthy_0() {
 
 #[test]
 fn test_containers_var_test_struct_one_5() {
-    let mut value = VarTestStruct {
-        a: 48023,
-        b: List::<u16, 1024>::from_iter([8630]),
-        c: 216,
-    };
+    let mut value = VarTestStruct { a: 48023, b: List::<u16, 1024>::from_iter([8630]), c: 216 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_5/serialized.ssz_snappy",
@@ -21493,26 +19945,10 @@ fn test_containers_complex_test_struct_max() {
             c: 255,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {
@@ -21666,11 +20102,7 @@ fn test_containers_small_test_struct_max_chaos_1() {
 
 #[test]
 fn test_containers_var_test_struct_nil_chaos_0() {
-    let mut value = VarTestStruct {
-        a: 4227,
-        b: List::<u16, 1024>::from_iter([]),
-        c: 44,
-    };
+    let mut value = VarTestStruct { a: 4227, b: List::<u16, 1024>::from_iter([]), c: 44 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_chaos_0/serialized.ssz_snappy",
@@ -21893,26 +20325,10 @@ fn test_containers_complex_test_struct_max_chaos_1() {
             c: 255,
         },
         f: Vector::<FixedTestStruct, 4>::from_iter([
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
-            FixedTestStruct {
-                a: 255,
-                b: 18446744073709551615,
-                c: 4294967295,
-            },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
+            FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
         ]),
         g: Vector::<VarTestStruct, 2>::from_iter([
             VarTestStruct {

@@ -3,14 +3,14 @@
 //! and Rust already defines `Default` for these special array sizes.
 //! If/when this restriction is lifted in favor of const generics, the macro here
 //! can likely be simplified to a definition over `const N: usize`.
-use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
-use crate::error::{InstanceError, TypeError};
-use crate::lib::*;
-use crate::merkleization::{
-    merkleize, pack, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
+use crate::{
+    de::{deserialize_homogeneous_composite, Deserialize, DeserializeError},
+    error::{InstanceError, TypeError},
+    lib::*,
+    merkleization::{merkleize, pack, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK},
+    ser::{serialize_composite, Serialize, SerializeError},
+    SimpleSerialize, Sized,
 };
-use crate::ser::{serialize_composite, Serialize, SerializeError};
-use crate::{SimpleSerialize, Sized};
 
 macro_rules! define_ssz_for_array_of_size {
     ($n: literal) => {
@@ -33,7 +33,7 @@ macro_rules! define_ssz_for_array_of_size {
         {
             fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
                 if $n == 0 {
-                    return Err(TypeError::InvalidBound($n).into());
+                    return Err(TypeError::InvalidBound($n).into())
                 }
                 serialize_composite(self, buffer)
             }
@@ -45,7 +45,7 @@ macro_rules! define_ssz_for_array_of_size {
         {
             fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
                 if $n == 0 {
-                    return Err(TypeError::InvalidBound($n).into());
+                    return Err(TypeError::InvalidBound($n).into())
                 }
 
                 if !T::is_variable_size() {
@@ -54,22 +54,18 @@ macro_rules! define_ssz_for_array_of_size {
                         return Err(DeserializeError::ExpectedFurtherInput {
                             provided: encoding.len(),
                             expected: expected_length,
-                        });
+                        })
                     }
                     if encoding.len() > expected_length {
                         return Err(DeserializeError::AdditionalInput {
                             provided: encoding.len(),
                             expected: expected_length,
-                        });
+                        })
                     }
                 }
                 let elements = deserialize_homogeneous_composite(encoding)?;
                 elements.try_into().map_err(|elements: Vec<T>| {
-                    InstanceError::Exact {
-                        required: $n,
-                        provided: elements.len(),
-                    }
-                    .into()
+                    InstanceError::Exact { required: $n, provided: elements.len() }.into()
                 })
             }
         }

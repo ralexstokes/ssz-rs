@@ -1,12 +1,14 @@
-use crate::de::{deserialize_homogeneous_composite, Deserialize, DeserializeError};
-use crate::error::InstanceError;
-use crate::lib::*;
-use crate::merkleization::{
-    merkleize, mix_in_length, pack, MerkleCache, MerkleizationError, Merkleized, Node,
-    BYTES_PER_CHUNK,
+use crate::{
+    de::{deserialize_homogeneous_composite, Deserialize, DeserializeError},
+    error::InstanceError,
+    lib::*,
+    merkleization::{
+        merkleize, mix_in_length, pack, MerkleCache, MerkleizationError, Merkleized, Node,
+        BYTES_PER_CHUNK,
+    },
+    ser::{serialize_composite, Serialize, SerializeError},
+    SimpleSerialize, Sized,
 };
-use crate::ser::{serialize_composite, Serialize, SerializeError};
-use crate::{SimpleSerialize, Sized};
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
 #[cfg(feature = "serde")]
@@ -78,23 +80,9 @@ where
 {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
         if f.alternate() {
-            write!(
-                f,
-                "List<{}, {}>(len={}){:#?}",
-                any::type_name::<T>(),
-                N,
-                self.len(),
-                self.data
-            )
+            write!(f, "List<{}, {}>(len={}){:#?}", any::type_name::<T>(), N, self.len(), self.data)
         } else {
-            write!(
-                f,
-                "List<{}, {}>(len={}){:?}",
-                any::type_name::<T>(),
-                N,
-                self.len(),
-                self.data
-            )
+            write!(f, "List<{}, {}>(len={}){:?}", any::type_name::<T>(), N, self.len(), self.data)
         }
     }
 }
@@ -118,16 +106,10 @@ where
 
     fn try_from(data: Vec<T>) -> Result<Self, Self::Error> {
         if data.len() > N {
-            Err(InstanceError::Bounded {
-                bound: N,
-                provided: data.len(),
-            })
+            Err(InstanceError::Bounded { bound: N, provided: data.len() })
         } else {
             let leaf_count = Self::get_leaf_count(data.len());
-            Ok(Self {
-                data,
-                cache: MerkleCache::with_leaves(leaf_count),
-            })
+            Ok(Self { data, cache: MerkleCache::with_leaves(leaf_count) })
         }
     }
 }
@@ -191,11 +173,7 @@ where
 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         if self.len() > N {
-            return Err(InstanceError::Bounded {
-                bound: N,
-                provided: self.len(),
-            }
-            .into());
+            return Err(InstanceError::Bounded { bound: N, provided: self.len() }.into())
         }
         serialize_composite(&self.data, buffer)
     }
@@ -208,11 +186,7 @@ where
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         let result = deserialize_homogeneous_composite(encoding)?;
         if result.len() > N {
-            return Err(InstanceError::Bounded {
-                bound: N,
-                provided: result.len(),
-            }
-            .into());
+            return Err(InstanceError::Bounded { bound: N, provided: result.len() }.into())
         }
         Ok(result.try_into().unwrap())
     }
@@ -276,10 +250,7 @@ where
     }
 
     pub fn iter_mut(&mut self) -> IterMut<'_, T, N> {
-        IterMut {
-            inner: self.data.iter_mut().enumerate(),
-            cache: &mut self.cache,
-        }
+        IterMut { inner: self.data.iter_mut().enumerate(), cache: &mut self.cache }
     }
 }
 
@@ -382,11 +353,8 @@ mod tests {
     #[test]
     fn roundtrip_list_of_list() {
         const COUNT: usize = 4;
-        let bytes: Vec<List<u8, 1>> = vec![
-            vec![0u8].try_into().unwrap(),
-            Default::default(),
-            vec![1u8].try_into().unwrap(),
-        ];
+        let bytes: Vec<List<u8, 1>> =
+            vec![vec![0u8].try_into().unwrap(), Default::default(), vec![1u8].try_into().unwrap()];
         let input: List<List<u8, 1>, COUNT> = bytes.try_into().unwrap();
         let mut buffer = vec![];
         let _ = input.serialize(&mut buffer).expect("can serialize");

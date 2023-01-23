@@ -1,8 +1,5 @@
 use sha2::{Digest, Sha256};
-use std::env;
-use std::fs::File;
-use std::io::Write;
-use std::path::Path;
+use std::{env, fs::File, io::Write, path::Path};
 
 const TARGET_FILE: &str = "context.rs";
 const MAX_MERKLE_TREE_DEPTH: usize = 64;

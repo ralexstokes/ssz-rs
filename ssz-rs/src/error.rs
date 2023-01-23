@@ -1,7 +1,4 @@
-use crate::de::DeserializeError;
-use crate::lib::*;
-use crate::merkleization::MerkleizationError;
-use crate::ser::SerializeError;
+use crate::{de::DeserializeError, lib::*, merkleization::MerkleizationError, ser::SerializeError};
 
 // Top-level error to wrap all child errors in crate
 #[derive(Debug)]

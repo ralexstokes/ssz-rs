@@ -1,11 +1,11 @@
-use crate::de::{Deserialize, DeserializeError};
-use crate::error::InstanceError;
-use crate::lib::*;
-use crate::merkleization::{
-    merkleize, mix_in_length, pack_bytes, MerkleizationError, Merkleized, Node,
+use crate::{
+    de::{Deserialize, DeserializeError},
+    error::InstanceError,
+    lib::*,
+    merkleization::{merkleize, mix_in_length, pack_bytes, MerkleizationError, Merkleized, Node},
+    ser::{Serialize, SerializeError},
+    SimpleSerialize, Sized,
 };
-use crate::ser::{Serialize, SerializeError};
-use crate::{SimpleSerialize, Sized};
 use bitvec::prelude::{BitVec, Lsb0};
 
 // +1 for length bit
@@ -42,12 +42,10 @@ impl<'de, const N: usize> serde::Deserialize<'de> for Bitlist<N> {
     {
         let s = <String>::deserialize(deserializer)?;
         if s.len() < 2 {
-            return Err(serde::de::Error::custom(
-                DeserializeError::ExpectedFurtherInput {
-                    provided: s.len(),
-                    expected: 2,
-                },
-            ));
+            return Err(serde::de::Error::custom(DeserializeError::ExpectedFurtherInput {
+                provided: s.len(),
+                expected: 2,
+            }))
         }
         let bytes = hex::decode(&s[2..]).map_err(serde::de::Error::custom)?;
         let value = crate::Deserialize::deserialize(&bytes).map_err(serde::de::Error::custom)?;
@@ -57,12 +55,12 @@ impl<'de, const N: usize> serde::Deserialize<'de> for Bitlist<N> {
 
 impl<const N: usize> fmt::Debug for Bitlist<N> {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        write!(f, "Bitlist<len={}, cap={}>[", self.len(), N)?;
+        write!(f, "Bitlist<len={}, cap={N}>[", self.len())?;
         let len = self.len();
         let mut bits_written = 0;
         for (index, bit) in self.iter().enumerate() {
             let value = i32::from(*bit);
-            write!(f, "{}", value)?;
+            write!(f, "{value}")?;
             bits_written += 1;
             if bits_written % 4 == 0 && index != len - 1 {
                 write!(f, "_")?;
@@ -108,11 +106,7 @@ impl<const N: usize> Bitlist<N> {
         with_length_bit: bool,
     ) -> Result<usize, SerializeError> {
         if self.len() > N {
-            return Err(InstanceError::Bounded {
-                bound: N,
-                provided: self.len(),
-            }
-            .into());
+            return Err(InstanceError::Bounded { bound: N, provided: self.len() }.into())
         }
         let start_len = buffer.len();
         buffer.extend_from_slice(self.as_raw_slice());
@@ -165,17 +159,14 @@ impl<const N: usize> Deserialize for Bitlist<N> {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         let max_len = byte_length(N);
         if encoding.is_empty() {
-            return Err(DeserializeError::ExpectedFurtherInput {
-                provided: 0,
-                expected: max_len,
-            });
+            return Err(DeserializeError::ExpectedFurtherInput { provided: 0, expected: max_len })
         }
 
         if encoding.len() > max_len {
             return Err(DeserializeError::AdditionalInput {
                 provided: encoding.len(),
                 expected: max_len,
-            });
+            })
         }
 
         let (last_byte, prefix) = encoding.split_last().unwrap();
@@ -184,7 +175,7 @@ impl<const N: usize> Deserialize for Bitlist<N> {
         let high_bit_index = 8 - last.trailing_zeros();
 
         if !last[high_bit_index - 1] {
-            return Err(DeserializeError::InvalidByte(*last_byte));
+            return Err(DeserializeError::InvalidByte(*last_byte))
         }
 
         for bit in last.iter().take(high_bit_index - 1) {
@@ -192,11 +183,7 @@ impl<const N: usize> Deserialize for Bitlist<N> {
         }
         // TODO: this seems redundant...
         if result.len() > N {
-            return Err(InstanceError::Bounded {
-                bound: N,
-                provided: result.len(),
-            }
-            .into());
+            return Err(InstanceError::Bounded { bound: N, provided: result.len() }.into())
         }
         Ok(Self(result))
     }
@@ -256,10 +243,10 @@ mod tests {
         value.push(false);
         value.push(false);
         value.push(false);
-        assert_eq!(value.get(0).expect("test data correct"), false);
-        assert_eq!(value.get(3).expect("test data correct"), true);
-        assert_eq!(value.get(4).expect("test data correct"), true);
-        assert_eq!(value.get(7).expect("test data correct"), false);
+        assert!(!value.get(0).expect("test data correct"));
+        assert!(value.get(3).expect("test data correct"));
+        assert!(value.get(4).expect("test data correct"));
+        assert!(!value.get(7).expect("test data correct"));
         let encoding = serialize(&value).expect("can encode");
         let expected = [24u8, 1u8];
         assert_eq!(encoding, expected);
@@ -280,15 +267,13 @@ mod tests {
 
         let bytes = vec![24u8, 2u8];
         let result = Bitlist::<COUNT>::deserialize(&bytes).expect("test data is correct");
-        let expected = Bitlist::from_iter(vec![
-            false, false, false, true, true, false, false, false, false,
-        ]);
+        let expected =
+            Bitlist::from_iter(vec![false, false, false, true, true, false, false, false, false]);
         assert_eq!(result, expected);
         let bytes = vec![24u8, 3u8];
         let result = Bitlist::<COUNT>::deserialize(&bytes).expect("test data is correct");
-        let expected = Bitlist::from_iter(vec![
-            false, false, false, true, true, false, false, false, true,
-        ]);
+        let expected =
+            Bitlist::from_iter(vec![false, false, false, true, true, false, false, false, true]);
         assert_eq!(result, expected);
     }
 

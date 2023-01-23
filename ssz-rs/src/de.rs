@@ -1,7 +1,9 @@
-use crate::error::{InstanceError, TypeError};
-use crate::lib::*;
-use crate::ser::BYTES_PER_LENGTH_OFFSET;
-use crate::SimpleSerialize;
+use crate::{
+    error::{InstanceError, TypeError},
+    lib::*,
+    ser::BYTES_PER_LENGTH_OFFSET,
+    SimpleSerialize,
+};
 
 #[derive(Debug)]
 pub enum DeserializeError {
@@ -54,7 +56,7 @@ where
         return Err(DeserializeError::AdditionalInput {
             provided: encoding.len(),
             expected: encoding.len() - remainder,
-        });
+        })
     }
 
     let mut elements = vec![];
@@ -72,7 +74,7 @@ where
     T: SimpleSerialize,
 {
     if encoding.is_empty() {
-        return Ok(vec![]);
+        return Ok(vec![])
     }
 
     let data_pointer = u32::deserialize(&encoding[..BYTES_PER_LENGTH_OFFSET])?;
@@ -81,7 +83,7 @@ where
         return Err(DeserializeError::ExpectedFurtherInput {
             provided: encoding.len(),
             expected: data_pointer,
-        });
+        })
     }
 
     let offsets = &mut encoding[..data_pointer]

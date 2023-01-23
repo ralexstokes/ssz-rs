@@ -1,7 +1,4 @@
-use crate::de::DeserializeError;
-use crate::lib::*;
-use crate::ser::SerializeError;
-use crate::SimpleSerialize;
+use crate::{de::DeserializeError, lib::*, ser::SerializeError, SimpleSerialize};
 
 /// `serialize` is a convenience function for taking a value that
 /// implements `SimpleSerialize` and attempting to encode it to
