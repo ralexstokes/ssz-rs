@@ -1,11 +1,11 @@
 use crate::{
     field_inspect::FieldsIterMut,
+    lib::*,
     merkleization::{merkleize_to_virtual_tree, GeneralizedIndex, Node, BYTES_PER_CHUNK},
     MerkleizationError, SimpleSerialize, SszReflect, SszTypeClass,
 };
-use itertools::Itertools;
+use alloc::collections::{BTreeMap, BTreeSet};
 use sha2::{Digest, Sha256};
-use std::collections::{HashMap, HashSet};
 
 pub fn is_valid_merkle_branch<'a>(
     leaf: &Node,
@@ -56,15 +56,13 @@ pub fn generate_proof<T: SimpleSerialize + SszReflect>(
                 chunks[range].copy_from_slice(chunk.as_ref());
             }
 
-            let leaves = chunks
-                .into_iter()
-                .chunks(BYTES_PER_CHUNK)
-                .into_iter()
-                .map(|chunk| {
-                    let node = chunk.collect::<Vec<u8>>();
-                    Node::try_from(&node[..]).expect("chunk size is 32; qed")
-                })
-                .collect::<Vec<_>>();
+            let mut leaves = vec![];
+            for i in 0..(chunks.len() / BYTES_PER_CHUNK) {
+                let start = i * BYTES_PER_CHUNK;
+                let node = Node::try_from(&chunks[start..(start + BYTES_PER_CHUNK)])
+                    .expect("Each chunk is 32 bytes.");
+                leaves.push(node);
+            }
 
             let virtual_tree = merkleize_to_virtual_tree(leaves);
             let indices = indices.into_iter().cloned().map(GeneralizedIndex).collect::<Vec<_>>();
@@ -76,7 +74,7 @@ pub fn generate_proof<T: SimpleSerialize + SszReflect>(
             }
 
             proof_nodes
-        },
+        }
         SszTypeClass::Elements(_) => unimplemented!("honestly, no idea"),
         SszTypeClass::Bits(_) => unimplemented!("honestly, no idea"),
     };
@@ -107,8 +105,8 @@ fn get_path_indices(tree_index: &GeneralizedIndex) -> Vec<GeneralizedIndex> {
 }
 
 fn get_helper_indices(indices: &[GeneralizedIndex]) -> Vec<GeneralizedIndex> {
-    let mut all_helper_indices = HashSet::new();
-    let mut all_path_indices = HashSet::new();
+    let mut all_helper_indices = BTreeSet::new();
+    let mut all_path_indices = BTreeSet::new();
 
     for index in indices {
         all_helper_indices.extend(get_branch_indices(index).iter());
@@ -157,7 +155,7 @@ pub fn calculate_multi_merkle_root(
     let helper_indices = get_helper_indices(indices);
     debug_assert_eq!(proof.len(), helper_indices.len());
 
-    let mut objects = HashMap::new();
+    let mut objects = BTreeMap::new();
     for (index, node) in indices.iter().zip(leaves.iter()) {
         objects.insert(*index, *node);
     }
@@ -207,7 +205,6 @@ pub fn verify_merkle_multiproof(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use hex;
 
     fn decode_node_from_hex(hex: &str) -> Node {
         Node::from_bytes(hex::decode(hex).expect("is hex").try_into().expect("is right size"))
@@ -233,6 +230,6 @@ mod tests {
             "27097c728aade54ff1376d5954681f6d45c282a81596ef19183148441b754abb",
         );
 
-        assert!(is_valid_merkle_branch(&leaf, branch.iter(), depth, index, &root,))
+        assert!(is_valid_merkle_branch(&leaf, branch.iter(), depth, index, &root))
     }
 }

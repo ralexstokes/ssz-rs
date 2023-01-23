@@ -1,21 +1,44 @@
-use crate::{ser::BYTES_PER_LENGTH_OFFSET, SimpleSerialize};
-use thiserror::Error;
+use crate::{
+    error::{InstanceError, TypeError},
+    lib::*,
+    ser::BYTES_PER_LENGTH_OFFSET,
+    SimpleSerialize,
+};
 
-#[derive(Error, Debug)]
-#[error("the value could not be deserialized: {0}")]
+#[derive(Debug)]
 pub enum DeserializeError {
-    #[error("expected further data when decoding")]
-    InputTooShort,
-    #[error("unexpected additional data provided when decoding")]
-    ExtraInput,
-    #[error("invalid data for expected type")]
-    InvalidInput,
-    #[error("{0}")]
-    IOError(#[from] std::io::Error),
-    #[error("the type for this value has a bound of {bound} but the value has {len} elements")]
-    TypeBoundsViolated { bound: usize, len: usize },
-    #[error("the type for this value has an illegal bound of {bound}")]
-    IllegalType { bound: usize },
+    ExpectedFurtherInput { provided: usize, expected: usize },
+    AdditionalInput { provided: usize, expected: usize },
+    InvalidByte(u8),
+    InvalidInstance(InstanceError),
+    InvalidType(TypeError),
+}
+
+impl From<InstanceError> for DeserializeError {
+    fn from(err: InstanceError) -> Self {
+        Self::InvalidInstance(err)
+    }
+}
+
+impl From<TypeError> for DeserializeError {
+    fn from(err: TypeError) -> Self {
+        Self::InvalidType(err)
+    }
+}
+
+impl Display for DeserializeError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        match self {
+            DeserializeError::ExpectedFurtherInput { provided, expected } => write!(f, "expected at least {expected} bytes when decoding but provided only {provided} bytes"),
+            DeserializeError::AdditionalInput { provided, expected } => write!(f, "{provided} bytes given but only expected {expected} bytes"),
+            DeserializeError::InvalidByte(b) => write!(
+                f,
+                "invalid byte {b:x} when decoding data of the expected type"
+            ),
+            DeserializeError::InvalidInstance(err) => write!(f, "invalid instance: {err}"),
+            DeserializeError::InvalidType(err) => write!(f, "invalid type: {err}"),
+        }
+    }
 }
 
 pub trait Deserialize {
@@ -28,8 +51,12 @@ fn deserialize_fixed_homogeneous_composite<T>(encoding: &[u8]) -> Result<Vec<T>,
 where
     T: SimpleSerialize,
 {
-    if encoding.len() % T::size_hint() != 0 {
-        return Err(DeserializeError::InvalidInput)
+    let remainder = encoding.len() % T::size_hint();
+    if remainder != 0 {
+        return Err(DeserializeError::AdditionalInput {
+            provided: encoding.len(),
+            expected: encoding.len() - remainder,
+        })
     }
 
     let mut elements = vec![];
@@ -53,7 +80,10 @@ where
     let data_pointer = u32::deserialize(&encoding[..BYTES_PER_LENGTH_OFFSET])?;
     let data_pointer = data_pointer as usize;
     if encoding.len() < data_pointer {
-        return Err(DeserializeError::InputTooShort)
+        return Err(DeserializeError::ExpectedFurtherInput {
+            provided: encoding.len(),
+            expected: data_pointer,
+        })
     }
 
     let offsets = &mut encoding[..data_pointer]
@@ -62,7 +92,7 @@ where
         .collect::<Result<Vec<usize>, DeserializeError>>()?;
     offsets.push(encoding.len());
 
-    let element_count = data_pointer as usize / BYTES_PER_LENGTH_OFFSET;
+    let element_count = data_pointer / BYTES_PER_LENGTH_OFFSET;
     let mut result = Vec::with_capacity(element_count);
     for span in offsets.windows(2) {
         let start = span[0];

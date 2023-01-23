@@ -1,30 +1,19 @@
 use crate::{
     de::{deserialize_homogeneous_composite, Deserialize, DeserializeError},
+    error::{InstanceError, TypeError},
+    lib::*,
     merkleization::{
         merkleize, pack, MerkleCache, MerkleizationError, Merkleized, Node, SszReflect,
         BYTES_PER_CHUNK,
     },
     ser::{serialize_composite, Serialize, SerializeError},
-    ElementsType, SimpleSerialize, SimpleSerializeError, Sized, SszTypeClass,
+    ElementsType, SimpleSerialize, Sized, SszTypeClass,
 };
 use as_any::AsAny;
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
 #[cfg(feature = "serde")]
 use std::marker::PhantomData;
-use std::{
-    convert::TryFrom,
-    fmt,
-    ops::{Deref, Index, IndexMut},
-    slice::SliceIndex,
-};
-use thiserror::Error;
-
-#[derive(Error, Debug)]
-pub enum Error {
-    #[error("incorrect number of elements {provided} to make a Vector of length {expected}")]
-    IncorrectLength { expected: usize, provided: usize },
-}
 
 /// A homogenous collection of a fixed number of values.
 /// NOTE: a `Vector` of length `0` is illegal.
@@ -97,14 +86,14 @@ impl<T: SimpleSerialize + PartialEq, const N: usize> PartialEq for Vector<T, N> 
 impl<T: SimpleSerialize + Eq, const N: usize> Eq for Vector<T, N> {}
 
 impl<T: SimpleSerialize, const N: usize> TryFrom<Vec<T>> for Vector<T, N> {
-    type Error = SimpleSerializeError;
+    type Error = DeserializeError;
 
     fn try_from(data: Vec<T>) -> Result<Self, Self::Error> {
+        if N == 0 {
+            return Err(TypeError::InvalidBound(N).into())
+        }
         if data.len() != N {
-            Err(SimpleSerializeError::Vector(Error::IncorrectLength {
-                expected: N,
-                provided: data.len(),
-            }))
+            Err(InstanceError::Exact { required: N, provided: data.len() }.into())
         } else {
             let leaf_count = Self::get_leaf_count();
             Ok(Self { data, cache: MerkleCache::with_leaves(leaf_count) })
@@ -118,9 +107,9 @@ where
 {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
         if f.alternate() {
-            write!(f, "Vector<{}, {}>{:#?}", std::any::type_name::<T>(), N, self.data)
+            write!(f, "Vector<{}, {}>{:#?}", any::type_name::<T>(), N, self.data)
         } else {
-            write!(f, "Vector<{}, {}>{:?}", std::any::type_name::<T>(), N, self.data)
+            write!(f, "Vector<{}, {}>{:?}", any::type_name::<T>(), N, self.data)
         }
     }
 }
@@ -194,7 +183,7 @@ where
 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         if N == 0 {
-            return Err(SerializeError::IllegalType { bound: N })
+            return Err(TypeError::InvalidBound(N).into())
         }
         serialize_composite(&self.data, buffer)
     }
@@ -206,27 +195,24 @@ where
 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if N == 0 {
-            return Err(DeserializeError::IllegalType { bound: N })
+            return Err(TypeError::InvalidBound(N).into())
         }
         if !T::is_variable_size() {
             let expected_length = N * T::size_hint();
             if encoding.len() < expected_length {
-                return Err(DeserializeError::InputTooShort)
+                return Err(DeserializeError::ExpectedFurtherInput {
+                    provided: encoding.len(),
+                    expected: expected_length,
+                })
             }
             if encoding.len() > expected_length {
-                return Err(DeserializeError::ExtraInput)
+                return Err(DeserializeError::AdditionalInput {
+                    provided: encoding.len(),
+                    expected: expected_length,
+                })
             }
         }
-        let data = deserialize_homogeneous_composite(encoding)?;
-        data.try_into().map_err(|err| match err {
-            SimpleSerializeError::Vector(Error::IncorrectLength { expected, provided }) =>
-                if expected < provided {
-                    DeserializeError::ExtraInput
-                } else {
-                    DeserializeError::InputTooShort
-                },
-            _ => unreachable!("variants not returned from `try_into`"),
-        })
+        deserialize_homogeneous_composite(encoding)?.try_into()
     }
 }
 

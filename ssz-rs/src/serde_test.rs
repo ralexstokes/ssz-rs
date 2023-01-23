@@ -1,7 +1,6 @@
 #![cfg(test)]
 
 use crate::prelude::*;
-use serde_json;
 
 #[derive(
     PartialEq, Eq, Debug, Default, Clone, SimpleSerialize, serde::Serialize, serde::Deserialize,

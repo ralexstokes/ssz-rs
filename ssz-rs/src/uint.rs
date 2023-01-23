@@ -1,11 +1,11 @@
 use crate::{
     de::{Deserialize, DeserializeError},
+    lib::*,
     merkleization::{pack_bytes, MerkleizationError, Merkleized, Node, SszReflect},
     ser::{Serialize, SerializeError},
     SimpleSerialize, Sized, SszTypeClass,
 };
 use num_bigint::BigUint;
-use std::{convert::TryInto, default::Default};
 
 macro_rules! define_uint {
     ($uint:ty) => {
@@ -30,10 +30,16 @@ macro_rules! define_uint {
             fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
                 let byte_size = (<$uint>::BITS / 8) as usize;
                 if encoding.len() < byte_size {
-                    return Err(DeserializeError::InputTooShort)
+                    return Err(DeserializeError::ExpectedFurtherInput {
+                        provided: encoding.len(),
+                        expected: byte_size,
+                    })
                 }
                 if encoding.len() > byte_size {
-                    return Err(DeserializeError::ExtraInput)
+                    return Err(DeserializeError::AdditionalInput {
+                        provided: encoding.len(),
+                        expected: byte_size,
+                    })
                 }
 
                 let bytes = encoding[..byte_size].try_into().expect("slice has right length");
@@ -146,14 +152,21 @@ impl Serialize for U256 {
 
 impl Deserialize for U256 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
-        if encoding.len() < 32 {
-            return Err(DeserializeError::InputTooShort)
+        let byte_size = 32;
+        if encoding.len() < byte_size {
+            return Err(DeserializeError::ExpectedFurtherInput {
+                provided: encoding.len(),
+                expected: byte_size,
+            })
         }
-        if encoding.len() > 32 {
-            return Err(DeserializeError::ExtraInput)
+        if encoding.len() > byte_size {
+            return Err(DeserializeError::AdditionalInput {
+                provided: encoding.len(),
+                expected: byte_size,
+            })
         }
 
-        let value = BigUint::from_bytes_le(&encoding[..32]);
+        let value = BigUint::from_bytes_le(&encoding[..byte_size]);
         Ok(Self(value))
     }
 }

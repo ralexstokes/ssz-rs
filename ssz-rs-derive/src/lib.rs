@@ -65,7 +65,7 @@ fn derive_container_set_by_index_impl(
                     }
                 }
             }
-        },
+        }
         Data::Enum(..) => quote! {},
         Data::Union(..) => unreachable!("data was already validated to exclude union types"),
     }
@@ -79,12 +79,13 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
                 Fields::Named(ref fields) => &fields.named,
                 // "tuple" struct
                 // only support the case with one unnamed field, to support "newtype" pattern
-                Fields::Unnamed(..) =>
+                Fields::Unnamed(..) => {
                     return quote! {
                         fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, ssz_rs::SerializeError> {
                                 self.0.serialize(buffer)
                         }
-                    },
+                    }
+                }
                 _ => unimplemented!(
                     "this type of struct is currently not supported by this derive macro"
                 ),
@@ -124,7 +125,7 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
                     ssz_rs::internal::serialize_composite_from_components(fixed, variable, variable_lengths, fixed_lengths_sum, buffer)
                 }
             }
-        },
+        }
         Data::Enum(ref data) => {
             let serialization_by_variant = data.variants.iter().enumerate().map(|(i, variant)| {
                 let variant_name = &variant.ident;
@@ -138,14 +139,14 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
                                 Ok(selector_bytes + value_bytes)
                             }
                         }
-                    },
+                    }
                     Fields::Unit => {
                         quote_spanned! { variant.span() =>
                             Self::None => {
                                 0u8.serialize(buffer)
                             }
                         }
-                    },
+                    }
                     _ => unreachable!(),
                 }
             });
@@ -157,7 +158,7 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
                     }
                 }
             }
-        },
+        }
         Data::Union(..) => unreachable!("data was already validated to exclude union types"),
     }
 }
@@ -182,7 +183,7 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                             Ok(container)
                         }
                     }
-                },
+                }
                 _ => unimplemented!(
                     "this type of struct is currently not supported by this derive macro"
                 ),
@@ -233,20 +234,28 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                     }
 
                     if total_bytes_read > encoding.len() {
-                        return Err(ssz_rs::DeserializeError::InputTooShort);
+                        return Err(ssz_rs::DeserializeError::ExpectedFurtherInput {
+                            provided: encoding.len(),
+                            expected: total_bytes_read,
+                        });
                     }
 
                     if total_bytes_read < encoding.len() {
-                        return Err(ssz_rs::DeserializeError::ExtraInput);
+                        return Err(ssz_rs::DeserializeError::AdditionalInput {
+                            provided: encoding.len(),
+                            expected: total_bytes_read,
+                        });
                     }
 
                     Ok(container)
                 }
             }
-        },
+        }
         Data::Enum(ref data) => {
             let deserialization_by_variant =
                 data.variants.iter().enumerate().map(|(i, variant)| {
+                    // NOTE: this is "safe" as the number of legal variants fits into `u8`
+                    let i = i as u8;
                     let variant_name = &variant.ident;
                     match &variant.fields {
                         Fields::Unnamed(inner) => {
@@ -257,12 +266,12 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                                     Ok(Self::#variant_name(value))
                                 }
                             }
-                        },
+                        }
                         Fields::Unit => {
                             quote_spanned! { variant.span() =>
                                 0 => Ok(Self::None),
                             }
-                        },
+                        }
                         _ => unreachable!(),
                     }
                 });
@@ -270,16 +279,19 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
             quote! {
                 fn deserialize(encoding: &[u8]) -> Result<Self, ssz_rs::DeserializeError> {
                     if encoding.is_empty() {
-                        return Err(ssz_rs::DeserializeError::InputTooShort);
+                        return Err(ssz_rs::DeserializeError::ExpectedFurtherInput {
+                            provided: 0,
+                            expected: 1,
+                        });
                     }
 
-                    match &encoding[0].into() {
+                    match encoding[0] {
                         #(#deserialization_by_variant)*
-                        _ => Err(ssz_rs::DeserializeError::InvalidInput),
+                        b => Err(ssz_rs::DeserializeError::InvalidByte(b)),
                     }
                 }
             }
-        },
+        }
         Data::Union(..) => unreachable!("data was already validated to exclude union types"),
     }
 }
@@ -304,10 +316,10 @@ fn derive_variable_size_impl(data: &Data) -> TokenStream {
             quote! {
                 #(#impl_by_field)|| *
             }
-        },
+        }
         Data::Enum(..) => {
             quote! { true }
-        },
+        }
         Data::Union(..) => unreachable!("data was already validated to exclude union types"),
     }
 }
@@ -336,10 +348,10 @@ fn derive_size_hint_impl(data: &Data) -> TokenStream {
                     #(#impl_by_field)+ *
                 }
             }
-        },
+        }
         Data::Enum(..) => {
             quote! { 0 }
-        },
+        }
         Data::Union(..) => unreachable!("data was already validated to exclude union types"),
     }
 }
@@ -374,7 +386,7 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                     ssz_rs::internal::merkleize(&chunks, None)
                 }
             }
-        },
+        }
         Data::Enum(ref data) => {
             let hash_tree_root_by_variant = data.variants.iter().enumerate().map(|(i, variant)| {
                 let variant_name = &variant.ident;
@@ -382,12 +394,12 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                     Fields::Unnamed(..) => {
                         quote_spanned! { variant.span() =>
                             Self::#variant_name(value) => {
-                                let selector = #i as u8 as usize;
+                                let selector = #i;
                                 let data_root  = value.hash_tree_root()?;
                                 Ok(ssz_rs::internal::mix_in_selector(&data_root, selector))
                             }
                         }
-                    },
+                    }
                     Fields::Unit => {
                         quote_spanned! { variant.span() =>
                             Self::None => Ok(ssz_rs::internal::mix_in_selector(
@@ -395,7 +407,7 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                                 0,
                             )),
                         }
-                    },
+                    }
                     _ => unreachable!(),
                 }
             });
@@ -406,7 +418,7 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                     }
                 }
             }
-        },
+        }
         Data::Union(..) => unreachable!("data was already validated to exclude union types"),
     }
 }
@@ -512,11 +524,12 @@ fn validate_derive_data(data: ValidationState) -> ValidationState {
 
     match data {
         Data::Struct(ref data) => match data.fields {
-            Fields::Named(ref fields) =>
+            Fields::Named(ref fields) => {
                 if fields.named.is_empty() {
                     panic!("ssz_rs containers with no fields are illegal")
-                },
-            Fields::Unnamed(ref fields) if fields.unnamed.len() == 1 => {},
+                }
+            }
+            Fields::Unnamed(ref fields) if fields.unnamed.len() == 1 => {}
             _ => panic!("Structs with unit or multiple unnnamed fields are not supported"),
         },
         Data::Enum(ref data) => {
@@ -539,7 +552,7 @@ fn validate_derive_data(data: ValidationState) -> ValidationState {
                         if inner.unnamed.len() != 1 {
                             panic!("Enums can only have 1 type per variant");
                         }
-                    },
+                    }
                     Fields::Unit => {
                         if none_forbidden {
                             panic!("only the first variant can be `None`");
@@ -557,13 +570,13 @@ fn validate_derive_data(data: ValidationState) -> ValidationState {
                             );
                         }
                         already_has_none = true;
-                    },
+                    }
                     Fields::Named(..) => {
                         panic!("Enums with named fields in variants are not supported");
-                    },
+                    }
                 };
             }
-        },
+        }
         Data::Union(..) => panic!("Rust unions cannot produce valid SSZ types"),
     }
 

@@ -1,5 +1,7 @@
 use crate::{
     de::{Deserialize, DeserializeError},
+    error::InstanceError,
+    lib::*,
     merkleization::{
         merkleize, mix_in_length, pack_bytes, MerkleizationError, Merkleized, Node, SszReflect,
     },
@@ -7,10 +9,11 @@ use crate::{
     ElementsType, SimpleSerialize, Sized, SszTypeClass,
 };
 use bitvec::prelude::{BitVec, Lsb0};
-use std::{
-    fmt,
-    ops::{Deref, DerefMut},
-};
+
+// +1 for length bit
+fn byte_length(bound: usize) -> usize {
+    (bound + 7 + 1) / 8
+}
 
 type BitlistInner = BitVec<u8, Lsb0>;
 
@@ -24,7 +27,7 @@ impl<const N: usize> serde::Serialize for Bitlist<N> {
     where
         S: serde::Serializer,
     {
-        let byte_count = (self.len() + 7 + 1) / 8;
+        let byte_count = byte_length(self.len());
         let mut buf = Vec::with_capacity(byte_count);
         let _ = crate::Serialize::serialize(self, &mut buf).map_err(serde::ser::Error::custom)?;
         let encoding = hex::encode(buf);
@@ -41,7 +44,10 @@ impl<'de, const N: usize> serde::Deserialize<'de> for Bitlist<N> {
     {
         let s = <String>::deserialize(deserializer)?;
         if s.len() < 2 {
-            return Err(serde::de::Error::custom(DeserializeError::InputTooShort))
+            return Err(serde::de::Error::custom(DeserializeError::ExpectedFurtherInput {
+                provided: s.len(),
+                expected: 2,
+            }))
         }
         let bytes = hex::decode(&s[2..]).map_err(serde::de::Error::custom)?;
         let value = crate::Deserialize::deserialize(&bytes).map_err(serde::de::Error::custom)?;
@@ -51,12 +57,12 @@ impl<'de, const N: usize> serde::Deserialize<'de> for Bitlist<N> {
 
 impl<const N: usize> fmt::Debug for Bitlist<N> {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        write!(f, "Bitlist<len={}, cap={}>[", self.len(), N)?;
+        write!(f, "Bitlist<len={}, cap={N}>[", self.len())?;
         let len = self.len();
         let mut bits_written = 0;
         for (index, bit) in self.iter().enumerate() {
             let value = i32::from(*bit);
-            write!(f, "{}", value)?;
+            write!(f, "{value}")?;
             bits_written += 1;
             if bits_written % 4 == 0 && index != len - 1 {
                 write!(f, "_")?;
@@ -102,7 +108,7 @@ impl<const N: usize> Bitlist<N> {
         with_length_bit: bool,
     ) -> Result<usize, SerializeError> {
         if self.len() > N {
-            return Err(SerializeError::TypeBoundsViolated { bound: N, len: self.len() })
+            return Err(InstanceError::Bounded { bound: N, provided: self.len() }.into())
         }
         let start_len = buffer.len();
         buffer.extend_from_slice(self.as_raw_slice());
@@ -153,13 +159,16 @@ impl<const N: usize> Serialize for Bitlist<N> {
 
 impl<const N: usize> Deserialize for Bitlist<N> {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
+        let max_len = byte_length(N);
         if encoding.is_empty() {
-            return Err(DeserializeError::InputTooShort)
+            return Err(DeserializeError::ExpectedFurtherInput { provided: 0, expected: max_len })
         }
 
-        // +1 for length bit
-        if encoding.len() > (N + 7 + 1) / 8 {
-            return Err(DeserializeError::ExtraInput)
+        if encoding.len() > max_len {
+            return Err(DeserializeError::AdditionalInput {
+                provided: encoding.len(),
+                expected: max_len,
+            })
         }
 
         let (last_byte, prefix) = encoding.split_last().unwrap();
@@ -168,14 +177,15 @@ impl<const N: usize> Deserialize for Bitlist<N> {
         let high_bit_index = 8 - last.trailing_zeros();
 
         if !last[high_bit_index - 1] {
-            return Err(DeserializeError::InvalidInput)
+            return Err(DeserializeError::InvalidByte(*last_byte))
         }
 
         for bit in last.iter().take(high_bit_index - 1) {
             result.push(*bit);
         }
+        // TODO: this seems redundant...
         if result.len() > N {
-            return Err(DeserializeError::TypeBoundsViolated { bound: N, len: result.len() })
+            return Err(InstanceError::Bounded { bound: N, provided: result.len() }.into())
         }
         Ok(Self(result))
     }
@@ -248,10 +258,10 @@ mod tests {
         value.push(false);
         value.push(false);
         value.push(false);
-        assert_eq!(value.get(0).expect("test data correct"), false);
-        assert_eq!(value.get(3).expect("test data correct"), true);
-        assert_eq!(value.get(4).expect("test data correct"), true);
-        assert_eq!(value.get(7).expect("test data correct"), false);
+        assert!(!value.get(0).expect("test data correct"));
+        assert!(value.get(3).expect("test data correct"));
+        assert!(value.get(4).expect("test data correct"));
+        assert!(!value.get(7).expect("test data correct"));
         let encoding = serialize(&value).expect("can encode");
         let expected = [24u8, 1u8];
         assert_eq!(encoding, expected);

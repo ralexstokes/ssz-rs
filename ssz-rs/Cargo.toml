@@ -16,24 +16,30 @@ exclude = [
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [features]
-default = ["serde"]
+default = ["serde", "std"]
+std = [
+    "bitvec/default",
+    "sha2/default",
+    "num-bigint/default",
+]
 serde = ["dep:serde", "dep:hex"]
 
 [dependencies]
 thiserror = "1.0.25"
-bitvec = "1.0.0"
+bitvec = { version = "1.0.0", default-features = false, features = ["alloc"] }
 ssz-rs-derive = { path = "../ssz-rs-derive"}
-sha2 = "0.9.8"
-lazy_static = "1.4.0"
+sha2 = { version ="0.9.8", default-features = false}
 serde = { version = "1.0", features = ["derive"], optional = true }
 hex = {version = "0.4.3", optional = true }
-num-bigint = "0.4.3"
-fields-iter = "0.0.3"
 as-any = "0.3.0"
-itertools = "0.10.5"
+itertools = { version = "0.10.5", default-features = false }
+num-bigint = { version ="0.4.3", default-features = false }
 
 [dev-dependencies]
 hex-literal = "0.3.3"
 snap = "1.0"
 project-root = "0.2.2"
 serde_json = "1.0.81"
+
+[build-dependencies]
+sha2 = "0.9.8"

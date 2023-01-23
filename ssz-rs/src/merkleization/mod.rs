@@ -4,11 +4,11 @@ mod generalized_index;
 mod node;
 mod proofs;
 
-use crate::ser::{Serialize, SerializeError};
-use lazy_static::lazy_static;
-use sha2::{digest::Update, Digest, Sha256};
-use std::{cmp::Ordering, fmt::Debug, ops::Index};
-use thiserror::Error;
+use crate::{
+    lib::*,
+    ser::{Serialize, SerializeError},
+};
+use sha2::{Digest, Sha256};
 
 pub use cache::Cache as MerkleCache;
 pub use field_inspect::*;
@@ -26,17 +26,29 @@ pub trait Merkleized {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError>;
 }
 
-#[derive(Error, Debug)]
-#[error("the value could not be merkleized: {0}")]
+#[derive(Debug)]
 pub enum MerkleizationError {
-    #[error("failed to serialize value: {0}")]
-    SerializationError(#[from] SerializeError),
-    #[error("cannot merkleize a partial chunk of length {1} (data: {0:?})")]
-    PartialChunk(Vec<u8>, usize),
-    #[error("cannot merkleize data that exceeds the declared limit {0}")]
+    SerializationError(SerializeError),
     InputExceedsLimit(usize),
-    #[error("cannot generate proofs for a basic/union type!")]
     CannotMerkleize,
+}
+
+impl From<SerializeError> for MerkleizationError {
+    fn from(err: SerializeError) -> Self {
+        MerkleizationError::SerializationError(err)
+    }
+}
+
+impl Display for MerkleizationError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::SerializationError(err) => {
+                write!(f, "failed to serialize value: {err}")
+            }
+            Self::CannotMerkleize => write!(f, "cannot generate proofs for a basic/union type!"),
+            Self::InputExceedsLimit(size) => write!(f, "data exceeds the declared limit {size}"),
+        }
+    }
 }
 
 pub fn pack_bytes(buffer: &mut Vec<u8>) {
@@ -63,45 +75,16 @@ where
 }
 
 fn hash_nodes(hasher: &mut Sha256, a: &[u8], b: &[u8], out: &mut [u8]) {
-    Update::update(hasher, a);
-    Update::update(hasher, b);
+    hasher.update(a);
+    hasher.update(b);
     out.copy_from_slice(&hasher.finalize_reset());
 }
 
 const MAX_MERKLE_TREE_DEPTH: usize = 64;
 
-fn compute_zero_hashes() -> [u8; MAX_MERKLE_TREE_DEPTH * BYTES_PER_CHUNK] {
-    let mut hasher = Sha256::new();
-    let mut buffer = [0u8; MAX_MERKLE_TREE_DEPTH * BYTES_PER_CHUNK];
-    for i in 0..MAX_MERKLE_TREE_DEPTH - 1 {
-        let focus_range = i * BYTES_PER_CHUNK..(i + 2) * BYTES_PER_CHUNK;
-        let focus = &mut buffer[focus_range];
-        let (source, target) = focus.split_at_mut(BYTES_PER_CHUNK);
-        hash_nodes(&mut hasher, source, source, target);
-    }
-    buffer
-}
-
-pub struct Context {
+#[derive(Debug)]
+struct Context {
     zero_hashes: [u8; MAX_MERKLE_TREE_DEPTH * BYTES_PER_CHUNK],
-}
-
-impl Context {
-    pub fn new() -> Self {
-        Self { zero_hashes: compute_zero_hashes() }
-    }
-}
-
-impl Default for Context {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
-impl Debug for Context {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("Context").field("zero_hashes", &"...").finish()
-    }
 }
 
 impl Index<usize> for Context {
@@ -112,9 +95,8 @@ impl Index<usize> for Context {
     }
 }
 
-lazy_static! {
-    static ref CONTEXT: Context = Context::new();
-}
+// Grab the precomputed context from the build stage
+include!(concat!(env!("OUT_DIR"), "/context.rs"));
 
 // Return the root of the Merklization of a binary tree formed from `chunks`.
 // `chunks` forms the bottom layer of a binary tree that is Merkleized.
@@ -158,13 +140,13 @@ fn merkleize_chunks_with_virtual_padding(
                     if parent.is_empty() {
                         // NOTE: have to specially handle the situation where the children nodes and
                         // parent node share memory
-                        Update::update(&mut hasher, &left);
-                        Update::update(&mut hasher, right);
+                        hasher.update(&left);
+                        hasher.update(right);
                         left.copy_from_slice(&hasher.finalize_reset());
                     } else {
                         hash_nodes(&mut hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
                     }
-                },
+                }
                 Ordering::Equal => {
                     let focus =
                         &mut layer[parent_index * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK];
@@ -176,13 +158,13 @@ fn merkleize_chunks_with_virtual_padding(
                     if parent.is_empty() {
                         // NOTE: have to specially handle the situation where the children nodes and
                         // parent node share memory
-                        Update::update(&mut hasher, &left);
-                        Update::update(&mut hasher, right);
+                        hasher.update(&left);
+                        hasher.update(right);
                         left.copy_from_slice(&hasher.finalize_reset());
                     } else {
                         hash_nodes(&mut hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
                     }
-                },
+                }
                 _ => break,
             };
         }
@@ -192,8 +174,7 @@ fn merkleize_chunks_with_virtual_padding(
     Ok(layer[..BYTES_PER_CHUNK].try_into().expect("can produce a single root chunk"))
 }
 
-// Return the root of the Merklization of a binary tree
-// formed from `chunks`.
+// Return the root of the Merklization of a binary tree formed from `chunks`.
 // Invariant: `chunks.len() % BYTES_PER_CHUNK == 0`
 pub fn merkleize(chunks: &[u8], limit: Option<usize>) -> Result<Node, MerkleizationError> {
     debug_assert!(chunks.len() % BYTES_PER_CHUNK == 0);
@@ -223,13 +204,10 @@ pub fn merkleize_to_virtual_tree(leaves: Vec<Node>) -> Vec<Node> {
         .collect::<Vec<_>>();
 
     for i in (0..bottom_len).rev() {
-        Update::update(&mut hasher, &out[i * 2]);
-        Update::update(&mut hasher, &out[i * 2 + 1]);
-        out[i] = hasher
-            .finalize_reset()
-            .as_slice()
-            .try_into()
-            .expect("SHA256 digest size is 32; qed");
+        hasher.update(&out[i * 2]);
+        hasher.update(&out[i * 2 + 1]);
+        out[i] =
+            hasher.finalize_reset().as_slice().try_into().expect("SHA256 digest size is 32; qed");
     }
 
     out
@@ -286,7 +264,7 @@ mod tests {
     #[test]
     fn test_packing_basic_types_multiple() {
         let data = U256::from_bytes_le([1u8; 32]);
-        let input = &[data.clone(), data.clone(), data.clone()];
+        let input = &[data.clone(), data.clone(), data];
         let result = pack(input).expect("can pack values");
 
         let expected = vec![1u8; 3 * 32];

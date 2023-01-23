@@ -1,4 +1,6 @@
-extern crate core;
+#![cfg_attr(not(feature = "std"), no_std)]
+
+extern crate alloc;
 
 mod array;
 mod bitlist;
@@ -6,6 +8,7 @@ mod bitvector;
 mod boolean;
 mod container;
 mod de;
+mod error;
 mod list;
 mod merkleization;
 mod ser;
@@ -13,29 +16,57 @@ mod ser;
 mod serde_test;
 mod uint;
 mod union;
+mod utils;
 mod vector;
 
-use crate::{list::Error as ListError, vector::Error as VectorError};
 pub use bitlist::Bitlist;
 pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};
+pub use error::Error;
 pub use list::List;
 pub use merkleization::{
     calculate_merkle_root, calculate_multi_merkle_root, field_inspect, generate_proof,
     get_generalized_index, is_valid_merkle_branch, verify_merkle_multiproof, verify_merkle_proof,
-    Context as MerkleizationContext, GeneralizedIndex, MerkleizationError, Merkleized, Node,
-    SszReflect, SszVariableOrIndex,
+    GeneralizedIndex, MerkleizationError, Merkleized, Node, SszReflect, SszVariableOrIndex,
 };
 pub use ser::{Serialize, SerializeError};
-use thiserror::Error;
 pub use uint::U256;
+pub use utils::*;
 pub use vector::Vector;
+
+mod lib {
+    mod core {
+        #[cfg(not(feature = "std"))]
+        pub use core::*;
+        #[cfg(feature = "std")]
+        pub use std::*;
+    }
+
+    pub use self::core::{any, cmp, fmt, iter, slice};
+
+    pub use self::{
+        cmp::Ordering,
+        core::{
+            array::TryFromSliceError,
+            fmt::{Debug, Display, Formatter},
+            ops::{Deref, DerefMut, Index, IndexMut},
+            slice::{IterMut, SliceIndex},
+        },
+        iter::Enumerate,
+    };
+
+    #[cfg(not(feature = "std"))]
+    pub use alloc::{format, string::String, vec, vec::Vec};
+
+    #[cfg(feature = "std")]
+    pub use std::vec::Vec;
+}
 
 /// `Sized` is a trait for types that can
 /// provide sizing information relevant for the SSZ spec.
 pub trait Sized
 where
-    Self: std::marker::Sized,
+    Self: core::marker::Sized,
 {
     // is this type variable or fixed size?
     fn is_variable_size() -> bool;
@@ -66,38 +97,6 @@ pub trait SimpleSerialize: Serialize + Deserialize + Sized + Merkleized + Defaul
     }
 }
 
-/// `serialize` is a convenience function for taking a value that
-/// implements `SimpleSerialize` and attempting to encode it to
-/// a `Vec<u8>` according to the SSZ spec.
-pub fn serialize<T>(value: &T) -> Result<Vec<u8>, SerializeError>
-where
-    T: SimpleSerialize,
-{
-    let mut result = vec![];
-    value.serialize(&mut result)?;
-    Ok(result)
-}
-
-/// `deserialize` is a convenience function for taking an encoding
-/// for some value that implements `SimpleSerialize` in a `&[u8]`
-/// and attempting to deserialize that value from the byte representation.
-pub fn deserialize<T>(encoding: &[u8]) -> Result<T, DeserializeError>
-where
-    T: SimpleSerialize,
-{
-    T::deserialize(encoding)
-}
-
-#[derive(Debug, Error)]
-#[error("{0}")]
-pub enum SimpleSerializeError {
-    Serialize(#[from] SerializeError),
-    Deserialize(#[from] DeserializeError),
-    Merkleization(#[from] MerkleizationError),
-    List(#[from] ListError),
-    Vector(#[from] VectorError),
-}
-
 /// The `prelude` contains common traits and types a user of this library
 /// would want to have handy with a simple (single) import.
 pub mod prelude {
@@ -106,17 +105,17 @@ pub mod prelude {
         bitlist::Bitlist,
         bitvector::Bitvector,
         de::{Deserialize, DeserializeError},
-        deserialize,
+        error::{InstanceError, TypeError},
         list::List,
         merkleization::{
             is_valid_merkle_branch, merkleize, mix_in_selector, pack, pack_bytes,
             MerkleizationError, Merkleized, Node,
         },
         ser::{Serialize, SerializeError},
-        serialize,
         uint::U256,
+        utils::{deserialize, serialize},
         vector::Vector,
-        MerkleizationContext, SimpleSerialize, SimpleSerializeError, Sized,
+        Error as SimpleSerializeError, SimpleSerialize, Sized,
     };
     pub use ssz_rs_derive::SimpleSerialize;
 }

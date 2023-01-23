@@ -1,5 +1,7 @@
 use crate::{
     de::{Deserialize, DeserializeError},
+    error::TypeError,
+    lib::*,
     merkleization::{merkleize, pack_bytes, MerkleizationError, Merkleized, Node, SszReflect},
     ser::{Serialize, SerializeError},
     ElementsType, SimpleSerialize, Sized, SszTypeClass,
@@ -8,10 +10,10 @@ use bitvec::{
     field::BitField,
     prelude::{BitVec, Lsb0},
 };
-use std::{
-    fmt,
-    ops::{Deref, DerefMut},
-};
+
+fn byte_length(bound: usize) -> usize {
+    (bound + 7) / 8
+}
 
 type BitvectorInner = BitVec<u8, Lsb0>;
 
@@ -33,7 +35,7 @@ impl<const N: usize> serde::Serialize for Bitvector<N> {
     where
         S: serde::Serializer,
     {
-        let mut buf = Vec::with_capacity((N + 7) / 8);
+        let mut buf = Vec::with_capacity(byte_length(N));
         let _ = crate::Serialize::serialize(self, &mut buf).map_err(serde::ser::Error::custom)?;
         let encoding = hex::encode(buf);
         let output = format!("0x{encoding}");
@@ -49,7 +51,10 @@ impl<'de, const N: usize> serde::Deserialize<'de> for Bitvector<N> {
     {
         let s = <String>::deserialize(deserializer)?;
         if s.len() < 2 {
-            return Err(serde::de::Error::custom(DeserializeError::InputTooShort))
+            return Err(serde::de::Error::custom(DeserializeError::ExpectedFurtherInput {
+                provided: s.len(),
+                expected: 2,
+            }))
         }
         let bytes = hex::decode(&s[2..]).map_err(serde::de::Error::custom)?;
         let value = crate::Deserialize::deserialize(&bytes).map_err(serde::de::Error::custom)?;
@@ -59,12 +64,12 @@ impl<'de, const N: usize> serde::Deserialize<'de> for Bitvector<N> {
 
 impl<const N: usize> fmt::Debug for Bitvector<N> {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        write!(f, "Bitvector<{}>[", N)?;
+        write!(f, "Bitvector<{N}>[")?;
         let len = self.len();
         let mut bits_written = 0;
         for (index, bit) in self.iter().enumerate() {
             let value = i32::from(*bit);
-            write!(f, "{}", value)?;
+            write!(f, "{value}")?;
             bits_written += 1;
             if bits_written % 4 == 0 && index != len - 1 {
                 write!(f, "_")?;
@@ -133,7 +138,7 @@ impl<const N: usize> Sized for Bitvector<N> {
 impl<const N: usize> Serialize for Bitvector<N> {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         if N == 0 {
-            return Err(SerializeError::IllegalType { bound: N })
+            return Err(TypeError::InvalidBound(N).into())
         }
         let bytes_to_write = Self::size_hint();
         buffer.reserve(bytes_to_write);
@@ -147,15 +152,21 @@ impl<const N: usize> Serialize for Bitvector<N> {
 impl<const N: usize> Deserialize for Bitvector<N> {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if N == 0 {
-            return Err(DeserializeError::IllegalType { bound: N })
+            return Err(TypeError::InvalidBound(N).into())
         }
 
-        let expected_length = (N + 7) / 8;
+        let expected_length = byte_length(N);
         if encoding.len() < expected_length {
-            return Err(DeserializeError::InputTooShort)
+            return Err(DeserializeError::ExpectedFurtherInput {
+                provided: encoding.len(),
+                expected: expected_length,
+            })
         }
         if encoding.len() > expected_length {
-            return Err(DeserializeError::ExtraInput)
+            return Err(DeserializeError::AdditionalInput {
+                provided: encoding.len(),
+                expected: expected_length,
+            })
         }
 
         let mut result = Self::default();
@@ -167,7 +178,7 @@ impl<const N: usize> Deserialize for Bitvector<N> {
             let last_byte = encoding.last().unwrap();
             let remainder_bits = last_byte >> remainder_count;
             if remainder_bits != 0 {
-                return Err(DeserializeError::ExtraInput)
+                return Err(DeserializeError::InvalidByte(*last_byte))
             }
         }
         Ok(result)
@@ -236,8 +247,8 @@ mod tests {
         let mut value: Bitvector<COUNT> = Bitvector::default();
         value.set(3, true).expect("test data correct");
         value.set(4, true).expect("test data correct");
-        assert_eq!(value.get(4).expect("test data correct"), true);
-        assert_eq!(value.get(0).expect("test data correct"), false);
+        assert!(value.get(4).expect("test data correct"));
+        assert!(!value.get(0).expect("test data correct"));
         let encoding = serialize(&value).expect("can encode");
         let expected = [24u8, 0u8];
         assert_eq!(encoding, expected);

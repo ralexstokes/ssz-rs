@@ -1,4 +1,3 @@
-use hex;
 use ssz_rs::prelude::*;
 
 #[derive(PartialEq, Eq, Debug, Default, SimpleSerialize)]

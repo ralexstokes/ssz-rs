@@ -1,31 +1,19 @@
 use crate::{
     de::{deserialize_homogeneous_composite, Deserialize, DeserializeError},
+    error::InstanceError,
+    lib::*,
     merkleization::{
         merkleize, mix_in_length, pack, MerkleCache, MerkleizationError, Merkleized, Node,
         SszReflect, BYTES_PER_CHUNK,
     },
     ser::{serialize_composite, Serialize, SerializeError},
-    ElementsType, SimpleSerialize, SimpleSerializeError, Sized, SszTypeClass,
+    ElementsType, SimpleSerialize, Sized, SszTypeClass,
 };
 use as_any::AsAny;
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
 #[cfg(feature = "serde")]
 use std::marker::PhantomData;
-use std::{
-    fmt,
-    iter::Enumerate,
-    ops::{Deref, Index, IndexMut},
-    slice,
-    slice::SliceIndex,
-};
-use thiserror::Error;
-
-#[derive(Error, Debug)]
-pub enum Error {
-    #[error("{provided} elements given that exceeds the list bound of {expected}")]
-    IncorrectLength { expected: usize, provided: usize },
-}
 
 /// A homogenous collection of a variable number of values.
 #[derive(Clone, Default)]
@@ -93,23 +81,9 @@ where
 {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
         if f.alternate() {
-            write!(
-                f,
-                "List<{}, {}>(len={}){:#?}",
-                std::any::type_name::<T>(),
-                N,
-                self.len(),
-                self.data
-            )
+            write!(f, "List<{}, {}>(len={}){:#?}", any::type_name::<T>(), N, self.len(), self.data)
         } else {
-            write!(
-                f,
-                "List<{}, {}>(len={}){:?}",
-                std::any::type_name::<T>(),
-                N,
-                self.len(),
-                self.data
-            )
+            write!(f, "List<{}, {}>(len={}){:?}", any::type_name::<T>(), N, self.len(), self.data)
         }
     }
 }
@@ -129,14 +103,11 @@ impl<T, const N: usize> TryFrom<Vec<T>> for List<T, N>
 where
     T: SimpleSerialize,
 {
-    type Error = SimpleSerializeError;
+    type Error = InstanceError;
 
     fn try_from(data: Vec<T>) -> Result<Self, Self::Error> {
         if data.len() > N {
-            Err(SimpleSerializeError::List(Error::IncorrectLength {
-                expected: N,
-                provided: data.len(),
-            }))
+            Err(InstanceError::Bounded { bound: N, provided: data.len() })
         } else {
             let leaf_count = Self::get_leaf_count(data.len());
             Ok(Self { data, cache: MerkleCache::with_leaves(leaf_count) })
@@ -203,7 +174,7 @@ where
 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         if self.len() > N {
-            return Err(SerializeError::TypeBoundsViolated { bound: N, len: self.len() })
+            return Err(InstanceError::Bounded { bound: N, provided: self.len() }.into())
         }
         serialize_composite(&self.data, buffer)
     }
@@ -216,7 +187,7 @@ where
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         let result = deserialize_homogeneous_composite(encoding)?;
         if result.len() > N {
-            return Err(DeserializeError::TypeBoundsViolated { bound: N, len: result.len() })
+            return Err(InstanceError::Bounded { bound: N, provided: result.len() }.into())
         }
         Ok(result.try_into().unwrap())
     }
@@ -345,6 +316,7 @@ where
     where
         I: IntoIterator<Item = T>,
     {
+        // TODO: this should be `try_from` the iter...
         Vec::from_iter(iter.into_iter().take(N)).try_into().unwrap()
     }
 }

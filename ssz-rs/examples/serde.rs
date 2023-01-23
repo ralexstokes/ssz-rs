@@ -1,5 +1,4 @@
 #![cfg(feature = "serde")]
-use serde_json;
 use ssz_rs::prelude::*;
 
 #[derive(

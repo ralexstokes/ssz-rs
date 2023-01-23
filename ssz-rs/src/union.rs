@@ -1,5 +1,6 @@
 use crate::{
     de::{Deserialize, DeserializeError},
+    lib::*,
     merkleization::{mix_in_selector, MerkleizationError, Merkleized, Node, SszReflect},
     ser::{Serialize, SerializeError},
     SimpleSerialize, Sized, SszTypeClass,
@@ -31,7 +32,7 @@ where
                 let selector_bytes = 1u8.serialize(buffer)?;
                 let value_bytes = data.serialize(buffer)?;
                 Ok(selector_bytes + value_bytes)
-            },
+            }
             None => 0u8.serialize(buffer),
         }
     }
@@ -43,16 +44,16 @@ where
 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if encoding.is_empty() {
-            return Err(DeserializeError::InputTooShort)
+            return Err(DeserializeError::ExpectedFurtherInput { provided: 0, expected: 1 })
         }
 
-        match &encoding[0].into() {
+        match encoding[0] {
             0 => Ok(None),
             1 => {
                 let inner = T::deserialize(&encoding[1..])?;
                 Ok(Some(inner))
-            },
-            _ => Err(DeserializeError::InvalidInput),
+            }
+            b => Err(DeserializeError::InvalidByte(b)),
         }
     }
 }
