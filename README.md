@@ -35,7 +35,7 @@ This library provides tools for generating and verifying multiproofs of SSZ data
 
 This library is `no-std` compatible. To build without the standard library, disable the crate's default features.
 
-For example,
+For example, in `Cargo.toml`:
 
 ```toml
 ssz-rs = { version = "...", default-features = false }
