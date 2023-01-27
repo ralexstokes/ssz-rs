@@ -7,7 +7,7 @@ use test_utils::{
 
 #[test]
 fn test_basic_vector_vec_uint256_16_max() {
-    let mut value = Vector::<U256, 16>::from_iter([
+    let mut value = Vector::<U256, 16>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -72,7 +72,8 @@ fn test_basic_vector_vec_uint256_16_max() {
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_16_max/serialized.ssz_snappy",
@@ -90,13 +91,14 @@ fn test_basic_vector_vec_uint256_16_max() {
 
 #[test]
 fn test_basic_vector_vec_uint64_5_random() {
-    let mut value = Vector::<u64, 5>::from_iter([
+    let mut value = Vector::<u64, 5>::try_from(Vec::<u64>::from_iter([
         5828194763697002133,
         3153164540286514337,
         17780602567657386724,
         14508245260957717736,
         17433120455160158885,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_5_random/serialized.ssz_snappy",
@@ -114,7 +116,7 @@ fn test_basic_vector_vec_uint64_5_random() {
 
 #[test]
 fn test_basic_vector_vec_uint256_512_zero() {
-    let mut value = Vector::<U256, 512>::from_iter([
+    let mut value = Vector::<U256, 512>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -2163,7 +2165,8 @@ fn test_basic_vector_vec_uint256_512_zero() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_512_zero/serialized.ssz_snappy",
@@ -2181,7 +2184,7 @@ fn test_basic_vector_vec_uint256_512_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_513_zero() {
-    let mut value = Vector::<u16, 513>::from_iter([
+    let mut value = Vector::<u16, 513>::try_from(Vec::<u16>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -2200,7 +2203,8 @@ fn test_basic_vector_vec_uint16_513_zero() {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_513_zero/serialized.ssz_snappy",
@@ -2218,7 +2222,8 @@ fn test_basic_vector_vec_uint16_513_zero() {
 
 #[test]
 fn test_basic_vector_vec_bool_4_zero() {
-    let mut value = Vector::<bool, 4>::from_iter([false, false, false, false]);
+    let mut value =
+        Vector::<bool, 4>::try_from(Vec::<bool>::from_iter([false, false, false, false])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_bool_4_zero/serialized.ssz_snappy",
@@ -2236,7 +2241,7 @@ fn test_basic_vector_vec_bool_4_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint64_5_zero() {
-    let mut value = Vector::<u64, 5>::from_iter([0, 0, 0, 0, 0]);
+    let mut value = Vector::<u64, 5>::try_from(Vec::<u64>::from_iter([0, 0, 0, 0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_5_zero/serialized.ssz_snappy",
@@ -2254,7 +2259,7 @@ fn test_basic_vector_vec_uint64_5_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint8_1_random() {
-    let mut value = Vector::<u8, 1>::from_iter([225]);
+    let mut value = Vector::<u8, 1>::try_from(Vec::<u8>::from_iter([225])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_1_random/serialized.ssz_snappy",
@@ -2272,7 +2277,7 @@ fn test_basic_vector_vec_uint8_1_random() {
 
 #[test]
 fn test_basic_vector_vec_uint32_513_random() {
-    let mut value = Vector::<u32, 513>::from_iter([
+    let mut value = Vector::<u32, 513>::try_from(Vec::<u32>::from_iter([
         1506286316, 3340455671, 2249197219, 1137228810, 3708188369, 1032790960, 2037375995,
         2165993127, 4279139643, 2878934835, 2234060784, 3341241397, 2832291162, 1862974295,
         2889755957, 716023347, 1781425995, 2766618165, 430694095, 1734393401, 3038286926,
@@ -2346,7 +2351,8 @@ fn test_basic_vector_vec_uint32_513_random() {
         3478082366, 451761890, 1225089752, 1262376617, 3824933588, 2227252992, 4015579077,
         320045527, 579310834, 1762256425, 3585893227, 2476950437, 1559797180, 1197444470,
         3233215794, 682626811,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_513_random/serialized.ssz_snappy",
@@ -2364,7 +2370,10 @@ fn test_basic_vector_vec_uint32_513_random() {
 
 #[test]
 fn test_basic_vector_vec_uint32_4_random() {
-    let mut value = Vector::<u32, 4>::from_iter([2599571881, 2754953818, 2448479820, 3973051506]);
+    let mut value = Vector::<u32, 4>::try_from(Vec::<u32>::from_iter([
+        2599571881, 2754953818, 2448479820, 3973051506,
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_4_random/serialized.ssz_snappy",
@@ -2382,11 +2391,12 @@ fn test_basic_vector_vec_uint32_4_random() {
 
 #[test]
 fn test_basic_vector_vec_bool_31_max() {
-    let mut value = Vector::<bool, 31>::from_iter([
+    let mut value = Vector::<bool, 31>::try_from(Vec::<bool>::from_iter([
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
         true,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_bool_31_max/serialized.ssz_snappy",
@@ -2404,7 +2414,7 @@ fn test_basic_vector_vec_bool_31_max() {
 
 #[test]
 fn test_basic_vector_vec_uint8_5_zero() {
-    let mut value = Vector::<u8, 5>::from_iter([0, 0, 0, 0, 0]);
+    let mut value = Vector::<u8, 5>::try_from(Vec::<u8>::from_iter([0, 0, 0, 0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_5_zero/serialized.ssz_snappy",
@@ -2422,7 +2432,7 @@ fn test_basic_vector_vec_uint8_5_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_2_random() {
-    let mut value = Vector::<u16, 2>::from_iter([12188, 36886]);
+    let mut value = Vector::<u16, 2>::try_from(Vec::<u16>::from_iter([12188, 36886])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_2_random/serialized.ssz_snappy",
@@ -2440,8 +2450,10 @@ fn test_basic_vector_vec_uint16_2_random() {
 
 #[test]
 fn test_basic_vector_vec_bool_8_zero() {
-    let mut value =
-        Vector::<bool, 8>::from_iter([false, false, false, false, false, false, false, false]);
+    let mut value = Vector::<bool, 8>::try_from(Vec::<bool>::from_iter([
+        false, false, false, false, false, false, false, false,
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_bool_8_zero/serialized.ssz_snappy",
@@ -2459,7 +2471,7 @@ fn test_basic_vector_vec_bool_8_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_16_max() {
-    let mut value = Vector::<u128, 16>::from_iter([
+    let mut value = Vector::<u128, 16>::try_from(Vec::<u128>::from_iter([
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
@@ -2476,7 +2488,8 @@ fn test_basic_vector_vec_uint128_16_max() {
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_16_max/serialized.ssz_snappy",
@@ -2494,10 +2507,11 @@ fn test_basic_vector_vec_uint128_16_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_8_random() {
-    let mut value = Vector::<u32, 8>::from_iter([
+    let mut value = Vector::<u32, 8>::try_from(Vec::<u32>::from_iter([
         2255247108, 883929842, 2722841916, 3289001244, 3428769191, 4039771928, 1073577161,
         1629830620,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_8_random/serialized.ssz_snappy",
@@ -2515,7 +2529,7 @@ fn test_basic_vector_vec_uint32_8_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_31_max() {
-    let mut value = Vector::<u64, 31>::from_iter([
+    let mut value = Vector::<u64, 31>::try_from(Vec::<u64>::from_iter([
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
@@ -2547,7 +2561,8 @@ fn test_basic_vector_vec_uint64_31_max() {
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_31_max/serialized.ssz_snappy",
@@ -2565,7 +2580,7 @@ fn test_basic_vector_vec_uint64_31_max() {
 
 #[test]
 fn test_basic_vector_vec_uint256_31_random() {
-    let mut value = Vector::<U256, 31>::from_iter([
+    let mut value = Vector::<U256, 31>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             193, 221, 0, 27, 7, 14, 132, 79, 246, 169, 102, 206, 52, 7, 70, 134, 104, 201, 85, 248,
             190, 117, 18, 78, 173, 106, 20, 121, 246, 174, 52, 111,
@@ -2690,7 +2705,8 @@ fn test_basic_vector_vec_uint256_31_random() {
             29, 128, 241, 233, 25, 243, 148, 120, 122, 143, 67, 17, 176, 24, 21, 215, 64, 97, 4,
             154, 145, 60, 248, 254, 205, 97, 37, 111, 87, 79, 95, 2,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_31_random/serialized.ssz_snappy",
@@ -2708,7 +2724,8 @@ fn test_basic_vector_vec_uint256_31_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_8_zero() {
-    let mut value = Vector::<u64, 8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0]);
+    let mut value =
+        Vector::<u64, 8>::try_from(Vec::<u64>::from_iter([0, 0, 0, 0, 0, 0, 0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_8_zero/serialized.ssz_snappy",
@@ -2726,7 +2743,7 @@ fn test_basic_vector_vec_uint64_8_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_512_random() {
-    let mut value = Vector::<u128, 512>::from_iter([
+    let mut value = Vector::<u128, 512>::try_from(Vec::<u128>::from_iter([
         26828682623905485853721589978864387876,
         45362230084934828632880963081896644001,
         247417070223805448009596661148965288679,
@@ -3239,7 +3256,8 @@ fn test_basic_vector_vec_uint128_512_random() {
         8715635290235044735142199835438054170,
         117597421515019045174966032141113687217,
         166032223549541867891948250634350487251,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_512_random/serialized.ssz_snappy",
@@ -3257,7 +3275,7 @@ fn test_basic_vector_vec_uint128_512_random() {
 
 #[test]
 fn test_basic_vector_vec_uint8_3_random() {
-    let mut value = Vector::<u8, 3>::from_iter([46, 17, 42]);
+    let mut value = Vector::<u8, 3>::try_from(Vec::<u8>::from_iter([46, 17, 42])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_3_random/serialized.ssz_snappy",
@@ -3275,7 +3293,7 @@ fn test_basic_vector_vec_uint8_3_random() {
 
 #[test]
 fn test_basic_vector_vec_uint8_4_zero() {
-    let mut value = Vector::<u8, 4>::from_iter([0, 0, 0, 0]);
+    let mut value = Vector::<u8, 4>::try_from(Vec::<u8>::from_iter([0, 0, 0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_4_zero/serialized.ssz_snappy",
@@ -3293,7 +3311,7 @@ fn test_basic_vector_vec_uint8_4_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_2_random() {
-    let mut value = Vector::<U256, 2>::from_iter([
+    let mut value = Vector::<U256, 2>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             205, 105, 106, 166, 152, 194, 84, 202, 219, 225, 56, 160, 68, 10, 149, 101, 132, 138,
             122, 138, 194, 11, 156, 151, 229, 118, 123, 132, 155, 190, 223, 147,
@@ -3302,7 +3320,8 @@ fn test_basic_vector_vec_uint256_2_random() {
             7, 186, 191, 192, 7, 230, 151, 207, 220, 105, 184, 31, 117, 110, 158, 244, 167, 86,
             173, 232, 133, 233, 107, 240, 221, 64, 139, 35, 8, 9, 65, 144,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_2_random/serialized.ssz_snappy",
@@ -3320,10 +3339,11 @@ fn test_basic_vector_vec_uint256_2_random() {
 
 #[test]
 fn test_basic_vector_vec_uint8_31_random() {
-    let mut value = Vector::<u8, 31>::from_iter([
+    let mut value = Vector::<u8, 31>::try_from(Vec::<u8>::from_iter([
         170, 73, 242, 193, 85, 27, 39, 254, 83, 38, 110, 73, 13, 177, 56, 72, 156, 232, 20, 213,
         141, 20, 90, 139, 79, 153, 79, 237, 21, 197, 178,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_31_random/serialized.ssz_snappy",
@@ -3341,7 +3361,7 @@ fn test_basic_vector_vec_uint8_31_random() {
 
 #[test]
 fn test_basic_vector_vec_uint256_8_max() {
-    let mut value = Vector::<U256, 8>::from_iter([
+    let mut value = Vector::<U256, 8>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -3374,7 +3394,8 @@ fn test_basic_vector_vec_uint256_8_max() {
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_8_max/serialized.ssz_snappy",
@@ -3392,10 +3413,11 @@ fn test_basic_vector_vec_uint256_8_max() {
 
 #[test]
 fn test_basic_vector_vec_uint16_16_random() {
-    let mut value = Vector::<u16, 16>::from_iter([
+    let mut value = Vector::<u16, 16>::try_from(Vec::<u16>::from_iter([
         14966, 37668, 46928, 65487, 22250, 24796, 7043, 49742, 46495, 44245, 5372, 46169, 36046,
         60670, 29615, 59474,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_16_random/serialized.ssz_snappy",
@@ -3413,7 +3435,7 @@ fn test_basic_vector_vec_uint16_16_random() {
 
 #[test]
 fn test_basic_vector_vec_uint32_1_zero() {
-    let mut value = Vector::<u32, 1>::from_iter([0]);
+    let mut value = Vector::<u32, 1>::try_from(Vec::<u32>::from_iter([0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_1_zero/serialized.ssz_snappy",
@@ -3431,7 +3453,7 @@ fn test_basic_vector_vec_uint32_1_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_8_random() {
-    let mut value = Vector::<u128, 8>::from_iter([
+    let mut value = Vector::<u128, 8>::try_from(Vec::<u128>::from_iter([
         50419731819167183509591636238702702250,
         243160052554941226771061620517961416402,
         132077915854571525015052582449039997777,
@@ -3440,7 +3462,8 @@ fn test_basic_vector_vec_uint128_8_random() {
         252573635149269036055565766513369444631,
         279794156752397104374168485305690172734,
         134813396102573383821633959344133057265,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_8_random/serialized.ssz_snappy",
@@ -3458,7 +3481,7 @@ fn test_basic_vector_vec_uint128_8_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_4_zero() {
-    let mut value = Vector::<u64, 4>::from_iter([0, 0, 0, 0]);
+    let mut value = Vector::<u64, 4>::try_from(Vec::<u64>::from_iter([0, 0, 0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_4_zero/serialized.ssz_snappy",
@@ -3476,10 +3499,11 @@ fn test_basic_vector_vec_uint64_4_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint8_31_max() {
-    let mut value = Vector::<u8, 31>::from_iter([
+    let mut value = Vector::<u8, 31>::try_from(Vec::<u8>::from_iter([
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_31_max/serialized.ssz_snappy",
@@ -3497,12 +3521,13 @@ fn test_basic_vector_vec_uint8_31_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_4_random() {
-    let mut value = Vector::<u128, 4>::from_iter([
+    let mut value = Vector::<u128, 4>::try_from(Vec::<u128>::from_iter([
         131085251763681703650210983225134279210,
         204149994827974013891189432256283029251,
         138314451233364434501509339736780133583,
         87190916912719743438450099653641299249,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_4_random/serialized.ssz_snappy",
@@ -3520,7 +3545,9 @@ fn test_basic_vector_vec_uint128_4_random() {
 
 #[test]
 fn test_basic_vector_vec_bool_5_zero() {
-    let mut value = Vector::<bool, 5>::from_iter([false, false, false, false, false]);
+    let mut value =
+        Vector::<bool, 5>::try_from(Vec::<bool>::from_iter([false, false, false, false, false]))
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_bool_5_zero/serialized.ssz_snappy",
@@ -3538,7 +3565,7 @@ fn test_basic_vector_vec_bool_5_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_512_zero() {
-    let mut value = Vector::<u16, 512>::from_iter([
+    let mut value = Vector::<u16, 512>::try_from(Vec::<u16>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -3557,7 +3584,8 @@ fn test_basic_vector_vec_uint16_512_zero() {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_512_zero/serialized.ssz_snappy",
@@ -3575,9 +3603,10 @@ fn test_basic_vector_vec_uint16_512_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint8_31_zero() {
-    let mut value = Vector::<u8, 31>::from_iter([
+    let mut value = Vector::<u8, 31>::try_from(Vec::<u8>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_31_zero/serialized.ssz_snappy",
@@ -3595,7 +3624,8 @@ fn test_basic_vector_vec_uint8_31_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint8_8_zero() {
-    let mut value = Vector::<u8, 8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0]);
+    let mut value =
+        Vector::<u8, 8>::try_from(Vec::<u8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_8_zero/serialized.ssz_snappy",
@@ -3613,7 +3643,7 @@ fn test_basic_vector_vec_uint8_8_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_1_zero() {
-    let mut value = Vector::<u16, 1>::from_iter([0]);
+    let mut value = Vector::<u16, 1>::try_from(Vec::<u16>::from_iter([0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_1_zero/serialized.ssz_snappy",
@@ -3631,7 +3661,7 @@ fn test_basic_vector_vec_uint16_1_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_513_zero() {
-    let mut value = Vector::<U256, 513>::from_iter([
+    let mut value = Vector::<U256, 513>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -5684,7 +5714,8 @@ fn test_basic_vector_vec_uint256_513_zero() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_513_zero/serialized.ssz_snappy",
@@ -5702,7 +5733,8 @@ fn test_basic_vector_vec_uint256_513_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_3_max() {
-    let mut value = Vector::<u16, 3>::from_iter([65535, 65535, 65535]);
+    let mut value =
+        Vector::<u16, 3>::try_from(Vec::<u16>::from_iter([65535, 65535, 65535])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_3_max/serialized.ssz_snappy",
@@ -5720,7 +5752,7 @@ fn test_basic_vector_vec_uint16_3_max() {
 
 #[test]
 fn test_basic_vector_vec_bool_512_zero() {
-    let mut value = Vector::<bool, 512>::from_iter([
+    let mut value = Vector::<bool, 512>::try_from(Vec::<bool>::from_iter([
         false, false, false, false, false, false, false, false, false, false, false, false, false,
         false, false, false, false, false, false, false, false, false, false, false, false, false,
         false, false, false, false, false, false, false, false, false, false, false, false, false,
@@ -5761,7 +5793,8 @@ fn test_basic_vector_vec_bool_512_zero() {
         false, false, false, false, false, false, false, false, false, false, false, false, false,
         false, false, false, false, false, false, false, false, false, false, false, false, false,
         false, false, false, false, false,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_bool_512_zero/serialized.ssz_snappy",
@@ -5779,7 +5812,7 @@ fn test_basic_vector_vec_bool_512_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_512_zero() {
-    let mut value = Vector::<u128, 512>::from_iter([
+    let mut value = Vector::<u128, 512>::try_from(Vec::<u128>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -5798,7 +5831,8 @@ fn test_basic_vector_vec_uint128_512_zero() {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_512_zero/serialized.ssz_snappy",
@@ -5816,7 +5850,7 @@ fn test_basic_vector_vec_uint128_512_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint64_8_max() {
-    let mut value = Vector::<u64, 8>::from_iter([
+    let mut value = Vector::<u64, 8>::try_from(Vec::<u64>::from_iter([
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
@@ -5825,7 +5859,8 @@ fn test_basic_vector_vec_uint64_8_max() {
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_8_max/serialized.ssz_snappy",
@@ -5843,7 +5878,8 @@ fn test_basic_vector_vec_uint64_8_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_2_max() {
-    let mut value = Vector::<u32, 2>::from_iter([4294967295, 4294967295]);
+    let mut value =
+        Vector::<u32, 2>::try_from(Vec::<u32>::from_iter([4294967295, 4294967295])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_2_max/serialized.ssz_snappy",
@@ -5861,7 +5897,8 @@ fn test_basic_vector_vec_uint32_2_max() {
 
 #[test]
 fn test_basic_vector_vec_uint16_4_random() {
-    let mut value = Vector::<u16, 4>::from_iter([15417, 28067, 51352, 59311]);
+    let mut value =
+        Vector::<u16, 4>::try_from(Vec::<u16>::from_iter([15417, 28067, 51352, 59311])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_4_random/serialized.ssz_snappy",
@@ -5879,7 +5916,8 @@ fn test_basic_vector_vec_uint16_4_random() {
 
 #[test]
 fn test_basic_vector_vec_uint32_2_random() {
-    let mut value = Vector::<u32, 2>::from_iter([2286406229, 3289673013]);
+    let mut value =
+        Vector::<u32, 2>::try_from(Vec::<u32>::from_iter([2286406229, 3289673013])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_2_random/serialized.ssz_snappy",
@@ -5897,7 +5935,7 @@ fn test_basic_vector_vec_uint32_2_random() {
 
 #[test]
 fn test_basic_vector_vec_uint16_513_random() {
-    let mut value = Vector::<u16, 513>::from_iter([
+    let mut value = Vector::<u16, 513>::try_from(Vec::<u16>::from_iter([
         27185, 40496, 45588, 22785, 5755, 5950, 14234, 16151, 23366, 48189, 28838, 47431, 22937,
         44687, 9960, 18008, 43796, 16472, 40344, 6307, 60750, 42176, 48076, 3047, 34291, 53364,
         5934, 35808, 39627, 16700, 61818, 17790, 2074, 12801, 14876, 34651, 31986, 54424, 35627,
@@ -5938,7 +5976,8 @@ fn test_basic_vector_vec_uint16_513_random() {
         48499, 64833, 45876, 3604, 39105, 13538, 26802, 61195, 24696, 61996, 16997, 11456, 46813,
         32837, 7224, 39459, 24848, 46856, 25573, 5246, 64735, 17847, 51773, 60812, 37973, 30569,
         64742, 51362, 63841, 3543, 52659,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_513_random/serialized.ssz_snappy",
@@ -5956,8 +5995,10 @@ fn test_basic_vector_vec_uint16_513_random() {
 
 #[test]
 fn test_basic_vector_vec_uint16_8_random() {
-    let mut value =
-        Vector::<u16, 8>::from_iter([48757, 12920, 33149, 59406, 48754, 39786, 12312, 58318]);
+    let mut value = Vector::<u16, 8>::try_from(Vec::<u16>::from_iter([
+        48757, 12920, 33149, 59406, 48754, 39786, 12312, 58318,
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_8_random/serialized.ssz_snappy",
@@ -5975,7 +6016,10 @@ fn test_basic_vector_vec_uint16_8_random() {
 
 #[test]
 fn test_basic_vector_vec_uint8_16_zero() {
-    let mut value = Vector::<u8, 16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    let mut value = Vector::<u8, 16>::try_from(Vec::<u8>::from_iter([
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_16_zero/serialized.ssz_snappy",
@@ -5993,7 +6037,7 @@ fn test_basic_vector_vec_uint8_16_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint8_3_zero() {
-    let mut value = Vector::<u8, 3>::from_iter([0, 0, 0]);
+    let mut value = Vector::<u8, 3>::try_from(Vec::<u8>::from_iter([0, 0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_3_zero/serialized.ssz_snappy",
@@ -6011,7 +6055,9 @@ fn test_basic_vector_vec_uint8_3_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint32_3_max() {
-    let mut value = Vector::<u32, 3>::from_iter([4294967295, 4294967295, 4294967295]);
+    let mut value =
+        Vector::<u32, 3>::try_from(Vec::<u32>::from_iter([4294967295, 4294967295, 4294967295]))
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_3_max/serialized.ssz_snappy",
@@ -6029,7 +6075,7 @@ fn test_basic_vector_vec_uint32_3_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_1_zero() {
-    let mut value = Vector::<u128, 1>::from_iter([0]);
+    let mut value = Vector::<u128, 1>::try_from(Vec::<u128>::from_iter([0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_1_zero/serialized.ssz_snappy",
@@ -6047,7 +6093,7 @@ fn test_basic_vector_vec_uint128_1_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_2_max() {
-    let mut value = Vector::<u16, 2>::from_iter([65535, 65535]);
+    let mut value = Vector::<u16, 2>::try_from(Vec::<u16>::from_iter([65535, 65535])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_2_max/serialized.ssz_snappy",
@@ -6065,7 +6111,7 @@ fn test_basic_vector_vec_uint16_2_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_1_max() {
-    let mut value = Vector::<u32, 1>::from_iter([4294967295]);
+    let mut value = Vector::<u32, 1>::try_from(Vec::<u32>::from_iter([4294967295])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_1_max/serialized.ssz_snappy",
@@ -6083,7 +6129,7 @@ fn test_basic_vector_vec_uint32_1_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_513_zero() {
-    let mut value = Vector::<u32, 513>::from_iter([
+    let mut value = Vector::<u32, 513>::try_from(Vec::<u32>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -6102,7 +6148,8 @@ fn test_basic_vector_vec_uint32_513_zero() {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_513_zero/serialized.ssz_snappy",
@@ -6120,10 +6167,11 @@ fn test_basic_vector_vec_uint32_513_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_1_zero() {
-    let mut value = Vector::<U256, 1>::from_iter([U256::from_bytes_le([
+    let mut value = Vector::<U256, 1>::try_from(Vec::<U256>::from_iter([U256::from_bytes_le([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0,
-    ])]);
+    ])]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_1_zero/serialized.ssz_snappy",
@@ -6141,7 +6189,7 @@ fn test_basic_vector_vec_uint256_1_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_16_random() {
-    let mut value = Vector::<u128, 16>::from_iter([
+    let mut value = Vector::<u128, 16>::try_from(Vec::<u128>::from_iter([
         116865446011030976513736559583719158568,
         108209157078503776199170871747996541938,
         87702234582352091614673494037436374999,
@@ -6158,7 +6206,8 @@ fn test_basic_vector_vec_uint128_16_random() {
         280271393250584818608153587082340849287,
         18181767184539268539905647783521070538,
         290973072975603641839643580523364338186,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_16_random/serialized.ssz_snappy",
@@ -6176,7 +6225,7 @@ fn test_basic_vector_vec_uint128_16_random() {
 
 #[test]
 fn test_basic_vector_vec_bool_2_zero() {
-    let mut value = Vector::<bool, 2>::from_iter([false, false]);
+    let mut value = Vector::<bool, 2>::try_from(Vec::<bool>::from_iter([false, false])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_bool_2_zero/serialized.ssz_snappy",
@@ -6194,7 +6243,7 @@ fn test_basic_vector_vec_bool_2_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_8_max() {
-    let mut value = Vector::<u128, 8>::from_iter([
+    let mut value = Vector::<u128, 8>::try_from(Vec::<u128>::from_iter([
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
@@ -6203,7 +6252,8 @@ fn test_basic_vector_vec_uint128_8_max() {
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_8_max/serialized.ssz_snappy",
@@ -6221,7 +6271,7 @@ fn test_basic_vector_vec_uint128_8_max() {
 
 #[test]
 fn test_basic_vector_vec_uint64_3_zero() {
-    let mut value = Vector::<u64, 3>::from_iter([0, 0, 0]);
+    let mut value = Vector::<u64, 3>::try_from(Vec::<u64>::from_iter([0, 0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_3_zero/serialized.ssz_snappy",
@@ -6239,11 +6289,12 @@ fn test_basic_vector_vec_uint64_3_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint64_3_random() {
-    let mut value = Vector::<u64, 3>::from_iter([
+    let mut value = Vector::<u64, 3>::try_from(Vec::<u64>::from_iter([
         6167802979638570618,
         1670982671822494120,
         2649190588485934153,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_3_random/serialized.ssz_snappy",
@@ -6261,7 +6312,7 @@ fn test_basic_vector_vec_uint64_3_random() {
 
 #[test]
 fn test_basic_vector_vec_uint16_1_max() {
-    let mut value = Vector::<u16, 1>::from_iter([65535]);
+    let mut value = Vector::<u16, 1>::try_from(Vec::<u16>::from_iter([65535])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_1_max/serialized.ssz_snappy",
@@ -6279,7 +6330,10 @@ fn test_basic_vector_vec_uint16_1_max() {
 
 #[test]
 fn test_basic_vector_vec_bool_8_max() {
-    let mut value = Vector::<bool, 8>::from_iter([true, true, true, true, true, true, true, true]);
+    let mut value = Vector::<bool, 8>::try_from(Vec::<bool>::from_iter([
+        true, true, true, true, true, true, true, true,
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_bool_8_max/serialized.ssz_snappy",
@@ -6297,7 +6351,9 @@ fn test_basic_vector_vec_bool_8_max() {
 
 #[test]
 fn test_basic_vector_vec_uint16_5_max() {
-    let mut value = Vector::<u16, 5>::from_iter([65535, 65535, 65535, 65535, 65535]);
+    let mut value =
+        Vector::<u16, 5>::try_from(Vec::<u16>::from_iter([65535, 65535, 65535, 65535, 65535]))
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_5_max/serialized.ssz_snappy",
@@ -6315,11 +6371,12 @@ fn test_basic_vector_vec_uint16_5_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_16_max() {
-    let mut value = Vector::<u32, 16>::from_iter([
+    let mut value = Vector::<u32, 16>::try_from(Vec::<u32>::from_iter([
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_16_max/serialized.ssz_snappy",
@@ -6337,7 +6394,10 @@ fn test_basic_vector_vec_uint32_16_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_4_max() {
-    let mut value = Vector::<u32, 4>::from_iter([4294967295, 4294967295, 4294967295, 4294967295]);
+    let mut value = Vector::<u32, 4>::try_from(Vec::<u32>::from_iter([
+        4294967295, 4294967295, 4294967295, 4294967295,
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_4_max/serialized.ssz_snappy",
@@ -6355,7 +6415,7 @@ fn test_basic_vector_vec_uint32_4_max() {
 
 #[test]
 fn test_basic_vector_vec_uint64_2_zero() {
-    let mut value = Vector::<u64, 2>::from_iter([0, 0]);
+    let mut value = Vector::<u64, 2>::try_from(Vec::<u64>::from_iter([0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_2_zero/serialized.ssz_snappy",
@@ -6373,7 +6433,7 @@ fn test_basic_vector_vec_uint64_2_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint8_512_random() {
-    let mut value = Vector::<u8, 512>::from_iter([
+    let mut value = Vector::<u8, 512>::try_from(Vec::<u8>::from_iter([
         253, 174, 239, 243, 23, 241, 87, 225, 224, 151, 140, 63, 95, 213, 223, 61, 52, 248, 192,
         130, 98, 176, 55, 80, 137, 79, 165, 228, 36, 40, 202, 109, 24, 146, 19, 112, 44, 162, 156,
         235, 33, 131, 37, 218, 103, 51, 203, 99, 235, 120, 184, 105, 215, 89, 104, 154, 30, 180,
@@ -6401,7 +6461,8 @@ fn test_basic_vector_vec_uint8_512_random() {
         214, 171, 19, 209, 226, 93, 207, 54, 169, 97, 51, 202, 45, 162, 64, 37, 169, 246, 134, 39,
         32, 230, 5, 180, 18, 110, 55, 228, 91, 21, 136, 204, 158, 16, 172, 175, 108, 44, 124, 50,
         153, 8, 34,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_512_random/serialized.ssz_snappy",
@@ -6419,13 +6480,14 @@ fn test_basic_vector_vec_uint8_512_random() {
 
 #[test]
 fn test_basic_vector_vec_uint32_31_random() {
-    let mut value = Vector::<u32, 31>::from_iter([
+    let mut value = Vector::<u32, 31>::try_from(Vec::<u32>::from_iter([
         508235682, 2308341395, 1525766118, 4136650562, 3621852454, 1567937308, 3269584467,
         1320546218, 2077416840, 739946730, 1282600407, 3203298029, 942979653, 497143087, 933745505,
         3794525861, 2714083317, 1289423485, 3524519556, 3497991789, 3711737680, 3061871525,
         2306867877, 4238440987, 945702953, 3720141995, 3191674143, 2674649049, 543916394,
         2875606851, 3068061043,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_31_random/serialized.ssz_snappy",
@@ -6443,7 +6505,8 @@ fn test_basic_vector_vec_uint32_31_random() {
 
 #[test]
 fn test_basic_vector_vec_bool_3_zero() {
-    let mut value = Vector::<bool, 3>::from_iter([false, false, false]);
+    let mut value =
+        Vector::<bool, 3>::try_from(Vec::<bool>::from_iter([false, false, false])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_bool_3_zero/serialized.ssz_snappy",
@@ -6461,7 +6524,7 @@ fn test_basic_vector_vec_bool_3_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint64_512_random() {
-    let mut value = Vector::<u64, 512>::from_iter([
+    let mut value = Vector::<u64, 512>::try_from(Vec::<u64>::from_iter([
         17241722399186003656,
         4508348299491693172,
         6390266777275510888,
@@ -6974,7 +7037,8 @@ fn test_basic_vector_vec_uint64_512_random() {
         2704501097220025208,
         16058110628056241513,
         6507984389564325741,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_512_random/serialized.ssz_snappy",
@@ -6992,10 +7056,11 @@ fn test_basic_vector_vec_uint64_512_random() {
 
 #[test]
 fn test_basic_vector_vec_uint16_16_max() {
-    let mut value = Vector::<u16, 16>::from_iter([
+    let mut value = Vector::<u16, 16>::try_from(Vec::<u16>::from_iter([
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
         65535, 65535, 65535,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_16_max/serialized.ssz_snappy",
@@ -7013,7 +7078,8 @@ fn test_basic_vector_vec_uint16_16_max() {
 
 #[test]
 fn test_basic_vector_vec_uint64_1_random() {
-    let mut value = Vector::<u64, 1>::from_iter([8914067055681793591]);
+    let mut value =
+        Vector::<u64, 1>::try_from(Vec::<u64>::from_iter([8914067055681793591])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_1_random/serialized.ssz_snappy",
@@ -7031,7 +7097,7 @@ fn test_basic_vector_vec_uint64_1_random() {
 
 #[test]
 fn test_basic_vector_vec_uint32_512_zero() {
-    let mut value = Vector::<u32, 512>::from_iter([
+    let mut value = Vector::<u32, 512>::try_from(Vec::<u32>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -7050,7 +7116,8 @@ fn test_basic_vector_vec_uint32_512_zero() {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_512_zero/serialized.ssz_snappy",
@@ -7068,8 +7135,10 @@ fn test_basic_vector_vec_uint32_512_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint32_5_max() {
-    let mut value =
-        Vector::<u32, 5>::from_iter([4294967295, 4294967295, 4294967295, 4294967295, 4294967295]);
+    let mut value = Vector::<u32, 5>::try_from(Vec::<u32>::from_iter([
+        4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_5_max/serialized.ssz_snappy",
@@ -7087,7 +7156,8 @@ fn test_basic_vector_vec_uint32_5_max() {
 
 #[test]
 fn test_basic_vector_vec_uint16_4_max() {
-    let mut value = Vector::<u16, 4>::from_iter([65535, 65535, 65535, 65535]);
+    let mut value =
+        Vector::<u16, 4>::try_from(Vec::<u16>::from_iter([65535, 65535, 65535, 65535])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_4_max/serialized.ssz_snappy",
@@ -7105,10 +7175,11 @@ fn test_basic_vector_vec_uint16_4_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_2_random() {
-    let mut value = Vector::<u128, 2>::from_iter([
+    let mut value = Vector::<u128, 2>::try_from(Vec::<u128>::from_iter([
         293619838168840684930947284175392625045,
         264388153583386100657556026933098957077,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_2_random/serialized.ssz_snappy",
@@ -7126,7 +7197,7 @@ fn test_basic_vector_vec_uint128_2_random() {
 
 #[test]
 fn test_basic_vector_vec_uint256_4_random() {
-    let mut value = Vector::<U256, 4>::from_iter([
+    let mut value = Vector::<U256, 4>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             71, 106, 105, 163, 151, 75, 86, 137, 3, 140, 57, 168, 63, 49, 156, 118, 90, 171, 234,
             173, 47, 5, 84, 194, 65, 72, 161, 55, 197, 219, 55, 187,
@@ -7143,7 +7214,8 @@ fn test_basic_vector_vec_uint256_4_random() {
             33, 12, 13, 114, 86, 47, 37, 217, 185, 14, 170, 41, 57, 200, 237, 119, 210, 221, 195,
             98, 101, 196, 217, 67, 23, 117, 28, 155, 29, 55, 126, 120,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_4_random/serialized.ssz_snappy",
@@ -7161,7 +7233,7 @@ fn test_basic_vector_vec_uint256_4_random() {
 
 #[test]
 fn test_basic_vector_vec_uint8_513_max() {
-    let mut value = Vector::<u8, 513>::from_iter([
+    let mut value = Vector::<u8, 513>::try_from(Vec::<u8>::from_iter([
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -7191,7 +7263,8 @@ fn test_basic_vector_vec_uint8_513_max() {
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255, 255,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_513_max/serialized.ssz_snappy",
@@ -7209,7 +7282,7 @@ fn test_basic_vector_vec_uint8_513_max() {
 
 #[test]
 fn test_basic_vector_vec_uint256_8_random() {
-    let mut value = Vector::<U256, 8>::from_iter([
+    let mut value = Vector::<U256, 8>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             101, 98, 195, 77, 141, 84, 10, 65, 199, 185, 225, 176, 137, 102, 31, 27, 37, 157, 156,
             98, 26, 68, 252, 14, 97, 110, 55, 40, 121, 83, 119, 1,
@@ -7242,7 +7315,8 @@ fn test_basic_vector_vec_uint256_8_random() {
             234, 119, 134, 236, 104, 109, 33, 103, 74, 136, 45, 220, 180, 224, 14, 205, 31, 146,
             106, 119, 32, 149, 135, 252, 0, 16, 26, 162, 248, 214, 34, 12,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_8_random/serialized.ssz_snappy",
@@ -7260,7 +7334,7 @@ fn test_basic_vector_vec_uint256_8_random() {
 
 #[test]
 fn test_basic_vector_vec_uint8_2_zero() {
-    let mut value = Vector::<u8, 2>::from_iter([0, 0]);
+    let mut value = Vector::<u8, 2>::try_from(Vec::<u8>::from_iter([0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_2_zero/serialized.ssz_snappy",
@@ -7278,7 +7352,7 @@ fn test_basic_vector_vec_uint8_2_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_513_random() {
-    let mut value = Vector::<U256, 513>::from_iter([
+    let mut value = Vector::<U256, 513>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             178, 71, 197, 209, 59, 6, 21, 36, 228, 31, 161, 186, 233, 29, 46, 37, 73, 216, 72, 86,
             69, 54, 206, 110, 221, 177, 166, 166, 186, 186, 215, 68,
@@ -9331,7 +9405,8 @@ fn test_basic_vector_vec_uint256_513_random() {
             46, 124, 235, 173, 54, 148, 57, 202, 128, 75, 10, 185, 62, 60, 208, 159, 247, 30, 171,
             150, 74, 206, 151, 188, 60, 86, 50, 182, 234, 52, 216, 20,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_513_random/serialized.ssz_snappy",
@@ -9349,7 +9424,7 @@ fn test_basic_vector_vec_uint256_513_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_31_random() {
-    let mut value = Vector::<u64, 31>::from_iter([
+    let mut value = Vector::<u64, 31>::try_from(Vec::<u64>::from_iter([
         3052724393868548387,
         3810693530679841654,
         12585541796688525245,
@@ -9381,7 +9456,8 @@ fn test_basic_vector_vec_uint64_31_random() {
         5291345685353917916,
         15829036281687984180,
         4874883508035225879,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_31_random/serialized.ssz_snappy",
@@ -9399,7 +9475,7 @@ fn test_basic_vector_vec_uint64_31_random() {
 
 #[test]
 fn test_basic_vector_vec_uint8_512_max() {
-    let mut value = Vector::<u8, 512>::from_iter([
+    let mut value = Vector::<u8, 512>::try_from(Vec::<u8>::from_iter([
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -9429,7 +9505,8 @@ fn test_basic_vector_vec_uint8_512_max() {
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_512_max/serialized.ssz_snappy",
@@ -9447,7 +9524,9 @@ fn test_basic_vector_vec_uint8_512_max() {
 
 #[test]
 fn test_basic_vector_vec_uint8_8_max() {
-    let mut value = Vector::<u8, 8>::from_iter([255, 255, 255, 255, 255, 255, 255, 255]);
+    let mut value =
+        Vector::<u8, 8>::try_from(Vec::<u8>::from_iter([255, 255, 255, 255, 255, 255, 255, 255]))
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_8_max/serialized.ssz_snappy",
@@ -9465,7 +9544,8 @@ fn test_basic_vector_vec_uint8_8_max() {
 
 #[test]
 fn test_basic_vector_vec_uint8_5_random() {
-    let mut value = Vector::<u8, 5>::from_iter([15, 8, 177, 247, 237]);
+    let mut value =
+        Vector::<u8, 5>::try_from(Vec::<u8>::from_iter([15, 8, 177, 247, 237])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_5_random/serialized.ssz_snappy",
@@ -9483,7 +9563,7 @@ fn test_basic_vector_vec_uint8_5_random() {
 
 #[test]
 fn test_basic_vector_vec_bool_513_zero() {
-    let mut value = Vector::<bool, 513>::from_iter([
+    let mut value = Vector::<bool, 513>::try_from(Vec::<bool>::from_iter([
         false, false, false, false, false, false, false, false, false, false, false, false, false,
         false, false, false, false, false, false, false, false, false, false, false, false, false,
         false, false, false, false, false, false, false, false, false, false, false, false, false,
@@ -9524,7 +9604,8 @@ fn test_basic_vector_vec_bool_513_zero() {
         false, false, false, false, false, false, false, false, false, false, false, false, false,
         false, false, false, false, false, false, false, false, false, false, false, false, false,
         false, false, false, false, false, false,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_bool_513_zero/serialized.ssz_snappy",
@@ -9542,7 +9623,7 @@ fn test_basic_vector_vec_bool_513_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_513_zero() {
-    let mut value = Vector::<u128, 513>::from_iter([
+    let mut value = Vector::<u128, 513>::try_from(Vec::<u128>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -9561,7 +9642,8 @@ fn test_basic_vector_vec_uint128_513_zero() {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_513_zero/serialized.ssz_snappy",
@@ -9579,7 +9661,7 @@ fn test_basic_vector_vec_uint128_513_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_3_zero() {
-    let mut value = Vector::<u128, 3>::from_iter([0, 0, 0]);
+    let mut value = Vector::<u128, 3>::try_from(Vec::<u128>::from_iter([0, 0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_3_zero/serialized.ssz_snappy",
@@ -9597,7 +9679,8 @@ fn test_basic_vector_vec_uint128_3_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint32_8_zero() {
-    let mut value = Vector::<u32, 8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0]);
+    let mut value =
+        Vector::<u32, 8>::try_from(Vec::<u32>::from_iter([0, 0, 0, 0, 0, 0, 0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_8_zero/serialized.ssz_snappy",
@@ -9615,7 +9698,8 @@ fn test_basic_vector_vec_uint32_8_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint8_5_max() {
-    let mut value = Vector::<u8, 5>::from_iter([255, 255, 255, 255, 255]);
+    let mut value =
+        Vector::<u8, 5>::try_from(Vec::<u8>::from_iter([255, 255, 255, 255, 255])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_5_max/serialized.ssz_snappy",
@@ -9633,13 +9717,14 @@ fn test_basic_vector_vec_uint8_5_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_31_max() {
-    let mut value = Vector::<u32, 31>::from_iter([
+    let mut value = Vector::<u32, 31>::try_from(Vec::<u32>::from_iter([
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295, 4294967295,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_31_max/serialized.ssz_snappy",
@@ -9657,7 +9742,8 @@ fn test_basic_vector_vec_uint32_31_max() {
 
 #[test]
 fn test_basic_vector_vec_uint16_3_random() {
-    let mut value = Vector::<u16, 3>::from_iter([55998, 58650, 32471]);
+    let mut value =
+        Vector::<u16, 3>::try_from(Vec::<u16>::from_iter([55998, 58650, 32471])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_3_random/serialized.ssz_snappy",
@@ -9675,7 +9761,8 @@ fn test_basic_vector_vec_uint16_3_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_1_max() {
-    let mut value = Vector::<u64, 1>::from_iter([18446744073709551615]);
+    let mut value =
+        Vector::<u64, 1>::try_from(Vec::<u64>::from_iter([18446744073709551615])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_1_max/serialized.ssz_snappy",
@@ -9693,11 +9780,12 @@ fn test_basic_vector_vec_uint64_1_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_3_max() {
-    let mut value = Vector::<u128, 3>::from_iter([
+    let mut value = Vector::<u128, 3>::try_from(Vec::<u128>::from_iter([
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_3_max/serialized.ssz_snappy",
@@ -9715,8 +9803,10 @@ fn test_basic_vector_vec_uint128_3_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_5_random() {
-    let mut value =
-        Vector::<u32, 5>::from_iter([1051503312, 1875702585, 3338068896, 1062162289, 44280150]);
+    let mut value = Vector::<u32, 5>::try_from(Vec::<u32>::from_iter([
+        1051503312, 1875702585, 3338068896, 1062162289, 44280150,
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_5_random/serialized.ssz_snappy",
@@ -9734,10 +9824,11 @@ fn test_basic_vector_vec_uint32_5_random() {
 
 #[test]
 fn test_basic_vector_vec_uint256_1_random() {
-    let mut value = Vector::<U256, 1>::from_iter([U256::from_bytes_le([
+    let mut value = Vector::<U256, 1>::try_from(Vec::<U256>::from_iter([U256::from_bytes_le([
         23, 198, 217, 240, 65, 96, 243, 95, 206, 232, 214, 26, 230, 80, 25, 35, 116, 138, 185, 248,
         165, 147, 63, 252, 41, 25, 209, 95, 73, 233, 26, 244,
-    ])]);
+    ])]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_1_random/serialized.ssz_snappy",
@@ -9755,7 +9846,7 @@ fn test_basic_vector_vec_uint256_1_random() {
 
 #[test]
 fn test_basic_vector_vec_uint8_1_zero() {
-    let mut value = Vector::<u8, 1>::from_iter([0]);
+    let mut value = Vector::<u8, 1>::try_from(Vec::<u8>::from_iter([0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_1_zero/serialized.ssz_snappy",
@@ -9773,7 +9864,10 @@ fn test_basic_vector_vec_uint8_1_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_16_zero() {
-    let mut value = Vector::<u128, 16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    let mut value = Vector::<u128, 16>::try_from(Vec::<u128>::from_iter([
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_16_zero/serialized.ssz_snappy",
@@ -9791,7 +9885,7 @@ fn test_basic_vector_vec_uint128_16_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_16_random() {
-    let mut value = Vector::<U256, 16>::from_iter([
+    let mut value = Vector::<U256, 16>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             240, 52, 157, 62, 33, 82, 186, 76, 43, 156, 161, 241, 59, 31, 225, 79, 247, 97, 118,
             251, 234, 138, 47, 120, 129, 122, 206, 216, 201, 221, 67, 133,
@@ -9856,7 +9950,8 @@ fn test_basic_vector_vec_uint256_16_random() {
             171, 127, 221, 201, 139, 31, 221, 183, 128, 145, 61, 209, 23, 93, 25, 164, 96, 48, 210,
             1, 84, 130, 44, 131, 33, 60, 0, 100, 125, 32, 229, 220,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_16_random/serialized.ssz_snappy",
@@ -9874,11 +9969,12 @@ fn test_basic_vector_vec_uint256_16_random() {
 
 #[test]
 fn test_basic_vector_vec_uint16_31_random() {
-    let mut value = Vector::<u16, 31>::from_iter([
+    let mut value = Vector::<u16, 31>::try_from(Vec::<u16>::from_iter([
         2630, 4376, 65427, 13583, 41975, 15842, 27686, 33957, 45114, 56180, 24895, 4175, 40381,
         32830, 48421, 52207, 58611, 41821, 31373, 23853, 55119, 1957, 34877, 62496, 37311, 40303,
         44876, 36839, 47492, 53209, 24055,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_31_random/serialized.ssz_snappy",
@@ -9896,7 +9992,7 @@ fn test_basic_vector_vec_uint16_31_random() {
 
 #[test]
 fn test_basic_vector_vec_uint32_512_random() {
-    let mut value = Vector::<u32, 512>::from_iter([
+    let mut value = Vector::<u32, 512>::try_from(Vec::<u32>::from_iter([
         3535294352, 2244578171, 32943704, 3015817426, 2456157102, 219351158, 2006999311,
         1996972550, 2838712831, 1656769757, 3318502982, 4213769932, 2050078503, 4292367497,
         4290313471, 1262779699, 4083724714, 1323361645, 974092343, 710698434, 2984936844,
@@ -9969,7 +10065,8 @@ fn test_basic_vector_vec_uint32_512_random() {
         387862847, 3668943239, 2471366547, 3042011515, 1291823301, 3478236734, 4266051645,
         1225358750, 2712399533, 3151898487, 2747576291, 2815685304, 2442136584, 2977848056,
         1605903903, 2992868241, 2668529965, 1279750435,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_512_random/serialized.ssz_snappy",
@@ -9987,7 +10084,8 @@ fn test_basic_vector_vec_uint32_512_random() {
 
 #[test]
 fn test_basic_vector_vec_uint16_8_zero() {
-    let mut value = Vector::<u16, 8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0]);
+    let mut value =
+        Vector::<u16, 8>::try_from(Vec::<u16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_8_zero/serialized.ssz_snappy",
@@ -10005,11 +10103,12 @@ fn test_basic_vector_vec_uint16_8_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_31_max() {
-    let mut value = Vector::<u16, 31>::from_iter([
+    let mut value = Vector::<u16, 31>::try_from(Vec::<u16>::from_iter([
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
         65535, 65535, 65535, 65535, 65535,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_31_max/serialized.ssz_snappy",
@@ -10027,10 +10126,11 @@ fn test_basic_vector_vec_uint16_31_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_2_max() {
-    let mut value = Vector::<u128, 2>::from_iter([
+    let mut value = Vector::<u128, 2>::try_from(Vec::<u128>::from_iter([
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_2_max/serialized.ssz_snappy",
@@ -10048,7 +10148,7 @@ fn test_basic_vector_vec_uint128_2_max() {
 
 #[test]
 fn test_basic_vector_vec_uint8_4_max() {
-    let mut value = Vector::<u8, 4>::from_iter([255, 255, 255, 255]);
+    let mut value = Vector::<u8, 4>::try_from(Vec::<u8>::from_iter([255, 255, 255, 255])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_4_max/serialized.ssz_snappy",
@@ -10066,9 +10166,10 @@ fn test_basic_vector_vec_uint8_4_max() {
 
 #[test]
 fn test_basic_vector_vec_uint8_16_random() {
-    let mut value = Vector::<u8, 16>::from_iter([
+    let mut value = Vector::<u8, 16>::try_from(Vec::<u8>::from_iter([
         238, 35, 45, 23, 138, 32, 154, 246, 181, 136, 127, 102, 232, 9, 36, 2,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_16_random/serialized.ssz_snappy",
@@ -10086,7 +10187,7 @@ fn test_basic_vector_vec_uint8_16_random() {
 
 #[test]
 fn test_basic_vector_vec_uint8_512_zero() {
-    let mut value = Vector::<u8, 512>::from_iter([
+    let mut value = Vector::<u8, 512>::try_from(Vec::<u8>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -10105,7 +10206,8 @@ fn test_basic_vector_vec_uint8_512_zero() {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_512_zero/serialized.ssz_snappy",
@@ -10123,7 +10225,7 @@ fn test_basic_vector_vec_uint8_512_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint32_4_zero() {
-    let mut value = Vector::<u32, 4>::from_iter([0, 0, 0, 0]);
+    let mut value = Vector::<u32, 4>::try_from(Vec::<u32>::from_iter([0, 0, 0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_4_zero/serialized.ssz_snappy",
@@ -10141,7 +10243,8 @@ fn test_basic_vector_vec_uint32_4_zero() {
 
 #[test]
 fn test_basic_vector_vec_bool_4_max() {
-    let mut value = Vector::<bool, 4>::from_iter([true, true, true, true]);
+    let mut value =
+        Vector::<bool, 4>::try_from(Vec::<bool>::from_iter([true, true, true, true])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_bool_4_max/serialized.ssz_snappy",
@@ -10159,7 +10262,7 @@ fn test_basic_vector_vec_bool_4_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_513_max() {
-    let mut value = Vector::<u32, 513>::from_iter([
+    let mut value = Vector::<u32, 513>::try_from(Vec::<u32>::from_iter([
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
@@ -10234,7 +10337,8 @@ fn test_basic_vector_vec_uint32_513_max() {
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_513_max/serialized.ssz_snappy",
@@ -10252,7 +10356,7 @@ fn test_basic_vector_vec_uint32_513_max() {
 
 #[test]
 fn test_basic_vector_vec_bool_513_max() {
-    let mut value = Vector::<bool, 513>::from_iter([
+    let mut value = Vector::<bool, 513>::try_from(Vec::<bool>::from_iter([
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
@@ -10288,7 +10392,8 @@ fn test_basic_vector_vec_bool_513_max() {
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
         true, true, true,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_bool_513_max/serialized.ssz_snappy",
@@ -10306,7 +10411,7 @@ fn test_basic_vector_vec_bool_513_max() {
 
 #[test]
 fn test_basic_vector_vec_uint64_1_zero() {
-    let mut value = Vector::<u64, 1>::from_iter([0]);
+    let mut value = Vector::<u64, 1>::try_from(Vec::<u64>::from_iter([0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_1_zero/serialized.ssz_snappy",
@@ -10324,7 +10429,11 @@ fn test_basic_vector_vec_uint64_1_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint64_2_max() {
-    let mut value = Vector::<u64, 2>::from_iter([18446744073709551615, 18446744073709551615]);
+    let mut value = Vector::<u64, 2>::try_from(Vec::<u64>::from_iter([
+        18446744073709551615,
+        18446744073709551615,
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_2_max/serialized.ssz_snappy",
@@ -10342,10 +10451,11 @@ fn test_basic_vector_vec_uint64_2_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_8_max() {
-    let mut value = Vector::<u32, 8>::from_iter([
+    let mut value = Vector::<u32, 8>::try_from(Vec::<u32>::from_iter([
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_8_max/serialized.ssz_snappy",
@@ -10363,7 +10473,7 @@ fn test_basic_vector_vec_uint32_8_max() {
 
 #[test]
 fn test_basic_vector_vec_uint256_513_max() {
-    let mut value = Vector::<U256, 513>::from_iter([
+    let mut value = Vector::<U256, 513>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -12416,7 +12526,8 @@ fn test_basic_vector_vec_uint256_513_max() {
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_513_max/serialized.ssz_snappy",
@@ -12434,7 +12545,7 @@ fn test_basic_vector_vec_uint256_513_max() {
 
 #[test]
 fn test_basic_vector_vec_uint16_4_zero() {
-    let mut value = Vector::<u16, 4>::from_iter([0, 0, 0, 0]);
+    let mut value = Vector::<u16, 4>::try_from(Vec::<u16>::from_iter([0, 0, 0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_4_zero/serialized.ssz_snappy",
@@ -12452,7 +12563,7 @@ fn test_basic_vector_vec_uint16_4_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_512_max() {
-    let mut value = Vector::<U256, 512>::from_iter([
+    let mut value = Vector::<U256, 512>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -14501,7 +14612,8 @@ fn test_basic_vector_vec_uint256_512_max() {
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_512_max/serialized.ssz_snappy",
@@ -14519,7 +14631,7 @@ fn test_basic_vector_vec_uint256_512_max() {
 
 #[test]
 fn test_basic_vector_vec_uint64_8_random() {
-    let mut value = Vector::<u64, 8>::from_iter([
+    let mut value = Vector::<u64, 8>::try_from(Vec::<u64>::from_iter([
         598083651574187315,
         16261093746939895763,
         11288686854153899408,
@@ -14528,7 +14640,8 @@ fn test_basic_vector_vec_uint64_8_random() {
         14806780961068871529,
         11182945185590657296,
         10120249242423179797,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_8_random/serialized.ssz_snappy",
@@ -14546,12 +14659,13 @@ fn test_basic_vector_vec_uint64_8_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_4_random() {
-    let mut value = Vector::<u64, 4>::from_iter([
+    let mut value = Vector::<u64, 4>::try_from(Vec::<u64>::from_iter([
         7900660817174063737,
         6533979385570669156,
         4271747397033668748,
         3517156834185333722,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_4_random/serialized.ssz_snappy",
@@ -14569,7 +14683,10 @@ fn test_basic_vector_vec_uint64_4_random() {
 
 #[test]
 fn test_basic_vector_vec_uint128_1_max() {
-    let mut value = Vector::<u128, 1>::from_iter([340282366920938463463374607431768211455]);
+    let mut value = Vector::<u128, 1>::try_from(Vec::<u128>::from_iter([
+        340282366920938463463374607431768211455,
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_1_max/serialized.ssz_snappy",
@@ -14587,11 +14704,12 @@ fn test_basic_vector_vec_uint128_1_max() {
 
 #[test]
 fn test_basic_vector_vec_uint64_3_max() {
-    let mut value = Vector::<u64, 3>::from_iter([
+    let mut value = Vector::<u64, 3>::try_from(Vec::<u64>::from_iter([
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_3_max/serialized.ssz_snappy",
@@ -14609,7 +14727,7 @@ fn test_basic_vector_vec_uint64_3_max() {
 
 #[test]
 fn test_basic_vector_vec_uint256_3_zero() {
-    let mut value = Vector::<U256, 3>::from_iter([
+    let mut value = Vector::<U256, 3>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -14622,7 +14740,8 @@ fn test_basic_vector_vec_uint256_3_zero() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_3_zero/serialized.ssz_snappy",
@@ -14640,7 +14759,7 @@ fn test_basic_vector_vec_uint256_3_zero() {
 
 #[test]
 fn test_basic_vector_vec_bool_512_max() {
-    let mut value = Vector::<bool, 512>::from_iter([
+    let mut value = Vector::<bool, 512>::try_from(Vec::<bool>::from_iter([
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
@@ -14676,7 +14795,8 @@ fn test_basic_vector_vec_bool_512_max() {
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
         true, true,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_bool_512_max/serialized.ssz_snappy",
@@ -14694,7 +14814,7 @@ fn test_basic_vector_vec_bool_512_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_512_max() {
-    let mut value = Vector::<u32, 512>::from_iter([
+    let mut value = Vector::<u32, 512>::try_from(Vec::<u32>::from_iter([
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
@@ -14769,7 +14889,8 @@ fn test_basic_vector_vec_uint32_512_max() {
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295,
         4294967295,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_512_max/serialized.ssz_snappy",
@@ -14787,8 +14908,10 @@ fn test_basic_vector_vec_uint32_512_max() {
 
 #[test]
 fn test_basic_vector_vec_uint16_8_max() {
-    let mut value =
-        Vector::<u16, 8>::from_iter([65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535]);
+    let mut value = Vector::<u16, 8>::try_from(Vec::<u16>::from_iter([
+        65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_8_max/serialized.ssz_snappy",
@@ -14806,7 +14929,9 @@ fn test_basic_vector_vec_uint16_8_max() {
 
 #[test]
 fn test_basic_vector_vec_bool_5_max() {
-    let mut value = Vector::<bool, 5>::from_iter([true, true, true, true, true]);
+    let mut value =
+        Vector::<bool, 5>::try_from(Vec::<bool>::from_iter([true, true, true, true, true]))
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_bool_5_max/serialized.ssz_snappy",
@@ -14824,7 +14949,7 @@ fn test_basic_vector_vec_bool_5_max() {
 
 #[test]
 fn test_basic_vector_vec_uint256_16_zero() {
-    let mut value = Vector::<U256, 16>::from_iter([
+    let mut value = Vector::<U256, 16>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -14889,7 +15014,8 @@ fn test_basic_vector_vec_uint256_16_zero() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_16_zero/serialized.ssz_snappy",
@@ -14907,7 +15033,7 @@ fn test_basic_vector_vec_uint256_16_zero() {
 
 #[test]
 fn test_basic_vector_vec_bool_1_max() {
-    let mut value = Vector::<bool, 1>::from_iter([true]);
+    let mut value = Vector::<bool, 1>::try_from(Vec::<bool>::from_iter([true])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_bool_1_max/serialized.ssz_snappy",
@@ -14925,13 +15051,14 @@ fn test_basic_vector_vec_bool_1_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_5_max() {
-    let mut value = Vector::<u128, 5>::from_iter([
+    let mut value = Vector::<u128, 5>::try_from(Vec::<u128>::from_iter([
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_5_max/serialized.ssz_snappy",
@@ -14949,7 +15076,7 @@ fn test_basic_vector_vec_uint128_5_max() {
 
 #[test]
 fn test_basic_vector_vec_uint8_3_max() {
-    let mut value = Vector::<u8, 3>::from_iter([255, 255, 255]);
+    let mut value = Vector::<u8, 3>::try_from(Vec::<u8>::from_iter([255, 255, 255])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_3_max/serialized.ssz_snappy",
@@ -14967,7 +15094,7 @@ fn test_basic_vector_vec_uint8_3_max() {
 
 #[test]
 fn test_basic_vector_vec_uint256_2_zero() {
-    let mut value = Vector::<U256, 2>::from_iter([
+    let mut value = Vector::<U256, 2>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -14976,7 +15103,8 @@ fn test_basic_vector_vec_uint256_2_zero() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_2_zero/serialized.ssz_snappy",
@@ -14994,10 +15122,11 @@ fn test_basic_vector_vec_uint256_2_zero() {
 
 #[test]
 fn test_basic_vector_vec_bool_16_zero() {
-    let mut value = Vector::<bool, 16>::from_iter([
+    let mut value = Vector::<bool, 16>::try_from(Vec::<bool>::from_iter([
         false, false, false, false, false, false, false, false, false, false, false, false, false,
         false, false, false,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_bool_16_zero/serialized.ssz_snappy",
@@ -15015,7 +15144,10 @@ fn test_basic_vector_vec_bool_16_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint32_16_zero() {
-    let mut value = Vector::<u32, 16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    let mut value = Vector::<u32, 16>::try_from(Vec::<u32>::from_iter([
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_16_zero/serialized.ssz_snappy",
@@ -15033,7 +15165,7 @@ fn test_basic_vector_vec_uint32_16_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_5_zero() {
-    let mut value = Vector::<u16, 5>::from_iter([0, 0, 0, 0, 0]);
+    let mut value = Vector::<u16, 5>::try_from(Vec::<u16>::from_iter([0, 0, 0, 0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_5_zero/serialized.ssz_snappy",
@@ -15051,9 +15183,10 @@ fn test_basic_vector_vec_uint16_5_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint64_31_zero() {
-    let mut value = Vector::<u64, 31>::from_iter([
+    let mut value = Vector::<u64, 31>::try_from(Vec::<u64>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_31_zero/serialized.ssz_snappy",
@@ -15071,7 +15204,7 @@ fn test_basic_vector_vec_uint64_31_zero() {
 
 #[test]
 fn test_basic_vector_vec_bool_1_zero() {
-    let mut value = Vector::<bool, 1>::from_iter([false]);
+    let mut value = Vector::<bool, 1>::try_from(Vec::<bool>::from_iter([false])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_bool_1_zero/serialized.ssz_snappy",
@@ -15089,7 +15222,7 @@ fn test_basic_vector_vec_bool_1_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint8_2_max() {
-    let mut value = Vector::<u8, 2>::from_iter([255, 255]);
+    let mut value = Vector::<u8, 2>::try_from(Vec::<u8>::from_iter([255, 255])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_2_max/serialized.ssz_snappy",
@@ -15107,12 +15240,13 @@ fn test_basic_vector_vec_uint8_2_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_4_max() {
-    let mut value = Vector::<u128, 4>::from_iter([
+    let mut value = Vector::<u128, 4>::try_from(Vec::<u128>::from_iter([
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_4_max/serialized.ssz_snappy",
@@ -15130,7 +15264,7 @@ fn test_basic_vector_vec_uint128_4_max() {
 
 #[test]
 fn test_basic_vector_vec_uint8_513_zero() {
-    let mut value = Vector::<u8, 513>::from_iter([
+    let mut value = Vector::<u8, 513>::try_from(Vec::<u8>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -15149,7 +15283,8 @@ fn test_basic_vector_vec_uint8_513_zero() {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_513_zero/serialized.ssz_snappy",
@@ -15167,7 +15302,7 @@ fn test_basic_vector_vec_uint8_513_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint32_5_zero() {
-    let mut value = Vector::<u32, 5>::from_iter([0, 0, 0, 0, 0]);
+    let mut value = Vector::<u32, 5>::try_from(Vec::<u32>::from_iter([0, 0, 0, 0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_5_zero/serialized.ssz_snappy",
@@ -15185,9 +15320,10 @@ fn test_basic_vector_vec_uint32_5_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_31_zero() {
-    let mut value = Vector::<u16, 31>::from_iter([
+    let mut value = Vector::<u16, 31>::try_from(Vec::<u16>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_31_zero/serialized.ssz_snappy",
@@ -15205,13 +15341,14 @@ fn test_basic_vector_vec_uint16_31_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_5_random() {
-    let mut value = Vector::<u128, 5>::from_iter([
+    let mut value = Vector::<u128, 5>::try_from(Vec::<u128>::from_iter([
         194578830033788736352569855138204668708,
         222404791245710801707639009374583541271,
         300921627290141104382250227469409620613,
         262165721261575220299431625592070664586,
         114390707564886779102314838295082086088,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_5_random/serialized.ssz_snappy",
@@ -15229,7 +15366,7 @@ fn test_basic_vector_vec_uint128_5_random() {
 
 #[test]
 fn test_basic_vector_vec_bool_2_max() {
-    let mut value = Vector::<bool, 2>::from_iter([true, true]);
+    let mut value = Vector::<bool, 2>::try_from(Vec::<bool>::from_iter([true, true])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_bool_2_max/serialized.ssz_snappy",
@@ -15247,7 +15384,7 @@ fn test_basic_vector_vec_bool_2_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_513_max() {
-    let mut value = Vector::<u128, 513>::from_iter([
+    let mut value = Vector::<u128, 513>::try_from(Vec::<u128>::from_iter([
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
@@ -15761,7 +15898,8 @@ fn test_basic_vector_vec_uint128_513_max() {
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_513_max/serialized.ssz_snappy",
@@ -15779,12 +15917,13 @@ fn test_basic_vector_vec_uint128_513_max() {
 
 #[test]
 fn test_basic_vector_vec_uint64_4_max() {
-    let mut value = Vector::<u64, 4>::from_iter([
+    let mut value = Vector::<u64, 4>::try_from(Vec::<u64>::from_iter([
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_4_max/serialized.ssz_snappy",
@@ -15802,7 +15941,7 @@ fn test_basic_vector_vec_uint64_4_max() {
 
 #[test]
 fn test_basic_vector_vec_uint256_3_random() {
-    let mut value = Vector::<U256, 3>::from_iter([
+    let mut value = Vector::<U256, 3>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             180, 21, 110, 11, 140, 206, 247, 50, 116, 42, 151, 240, 95, 129, 184, 145, 10, 60, 171,
             40, 120, 79, 137, 163, 69, 100, 70, 1, 173, 244, 248, 44,
@@ -15815,7 +15954,8 @@ fn test_basic_vector_vec_uint256_3_random() {
             201, 244, 78, 58, 39, 55, 151, 126, 63, 239, 151, 45, 32, 114, 114, 145, 25, 154, 100,
             142, 85, 203, 94, 39, 125, 63, 163, 149, 244, 214, 209, 134,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_3_random/serialized.ssz_snappy",
@@ -15833,7 +15973,7 @@ fn test_basic_vector_vec_uint256_3_random() {
 
 #[test]
 fn test_basic_vector_vec_uint16_1_random() {
-    let mut value = Vector::<u16, 1>::from_iter([58671]);
+    let mut value = Vector::<u16, 1>::try_from(Vec::<u16>::from_iter([58671])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_1_random/serialized.ssz_snappy",
@@ -15851,13 +15991,14 @@ fn test_basic_vector_vec_uint16_1_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_5_max() {
-    let mut value = Vector::<u64, 5>::from_iter([
+    let mut value = Vector::<u64, 5>::try_from(Vec::<u64>::from_iter([
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_5_max/serialized.ssz_snappy",
@@ -15875,7 +16016,7 @@ fn test_basic_vector_vec_uint64_5_max() {
 
 #[test]
 fn test_basic_vector_vec_uint8_1_max() {
-    let mut value = Vector::<u8, 1>::from_iter([255]);
+    let mut value = Vector::<u8, 1>::try_from(Vec::<u8>::from_iter([255])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_1_max/serialized.ssz_snappy",
@@ -15893,7 +16034,7 @@ fn test_basic_vector_vec_uint8_1_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_513_random() {
-    let mut value = Vector::<u128, 513>::from_iter([
+    let mut value = Vector::<u128, 513>::try_from(Vec::<u128>::from_iter([
         34806233895606943316594477386264063388,
         269482665842274191832954812547223680643,
         98566888497380199723262118438348948905,
@@ -16407,7 +16548,8 @@ fn test_basic_vector_vec_uint128_513_random() {
         31123334673239505985502485469190871818,
         108221987199725942615133993358635423732,
         144858385761375916683877311660170870186,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_513_random/serialized.ssz_snappy",
@@ -16425,7 +16567,7 @@ fn test_basic_vector_vec_uint128_513_random() {
 
 #[test]
 fn test_basic_vector_vec_uint8_2_random() {
-    let mut value = Vector::<u8, 2>::from_iter([59, 3]);
+    let mut value = Vector::<u8, 2>::try_from(Vec::<u8>::from_iter([59, 3])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_2_random/serialized.ssz_snappy",
@@ -16443,7 +16585,7 @@ fn test_basic_vector_vec_uint8_2_random() {
 
 #[test]
 fn test_basic_vector_vec_uint128_512_max() {
-    let mut value = Vector::<u128, 512>::from_iter([
+    let mut value = Vector::<u128, 512>::try_from(Vec::<u128>::from_iter([
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
@@ -16956,7 +17098,8 @@ fn test_basic_vector_vec_uint128_512_max() {
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_512_max/serialized.ssz_snappy",
@@ -16974,7 +17117,8 @@ fn test_basic_vector_vec_uint128_512_max() {
 
 #[test]
 fn test_basic_vector_vec_bool_3_max() {
-    let mut value = Vector::<bool, 3>::from_iter([true, true, true]);
+    let mut value =
+        Vector::<bool, 3>::try_from(Vec::<bool>::from_iter([true, true, true])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_bool_3_max/serialized.ssz_snappy",
@@ -16992,7 +17136,7 @@ fn test_basic_vector_vec_bool_3_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_2_zero() {
-    let mut value = Vector::<u128, 2>::from_iter([0, 0]);
+    let mut value = Vector::<u128, 2>::try_from(Vec::<u128>::from_iter([0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_2_zero/serialized.ssz_snappy",
@@ -17010,7 +17154,7 @@ fn test_basic_vector_vec_uint128_2_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint32_2_zero() {
-    let mut value = Vector::<u32, 2>::from_iter([0, 0]);
+    let mut value = Vector::<u32, 2>::try_from(Vec::<u32>::from_iter([0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_2_zero/serialized.ssz_snappy",
@@ -17028,7 +17172,7 @@ fn test_basic_vector_vec_uint32_2_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint64_16_max() {
-    let mut value = Vector::<u64, 16>::from_iter([
+    let mut value = Vector::<u64, 16>::try_from(Vec::<u64>::from_iter([
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
@@ -17045,7 +17189,8 @@ fn test_basic_vector_vec_uint64_16_max() {
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_16_max/serialized.ssz_snappy",
@@ -17063,7 +17208,10 @@ fn test_basic_vector_vec_uint64_16_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_1_random() {
-    let mut value = Vector::<u128, 1>::from_iter([209794508200186098054846448654859096491]);
+    let mut value = Vector::<u128, 1>::try_from(Vec::<u128>::from_iter([
+        209794508200186098054846448654859096491,
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_1_random/serialized.ssz_snappy",
@@ -17081,11 +17229,12 @@ fn test_basic_vector_vec_uint128_1_random() {
 
 #[test]
 fn test_basic_vector_vec_uint32_16_random() {
-    let mut value = Vector::<u32, 16>::from_iter([
+    let mut value = Vector::<u32, 16>::try_from(Vec::<u32>::from_iter([
         1381494992, 3456058494, 3316673465, 2895863808, 3039979229, 2658482247, 324065072,
         1118337861, 3690875953, 98201721, 1227056475, 2365715743, 1634445540, 616917765,
         1742195761, 2632010539,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_16_random/serialized.ssz_snappy",
@@ -17103,7 +17252,11 @@ fn test_basic_vector_vec_uint32_16_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_2_random() {
-    let mut value = Vector::<u64, 2>::from_iter([16527226978582771838, 7558561043290308816]);
+    let mut value = Vector::<u64, 2>::try_from(Vec::<u64>::from_iter([
+        16527226978582771838,
+        7558561043290308816,
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_2_random/serialized.ssz_snappy",
@@ -17121,7 +17274,7 @@ fn test_basic_vector_vec_uint64_2_random() {
 
 #[test]
 fn test_basic_vector_vec_uint16_2_zero() {
-    let mut value = Vector::<u16, 2>::from_iter([0, 0]);
+    let mut value = Vector::<u16, 2>::try_from(Vec::<u16>::from_iter([0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_2_zero/serialized.ssz_snappy",
@@ -17139,7 +17292,7 @@ fn test_basic_vector_vec_uint16_2_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_5_zero() {
-    let mut value = Vector::<U256, 5>::from_iter([
+    let mut value = Vector::<U256, 5>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -17160,7 +17313,8 @@ fn test_basic_vector_vec_uint256_5_zero() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_5_zero/serialized.ssz_snappy",
@@ -17178,7 +17332,7 @@ fn test_basic_vector_vec_uint256_5_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_5_zero() {
-    let mut value = Vector::<u128, 5>::from_iter([0, 0, 0, 0, 0]);
+    let mut value = Vector::<u128, 5>::try_from(Vec::<u128>::from_iter([0, 0, 0, 0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_5_zero/serialized.ssz_snappy",
@@ -17196,7 +17350,7 @@ fn test_basic_vector_vec_uint128_5_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_31_zero() {
-    let mut value = Vector::<U256, 31>::from_iter([
+    let mut value = Vector::<U256, 31>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -17321,7 +17475,8 @@ fn test_basic_vector_vec_uint256_31_zero() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_31_zero/serialized.ssz_snappy",
@@ -17339,9 +17494,10 @@ fn test_basic_vector_vec_uint256_31_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint8_16_max() {
-    let mut value = Vector::<u8, 16>::from_iter([
+    let mut value = Vector::<u8, 16>::try_from(Vec::<u8>::from_iter([
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_16_max/serialized.ssz_snappy",
@@ -17359,7 +17515,7 @@ fn test_basic_vector_vec_uint8_16_max() {
 
 #[test]
 fn test_basic_vector_vec_uint256_5_max() {
-    let mut value = Vector::<U256, 5>::from_iter([
+    let mut value = Vector::<U256, 5>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -17380,7 +17536,8 @@ fn test_basic_vector_vec_uint256_5_max() {
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_5_max/serialized.ssz_snappy",
@@ -17398,9 +17555,10 @@ fn test_basic_vector_vec_uint256_5_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_31_zero() {
-    let mut value = Vector::<u32, 31>::from_iter([
+    let mut value = Vector::<u32, 31>::try_from(Vec::<u32>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_31_zero/serialized.ssz_snappy",
@@ -17418,11 +17576,12 @@ fn test_basic_vector_vec_uint32_31_zero() {
 
 #[test]
 fn test_basic_vector_vec_bool_31_zero() {
-    let mut value = Vector::<bool, 31>::from_iter([
+    let mut value = Vector::<bool, 31>::try_from(Vec::<bool>::from_iter([
         false, false, false, false, false, false, false, false, false, false, false, false, false,
         false, false, false, false, false, false, false, false, false, false, false, false, false,
         false, false, false, false, false,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_bool_31_zero/serialized.ssz_snappy",
@@ -17440,7 +17599,7 @@ fn test_basic_vector_vec_bool_31_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint64_513_zero() {
-    let mut value = Vector::<u64, 513>::from_iter([
+    let mut value = Vector::<u64, 513>::try_from(Vec::<u64>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -17459,7 +17618,8 @@ fn test_basic_vector_vec_uint64_513_zero() {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_513_zero/serialized.ssz_snappy",
@@ -17477,7 +17637,9 @@ fn test_basic_vector_vec_uint64_513_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint32_3_random() {
-    let mut value = Vector::<u32, 3>::from_iter([414721764, 1396444802, 4099449558]);
+    let mut value =
+        Vector::<u32, 3>::try_from(Vec::<u32>::from_iter([414721764, 1396444802, 4099449558]))
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_3_random/serialized.ssz_snappy",
@@ -17495,7 +17657,9 @@ fn test_basic_vector_vec_uint32_3_random() {
 
 #[test]
 fn test_basic_vector_vec_uint16_5_random() {
-    let mut value = Vector::<u16, 5>::from_iter([35919, 34593, 14706, 39574, 53868]);
+    let mut value =
+        Vector::<u16, 5>::try_from(Vec::<u16>::from_iter([35919, 34593, 14706, 39574, 53868]))
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_5_random/serialized.ssz_snappy",
@@ -17513,7 +17677,7 @@ fn test_basic_vector_vec_uint16_5_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_16_random() {
-    let mut value = Vector::<u64, 16>::from_iter([
+    let mut value = Vector::<u64, 16>::try_from(Vec::<u64>::from_iter([
         14973315493487554254,
         14609512114016110986,
         10032323568597029119,
@@ -17530,7 +17694,8 @@ fn test_basic_vector_vec_uint64_16_random() {
         15336235419586149355,
         16699880407387000672,
         10919772420411846664,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_16_random/serialized.ssz_snappy",
@@ -17548,7 +17713,10 @@ fn test_basic_vector_vec_uint64_16_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_16_zero() {
-    let mut value = Vector::<u64, 16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    let mut value = Vector::<u64, 16>::try_from(Vec::<u64>::from_iter([
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_16_zero/serialized.ssz_snappy",
@@ -17566,7 +17734,7 @@ fn test_basic_vector_vec_uint64_16_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_4_max() {
-    let mut value = Vector::<U256, 4>::from_iter([
+    let mut value = Vector::<U256, 4>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -17583,7 +17751,8 @@ fn test_basic_vector_vec_uint256_4_max() {
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_4_max/serialized.ssz_snappy",
@@ -17601,7 +17770,10 @@ fn test_basic_vector_vec_uint256_4_max() {
 
 #[test]
 fn test_basic_vector_vec_uint16_16_zero() {
-    let mut value = Vector::<u16, 16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    let mut value = Vector::<u16, 16>::try_from(Vec::<u16>::from_iter([
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_16_zero/serialized.ssz_snappy",
@@ -17619,7 +17791,7 @@ fn test_basic_vector_vec_uint16_16_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_512_random() {
-    let mut value = Vector::<u16, 512>::from_iter([
+    let mut value = Vector::<u16, 512>::try_from(Vec::<u16>::from_iter([
         39340, 21094, 12815, 18079, 3546, 9133, 45047, 41320, 3878, 13753, 38525, 64568, 43355,
         62649, 55650, 30889, 7989, 16810, 53928, 52810, 54272, 34111, 43130, 14634, 55804, 24247,
         2549, 37573, 53039, 1273, 63106, 10081, 35901, 22063, 65529, 36398, 22557, 6548, 49942,
@@ -17660,7 +17832,8 @@ fn test_basic_vector_vec_uint16_512_random() {
         1377, 20244, 46065, 60988, 10318, 54100, 17850, 50438, 11595, 21746, 25610, 55196, 23824,
         6586, 41973, 6026, 57980, 57254, 40365, 21772, 63353, 32160, 11991, 18726, 48970, 29746,
         49440, 17081, 41097, 13465, 63697,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_512_random/serialized.ssz_snappy",
@@ -17678,7 +17851,7 @@ fn test_basic_vector_vec_uint16_512_random() {
 
 #[test]
 fn test_basic_vector_vec_uint256_31_max() {
-    let mut value = Vector::<U256, 31>::from_iter([
+    let mut value = Vector::<U256, 31>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -17803,7 +17976,8 @@ fn test_basic_vector_vec_uint256_31_max() {
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_31_max/serialized.ssz_snappy",
@@ -17821,7 +17995,7 @@ fn test_basic_vector_vec_uint256_31_max() {
 
 #[test]
 fn test_basic_vector_vec_uint256_512_random() {
-    let mut value = Vector::<U256, 512>::from_iter([
+    let mut value = Vector::<U256, 512>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             139, 35, 218, 181, 245, 36, 123, 0, 134, 153, 41, 134, 218, 150, 141, 38, 149, 194,
             111, 25, 214, 237, 163, 176, 43, 132, 142, 30, 4, 87, 68, 59,
@@ -19870,7 +20044,8 @@ fn test_basic_vector_vec_uint256_512_random() {
             90, 71, 50, 210, 136, 158, 160, 197, 173, 195, 183, 16, 68, 156, 60, 162, 242, 82, 230,
             160, 108, 50, 29, 169, 29, 178, 127, 185, 38, 234, 143, 220,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_512_random/serialized.ssz_snappy",
@@ -19888,7 +20063,7 @@ fn test_basic_vector_vec_uint256_512_random() {
 
 #[test]
 fn test_basic_vector_vec_uint256_8_zero() {
-    let mut value = Vector::<U256, 8>::from_iter([
+    let mut value = Vector::<U256, 8>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -19921,7 +20096,8 @@ fn test_basic_vector_vec_uint256_8_zero() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_8_zero/serialized.ssz_snappy",
@@ -19939,7 +20115,7 @@ fn test_basic_vector_vec_uint256_8_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint64_512_max() {
-    let mut value = Vector::<u64, 512>::from_iter([
+    let mut value = Vector::<u64, 512>::try_from(Vec::<u64>::from_iter([
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
@@ -20452,7 +20628,8 @@ fn test_basic_vector_vec_uint64_512_max() {
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_512_max/serialized.ssz_snappy",
@@ -20470,7 +20647,8 @@ fn test_basic_vector_vec_uint64_512_max() {
 
 #[test]
 fn test_basic_vector_vec_uint8_8_random() {
-    let mut value = Vector::<u8, 8>::from_iter([76, 46, 93, 58, 7, 249, 127, 33]);
+    let mut value =
+        Vector::<u8, 8>::try_from(Vec::<u8>::from_iter([76, 46, 93, 58, 7, 249, 127, 33])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_8_random/serialized.ssz_snappy",
@@ -20488,7 +20666,7 @@ fn test_basic_vector_vec_uint8_8_random() {
 
 #[test]
 fn test_basic_vector_vec_uint16_512_max() {
-    let mut value = Vector::<u16, 512>::from_iter([
+    let mut value = Vector::<u16, 512>::try_from(Vec::<u16>::from_iter([
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -20529,7 +20707,8 @@ fn test_basic_vector_vec_uint16_512_max() {
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
         65535, 65535, 65535, 65535, 65535,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_512_max/serialized.ssz_snappy",
@@ -20547,7 +20726,7 @@ fn test_basic_vector_vec_uint16_512_max() {
 
 #[test]
 fn test_basic_vector_vec_uint8_4_random() {
-    let mut value = Vector::<u8, 4>::from_iter([50, 181, 121, 8]);
+    let mut value = Vector::<u8, 4>::try_from(Vec::<u8>::from_iter([50, 181, 121, 8])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_4_random/serialized.ssz_snappy",
@@ -20565,7 +20744,7 @@ fn test_basic_vector_vec_uint8_4_random() {
 
 #[test]
 fn test_basic_vector_vec_uint64_512_zero() {
-    let mut value = Vector::<u64, 512>::from_iter([
+    let mut value = Vector::<u64, 512>::try_from(Vec::<u64>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -20584,7 +20763,8 @@ fn test_basic_vector_vec_uint64_512_zero() {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_512_zero/serialized.ssz_snappy",
@@ -20602,7 +20782,7 @@ fn test_basic_vector_vec_uint64_512_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_5_random() {
-    let mut value = Vector::<U256, 5>::from_iter([
+    let mut value = Vector::<U256, 5>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             179, 22, 196, 129, 77, 158, 184, 168, 7, 100, 123, 93, 196, 11, 104, 117, 250, 160,
             128, 244, 88, 117, 73, 178, 87, 111, 186, 153, 1, 54, 206, 160,
@@ -20623,7 +20803,8 @@ fn test_basic_vector_vec_uint256_5_random() {
             60, 169, 38, 245, 186, 228, 193, 208, 131, 226, 128, 133, 125, 253, 167, 1, 52, 50, 64,
             86, 59, 104, 210, 200, 254, 145, 245, 192, 67, 234, 155, 68,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_5_random/serialized.ssz_snappy",
@@ -20641,10 +20822,11 @@ fn test_basic_vector_vec_uint256_5_random() {
 
 #[test]
 fn test_basic_vector_vec_uint256_1_max() {
-    let mut value = Vector::<U256, 1>::from_iter([U256::from_bytes_le([
+    let mut value = Vector::<U256, 1>::try_from(Vec::<U256>::from_iter([U256::from_bytes_le([
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-    ])]);
+    ])]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_1_max/serialized.ssz_snappy",
@@ -20662,7 +20844,7 @@ fn test_basic_vector_vec_uint256_1_max() {
 
 #[test]
 fn test_basic_vector_vec_uint16_513_max() {
-    let mut value = Vector::<u16, 513>::from_iter([
+    let mut value = Vector::<u16, 513>::try_from(Vec::<u16>::from_iter([
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -20703,7 +20885,8 @@ fn test_basic_vector_vec_uint16_513_max() {
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
         65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
         65535, 65535, 65535, 65535, 65535, 65535,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_513_max/serialized.ssz_snappy",
@@ -20721,7 +20904,7 @@ fn test_basic_vector_vec_uint16_513_max() {
 
 #[test]
 fn test_basic_vector_vec_uint64_513_max() {
-    let mut value = Vector::<u64, 513>::from_iter([
+    let mut value = Vector::<u64, 513>::try_from(Vec::<u64>::from_iter([
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
@@ -21235,7 +21418,8 @@ fn test_basic_vector_vec_uint64_513_max() {
         18446744073709551615,
         18446744073709551615,
         18446744073709551615,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_513_max/serialized.ssz_snappy",
@@ -21253,7 +21437,7 @@ fn test_basic_vector_vec_uint64_513_max() {
 
 #[test]
 fn test_basic_vector_vec_uint32_1_random() {
-    let mut value = Vector::<u32, 1>::from_iter([1797257601]);
+    let mut value = Vector::<u32, 1>::try_from(Vec::<u32>::from_iter([1797257601])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_1_random/serialized.ssz_snappy",
@@ -21271,7 +21455,7 @@ fn test_basic_vector_vec_uint32_1_random() {
 
 #[test]
 fn test_basic_vector_vec_uint128_4_zero() {
-    let mut value = Vector::<u128, 4>::from_iter([0, 0, 0, 0]);
+    let mut value = Vector::<u128, 4>::try_from(Vec::<u128>::from_iter([0, 0, 0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_4_zero/serialized.ssz_snappy",
@@ -21289,7 +21473,7 @@ fn test_basic_vector_vec_uint128_4_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint256_4_zero() {
-    let mut value = Vector::<U256, 4>::from_iter([
+    let mut value = Vector::<U256, 4>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -21306,7 +21490,8 @@ fn test_basic_vector_vec_uint256_4_zero() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_4_zero/serialized.ssz_snappy",
@@ -21324,11 +21509,12 @@ fn test_basic_vector_vec_uint256_4_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint128_3_random() {
-    let mut value = Vector::<u128, 3>::from_iter([
+    let mut value = Vector::<u128, 3>::try_from(Vec::<u128>::from_iter([
         220301989141709271334326095341414922102,
         210235080945710533958926333282570767995,
         38717160196772117737433576948282568669,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_3_random/serialized.ssz_snappy",
@@ -21346,7 +21532,7 @@ fn test_basic_vector_vec_uint128_3_random() {
 
 #[test]
 fn test_basic_vector_vec_uint256_3_max() {
-    let mut value = Vector::<U256, 3>::from_iter([
+    let mut value = Vector::<U256, 3>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -21359,7 +21545,8 @@ fn test_basic_vector_vec_uint256_3_max() {
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_3_max/serialized.ssz_snappy",
@@ -21377,9 +21564,10 @@ fn test_basic_vector_vec_uint256_3_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_31_zero() {
-    let mut value = Vector::<u128, 31>::from_iter([
+    let mut value = Vector::<u128, 31>::try_from(Vec::<u128>::from_iter([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_31_zero/serialized.ssz_snappy",
@@ -21397,7 +21585,7 @@ fn test_basic_vector_vec_uint128_31_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint16_3_zero() {
-    let mut value = Vector::<u16, 3>::from_iter([0, 0, 0]);
+    let mut value = Vector::<u16, 3>::try_from(Vec::<u16>::from_iter([0, 0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint16_3_zero/serialized.ssz_snappy",
@@ -21415,7 +21603,7 @@ fn test_basic_vector_vec_uint16_3_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint8_513_random() {
-    let mut value = Vector::<u8, 513>::from_iter([
+    let mut value = Vector::<u8, 513>::try_from(Vec::<u8>::from_iter([
         43, 14, 152, 176, 220, 9, 200, 233, 44, 111, 40, 178, 171, 180, 198, 181, 48, 15, 66, 68,
         230, 183, 64, 49, 31, 136, 81, 16, 173, 252, 42, 222, 184, 9, 215, 161, 98, 84, 117, 216,
         87, 221, 255, 71, 194, 243, 197, 156, 141, 132, 73, 183, 67, 133, 159, 127, 151, 85, 79,
@@ -21443,7 +21631,8 @@ fn test_basic_vector_vec_uint8_513_random() {
         71, 179, 11, 105, 120, 12, 65, 177, 182, 83, 0, 120, 23, 76, 109, 41, 159, 173, 200, 184,
         33, 131, 140, 182, 199, 67, 42, 16, 125, 127, 18, 77, 49, 218, 239, 181, 171, 203, 25, 223,
         154, 160, 91, 41, 183,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint8_513_random/serialized.ssz_snappy",
@@ -21461,10 +21650,11 @@ fn test_basic_vector_vec_uint8_513_random() {
 
 #[test]
 fn test_basic_vector_vec_bool_16_max() {
-    let mut value = Vector::<bool, 16>::from_iter([
+    let mut value = Vector::<bool, 16>::try_from(Vec::<bool>::from_iter([
         true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
         true,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_bool_16_max/serialized.ssz_snappy",
@@ -21482,7 +21672,7 @@ fn test_basic_vector_vec_bool_16_max() {
 
 #[test]
 fn test_basic_vector_vec_uint256_2_max() {
-    let mut value = Vector::<U256, 2>::from_iter([
+    let mut value = Vector::<U256, 2>::try_from(Vec::<U256>::from_iter([
         U256::from_bytes_le([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -21491,7 +21681,8 @@ fn test_basic_vector_vec_uint256_2_max() {
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         ]),
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint256_2_max/serialized.ssz_snappy",
@@ -21509,7 +21700,7 @@ fn test_basic_vector_vec_uint256_2_max() {
 
 #[test]
 fn test_basic_vector_vec_uint128_31_max() {
-    let mut value = Vector::<u128, 31>::from_iter([
+    let mut value = Vector::<u128, 31>::try_from(Vec::<u128>::from_iter([
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
@@ -21541,7 +21732,8 @@ fn test_basic_vector_vec_uint128_31_max() {
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
         340282366920938463463374607431768211455,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_31_max/serialized.ssz_snappy",
@@ -21559,7 +21751,7 @@ fn test_basic_vector_vec_uint128_31_max() {
 
 #[test]
 fn test_basic_vector_vec_uint64_513_random() {
-    let mut value = Vector::<u64, 513>::from_iter([
+    let mut value = Vector::<u64, 513>::try_from(Vec::<u64>::from_iter([
         977103724348450572,
         16638432304304789571,
         12981575418293692183,
@@ -22073,7 +22265,8 @@ fn test_basic_vector_vec_uint64_513_random() {
         10847189400170229879,
         15461835451771729183,
         5109845722067874472,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint64_513_random/serialized.ssz_snappy",
@@ -22091,7 +22284,7 @@ fn test_basic_vector_vec_uint64_513_random() {
 
 #[test]
 fn test_basic_vector_vec_uint128_31_random() {
-    let mut value = Vector::<u128, 31>::from_iter([
+    let mut value = Vector::<u128, 31>::try_from(Vec::<u128>::from_iter([
         322161099503949134246875383873042092581,
         48424120129033191202980611955490263589,
         83525771833522514138478832606095687392,
@@ -22123,7 +22316,8 @@ fn test_basic_vector_vec_uint128_31_random() {
         78462050498312150224719961424376658389,
         153336548508268826136733686433451871611,
         41167450208159900235790428302057680448,
-    ]);
+    ]))
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_31_random/serialized.ssz_snappy",
@@ -22141,7 +22335,8 @@ fn test_basic_vector_vec_uint128_31_random() {
 
 #[test]
 fn test_basic_vector_vec_uint128_8_zero() {
-    let mut value = Vector::<u128, 8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0]);
+    let mut value =
+        Vector::<u128, 8>::try_from(Vec::<u128>::from_iter([0, 0, 0, 0, 0, 0, 0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint128_8_zero/serialized.ssz_snappy",
@@ -22159,7 +22354,7 @@ fn test_basic_vector_vec_uint128_8_zero() {
 
 #[test]
 fn test_basic_vector_vec_uint32_3_zero() {
-    let mut value = Vector::<u32, 3>::from_iter([0, 0, 0]);
+    let mut value = Vector::<u32, 3>::try_from(Vec::<u32>::from_iter([0, 0, 0])).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/basic_vector/valid/vec_uint32_3_zero/serialized.ssz_snappy",
