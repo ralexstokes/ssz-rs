@@ -101,7 +101,7 @@ def _map_to_rust_u256(value):
     as_bytes = []
     for byte in data:
         as_bytes.append(byte)
-    return f"U256({as_bytes})"
+    return f"U256::from_bytes_le({as_bytes})"
 
 
 def _map_to_rust_vector(value, rust_type):
@@ -110,12 +110,14 @@ def _map_to_rust_vector(value, rust_type):
         for element in value:
             elements.append(_map_to_rust_u256(element))
         inline = ", ".join(elements)
-        return f"{rust_type}::from_iter([{inline}])"
+        return f"{rust_type}::try_from(Vec::<U256>::from_iter([{inline}])).unwrap()"
     elif "u128" in rust_type:
         inline = ", ".join(value)
-        return f"{rust_type}::from_iter([{inline}])"
+        return f"{rust_type}::try_from(Vec::<u128>::from_iter([{inline}])).unwrap()"
     else:
-        return f"{rust_type}::from_iter({str(value).lower()})"
+        # bit of a hack...
+        inner_type = rust_type.split("<")[1].split(",")[0]
+        return f"{rust_type}::try_from(Vec::<{inner_type}>::from_iter({str(value).lower()})).unwrap()"
 
 
 def _decode_bitvector(value, bound):
@@ -155,27 +157,27 @@ def _decode_field_value(name, value, rust_type):
     if rust_type == "VarTestStruct":
         if name == "B":
             inline = ", ".join(map(str, value))
-            return f"List::<u16, 1024>::from_iter([{inline}])"
+            return f"List::<u16, 1024>::try_from(Vec::<u16>::from_iter([{inline}])).unwrap()"
         else:
             return value
     elif rust_type == "ComplexTestStruct":
         if name == "B":
             inline = ", ".join(map(str, value))
-            return f"List::<u16, 128>::from_iter([{inline}])"
+            return f"List::<u16, 128>::try_from(Vec::<u16>::from_iter([{inline}])).unwrap()"
         elif name == "D":
             value = bytes.fromhex(value[2:])
             inline = ", ".join(map(str, value))
-            return f"List::<u8, 256>::from_iter([{inline}])"
+            return f"List::<u8, 256>::try_from(Vec::<u8>::from_iter([{inline}])).unwrap()"
         elif name == "E":
             return _map_to_rust_struct(value, "VarTestStruct")
         elif name == "F":
             inner = [_map_to_rust_struct(v, "FixedTestStruct") for v in value]
             inline = ", ".join(inner)
-            return f"Vector::<FixedTestStruct, 4>::from_iter([{inline}])"
+            return f"Vector::<FixedTestStruct, 4>::try_from(vec![{inline}]).unwrap()"
         elif name == "G":
             inner = [_map_to_rust_struct(v, "VarTestStruct") for v in value]
             inline = ", ".join(inner)
-            return f"Vector::<VarTestStruct, 2>::from_iter([{inline}])"
+            return f"Vector::<VarTestStruct, 2>::try_from(vec![{inline}]).unwrap()"
         else:
             return value
     elif rust_type == "BitsStruct":
