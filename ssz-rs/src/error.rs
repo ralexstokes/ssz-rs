@@ -6,6 +6,8 @@ pub enum Error {
     Serialize(SerializeError),
     Deserialize(DeserializeError),
     Merkleization(MerkleizationError),
+    Instance(InstanceError),
+    Type(TypeError),
 }
 
 impl From<SerializeError> for Error {
@@ -32,6 +34,8 @@ impl Display for Error {
             Self::Serialize(err) => write!(f, "could not serialize: {err}"),
             Self::Deserialize(err) => write!(f, "could not deserialize: {err}"),
             Self::Merkleization(err) => write!(f, "merkleization error: {err}"),
+            Self::Instance(err) => write!(f, "error constructing instance: {err}"),
+            Self::Type(err) => write!(f, "type error: {err}"),
         }
     }
 }

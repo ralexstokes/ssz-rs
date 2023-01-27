@@ -36,20 +36,30 @@ struct ComplexTestStruct {
 fn main() {
     let value = ComplexTestStruct {
         a: 51972,
-        b: List::<u16, 128>::from_iter([48645]),
+        b: List::<u16, 128>::try_from(vec![48645]).unwrap(),
         c: 46,
-        d: List::<u8, 256>::from_iter([105]),
-        e: VarTestStruct { a: 1558, b: List::<u16, 1024>::from_iter([39947]), c: 65 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(vec![105]).unwrap(),
+        e: VarTestStruct { a: 1558, b: List::<u16, 1024>::try_from(vec![39947]).unwrap(), c: 65 },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 70, b: 905948488145107787, c: 2675781419 },
             FixedTestStruct { a: 3, b: 12539792087931462647, c: 4719259 },
             FixedTestStruct { a: 73, b: 13544872847030609257, c: 2819826618 },
             FixedTestStruct { a: 159, b: 16328658841145598323, c: 2375225558 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 30336, b: List::<u16, 1024>::from_iter([30909]), c: 240 },
-            VarTestStruct { a: 64263, b: List::<u16, 1024>::from_iter([38121]), c: 100 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 30336,
+                b: List::<u16, 1024>::try_from(vec![30909]).unwrap(),
+                c: 240,
+            },
+            VarTestStruct {
+                a: 64263,
+                b: List::<u16, 1024>::try_from(vec![38121]).unwrap(),
+                c: 100,
+            },
+        ])
+        .unwrap(),
         h: Bitvector::from_iter([true, false, false, true, false, false, false, true, true]),
         i: Bitlist::from_iter([true, false, true, true]),
         j: U256::from_bytes_le([12u8; 32]),

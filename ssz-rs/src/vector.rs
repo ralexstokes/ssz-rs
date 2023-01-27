@@ -1,6 +1,6 @@
 use crate::{
     de::{deserialize_homogeneous_composite, Deserialize, DeserializeError},
-    error::{InstanceError, TypeError},
+    error::{Error, InstanceError, TypeError},
     lib::*,
     merkleization::{
         merkleize, pack, MerkleCache, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
@@ -65,7 +65,7 @@ impl<'de, T: SimpleSerialize + serde::de::Deserialize<'de>, const N: usize> serd
         D: serde::Deserializer<'de>,
     {
         let data = deserializer.deserialize_seq(VectorVisitor(PhantomData))?;
-        Vector::<T, N>::try_from(data).map_err(serde::de::Error::custom)
+        Vector::<T, N>::try_from(data).map_err(|(_, err)| serde::de::Error::custom(err))
     }
 }
 
@@ -84,14 +84,15 @@ impl<T: SimpleSerialize + PartialEq, const N: usize> PartialEq for Vector<T, N> 
 impl<T: SimpleSerialize + Eq, const N: usize> Eq for Vector<T, N> {}
 
 impl<T: SimpleSerialize, const N: usize> TryFrom<Vec<T>> for Vector<T, N> {
-    type Error = DeserializeError;
+    type Error = (Vec<T>, Error);
 
     fn try_from(data: Vec<T>) -> Result<Self, Self::Error> {
         if N == 0 {
-            return Err(TypeError::InvalidBound(N).into())
+            return Err((data, Error::Type(TypeError::InvalidBound(N))))
         }
         if data.len() != N {
-            Err(InstanceError::Exact { required: N, provided: data.len() }.into())
+            let len = data.len();
+            Err((data, Error::Instance(InstanceError::Exact { required: N, provided: len })))
         } else {
             let leaf_count = Self::get_leaf_count();
             Ok(Self { data, cache: MerkleCache::with_leaves(leaf_count) })
@@ -118,7 +119,11 @@ where
 {
     fn default() -> Self {
         let data = vec![T::default(); N];
-        data.try_into().unwrap()
+        match data.try_into() {
+            Ok(result) => result,
+            // TODO: not ideal to panic here...
+            Err((_, err)) => panic!("{err}"),
+        }
     }
 }
 
@@ -210,7 +215,13 @@ where
                 })
             }
         }
-        deserialize_homogeneous_composite(encoding)?.try_into()
+        let inner = deserialize_homogeneous_composite(encoding)?;
+        inner.try_into().map_err(|(_, err)| match err {
+            Error::Deserialize(err) => err,
+            Error::Instance(err) => DeserializeError::InvalidInstance(err),
+            Error::Type(err) => DeserializeError::InvalidType(err),
+            _ => unreachable!("no other error variant can be returned at this point"),
+        })
     }
 }
 
@@ -271,26 +282,6 @@ where
 
 impl<T, const N: usize> SimpleSerialize for Vector<T, N> where T: SimpleSerialize + Clone {}
 
-impl<T, const N: usize> FromIterator<T> for Vector<T, N>
-where
-    T: SimpleSerialize + Default,
-{
-    // Builds a `Vector<T, N>` from the iterator given by `iter`.
-    // If `iter` is more than `N` elements, then only the first `N` are taken.
-    // If `iter` is less than `N` elements, the Vector is extended with
-    // the remainder using `T::default()`.
-    fn from_iter<I>(iter: I) -> Self
-    where
-        I: IntoIterator<Item = T>,
-    {
-        let mut data = iter.into_iter().take(N).collect::<Vec<_>>();
-        for _ in data.len()..N {
-            data.push(T::default())
-        }
-        data.try_into().unwrap()
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -299,14 +290,21 @@ mod tests {
     const COUNT: usize = 32;
 
     #[test]
-    fn test_from_iter() {
-        let data = vec![2u8; 10];
-        let vector = Vector::<u8, 1>::from_iter(data.clone());
-        assert_eq!(vector[0], 2u8);
+    fn test_try_from() {
+        let mut data = vec![2u8; 10];
+        data.extend_from_slice(&[0u8; 10]);
 
-        let vector = Vector::<u8, 20>::from_iter(data);
+        let vector = Vector::<u8, 20>::try_from(data).unwrap();
         assert_eq!(vector[..10], [2u8; 10]);
         assert_eq!(vector[10..], [0u8; 10]);
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_try_from_invalid() {
+        let data = vec![2u8; 10];
+        let vector = Vector::<u8, 1>::try_from(data).unwrap();
+        assert_eq!(vector[0], 2u8);
     }
 
     #[test]
@@ -341,7 +339,8 @@ mod tests {
     #[test]
     fn decode_variable_vector() {
         const COUNT: usize = 4;
-        let mut inner: Vec<List<u8, 1>> = (0..4).map(|i| [i].into_iter().collect()).collect();
+        let mut inner: Vec<List<u8, 1>> =
+            Vec::from_iter((0..4).map(|i| List::try_from(vec![i]).unwrap()));
         let permutation = &mut inner[3];
         let _ = permutation.pop().expect("test data correct");
         let input: Vector<List<u8, 1>, COUNT> = inner.try_into().expect("test data correct");
@@ -367,7 +366,8 @@ mod tests {
     #[test]
     fn roundtrip_variable_vector() {
         const COUNT: usize = 4;
-        let mut inner: Vec<List<u8, 1>> = (0..4).map(|i| [i].into_iter().collect()).collect();
+        let mut inner: Vec<List<u8, 1>> =
+            Vec::from_iter((0..4).map(|i| List::try_from(vec![i]).unwrap()));
         let permutation = &mut inner[3];
         let _ = permutation.pop().expect("test data correct");
         let input: Vector<List<u8, 1>, COUNT> = inner.try_into().expect("test data correct");
