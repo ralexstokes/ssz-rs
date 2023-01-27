@@ -31,6 +31,16 @@ This library provides the hash tree root computation for types implementing `Sim
 
 This library provides tools for generating and verifying multiproofs of SSZ data.
 
+## `no-std` feature
+
+This library is `no-std` compatible. To build without the standard library, disable the crate's default features.
+
+For example,
+
+```toml
+ssz-rs = { version = "...", default-features = false }
+```
+
 # Testing
 
 This repo includes a copy of the generic SSZ [consensus spec tests](https://github.com/ethereum/consensus-spec-tests) as integration tests for the `ssz_rs` crate.
