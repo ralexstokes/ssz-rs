@@ -40,6 +40,9 @@ impl Display for Error {
     }
 }
 
+#[cfg(feature = "std")]
+impl std::error::Error for Error {}
+
 #[derive(Debug)]
 pub enum TypeError {
     InvalidBound(usize),
@@ -54,6 +57,9 @@ impl Display for TypeError {
         }
     }
 }
+
+#[cfg(feature = "std")]
+impl std::error::Error for TypeError {}
 
 #[derive(Debug)]
 pub enum InstanceError {
@@ -75,3 +81,6 @@ impl Display for InstanceError {
         }
     }
 }
+
+#[cfg(feature = "std")]
+impl std::error::Error for InstanceError {}

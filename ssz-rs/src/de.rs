@@ -41,6 +41,9 @@ impl Display for DeserializeError {
     }
 }
 
+#[cfg(feature = "std")]
+impl std::error::Error for DeserializeError {}
+
 pub trait Deserialize {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError>
     where

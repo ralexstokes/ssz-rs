@@ -42,6 +42,9 @@ impl Display for MerkleizationError {
     }
 }
 
+#[cfg(feature = "std")]
+impl std::error::Error for MerkleizationError {}
+
 pub fn pack_bytes(buffer: &mut Vec<u8>) {
     let data_len = buffer.len();
     if data_len % BYTES_PER_CHUNK != 0 {
