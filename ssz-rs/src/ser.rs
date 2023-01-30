@@ -40,6 +40,9 @@ impl Display for SerializeError {
     }
 }
 
+#[cfg(feature = "std")]
+impl std::error::Error for SerializeError {}
+
 pub trait Serialize {
     /// Append an encoding of `self` to the `buffer`.
     /// Return the number of bytes written.

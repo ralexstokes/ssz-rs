@@ -15,5 +15,5 @@ where `$TYPE` is one of: `boolean, uints, basic_vector, bitlist, bitvector, cont
 or to generate new test code, altogether:
 
 ```bash
-for TYPE in boolean uints basic_vector bitlist bitvector containers; do truncate --size 0 ../tests/$TYPE.rs && python gen.py $TYPE >> ../tests/$TYPE.rs && rustfmt ../tests/$TYPE.rs; done
+for TYPE in boolean uints basic_vector bitlist bitvector containers; do truncate --size 0 ../tests/$TYPE.rs && python gen.py $TYPE >> ../tests/$TYPE.rs && cargo +nightly fmt ../tests/$TYPE.rs; done
 ```

@@ -90,7 +90,8 @@ mod tests {
 
     #[test]
     fn encode_container2() {
-        let value = SomeContainer { a: 5u32, b: true, c: List::from_iter([true, false]) };
+        let value =
+            SomeContainer { a: 5u32, b: true, c: List::try_from(vec![true, false]).unwrap() };
 
         let mut buffer = vec![];
         let result = value.serialize(&mut buffer).expect("can serialize");
@@ -104,7 +105,7 @@ mod tests {
         let value = AnotherContainer {
             a: 5u32,
             b: true,
-            c: List::from_iter([true, false]),
+            c: List::try_from(vec![true, false]).unwrap(),
             d: Default::default(),
             e: 12u8,
         };
@@ -121,7 +122,8 @@ mod tests {
     fn decode_container() {
         let data = vec![5u8, 0u8, 0u8, 0u8, 1u8, 9u8, 0u8, 0u8, 0u8, 1u8, 0u8];
         let result = SomeContainer::deserialize(&data).expect("can deserialize");
-        let value = SomeContainer { a: 5u32, b: true, c: List::from_iter([true, false]) };
+        let value =
+            SomeContainer { a: 5u32, b: true, c: List::try_from(vec![true, false]).unwrap() };
         assert_eq!(result, value);
     }
 
@@ -130,8 +132,8 @@ mod tests {
         let value = AnotherContainer {
             a: 5u32,
             b: true,
-            c: List::from_iter([true, false, false, false, true, true]),
-            d: Vector::from_iter([true, false, false, true]),
+            c: List::try_from(vec![true, false, false, false, true, true]).unwrap(),
+            d: Vector::try_from(vec![true, false, false, true]).unwrap(),
             e: 24u8,
         };
         let mut buffer = vec![];
@@ -142,10 +144,10 @@ mod tests {
         let value = YetAnotherContainer {
             a: 5u32,
             b: true,
-            c: List::from_iter([true, false, false, false, true, true]),
-            d: Vector::from_iter([true, false, false, true]),
+            c: List::try_from(vec![true, false, false, false, true, true]).unwrap(),
+            d: Vector::try_from(vec![true, false, false, true]).unwrap(),
             e: 24u8,
-            f: List::from_iter([234u32, 567u32]),
+            f: List::try_from(vec![234u32, 567u32]).unwrap(),
         };
         let mut buffer = vec![];
         let _ = value.serialize(&mut buffer).expect("can serialize");
@@ -162,8 +164,11 @@ mod tests {
 
     #[test]
     fn can_derive_struct_with_const_generics() {
-        let value =
-            VarWithGenericTestStruct { a: 2u16, b: List::<u16, 2>::from_iter([1u16]), c: 16u8 };
+        let value = VarWithGenericTestStruct {
+            a: 2u16,
+            b: List::<u16, 2>::try_from(vec![1u16]).unwrap(),
+            c: 16u8,
+        };
         let mut buffer = vec![];
         let _ = value.serialize(&mut buffer).expect("can serialize");
     }
