@@ -224,7 +224,7 @@ mod tests {
         let expected = [0u8, 12u8, 0u8, 0u8, 0u8];
         assert_eq!(buffer, expected);
 
-        let value = Bar::B(Vector::from_iter([3u8, 2u8, 1u8, 10u8]));
+        let value = Bar::B(Vector::try_from(vec![3u8, 2u8, 1u8, 10u8]).unwrap());
 
         let mut buffer = vec![];
         let result = value.serialize(&mut buffer).expect("can serialize");
@@ -240,7 +240,7 @@ mod tests {
         let expected = [0u8, 12u8, 0u8, 0u8, 0u8];
         assert_eq!(buffer, expected);
 
-        let value = Baz::B(Inner { data: List::from_iter([123u8]) });
+        let value = Baz::B(Inner { data: List::try_from(vec![123u8]).unwrap() });
 
         let mut buffer = vec![];
         let result = value.serialize(&mut buffer).expect("can serialize");
@@ -248,7 +248,7 @@ mod tests {
         let expected = [1u8, 4u8, 0u8, 0u8, 0u8, 123u8];
         assert_eq!(buffer, expected);
 
-        let value = Baz::C(List::from_iter([123u8, 253u8]));
+        let value = Baz::C(List::try_from(vec![123u8, 253u8]).unwrap());
 
         let mut buffer = vec![];
         let result = value.serialize(&mut buffer).expect("can serialize");
@@ -264,7 +264,7 @@ mod tests {
         let expected = [0u8, 12u8, 0u8, 0u8, 0u8];
         assert_eq!(buffer, expected);
 
-        let value = Boo::B(Inner { data: List::from_iter([123u8]) });
+        let value = Boo::B(Inner { data: List::try_from(vec![123u8]).unwrap() });
 
         let mut buffer = vec![];
         let result = value.serialize(&mut buffer).expect("can serialize");
@@ -272,7 +272,7 @@ mod tests {
         let expected = [1u8, 4u8, 0u8, 0u8, 0u8, 123u8];
         assert_eq!(buffer, expected);
 
-        let value = Boo::C(List::from_iter([123u8, 253u8]));
+        let value = Boo::C(List::try_from(vec![123u8, 253u8]).unwrap());
 
         let mut buffer = vec![];
         let result = value.serialize(&mut buffer).expect("can serialize");
@@ -280,7 +280,7 @@ mod tests {
         let expected = [2u8, 123u8, 253u8];
         assert_eq!(buffer, expected);
 
-        let value = Boo::D(Vector::from_iter([123u8, 253u8]));
+        let value = Boo::D(Vector::try_from(vec![123u8, 253u8]).unwrap());
 
         let mut buffer = vec![];
         let result = value.serialize(&mut buffer).expect("can serialize");
@@ -298,17 +298,17 @@ mod tests {
 
         let data = [1u8, 4u8, 0u8, 0u8, 0u8, 123u8];
         let result = Boo::deserialize(&data).expect("can decode");
-        let value = Boo::B(Inner { data: List::from_iter([123u8]) });
+        let value = Boo::B(Inner { data: List::try_from(vec![123u8]).unwrap() });
         assert_eq!(result, value);
 
         let data = [2u8, 123u8, 253u8];
         let result = Boo::deserialize(&data).expect("can decode");
-        let value = Boo::C(List::from_iter([123u8, 253u8]));
+        let value = Boo::C(List::try_from(vec![123u8, 253u8]).unwrap());
         assert_eq!(result, value);
 
         let data = [3u8, 123u8, 253u8];
         let result = Boo::deserialize(&data).expect("can decode");
-        let value = Boo::D(Vector::from_iter([123u8, 253u8]));
+        let value = Boo::D(Vector::try_from(vec![123u8, 253u8]).unwrap());
         assert_eq!(result, value);
     }
 
@@ -321,19 +321,19 @@ mod tests {
         assert_eq!(value, recovered);
         assert_eq!(value, Boo::A(u32::default()));
 
-        let value = Boo::B(Inner { data: List::from_iter([123u8]) });
+        let value = Boo::B(Inner { data: List::try_from(vec![123u8]).unwrap() });
         let mut buffer = vec![];
         let _ = value.serialize(&mut buffer).expect("can serialize");
         let recovered = Boo::deserialize(&buffer).expect("can decode");
         assert_eq!(value, recovered);
 
-        let value = Boo::C(List::from_iter([123u8, 253u8]));
+        let value = Boo::C(List::try_from(vec![123u8, 253u8]).unwrap());
         let mut buffer = vec![];
         let _ = value.serialize(&mut buffer).expect("can serialize");
         let recovered = Boo::deserialize(&buffer).expect("can decode");
         assert_eq!(value, recovered);
 
-        let value = Boo::D(Vector::from_iter([123u8, 253u8]));
+        let value = Boo::D(Vector::try_from(vec![123u8, 253u8]).unwrap());
         let mut buffer = vec![];
         let _ = value.serialize(&mut buffer).expect("can serialize");
         let recovered = Boo::deserialize(&buffer).expect("can decode");

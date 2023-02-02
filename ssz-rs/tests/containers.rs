@@ -54,7 +54,7 @@ struct BitsStruct {
 fn test_containers_var_test_struct_zero_chaos_2() {
     let mut value = VarTestStruct {
         a: 0,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -87,7 +87,8 @@ fn test_containers_var_test_struct_zero_chaos_2() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
     };
     let encoding = serialize(&value);
@@ -133,12 +134,15 @@ fn test_containers_bits_struct_random_chaos_1() {
 fn test_containers_complex_test_struct_max_0() {
     let mut value = ComplexTestStruct {
         a: 65535,
-        b: List::<u16, 128>::from_iter([65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
+            65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        ]))
+        .unwrap(),
         c: 255,
-        d: List::<u8, 256>::from_iter([255]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([255])).unwrap(),
         e: VarTestStruct {
             a: 65535,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -160,19 +164,21 @@ fn test_containers_complex_test_struct_max_0() {
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535,
-            ]),
+            ]))
+            .unwrap(),
             c: 255,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -209,12 +215,13 @@ fn test_containers_complex_test_struct_max_0() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -273,10 +280,12 @@ fn test_containers_complex_test_struct_max_0() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -297,7 +306,7 @@ fn test_containers_complex_test_struct_max_0() {
 fn test_containers_complex_test_struct_max_7() {
     let mut value = ComplexTestStruct {
         a: 65535,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -307,12 +316,13 @@ fn test_containers_complex_test_struct_max_7() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
-        d: List::<u8, 256>::from_iter([255]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([255])).unwrap(),
         e: VarTestStruct {
             a: 65535,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -332,19 +342,21 @@ fn test_containers_complex_test_struct_max_7() {
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535,
-            ]),
+            ]))
+            .unwrap(),
             c: 255,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -412,12 +424,13 @@ fn test_containers_complex_test_struct_max_7() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -445,10 +458,12 @@ fn test_containers_complex_test_struct_max_7() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -503,20 +518,34 @@ fn test_containers_fixed_test_struct_zero_chaos_1() {
 fn test_containers_complex_test_struct_one_3() {
     let mut value = ComplexTestStruct {
         a: 49003,
-        b: List::<u16, 128>::from_iter([15653]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([15653])).unwrap(),
         c: 239,
-        d: List::<u8, 256>::from_iter([148]),
-        e: VarTestStruct { a: 56933, b: List::<u16, 1024>::from_iter([51513]), c: 227 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([148])).unwrap(),
+        e: VarTestStruct {
+            a: 56933,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([51513])).unwrap(),
+            c: 227,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 198, b: 207392827392641159, c: 1227551918 },
             FixedTestStruct { a: 84, b: 10977915993707539152, c: 2750630791 },
             FixedTestStruct { a: 153, b: 4650923157821976456, c: 1619878481 },
             FixedTestStruct { a: 152, b: 8681817436929663740, c: 1036507554 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 50540, b: List::<u16, 1024>::from_iter([62171]), c: 33 },
-            VarTestStruct { a: 37202, b: List::<u16, 1024>::from_iter([64409]), c: 142 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 50540,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([62171])).unwrap(),
+                c: 33,
+            },
+            VarTestStruct {
+                a: 37202,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([64409])).unwrap(),
+                c: 142,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -537,20 +566,34 @@ fn test_containers_complex_test_struct_one_3() {
 fn test_containers_complex_test_struct_one_4() {
     let mut value = ComplexTestStruct {
         a: 33449,
-        b: List::<u16, 128>::from_iter([11465]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([11465])).unwrap(),
         c: 54,
-        d: List::<u8, 256>::from_iter([146]),
-        e: VarTestStruct { a: 18361, b: List::<u16, 1024>::from_iter([27935]), c: 175 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([146])).unwrap(),
+        e: VarTestStruct {
+            a: 18361,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([27935])).unwrap(),
+            c: 175,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 253, b: 4615349917584694335, c: 872999527 },
             FixedTestStruct { a: 196, b: 943453220127137753, c: 1191989886 },
             FixedTestStruct { a: 222, b: 16035451323611208354, c: 3434643610 },
             FixedTestStruct { a: 17, b: 2846087815058082165, c: 837051951 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 37931, b: List::<u16, 1024>::from_iter([29047]), c: 70 },
-            VarTestStruct { a: 25348, b: List::<u16, 1024>::from_iter([18965]), c: 186 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 37931,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([29047])).unwrap(),
+                c: 70,
+            },
+            VarTestStruct {
+                a: 25348,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([18965])).unwrap(),
+                c: 186,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -571,7 +614,7 @@ fn test_containers_complex_test_struct_one_4() {
 fn test_containers_complex_test_struct_max_9() {
     let mut value = ComplexTestStruct {
         a: 65535,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -580,12 +623,13 @@ fn test_containers_complex_test_struct_max_9() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
-        d: List::<u8, 256>::from_iter([255]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([255])).unwrap(),
         e: VarTestStruct {
             a: 65535,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -650,19 +694,21 @@ fn test_containers_complex_test_struct_max_9() {
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-            ]),
+            ]))
+            .unwrap(),
             c: 255,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -752,12 +798,13 @@ fn test_containers_complex_test_struct_max_9() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -849,10 +896,12 @@ fn test_containers_complex_test_struct_max_9() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -999,15 +1048,16 @@ fn test_containers_bits_struct_max_chaos_0() {
 fn test_containers_complex_test_struct_zero_2() {
     let mut value = ComplexTestStruct {
         a: 0,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
-        d: List::<u8, 256>::from_iter([0]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([0])).unwrap(),
         e: VarTestStruct {
             a: 0,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1025,19 +1075,21 @@ fn test_containers_complex_test_struct_zero_2() {
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            ]),
+            ]))
+            .unwrap(),
             c: 0,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1055,12 +1107,13 @@ fn test_containers_complex_test_struct_zero_2() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1093,10 +1146,12 @@ fn test_containers_complex_test_struct_zero_2() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1171,18 +1226,19 @@ fn test_containers_single_field_test_struct_zero_4() {
 fn test_containers_complex_test_struct_zero_5() {
     let mut value = ComplexTestStruct {
         a: 0,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
-        d: List::<u8, 256>::from_iter([0]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([0])).unwrap(),
         e: VarTestStruct {
             a: 0,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1194,19 +1250,21 @@ fn test_containers_complex_test_struct_zero_5() {
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0,
-            ]),
+            ]))
+            .unwrap(),
             c: 0,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1220,20 +1278,23 @@ fn test_containers_complex_test_struct_zero_5() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1278,20 +1339,34 @@ fn test_containers_bits_struct_random_2() {
 fn test_containers_complex_test_struct_one_5() {
     let mut value = ComplexTestStruct {
         a: 522,
-        b: List::<u16, 128>::from_iter([58016]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([58016])).unwrap(),
         c: 1,
-        d: List::<u8, 256>::from_iter([219]),
-        e: VarTestStruct { a: 55674, b: List::<u16, 1024>::from_iter([51843]), c: 103 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([219])).unwrap(),
+        e: VarTestStruct {
+            a: 55674,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([51843])).unwrap(),
+            c: 103,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 51, b: 8951864537982408591, c: 648765584 },
             FixedTestStruct { a: 123, b: 4699791381600974666, c: 2038553040 },
             FixedTestStruct { a: 170, b: 1053862214600258695, c: 1813309682 },
             FixedTestStruct { a: 254, b: 4682841909108083768, c: 3230963302 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 5130, b: List::<u16, 1024>::from_iter([59171]), c: 150 },
-            VarTestStruct { a: 48351, b: List::<u16, 1024>::from_iter([14640]), c: 9 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 5130,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([59171])).unwrap(),
+                c: 150,
+            },
+            VarTestStruct {
+                a: 48351,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([14640])).unwrap(),
+                c: 9,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1312,7 +1387,7 @@ fn test_containers_complex_test_struct_one_5() {
 fn test_containers_complex_test_struct_max_8() {
     let mut value = ComplexTestStruct {
         a: 65535,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -1324,12 +1399,13 @@ fn test_containers_complex_test_struct_max_8() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
-        d: List::<u8, 256>::from_iter([255]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([255])).unwrap(),
         e: VarTestStruct {
             a: 65535,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -1395,19 +1471,21 @@ fn test_containers_complex_test_struct_max_8() {
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535,
-            ]),
+            ]))
+            .unwrap(),
             c: 255,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -1450,12 +1528,13 @@ fn test_containers_complex_test_struct_max_8() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -1475,10 +1554,12 @@ fn test_containers_complex_test_struct_max_8() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1499,20 +1580,34 @@ fn test_containers_complex_test_struct_max_8() {
 fn test_containers_complex_test_struct_one_2() {
     let mut value = ComplexTestStruct {
         a: 12541,
-        b: List::<u16, 128>::from_iter([2249]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([2249])).unwrap(),
         c: 53,
-        d: List::<u8, 256>::from_iter([126]),
-        e: VarTestStruct { a: 37873, b: List::<u16, 1024>::from_iter([24680]), c: 104 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([126])).unwrap(),
+        e: VarTestStruct {
+            a: 37873,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([24680])).unwrap(),
+            c: 104,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 111, b: 9187765509688476407, c: 1210202299 },
             FixedTestStruct { a: 158, b: 18103802857683004608, c: 3789132591 },
             FixedTestStruct { a: 124, b: 1767260191485559055, c: 2679810848 },
             FixedTestStruct { a: 146, b: 10731242871815542387, c: 1584483294 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 49176, b: List::<u16, 1024>::from_iter([36844]), c: 150 },
-            VarTestStruct { a: 3399, b: List::<u16, 1024>::from_iter([39383]), c: 4 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 49176,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([36844])).unwrap(),
+                c: 150,
+            },
+            VarTestStruct {
+                a: 3399,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([39383])).unwrap(),
+                c: 4,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1551,18 +1646,19 @@ fn test_containers_fixed_test_struct_zero_chaos_0() {
 fn test_containers_complex_test_struct_max_6() {
     let mut value = ComplexTestStruct {
         a: 65535,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
-        d: List::<u8, 256>::from_iter([255]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([255])).unwrap(),
         e: VarTestStruct {
             a: 65535,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -1643,19 +1739,21 @@ fn test_containers_complex_test_struct_max_6() {
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-            ]),
+            ]))
+            .unwrap(),
             c: 255,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -1683,12 +1781,13 @@ fn test_containers_complex_test_struct_max_6() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -1744,10 +1843,12 @@ fn test_containers_complex_test_struct_max_6() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1768,7 +1869,7 @@ fn test_containers_complex_test_struct_max_6() {
 fn test_containers_complex_test_struct_lengthy_chaos_2() {
     let mut value = ComplexTestStruct {
         a: 43914,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             62086, 1328, 36452, 57324, 9737, 54653, 31513, 53012, 55142, 1461, 52584, 61080, 47577,
             41202, 28554, 51016, 3395, 21150, 12211, 16631, 4736, 51622, 20853, 48055, 36665,
             38198, 21707, 62715, 27251, 56397, 58251, 20691, 59462, 54066, 14496, 12001, 57294,
@@ -1780,9 +1881,10 @@ fn test_containers_complex_test_struct_lengthy_chaos_2() {
             48167, 20032, 25457, 51141, 25570, 16769, 33919, 35383, 41487, 53945, 59643, 15499,
             16000, 28282, 8774, 61412, 30042, 22151, 7154, 31953, 53103, 43074, 3550, 62797, 56455,
             2268, 34010, 46390,
-        ]),
+        ]))
+        .unwrap(),
         c: 115,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             67, 108, 235, 173, 230, 5, 113, 72, 60, 94, 194, 112, 0, 195, 72, 239, 116, 39, 209, 7,
             55, 12, 69, 237, 106, 45, 69, 169, 158, 5, 86, 197, 56, 18, 136, 199, 56, 253, 135,
             167, 99, 191, 156, 177, 203, 104, 181, 35, 173, 200, 59, 66, 34, 241, 28, 7, 202, 17,
@@ -1797,10 +1899,11 @@ fn test_containers_complex_test_struct_lengthy_chaos_2() {
             239, 40, 191, 78, 123, 59, 69, 87, 141, 185, 229, 209, 146, 29, 83, 119, 118, 231, 164,
             154, 8, 155, 120, 254, 112, 189, 55, 125, 183, 130, 92, 131, 250, 23, 193, 66, 100,
             106, 165, 194, 172, 37, 60, 139, 111, 203, 59, 156,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 23486,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 15593, 63604, 1036, 11176, 19273, 36219, 35466, 12766, 22074, 40009, 2165, 60871,
                 10347, 18371, 24026, 49210, 12254, 61533, 19213, 17225, 47173, 23502, 19775, 16365,
                 22372, 23420, 17370, 16473, 31126, 21509, 57384, 13788, 57261, 35364, 16417, 44529,
@@ -1887,19 +1990,21 @@ fn test_containers_complex_test_struct_lengthy_chaos_2() {
                 35897, 9677, 8828, 54958, 11312, 62827, 64638, 10491, 19197, 15403, 18327, 47761,
                 55042, 40670, 19875, 52462, 15920, 8766, 30590, 65344, 21233, 41136, 58846, 61639,
                 18621, 40045,
-            ]),
+            ]))
+            .unwrap(),
             c: 132,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 159, b: 16295530782191573869, c: 898963900 },
             FixedTestStruct { a: 192, b: 1126888825704345083, c: 621551181 },
             FixedTestStruct { a: 76, b: 5513933778385349547, c: 203149383 },
             FixedTestStruct { a: 121, b: 16663028344398051269, c: 3304510184 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 27500,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     29281, 21678, 50067, 64292, 22880, 65463, 7138, 53665, 14459, 7247, 28850,
                     3632, 48847, 4930, 27628, 65477, 46860, 56833, 37500, 54486, 32885, 40941,
                     35048, 2303, 51735, 33978, 3806, 7921, 10309, 6720, 40601, 58072, 30791, 41291,
@@ -1993,12 +2098,13 @@ fn test_containers_complex_test_struct_lengthy_chaos_2() {
                     41898, 33155, 12551, 28531, 58476, 29132, 56174, 22516, 35582, 12646, 33909,
                     58087, 35818, 56124, 37228, 24483, 30578, 28958, 12868, 32882, 59585, 39454,
                     5929, 6920, 56966, 56742, 62425,
-                ]),
+                ]))
+                .unwrap(),
                 c: 147,
             },
             VarTestStruct {
                 a: 25233,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     47297, 16490, 46876, 14434, 59976, 18686, 52905, 35542, 53890, 62146, 7934,
                     42139, 27861, 6454, 12550, 56788, 34173, 60275, 52163, 43444, 31478, 10378,
                     39625, 46265, 46166, 49816, 31867, 16558, 25895, 2996, 55050, 24105, 17354,
@@ -2092,10 +2198,12 @@ fn test_containers_complex_test_struct_lengthy_chaos_2() {
                     53148, 15916, 17895, 57125, 47188, 64611, 13150, 48768, 17788, 51180, 63494,
                     19391, 4062, 11525, 64498, 16275, 38102, 11672, 51183, 49513, 65084, 37895,
                     26572,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/ComplexTestStruct_lengthy_chaos_2/serialized.ssz_snappy");
@@ -2114,7 +2222,7 @@ fn test_containers_complex_test_struct_lengthy_chaos_2() {
 fn test_containers_complex_test_struct_max_1() {
     let mut value = ComplexTestStruct {
         a: 65535,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -2125,12 +2233,13 @@ fn test_containers_complex_test_struct_max_1() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
-        d: List::<u8, 256>::from_iter([255]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([255])).unwrap(),
         e: VarTestStruct {
             a: 65535,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -2160,19 +2269,21 @@ fn test_containers_complex_test_struct_max_1() {
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-            ]),
+            ]))
+            .unwrap(),
             c: 255,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -2236,12 +2347,13 @@ fn test_containers_complex_test_struct_max_1() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -2270,10 +2382,12 @@ fn test_containers_complex_test_struct_max_1() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -2354,17 +2468,18 @@ fn test_containers_single_field_test_struct_max_7() {
 fn test_containers_complex_test_struct_zero_4() {
     let mut value = ComplexTestStruct {
         a: 0,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
-        d: List::<u8, 256>::from_iter([0]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([0])).unwrap(),
         e: VarTestStruct {
             a: 0,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -2383,19 +2498,21 @@ fn test_containers_complex_test_struct_zero_4() {
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            ]),
+            ]))
+            .unwrap(),
             c: 0,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -2426,12 +2543,13 @@ fn test_containers_complex_test_struct_zero_4() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -2446,10 +2564,12 @@ fn test_containers_complex_test_struct_zero_4() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -2512,20 +2632,34 @@ fn test_containers_bits_struct_random_3() {
 fn test_containers_complex_test_struct_one_chaos_2() {
     let mut value = ComplexTestStruct {
         a: 30483,
-        b: List::<u16, 128>::from_iter([9712]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([9712])).unwrap(),
         c: 0,
-        d: List::<u8, 256>::from_iter([70]),
-        e: VarTestStruct { a: 50066, b: List::<u16, 1024>::from_iter([3290]), c: 58 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([70])).unwrap(),
+        e: VarTestStruct {
+            a: 50066,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([3290])).unwrap(),
+            c: 58,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 139, b: 7928507530719916828, c: 4282303815 },
             FixedTestStruct { a: 51, b: 4745801933491683654, c: 1707679012 },
             FixedTestStruct { a: 162, b: 9136612036359568408, c: 168035181 },
             FixedTestStruct { a: 135, b: 15428331690937311254, c: 3775273129 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 31574, b: List::<u16, 1024>::from_iter([50627]), c: 188 },
-            VarTestStruct { a: 38077, b: List::<u16, 1024>::from_iter([18972]), c: 184 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 31574,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([50627])).unwrap(),
+                c: 188,
+            },
+            VarTestStruct {
+                a: 38077,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([18972])).unwrap(),
+                c: 184,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -2630,16 +2764,17 @@ fn test_containers_bits_struct_max_chaos_1() {
 fn test_containers_complex_test_struct_zero_3() {
     let mut value = ComplexTestStruct {
         a: 0,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
-        d: List::<u8, 256>::from_iter([0]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([0])).unwrap(),
         e: VarTestStruct {
             a: 0,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -2649,19 +2784,21 @@ fn test_containers_complex_test_struct_zero_3() {
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0,
-            ]),
+            ]))
+            .unwrap(),
             c: 0,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -2679,12 +2816,13 @@ fn test_containers_complex_test_struct_zero_3() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -2717,10 +2855,12 @@ fn test_containers_complex_test_struct_zero_3() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -2855,20 +2995,34 @@ fn test_containers_fixed_test_struct_max_8() {
 fn test_containers_complex_test_struct_nil_1() {
     let mut value = ComplexTestStruct {
         a: 52446,
-        b: List::<u16, 128>::from_iter([]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 216,
-        d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct { a: 9582, b: List::<u16, 1024>::from_iter([]), c: 179 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([])).unwrap(),
+        e: VarTestStruct {
+            a: 9582,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+            c: 179,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 113, b: 8308260144033443154, c: 856314353 },
             FixedTestStruct { a: 88, b: 18286529193086391033, c: 3373857601 },
             FixedTestStruct { a: 10, b: 866825965816182963, c: 3877443397 },
             FixedTestStruct { a: 73, b: 16810218414276843777, c: 184057769 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 56619, b: List::<u16, 1024>::from_iter([]), c: 32 },
-            VarTestStruct { a: 28432, b: List::<u16, 1024>::from_iter([]), c: 148 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 56619,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 32,
+            },
+            VarTestStruct {
+                a: 28432,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 148,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -2889,20 +3043,34 @@ fn test_containers_complex_test_struct_nil_1() {
 fn test_containers_complex_test_struct_nil_chaos_2() {
     let mut value = ComplexTestStruct {
         a: 43567,
-        b: List::<u16, 128>::from_iter([]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 74,
-        d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct { a: 3088, b: List::<u16, 1024>::from_iter([]), c: 230 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([])).unwrap(),
+        e: VarTestStruct {
+            a: 3088,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+            c: 230,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 80, b: 12261896720768000582, c: 1113008435 },
             FixedTestStruct { a: 167, b: 13074400124343650680, c: 250375806 },
             FixedTestStruct { a: 106, b: 9461353936973742711, c: 613200224 },
             FixedTestStruct { a: 114, b: 15818203515089967829, c: 143907859 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 61793, b: List::<u16, 1024>::from_iter([]), c: 214 },
-            VarTestStruct { a: 56893, b: List::<u16, 1024>::from_iter([]), c: 6 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 61793,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 214,
+            },
+            VarTestStruct {
+                a: 56893,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 6,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -2941,20 +3109,34 @@ fn test_containers_small_test_struct_zero_9() {
 fn test_containers_complex_test_struct_nil_6() {
     let mut value = ComplexTestStruct {
         a: 14779,
-        b: List::<u16, 128>::from_iter([]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 128,
-        d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct { a: 11314, b: List::<u16, 1024>::from_iter([]), c: 88 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([])).unwrap(),
+        e: VarTestStruct {
+            a: 11314,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+            c: 88,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 69, b: 2289519359095941959, c: 4055974165 },
             FixedTestStruct { a: 207, b: 9671730801211586811, c: 3033394329 },
             FixedTestStruct { a: 210, b: 15954635843475561660, c: 3723422315 },
             FixedTestStruct { a: 121, b: 12464746318130489510, c: 2445696058 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 57485, b: List::<u16, 1024>::from_iter([]), c: 228 },
-            VarTestStruct { a: 15604, b: List::<u16, 1024>::from_iter([]), c: 201 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 57485,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 228,
+            },
+            VarTestStruct {
+                a: 15604,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 201,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -2993,20 +3175,34 @@ fn test_containers_small_test_struct_zero_0() {
 fn test_containers_complex_test_struct_nil_8() {
     let mut value = ComplexTestStruct {
         a: 9736,
-        b: List::<u16, 128>::from_iter([]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 129,
-        d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct { a: 52567, b: List::<u16, 1024>::from_iter([]), c: 0 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([])).unwrap(),
+        e: VarTestStruct {
+            a: 52567,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+            c: 0,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 155, b: 8632484518626447911, c: 4093634018 },
             FixedTestStruct { a: 229, b: 17748644962945795383, c: 2079529187 },
             FixedTestStruct { a: 210, b: 3312027085582884946, c: 3589310165 },
             FixedTestStruct { a: 99, b: 9084020690761810545, c: 2773076247 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 65501, b: List::<u16, 1024>::from_iter([]), c: 183 },
-            VarTestStruct { a: 13237, b: List::<u16, 1024>::from_iter([]), c: 155 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 65501,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 183,
+            },
+            VarTestStruct {
+                a: 13237,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 155,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -3157,20 +3353,34 @@ fn test_containers_bits_struct_max() {
 fn test_containers_complex_test_struct_nil_9() {
     let mut value = ComplexTestStruct {
         a: 23577,
-        b: List::<u16, 128>::from_iter([]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 175,
-        d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct { a: 52190, b: List::<u16, 1024>::from_iter([]), c: 120 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([])).unwrap(),
+        e: VarTestStruct {
+            a: 52190,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+            c: 120,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 179, b: 14068119846896464581, c: 1617655325 },
             FixedTestStruct { a: 205, b: 9540752016240576228, c: 779151254 },
             FixedTestStruct { a: 62, b: 57390556918623452, c: 3205281123 },
             FixedTestStruct { a: 209, b: 2652996980740976958, c: 1890472584 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 18553, b: List::<u16, 1024>::from_iter([]), c: 151 },
-            VarTestStruct { a: 61674, b: List::<u16, 1024>::from_iter([]), c: 65 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 18553,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 151,
+            },
+            VarTestStruct {
+                a: 61674,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 65,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -3227,7 +3437,7 @@ fn test_containers_small_test_struct_zero_1() {
 fn test_containers_var_test_struct_max_chaos_2() {
     let mut value = VarTestStruct {
         a: 65535,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -3245,7 +3455,8 @@ fn test_containers_var_test_struct_max_chaos_2() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
     };
     let encoding = serialize(&value);
@@ -3285,20 +3496,34 @@ fn test_containers_small_test_struct_zero_8() {
 fn test_containers_complex_test_struct_nil_7() {
     let mut value = ComplexTestStruct {
         a: 50885,
-        b: List::<u16, 128>::from_iter([]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 128,
-        d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct { a: 48844, b: List::<u16, 1024>::from_iter([]), c: 156 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([])).unwrap(),
+        e: VarTestStruct {
+            a: 48844,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+            c: 156,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 111, b: 9308979922821387243, c: 1304134955 },
             FixedTestStruct { a: 39, b: 16163096394648852761, c: 2955079535 },
             FixedTestStruct { a: 220, b: 13508351431752869162, c: 2371579308 },
             FixedTestStruct { a: 69, b: 4382219926106737506, c: 1420285418 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 25187, b: List::<u16, 1024>::from_iter([]), c: 165 },
-            VarTestStruct { a: 33983, b: List::<u16, 1024>::from_iter([]), c: 251 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 25187,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 165,
+            },
+            VarTestStruct {
+                a: 33983,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 251,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -3319,20 +3544,34 @@ fn test_containers_complex_test_struct_nil_7() {
 fn test_containers_complex_test_struct_nil_0() {
     let mut value = ComplexTestStruct {
         a: 18142,
-        b: List::<u16, 128>::from_iter([]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 231,
-        d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct { a: 61305, b: List::<u16, 1024>::from_iter([]), c: 147 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([])).unwrap(),
+        e: VarTestStruct {
+            a: 61305,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+            c: 147,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 141, b: 10953418948196676936, c: 1290597142 },
             FixedTestStruct { a: 218, b: 10485599593819308885, c: 2568442688 },
             FixedTestStruct { a: 148, b: 7829464349203048716, c: 2940052654 },
             FixedTestStruct { a: 130, b: 12125340572984727979, c: 2441735511 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 59231, b: List::<u16, 1024>::from_iter([]), c: 103 },
-            VarTestStruct { a: 5969, b: List::<u16, 1024>::from_iter([]), c: 211 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 59231,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 103,
+            },
+            VarTestStruct {
+                a: 5969,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 211,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -3371,7 +3610,7 @@ fn test_containers_small_test_struct_max_0() {
 fn test_containers_var_test_struct_zero_5() {
     let mut value = VarTestStruct {
         a: 0,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -3380,7 +3619,8 @@ fn test_containers_var_test_struct_zero_5() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
     };
     let encoding = serialize(&value);
@@ -3448,7 +3688,11 @@ fn test_containers_bits_struct_lengthy_9() {
 
 #[test]
 fn test_containers_var_test_struct_zero_2() {
-    let mut value = VarTestStruct { a: 0, b: List::<u16, 1024>::from_iter([0, 0, 0]), c: 0 };
+    let mut value = VarTestStruct {
+        a: 0,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([0, 0, 0])).unwrap(),
+        c: 0,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_zero_2/serialized.ssz_snappy",
@@ -3510,7 +3754,7 @@ fn test_containers_bits_struct_zero_2() {
 fn test_containers_var_test_struct_random_9() {
     let mut value = VarTestStruct {
         a: 36289,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             15770, 34869, 26310, 3628, 24227, 36802, 9331, 13524, 8151, 1295, 18640, 24073, 3542,
             47222, 15379, 49690, 31549, 2507, 53458, 64468, 25758, 49504, 64229, 3740, 39967,
             28550, 3550, 6921, 65195, 54891, 28559, 41353, 13795, 52666, 64543, 30565, 45021, 7635,
@@ -3518,7 +3762,8 @@ fn test_containers_var_test_struct_random_9() {
             53160, 52479, 56223, 8179, 59380, 52392, 54755, 19878, 14302, 53916, 31155, 26664,
             48267, 9328, 27011, 8710, 46885, 5051, 17694, 30649, 53056, 655, 25365, 6594, 573,
             51459, 35850, 47644, 64232, 62783, 54844,
-        ]),
+        ]))
+        .unwrap(),
         c: 17,
     };
     let encoding = serialize(&value);
@@ -3540,7 +3785,7 @@ fn test_containers_var_test_struct_random_9() {
 fn test_containers_var_test_struct_random_0() {
     let mut value = VarTestStruct {
         a: 9142,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             22416, 223, 7972, 11484, 19434, 28447, 5231, 56724, 51306, 42521, 27147, 49964, 36706,
             39915, 55317, 41805, 19846, 12172, 34120, 36440, 53773, 52437, 36273, 14907, 49197,
             35943, 28034, 38986, 52211, 6881, 45813, 57744, 30473, 64290, 21668, 49878, 40359, 320,
@@ -3595,7 +3840,8 @@ fn test_containers_var_test_struct_random_0() {
             47316, 59594, 16123, 57322, 10619, 38642, 54714, 13858, 42426, 17878, 51553, 35176,
             63160, 5617, 49361, 878, 53276, 3591, 29091, 8321, 8286, 48804, 47701, 64141, 5356,
             7849, 31, 2535, 28852, 15777, 50447, 36423, 30409, 33434, 39079, 8277, 9918,
-        ]),
+        ]))
+        .unwrap(),
         c: 149,
     };
     let encoding = serialize(&value);
@@ -3641,7 +3887,7 @@ fn test_containers_bits_struct_lengthy_0() {
 fn test_containers_var_test_struct_random_7() {
     let mut value = VarTestStruct {
         a: 15141,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             11492, 62534, 29650, 54155, 42383, 41747, 4722, 64781, 28665, 7575, 43451, 64198,
             60649, 65080, 30481, 20350, 555, 54139, 29652, 32621, 2068, 50399, 35141, 35336, 60963,
             54790, 42991, 63010, 25898, 36562, 22390, 61383, 737, 60181, 59369, 59664, 18944, 620,
@@ -3676,7 +3922,8 @@ fn test_containers_var_test_struct_random_7() {
             8674, 36615, 42024, 38150, 51941, 46819, 5331, 42260, 17174, 2717, 3694, 15186, 13635,
             45771, 41472, 40979, 26855, 45352, 35254, 7064, 15687, 17205, 57566, 2125, 56098,
             28480, 32707,
-        ]),
+        ]))
+        .unwrap(),
         c: 227,
     };
     let encoding = serialize(&value);
@@ -3762,7 +4009,11 @@ fn test_containers_bits_struct_lengthy_7() {
 
 #[test]
 fn test_containers_var_test_struct_nil_2() {
-    let mut value = VarTestStruct { a: 54253, b: List::<u16, 1024>::from_iter([]), c: 113 };
+    let mut value = VarTestStruct {
+        a: 54253,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+        c: 113,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_2/serialized.ssz_snappy",
@@ -3782,11 +4033,12 @@ fn test_containers_var_test_struct_nil_2() {
 fn test_containers_complex_test_struct_random_9() {
     let mut value = ComplexTestStruct {
         a: 11787,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             8531, 23602, 46945, 14476, 64645, 50631, 21162, 24632, 45653, 45856, 24236, 2463,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             12, 10, 211, 92, 54, 219, 98, 127, 115, 201, 120, 168, 193, 48, 16, 117, 97, 182, 170,
             209, 95, 96, 24, 123, 140, 84, 62, 197, 247, 79, 150, 209, 41, 38, 101, 170, 232, 99,
             254, 141, 0, 123, 233, 167, 194, 199, 151, 12, 251, 148, 116, 165, 205, 133, 57, 10,
@@ -3798,10 +4050,11 @@ fn test_containers_complex_test_struct_random_9() {
             189, 216, 27, 128, 124, 151, 231, 186, 171, 191, 105, 224, 18, 3, 214, 240, 195, 55,
             222, 8, 167, 136, 138, 184, 20, 69, 96, 71, 195, 218, 206, 71, 49, 17, 216, 62, 183,
             245, 76, 27, 221, 5, 188,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 52907,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 37099, 31817, 10319, 35717, 54398, 56813, 58033, 39357, 26917, 38775, 10885, 34282,
                 26328, 45783, 28493, 27345, 56865, 48149, 57156, 60669, 22262, 33108, 35756, 44313,
                 25626, 13033, 13296, 56332, 27214, 50796, 18143, 61919, 19611, 49665, 54790, 17370,
@@ -3823,19 +4076,21 @@ fn test_containers_complex_test_struct_random_9() {
                 18155, 7598, 36545, 60972, 26042, 744, 27907, 14928, 44169, 29624, 62476, 62732,
                 7788, 59995, 12290, 2471, 53137, 25846, 61841, 43565, 8741, 49759, 39626, 1621,
                 26404, 47860, 10662,
-            ]),
+            ]))
+            .unwrap(),
             c: 236,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 244, b: 10736787368015739932, c: 2999381551 },
             FixedTestStruct { a: 118, b: 8708320525189144534, c: 4021318982 },
             FixedTestStruct { a: 212, b: 11980052676225444100, c: 3164386682 },
             FixedTestStruct { a: 250, b: 2578982393630105132, c: 1941069318 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 36012,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     45286, 64710, 8368, 8693, 49467, 56997, 22986, 51416, 21129, 56764, 42816,
                     26552, 20183, 4560, 3501, 29609, 22941, 8435, 18060, 6370, 14409, 55377, 47088,
                     2710, 48849, 53593, 63102, 56162, 64610, 44972, 60690, 33226, 4385, 20787,
@@ -3901,12 +4156,13 @@ fn test_containers_complex_test_struct_random_9() {
                     8885, 28439, 13358, 49995, 46555, 63024, 34432, 13298, 21409, 33225, 44572,
                     20507, 15112, 64911, 25235, 6362, 12931, 30836, 27340, 48648, 35724, 29930,
                     46277, 13513, 40053,
-                ]),
+                ]))
+                .unwrap(),
                 c: 75,
             },
             VarTestStruct {
                 a: 31422,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     41536, 53745, 8614, 26181, 41078, 47910, 51433, 8103, 43092, 60217, 35900,
                     28603, 6651, 41287, 19112, 59182, 47397, 35978, 5990, 1581, 35667, 10300,
                     45523, 47493, 44283, 34256, 36472, 36037, 52151, 60187, 18020, 42646, 48183,
@@ -3924,10 +4180,12 @@ fn test_containers_complex_test_struct_random_9() {
                     1337, 30181, 33364, 42690, 50490, 37666, 16274, 27821, 25761, 31495, 49899,
                     28386, 33207, 31819, 40538, 59051, 17171, 64316, 47999, 64395, 44710, 39715,
                     63030, 30234, 10304, 20987, 56323, 13163, 19022,
-                ]),
+                ]))
+                .unwrap(),
                 c: 47,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -3970,7 +4228,11 @@ fn test_containers_bits_struct_one_1() {
 
 #[test]
 fn test_containers_var_test_struct_nil_5() {
-    let mut value = VarTestStruct { a: 33408, b: List::<u16, 1024>::from_iter([]), c: 65 };
+    let mut value = VarTestStruct {
+        a: 33408,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+        c: 65,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_5/serialized.ssz_snappy",
@@ -4032,7 +4294,7 @@ fn test_containers_bits_struct_one_6() {
 fn test_containers_var_test_struct_lengthy_chaos_2() {
     let mut value = VarTestStruct {
         a: 1866,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             5970, 16331, 6233, 25696, 43712, 34308, 6378, 53193, 12729, 41143, 28218, 28244, 12683,
             24508, 43595, 29477, 28929, 15327, 12920, 45691, 9195, 49912, 53273, 60694, 64402,
             5845, 47975, 23367, 17966, 35482, 48861, 63267, 39059, 25534, 61724, 45706, 54292,
@@ -4116,7 +4378,8 @@ fn test_containers_var_test_struct_lengthy_chaos_2() {
             45650, 49084, 59964, 45754, 6407, 51965, 42941, 15645, 17485, 14612, 4420, 32948,
             48945, 62288, 29224, 61120, 33430, 4819, 63360, 49790, 20778, 20285, 33746, 17870,
             37550, 65203, 44896, 6194, 28706, 16922, 25682, 49818, 28984, 356, 43222,
-        ]),
+        ]))
+        .unwrap(),
         c: 138,
     };
     let encoding = serialize(&value);
@@ -4156,7 +4419,7 @@ fn test_containers_single_field_test_struct_random_0() {
 fn test_containers_complex_test_struct_random_7() {
     let mut value = ComplexTestStruct {
         a: 1062,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             7871, 15592, 44564, 58127, 25646, 24396, 9801, 25517, 30144, 20664, 5792, 56306, 64674,
             27800, 52593, 36265, 57252, 21602, 8534, 62398, 64818, 36283, 6802, 24593, 20984,
             17318, 29447, 60640, 15717, 7292, 60554, 36208, 32300, 32134, 48798, 15032, 7980,
@@ -4167,15 +4430,17 @@ fn test_containers_complex_test_struct_random_7() {
             53051, 23861, 47634, 42549, 51375, 24749, 17034, 12266, 46234, 13588, 4317, 24555,
             8559, 55946, 47474, 33775, 62956, 52506, 64845, 57029, 4215, 50404, 54094, 33610,
             61550, 46057, 44761,
-        ]),
+        ]))
+        .unwrap(),
         c: 111,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             198, 161, 60, 63, 253, 100, 243, 231, 3, 42, 12, 4, 163, 239, 231, 12, 42, 229, 115,
             238, 152, 84, 151, 79, 169, 145, 51, 196, 113, 25, 94, 21, 53,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 51924,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 57236, 10831, 42662, 34230, 2526, 4927, 61167, 41459, 7798, 12414, 43345, 13692,
                 48636, 59892, 63284, 42044, 35235, 50832, 1703, 47028, 40466, 64651, 56307, 29066,
                 17694, 1155, 44038, 59504, 54451, 34142, 7106, 61363, 27357, 45932, 24160, 46724,
@@ -4205,19 +4470,21 @@ fn test_containers_complex_test_struct_random_7() {
                 33904, 52147, 17843, 18026, 3999, 2987, 58838, 51416, 6611, 27716, 7052, 55016,
                 52498, 46161, 58490, 44602, 19391, 27900, 28319, 15701, 19499, 54526, 15835, 37717,
                 10736, 64623, 38502, 60475, 63591, 4497, 50657,
-            ]),
+            ]))
+            .unwrap(),
             c: 41,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 236, b: 7317836259427658061, c: 4070989328 },
             FixedTestStruct { a: 241, b: 2866003389764641033, c: 1136948491 },
             FixedTestStruct { a: 121, b: 18232523595989838681, c: 1887266280 },
             FixedTestStruct { a: 94, b: 6612092953144428216, c: 3128966878 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 41464,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     59857, 12838, 60112, 52836, 54408, 37997, 10347, 26218, 52511, 52907, 52086,
                     42812, 21088, 53968, 54622, 27862, 61709, 41763, 10063, 1008, 18890, 40199,
                     24885, 14998, 42868, 60475, 53312, 28514, 30180, 36424, 18293, 38449, 30738,
@@ -4284,12 +4551,13 @@ fn test_containers_complex_test_struct_random_7() {
                     34835, 61259, 20928, 33332, 11318, 62719, 23522, 9125, 60715, 33169, 35984,
                     55358, 42778, 17336, 20563, 10029, 14303, 42762, 51446, 57250, 43791, 3553,
                     46043, 37341,
-                ]),
+                ]))
+                .unwrap(),
                 c: 6,
             },
             VarTestStruct {
                 a: 23382,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     7292, 62152, 54746, 49789, 34666, 32564, 63999, 45527, 16076, 27308, 53941,
                     41650, 31214, 23325, 60736, 1409, 30298, 22851, 62472, 54988, 47414, 17809,
                     5979, 59154, 19737, 60947, 63941, 31574, 61560, 23791, 7625, 52180, 33394,
@@ -4329,10 +4597,12 @@ fn test_containers_complex_test_struct_random_7() {
                     10808, 40378, 4855, 13811, 51034, 31975, 43696, 34159, 4181, 51377, 11973,
                     65475, 51794, 24238, 53126, 16071, 60541, 46235, 732, 31851, 40193, 22591,
                     51633, 531, 31946,
-                ]),
+                ]))
+                .unwrap(),
                 c: 111,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -4395,19 +4665,21 @@ fn test_containers_bits_struct_max_2() {
 fn test_containers_complex_test_struct_random_0() {
     let mut value = ComplexTestStruct {
         a: 45098,
-        b: List::<u16, 128>::from_iter([24760, 11575, 2534, 13704, 55254]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([24760, 11575, 2534, 13704, 55254]))
+            .unwrap(),
         c: 96,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             141, 59, 88, 169, 119, 128, 156, 87, 77, 70, 192, 123, 130, 5, 192, 216, 198, 140, 107,
             43, 49, 109, 137, 161, 195, 146, 241, 74, 32, 190, 3, 4, 2, 219, 194, 152, 240, 57, 73,
             24, 151, 186, 238, 220, 46, 78, 90, 76, 175, 161, 242, 111, 30, 99, 220, 54, 120, 155,
             57, 74, 144, 220, 158, 69, 130, 204, 20, 24, 237, 119, 58, 18, 82, 121, 96, 112, 67,
             113, 48, 206, 48, 208, 230, 91, 34, 223, 13, 141, 184, 142, 132, 77, 174, 161, 236,
             129, 214, 215, 207, 3, 125, 62, 31, 93, 49, 139, 203, 36, 84, 96, 205,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 1284,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 62801, 12676, 50809, 30221, 38726, 51052, 18468, 59585, 63940, 64980, 40354, 21180,
                 31638, 16957, 49696, 164, 41620, 32688, 48922, 13279, 1759, 7737, 63477, 47970,
                 54063, 29083, 51239, 18581, 28120, 35618, 8863, 16998, 29260, 38915, 32819, 63268,
@@ -4454,19 +4726,21 @@ fn test_containers_complex_test_struct_random_0() {
                 61202, 5421, 1030, 55210, 40852, 55448, 59304, 35819, 34683, 1792, 63255, 10752,
                 26304, 27346, 28114, 13574, 4186, 12962, 22023, 46593, 26272, 7532, 14897, 33813,
                 4690, 14544, 12203, 28806,
-            ]),
+            ]))
+            .unwrap(),
             c: 96,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 188, b: 9730166158537326586, c: 582055670 },
             FixedTestStruct { a: 142, b: 12146156903005665865, c: 481599615 },
             FixedTestStruct { a: 68, b: 14644856350027584855, c: 637057914 },
             FixedTestStruct { a: 161, b: 15243040026072936985, c: 1682921351 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 59880,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     51238, 41083, 39782, 47063, 19253, 43226, 61078, 11077, 18828, 32437, 23333,
                     54387, 15304, 38402, 45920, 47775, 35413, 10760, 14587, 2142, 44510, 27301,
                     13737, 28389, 61990, 40825, 36833, 57074, 44628, 50528, 33918, 56843, 22773,
@@ -4550,12 +4824,13 @@ fn test_containers_complex_test_struct_random_0() {
                     24863, 64148, 34333, 14684, 45896, 29147, 38364, 33364, 32974, 32789, 40769,
                     2693, 10359, 63522, 41864, 34548, 20281, 60357, 20975, 11443, 7685, 1379,
                     64175, 32975, 22510, 63824, 2491, 4689, 25561, 34163, 18760, 40177,
-                ]),
+                ]))
+                .unwrap(),
                 c: 230,
             },
             VarTestStruct {
                 a: 53517,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     11845, 15331, 4596, 1367, 47799, 6408, 49887, 10341, 41539, 51692, 34465,
                     58213, 10750, 63127, 63235, 45719, 63149, 19657, 26565, 17773, 6406, 65330,
                     1027, 40763, 8342, 51231, 19674, 10960, 46107, 61188, 3981, 40258, 31478,
@@ -4583,10 +4858,12 @@ fn test_containers_complex_test_struct_random_0() {
                     23667, 477, 10268, 16820, 28933, 45869, 20854, 17269, 64544, 9645, 35815,
                     42542, 20048, 20539, 41750, 23915, 57789, 30885, 29366, 55670, 48984, 35912,
                     36928, 21634, 2735,
-                ]),
+                ]))
+                .unwrap(),
                 c: 76,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -4691,13 +4968,14 @@ fn test_containers_fixed_test_struct_max_chaos_1() {
 fn test_containers_var_test_struct_random_6() {
     let mut value = VarTestStruct {
         a: 64476,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             53688, 48973, 58629, 2535, 50734, 12116, 62095, 53745, 26049, 52022, 56676, 54631,
             32042, 14196, 56909, 30469, 19594, 54011, 16861, 63636, 10939, 39418, 15810, 5773,
             17244, 33735, 40043, 50352, 61825, 9238, 19987, 45755, 56357, 27296, 15875, 35616,
             15348, 10125, 58115, 63028, 48302, 35751, 5032, 28427, 49223, 26098, 25675, 59726,
             12839, 65217, 16028, 58573, 17825, 43167, 4383,
-        ]),
+        ]))
+        .unwrap(),
         c: 37,
     };
     let encoding = serialize(&value);
@@ -4783,7 +5061,11 @@ fn test_containers_small_test_struct_max_8() {
 
 #[test]
 fn test_containers_var_test_struct_one_chaos_2() {
-    let mut value = VarTestStruct { a: 7706, b: List::<u16, 1024>::from_iter([40992]), c: 148 };
+    let mut value = VarTestStruct {
+        a: 7706,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([40992])).unwrap(),
+        c: 148,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_chaos_2/serialized.ssz_snappy",
@@ -4803,7 +5085,7 @@ fn test_containers_var_test_struct_one_chaos_2() {
 fn test_containers_var_test_struct_random_1() {
     let mut value = VarTestStruct {
         a: 43634,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             55593, 62281, 4908, 59811, 54631, 42687, 27754, 27273, 26194, 35717, 1605, 53917, 4007,
             61438, 1012, 35712, 56777, 1947, 7104, 53378, 55331, 21992, 11578, 58601, 30836, 5086,
             29700, 12490, 34397, 1117, 27495, 52391, 50304, 3392, 24708, 18726, 12722, 44314,
@@ -4861,7 +5143,8 @@ fn test_containers_var_test_struct_random_1() {
             22070, 37187, 2388, 2471, 59879, 9256, 16878, 28021, 9280, 63982, 3237, 64103, 60696,
             53445, 43639, 26328, 22322, 25785, 42833, 11185, 19944, 39503, 46656, 62113, 54641,
             39184, 38083, 52218, 10422, 19936, 38976, 37156, 53804, 24969, 32577,
-        ]),
+        ]))
+        .unwrap(),
         c: 213,
     };
     let encoding = serialize(&value);
@@ -4949,7 +5232,7 @@ fn test_containers_bits_struct_lengthy_8() {
 fn test_containers_var_test_struct_zero_3() {
     let mut value = VarTestStruct {
         a: 0,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -4971,7 +5254,8 @@ fn test_containers_var_test_struct_zero_3() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
     };
     let encoding = serialize(&value);
@@ -4993,37 +5277,40 @@ fn test_containers_var_test_struct_zero_3() {
 fn test_containers_complex_test_struct_zero_chaos_2() {
     let mut value = ComplexTestStruct {
         a: 0,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
-        d: List::<u8, 256>::from_iter([0]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([0])).unwrap(),
         e: VarTestStruct {
             a: 0,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            ]),
+            ]))
+            .unwrap(),
             c: 0,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -5052,21 +5339,24 @@ fn test_containers_complex_test_struct_zero_chaos_2() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -5087,7 +5377,7 @@ fn test_containers_complex_test_struct_zero_chaos_2() {
 fn test_containers_var_test_struct_random_8() {
     let mut value = VarTestStruct {
         a: 27146,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             22447, 64070, 3185, 62696, 47496, 19881, 59400, 35567, 8927, 12773, 18897, 10230,
             64382, 59300, 18831, 59520, 9367, 47402, 6761, 8006, 22245, 16016, 13486, 6282, 23492,
             51927, 15216, 47571, 37250, 41454, 63626, 38860, 62393, 61579, 38901, 18485, 26811,
@@ -5095,7 +5385,8 @@ fn test_containers_var_test_struct_random_8() {
             31751, 11585, 25248, 60548, 4715, 41360, 1418, 63052, 44162, 34875, 39425, 30674,
             10083, 35543, 28810, 13258, 54905, 51912, 42064, 42086, 35617, 63924, 37847, 35858,
             16198, 52392, 15619, 56332, 56708, 7220, 58504, 47340, 50459, 8003,
-        ]),
+        ]))
+        .unwrap(),
         c: 87,
     };
     let encoding = serialize(&value);
@@ -5141,7 +5432,7 @@ fn test_containers_bits_struct_zero_3() {
 fn test_containers_var_test_struct_zero_4() {
     let mut value = VarTestStruct {
         a: 0,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -5158,7 +5449,8 @@ fn test_containers_var_test_struct_zero_4() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
     };
     let encoding = serialize(&value);
@@ -5240,7 +5532,7 @@ fn test_containers_single_field_test_struct_random_6() {
 fn test_containers_complex_test_struct_random_1() {
     let mut value = ComplexTestStruct {
         a: 10570,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             25130, 47018, 44501, 60270, 30202, 60019, 979, 5334, 4184, 39381, 16060, 48693, 2177,
             1624, 44145, 109, 26297, 3760, 45976, 26234, 12306, 35072, 23108, 359, 36205, 42375,
             43668, 49701, 5985, 17741, 35986, 50806, 40456, 11569, 7764, 49999, 31368, 7231, 60872,
@@ -5251,9 +5543,10 @@ fn test_containers_complex_test_struct_random_1() {
             53923, 48096, 41181, 32866, 7869, 57048, 39161, 23300, 33355, 10982, 179, 44668, 34392,
             54101, 52667, 38022, 48921, 16050, 37525, 18046, 59409, 52990, 56338, 52766, 31686,
             28089,
-        ]),
+        ]))
+        .unwrap(),
         c: 207,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             137, 42, 38, 79, 48, 237, 43, 239, 229, 237, 68, 206, 34, 234, 199, 211, 147, 192, 39,
             165, 55, 93, 7, 85, 10, 185, 173, 224, 62, 43, 122, 41, 37, 183, 181, 15, 253, 188,
             120, 16, 63, 210, 198, 236, 94, 224, 242, 54, 162, 151, 152, 213, 4, 229, 175, 226, 79,
@@ -5267,10 +5560,11 @@ fn test_containers_complex_test_struct_random_1() {
             7, 83, 239, 87, 77, 33, 155, 34, 49, 215, 159, 211, 137, 117, 70, 103, 91, 120, 158,
             116, 117, 187, 12, 80, 167, 32, 140, 4, 4, 151, 215, 20, 108, 68, 24, 82, 228, 177,
             171, 191, 154, 198, 1, 180, 218, 203, 252, 138, 37, 42, 40, 214, 78, 127, 146, 80,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 3432,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 28962, 11394, 22785, 28581, 55052, 43341, 53264, 30844, 33165, 28308, 54453, 13625,
                 29292, 9763, 32817, 58460, 40141, 2448, 37496, 34081, 52786, 22210, 50500, 51413,
                 29126, 36769, 43292, 18244, 20473, 47107, 50265, 2320, 56137, 2746, 50727, 48561,
@@ -5316,19 +5610,21 @@ fn test_containers_complex_test_struct_random_1() {
                 44300, 58863, 57240, 16157, 61144, 53112, 39023, 57596, 22055, 38379, 17467, 23479,
                 32534, 15470, 46976, 60539, 36433, 55438, 62731, 21650, 22672, 23007, 56552, 15111,
                 30304, 845, 57614, 27431, 8468, 61481, 62207, 46583, 8118, 34734,
-            ]),
+            ]))
+            .unwrap(),
             c: 230,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 231, b: 1863231633934349380, c: 2790073216 },
             FixedTestStruct { a: 37, b: 14159239175366384790, c: 3878144546 },
             FixedTestStruct { a: 172, b: 10223347348532532647, c: 3873962530 },
             FixedTestStruct { a: 228, b: 6481981747729743213, c: 817324705 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 33242,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     47227, 37536, 46215, 50335, 52121, 8097, 64235, 27197, 7249, 8568, 16725,
                     16612, 42968, 20796, 6356, 31220, 27948, 4246, 33344, 40546, 60800, 32272,
                     34461, 51856, 24106, 11988, 3380, 5730, 45737, 30833, 1965, 21053, 13204,
@@ -5358,12 +5654,13 @@ fn test_containers_complex_test_struct_random_1() {
                     11938, 33743, 39376, 19270, 7173, 33603, 58949, 3060, 10799, 27215, 49617,
                     13604, 35875, 24198, 56380, 48764, 61890, 21136, 23821, 32848, 16553, 10389,
                     34924, 64208, 43619, 40757, 9632, 34271, 21110, 24100, 24558, 22422, 43760,
-                ]),
+                ]))
+                .unwrap(),
                 c: 230,
             },
             VarTestStruct {
                 a: 41398,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     37637, 60630, 5618, 16275, 48590, 34771, 14023, 39677, 5882, 7409, 6483, 11030,
                     44489, 14753, 6355, 47920, 47286, 49687, 32520, 46974, 52864, 46905, 9705,
                     35634, 29235, 28158, 31341, 3993, 20930, 61867, 60115, 64147, 52387, 24318,
@@ -5413,10 +5710,12 @@ fn test_containers_complex_test_struct_random_1() {
                     22905, 13343, 46177, 5213, 19893, 31472, 47764, 56937, 20526, 49572, 34134,
                     53627, 31468, 40245, 27105, 51064, 15981, 9629, 24690, 1030, 18771, 44540,
                     36668, 11054, 27243,
-                ]),
+                ]))
+                .unwrap(),
                 c: 247,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -5503,7 +5802,7 @@ fn test_containers_fixed_test_struct_max_chaos_0() {
 fn test_containers_complex_test_struct_random_6() {
     let mut value = ComplexTestStruct {
         a: 56082,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             16100, 22857, 27807, 34340, 18934, 15120, 29987, 2470, 46665, 59647, 31943, 45611,
             58344, 27670, 50944, 47092, 21665, 36667, 42227, 41577, 12512, 596, 62087, 38343,
             31525, 9968, 45121, 40434, 32084, 5333, 4835, 3339, 38395, 20109, 58009, 60253, 3746,
@@ -5512,9 +5811,10 @@ fn test_containers_complex_test_struct_random_6() {
             33776, 18845, 11764, 21132, 34696, 27081, 29853, 43833, 22089, 54364, 22524, 48064,
             11065, 34923, 31045, 19944, 21676, 57420, 29950, 31156, 23207, 53147, 36016, 8072,
             8802, 30624, 746, 39360, 48449, 47030, 56748, 63276,
-        ]),
+        ]))
+        .unwrap(),
         c: 168,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             40, 41, 197, 38, 95, 95, 2, 105, 184, 76, 97, 39, 73, 184, 37, 136, 136, 110, 210, 118,
             215, 74, 142, 13, 197, 139, 95, 107, 119, 111, 26, 254, 80, 89, 236, 205, 186, 139, 39,
             51, 94, 149, 164, 178, 230, 135, 193, 198, 60, 14, 218, 149, 132, 85, 23, 199, 210,
@@ -5523,10 +5823,11 @@ fn test_containers_complex_test_struct_random_6() {
             154, 121, 153, 218, 196, 184, 54, 166, 186, 114, 32, 243, 54, 12, 70, 207, 234, 14, 35,
             181, 112, 105, 210, 174, 163, 42, 243, 165, 96, 136, 231, 207, 198, 179, 141, 160, 122,
             168, 12, 200, 212, 185, 22, 118, 247, 54, 107, 152, 167,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 11429,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 60109, 40769, 46399, 40756, 54364, 14755, 50154, 2464, 1212, 36993, 15934, 14639,
                 39209, 27684, 14374, 35993, 10919, 51667, 30710, 27337, 35066, 29087, 42877, 31353,
                 59108, 5772, 31403, 56426, 36255, 2499, 40269, 61875, 14862, 55082, 12666, 40997,
@@ -5585,19 +5886,21 @@ fn test_containers_complex_test_struct_random_6() {
                 31696, 42933, 21149, 45805, 15412, 62896, 62451, 33440, 64374, 12928, 50948, 45095,
                 18714, 39236, 37743, 7906, 16113, 55455, 45351, 62767, 47743, 28792, 50466, 3907,
                 5872, 64569,
-            ]),
+            ]))
+            .unwrap(),
             c: 101,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 222, b: 15123379162607136266, c: 1353896497 },
             FixedTestStruct { a: 133, b: 12301823266505627415, c: 2049419971 },
             FixedTestStruct { a: 74, b: 14612473027338292713, c: 3280573163 },
             FixedTestStruct { a: 182, b: 13293144499800156659, c: 1044267296 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 39096,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     47532, 38310, 11840, 11592, 469, 61623, 49907, 61644, 16027, 49338, 26917,
                     37058, 43868, 56308, 35037, 41241, 42071, 16557, 41814, 8749, 19464, 25529,
                     25666, 40039, 17818, 23454, 23260, 57082, 3694, 56932, 40871, 37605, 21584,
@@ -5643,12 +5946,13 @@ fn test_containers_complex_test_struct_random_6() {
                     35030, 30203, 48410, 58640, 59856, 9390, 41965, 10568, 14369, 29385, 26143,
                     6191, 19045, 9739, 35007, 35051, 65360, 51280, 64462, 417, 54846, 38325, 65258,
                     20017, 7246, 15520, 59245, 48884,
-                ]),
+                ]))
+                .unwrap(),
                 c: 181,
             },
             VarTestStruct {
                 a: 38223,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     5078, 33434, 40974, 12861, 22394, 56300, 44801, 7123, 45572, 52308, 40807,
                     3493, 48886, 3940, 18613, 26392, 12954, 58150, 22535, 15141, 14353, 34568,
                     5140, 33061, 42050, 222, 56269, 22014, 15367, 23727, 29954, 10957, 50158,
@@ -5725,10 +6029,12 @@ fn test_containers_complex_test_struct_random_6() {
                     59445, 16649, 53662, 53231, 41088, 60671, 37263, 43399, 2813, 55789, 27855,
                     49652, 16510, 6149, 61821, 2217, 21260, 30861, 59369, 27966, 7392, 65127, 1056,
                     47428, 4868, 24329, 58533, 42001, 19903, 38866, 44845, 31781,
-                ]),
+                ]))
+                .unwrap(),
                 c: 120,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -5807,7 +6113,11 @@ fn test_containers_bits_struct_max_3() {
 
 #[test]
 fn test_containers_var_test_struct_nil_4() {
-    let mut value = VarTestStruct { a: 28577, b: List::<u16, 1024>::from_iter([]), c: 222 };
+    let mut value = VarTestStruct {
+        a: 28577,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+        c: 222,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_4/serialized.ssz_snappy",
@@ -5869,7 +6179,7 @@ fn test_containers_single_field_test_struct_random_8() {
 fn test_containers_var_test_struct_random_chaos_2() {
     let mut value = VarTestStruct {
         a: 56424,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             14923, 5692, 42866, 61765, 4524, 40147, 49185, 62818, 16625, 13626, 26774, 26803,
             27596, 7960, 33695, 64432, 57196, 57270, 58176, 61600, 53363, 27678, 55705, 55519, 99,
             61383, 30970, 56502, 42545, 5930, 30494, 5507, 7084, 1879, 52535, 37062, 52431, 9370,
@@ -5896,7 +6206,8 @@ fn test_containers_var_test_struct_random_chaos_2() {
             41478, 38046, 64362, 52586, 34516, 34317, 38339, 39417, 7111, 51712, 44259, 23120,
             3386, 57500, 31109, 4932, 7691, 19250, 62704, 35731, 16459, 34235, 46133, 25305, 65099,
             28075, 61760, 33544, 845,
-        ]),
+        ]))
+        .unwrap(),
         c: 237,
     };
     let encoding = serialize(&value);
@@ -5916,7 +6227,11 @@ fn test_containers_var_test_struct_random_chaos_2() {
 
 #[test]
 fn test_containers_var_test_struct_nil_3() {
-    let mut value = VarTestStruct { a: 16239, b: List::<u16, 1024>::from_iter([]), c: 51 };
+    let mut value = VarTestStruct {
+        a: 16239,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+        c: 51,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_3/serialized.ssz_snappy",
@@ -5936,7 +6251,7 @@ fn test_containers_var_test_struct_nil_3() {
 fn test_containers_complex_test_struct_random_8() {
     let mut value = ComplexTestStruct {
         a: 20254,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             20019, 60900, 48556, 15177, 23768, 57178, 35087, 7767, 19440, 595, 14057, 20155, 35173,
             35336, 64153, 21450, 36425, 55180, 52004, 42407, 19621, 742, 32674, 58289, 9198, 44946,
             48837, 57874, 50783, 46004, 42531, 47118, 25301, 48855, 10466, 34574, 27766, 32913,
@@ -5945,17 +6260,19 @@ fn test_containers_complex_test_struct_random_8() {
             49657, 8425, 10712, 50340, 30588, 14530, 11749, 6804, 1495, 51933, 8457, 34646, 21116,
             60205, 58353, 124, 1481, 59528, 9590, 4347, 2702, 15150, 677, 38550, 28196, 46638,
             59880,
-        ]),
+        ]))
+        .unwrap(),
         c: 118,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             108, 97, 223, 200, 182, 147, 35, 133, 49, 171, 249, 221, 65, 139, 125, 159, 124, 65,
             204, 18, 41, 97, 28, 230, 55, 150, 187, 143, 212, 236, 222, 220, 218, 110, 168, 119,
             178, 58, 139, 231, 162, 177, 213, 78, 145, 200, 194, 101, 182, 175, 220, 126, 11, 138,
             185, 212, 172, 112, 93, 123, 53, 188, 91, 79, 153, 60, 104, 141, 33,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 15566,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 23038, 52467, 41326, 7563, 19676, 51828, 34152, 35277, 31528, 15242, 52634, 23460,
                 662, 57334, 51356, 51069, 62275, 51556, 9608, 61918, 11647, 8270, 23699, 38091,
                 13755, 10586, 1912, 12225, 49116, 20133, 37751, 60597, 64257, 42895, 46087, 33385,
@@ -6042,19 +6359,21 @@ fn test_containers_complex_test_struct_random_8() {
                 46488, 52510, 15541, 54445, 12747, 56879, 37276, 53177, 24919, 24322, 55996, 35239,
                 20308, 38034, 47668, 30704, 2903, 41200, 34928, 32197, 45503, 14275, 25982, 39402,
                 46211, 10299,
-            ]),
+            ]))
+            .unwrap(),
             c: 159,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 35, b: 13234913345360785102, c: 172363296 },
             FixedTestStruct { a: 143, b: 15275530587653726896, c: 1598380581 },
             FixedTestStruct { a: 87, b: 11938384569861367173, c: 4135857227 },
             FixedTestStruct { a: 174, b: 2815096997284796480, c: 3314608453 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 61309,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     6101, 25775, 3733, 46672, 48616, 25668, 59747, 37205, 60722, 47023, 15262,
                     53619, 24589, 51541, 14230, 56659, 37929, 52476, 9436, 23768, 61651, 11002,
                     11113, 23652, 28837, 46402, 48222, 37692, 22676, 47681, 62696, 6057, 13277,
@@ -6098,12 +6417,13 @@ fn test_containers_complex_test_struct_random_8() {
                     16421, 19807, 6039, 20422, 28223, 61824, 12870, 36232, 57898, 16126, 43049,
                     59000, 32480, 33493, 36269, 37733, 62095, 59870, 56470, 41882, 60716, 12599,
                     46080,
-                ]),
+                ]))
+                .unwrap(),
                 c: 3,
             },
             VarTestStruct {
                 a: 34532,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     45796, 18375, 37834, 2783, 2547, 23183, 37213, 4430, 2216, 28517, 6685, 9572,
                     14339, 7840, 46610, 62005, 14231, 56026, 49029, 25365, 45017, 59892, 37635,
                     37039, 5534, 32488, 36307, 20202, 14133, 38835, 41232, 43417, 50193, 61322,
@@ -6175,10 +6495,12 @@ fn test_containers_complex_test_struct_random_8() {
                     36553, 18628, 32331, 64683, 63900, 18663, 4406, 22521, 23809, 41824, 57718,
                     18566, 18581, 7917, 50562, 23865, 57352, 61204, 5438, 13668, 42052, 39805,
                     25256, 25471, 43890, 46357, 2497,
-                ]),
+                ]))
+                .unwrap(),
                 c: 87,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -6223,25 +6545,27 @@ fn test_containers_bits_struct_one_0() {
 fn test_containers_complex_test_struct_random_chaos_2() {
     let mut value = ComplexTestStruct {
         a: 38946,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             5471, 27102, 57450, 14239, 40850, 28804, 29251, 64229, 2817, 698, 12066, 31923, 8627,
             46696, 45162, 20487, 26658, 9609, 30585, 34251, 1327, 43070, 64396, 53909, 458, 40421,
             42105, 41328, 38697, 1374, 64232, 64691, 62808, 17976, 53874, 61537, 15907, 42772,
             58056, 61290, 30753, 11997, 32240, 35573, 523, 58558, 9488, 19648, 49356, 13503, 41572,
             5291, 46694, 18537, 24217, 55537, 34818, 14214, 52245, 20089,
-        ]),
+        ]))
+        .unwrap(),
         c: 19,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             232, 30, 111, 0, 23, 237, 114, 162, 9, 235, 232, 180, 148, 118, 35, 147, 142, 238, 230,
             156, 255, 204, 127, 12, 221, 208, 18, 64, 118, 234, 211, 34, 86, 11, 4, 180, 217, 132,
             95, 149, 28, 249, 15, 9, 250, 110, 164, 184, 160, 36, 57, 12, 19, 24, 139, 194, 160,
             109, 156, 247, 95, 237, 109, 211, 9, 87, 18, 214, 86, 26, 80, 134, 207, 34, 192, 74,
             12, 143, 43, 141, 154, 104, 197, 209, 206, 66, 4, 70, 16, 190, 155, 34, 178, 134, 28,
             212, 211, 161, 125, 221, 195, 89, 97, 8, 48, 106, 190, 202, 190,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 41206,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 38917, 43774, 38559, 38822, 50501, 34597, 19855, 23072, 14435, 33924, 7401, 4825,
                 30064, 2249, 14300, 5634, 61411, 21535, 45447, 65111, 51794, 54294, 11954, 521,
                 33149, 41959, 58815, 60732, 13060, 32016, 27542, 32726, 62219, 7113, 43818, 8180,
@@ -6297,19 +6621,21 @@ fn test_containers_complex_test_struct_random_chaos_2() {
                 4592, 22002, 9234, 2477, 38507, 57312, 32552, 24116, 32314, 28271, 46492, 38029,
                 51183, 60798, 21437, 48852, 14101, 11901, 42307, 6842, 37425, 62394, 51423, 13673,
                 20486, 3659, 32098, 63167, 59225, 21637, 33444, 34322, 8267, 20452, 3314,
-            ]),
+            ]))
+            .unwrap(),
             c: 114,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 249, b: 4107181588698988535, c: 2407634107 },
             FixedTestStruct { a: 106, b: 18323237399640037470, c: 1699273180 },
             FixedTestStruct { a: 23, b: 3936185887010202334, c: 892696758 },
             FixedTestStruct { a: 136, b: 351826920636170295, c: 3961519671 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 55095,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     12824, 37147, 20776, 9838, 30702, 26363, 53923, 12254, 26244, 39805, 30481,
                     48303, 31045, 49481, 65263, 45286, 45319, 44074, 20758, 12542, 9423, 51600,
                     29493, 13156, 29556, 47905, 27566, 56758, 42483, 29799, 11737, 59600, 35788,
@@ -6324,12 +6650,13 @@ fn test_containers_complex_test_struct_random_chaos_2() {
                     24169, 48965, 54057, 3044, 26949, 45527, 25214, 6386, 809, 913, 60299, 54301,
                     19923, 2524, 53044, 13359, 33429, 20256, 8594, 46446, 15918, 30530, 11318,
                     43633, 45556, 57775, 42976,
-                ]),
+                ]))
+                .unwrap(),
                 c: 34,
             },
             VarTestStruct {
                 a: 36056,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     63443, 953, 61737, 53195, 19552, 12277, 49695, 10490, 61265, 4699, 19174,
                     58223, 35909, 23830, 38240, 24693, 21556, 28113, 55300, 44141, 22697, 60601,
                     43258, 21075, 30469, 6417, 21447, 59691, 8827, 40374, 28331, 57423, 51412,
@@ -6339,10 +6666,12 @@ fn test_containers_complex_test_struct_random_chaos_2() {
                     10412, 41065, 55813, 29800, 56445, 22331, 34661, 48588, 50048, 42554, 5616,
                     19552, 32911, 48337, 6584, 1276, 7580, 56607, 32677, 50035, 21878, 10121,
                     56487,
-                ]),
+                ]))
+                .unwrap(),
                 c: 86,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -6363,7 +6692,7 @@ fn test_containers_complex_test_struct_random_chaos_2() {
 fn test_containers_var_test_struct_max_3() {
     let mut value = VarTestStruct {
         a: 65535,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -6412,7 +6741,8 @@ fn test_containers_var_test_struct_max_3() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
     };
     let encoding = serialize(&value);
@@ -6432,7 +6762,11 @@ fn test_containers_var_test_struct_max_3() {
 
 #[test]
 fn test_containers_var_test_struct_nil_chaos_2() {
-    let mut value = VarTestStruct { a: 57138, b: List::<u16, 1024>::from_iter([]), c: 18 };
+    let mut value = VarTestStruct {
+        a: 57138,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+        c: 18,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_chaos_2/serialized.ssz_snappy",
@@ -6470,7 +6804,7 @@ fn test_containers_fixed_test_struct_zero_6() {
 fn test_containers_var_test_struct_max_4() {
     let mut value = VarTestStruct {
         a: 65535,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -6527,7 +6861,8 @@ fn test_containers_var_test_struct_max_4() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
     };
     let encoding = serialize(&value);
@@ -6613,7 +6948,11 @@ fn test_containers_bits_struct_one_chaos_0() {
 
 #[test]
 fn test_containers_var_test_struct_one_9() {
-    let mut value = VarTestStruct { a: 34750, b: List::<u16, 1024>::from_iter([11259]), c: 43 };
+    let mut value = VarTestStruct {
+        a: 34750,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([11259])).unwrap(),
+        c: 43,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_9/serialized.ssz_snappy",
@@ -6649,7 +6988,11 @@ fn test_containers_fixed_test_struct_zero_8() {
 
 #[test]
 fn test_containers_var_test_struct_one_0() {
-    let mut value = VarTestStruct { a: 61255, b: List::<u16, 1024>::from_iter([17467]), c: 65 };
+    let mut value = VarTestStruct {
+        a: 61255,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([17467])).unwrap(),
+        c: 65,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_0/serialized.ssz_snappy",
@@ -6669,7 +7012,7 @@ fn test_containers_var_test_struct_one_0() {
 fn test_containers_var_test_struct_lengthy_5() {
     let mut value = VarTestStruct {
         a: 15159,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             40266, 41646, 61275, 56828, 55784, 13765, 5796, 17724, 49215, 57779, 48446, 61955,
             31367, 42786, 50032, 49065, 62786, 42186, 205, 17247, 50820, 37658, 24377, 10169,
             41075, 53746, 8356, 25932, 45622, 27068, 52763, 3905, 15862, 28126, 20621, 13913, 3287,
@@ -6753,7 +7096,8 @@ fn test_containers_var_test_struct_lengthy_5() {
             51173, 7697, 32119, 17398, 32775, 21509, 46252, 27407, 62467, 45228, 49480, 61986,
             38413, 5459, 2861, 42474, 48881, 28027, 20981, 59394, 60034, 58475, 53265, 22845,
             44462, 9073, 51844, 46219, 37527, 28131, 15546, 38281, 14527, 5713,
-        ]),
+        ]))
+        .unwrap(),
         c: 136,
     };
     let encoding = serialize(&value);
@@ -6799,7 +7143,7 @@ fn test_containers_bits_struct_nil_3() {
 fn test_containers_var_test_struct_lengthy_2() {
     let mut value = VarTestStruct {
         a: 6378,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             56213, 56690, 5490, 50070, 64104, 50125, 17654, 6411, 61997, 28536, 45501, 33550,
             17405, 30649, 13300, 14528, 41192, 51965, 17404, 60982, 27197, 54125, 891, 29291, 4026,
             64060, 30878, 37389, 2818, 38130, 54714, 49140, 31623, 12673, 35472, 4012, 23691,
@@ -6883,7 +7227,8 @@ fn test_containers_var_test_struct_lengthy_2() {
             51158, 33965, 44071, 47508, 10894, 52334, 63719, 6808, 56243, 52946, 682, 48416, 26359,
             48885, 17707, 56903, 60483, 8139, 56249, 37205, 34338, 59837, 64288, 50997, 6618,
             53792, 30126, 30157, 3369, 27996, 9789, 42130, 13424, 10781, 13704, 35789, 40904,
-        ]),
+        ]))
+        .unwrap(),
         c: 209,
     };
     let encoding = serialize(&value);
@@ -6903,7 +7248,11 @@ fn test_containers_var_test_struct_lengthy_2() {
 
 #[test]
 fn test_containers_var_test_struct_one_7() {
-    let mut value = VarTestStruct { a: 14149, b: List::<u16, 1024>::from_iter([16482]), c: 230 };
+    let mut value = VarTestStruct {
+        a: 14149,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([16482])).unwrap(),
+        c: 230,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_7/serialized.ssz_snappy",
@@ -6947,7 +7296,7 @@ fn test_containers_bits_struct_nil_4() {
 fn test_containers_complex_test_struct_lengthy_1() {
     let mut value = ComplexTestStruct {
         a: 63134,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             15027, 15033, 56026, 45017, 4982, 62406, 9561, 49872, 52603, 11592, 55880, 4782, 36171,
             26861, 55558, 58823, 12551, 11511, 24886, 43494, 40213, 41920, 27461, 15039, 49814,
             26538, 36052, 14184, 10525, 50365, 9275, 23249, 1104, 30936, 24487, 53059, 41222,
@@ -6959,9 +7308,10 @@ fn test_containers_complex_test_struct_lengthy_1() {
             3845, 3345, 6133, 54169, 5586, 43234, 7624, 9784, 3959, 2242, 62530, 30627, 12414,
             8430, 51041, 45125, 40760, 50229, 24210, 64534, 33741, 19262, 60229, 49611, 57320,
             35270, 2712, 4988, 6673, 50059, 46899,
-        ]),
+        ]))
+        .unwrap(),
         c: 60,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             106, 216, 87, 172, 99, 102, 184, 141, 255, 105, 248, 168, 165, 231, 129, 170, 137, 141,
             127, 63, 127, 154, 190, 203, 210, 76, 118, 183, 138, 67, 221, 231, 150, 246, 56, 180,
             183, 158, 12, 11, 25, 24, 198, 6, 159, 71, 249, 18, 36, 54, 105, 108, 148, 194, 129,
@@ -6976,10 +7326,11 @@ fn test_containers_complex_test_struct_lengthy_1() {
             117, 251, 212, 220, 204, 208, 93, 156, 160, 39, 156, 97, 194, 161, 6, 6, 12, 99, 186,
             111, 6, 177, 75, 52, 50, 215, 118, 35, 196, 119, 142, 243, 183, 140, 194, 125, 182, 40,
             48, 67, 72, 47, 145, 28, 165, 178, 135, 5, 139,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 16603,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 43809, 9135, 16086, 48583, 13970, 22509, 12263, 46555, 15163, 11156, 33631, 7319,
                 3475, 39814, 64328, 43807, 29156, 12012, 55126, 30153, 58754, 18899, 25946, 15610,
                 7685, 8906, 3696, 33019, 24544, 59865, 18399, 38783, 62712, 60126, 39734, 27342,
@@ -7066,19 +7417,21 @@ fn test_containers_complex_test_struct_lengthy_1() {
                 30870, 44612, 65375, 34411, 49212, 17629, 832, 11062, 11812, 24883, 61908, 56214,
                 65118, 8156, 46627, 48590, 34539, 43110, 24849, 18621, 53361, 39585, 34054, 57930,
                 24281, 19601,
-            ]),
+            ]))
+            .unwrap(),
             c: 172,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 228, b: 3400495176621689780, c: 2782837041 },
             FixedTestStruct { a: 242, b: 11524830070205099188, c: 745207975 },
             FixedTestStruct { a: 86, b: 4411883652197834213, c: 1172881869 },
             FixedTestStruct { a: 43, b: 14564562638993582932, c: 1949588893 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 30799,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     14556, 55222, 24251, 24293, 27235, 26958, 6438, 60832, 7215, 22695, 17144,
                     54587, 61706, 47463, 14773, 4854, 39837, 15514, 9141, 44675, 27253, 22362,
                     28392, 40731, 21612, 54045, 5781, 26217, 56460, 64881, 41020, 57680, 65287,
@@ -7171,12 +7524,13 @@ fn test_containers_complex_test_struct_lengthy_1() {
                     6442, 59897, 42688, 48255, 64036, 3936, 18883, 6608, 23716, 60749, 64147,
                     60292, 33495, 9911, 3267, 2343, 60532, 30389, 33446, 40794, 25352, 26142, 4116,
                     29406, 15719, 61133, 64295, 24586, 34867, 36836, 14632, 52950, 10854,
-                ]),
+                ]))
+                .unwrap(),
                 c: 206,
             },
             VarTestStruct {
                 a: 37045,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     40012, 20147, 36304, 59222, 14275, 40439, 12833, 27481, 16102, 36518, 22014,
                     12807, 17727, 33809, 17208, 45861, 61773, 21505, 42225, 40102, 38056, 58524,
                     37981, 17397, 13087, 36293, 47576, 52952, 27090, 43652, 29267, 46696, 16852,
@@ -7269,10 +7623,12 @@ fn test_containers_complex_test_struct_lengthy_1() {
                     19487, 54821, 45307, 13639, 23461, 11632, 2007, 58981, 37626, 1146, 20743,
                     10624, 20726, 1875, 36451, 19954, 33597, 54359, 19014, 6816, 59600, 5837, 9682,
                     17257, 38614, 19693, 50996, 34155, 53196, 8804, 64272, 15365, 506,
-                ]),
+                ]))
+                .unwrap(),
                 c: 165,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -7311,7 +7667,7 @@ fn test_containers_fixed_test_struct_random_4() {
 fn test_containers_complex_test_struct_lengthy_6() {
     let mut value = ComplexTestStruct {
         a: 3811,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             53668, 15579, 54351, 30460, 22734, 24817, 58067, 27093, 43172, 7583, 31508, 17987,
             22578, 45349, 63406, 16953, 15482, 215, 55951, 50236, 65030, 17195, 34478, 56436,
             39178, 13504, 10962, 26642, 35363, 34750, 65094, 34944, 52252, 52387, 18841, 40676,
@@ -7323,9 +7679,10 @@ fn test_containers_complex_test_struct_lengthy_6() {
             34902, 32427, 58349, 62223, 27817, 34853, 50982, 45197, 59236, 1996, 9004, 11384,
             11541, 63527, 30766, 40467, 42520, 8912, 60430, 20150, 25536, 65294, 5125, 17995,
             39235, 35005, 7350, 20710, 61776, 1880,
-        ]),
+        ]))
+        .unwrap(),
         c: 11,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             23, 206, 127, 68, 96, 28, 185, 87, 18, 206, 94, 235, 156, 137, 17, 193, 39, 92, 135,
             234, 85, 44, 19, 55, 74, 177, 188, 29, 103, 226, 44, 84, 55, 101, 74, 230, 117, 236,
             218, 188, 128, 243, 92, 8, 46, 86, 198, 179, 87, 119, 166, 207, 247, 216, 170, 217, 96,
@@ -7340,10 +7697,11 @@ fn test_containers_complex_test_struct_lengthy_6() {
             29, 184, 248, 254, 179, 221, 214, 96, 192, 14, 153, 190, 34, 157, 176, 218, 235, 133,
             10, 98, 60, 237, 34, 156, 42, 29, 225, 204, 61, 236, 224, 119, 96, 63, 13, 249, 2, 162,
             234, 148, 37, 199, 237, 137, 243, 121, 155, 133, 193,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 17184,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 59369, 53687, 12570, 39161, 59430, 3090, 17863, 22211, 2669, 50509, 59882, 22858,
                 49824, 20553, 9648, 49698, 5967, 21001, 65028, 10108, 39476, 59598, 34704, 8646,
                 37968, 37897, 31296, 60081, 62822, 47017, 17915, 5145, 11738, 54916, 25290, 43720,
@@ -7430,19 +7788,21 @@ fn test_containers_complex_test_struct_lengthy_6() {
                 45342, 46010, 40780, 42470, 39053, 48233, 55776, 43951, 60952, 54600, 4599, 62155,
                 1892, 47008, 3379, 36053, 54895, 32445, 63889, 44565, 5123, 47150, 29285, 61861,
                 51390, 40000, 62525, 51618,
-            ]),
+            ]))
+            .unwrap(),
             c: 72,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 250, b: 6141795178871855673, c: 240645572 },
             FixedTestStruct { a: 21, b: 4877910149201583175, c: 1417391071 },
             FixedTestStruct { a: 84, b: 7661562362140687688, c: 34213759 },
             FixedTestStruct { a: 148, b: 17897429674566788394, c: 859275185 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 59524,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     10829, 17303, 14277, 18963, 26241, 29327, 14882, 15208, 16925, 43597, 63407,
                     22188, 9080, 32634, 27816, 31164, 62634, 43697, 25236, 21639, 49155, 62153,
                     42459, 8754, 63899, 3773, 30550, 31486, 42200, 23508, 22649, 40233, 64909,
@@ -7535,12 +7895,13 @@ fn test_containers_complex_test_struct_lengthy_6() {
                     33988, 37425, 29980, 28674, 62494, 25223, 34219, 31488, 46045, 29638, 2399,
                     11514, 14584, 64887, 56279, 22625, 8510, 42610, 12916, 48421, 36341, 21345,
                     62956, 26679, 35104, 56011, 52969, 33573, 59036, 62433, 9469,
-                ]),
+                ]))
+                .unwrap(),
                 c: 219,
             },
             VarTestStruct {
                 a: 39373,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     56408, 61365, 9279, 903, 31115, 9775, 20507, 30317, 59362, 20743, 16552, 36108,
                     22961, 29672, 19552, 7599, 53970, 10548, 44814, 26173, 34010, 47860, 51321,
                     6361, 25857, 31826, 39286, 47620, 11766, 56215, 4605, 10337, 62081, 24409,
@@ -7633,10 +7994,12 @@ fn test_containers_complex_test_struct_lengthy_6() {
                     10237, 12375, 22764, 49728, 17285, 50663, 56437, 11507, 17281, 42379, 34309,
                     25175, 60147, 20043, 1121, 36641, 11215, 56020, 63529, 49110, 52642, 8241,
                     14382, 26558, 9404, 42074,
-                ]),
+                ]))
+                .unwrap(),
                 c: 133,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -7693,7 +8056,7 @@ fn test_containers_small_test_struct_random_5() {
 fn test_containers_complex_test_struct_lengthy_8() {
     let mut value = ComplexTestStruct {
         a: 19399,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             22032, 62371, 21788, 9932, 54144, 27131, 3242, 54591, 47647, 13046, 29529, 13141,
             13151, 65437, 479, 12807, 8406, 19308, 58331, 12475, 60877, 648, 47633, 54804, 53138,
             32889, 14147, 49208, 62814, 28632, 16541, 28011, 29384, 46093, 25628, 4212, 1275,
@@ -7705,9 +8068,10 @@ fn test_containers_complex_test_struct_lengthy_8() {
             62625, 61587, 8989, 63624, 7883, 42031, 42898, 2138, 29944, 44939, 49024, 59647, 5306,
             49764, 45165, 61638, 13884, 58920, 35065, 62325, 44582, 53512, 54047, 21337, 1998,
             58010, 2841, 47024, 38382,
-        ]),
+        ]))
+        .unwrap(),
         c: 161,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             96, 63, 241, 170, 196, 246, 41, 136, 3, 163, 4, 17, 205, 53, 24, 20, 174, 161, 184,
             147, 191, 243, 129, 225, 14, 212, 237, 43, 210, 161, 69, 108, 12, 212, 78, 174, 134,
             243, 80, 175, 222, 45, 216, 172, 65, 223, 68, 13, 202, 122, 178, 214, 156, 65, 81, 91,
@@ -7722,10 +8086,11 @@ fn test_containers_complex_test_struct_lengthy_8() {
             103, 89, 196, 137, 125, 229, 155, 244, 5, 35, 120, 7, 128, 128, 224, 30, 4, 68, 15, 61,
             200, 144, 227, 215, 189, 107, 27, 168, 20, 114, 109, 41, 218, 15, 194, 204, 132, 50,
             133, 161, 124, 73, 199, 212, 98, 229, 156, 69, 63,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 64404,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 50822, 53487, 218, 11457, 62680, 59808, 6329, 29782, 25436, 7336, 62178, 17478,
                 61419, 65325, 44191, 30048, 58349, 46880, 10909, 55045, 26538, 17437, 34657, 29113,
                 45580, 13831, 34004, 9692, 37147, 16086, 16226, 40707, 18063, 41603, 17459, 19073,
@@ -7812,19 +8177,21 @@ fn test_containers_complex_test_struct_lengthy_8() {
                 47528, 30472, 63534, 28991, 48686, 47536, 20132, 49451, 53621, 58534, 49758, 45621,
                 37990, 29719, 60278, 28229, 43190, 32291, 21405, 55830, 3506, 6235, 9749, 33643,
                 53436, 28877, 35078, 35442,
-            ]),
+            ]))
+            .unwrap(),
             c: 233,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 82, b: 642531935108670539, c: 1838776326 },
             FixedTestStruct { a: 131, b: 5961421925085947308, c: 1737832730 },
             FixedTestStruct { a: 192, b: 10876950485646554345, c: 3013846498 },
             FixedTestStruct { a: 40, b: 10429973492576791947, c: 2638874374 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 23494,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     62191, 8719, 61871, 52371, 4325, 52627, 15113, 41387, 46256, 64066, 23921,
                     57006, 52024, 14123, 52688, 25260, 1534, 4578, 59148, 60025, 18090, 4127,
                     18118, 58622, 25342, 6543, 59224, 25765, 676, 25053, 50858, 63336, 28537,
@@ -7917,12 +8284,13 @@ fn test_containers_complex_test_struct_lengthy_8() {
                     50071, 63584, 743, 59929, 31910, 53142, 33817, 6879, 30309, 33065, 17363,
                     39592, 21915, 24753, 19689, 61386, 43691, 55542, 25364, 24761, 55837, 37774,
                     10253, 50414, 3909, 28594, 7191, 32780,
-                ]),
+                ]))
+                .unwrap(),
                 c: 227,
             },
             VarTestStruct {
                 a: 37931,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     33232, 49745, 32208, 19257, 59506, 50483, 27643, 42473, 5883, 63100, 25377,
                     38309, 64931, 41988, 59618, 12505, 11426, 12564, 49033, 59160, 54071, 60819,
                     7716, 7965, 39124, 62484, 39276, 57449, 7320, 54267, 23912, 63484, 8827, 11782,
@@ -8014,10 +8382,12 @@ fn test_containers_complex_test_struct_lengthy_8() {
                     49879, 18005, 3423, 6405, 43997, 48786, 39755, 59538, 49695, 566, 10618, 58216,
                     37762, 32930, 31347, 35431, 35734, 19275, 61864, 40299, 22981, 45058, 20344,
                     27995, 40134, 20744, 16250, 13836, 63918, 26514, 16127, 57742, 24253,
-                ]),
+                ]))
+                .unwrap(),
                 c: 107,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -8074,7 +8444,7 @@ fn test_containers_fixed_test_struct_max() {
 fn test_containers_var_test_struct_lengthy_3() {
     let mut value = VarTestStruct {
         a: 53621,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             12824, 63199, 12227, 37027, 24572, 53189, 4389, 44798, 43145, 8174, 43110, 30174,
             62754, 21656, 40949, 53812, 40888, 30440, 59145, 10801, 28955, 19257, 37274, 43429,
             1057, 41095, 36357, 4155, 28658, 44280, 43649, 44937, 19737, 61292, 19192, 27640,
@@ -8158,7 +8528,8 @@ fn test_containers_var_test_struct_lengthy_3() {
             49334, 47308, 13579, 51794, 24185, 44464, 53056, 2504, 41519, 20023, 12170, 24384,
             56645, 14604, 61920, 39018, 32, 20528, 51398, 25015, 52982, 16304, 41598, 53136, 49436,
             19512, 42007, 1305, 5487, 23918, 57245, 1315, 12214, 462, 2117,
-        ]),
+        ]))
+        .unwrap(),
         c: 192,
     };
     let encoding = serialize(&value);
@@ -8178,7 +8549,11 @@ fn test_containers_var_test_struct_lengthy_3() {
 
 #[test]
 fn test_containers_var_test_struct_one_6() {
-    let mut value = VarTestStruct { a: 5264, b: List::<u16, 1024>::from_iter([12220]), c: 50 };
+    let mut value = VarTestStruct {
+        a: 5264,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([12220])).unwrap(),
+        c: 50,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_6/serialized.ssz_snappy",
@@ -8220,7 +8595,11 @@ fn test_containers_bits_struct_nil_5() {
 
 #[test]
 fn test_containers_var_test_struct_one_1() {
-    let mut value = VarTestStruct { a: 47389, b: List::<u16, 1024>::from_iter([45887]), c: 140 };
+    let mut value = VarTestStruct {
+        a: 47389,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([45887])).unwrap(),
+        c: 140,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_1/serialized.ssz_snappy",
@@ -8240,7 +8619,7 @@ fn test_containers_var_test_struct_one_1() {
 fn test_containers_var_test_struct_lengthy_4() {
     let mut value = VarTestStruct {
         a: 49542,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             24176, 6691, 23594, 34600, 279, 42247, 61589, 7750, 35436, 7515, 9624, 33952, 31649,
             13277, 30992, 9446, 46849, 44684, 29092, 21121, 32148, 37757, 15766, 53992, 14343,
             46848, 13002, 11444, 15204, 27637, 38576, 34625, 26673, 19521, 36230, 2040, 42348,
@@ -8324,7 +8703,8 @@ fn test_containers_var_test_struct_lengthy_4() {
             61093, 52731, 30123, 17484, 3302, 22216, 55458, 608, 34610, 10863, 22823, 50379, 6078,
             37084, 2682, 5584, 43468, 44929, 16330, 57616, 12260, 59257, 2719, 11929, 39447, 16197,
             53235, 60854, 48756, 20252, 48603, 18883, 1404,
-        ]),
+        ]))
+        .unwrap(),
         c: 123,
     };
     let encoding = serialize(&value);
@@ -8404,7 +8784,7 @@ fn test_containers_bits_struct_nil_2() {
 fn test_containers_complex_test_struct_max_chaos_2() {
     let mut value = ComplexTestStruct {
         a: 65535,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -8414,12 +8794,13 @@ fn test_containers_complex_test_struct_max_chaos_2() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
-        d: List::<u8, 256>::from_iter([255]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([255])).unwrap(),
         e: VarTestStruct {
             a: 65535,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -8497,19 +8878,21 @@ fn test_containers_complex_test_struct_max_chaos_2() {
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-            ]),
+            ]))
+            .unwrap(),
             c: 255,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -8587,12 +8970,13 @@ fn test_containers_complex_test_struct_max_chaos_2() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -8612,10 +8996,12 @@ fn test_containers_complex_test_struct_max_chaos_2() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -8636,7 +9022,7 @@ fn test_containers_complex_test_struct_max_chaos_2() {
 fn test_containers_var_test_struct_max_5() {
     let mut value = VarTestStruct {
         a: 65535,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -8659,7 +9045,8 @@ fn test_containers_var_test_struct_max_5() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
     };
     let encoding = serialize(&value);
@@ -8679,7 +9066,11 @@ fn test_containers_var_test_struct_max_5() {
 
 #[test]
 fn test_containers_var_test_struct_one_8() {
-    let mut value = VarTestStruct { a: 32967, b: List::<u16, 1024>::from_iter([65174]), c: 29 };
+    let mut value = VarTestStruct {
+        a: 32967,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([65174])).unwrap(),
+        c: 29,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_8/serialized.ssz_snappy",
@@ -8741,7 +9132,7 @@ fn test_containers_fixed_test_struct_zero_0() {
 fn test_containers_var_test_struct_max_2() {
     let mut value = VarTestStruct {
         a: 65535,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -8791,7 +9182,8 @@ fn test_containers_var_test_struct_max_2() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
     };
     let encoding = serialize(&value);
@@ -8867,7 +9259,7 @@ fn test_containers_small_test_struct_random_3() {
 fn test_containers_complex_test_struct_lengthy_9() {
     let mut value = ComplexTestStruct {
         a: 30344,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             27285, 31750, 46578, 54105, 57571, 43485, 744, 1344, 32473, 47440, 11194, 63789, 51406,
             37376, 38249, 60165, 33154, 64174, 55216, 40772, 54694, 57064, 284, 15090, 37949, 2419,
             36394, 51863, 14377, 9930, 63924, 1052, 56672, 4452, 64521, 35049, 20321, 53698, 49928,
@@ -8879,9 +9271,10 @@ fn test_containers_complex_test_struct_lengthy_9() {
             26489, 12891, 45319, 44674, 43692, 57120, 19420, 33502, 9583, 4622, 3966, 60405, 55604,
             34205, 47241, 48704, 1772, 60046, 44520, 25522, 59273, 36522, 14925, 57471, 63734,
             55845, 30341,
-        ]),
+        ]))
+        .unwrap(),
         c: 232,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             99, 104, 35, 109, 210, 97, 247, 62, 235, 217, 21, 187, 178, 135, 238, 229, 12, 166, 76,
             68, 55, 19, 91, 60, 238, 24, 90, 152, 244, 178, 104, 142, 76, 80, 122, 99, 2, 14, 243,
             173, 120, 94, 19, 185, 125, 75, 3, 151, 150, 55, 51, 253, 255, 5, 75, 139, 94, 137,
@@ -8896,10 +9289,11 @@ fn test_containers_complex_test_struct_lengthy_9() {
             162, 171, 117, 57, 198, 234, 216, 78, 216, 209, 126, 100, 159, 199, 67, 191, 58, 42,
             135, 246, 102, 175, 206, 61, 35, 14, 51, 89, 34, 22, 51, 144, 71, 250, 109, 4, 139, 75,
             165, 214, 158, 218, 174, 43, 150, 168,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 6409,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 63410, 3333, 22112, 3774, 3153, 65192, 31578, 20841, 1011, 56551, 55765, 57694,
                 16588, 21882, 51592, 64066, 61181, 42182, 52872, 42491, 16147, 33742, 12923, 25318,
                 25964, 52728, 47839, 10450, 8881, 51682, 31438, 1864, 51725, 6773, 50158, 37906,
@@ -8986,19 +9380,21 @@ fn test_containers_complex_test_struct_lengthy_9() {
                 20536, 20312, 48842, 3153, 15725, 7350, 33505, 48503, 43534, 63739, 41968, 11656,
                 44112, 59996, 51697, 23090, 12070, 23536, 1632, 19669, 62805, 14447, 32973, 31165,
                 41737, 10307, 20029, 46979,
-            ]),
+            ]))
+            .unwrap(),
             c: 207,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 8, b: 9407325527306457431, c: 2933613952 },
             FixedTestStruct { a: 182, b: 8329657173333432997, c: 4042190449 },
             FixedTestStruct { a: 21, b: 6255070391095125444, c: 196984688 },
             FixedTestStruct { a: 218, b: 5821387191283060247, c: 1932683805 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 7018,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     43098, 46200, 50262, 46999, 38620, 18378, 44705, 64505, 12555, 5316, 45278,
                     8567, 16568, 50442, 11392, 34878, 25044, 21481, 52692, 24747, 50889, 39004,
                     34142, 18210, 11272, 30435, 2780, 19317, 32033, 1136, 16491, 50779, 17161,
@@ -9092,12 +9488,13 @@ fn test_containers_complex_test_struct_lengthy_9() {
                     13056, 39975, 14237, 21837, 65337, 51652, 4385, 26520, 17356, 53348, 22154,
                     39463, 19833, 43318, 43823, 61335, 33575, 32186, 47874, 61236, 50058, 50230,
                     53043,
-                ]),
+                ]))
+                .unwrap(),
                 c: 132,
             },
             VarTestStruct {
                 a: 60230,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     48625, 39218, 40689, 38688, 40060, 28479, 14797, 32969, 20063, 21210, 53756,
                     56938, 27073, 8282, 18402, 30525, 17473, 44106, 30268, 20699, 57653, 4455,
                     51446, 63986, 56054, 37298, 4258, 50768, 34993, 27755, 50588, 12788, 41791,
@@ -9189,10 +9586,12 @@ fn test_containers_complex_test_struct_lengthy_9() {
                     45138, 29365, 65350, 54096, 13327, 42212, 7626, 9877, 28042, 57482, 14523, 84,
                     62177, 14732, 53754, 56472, 16326, 31686, 16353, 25286, 41969, 42352, 13278,
                     42273, 47367, 29562, 23245, 26554, 42062, 26726, 44714, 4391, 51325,
-                ]),
+                ]))
+                .unwrap(),
                 c: 98,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -9249,7 +9648,7 @@ fn test_containers_small_test_struct_random_4() {
 fn test_containers_complex_test_struct_lengthy_7() {
     let mut value = ComplexTestStruct {
         a: 30521,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             10757, 35890, 12515, 50368, 25758, 35190, 25950, 21021, 49712, 38881, 38680, 30011,
             4064, 55981, 47138, 59921, 45521, 20265, 14741, 11262, 8367, 64030, 10448, 40723,
             62505, 3639, 55780, 61641, 41167, 16656, 8119, 15105, 15914, 52091, 53317, 33987,
@@ -9261,9 +9660,10 @@ fn test_containers_complex_test_struct_lengthy_7() {
             60281, 29528, 14864, 19332, 48578, 40088, 27335, 42630, 8360, 35401, 58522, 18576,
             20625, 6665, 50698, 46374, 18421, 37370, 48564, 42619, 27550, 29524, 19179, 34087,
             9549, 56589, 23552, 35125, 45204, 35582,
-        ]),
+        ]))
+        .unwrap(),
         c: 210,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             166, 27, 8, 16, 152, 164, 224, 203, 128, 168, 249, 157, 113, 29, 67, 241, 27, 84, 115,
             165, 127, 71, 211, 107, 25, 35, 99, 24, 80, 7, 40, 237, 113, 18, 213, 168, 53, 151,
             137, 128, 87, 46, 90, 144, 122, 11, 87, 45, 20, 171, 156, 201, 105, 241, 65, 16, 64,
@@ -9278,10 +9678,11 @@ fn test_containers_complex_test_struct_lengthy_7() {
             117, 136, 55, 9, 125, 65, 52, 185, 107, 202, 64, 79, 83, 1, 255, 212, 178, 228, 57, 46,
             49, 100, 126, 89, 53, 153, 121, 136, 166, 76, 146, 120, 17, 224, 134, 108, 163, 169,
             234, 249, 167, 30, 77, 67, 152, 182, 174, 104,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 27041,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 49600, 61775, 21387, 44317, 23608, 33906, 31434, 61720, 30487, 61629, 62489, 53183,
                 6739, 42206, 33620, 45146, 52617, 4696, 23207, 42706, 44091, 3309, 22826, 24081,
                 38684, 15934, 50964, 32181, 34184, 32606, 21759, 38223, 19125, 44609, 57140, 58834,
@@ -9368,19 +9769,21 @@ fn test_containers_complex_test_struct_lengthy_7() {
                 36805, 60491, 51507, 2868, 60113, 29276, 42840, 12913, 22033, 33483, 27810, 48477,
                 62416, 20777, 36435, 36355, 31295, 4141, 54671, 1240, 38977, 29878, 26934, 9969,
                 12291, 19161, 4876, 9705,
-            ]),
+            ]))
+            .unwrap(),
             c: 141,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 2, b: 7841558952321562465, c: 3857359829 },
             FixedTestStruct { a: 156, b: 694470498189668020, c: 2697873136 },
             FixedTestStruct { a: 190, b: 7482312537342053811, c: 4045907139 },
             FixedTestStruct { a: 250, b: 4865241528780669066, c: 2811081156 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 13120,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     55487, 20414, 48377, 37529, 60816, 59161, 51738, 62436, 16499, 36346, 61626,
                     11312, 30079, 3908, 32685, 29800, 12319, 53079, 4783, 12951, 9381, 26404,
                     46253, 7097, 13892, 58201, 29290, 20151, 13171, 5943, 48808, 7863, 27595, 6052,
@@ -9473,12 +9876,13 @@ fn test_containers_complex_test_struct_lengthy_7() {
                     53567, 22395, 47737, 65446, 4073, 10489, 7907, 34836, 58056, 51491, 60814,
                     24937, 10756, 42219, 24107, 37621, 24232, 42496, 14847, 58538, 25681, 29941,
                     22502, 22979, 34881, 32187, 16254, 50572, 35610, 1393,
-                ]),
+                ]))
+                .unwrap(),
                 c: 178,
             },
             VarTestStruct {
                 a: 48415,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     27130, 3832, 25356, 54457, 15552, 12775, 56882, 49252, 64698, 5033, 18586,
                     33923, 36894, 52083, 11860, 3362, 16465, 36764, 47012, 15220, 32358, 947, 7971,
                     15456, 27763, 36543, 13811, 37594, 54761, 2363, 22764, 54391, 64781, 50408,
@@ -9571,10 +9975,12 @@ fn test_containers_complex_test_struct_lengthy_7() {
                     20844, 63314, 14055, 6938, 13815, 49308, 61189, 17189, 17835, 30630, 2906,
                     44540, 22967, 37050, 11736, 42100, 13920, 63261, 51263, 55799, 54238, 54753,
                     37249, 34854, 38661, 38555, 12747, 13275, 52616, 16789, 52568,
-                ]),
+                ]))
+                .unwrap(),
                 c: 131,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -9613,7 +10019,7 @@ fn test_containers_fixed_test_struct_random_2() {
 fn test_containers_complex_test_struct_lengthy_0() {
     let mut value = ComplexTestStruct {
         a: 34044,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             48874, 34700, 53776, 29805, 17569, 35418, 43707, 15489, 5164, 33511, 1254, 54569,
             16520, 32997, 29838, 23006, 40826, 60676, 46896, 6267, 31061, 14530, 56395, 56663,
             2084, 56824, 62602, 58694, 51680, 18415, 34766, 3506, 23098, 54494, 27270, 42848,
@@ -9625,9 +10031,10 @@ fn test_containers_complex_test_struct_lengthy_0() {
             14877, 31691, 19354, 29588, 24023, 26217, 56464, 21662, 16898, 9753, 50257, 14051,
             2119, 53084, 41811, 44751, 53566, 38834, 5628, 58306, 28488, 51782, 29900, 12554,
             15448, 16999, 13292, 59987, 32816, 8584,
-        ]),
+        ]))
+        .unwrap(),
         c: 250,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             35, 210, 33, 112, 187, 147, 48, 91, 156, 105, 238, 219, 117, 100, 200, 235, 191, 6,
             115, 210, 221, 78, 181, 61, 189, 5, 165, 235, 210, 230, 252, 143, 236, 219, 212, 17,
             117, 56, 198, 82, 187, 155, 134, 148, 17, 109, 251, 103, 184, 201, 98, 14, 223, 252,
@@ -9642,10 +10049,11 @@ fn test_containers_complex_test_struct_lengthy_0() {
             176, 36, 117, 85, 98, 214, 117, 38, 12, 100, 37, 49, 208, 235, 209, 133, 159, 146, 234,
             207, 245, 223, 102, 176, 43, 63, 201, 34, 172, 111, 88, 177, 209, 34, 138, 145, 13,
             222, 130, 253, 186, 49, 87, 212, 156, 231, 136, 186, 199, 171, 140,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 58150,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 28375, 58221, 41145, 32357, 1664, 57869, 13675, 35989, 49729, 26286, 64527, 44083,
                 50267, 27448, 34519, 3283, 60852, 63342, 40004, 35369, 30566, 21773, 18301, 59649,
                 7569, 50344, 46676, 17930, 10745, 52690, 57680, 1384, 10842, 54891, 65494, 16900,
@@ -9732,19 +10140,21 @@ fn test_containers_complex_test_struct_lengthy_0() {
                 4384, 5411, 33155, 56957, 36746, 23977, 15290, 816, 21135, 63003, 49998, 23391,
                 29302, 14140, 7253, 46182, 5993, 63370, 2166, 23187, 35562, 27379, 58117, 30136,
                 43811, 96, 3774,
-            ]),
+            ]))
+            .unwrap(),
             c: 105,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 129, b: 4365870474151103771, c: 3073914233 },
             FixedTestStruct { a: 27, b: 34960855107345240, c: 2881905467 },
             FixedTestStruct { a: 79, b: 258237538561784111, c: 2295427765 },
             FixedTestStruct { a: 39, b: 9916630652249637025, c: 3021856725 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 60806,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     1668, 1285, 26968, 24028, 22219, 30539, 10736, 61246, 7153, 7264, 28743, 6875,
                     29268, 16523, 37945, 14995, 3556, 58115, 48080, 59908, 41327, 61877, 13971,
                     49544, 58779, 24167, 54612, 82, 60472, 44148, 5394, 25388, 998, 55884, 13710,
@@ -9837,12 +10247,13 @@ fn test_containers_complex_test_struct_lengthy_0() {
                     47310, 60642, 62286, 48685, 55178, 28134, 28969, 28238, 35621, 64728, 59882,
                     60998, 1341, 26206, 21975, 36226, 50508, 36824, 34108, 57115, 43592, 36989,
                     54318, 4303, 16337, 25397,
-                ]),
+                ]))
+                .unwrap(),
                 c: 250,
             },
             VarTestStruct {
                 a: 4703,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     60490, 40978, 209, 51204, 53280, 50414, 30138, 24087, 59631, 51584, 42330,
                     56509, 9742, 49650, 49661, 17545, 3768, 57673, 64119, 16467, 1405, 9188, 52282,
                     31454, 10481, 43745, 23159, 455, 30629, 46779, 37195, 64515, 48507, 21569,
@@ -9935,10 +10346,12 @@ fn test_containers_complex_test_struct_lengthy_0() {
                     24406, 54713, 35326, 39657, 6009, 53892, 5453, 60537, 32164, 58056, 3581, 5671,
                     31963, 58017, 44667, 57071, 42403, 38396, 19810, 37025, 27965, 98, 17235, 6286,
                     29020, 62045, 35020, 44137, 47451, 3971, 43408, 896, 18089,
-                ]),
+                ]))
+                .unwrap(),
                 c: 174,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -9977,31 +10390,34 @@ fn test_containers_fixed_test_struct_random_5() {
 fn test_containers_complex_test_struct_zero_8() {
     let mut value = ComplexTestStruct {
         a: 0,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
-        d: List::<u8, 256>::from_iter([0]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([0])).unwrap(),
         e: VarTestStruct {
             a: 0,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            ]),
+            ]))
+            .unwrap(),
             c: 0,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -10020,12 +10436,13 @@ fn test_containers_complex_test_struct_zero_8() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -10039,10 +10456,12 @@ fn test_containers_complex_test_struct_zero_8() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -10147,15 +10566,16 @@ fn test_containers_single_field_test_struct_max_5() {
 fn test_containers_complex_test_struct_zero_6() {
     let mut value = ComplexTestStruct {
         a: 0,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
-        d: List::<u8, 256>::from_iter([0]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([0])).unwrap(),
         e: VarTestStruct {
             a: 0,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -10177,19 +10597,21 @@ fn test_containers_complex_test_struct_zero_6() {
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            ]),
+            ]))
+            .unwrap(),
             c: 0,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -10212,12 +10634,13 @@ fn test_containers_complex_test_struct_zero_6() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -10229,10 +10652,12 @@ fn test_containers_complex_test_struct_zero_6() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -10295,20 +10720,34 @@ fn test_containers_bits_struct_random_1() {
 fn test_containers_complex_test_struct_one_chaos_0() {
     let mut value = ComplexTestStruct {
         a: 16851,
-        b: List::<u16, 128>::from_iter([43827]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([43827])).unwrap(),
         c: 197,
-        d: List::<u8, 256>::from_iter([24]),
-        e: VarTestStruct { a: 2938, b: List::<u16, 1024>::from_iter([13314]), c: 230 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([24])).unwrap(),
+        e: VarTestStruct {
+            a: 2938,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([13314])).unwrap(),
+            c: 230,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 251, b: 10114294449636136645, c: 3440022400 },
             FixedTestStruct { a: 92, b: 4270638512643996390, c: 2080063790 },
             FixedTestStruct { a: 181, b: 6361529668076857388, c: 3692475116 },
             FixedTestStruct { a: 58, b: 12444896282347205507, c: 36692008 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 45027, b: List::<u16, 1024>::from_iter([44189]), c: 188 },
-            VarTestStruct { a: 19339, b: List::<u16, 1024>::from_iter([60067]), c: 62 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 45027,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([44189])).unwrap(),
+                c: 188,
+            },
+            VarTestStruct {
+                a: 19339,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([60067])).unwrap(),
+                c: 62,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -10389,16 +10828,17 @@ fn test_containers_single_field_test_struct_zero_0() {
 fn test_containers_complex_test_struct_zero_1() {
     let mut value = ComplexTestStruct {
         a: 0,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
-        d: List::<u8, 256>::from_iter([0]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([0])).unwrap(),
         e: VarTestStruct {
             a: 0,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -10408,19 +10848,21 @@ fn test_containers_complex_test_struct_zero_1() {
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0,
-            ]),
+            ]))
+            .unwrap(),
             c: 0,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -10453,12 +10895,13 @@ fn test_containers_complex_test_struct_zero_1() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -10480,10 +10923,12 @@ fn test_containers_complex_test_struct_zero_1() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -10504,7 +10949,7 @@ fn test_containers_complex_test_struct_zero_1() {
 fn test_containers_complex_test_struct_max_4() {
     let mut value = ComplexTestStruct {
         a: 65535,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -10513,12 +10958,13 @@ fn test_containers_complex_test_struct_max_4() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
-        d: List::<u8, 256>::from_iter([255]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([255])).unwrap(),
         e: VarTestStruct {
             a: 65535,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -10588,19 +11034,21 @@ fn test_containers_complex_test_struct_max_4() {
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-            ]),
+            ]))
+            .unwrap(),
             c: 255,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -10693,12 +11141,13 @@ fn test_containers_complex_test_struct_max_4() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -10782,10 +11231,12 @@ fn test_containers_complex_test_struct_max_4() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -10822,7 +11273,7 @@ fn test_containers_single_field_test_struct_max_chaos_1() {
 fn test_containers_complex_test_struct_lengthy_chaos_0() {
     let mut value = ComplexTestStruct {
         a: 6800,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             36829, 20943, 41561, 60705, 6836, 19276, 13404, 15270, 24787, 32752, 38430, 8083,
             34903, 14442, 11739, 63845, 58058, 22059, 39304, 25491, 5073, 6016, 23531, 28902,
             42251, 34597, 49664, 5043, 51205, 5299, 52893, 2709, 23188, 63532, 19881, 29182, 7813,
@@ -10834,9 +11285,10 @@ fn test_containers_complex_test_struct_lengthy_chaos_0() {
             14841, 244, 42227, 14997, 52644, 1462, 4781, 4276, 5780, 27685, 58146, 40039, 16054,
             18824, 35159, 8918, 35585, 54400, 23883, 29802, 38038, 29470, 21839, 48288, 4225,
             57722, 17192, 10239, 10610, 34360,
-        ]),
+        ]))
+        .unwrap(),
         c: 87,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             147, 28, 238, 175, 199, 176, 239, 194, 18, 154, 240, 144, 93, 255, 16, 103, 173, 97,
             49, 254, 180, 43, 120, 14, 230, 175, 154, 167, 185, 103, 73, 237, 48, 127, 156, 94,
             119, 193, 74, 116, 126, 117, 235, 2, 216, 92, 188, 246, 13, 238, 90, 215, 183, 200, 96,
@@ -10851,10 +11303,11 @@ fn test_containers_complex_test_struct_lengthy_chaos_0() {
             60, 57, 252, 168, 223, 10, 217, 66, 215, 101, 54, 170, 0, 4, 176, 173, 67, 107, 222,
             33, 133, 115, 231, 115, 189, 31, 251, 32, 166, 105, 149, 207, 162, 205, 197, 186, 107,
             233, 136, 117, 129, 241, 61, 80, 86, 63, 27, 103, 13, 34, 7,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 52897,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 57538, 46153, 13864, 55980, 36298, 42375, 57333, 13823, 11080, 15719, 54365, 64655,
                 17454, 50910, 14109, 30664, 45163, 54393, 40565, 1346, 15357, 12532, 51876, 19481,
                 36026, 43931, 33409, 46595, 20759, 9753, 45390, 244, 57398, 59979, 31862, 20241,
@@ -10941,19 +11394,21 @@ fn test_containers_complex_test_struct_lengthy_chaos_0() {
                 39516, 29664, 27931, 54316, 35337, 49269, 64349, 23533, 20243, 17618, 47554, 46238,
                 20877, 61195, 39794, 54062, 18998, 2138, 44332, 10814, 23503, 40168, 52664, 10427,
                 26935, 38958, 10249, 43556,
-            ]),
+            ]))
+            .unwrap(),
             c: 197,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 126, b: 3435762523509387151, c: 3665221517 },
             FixedTestStruct { a: 243, b: 943513122303052545, c: 1401396655 },
             FixedTestStruct { a: 249, b: 8873799629985696120, c: 1314056729 },
             FixedTestStruct { a: 152, b: 3484830523848989111, c: 2938394908 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 50336,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     41481, 27737, 20084, 21026, 51969, 22420, 56680, 44694, 34473, 8227, 26994,
                     20777, 23402, 62830, 7234, 27458, 6656, 44260, 3196, 45565, 45086, 52477, 3041,
                     40855, 56914, 18620, 21648, 5871, 46598, 21094, 25422, 30346, 2885, 33974,
@@ -11046,12 +11501,13 @@ fn test_containers_complex_test_struct_lengthy_chaos_0() {
                     65334, 32831, 14886, 12586, 24969, 28481, 59297, 3126, 62524, 42587, 34177,
                     61156, 27477, 61815, 1175, 30208, 13562, 49811, 38845, 49723, 12590, 5231,
                     4168, 7223, 14124, 5525, 55720, 25451, 23462, 17252, 30929, 16276,
-                ]),
+                ]))
+                .unwrap(),
                 c: 88,
             },
             VarTestStruct {
                 a: 22996,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     18049, 23381, 17471, 45440, 57003, 19762, 1146, 5298, 31435, 19141, 37079,
                     46179, 38144, 54491, 65355, 15320, 20738, 17594, 44000, 5057, 19754, 7417,
                     50377, 35990, 16560, 3769, 59936, 19996, 6403, 39, 27926, 36412, 35110, 22053,
@@ -11144,10 +11600,12 @@ fn test_containers_complex_test_struct_lengthy_chaos_0() {
                     63977, 1174, 59415, 28548, 47111, 30374, 43806, 983, 58518, 10557, 23885, 2605,
                     25523, 2686, 40527, 6091, 23542, 15116, 53968, 43868, 12012, 4870, 64060, 331,
                     43823, 47250, 9293, 33457, 40166, 48356, 54043, 50596,
-                ]),
+                ]))
+                .unwrap(),
                 c: 54,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/ComplexTestStruct_lengthy_chaos_0/serialized.ssz_snappy");
@@ -11166,20 +11624,34 @@ fn test_containers_complex_test_struct_lengthy_chaos_0() {
 fn test_containers_complex_test_struct_one_9() {
     let mut value = ComplexTestStruct {
         a: 32826,
-        b: List::<u16, 128>::from_iter([52269]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([52269])).unwrap(),
         c: 179,
-        d: List::<u8, 256>::from_iter([166]),
-        e: VarTestStruct { a: 47224, b: List::<u16, 1024>::from_iter([27133]), c: 46 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([166])).unwrap(),
+        e: VarTestStruct {
+            a: 47224,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([27133])).unwrap(),
+            c: 46,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 190, b: 17267852126418429692, c: 1192183507 },
             FixedTestStruct { a: 86, b: 5812480785575976468, c: 517726582 },
             FixedTestStruct { a: 70, b: 14751118928048906008, c: 2949562141 },
             FixedTestStruct { a: 25, b: 6477487707159203533, c: 627300018 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 53608, b: List::<u16, 1024>::from_iter([33375]), c: 209 },
-            VarTestStruct { a: 33550, b: List::<u16, 1024>::from_iter([39605]), c: 19 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 53608,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([33375])).unwrap(),
+                c: 209,
+            },
+            VarTestStruct {
+                a: 33550,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([39605])).unwrap(),
+                c: 19,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -11224,7 +11696,7 @@ fn test_containers_bits_struct_random_chaos_2() {
 fn test_containers_var_test_struct_zero_chaos_1() {
     let mut value = VarTestStruct {
         a: 0,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -11251,7 +11723,8 @@ fn test_containers_var_test_struct_zero_chaos_1() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
     };
     let encoding = serialize(&value);
@@ -11273,17 +11746,18 @@ fn test_containers_var_test_struct_zero_chaos_1() {
 fn test_containers_complex_test_struct_max_3() {
     let mut value = ComplexTestStruct {
         a: 65535,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
-        d: List::<u8, 256>::from_iter([255]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([255])).unwrap(),
         e: VarTestStruct {
             a: 65535,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -11294,19 +11768,21 @@ fn test_containers_complex_test_struct_max_3() {
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-            ]),
+            ]))
+            .unwrap(),
             c: 255,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -11386,12 +11862,13 @@ fn test_containers_complex_test_struct_max_3() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -11451,10 +11928,12 @@ fn test_containers_complex_test_struct_max_3() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -11475,20 +11954,34 @@ fn test_containers_complex_test_struct_max_3() {
 fn test_containers_complex_test_struct_one_7() {
     let mut value = ComplexTestStruct {
         a: 46962,
-        b: List::<u16, 128>::from_iter([51108]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([51108])).unwrap(),
         c: 232,
-        d: List::<u8, 256>::from_iter([51]),
-        e: VarTestStruct { a: 61296, b: List::<u16, 1024>::from_iter([50107]), c: 80 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([51])).unwrap(),
+        e: VarTestStruct {
+            a: 61296,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([50107])).unwrap(),
+            c: 80,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 142, b: 16391694718469767627, c: 1723717716 },
             FixedTestStruct { a: 150, b: 18231846756020050949, c: 4085824434 },
             FixedTestStruct { a: 242, b: 3167723324830397151, c: 3505585751 },
             FixedTestStruct { a: 54, b: 11608704772362674523, c: 2197949526 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 35151, b: List::<u16, 1024>::from_iter([47168]), c: 175 },
-            VarTestStruct { a: 49526, b: List::<u16, 1024>::from_iter([16871]), c: 223 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 35151,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([47168])).unwrap(),
+                c: 175,
+            },
+            VarTestStruct {
+                a: 49526,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([16871])).unwrap(),
+                c: 223,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -11527,20 +12020,34 @@ fn test_containers_fixed_test_struct_zero_chaos_2() {
 fn test_containers_complex_test_struct_one_0() {
     let mut value = ComplexTestStruct {
         a: 48911,
-        b: List::<u16, 128>::from_iter([9378]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([9378])).unwrap(),
         c: 223,
-        d: List::<u8, 256>::from_iter([88]),
-        e: VarTestStruct { a: 35646, b: List::<u16, 1024>::from_iter([45153]), c: 194 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([88])).unwrap(),
+        e: VarTestStruct {
+            a: 35646,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([45153])).unwrap(),
+            c: 194,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 223, b: 15858315646050493180, c: 1035175295 },
             FixedTestStruct { a: 238, b: 8214804078873394894, c: 211540354 },
             FixedTestStruct { a: 206, b: 2768604207237255181, c: 1481584540 },
             FixedTestStruct { a: 21, b: 8252301037967392689, c: 3525266586 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 35378, b: List::<u16, 1024>::from_iter([35733]), c: 226 },
-            VarTestStruct { a: 63219, b: List::<u16, 1024>::from_iter([29843]), c: 106 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 35378,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([35733])).unwrap(),
+                c: 226,
+            },
+            VarTestStruct {
+                a: 63219,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([29843])).unwrap(),
+                c: 106,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -11561,20 +12068,34 @@ fn test_containers_complex_test_struct_one_0() {
 fn test_containers_complex_test_struct_one_chaos_1() {
     let mut value = ComplexTestStruct {
         a: 38015,
-        b: List::<u16, 128>::from_iter([22188]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([22188])).unwrap(),
         c: 189,
-        d: List::<u8, 256>::from_iter([137]),
-        e: VarTestStruct { a: 27201, b: List::<u16, 1024>::from_iter([3990]), c: 169 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([137])).unwrap(),
+        e: VarTestStruct {
+            a: 27201,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([3990])).unwrap(),
+            c: 169,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 244, b: 17680911497750963160, c: 2820605766 },
             FixedTestStruct { a: 41, b: 6582973943842155323, c: 3930139073 },
             FixedTestStruct { a: 181, b: 5035412352079054455, c: 1060450728 },
             FixedTestStruct { a: 161, b: 16594572392883778734, c: 925588037 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 6057, b: List::<u16, 1024>::from_iter([55]), c: 169 },
-            VarTestStruct { a: 32091, b: List::<u16, 1024>::from_iter([21718]), c: 207 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 6057,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([55])).unwrap(),
+                c: 169,
+            },
+            VarTestStruct {
+                a: 32091,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([21718])).unwrap(),
+                c: 207,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -11661,17 +12182,18 @@ fn test_containers_bits_struct_max_chaos_2() {
 fn test_containers_complex_test_struct_zero_0() {
     let mut value = ComplexTestStruct {
         a: 0,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
-        d: List::<u8, 256>::from_iter([0]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([0])).unwrap(),
         e: VarTestStruct {
             a: 0,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -11691,19 +12213,21 @@ fn test_containers_complex_test_struct_zero_0() {
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            ]),
+            ]))
+            .unwrap(),
             c: 0,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -11726,20 +12250,23 @@ fn test_containers_complex_test_struct_zero_0() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -11814,33 +12341,36 @@ fn test_containers_single_field_test_struct_zero_6() {
 fn test_containers_complex_test_struct_zero_7() {
     let mut value = ComplexTestStruct {
         a: 0,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
-        d: List::<u8, 256>::from_iter([0]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([0])).unwrap(),
         e: VarTestStruct {
             a: 0,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0,
-            ]),
+            ]))
+            .unwrap(),
             c: 0,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -11872,12 +12402,13 @@ fn test_containers_complex_test_struct_zero_7() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -11902,10 +12433,12 @@ fn test_containers_complex_test_struct_zero_7() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -11992,29 +12525,31 @@ fn test_containers_single_field_test_struct_zero_8() {
 fn test_containers_complex_test_struct_zero_9() {
     let mut value = ComplexTestStruct {
         a: 0,
-        b: List::<u16, 128>::from_iter([0, 0, 0]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([0, 0, 0])).unwrap(),
         c: 0,
-        d: List::<u8, 256>::from_iter([0]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([0])).unwrap(),
         e: VarTestStruct {
             a: 0,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            ]),
+            ]))
+            .unwrap(),
             c: 0,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -12047,12 +12582,13 @@ fn test_containers_complex_test_struct_zero_9() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -12084,10 +12620,12 @@ fn test_containers_complex_test_struct_zero_9() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -12108,20 +12646,34 @@ fn test_containers_complex_test_struct_zero_9() {
 fn test_containers_complex_test_struct_one_1() {
     let mut value = ComplexTestStruct {
         a: 63214,
-        b: List::<u16, 128>::from_iter([13623]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([13623])).unwrap(),
         c: 59,
-        d: List::<u8, 256>::from_iter([216]),
-        e: VarTestStruct { a: 14337, b: List::<u16, 1024>::from_iter([57158]), c: 73 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([216])).unwrap(),
+        e: VarTestStruct {
+            a: 14337,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([57158])).unwrap(),
+            c: 73,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 205, b: 5393092458938150238, c: 3739864261 },
             FixedTestStruct { a: 146, b: 7554862186025036695, c: 759065969 },
             FixedTestStruct { a: 152, b: 10256506337230585302, c: 478033645 },
             FixedTestStruct { a: 171, b: 4506016525792096404, c: 3824862461 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 52933, b: List::<u16, 1024>::from_iter([37049]), c: 141 },
-            VarTestStruct { a: 26191, b: List::<u16, 1024>::from_iter([45926]), c: 141 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 52933,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([37049])).unwrap(),
+                c: 141,
+            },
+            VarTestStruct {
+                a: 26191,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([45926])).unwrap(),
+                c: 141,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -12142,20 +12694,34 @@ fn test_containers_complex_test_struct_one_1() {
 fn test_containers_complex_test_struct_one_6() {
     let mut value = ComplexTestStruct {
         a: 51972,
-        b: List::<u16, 128>::from_iter([48645]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([48645])).unwrap(),
         c: 46,
-        d: List::<u8, 256>::from_iter([105]),
-        e: VarTestStruct { a: 1558, b: List::<u16, 1024>::from_iter([39947]), c: 65 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([105])).unwrap(),
+        e: VarTestStruct {
+            a: 1558,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([39947])).unwrap(),
+            c: 65,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 70, b: 905948488145107787, c: 2675781419 },
             FixedTestStruct { a: 3, b: 12539792087931462647, c: 4719259 },
             FixedTestStruct { a: 73, b: 13544872847030609257, c: 2819826618 },
             FixedTestStruct { a: 159, b: 16328658841145598323, c: 2375225558 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 30336, b: List::<u16, 1024>::from_iter([30909]), c: 240 },
-            VarTestStruct { a: 64263, b: List::<u16, 1024>::from_iter([38121]), c: 100 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 30336,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([30909])).unwrap(),
+                c: 240,
+            },
+            VarTestStruct {
+                a: 64263,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([38121])).unwrap(),
+                c: 100,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -12176,15 +12742,16 @@ fn test_containers_complex_test_struct_one_6() {
 fn test_containers_complex_test_struct_max_2() {
     let mut value = ComplexTestStruct {
         a: 65535,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
-        d: List::<u8, 256>::from_iter([255]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([255])).unwrap(),
         e: VarTestStruct {
             a: 65535,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -12213,19 +12780,21 @@ fn test_containers_complex_test_struct_max_2() {
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-            ]),
+            ]))
+            .unwrap(),
             c: 255,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -12275,12 +12844,13 @@ fn test_containers_complex_test_struct_max_2() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -12313,10 +12883,12 @@ fn test_containers_complex_test_struct_max_2() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -12337,7 +12909,7 @@ fn test_containers_complex_test_struct_max_2() {
 fn test_containers_var_test_struct_zero_chaos_0() {
     let mut value = VarTestStruct {
         a: 0,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -12359,7 +12931,8 @@ fn test_containers_var_test_struct_zero_chaos_0() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
     };
     let encoding = serialize(&value);
@@ -12381,12 +12954,13 @@ fn test_containers_var_test_struct_zero_chaos_0() {
 fn test_containers_complex_test_struct_max_5() {
     let mut value = ComplexTestStruct {
         a: 65535,
-        b: List::<u16, 128>::from_iter([65535, 65535, 65535, 65535, 65535]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([65535, 65535, 65535, 65535, 65535]))
+            .unwrap(),
         c: 255,
-        d: List::<u8, 256>::from_iter([255]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([255])).unwrap(),
         e: VarTestStruct {
             a: 65535,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -12443,19 +13017,21 @@ fn test_containers_complex_test_struct_max_5() {
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-            ]),
+            ]))
+            .unwrap(),
             c: 255,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -12535,12 +13111,13 @@ fn test_containers_complex_test_struct_max_5() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -12628,10 +13205,12 @@ fn test_containers_complex_test_struct_max_5() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -12652,20 +13231,34 @@ fn test_containers_complex_test_struct_max_5() {
 fn test_containers_complex_test_struct_one_8() {
     let mut value = ComplexTestStruct {
         a: 43221,
-        b: List::<u16, 128>::from_iter([62632]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([62632])).unwrap(),
         c: 161,
-        d: List::<u8, 256>::from_iter([170]),
-        e: VarTestStruct { a: 34470, b: List::<u16, 1024>::from_iter([49333]), c: 243 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([170])).unwrap(),
+        e: VarTestStruct {
+            a: 34470,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([49333])).unwrap(),
+            c: 243,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 120, b: 1523648906580514715, c: 791591623 },
             FixedTestStruct { a: 12, b: 16621022813318247745, c: 1103698378 },
             FixedTestStruct { a: 156, b: 9403042551474992172, c: 3829124548 },
             FixedTestStruct { a: 86, b: 6955517517277308905, c: 3651778934 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 7919, b: List::<u16, 1024>::from_iter([5167]), c: 3 },
-            VarTestStruct { a: 27175, b: List::<u16, 1024>::from_iter([53104]), c: 220 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 7919,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([5167])).unwrap(),
+                c: 3,
+            },
+            VarTestStruct {
+                a: 27175,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([53104])).unwrap(),
+                c: 220,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -12702,7 +13295,7 @@ fn test_containers_single_field_test_struct_max_chaos_0() {
 fn test_containers_complex_test_struct_lengthy_chaos_1() {
     let mut value = ComplexTestStruct {
         a: 14153,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             3646, 43626, 7304, 41108, 40285, 9810, 25903, 50110, 7170, 37407, 23703, 47708, 39247,
             51866, 27826, 30891, 49449, 42721, 47268, 49391, 8446, 62433, 5953, 32559, 34536,
             26449, 55360, 44990, 62608, 9057, 24577, 29791, 59127, 106, 19484, 64217, 49766, 62407,
@@ -12714,9 +13307,10 @@ fn test_containers_complex_test_struct_lengthy_chaos_1() {
             2681, 54833, 30926, 36170, 39698, 53837, 31233, 55783, 22756, 16, 63077, 34320, 22347,
             15187, 6878, 28362, 12863, 17010, 6690, 49025, 12362, 65018, 19042, 11384, 23229,
             62542, 31741, 34130, 44763, 58955,
-        ]),
+        ]))
+        .unwrap(),
         c: 116,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             31, 110, 87, 211, 48, 167, 201, 153, 135, 255, 242, 32, 187, 155, 152, 94, 126, 108,
             64, 248, 24, 12, 148, 186, 242, 192, 36, 127, 200, 224, 130, 20, 130, 214, 47, 45, 113,
             230, 16, 252, 145, 195, 203, 181, 160, 8, 205, 220, 94, 67, 63, 34, 3, 179, 202, 10,
@@ -12731,10 +13325,11 @@ fn test_containers_complex_test_struct_lengthy_chaos_1() {
             159, 68, 192, 77, 125, 50, 168, 8, 133, 64, 164, 204, 231, 211, 234, 229, 176, 139, 34,
             159, 233, 12, 43, 54, 73, 115, 213, 128, 121, 152, 183, 10, 238, 170, 56, 168, 232,
             105, 214, 138, 60, 85, 14, 173, 194, 111, 84, 59,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 49114,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 17251, 42508, 18514, 29700, 37188, 49814, 10247, 16616, 45265, 22033, 59763, 50534,
                 11814, 7749, 44996, 40729, 3975, 11578, 47843, 37474, 58121, 42916, 34628, 60136,
                 40308, 7411, 54556, 61192, 29267, 12158, 12718, 23535, 18819, 36543, 62603, 60332,
@@ -12821,19 +13416,21 @@ fn test_containers_complex_test_struct_lengthy_chaos_1() {
                 51178, 16904, 11348, 26265, 30491, 34503, 33817, 21091, 38326, 60471, 37690, 22688,
                 30657, 25218, 55009, 4431, 42249, 52815, 27293, 29437, 18365, 28062, 43652, 58427,
                 37517, 31197, 5756,
-            ]),
+            ]))
+            .unwrap(),
             c: 225,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 33, b: 7895405943655935510, c: 2142447552 },
             FixedTestStruct { a: 22, b: 18002124139429285600, c: 992281172 },
             FixedTestStruct { a: 233, b: 4015541180465670820, c: 859454356 },
             FixedTestStruct { a: 189, b: 6174994657624261209, c: 2497554522 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 43514,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     44929, 30752, 18611, 33923, 42378, 2509, 29985, 3365, 50241, 47603, 5913,
                     64265, 60191, 4381, 60195, 52257, 8319, 17226, 33510, 21910, 36008, 47181,
                     46498, 62647, 64293, 8237, 52988, 8429, 30288, 61242, 15886, 20878, 36914,
@@ -12926,12 +13523,13 @@ fn test_containers_complex_test_struct_lengthy_chaos_1() {
                     30448, 46268, 9209, 30771, 58698, 16693, 43514, 33212, 27521, 12052, 13213,
                     53117, 13466, 1428, 20468, 40192, 29634, 23425, 17430, 22188, 16160, 23704,
                     24888, 25431, 33689, 44304, 62530, 44649, 29854, 58068, 16506, 50867,
-                ]),
+                ]))
+                .unwrap(),
                 c: 137,
             },
             VarTestStruct {
                 a: 682,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     51885, 64263, 59471, 10232, 10988, 50916, 6958, 21670, 35134, 15072, 23280,
                     50462, 43383, 53899, 13108, 31128, 5505, 18184, 21356, 28188, 53305, 8847,
                     10739, 16128, 61911, 34784, 57065, 27155, 36478, 34699, 47869, 2809, 19476,
@@ -13024,10 +13622,12 @@ fn test_containers_complex_test_struct_lengthy_chaos_1() {
                     9421, 37053, 19118, 12297, 61584, 62299, 48690, 61172, 8422, 46287, 35075,
                     27211, 2026, 62737, 47333, 44598, 5456, 49090, 61830, 36327, 60356, 30742,
                     32377, 40148, 27936, 58838, 20097, 49658, 37537, 25700, 45346, 63345, 65132,
-                ]),
+                ]))
+                .unwrap(),
                 c: 150,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/ComplexTestStruct_lengthy_chaos_1/serialized.ssz_snappy");
@@ -13046,20 +13646,34 @@ fn test_containers_complex_test_struct_lengthy_chaos_1() {
 fn test_containers_complex_test_struct_nil_5() {
     let mut value = ComplexTestStruct {
         a: 31744,
-        b: List::<u16, 128>::from_iter([]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 33,
-        d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct { a: 32909, b: List::<u16, 1024>::from_iter([]), c: 160 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([])).unwrap(),
+        e: VarTestStruct {
+            a: 32909,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+            c: 160,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 88, b: 4508311636793282544, c: 415305280 },
             FixedTestStruct { a: 81, b: 7176574044321399517, c: 3531697000 },
             FixedTestStruct { a: 148, b: 10325477718060625155, c: 2170710618 },
             FixedTestStruct { a: 213, b: 10147841225099919266, c: 364863742 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 44590, b: List::<u16, 1024>::from_iter([]), c: 43 },
-            VarTestStruct { a: 2413, b: List::<u16, 1024>::from_iter([]), c: 252 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 44590,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 43,
+            },
+            VarTestStruct {
+                a: 2413,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 252,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -13080,7 +13694,7 @@ fn test_containers_complex_test_struct_nil_5() {
 fn test_containers_var_test_struct_max_chaos_0() {
     let mut value = VarTestStruct {
         a: 65535,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -13143,7 +13757,8 @@ fn test_containers_var_test_struct_max_chaos_0() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
     };
     let encoding = serialize(&value);
@@ -13165,20 +13780,34 @@ fn test_containers_var_test_struct_max_chaos_0() {
 fn test_containers_complex_test_struct_nil_2() {
     let mut value = ComplexTestStruct {
         a: 51296,
-        b: List::<u16, 128>::from_iter([]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 24,
-        d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct { a: 53715, b: List::<u16, 1024>::from_iter([]), c: 87 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([])).unwrap(),
+        e: VarTestStruct {
+            a: 53715,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+            c: 87,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 112, b: 6113442914607827252, c: 2881063212 },
             FixedTestStruct { a: 51, b: 1725127278526211301, c: 638134721 },
             FixedTestStruct { a: 217, b: 14421469423501165880, c: 3735440152 },
             FixedTestStruct { a: 123, b: 2364172394143535253, c: 3578914154 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 28075, b: List::<u16, 1024>::from_iter([]), c: 109 },
-            VarTestStruct { a: 52080, b: List::<u16, 1024>::from_iter([]), c: 183 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 28075,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 109,
+            },
+            VarTestStruct {
+                a: 52080,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 183,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -13199,20 +13828,34 @@ fn test_containers_complex_test_struct_nil_2() {
 fn test_containers_complex_test_struct_nil_chaos_1() {
     let mut value = ComplexTestStruct {
         a: 16389,
-        b: List::<u16, 128>::from_iter([]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 229,
-        d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct { a: 60733, b: List::<u16, 1024>::from_iter([]), c: 201 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([])).unwrap(),
+        e: VarTestStruct {
+            a: 60733,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+            c: 201,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 2, b: 384053484578005994, c: 870669292 },
             FixedTestStruct { a: 192, b: 8050360655543648157, c: 2676129625 },
             FixedTestStruct { a: 68, b: 3997619651490197308, c: 793030358 },
             FixedTestStruct { a: 214, b: 14099480025000544619, c: 1206054754 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 23399, b: List::<u16, 1024>::from_iter([]), c: 162 },
-            VarTestStruct { a: 6205, b: List::<u16, 1024>::from_iter([]), c: 80 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 23399,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 162,
+            },
+            VarTestStruct {
+                a: 6205,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 80,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -13233,7 +13876,7 @@ fn test_containers_complex_test_struct_nil_chaos_1() {
 fn test_containers_var_test_struct_max() {
     let mut value = VarTestStruct {
         a: 65535,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -13259,7 +13902,8 @@ fn test_containers_var_test_struct_max() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
     };
     let encoding = serialize(&value);
@@ -13429,7 +14073,7 @@ fn test_containers_small_test_struct_zero_chaos_1() {
 fn test_containers_var_test_struct_zero() {
     let mut value = VarTestStruct {
         a: 0,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -13442,7 +14086,8 @@ fn test_containers_var_test_struct_zero() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
     };
     let encoding = serialize(&value);
@@ -13500,20 +14145,34 @@ fn test_containers_small_test_struct_zero_5() {
 fn test_containers_complex_test_struct_nil_3() {
     let mut value = ComplexTestStruct {
         a: 59736,
-        b: List::<u16, 128>::from_iter([]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 120,
-        d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct { a: 9471, b: List::<u16, 1024>::from_iter([]), c: 162 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([])).unwrap(),
+        e: VarTestStruct {
+            a: 9471,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+            c: 162,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 220, b: 15034598248334105810, c: 3955824760 },
             FixedTestStruct { a: 175, b: 17553500545866453449, c: 542828098 },
             FixedTestStruct { a: 140, b: 2940978812180365208, c: 3410385304 },
             FixedTestStruct { a: 219, b: 13559886729958279487, c: 3025496256 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 34009, b: List::<u16, 1024>::from_iter([]), c: 98 },
-            VarTestStruct { a: 55878, b: List::<u16, 1024>::from_iter([]), c: 150 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 34009,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 98,
+            },
+            VarTestStruct {
+                a: 55878,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 150,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -13534,20 +14193,34 @@ fn test_containers_complex_test_struct_nil_3() {
 fn test_containers_complex_test_struct_nil_chaos_0() {
     let mut value = ComplexTestStruct {
         a: 6980,
-        b: List::<u16, 128>::from_iter([]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 27,
-        d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct { a: 25023, b: List::<u16, 1024>::from_iter([]), c: 192 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([])).unwrap(),
+        e: VarTestStruct {
+            a: 25023,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+            c: 192,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 232, b: 3780683719095057064, c: 1934241831 },
             FixedTestStruct { a: 138, b: 5487763393146156444, c: 1481858532 },
             FixedTestStruct { a: 183, b: 6392067212513580675, c: 1590857235 },
             FixedTestStruct { a: 215, b: 10047526190675975666, c: 3987494123 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 17308, b: List::<u16, 1024>::from_iter([]), c: 78 },
-            VarTestStruct { a: 23441, b: List::<u16, 1024>::from_iter([]), c: 130 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 17308,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 78,
+            },
+            VarTestStruct {
+                a: 23441,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 130,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -13568,7 +14241,7 @@ fn test_containers_complex_test_struct_nil_chaos_0() {
 fn test_containers_var_test_struct_max_chaos_1() {
     let mut value = VarTestStruct {
         a: 65535,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -13578,7 +14251,8 @@ fn test_containers_var_test_struct_max_chaos_1() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
     };
     let encoding = serialize(&value);
@@ -13600,20 +14274,34 @@ fn test_containers_var_test_struct_max_chaos_1() {
 fn test_containers_complex_test_struct_nil_4() {
     let mut value = ComplexTestStruct {
         a: 44905,
-        b: List::<u16, 128>::from_iter([]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 144,
-        d: List::<u8, 256>::from_iter([]),
-        e: VarTestStruct { a: 35688, b: List::<u16, 1024>::from_iter([]), c: 125 },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([])).unwrap(),
+        e: VarTestStruct {
+            a: 35688,
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+            c: 125,
+        },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 102, b: 1970672590229388203, c: 4291083769 },
             FixedTestStruct { a: 20, b: 17267026789235764353, c: 4169619511 },
             FixedTestStruct { a: 174, b: 16712701607286209302, c: 1877382468 },
             FixedTestStruct { a: 216, b: 3418735781718036586, c: 3896879220 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
-            VarTestStruct { a: 37923, b: List::<u16, 1024>::from_iter([]), c: 146 },
-            VarTestStruct { a: 31848, b: List::<u16, 1024>::from_iter([]), c: 206 },
-        ]),
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct {
+                a: 37923,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 146,
+            },
+            VarTestStruct {
+                a: 31848,
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+                c: 206,
+            },
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -13720,7 +14408,11 @@ fn test_containers_fixed_test_struct_max_3() {
 
 #[test]
 fn test_containers_var_test_struct_nil_6() {
-    let mut value = VarTestStruct { a: 15781, b: List::<u16, 1024>::from_iter([]), c: 117 };
+    let mut value = VarTestStruct {
+        a: 15781,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+        c: 117,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_6/serialized.ssz_snappy",
@@ -13764,7 +14456,7 @@ fn test_containers_bits_struct_max_8() {
 fn test_containers_var_test_struct_random_chaos_0() {
     let mut value = VarTestStruct {
         a: 20024,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             50415, 14691, 1540, 5555, 46426, 5084, 61089, 64926, 6761, 37513, 65376, 54489, 38631,
             64061, 33211, 39189, 28466, 1332, 1554, 60180, 62555, 38396, 26765, 43012, 62762,
             30589, 48460, 10895, 56421, 25159, 29698, 17067, 8678, 12472, 47725, 3749, 47570,
@@ -13841,7 +14533,8 @@ fn test_containers_var_test_struct_random_chaos_0() {
             60505, 49357, 41204, 3012, 59708, 15620, 24226, 11859, 58417, 56933, 46387, 36134,
             26079, 30691, 60054, 10899, 100, 16926, 6627, 46467, 19482, 37558, 17398, 26372, 61721,
             61304, 4540,
-        ]),
+        ]))
+        .unwrap(),
         c: 245,
     };
     let encoding = serialize(&value);
@@ -13885,7 +14578,11 @@ fn test_containers_bits_struct_one_5() {
 
 #[test]
 fn test_containers_var_test_struct_nil_1() {
-    let mut value = VarTestStruct { a: 57718, b: List::<u16, 1024>::from_iter([]), c: 30 };
+    let mut value = VarTestStruct {
+        a: 57718,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+        c: 30,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_1/serialized.ssz_snappy",
@@ -13929,12 +14626,13 @@ fn test_containers_bits_struct_one_2() {
 fn test_containers_complex_test_struct_random_chaos_0() {
     let mut value = ComplexTestStruct {
         a: 11713,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             38091, 53824, 7944, 31766, 19699, 31242, 4608, 29028, 11885, 840, 21861, 65003, 18717,
             32490, 18436, 15216, 33190,
-        ]),
+        ]))
+        .unwrap(),
         c: 160,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             128, 197, 56, 67, 137, 198, 224, 251, 177, 132, 101, 181, 68, 221, 57, 132, 165, 50,
             120, 136, 16, 78, 43, 59, 57, 185, 100, 12, 139, 168, 37, 228, 49, 225, 77, 90, 94,
             187, 90, 218, 93, 114, 227, 179, 0, 207, 17, 157, 156, 49, 247, 80, 156, 168, 35, 209,
@@ -13947,10 +14645,11 @@ fn test_containers_complex_test_struct_random_chaos_0() {
             174, 159, 101, 133, 226, 195, 161, 7, 226, 153, 195, 66, 41, 224, 219, 86, 59, 148,
             161, 235, 208, 97, 155, 76, 166, 191, 48, 71, 25, 109, 172, 111, 173, 194, 73, 166, 15,
             207, 113, 14, 208, 63, 156, 58, 34, 70, 138, 52, 53, 52, 203, 175, 45, 170, 140,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 59882,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 21911, 63942, 31199, 31455, 33871, 7137, 41350, 62486, 3011, 27349, 598, 515,
                 63354, 28621, 57115, 31259, 53789, 8037, 44746, 7200, 1431, 46405, 34155, 38815,
                 19379, 8367, 26984, 6685, 15469, 819, 45620, 18928, 60330, 25053, 8829, 27017,
@@ -13992,19 +14691,21 @@ fn test_containers_complex_test_struct_random_chaos_0() {
                 14283, 37410, 34687, 35053, 59797, 48811, 28297, 19307, 26689, 999, 48030, 60389,
                 15667, 38826, 61706, 30610, 17062, 60869, 23673, 60992, 36272, 4796, 40180, 23204,
                 5736, 25667, 32459,
-            ]),
+            ]))
+            .unwrap(),
             c: 138,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 3, b: 10543900606472943020, c: 3667820647 },
             FixedTestStruct { a: 140, b: 3106764529416694417, c: 3299042996 },
             FixedTestStruct { a: 90, b: 7465421768114232817, c: 4159847108 },
             FixedTestStruct { a: 203, b: 2684306830788579479, c: 1893894578 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 40858,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     2788, 10634, 25075, 37806, 19970, 3306, 31405, 59273, 5695, 43782, 45669, 6010,
                     26852, 19119, 47012, 10896, 48177, 26451, 11056, 9638, 54412, 58348, 21355,
                     23069, 8248, 22387, 14432, 55546, 2130, 27403, 40026, 14435, 55608, 670, 54559,
@@ -14018,12 +14719,13 @@ fn test_containers_complex_test_struct_random_chaos_0() {
                     27, 21439, 35276, 19013, 7941, 3997, 49907, 13177, 9785, 51121, 26936, 43991,
                     7757, 54269, 54288, 7852, 12327, 8026, 51726, 5798, 24537, 38903, 29850, 64853,
                     43076, 56347, 12430, 15989, 30429, 58600, 20849, 31856,
-                ]),
+                ]))
+                .unwrap(),
                 c: 130,
             },
             VarTestStruct {
                 a: 12545,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     36909, 51751, 12111, 59079, 46526, 4876, 50528, 7980, 56125, 64004, 24620,
                     49385, 31497, 19486, 39428, 15275, 6246, 42311, 9976, 28136, 384, 13157, 11033,
                     54386, 63350, 8749, 51761, 3010, 26301, 17629, 42550, 41173, 12420, 43223,
@@ -14111,10 +14813,12 @@ fn test_containers_complex_test_struct_random_chaos_0() {
                     56513, 9335, 27424, 57140, 17413, 33406, 30033, 43291, 38537, 40876, 8092,
                     28171, 23457, 11139, 28537, 20270, 9900, 63923, 13348, 34434, 13571, 42450,
                     31259, 60825, 23244, 7085, 61507, 14662, 37940, 19505, 8820,
-                ]),
+                ]))
+                .unwrap(),
                 c: 126,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -14135,20 +14839,22 @@ fn test_containers_complex_test_struct_random_chaos_0() {
 fn test_containers_complex_test_struct_random_3() {
     let mut value = ComplexTestStruct {
         a: 32772,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             46512, 38507, 19398, 17365, 6742, 22022, 38263, 43803, 45345, 15434, 50542, 53308,
             63955, 25109, 65120, 12016, 24683, 11769, 37715, 47612, 758, 57637, 39030, 61451,
             27955, 26480, 56870, 14359, 13136, 29373, 27964, 9592, 17585, 43888, 52807, 59179,
             60588,
-        ]),
+        ]))
+        .unwrap(),
         c: 67,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             181, 94, 231, 30, 237, 90, 219, 84, 180, 2, 196, 224, 0, 22, 130, 105, 38, 216, 219,
             93, 1, 86, 54, 122, 79, 101, 33, 205, 60, 22, 108,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 8345,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 60661, 49902, 47308, 6595, 50664, 56406, 11771, 42777, 21007, 26990, 34886, 56815,
                 49289, 28126, 32071, 20342, 61101, 11472, 43864, 17495, 57493, 26384, 60112, 40415,
                 54428, 37676, 35336, 5659, 43952, 1820, 60659, 42128, 23481, 1511, 17740, 19556,
@@ -14194,19 +14900,21 @@ fn test_containers_complex_test_struct_random_3() {
                 14564, 58630, 30744, 9113, 15957, 49563, 25235, 5865, 23366, 23402, 64888, 9922,
                 51498, 26597, 5462, 19900, 7574, 63745, 43211, 20357, 21043, 29759, 17634, 56256,
                 50034,
-            ]),
+            ]))
+            .unwrap(),
             c: 227,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 48, b: 3998434500497351183, c: 1718012518 },
             FixedTestStruct { a: 251, b: 4416660904362289185, c: 1596040344 },
             FixedTestStruct { a: 69, b: 5158912912770106064, c: 241204715 },
             FixedTestStruct { a: 123, b: 8382074815237110674, c: 1679281156 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 15384,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     5959, 6219, 51610, 25393, 26568, 36825, 33793, 15462, 3731, 46490, 18670,
                     59749, 64649, 30855, 57728, 46187, 48013, 29656, 5719, 2129, 39236, 12781,
                     44300, 17277, 16144, 18436, 48934, 47980, 49588, 44451, 11375, 19642, 3430,
@@ -14275,12 +14983,13 @@ fn test_containers_complex_test_struct_random_3() {
                     24878, 16180, 4973, 43290, 46938, 53044, 37348, 56705, 65269, 1966, 47327,
                     22460, 15514, 23699, 52380, 3010, 9807, 12779, 32086, 35809, 63962, 48728,
                     35518, 46672, 5279, 4572, 64516,
-                ]),
+                ]))
+                .unwrap(),
                 c: 206,
             },
             VarTestStruct {
                 a: 58443,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     35162, 59545, 64720, 35632, 63282, 59684, 14274, 55738, 60495, 50521, 43762,
                     38088, 19927, 14449, 59919, 37496, 24495, 38854, 31634, 662, 45989, 9417,
                     25665, 48594, 3179, 6071, 33212, 37207, 5791, 29739, 865, 21841, 54280, 16054,
@@ -14342,10 +15051,12 @@ fn test_containers_complex_test_struct_random_3() {
                     47329, 60046, 24562, 19228, 53344, 58912, 55103, 49343, 20384, 5567, 42069,
                     24273, 46768, 33387, 42809, 34843, 36283, 13428, 28143, 26179, 6718, 24023,
                     23004, 24257, 10534,
-                ]),
+                ]))
+                .unwrap(),
                 c: 156,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -14424,7 +15135,11 @@ fn test_containers_fixed_test_struct_max_chaos_2() {
 
 #[test]
 fn test_containers_var_test_struct_nil_8() {
-    let mut value = VarTestStruct { a: 45577, b: List::<u16, 1024>::from_iter([]), c: 105 };
+    let mut value = VarTestStruct {
+        a: 45577,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+        c: 105,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_8/serialized.ssz_snappy",
@@ -14462,7 +15177,7 @@ fn test_containers_single_field_test_struct_random_3() {
 fn test_containers_var_test_struct_lengthy_chaos_1() {
     let mut value = VarTestStruct {
         a: 46450,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             53815, 23219, 41304, 45330, 32243, 36712, 34238, 37499, 13393, 61842, 46925, 51786,
             37439, 42297, 59188, 18119, 62795, 51998, 7978, 28954, 50200, 59690, 4565, 8415, 19163,
             29544, 10890, 61177, 55431, 721, 42854, 37539, 40953, 21821, 18459, 52732, 36437,
@@ -14546,7 +15261,8 @@ fn test_containers_var_test_struct_lengthy_chaos_1() {
             33319, 53637, 15263, 54033, 60941, 41870, 37948, 8272, 42168, 12776, 42741, 59062,
             32985, 26729, 11285, 47287, 18264, 39419, 61710, 58320, 39309, 48154, 18701, 53166,
             7673, 11055, 36627, 50421, 12532, 636, 23123, 14996, 36863, 11099, 20147, 56319, 7048,
-        ]),
+        ]))
+        .unwrap(),
         c: 14,
     };
     let encoding = serialize(&value);
@@ -14586,17 +15302,18 @@ fn test_containers_small_test_struct_random_chaos_2() {
 fn test_containers_complex_test_struct_random_4() {
     let mut value = ComplexTestStruct {
         a: 56777,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             58669, 14901, 4758, 38656, 35668, 56803, 11682, 18310, 55525, 27960, 27146, 38815,
             64187, 39411, 10941, 3648, 39464, 58000, 44066, 39145, 10389, 37014, 41092, 35274,
             17322, 33759, 11233, 47511, 43152, 59460, 53641, 45819, 21475, 7896, 45582, 17078,
             37649, 8718, 43178, 47119,
-        ]),
+        ]))
+        .unwrap(),
         c: 226,
-        d: List::<u8, 256>::from_iter([154, 190]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([154, 190])).unwrap(),
         e: VarTestStruct {
             a: 2759,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 39699, 46298, 7448, 19899, 6144, 52837, 26829, 38886, 23820, 35946, 58633, 13819,
                 11247, 46958, 28664, 52929, 26408, 62264, 12903, 30760, 17166, 59453, 64336, 61824,
                 33197, 54525, 38617, 25063, 1731, 64709, 25564, 9563, 22479, 31853, 50843, 41574,
@@ -14627,19 +15344,21 @@ fn test_containers_complex_test_struct_random_4() {
                 16254, 6069, 56297, 14910, 30063, 29434, 1480, 22924, 39119, 8086, 41612, 38000,
                 5295, 21786, 53146, 65052, 15335, 51649, 15245, 46139, 12785, 60247, 23759, 34606,
                 9286, 54944, 23939, 31545, 22324, 28615, 65511,
-            ]),
+            ]))
+            .unwrap(),
             c: 237,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 52, b: 12728543440427803475, c: 794847716 },
             FixedTestStruct { a: 129, b: 16258032708543429508, c: 2773321321 },
             FixedTestStruct { a: 3, b: 16027621960155161403, c: 3849861284 },
             FixedTestStruct { a: 246, b: 5528410490619814594, c: 22081984 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 16350,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     55724, 36052, 59659, 3703, 31564, 52017, 62286, 14084, 30657, 38794, 12251,
                     34934, 2518, 17182, 52210, 21592, 8785, 27241, 27231, 7912, 61394, 2883, 52437,
                     5432, 56815, 34442, 10525, 48307, 62716, 30821, 26180, 34865, 33159, 27818,
@@ -14662,22 +15381,25 @@ fn test_containers_complex_test_struct_random_4() {
                     58959, 49333, 11946, 6243, 57339, 37611, 56882, 30838, 20309, 34555, 57471,
                     27781, 27314, 4498, 7224, 25234, 7479, 43758, 63054, 468, 45831, 60268, 14949,
                     20692, 14049, 9392, 35058, 34805, 49865, 3181, 28639, 3873,
-                ]),
+                ]))
+                .unwrap(),
                 c: 195,
             },
             VarTestStruct {
                 a: 1960,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     27217, 58622, 36900, 26963, 4204, 60786, 42710, 56503, 46843, 51370, 19004,
                     33065, 19965, 43084, 64668, 27518, 13611, 56577, 46714, 7087, 53718, 9608,
                     55415, 50731, 4245, 7005, 57050, 64111, 12612, 32539, 26681, 1206, 37790,
                     40779, 47291, 895, 3596, 50779, 28792, 15131, 61279, 12922, 48978, 17143,
                     58055, 1418, 50876, 26398, 45024, 19142, 21886, 54461, 11344, 38296, 41220,
                     56619, 63240, 5497, 30859, 34874, 34087, 24696,
-                ]),
+                ]))
+                .unwrap(),
                 c: 9,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -14722,7 +15444,7 @@ fn test_containers_bits_struct_max_1() {
 fn test_containers_var_test_struct_zero_1() {
     let mut value = VarTestStruct {
         a: 0,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -14748,7 +15470,8 @@ fn test_containers_var_test_struct_zero_1() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
     };
     let encoding = serialize(&value);
@@ -14812,15 +15535,16 @@ fn test_containers_bits_struct_zero_1() {
 fn test_containers_complex_test_struct_zero_chaos_0() {
     let mut value = ComplexTestStruct {
         a: 0,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
-        d: List::<u8, 256>::from_iter([0]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([0])).unwrap(),
         e: VarTestStruct {
             a: 0,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -14844,19 +15568,21 @@ fn test_containers_complex_test_struct_zero_chaos_0() {
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0,
-            ]),
+            ]))
+            .unwrap(),
             c: 0,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -14864,12 +15590,13 @@ fn test_containers_complex_test_struct_zero_chaos_0() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -14895,10 +15622,12 @@ fn test_containers_complex_test_struct_zero_chaos_0() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -14937,7 +15666,7 @@ fn test_containers_small_test_struct_max_3() {
 fn test_containers_var_test_struct_zero_6() {
     let mut value = VarTestStruct {
         a: 0,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -14963,7 +15692,8 @@ fn test_containers_var_test_struct_zero_6() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
     };
     let encoding = serialize(&value);
@@ -15009,7 +15739,7 @@ fn test_containers_bits_struct_zero_6() {
 fn test_containers_var_test_struct_random_4() {
     let mut value = VarTestStruct {
         a: 48280,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             13530, 41391, 39881, 12308, 13381, 11905, 39267, 629, 332, 41821, 9742, 10462, 15406,
             61167, 10985, 5611, 54368, 48876, 48964, 61455, 20572, 54870, 1130, 61751, 14110, 9575,
             15140, 47507, 59631, 37946, 20072, 20252, 18131, 26699, 55791, 33512, 1802, 50255,
@@ -15077,7 +15807,8 @@ fn test_containers_var_test_struct_random_4() {
             40453, 62102, 15386, 22289, 54713, 12579, 56732, 41934, 54826, 29109, 48151, 49008,
             34856, 44555, 12839, 39054, 37853, 45968, 15058, 60915, 32157, 34705, 31806, 35692,
             22509, 31518, 16518, 62175, 10632,
-        ]),
+        ]))
+        .unwrap(),
         c: 54,
     };
     let encoding = serialize(&value);
@@ -15123,18 +15854,19 @@ fn test_containers_bits_struct_nil_chaos_2() {
 fn test_containers_complex_test_struct_zero() {
     let mut value = ComplexTestStruct {
         a: 0,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
-        d: List::<u8, 256>::from_iter([0]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([0])).unwrap(),
         e: VarTestStruct {
             a: 0,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -15156,19 +15888,21 @@ fn test_containers_complex_test_struct_zero() {
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            ]),
+            ]))
+            .unwrap(),
             c: 0,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -15180,12 +15914,13 @@ fn test_containers_complex_test_struct_zero() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -15194,10 +15929,12 @@ fn test_containers_complex_test_struct_zero() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -15266,7 +16003,7 @@ fn test_containers_bits_struct_zero_8() {
 fn test_containers_var_test_struct_random_3() {
     let mut value = VarTestStruct {
         a: 36707,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             12654, 3873, 25427, 28554, 12347, 17269, 55449, 54337, 28007, 48659, 45648, 53594,
             58826, 6468, 56179, 221, 22362, 45908, 38017, 4298, 3453, 41039, 12557, 21685, 2289,
             6762, 58315, 33753, 44846, 9774, 57922, 10115, 35370, 16928, 21313, 20458, 54321,
@@ -15305,7 +16042,8 @@ fn test_containers_var_test_struct_random_3() {
             40679, 34515, 63993, 3973, 56719, 4053, 10770, 25036, 54855, 26220, 45560, 40369,
             14271, 16604, 61859, 7493, 57669, 19840, 26245, 24530, 37188, 39443, 4018, 45709,
             43669, 6856, 25484, 25144, 16960, 48101,
-        ]),
+        ]))
+        .unwrap(),
         c: 161,
     };
     let encoding = serialize(&value);
@@ -15325,7 +16063,11 @@ fn test_containers_var_test_struct_random_3() {
 
 #[test]
 fn test_containers_var_test_struct_one_chaos_0() {
-    let mut value = VarTestStruct { a: 6367, b: List::<u16, 1024>::from_iter([33756]), c: 52 };
+    let mut value = VarTestStruct {
+        a: 6367,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([33756])).unwrap(),
+        c: 52,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_chaos_0/serialized.ssz_snappy",
@@ -15369,7 +16111,7 @@ fn test_containers_bits_struct_lengthy_3() {
 fn test_containers_var_test_struct_zero_8() {
     let mut value = VarTestStruct {
         a: 0,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -15401,7 +16143,8 @@ fn test_containers_var_test_struct_zero_8() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
     };
     let encoding = serialize(&value);
@@ -15423,13 +16166,14 @@ fn test_containers_var_test_struct_zero_8() {
 fn test_containers_complex_test_struct_random_5() {
     let mut value = ComplexTestStruct {
         a: 55035,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             29868, 51881, 52866, 49329, 55132, 5639, 4474, 38677, 12583, 40315, 8217, 62286, 38849,
             38908, 16030, 62232, 45860, 15388, 42816, 56404, 40205, 8109, 9362, 27005, 61481,
             28385, 36031, 38335, 9133, 36188, 9849, 64042, 50255, 42617, 47281, 10059, 47361,
-        ]),
+        ]))
+        .unwrap(),
         c: 13,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             1, 93, 117, 31, 50, 172, 137, 237, 12, 24, 184, 213, 53, 227, 235, 39, 55, 148, 72,
             121, 65, 240, 240, 13, 124, 244, 35, 19, 109, 111, 47, 22, 122, 221, 224, 189, 98, 174,
             41, 13, 215, 129, 122, 130, 188, 96, 50, 26, 71, 209, 190, 102, 104, 128, 69, 31, 253,
@@ -15439,10 +16183,11 @@ fn test_containers_complex_test_struct_random_5() {
             225, 167, 75, 81, 107, 141, 156, 177, 61, 76, 224, 60, 254, 1, 172, 31, 57, 231, 29,
             212, 255, 255, 223, 128, 244, 201, 28, 207, 1, 98, 73, 73, 203, 215, 234, 153, 111,
             252, 223, 152, 43, 113,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 7222,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 21858, 30928, 56442, 35802, 51, 64008, 46277, 47686, 39274, 58785, 59315, 62704,
                 5027, 27003, 38681, 64843, 29476, 29212, 25284, 5924, 30414, 32473, 5562, 18934,
                 47524, 55295, 60178, 31115, 58243, 16641, 47606, 60935, 25985, 34978, 63056, 38292,
@@ -15494,19 +16239,21 @@ fn test_containers_complex_test_struct_random_5() {
                 25700, 23417, 30488, 15386, 38350, 15788, 20493, 11678, 33320, 20078, 26909, 7181,
                 20030, 63121, 56394, 48584, 9660, 13489, 46462, 30295, 26297, 6914, 31354, 44201,
                 6799, 27387, 52989, 55112, 46264, 15508, 30576, 46417, 25731,
-            ]),
+            ]))
+            .unwrap(),
             c: 130,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 185, b: 6572514143696592295, c: 3258127834 },
             FixedTestStruct { a: 117, b: 8175813056618882816, c: 4063679543 },
             FixedTestStruct { a: 133, b: 12689249717164430483, c: 2008300373 },
             FixedTestStruct { a: 50, b: 6498855893583129950, c: 1341694256 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 64656,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     45910, 29665, 45383, 25271, 24489, 30536, 11650, 49608, 58059, 7224, 14244,
                     61248, 20670, 45082, 54799, 24890, 47599, 65047, 39966, 1108, 40727, 14134,
                     50626, 27929, 24793, 40225, 51745, 42323, 18418, 34156, 42236, 59821, 15771,
@@ -15531,12 +16278,13 @@ fn test_containers_complex_test_struct_random_5() {
                     44110, 53507, 31034, 26357, 42123, 16488, 4000, 50898, 43262, 47355, 56056,
                     35962, 32940, 32318, 1569, 29190, 2521, 17330, 43315, 37752, 1476, 37373,
                     20544, 21226, 7173, 34500, 52434, 15783, 38374,
-                ]),
+                ]))
+                .unwrap(),
                 c: 11,
             },
             VarTestStruct {
                 a: 27132,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     2598, 18830, 34959, 37504, 50302, 16098, 39261, 841, 49627, 20741, 54352,
                     22209, 25481, 58329, 56924, 60203, 37372, 2401, 25028, 40628, 41990, 46984,
                     21678, 19484, 37125, 22916, 15472, 11957, 23056, 3233, 61739, 48934, 33414,
@@ -15622,10 +16370,12 @@ fn test_containers_complex_test_struct_random_5() {
                     34254, 30273, 29527, 9264, 17331, 31860, 34402, 25032, 18513, 63450, 55812,
                     50505, 39704, 20740, 22582, 43329, 6797, 24665, 34429, 53414, 32716, 38700,
                     20892, 24041, 46403, 39151, 9628, 22699, 24192, 12055, 57602, 49227,
-                ]),
+                ]))
+                .unwrap(),
                 c: 157,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -15646,7 +16396,7 @@ fn test_containers_complex_test_struct_random_5() {
 fn test_containers_var_test_struct_lengthy_chaos_0() {
     let mut value = VarTestStruct {
         a: 37078,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             47932, 15562, 49816, 7730, 8297, 2042, 10168, 28087, 38758, 5767, 45908, 9696, 22529,
             16681, 3290, 5421, 34656, 39449, 24454, 43539, 64098, 40249, 23629, 1016, 42210, 12376,
             31265, 18872, 42929, 60190, 41821, 29252, 29791, 62285, 38974, 11327, 59695, 48836,
@@ -15730,7 +16480,8 @@ fn test_containers_var_test_struct_lengthy_chaos_0() {
             45104, 42495, 1250, 37612, 23387, 45832, 16718, 59335, 21376, 45115, 41132, 300, 34474,
             62802, 12749, 12000, 18359, 45831, 46007, 38174, 40778, 54658, 43344, 61412, 9233,
             60616, 57133, 15023, 63358, 60323, 64920, 20354, 35356,
-        ]),
+        ]))
+        .unwrap(),
         c: 176,
     };
     let encoding = serialize(&value);
@@ -15812,7 +16563,7 @@ fn test_containers_single_field_test_struct_random_5() {
 fn test_containers_complex_test_struct_random_2() {
     let mut value = ComplexTestStruct {
         a: 28502,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             54777, 54608, 59283, 47559, 63981, 34242, 54234, 15282, 42195, 40500, 46251, 44616,
             8199, 56117, 47824, 28233, 52037, 20930, 62744, 59877, 12399, 31759, 7760, 14969,
             14152, 20453, 52520, 20847, 62703, 61038, 21267, 17992, 62570, 16749, 61396, 41740,
@@ -15822,9 +16573,10 @@ fn test_containers_complex_test_struct_random_2() {
             45701, 7781, 61520, 9528, 4293, 62338, 26599, 1294, 8300, 49410, 36090, 621, 52357,
             21349, 45819, 13239, 9566, 18544, 37557, 61619, 9947, 5656, 24051, 21711, 17246, 38547,
             15233, 50244, 14769, 18844, 25804, 60371, 23289, 37763,
-        ]),
+        ]))
+        .unwrap(),
         c: 197,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             170, 181, 3, 134, 201, 248, 222, 1, 155, 247, 84, 146, 91, 81, 163, 164, 159, 50, 161,
             77, 12, 101, 137, 37, 123, 139, 196, 131, 8, 90, 247, 132, 246, 16, 120, 83, 225, 179,
             151, 156, 151, 52, 17, 235, 68, 100, 243, 232, 232, 147, 192, 179, 78, 23, 158, 166,
@@ -15839,10 +16591,11 @@ fn test_containers_complex_test_struct_random_2() {
             182, 81, 253, 43, 137, 108, 201, 71, 62, 80, 58, 3, 242, 72, 144, 56, 72, 11, 41, 229,
             226, 20, 130, 151, 123, 58, 89, 176, 0, 107, 0, 173, 202, 240, 105, 10, 67, 203, 141,
             220, 80, 89, 206, 70, 30,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 28796,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 63796, 65404, 55512, 39414, 11147, 63749, 37177, 33138, 52722, 58530, 51627, 40951,
                 14044, 46316, 56018, 35770, 30693, 23792, 62757, 61917, 26267, 40130, 39943, 45543,
                 43142, 33231, 65384, 59439, 65474, 8521, 26945, 51428, 2440, 45825, 22215, 8935,
@@ -15851,19 +16604,21 @@ fn test_containers_complex_test_struct_random_2() {
                 42852, 11405, 5936, 11907, 32164, 2400, 29394, 26647, 16684, 3435, 12672, 64605,
                 26203, 35997, 25958, 32711, 64450, 19957, 3957, 64290, 64905, 8994, 48576, 62919,
                 30096, 24466, 3594, 55728, 3321, 17931, 20397, 10469, 55488, 45914, 9196,
-            ]),
+            ]))
+            .unwrap(),
             c: 46,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 143, b: 15369598333677722387, c: 3618353484 },
             FixedTestStruct { a: 95, b: 7342862960844619183, c: 2024225401 },
             FixedTestStruct { a: 34, b: 13071154624305027972, c: 349713642 },
             FixedTestStruct { a: 118, b: 5488186923479738561, c: 151832036 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 15129,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     64463, 3056, 59030, 24671, 21832, 63802, 28060, 22600, 19714, 53408, 1778,
                     1891, 28844, 62098, 34647, 51572, 42572, 15025, 25018, 43298, 51819, 5936,
                     4540, 9637, 56885, 24843, 30180, 10259, 52824, 60598, 54729, 46273, 53242,
@@ -15954,12 +16709,13 @@ fn test_containers_complex_test_struct_random_2() {
                     46936, 18955, 6029, 57481, 35136, 62083, 47691, 7419, 46702, 58737, 38097,
                     55414, 18791, 63884, 5693, 51292, 59859, 5100, 29405, 56951, 37431, 61146,
                     14937, 1655,
-                ]),
+                ]))
+                .unwrap(),
                 c: 30,
             },
             VarTestStruct {
                 a: 4303,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     62016, 63440, 54710, 23705, 21698, 55481, 60667, 25430, 52691, 3155, 10867,
                     60315, 43753, 65288, 42179, 10460, 33526, 27119, 48175, 56163, 6415, 41109,
                     40156, 47824, 24375, 2877, 58008, 2147, 7692, 54797, 23859, 21590, 7840, 15993,
@@ -16015,10 +16771,12 @@ fn test_containers_complex_test_struct_random_2() {
                     35387, 32860, 65014, 21162, 6374, 33716, 48574, 46777, 27738, 8540, 31556,
                     63804, 59170, 63127, 45623, 34364, 9333, 23829, 52269, 53375, 57646, 16341,
                     41758, 3273, 31739, 59637, 34303, 28371, 45319, 51183,
-                ]),
+                ]))
+                .unwrap(),
                 c: 71,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -16061,7 +16819,11 @@ fn test_containers_bits_struct_max_7() {
 
 #[test]
 fn test_containers_var_test_struct_nil_9() {
-    let mut value = VarTestStruct { a: 26413, b: List::<u16, 1024>::from_iter([]), c: 229 };
+    let mut value = VarTestStruct {
+        a: 26413,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+        c: 229,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_9/serialized.ssz_snappy",
@@ -16079,7 +16841,11 @@ fn test_containers_var_test_struct_nil_9() {
 
 #[test]
 fn test_containers_var_test_struct_nil_0() {
-    let mut value = VarTestStruct { a: 19247, b: List::<u16, 1024>::from_iter([]), c: 218 };
+    let mut value = VarTestStruct {
+        a: 19247,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+        c: 218,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_0/serialized.ssz_snappy",
@@ -16099,17 +16865,18 @@ fn test_containers_var_test_struct_nil_0() {
 fn test_containers_complex_test_struct_random_chaos_1() {
     let mut value = ComplexTestStruct {
         a: 65478,
-        b: List::<u16, 128>::from_iter([13600, 42076]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([13600, 42076])).unwrap(),
         c: 93,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             55, 124, 18, 23, 99, 31, 88, 15, 41, 242, 197, 61, 59, 145, 31, 246, 196, 228, 124, 3,
             223, 188, 182, 83, 227, 27, 86, 21, 101, 114, 194, 252, 209, 204, 117, 209, 57, 105,
             116, 93, 21, 135, 148, 10, 54, 47, 120, 6, 60, 53, 167, 162, 4, 154, 170, 136, 83, 147,
             200, 122, 155, 122, 100, 147, 224, 44, 116, 173, 78, 54, 63, 254, 120,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 3490,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 15191, 57181, 18853, 20130, 35774, 37563, 20003, 35474, 24564, 28920, 57208, 54354,
                 49349, 57214, 13320, 54000, 53403, 2278, 36160, 16013, 17312, 38870, 29146, 47660,
                 12772, 30688, 47309, 61198, 13497, 43507, 35777, 37167, 36925, 43513, 13033, 12685,
@@ -16166,19 +16933,21 @@ fn test_containers_complex_test_struct_random_chaos_1() {
                 64232, 46583, 24307, 41876, 16999, 63399, 50433, 43942, 46488, 65378, 25870, 21589,
                 38290, 44683, 62374, 16314, 32519, 45677, 55597, 42293, 51335, 55178, 4954, 32550,
                 52475, 61850, 41387,
-            ]),
+            ]))
+            .unwrap(),
             c: 75,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 34, b: 7985948794710290703, c: 758635405 },
             FixedTestStruct { a: 75, b: 12296680574802004172, c: 1408694452 },
             FixedTestStruct { a: 26, b: 15043939724872014544, c: 1533134107 },
             FixedTestStruct { a: 218, b: 5434121257617466598, c: 1140150850 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 20200,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     46801, 20206, 18241, 40933, 2657, 32403, 56770, 48264, 3909, 1148, 19296,
                     53355, 42811, 19492, 35429, 3445, 39572, 11399, 48752, 22386, 9541, 63167,
                     41016, 60961, 57491, 13386, 6437, 29654, 57563, 59340, 23199, 50040, 39954,
@@ -16195,12 +16964,13 @@ fn test_containers_complex_test_struct_random_chaos_1() {
                     59623, 52834, 30132, 26552, 45557, 40474, 34237, 9846, 34826, 29068, 19454,
                     64434, 5082, 6434, 60383, 31025, 44613, 18679, 34272, 30874, 50371, 15121,
                     14314, 23688, 14605, 14782, 2884, 16747, 54730, 27901, 4385, 6860,
-                ]),
+                ]))
+                .unwrap(),
                 c: 53,
             },
             VarTestStruct {
                 a: 34514,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     64484, 60344, 22005, 17820, 22296, 12737, 51030, 39566, 29445, 39606, 42898,
                     1920, 39539, 62326, 34512, 49550, 13574, 56522, 12679, 62658, 55037, 55071,
                     14375, 57146, 14909, 22172, 25780, 7025, 10678, 1123, 30438, 35698, 1063,
@@ -16233,10 +17003,12 @@ fn test_containers_complex_test_struct_random_chaos_1() {
                     15553, 38452, 39238, 16042, 65254, 43734, 25758, 65199, 49346, 24216, 13028,
                     15584, 35436, 13858, 26112, 35366, 15278, 52055, 20880, 4903, 5824, 21408,
                     26542, 2305, 62595,
-                ]),
+                ]))
+                .unwrap(),
                 c: 154,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -16279,7 +17051,11 @@ fn test_containers_bits_struct_one_3() {
 
 #[test]
 fn test_containers_var_test_struct_nil_7() {
-    let mut value = VarTestStruct { a: 64459, b: List::<u16, 1024>::from_iter([]), c: 222 };
+    let mut value = VarTestStruct {
+        a: 64459,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+        c: 222,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_7/serialized.ssz_snappy",
@@ -16347,7 +17123,7 @@ fn test_containers_bits_struct_one_4() {
 fn test_containers_var_test_struct_random_chaos_1() {
     let mut value = VarTestStruct {
         a: 62039,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             23305, 29806, 56403, 51159, 2516, 49207, 25302, 92, 55514, 1548, 27014, 11520, 30196,
             37538, 31936, 4170, 54538, 49756, 39614, 5655, 22246, 43174, 49261, 15409, 6017, 34293,
             57675, 14097, 32155, 47852, 9845, 52370, 37341, 58193, 50988, 54728, 42747, 25560,
@@ -16363,7 +17139,8 @@ fn test_containers_var_test_struct_random_chaos_1() {
             26232, 35770, 32313, 49532, 17577, 48934, 32463, 51678, 34366, 34884, 58012, 17700,
             26986, 10791, 28505, 26477, 58616, 12709, 52074, 45059, 61217, 34157, 3688, 37652,
             5676, 40798, 55503, 20594, 56459, 36929, 34576, 4774, 20760, 967, 42303, 32420, 40499,
-        ]),
+        ]))
+        .unwrap(),
         c: 92,
     };
     let encoding = serialize(&value);
@@ -16383,7 +17160,11 @@ fn test_containers_var_test_struct_random_chaos_1() {
 
 #[test]
 fn test_containers_var_test_struct_one_chaos_1() {
-    let mut value = VarTestStruct { a: 28881, b: List::<u16, 1024>::from_iter([18944]), c: 105 };
+    let mut value = VarTestStruct {
+        a: 28881,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([18944])).unwrap(),
+        c: 105,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_chaos_1/serialized.ssz_snappy",
@@ -16403,7 +17184,7 @@ fn test_containers_var_test_struct_one_chaos_1() {
 fn test_containers_var_test_struct_random_2() {
     let mut value = VarTestStruct {
         a: 27676,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             44695, 48600, 31136, 19500, 44205, 36060, 25786, 26618, 37361, 8899, 64311, 2514, 9554,
             32401, 56118, 2234, 41629, 45679, 18067, 55083, 13659, 38338, 11145, 48099, 7097,
             19777, 40789, 42260, 16593, 28212, 32284, 48885, 60017, 41548, 48980, 52748, 29436,
@@ -16450,7 +17231,8 @@ fn test_containers_var_test_struct_random_2() {
             56035, 26878, 27505, 41063, 1141, 3229, 47503, 61963, 34624, 36914, 48463, 60248,
             64422, 32255, 14207, 22118, 30112, 61730, 19016, 17969, 4022, 52923, 36107, 56603,
             36238,
-        ]),
+        ]))
+        .unwrap(),
         c: 46,
     };
     let encoding = serialize(&value);
@@ -16538,7 +17320,7 @@ fn test_containers_bits_struct_lengthy_2() {
 fn test_containers_var_test_struct_zero_9() {
     let mut value = VarTestStruct {
         a: 0,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -16548,7 +17330,8 @@ fn test_containers_var_test_struct_zero_9() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
     };
     let encoding = serialize(&value);
@@ -16588,7 +17371,7 @@ fn test_containers_single_field_test_struct_zero() {
 fn test_containers_var_test_struct_random_5() {
     let mut value = VarTestStruct {
         a: 25799,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             31598, 4940, 7630, 36358, 26249, 12856, 15530, 61074, 54691, 56853, 51121, 21914,
             18170, 21851, 49970, 54364, 17937, 13611, 64213, 13143, 3327, 41212, 34480, 52929,
             31985, 54385, 43811, 17768, 13874, 29953, 53631, 35218, 44347, 40715, 22684, 21981,
@@ -16604,7 +17387,8 @@ fn test_containers_var_test_struct_random_5() {
             9620, 12950, 6277, 30536, 44263, 46488, 17984, 53863, 4475, 31078, 26122, 34104, 17331,
             22065, 63786, 49444, 57347, 32491, 10283, 17581, 41003, 45537, 19686, 9667, 11778,
             9201, 41307,
-        ]),
+        ]))
+        .unwrap(),
         c: 141,
     };
     let encoding = serialize(&value);
@@ -16650,7 +17434,7 @@ fn test_containers_bits_struct_lengthy_5() {
 fn test_containers_var_test_struct_zero_7() {
     let mut value = VarTestStruct {
         a: 0,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -16663,7 +17447,8 @@ fn test_containers_var_test_struct_zero_7() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
     };
     let encoding = serialize(&value);
@@ -16745,7 +17530,7 @@ fn test_containers_small_test_struct_max_5() {
 fn test_containers_var_test_struct_zero_0() {
     let mut value = VarTestStruct {
         a: 0,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -16765,7 +17550,8 @@ fn test_containers_var_test_struct_zero_0() {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
     };
     let encoding = serialize(&value);
@@ -16787,16 +17573,17 @@ fn test_containers_var_test_struct_zero_0() {
 fn test_containers_complex_test_struct_zero_chaos_1() {
     let mut value = ComplexTestStruct {
         a: 0,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        ]),
+        ]))
+        .unwrap(),
         c: 0,
-        d: List::<u8, 256>::from_iter([0]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([0])).unwrap(),
         e: VarTestStruct {
             a: 0,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -16804,19 +17591,21 @@ fn test_containers_complex_test_struct_zero_chaos_1() {
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            ]),
+            ]))
+            .unwrap(),
             c: 0,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
             FixedTestStruct { a: 0, b: 0, c: 0 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -16829,12 +17618,13 @@ fn test_containers_complex_test_struct_zero_chaos_1() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
             VarTestStruct {
                 a: 0,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -16872,10 +17662,12 @@ fn test_containers_complex_test_struct_zero_chaos_1() {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                ]),
+                ]))
+                .unwrap(),
                 c: 0,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -16920,7 +17712,7 @@ fn test_containers_bits_struct_zero_0() {
 fn test_containers_complex_test_struct_lengthy_5() {
     let mut value = ComplexTestStruct {
         a: 65280,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             33087, 53979, 31524, 62080, 24710, 39184, 59428, 4696, 65450, 13150, 6095, 62651,
             14575, 47502, 23666, 39136, 11068, 26424, 61299, 61232, 57870, 7945, 48238, 37590,
             48621, 61357, 47192, 5814, 27739, 13962, 12707, 37305, 29690, 1586, 45727, 61950,
@@ -16932,9 +17724,10 @@ fn test_containers_complex_test_struct_lengthy_5() {
             56876, 49623, 8721, 51333, 4685, 43718, 39768, 32172, 59732, 53711, 52255, 47152,
             32968, 47558, 32043, 57404, 44163, 59909, 3792, 32887, 51205, 32642, 33447, 45034,
             65175, 1660, 57816, 42438, 8665, 5538,
-        ]),
+        ]))
+        .unwrap(),
         c: 196,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             165, 93, 15, 90, 2, 156, 82, 116, 64, 141, 108, 175, 191, 115, 228, 31, 101, 113, 116,
             94, 119, 251, 211, 254, 40, 87, 133, 236, 147, 47, 60, 177, 51, 95, 116, 72, 96, 198,
             10, 159, 139, 155, 117, 183, 56, 57, 197, 2, 85, 175, 88, 83, 182, 102, 144, 158, 115,
@@ -16949,10 +17742,11 @@ fn test_containers_complex_test_struct_lengthy_5() {
             60, 169, 167, 51, 139, 81, 210, 117, 55, 67, 52, 36, 119, 4, 38, 106, 22, 96, 250, 104,
             33, 153, 134, 151, 57, 63, 6, 111, 204, 165, 240, 95, 254, 158, 173, 168, 87, 56, 80,
             47, 141, 18, 138, 54, 254, 179,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 48108,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 64199, 27161, 27624, 59075, 40208, 17835, 37120, 12903, 30200, 62955, 39882, 12060,
                 17752, 60770, 58730, 51247, 64644, 36138, 38923, 5862, 5634, 5868, 46352, 43758,
                 2831, 56020, 3200, 28803, 59381, 41185, 52261, 20856, 28228, 63365, 37438, 52823,
@@ -17039,19 +17833,21 @@ fn test_containers_complex_test_struct_lengthy_5() {
                 19747, 37368, 433, 32388, 50505, 61526, 24312, 9660, 32251, 18391, 1401, 37250,
                 32168, 57069, 45014, 2002, 49596, 57170, 33720, 26172, 36789, 10427, 49974, 52538,
                 29780, 18439, 34416, 17237,
-            ]),
+            ]))
+            .unwrap(),
             c: 29,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 195, b: 12761296427842794216, c: 2887424490 },
             FixedTestStruct { a: 19, b: 12673970782303023911, c: 1882120908 },
             FixedTestStruct { a: 33, b: 3414619537641842921, c: 803319402 },
             FixedTestStruct { a: 184, b: 15746415222302789656, c: 1398072405 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 59603,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     32555, 6951, 50572, 22224, 8940, 23887, 8110, 19497, 40585, 19188, 9199, 28058,
                     65172, 57001, 57948, 52533, 38482, 17902, 56435, 57614, 65235, 33314, 43045,
                     38631, 2514, 20459, 43865, 34604, 35112, 7858, 16123, 25205, 57679, 4584,
@@ -17144,12 +17940,13 @@ fn test_containers_complex_test_struct_lengthy_5() {
                     48146, 25920, 43925, 11155, 26582, 58657, 35210, 22280, 4692, 30636, 58529,
                     40583, 46503, 32367, 31444, 35553, 32327, 57254, 39017, 65293, 25680, 26718,
                     28711, 45709, 36275, 4101, 20048, 46338,
-                ]),
+                ]))
+                .unwrap(),
                 c: 16,
             },
             VarTestStruct {
                 a: 5786,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     58401, 46485, 1237, 17074, 22530, 22611, 52257, 13923, 55377, 33883, 6392,
                     10995, 64467, 28395, 59341, 42377, 47079, 50632, 56161, 38321, 13454, 737,
                     18405, 25244, 6408, 50506, 46780, 45005, 60788, 11519, 59926, 37052, 17052,
@@ -17242,10 +18039,12 @@ fn test_containers_complex_test_struct_lengthy_5() {
                     39392, 61526, 55581, 49397, 62572, 30724, 29040, 62494, 12425, 25717, 51809,
                     39771, 65479, 2580, 6646, 65271, 34779, 25945, 28351, 2503, 38629, 36565, 6771,
                     11388, 20433, 37634, 23150, 18954, 23982, 54839,
-                ]),
+                ]))
+                .unwrap(),
                 c: 234,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -17284,7 +18083,7 @@ fn test_containers_fixed_test_struct_random_0() {
 fn test_containers_complex_test_struct_lengthy_2() {
     let mut value = ComplexTestStruct {
         a: 19676,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             26413, 56542, 62484, 27880, 9216, 53288, 53725, 51556, 51435, 17912, 31404, 48683,
             33123, 61838, 1290, 60253, 18212, 19066, 22623, 35525, 52094, 61005, 59784, 56842,
             32175, 7885, 62936, 21332, 21770, 9195, 7805, 35630, 48637, 13597, 38661, 40160, 42542,
@@ -17296,9 +18095,10 @@ fn test_containers_complex_test_struct_lengthy_2() {
             53137, 31394, 8738, 7746, 57081, 57139, 16781, 3994, 17450, 24102, 4432, 51774, 11493,
             35094, 21841, 38181, 25375, 136, 46838, 22556, 9260, 28470, 40259, 23751, 6625, 54019,
             47625, 38295, 17613,
-        ]),
+        ]))
+        .unwrap(),
         c: 15,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             151, 152, 29, 69, 80, 41, 67, 175, 120, 66, 59, 63, 115, 49, 250, 222, 117, 183, 101,
             67, 76, 73, 231, 116, 31, 225, 161, 117, 253, 175, 37, 147, 151, 117, 179, 122, 171,
             96, 75, 236, 96, 167, 130, 224, 45, 93, 37, 118, 186, 216, 189, 38, 250, 110, 40, 214,
@@ -17313,10 +18113,11 @@ fn test_containers_complex_test_struct_lengthy_2() {
             237, 144, 10, 4, 56, 40, 141, 66, 86, 19, 55, 8, 60, 9, 201, 211, 232, 94, 50, 71, 212,
             150, 30, 188, 224, 243, 253, 127, 2, 101, 25, 12, 215, 73, 108, 121, 54, 63, 85, 7,
             187, 249, 65, 38, 149, 84, 67, 36,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 19519,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 20798, 29153, 62527, 57404, 59149, 38345, 17377, 7756, 26700, 50648, 28781, 45131,
                 32930, 57741, 43440, 8279, 36252, 37564, 5208, 63939, 60381, 54898, 5309, 52263,
                 8129, 63687, 24607, 17421, 13842, 65168, 19878, 1858, 42771, 29529, 42864, 11393,
@@ -17403,19 +18204,21 @@ fn test_containers_complex_test_struct_lengthy_2() {
                 53127, 24570, 1351, 60041, 10141, 50733, 22585, 27020, 46768, 64587, 30330, 3614,
                 38867, 4302, 56844, 2577, 9720, 31358, 57238, 4606, 62412, 10047, 32468, 54981,
                 28023, 18157,
-            ]),
+            ]))
+            .unwrap(),
             c: 253,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 172, b: 7406654203415557862, c: 4220772448 },
             FixedTestStruct { a: 98, b: 7652742876362695881, c: 3808688629 },
             FixedTestStruct { a: 176, b: 1379592184773335083, c: 2839628004 },
             FixedTestStruct { a: 164, b: 4672589617281835669, c: 3697546643 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 32854,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     26507, 48422, 10627, 29169, 6446, 63993, 29607, 17606, 16566, 27942, 63995,
                     63417, 58237, 52524, 3333, 5102, 37152, 65190, 10663, 41459, 53369, 39569,
                     18584, 27659, 53416, 37837, 25086, 58064, 31649, 17763, 3396, 54905, 34611,
@@ -17509,12 +18312,13 @@ fn test_containers_complex_test_struct_lengthy_2() {
                     10378, 39465, 12976, 7651, 3522, 53028, 45197, 50341, 2073, 8573, 54283, 61462,
                     57398, 23815, 30329, 46579, 56128, 39100, 33564, 815, 43447, 52064, 15267,
                     51971, 65051, 30016, 22478, 6546, 31595, 16918,
-                ]),
+                ]))
+                .unwrap(),
                 c: 204,
             },
             VarTestStruct {
                 a: 22202,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     20246, 15055, 42502, 17093, 55470, 65382, 38783, 25117, 52741, 20844, 55981,
                     61541, 57285, 24724, 32960, 26906, 20432, 18098, 12644, 14495, 52894, 62384,
                     41162, 23278, 37046, 6847, 6811, 21813, 11865, 29132, 56418, 51428, 14060,
@@ -17607,10 +18411,12 @@ fn test_containers_complex_test_struct_lengthy_2() {
                     16004, 15616, 46500, 56137, 27463, 3525, 36842, 61201, 41431, 12383, 20610,
                     3294, 48117, 51537, 20952, 11065, 65449, 35293, 51912, 12170, 34695, 11070,
                     6793, 20532, 19955, 11316, 13563, 30394, 11458, 31047, 19931, 38256, 37135,
-                ]),
+                ]))
+                .unwrap(),
                 c: 243,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -17745,7 +18551,7 @@ fn test_containers_bits_struct_nil_9() {
 fn test_containers_var_test_struct_max_7() {
     let mut value = VarTestStruct {
         a: 65535,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -17783,7 +18589,8 @@ fn test_containers_var_test_struct_max_7() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
     };
     let encoding = serialize(&value);
@@ -17805,12 +18612,15 @@ fn test_containers_var_test_struct_max_7() {
 fn test_containers_complex_test_struct_max_chaos_0() {
     let mut value = ComplexTestStruct {
         a: 65535,
-        b: List::<u16, 128>::from_iter([65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535]),
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
+            65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
+        ]))
+        .unwrap(),
         c: 255,
-        d: List::<u8, 256>::from_iter([255]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([255])).unwrap(),
         e: VarTestStruct {
             a: 65535,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -17866,19 +18676,21 @@ fn test_containers_complex_test_struct_max_chaos_0() {
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535,
-            ]),
+            ]))
+            .unwrap(),
             c: 255,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -17953,12 +18765,13 @@ fn test_containers_complex_test_struct_max_chaos_0() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -18032,10 +18845,12 @@ fn test_containers_complex_test_struct_max_chaos_0() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -18098,7 +18913,7 @@ fn test_containers_fixed_test_struct_zero_2() {
 fn test_containers_var_test_struct_max_0() {
     let mut value = VarTestStruct {
         a: 65535,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -18158,7 +18973,8 @@ fn test_containers_var_test_struct_max_0() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
     };
     let encoding = serialize(&value);
@@ -18178,7 +18994,11 @@ fn test_containers_var_test_struct_max_0() {
 
 #[test]
 fn test_containers_var_test_struct_nil_chaos_1() {
-    let mut value = VarTestStruct { a: 35832, b: List::<u16, 1024>::from_iter([]), c: 217 };
+    let mut value = VarTestStruct {
+        a: 35832,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+        c: 217,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_chaos_1/serialized.ssz_snappy",
@@ -18216,7 +19036,7 @@ fn test_containers_small_test_struct_max_chaos_0() {
 fn test_containers_var_test_struct_lengthy_8() {
     let mut value = VarTestStruct {
         a: 12486,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             3523, 47093, 8760, 16683, 5622, 11376, 60724, 43644, 23036, 46199, 9602, 35494, 33105,
             41735, 34010, 37561, 19942, 35756, 16424, 38879, 22, 18089, 7052, 16949, 10183, 51297,
             25324, 43948, 16975, 3912, 26108, 38607, 38494, 52661, 7871, 45283, 4980, 63383, 42754,
@@ -18301,7 +19121,8 @@ fn test_containers_var_test_struct_lengthy_8() {
             15141, 18788, 43179, 39416, 25315, 37569, 32650, 35030, 56705, 55462, 8114, 22370,
             13000, 47608, 51822, 11902, 44005, 49597, 33375, 44066, 30704, 9401, 11854, 26428,
             23333, 62424, 20738,
-        ]),
+        ]))
+        .unwrap(),
         c: 119,
     };
     let encoding = serialize(&value);
@@ -18341,7 +19162,7 @@ fn test_containers_fixed_test_struct_zero_5() {
 fn test_containers_var_test_struct_lengthy_1() {
     let mut value = VarTestStruct {
         a: 21335,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             53687, 9781, 37580, 36287, 56492, 62426, 6786, 16575, 14820, 21314, 43, 42803, 61037,
             55553, 43292, 62549, 23043, 65499, 51093, 2130, 30867, 53292, 54946, 27806, 65429,
             27054, 9468, 28940, 46366, 15787, 21008, 19291, 10097, 14975, 18615, 40454, 40324,
@@ -18425,7 +19246,8 @@ fn test_containers_var_test_struct_lengthy_1() {
             44123, 64962, 61486, 45014, 14782, 29030, 61342, 20843, 63418, 39023, 46959, 41680,
             26702, 10725, 22466, 19641, 29623, 46876, 20714, 33781, 7703, 29365, 46792, 47752,
             44878, 24099, 29164, 65244, 9682, 7327, 51740, 46804, 59564, 65049, 43237, 50717,
-        ]),
+        ]))
+        .unwrap(),
         c: 204,
     };
     let encoding = serialize(&value);
@@ -18445,7 +19267,11 @@ fn test_containers_var_test_struct_lengthy_1() {
 
 #[test]
 fn test_containers_var_test_struct_one_4() {
-    let mut value = VarTestStruct { a: 20579, b: List::<u16, 1024>::from_iter([59691]), c: 90 };
+    let mut value = VarTestStruct {
+        a: 20579,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([59691])).unwrap(),
+        c: 90,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_4/serialized.ssz_snappy",
@@ -18465,7 +19291,7 @@ fn test_containers_var_test_struct_one_4() {
 fn test_containers_var_test_struct_max_9() {
     let mut value = VarTestStruct {
         a: 65535,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -18493,7 +19319,8 @@ fn test_containers_var_test_struct_max_9() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
     };
     let encoding = serialize(&value);
@@ -18553,7 +19380,11 @@ fn test_containers_single_field_test_struct_zero_chaos_0() {
 
 #[test]
 fn test_containers_var_test_struct_one_3() {
-    let mut value = VarTestStruct { a: 22598, b: List::<u16, 1024>::from_iter([37706]), c: 49 };
+    let mut value = VarTestStruct {
+        a: 22598,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([37706])).unwrap(),
+        c: 49,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_3/serialized.ssz_snappy",
@@ -18573,7 +19404,7 @@ fn test_containers_var_test_struct_one_3() {
 fn test_containers_var_test_struct_lengthy_6() {
     let mut value = VarTestStruct {
         a: 64971,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             40774, 45065, 65170, 5097, 16471, 56033, 19897, 27009, 55421, 7846, 18876, 49670,
             13259, 59362, 45667, 64558, 10061, 9596, 31551, 46737, 2639, 18143, 35668, 25923,
             36376, 23629, 57770, 10111, 24001, 7830, 3948, 46498, 21584, 4200, 13663, 33067, 59311,
@@ -18657,7 +19488,8 @@ fn test_containers_var_test_struct_lengthy_6() {
             56366, 43338, 30314, 44804, 46668, 37749, 56160, 21115, 19460, 10844, 39304, 39656,
             48719, 1175, 3569, 23957, 52379, 51340, 45625, 61608, 33272, 9657, 33622, 35346, 23400,
             22480, 1646, 8067, 13352, 45083, 52481, 21408, 42809, 18754, 45494, 31515, 64093,
-        ]),
+        ]))
+        .unwrap(),
         c: 170,
     };
     let encoding = serialize(&value);
@@ -18775,7 +19607,7 @@ fn test_containers_small_test_struct_random_9() {
 fn test_containers_complex_test_struct_lengthy_3() {
     let mut value = ComplexTestStruct {
         a: 18529,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             63901, 56928, 34026, 2156, 25223, 3105, 6521, 1554, 6929, 49447, 40332, 14581, 58068,
             50656, 38716, 52674, 53315, 1274, 28725, 57283, 54985, 42900, 17041, 29905, 9355,
             29080, 11338, 26460, 39893, 32952, 31627, 47885, 39653, 43669, 61148, 24175, 35139,
@@ -18787,9 +19619,10 @@ fn test_containers_complex_test_struct_lengthy_3() {
             47288, 56566, 37186, 16357, 6873, 17867, 37463, 22147, 21676, 18313, 45835, 28832,
             64929, 18024, 10244, 23850, 59303, 15476, 50013, 58404, 35011, 20822, 33373, 15018,
             37081, 32686, 10348, 6024, 16925, 7670,
-        ]),
+        ]))
+        .unwrap(),
         c: 115,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             216, 99, 255, 72, 3, 138, 142, 193, 11, 17, 145, 233, 77, 145, 85, 28, 34, 127, 29, 61,
             122, 40, 183, 43, 90, 45, 191, 54, 133, 175, 8, 205, 202, 106, 175, 98, 192, 144, 80,
             51, 113, 16, 34, 122, 242, 172, 192, 247, 191, 237, 147, 103, 209, 2, 9, 180, 22, 243,
@@ -18804,10 +19637,11 @@ fn test_containers_complex_test_struct_lengthy_3() {
             13, 29, 38, 85, 77, 68, 0, 244, 0, 230, 87, 40, 112, 125, 253, 228, 191, 118, 9, 222,
             229, 99, 252, 223, 108, 42, 58, 158, 114, 87, 156, 25, 19, 230, 97, 159, 31, 228, 14,
             81, 120, 203, 173, 79, 38, 205,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 53960,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 46826, 53336, 61958, 40701, 11464, 48009, 5094, 55856, 47019, 5773, 34808, 1280,
                 36906, 26000, 33514, 48969, 43344, 60399, 64605, 39783, 12575, 22946, 15852, 17658,
                 7594, 56259, 49500, 44084, 34455, 53734, 32112, 4889, 53073, 55294, 43389, 47990,
@@ -18894,19 +19728,21 @@ fn test_containers_complex_test_struct_lengthy_3() {
                 28496, 16381, 53154, 63104, 22801, 22616, 63050, 14219, 60342, 51074, 13573, 15844,
                 22088, 14643, 17402, 106, 5402, 31618, 59747, 51402, 17836, 20401, 45778, 47413,
                 28589, 27934, 61596,
-            ]),
+            ]))
+            .unwrap(),
             c: 245,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 68, b: 12267952658191999941, c: 3332230928 },
             FixedTestStruct { a: 165, b: 3575481553412658987, c: 1650490765 },
             FixedTestStruct { a: 8, b: 1803749896546999, c: 73003565 },
             FixedTestStruct { a: 160, b: 3069288440817187109, c: 408150667 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 24196,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     6603, 61381, 60031, 32094, 36677, 38293, 55950, 26935, 16614, 6433, 56485,
                     23571, 29345, 33299, 48435, 15953, 3887, 19489, 6966, 23769, 5249, 35498,
                     56673, 65359, 45904, 49244, 50016, 18170, 25802, 58453, 57805, 12802, 6275,
@@ -18999,12 +19835,13 @@ fn test_containers_complex_test_struct_lengthy_3() {
                     18539, 6272, 51765, 14088, 50441, 57839, 57923, 2729, 41832, 42585, 32877,
                     32880, 27407, 32477, 23986, 62524, 11648, 55067, 53584, 38608, 61264, 46588,
                     16709, 14076, 19405, 23231, 4669, 43249, 32491, 7084, 11637, 20534,
-                ]),
+                ]))
+                .unwrap(),
                 c: 77,
             },
             VarTestStruct {
                 a: 13681,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     32927, 89, 54050, 61316, 62061, 4741, 59910, 19444, 52741, 17825, 2418, 36474,
                     24003, 39619, 34436, 63177, 61990, 20751, 50912, 30664, 17310, 25980, 10729,
                     37159, 41370, 21825, 5590, 37469, 11877, 39167, 11905, 47632, 9090, 47355,
@@ -19097,10 +19934,12 @@ fn test_containers_complex_test_struct_lengthy_3() {
                     5001, 16431, 48559, 19793, 46702, 28928, 6142, 55123, 28184, 32610, 24205,
                     12377, 2226, 54967, 58959, 40063, 15322, 24326, 57930, 22226, 58064, 11986,
                     35945, 5778, 45623, 23473, 9565, 4478,
-                ]),
+                ]))
+                .unwrap(),
                 c: 218,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -19139,7 +19978,7 @@ fn test_containers_fixed_test_struct_random_6() {
 fn test_containers_complex_test_struct_lengthy_4() {
     let mut value = ComplexTestStruct {
         a: 48787,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             63651, 25468, 28112, 2139, 52666, 19182, 3056, 17197, 52156, 19060, 32580, 13573,
             63047, 24207, 41557, 45706, 33575, 46627, 18858, 15277, 37012, 47099, 8104, 49203,
             39709, 18440, 53782, 21007, 20650, 41629, 39897, 1904, 3740, 35001, 33820, 58300,
@@ -19151,9 +19990,10 @@ fn test_containers_complex_test_struct_lengthy_4() {
             35291, 30803, 27880, 45476, 55152, 2423, 19445, 6783, 2341, 31503, 5800, 14495, 49016,
             11066, 24174, 63436, 60530, 32779, 25878, 6606, 62660, 41328, 43403, 52950, 57542,
             48799, 43090, 51233,
-        ]),
+        ]))
+        .unwrap(),
         c: 251,
-        d: List::<u8, 256>::from_iter([
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([
             243, 71, 196, 235, 129, 42, 248, 4, 106, 147, 98, 119, 217, 86, 132, 168, 213, 208,
             247, 197, 45, 63, 204, 171, 236, 245, 11, 228, 88, 253, 208, 115, 4, 188, 164, 114,
             134, 195, 11, 15, 60, 100, 17, 204, 44, 56, 216, 146, 212, 71, 15, 227, 154, 185, 59,
@@ -19168,10 +20008,11 @@ fn test_containers_complex_test_struct_lengthy_4() {
             206, 88, 136, 249, 136, 8, 35, 106, 38, 187, 96, 165, 196, 110, 49, 255, 167, 111, 242,
             128, 122, 84, 76, 71, 57, 241, 76, 77, 14, 116, 122, 54, 108, 100, 102, 123, 113, 145,
             148, 234, 254, 218, 183, 192, 131, 35, 129, 3,
-        ]),
+        ]))
+        .unwrap(),
         e: VarTestStruct {
             a: 47118,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 13769, 27181, 21999, 27872, 13312, 37953, 35537, 48063, 34708, 12121, 28120, 8712,
                 45195, 29110, 64446, 58868, 58981, 31734, 25965, 54092, 59080, 58338, 46482, 7954,
                 4988, 44055, 13561, 64688, 54718, 24316, 44476, 63591, 53370, 26610, 64852, 9374,
@@ -19258,19 +20099,21 @@ fn test_containers_complex_test_struct_lengthy_4() {
                 4671, 16098, 35410, 28018, 39360, 5544, 62954, 46800, 5840, 37200, 45002, 26000,
                 5756, 39350, 30234, 7271, 6069, 8814, 36617, 28810, 33454, 37891, 33114, 42716,
                 27751, 48298, 41031,
-            ]),
+            ]))
+            .unwrap(),
             c: 244,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 200, b: 8265131358398570295, c: 617210979 },
             FixedTestStruct { a: 238, b: 8877155163157513854, c: 493753517 },
             FixedTestStruct { a: 34, b: 623966954658313443, c: 2195408706 },
             FixedTestStruct { a: 141, b: 3004917036006819299, c: 4005898075 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 27169,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     13476, 8731, 12406, 26506, 13077, 43721, 23620, 51444, 31912, 58628, 51040,
                     40192, 12107, 49373, 14331, 15864, 17108, 56237, 2543, 64324, 20578, 49753,
                     32572, 10336, 53290, 10272, 42486, 17078, 19301, 39237, 19441, 43151, 63151,
@@ -19363,12 +20206,13 @@ fn test_containers_complex_test_struct_lengthy_4() {
                     24266, 58032, 11189, 47716, 667, 34439, 62701, 43402, 33363, 47316, 49365, 19,
                     48751, 6308, 42632, 60566, 59286, 33097, 43957, 46536, 63636, 11200, 55992,
                     16180, 60914, 17449, 53775, 45714, 50182, 60378, 6398, 5835, 49615, 59504,
-                ]),
+                ]))
+                .unwrap(),
                 c: 128,
             },
             VarTestStruct {
                 a: 37367,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     18679, 53715, 58115, 9575, 49591, 6276, 24431, 11709, 37558, 11479, 43534,
                     11388, 32866, 63174, 52726, 31409, 59501, 47148, 42776, 14724, 53809, 36799,
                     6439, 31809, 11623, 60009, 12746, 4383, 45501, 17740, 34659, 7578, 26103,
@@ -19462,10 +20306,12 @@ fn test_containers_complex_test_struct_lengthy_4() {
                     57450, 17000, 22661, 33653, 64317, 27181, 11772, 28839, 26920, 12973, 36465,
                     54185, 14147, 18999, 32165, 2930, 7374, 17055, 62553, 65086, 6320, 44467,
                     20066, 21018,
-                ]),
+                ]))
+                .unwrap(),
                 c: 182,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -19502,7 +20348,11 @@ fn test_containers_fixed_test_struct_random_1() {
 
 #[test]
 fn test_containers_var_test_struct_one_2() {
-    let mut value = VarTestStruct { a: 31642, b: List::<u16, 1024>::from_iter([59815]), c: 220 };
+    let mut value = VarTestStruct {
+        a: 31642,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([59815])).unwrap(),
+        c: 220,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_2/serialized.ssz_snappy",
@@ -19522,7 +20372,7 @@ fn test_containers_var_test_struct_one_2() {
 fn test_containers_var_test_struct_lengthy_7() {
     let mut value = VarTestStruct {
         a: 41770,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             58939, 21346, 39284, 62459, 30183, 41116, 8063, 63486, 50992, 6541, 49668, 60143,
             38467, 26826, 12182, 37815, 18526, 17712, 33594, 12022, 16696, 19151, 44382, 31811,
             20482, 42567, 20900, 54855, 16896, 27407, 46202, 42501, 10659, 30202, 9054, 1340,
@@ -19606,7 +20456,8 @@ fn test_containers_var_test_struct_lengthy_7() {
             10300, 20493, 41130, 11947, 40310, 57510, 22455, 8054, 27136, 58481, 49567, 2032, 131,
             44782, 12937, 54439, 61512, 61524, 62347, 8736, 50916, 12666, 27574, 40709, 35405,
             64670, 55436, 14262, 6434, 58879, 11548, 40304, 47497, 28882,
-        ]),
+        ]))
+        .unwrap(),
         c: 7,
     };
     let encoding = serialize(&value);
@@ -19668,7 +20519,7 @@ fn test_containers_bits_struct_nil_1() {
 fn test_containers_var_test_struct_lengthy_0() {
     let mut value = VarTestStruct {
         a: 61133,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             44799, 46899, 35617, 2513, 17201, 21580, 57273, 28701, 30553, 35793, 59421, 11954,
             25224, 53647, 44148, 32486, 32787, 38825, 55960, 14124, 5436, 6271, 37644, 17073, 1647,
             11970, 48613, 16312, 37044, 28512, 28997, 42195, 53588, 53237, 24620, 55210, 12722,
@@ -19752,7 +20603,8 @@ fn test_containers_var_test_struct_lengthy_0() {
             4740, 15048, 62600, 55829, 33728, 25875, 51560, 9179, 45812, 33643, 29598, 61649,
             32544, 58587, 39751, 17154, 50990, 52370, 11105, 42906, 1106, 45270, 7179, 41296,
             27211, 3819, 45601, 442, 38230, 21488, 34297,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
     };
     let encoding = serialize(&value);
@@ -19772,7 +20624,11 @@ fn test_containers_var_test_struct_lengthy_0() {
 
 #[test]
 fn test_containers_var_test_struct_one_5() {
-    let mut value = VarTestStruct { a: 48023, b: List::<u16, 1024>::from_iter([8630]), c: 216 };
+    let mut value = VarTestStruct {
+        a: 48023,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([8630])).unwrap(),
+        c: 216,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_one_5/serialized.ssz_snappy",
@@ -19792,7 +20648,7 @@ fn test_containers_var_test_struct_one_5() {
 fn test_containers_var_test_struct_max_8() {
     let mut value = VarTestStruct {
         a: 65535,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -19849,7 +20705,8 @@ fn test_containers_var_test_struct_max_8() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
     };
     let encoding = serialize(&value);
@@ -19895,7 +20752,7 @@ fn test_containers_bits_struct_nil_6() {
 fn test_containers_complex_test_struct_max() {
     let mut value = ComplexTestStruct {
         a: 65535,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -19903,12 +20760,13 @@ fn test_containers_complex_test_struct_max() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
-        d: List::<u8, 256>::from_iter([255]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([255])).unwrap(),
         e: VarTestStruct {
             a: 65535,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -19941,24 +20799,27 @@ fn test_containers_complex_test_struct_max() {
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-            ]),
+            ]))
+            .unwrap(),
             c: 255,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([65535, 65535, 65535, 65535]),
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([65535, 65535, 65535, 65535]))
+                    .unwrap(),
                 c: 255,
             },
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -19968,10 +20829,12 @@ fn test_containers_complex_test_struct_max() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -19992,7 +20855,7 @@ fn test_containers_complex_test_struct_max() {
 fn test_containers_var_test_struct_max_1() {
     let mut value = VarTestStruct {
         a: 65535,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -20064,7 +20927,8 @@ fn test_containers_var_test_struct_max_1() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
     };
     let encoding = serialize(&value);
@@ -20102,7 +20966,11 @@ fn test_containers_small_test_struct_max_chaos_1() {
 
 #[test]
 fn test_containers_var_test_struct_nil_chaos_0() {
-    let mut value = VarTestStruct { a: 4227, b: List::<u16, 1024>::from_iter([]), c: 44 };
+    let mut value = VarTestStruct {
+        a: 4227,
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
+        c: 44,
+    };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/VarTestStruct_nil_chaos_0/serialized.ssz_snappy",
@@ -20140,7 +21008,7 @@ fn test_containers_fixed_test_struct_zero_4() {
 fn test_containers_var_test_struct_lengthy_9() {
     let mut value = VarTestStruct {
         a: 2619,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             13129, 9486, 51703, 31906, 60795, 3512, 38232, 36482, 19605, 10895, 45636, 37364,
             49145, 33325, 53503, 8438, 42185, 51736, 50109, 42235, 14239, 7631, 8454, 38760, 62033,
             27601, 33010, 12512, 35438, 41144, 10642, 10111, 54718, 63609, 42996, 4237, 51836,
@@ -20224,7 +21092,8 @@ fn test_containers_var_test_struct_lengthy_9() {
             26630, 59991, 9811, 48392, 55311, 10213, 22429, 49206, 13490, 28024, 19825, 40667,
             33410, 46593, 61388, 55828, 44803, 31390, 50249, 12082, 19999, 35852, 58712, 18604,
             49444, 28003, 60416, 25427, 48361, 40637, 20340,
-        ]),
+        ]))
+        .unwrap(),
         c: 185,
     };
     let encoding = serialize(&value);
@@ -20246,15 +21115,16 @@ fn test_containers_var_test_struct_lengthy_9() {
 fn test_containers_complex_test_struct_max_chaos_1() {
     let mut value = ComplexTestStruct {
         a: 65535,
-        b: List::<u16, 128>::from_iter([
+        b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
-        d: List::<u8, 256>::from_iter([255]),
+        d: List::<u8, 256>::try_from(Vec::<u8>::from_iter([255])).unwrap(),
         e: VarTestStruct {
             a: 65535,
-            b: List::<u16, 1024>::from_iter([
+            b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -20321,19 +21191,21 @@ fn test_containers_complex_test_struct_max_chaos_1() {
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-            ]),
+            ]))
+            .unwrap(),
             c: 255,
         },
-        f: Vector::<FixedTestStruct, 4>::from_iter([
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
             FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 },
-        ]),
-        g: Vector::<VarTestStruct, 2>::from_iter([
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -20412,12 +21284,13 @@ fn test_containers_complex_test_struct_max_chaos_1() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
             VarTestStruct {
                 a: 65535,
-                b: List::<u16, 1024>::from_iter([
+                b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -20458,10 +21331,12 @@ fn test_containers_complex_test_struct_max_chaos_1() {
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
                     65535, 65535, 65535, 65535, 65535,
-                ]),
+                ]))
+                .unwrap(),
                 c: 255,
             },
-        ]),
+        ])
+        .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -20530,7 +21405,7 @@ fn test_containers_bits_struct_nil_8() {
 fn test_containers_var_test_struct_max_6() {
     let mut value = VarTestStruct {
         a: 65535,
-        b: List::<u16, 1024>::from_iter([
+        b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -20558,7 +21433,8 @@ fn test_containers_var_test_struct_max_6() {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535,
-        ]),
+        ]))
+        .unwrap(),
         c: 255,
     };
     let encoding = serialize(&value);
@@ -20620,12 +21496,26 @@ fn test_containers_bits_struct_one_chaos_2() {
 
 #[test]
 #[should_panic]
-fn test_containers_bits_struct_offset_6_zeroed() {
-    let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/containers/invalid/BitsStruct_offset_6_zeroed/serialized.ssz_snappy",
-    );
+fn test_containers_bits_struct_lengthy_offset_6_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_lengthy_offset_6_plus_one/serialized.ssz_snappy");
 
     deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_var_test_struct_one_offset_2_minus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/VarTestStruct_one_offset_2_minus_one/serialized.ssz_snappy");
+
+    deserialize::<VarTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_var_test_struct_nil_offset_2_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/VarTestStruct_nil_offset_2_plus_one/serialized.ssz_snappy");
+
+    deserialize::<VarTestStruct>(&encoding);
 }
 
 #[test]
@@ -20640,53 +21530,49 @@ fn test_containers_bits_struct_extra_byte() {
 
 #[test]
 #[should_panic]
-fn test_containers_complex_test_struct_offset_7_plus_one() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_offset_7_plus_one/serialized.ssz_snappy");
-
-    deserialize::<ComplexTestStruct>(&encoding);
-}
-
-#[test]
-#[should_panic]
-fn test_containers_complex_test_struct_offset_2_zeroed() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_offset_2_zeroed/serialized.ssz_snappy");
-
-    deserialize::<ComplexTestStruct>(&encoding);
-}
-
-#[test]
-#[should_panic]
-fn test_containers_complex_test_struct_offset_11_plus_one() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_offset_11_plus_one/serialized.ssz_snappy");
-
-    deserialize::<ComplexTestStruct>(&encoding);
-}
-
-#[test]
-#[should_panic]
-fn test_containers_bits_struct_offset_6_plus_one() {
-    let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/containers/invalid/BitsStruct_offset_6_plus_one/serialized.ssz_snappy",
-    );
-
-    deserialize::<BitsStruct>(&encoding);
-}
-
-#[test]
-#[should_panic]
-fn test_containers_var_test_struct_offset_2_zeroed() {
-    let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/containers/invalid/VarTestStruct_offset_2_zeroed/serialized.ssz_snappy",
-    );
+fn test_containers_var_test_struct_random_offset_2_minus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/VarTestStruct_random_offset_2_minus_one/serialized.ssz_snappy");
 
     deserialize::<VarTestStruct>(&encoding);
 }
 
 #[test]
 #[should_panic]
-fn test_containers_bits_struct_offset_10_zeroed() {
+fn test_containers_complex_test_struct_nil_offset_7_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_nil_offset_7_plus_one/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_nil_offset_11_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_nil_offset_11_plus_one/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_lengthy_offset_11_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_lengthy_offset_11_zeroed/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_lengthy_last_offset_0_overflow() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_lengthy_last_offset_0_overflow/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_one_offset_6_zeroed() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/containers/invalid/BitsStruct_offset_10_zeroed/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/invalid/BitsStruct_one_offset_6_zeroed/serialized.ssz_snappy",
     );
 
     deserialize::<BitsStruct>(&encoding);
@@ -20694,20 +21580,160 @@ fn test_containers_bits_struct_offset_10_zeroed() {
 
 #[test]
 #[should_panic]
-fn test_containers_bits_struct_offset_0_plus_one() {
-    let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/containers/invalid/BitsStruct_offset_0_plus_one/serialized.ssz_snappy",
-    );
+fn test_containers_bits_struct_one_last_offset_10_wrong_byte_length() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_one_last_offset_10_wrong_byte_length/serialized.ssz_snappy");
 
     deserialize::<BitsStruct>(&encoding);
 }
 
 #[test]
 #[should_panic]
-fn test_containers_bits_struct_offset_0_zeroed() {
-    let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/containers/invalid/BitsStruct_offset_0_zeroed/serialized.ssz_snappy",
-    );
+fn test_containers_complex_test_struct_lengthy_last_offset_7_overflow() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_lengthy_last_offset_7_overflow/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_one_last_offset_7_wrong_byte_length() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_one_last_offset_7_wrong_byte_length/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_random_offset_2_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_random_offset_2_plus_one/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_var_test_struct_random_offset_2_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/VarTestStruct_random_offset_2_zeroed/serialized.ssz_snappy");
+
+    deserialize::<VarTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_lengthy_offset_2_minus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_lengthy_offset_2_minus_one/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_random_offset_0_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_random_offset_0_zeroed/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_nil_offset_7_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_nil_offset_7_zeroed/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_one_last_offset_2_wrong_byte_length() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_one_last_offset_2_wrong_byte_length/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_var_test_struct_one_offset_2_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/VarTestStruct_one_offset_2_zeroed/serialized.ssz_snappy");
+
+    deserialize::<VarTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_var_test_struct_lengthy_offset_2_minus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/VarTestStruct_lengthy_offset_2_minus_one/serialized.ssz_snappy");
+
+    deserialize::<VarTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_nil_offset_0_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_nil_offset_0_plus_one/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_one_offset_6_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_one_offset_6_plus_one/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_random_offset_11_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_random_offset_11_zeroed/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_one_offset_2_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_one_offset_2_zeroed/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_lengthy_offset_2_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_lengthy_offset_2_plus_one/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_one_offset_2_minus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_one_offset_2_minus_one/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_one_offset_0_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_one_offset_0_plus_one/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_nil_offset_6_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_nil_offset_6_plus_one/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_lengthy_offset_0_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_lengthy_offset_0_plus_one/serialized.ssz_snappy");
 
     deserialize::<BitsStruct>(&encoding);
 }
@@ -20724,9 +21750,49 @@ fn test_containers_small_test_struct_extra_byte() {
 
 #[test]
 #[should_panic]
-fn test_containers_bits_struct_offset_10_plus_one() {
+fn test_containers_var_test_struct_one_offset_2_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/VarTestStruct_one_offset_2_plus_one/serialized.ssz_snappy");
+
+    deserialize::<VarTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_lengthy_last_offset_10_overflow() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_lengthy_last_offset_10_overflow/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_lengthy_offset_7_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_lengthy_offset_7_zeroed/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_random_offset_6_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_random_offset_6_zeroed/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_one_offset_7_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_one_offset_7_plus_one/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_one_offset_0_zeroed() {
     let encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/containers/invalid/BitsStruct_offset_10_plus_one/serialized.ssz_snappy",
+        "ssz-rs/tests/data/containers/invalid/BitsStruct_one_offset_0_zeroed/serialized.ssz_snappy",
     );
 
     deserialize::<BitsStruct>(&encoding);
@@ -20744,10 +21810,154 @@ fn test_containers_var_test_struct_extra_byte() {
 
 #[test]
 #[should_panic]
-fn test_containers_var_test_struct_offset_2_plus_one() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/VarTestStruct_offset_2_plus_one/serialized.ssz_snappy");
+fn test_containers_bits_struct_nil_offset_0_minus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_nil_offset_0_minus_one/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_lengthy_last_offset_6_overflow() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_lengthy_last_offset_6_overflow/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_random_offset_2_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_random_offset_2_zeroed/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_nil_offset_10_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_nil_offset_10_plus_one/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_random_offset_11_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_random_offset_11_plus_one/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_one_last_offset_6_wrong_byte_length() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_one_last_offset_6_wrong_byte_length/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_lengthy_offset_7_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_lengthy_offset_7_plus_one/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_lengthy_offset_2_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_lengthy_offset_2_zeroed/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_lengthy_offset_10_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_lengthy_offset_10_zeroed/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_nil_offset_10_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_nil_offset_10_zeroed/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_random_offset_7_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_random_offset_7_zeroed/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_lengthy_offset_6_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_lengthy_offset_6_zeroed/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_var_test_struct_lengthy_offset_2_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/VarTestStruct_lengthy_offset_2_zeroed/serialized.ssz_snappy");
 
     deserialize::<VarTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_lengthy_offset_0_minus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_lengthy_offset_0_minus_one/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_nil_offset_2_minus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_nil_offset_2_minus_one/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_lengthy_offset_10_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_lengthy_offset_10_plus_one/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_lengthy_last_offset_11_overflow() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_lengthy_last_offset_11_overflow/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_random_offset_0_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_random_offset_0_plus_one/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_one_last_offset_11_wrong_byte_length() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_one_last_offset_11_wrong_byte_length/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
 }
 
 #[test]
@@ -20762,6 +21972,30 @@ fn test_containers_fixed_test_struct_extra_byte() {
 
 #[test]
 #[should_panic]
+fn test_containers_complex_test_struct_lengthy_offset_11_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_lengthy_offset_11_plus_one/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_one_offset_2_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_one_offset_2_plus_one/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_var_test_struct_one_last_offset_2_wrong_byte_length() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/VarTestStruct_one_last_offset_2_wrong_byte_length/serialized.ssz_snappy");
+
+    deserialize::<VarTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
 fn test_containers_single_field_test_struct_extra_byte() {
     let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/SingleFieldTestStruct_extra_byte/serialized.ssz_snappy");
 
@@ -20770,26 +22004,142 @@ fn test_containers_single_field_test_struct_extra_byte() {
 
 #[test]
 #[should_panic]
-fn test_containers_complex_test_struct_offset_2_plus_one() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_offset_2_plus_one/serialized.ssz_snappy");
+fn test_containers_bits_struct_nil_offset_6_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data(
+        "ssz-rs/tests/data/containers/invalid/BitsStruct_nil_offset_6_zeroed/serialized.ssz_snappy",
+    );
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_var_test_struct_nil_offset_2_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/VarTestStruct_nil_offset_2_zeroed/serialized.ssz_snappy");
+
+    deserialize::<VarTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_random_offset_10_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_random_offset_10_zeroed/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_var_test_struct_lengthy_offset_2_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/VarTestStruct_lengthy_offset_2_plus_one/serialized.ssz_snappy");
+
+    deserialize::<VarTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_one_offset_0_minus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_one_offset_0_minus_one/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_one_offset_7_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_one_offset_7_zeroed/serialized.ssz_snappy");
 
     deserialize::<ComplexTestStruct>(&encoding);
 }
 
 #[test]
 #[should_panic]
-fn test_containers_complex_test_struct_offset_11_zeroed() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_offset_11_zeroed/serialized.ssz_snappy");
+fn test_containers_bits_struct_one_offset_10_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_one_offset_10_zeroed/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_one_offset_10_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_one_offset_10_plus_one/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_var_test_struct_nil_offset_2_minus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/VarTestStruct_nil_offset_2_minus_one/serialized.ssz_snappy");
+
+    deserialize::<VarTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_nil_offset_2_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_nil_offset_2_plus_one/serialized.ssz_snappy");
 
     deserialize::<ComplexTestStruct>(&encoding);
 }
 
 #[test]
 #[should_panic]
-fn test_containers_complex_test_struct_offset_7_zeroed() {
-    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_offset_7_zeroed/serialized.ssz_snappy");
+fn test_containers_complex_test_struct_nil_offset_2_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_nil_offset_2_zeroed/serialized.ssz_snappy");
 
     deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_lengthy_offset_0_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_lengthy_offset_0_zeroed/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_one_offset_11_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_one_offset_11_plus_one/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_one_offset_11_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_one_offset_11_zeroed/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_nil_offset_11_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_nil_offset_11_zeroed/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_random_offset_2_minus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_random_offset_2_minus_one/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_nil_offset_0_zeroed() {
+    let encoding = read_ssz_snappy_from_test_data(
+        "ssz-rs/tests/data/containers/invalid/BitsStruct_nil_offset_0_zeroed/serialized.ssz_snappy",
+    );
+
+    deserialize::<BitsStruct>(&encoding);
 }
 
 #[test]
@@ -20800,4 +22150,68 @@ fn test_containers_complex_test_struct_extra_byte() {
     );
 
     deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_random_offset_7_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_random_offset_7_plus_one/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_complex_test_struct_lengthy_last_offset_2_overflow() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/ComplexTestStruct_lengthy_last_offset_2_overflow/serialized.ssz_snappy");
+
+    deserialize::<ComplexTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_random_offset_6_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_random_offset_6_plus_one/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_one_last_offset_0_wrong_byte_length() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_one_last_offset_0_wrong_byte_length/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_var_test_struct_lengthy_last_offset_2_overflow() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/VarTestStruct_lengthy_last_offset_2_overflow/serialized.ssz_snappy");
+
+    deserialize::<VarTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_random_offset_10_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_random_offset_10_plus_one/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_var_test_struct_random_offset_2_plus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/VarTestStruct_random_offset_2_plus_one/serialized.ssz_snappy");
+
+    deserialize::<VarTestStruct>(&encoding);
+}
+
+#[test]
+#[should_panic]
+fn test_containers_bits_struct_random_offset_0_minus_one() {
+    let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_random_offset_0_minus_one/serialized.ssz_snappy");
+
+    deserialize::<BitsStruct>(&encoding);
 }

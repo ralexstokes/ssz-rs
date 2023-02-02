@@ -1,6 +1,6 @@
 use crate::{
     de::{deserialize_homogeneous_composite, Deserialize, DeserializeError},
-    error::InstanceError,
+    error::{Error, InstanceError},
     lib::*,
     merkleization::{
         merkleize, mix_in_length, pack, MerkleCache, MerkleizationError, Merkleized, Node,
@@ -16,7 +16,7 @@ use serde::ser::SerializeSeq;
 use std::marker::PhantomData;
 
 /// A homogenous collection of a variable number of values.
-#[derive(Clone, Default)]
+#[derive(Clone)]
 pub struct List<T: SimpleSerialize, const N: usize> {
     data: Vec<T>,
     cache: MerkleCache,
@@ -65,7 +65,7 @@ impl<'de, T: SimpleSerialize + serde::de::Deserialize<'de>, const N: usize> serd
         D: serde::Deserializer<'de>,
     {
         let data = deserializer.deserialize_seq(ListVisitor(PhantomData))?;
-        List::<T, N>::try_from(data).map_err(serde::de::Error::custom)
+        List::<T, N>::try_from(data).map_err(|(_, err)| serde::de::Error::custom(err))
     }
 }
 
@@ -88,6 +88,20 @@ where
     }
 }
 
+impl<T, const N: usize> Default for List<T, N>
+where
+    T: SimpleSerialize + Default,
+{
+    fn default() -> Self {
+        let data = vec![];
+        match Self::try_from(data) {
+            Ok(result) => result,
+            // TODO: not ideal to panic here...
+            Err((_, err)) => panic!("{err}"),
+        }
+    }
+}
+
 impl<T, const N: usize> PartialEq for List<T, N>
 where
     T: SimpleSerialize + PartialEq,
@@ -103,11 +117,12 @@ impl<T, const N: usize> TryFrom<Vec<T>> for List<T, N>
 where
     T: SimpleSerialize,
 {
-    type Error = InstanceError;
+    type Error = (Vec<T>, Error);
 
     fn try_from(data: Vec<T>) -> Result<Self, Self::Error> {
         if data.len() > N {
-            Err(InstanceError::Bounded { bound: N, provided: data.len() })
+            let len = data.len();
+            Err((data, Error::Instance(InstanceError::Bounded { bound: N, provided: len })))
         } else {
             let leaf_count = Self::get_leaf_count(data.len());
             Ok(Self { data, cache: MerkleCache::with_leaves(leaf_count) })
@@ -189,7 +204,11 @@ where
         if result.len() > N {
             return Err(InstanceError::Bounded { bound: N, provided: result.len() }.into())
         }
-        Ok(result.try_into().unwrap())
+        let result = result.try_into().map_err(|(_, err)| match err {
+            Error::Instance(err) => DeserializeError::InvalidInstance(err),
+            _ => unreachable!("no other error variant allowed here"),
+        })?;
+        Ok(result)
     }
 }
 
@@ -308,18 +327,6 @@ where
     }
 }
 
-impl<T, const N: usize> FromIterator<T> for List<T, N>
-where
-    T: SimpleSerialize,
-{
-    fn from_iter<I>(iter: I) -> Self
-    where
-        I: IntoIterator<Item = T>,
-    {
-        // TODO: this should be `try_from` the iter...
-        Vec::from_iter(iter.into_iter().take(N)).try_into().unwrap()
-    }
-}
 
 #[cfg(test)]
 mod tests {

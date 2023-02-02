@@ -51,6 +51,9 @@ impl Display for MerkleizationError {
     }
 }
 
+#[cfg(feature = "std")]
+impl std::error::Error for MerkleizationError {}
+
 pub fn pack_bytes(buffer: &mut Vec<u8>) {
     let data_len = buffer.len();
     if data_len % BYTES_PER_CHUNK != 0 {
@@ -386,7 +389,7 @@ mod tests {
 
     #[test]
     fn test_hash_tree_root_of_list() {
-        let mut a_list = List::<u16, 1024>::from_iter([
+        let mut a_list = List::<u16, 1024>::try_from(vec![
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -414,14 +417,15 @@ mod tests {
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535,
-        ]);
+        ])
+        .unwrap();
         let root = a_list.hash_tree_root().expect("can compute root");
         assert_eq!(root, hex!("d20d2246e1438d88de46f6f41c7b041f92b673845e51f2de93b944bf599e63b1"));
     }
 
     #[test]
     fn test_hash_tree_root_of_empty_list() {
-        let mut a_list = List::<u16, 1024>::from_iter([]);
+        let mut a_list = List::<u16, 1024>::try_from(vec![]).unwrap();
         let root = a_list.hash_tree_root().expect("can compute root");
         assert_eq!(root, hex!("c9eece3e14d3c3db45c38bbf69a4cb7464981e2506d8424a0ba450dad9b9af30"));
     }
@@ -453,16 +457,16 @@ mod tests {
 
         let mut foo = Foo {
             a: 16u32,
-            b: Vector::from_iter([3u32, 2u32, 1u32, 10u32]),
+            b: Vector::try_from(vec![3u32, 2u32, 1u32, 10u32]).unwrap(),
             c: true,
             d: Bitlist::from_iter([
                 true, false, false, true, true, false, true, false, true, true, false, false, true,
                 true, false, true, false, true, true, false, false, true, true, false, true, false,
                 true,
             ]),
-            e: Bar::B(List::from_iter([true, true, false, false, false, true])),
+            e: Bar::B(List::try_from(vec![true, true, false, false, false, true]).unwrap()),
             f: Bitvector::from_iter([false, true, false, true]),
-            g: List::from_iter([1, 2]),
+            g: List::try_from(vec![1, 2]).unwrap(),
         };
 
         let root = foo.hash_tree_root().expect("can make root");

@@ -25,14 +25,14 @@ struct Foo<const N: usize> {
 fn main() {
     let mut example: Foo<4> = Foo {
         a: 16u32,
-        b: Vector::from_iter([3u32, 2u32, 1u32, 10u32]),
+        b: Vector::try_from(vec![3u32, 2u32, 1u32, 10u32]).unwrap(),
         c: true,
         d: Bitlist::from_iter([
             true, false, false, true, true, false, true, false, true, true, false, false, true,
             true, false, true, false, true, true, false, false, true, true, false, true, false,
             true,
         ]),
-        e: Bar::B(List::from_iter([true, true, false, false, false, true])),
+        e: Bar::B(List::try_from(vec![true, true, false, false, false, true]).unwrap()),
         f: Bitvector::from_iter([false, true, false, true]),
     };
 
