@@ -1,4 +1,6 @@
 mod cache;
+pub mod field_inspect;
+mod generalized_index;
 mod node;
 mod proofs;
 
@@ -9,8 +11,13 @@ use crate::{
 use sha2::{Digest, Sha256};
 
 pub use cache::Cache as MerkleCache;
+pub use field_inspect::*;
+pub use generalized_index::*;
 pub use node::Node;
-pub use proofs::is_valid_merkle_branch;
+pub use proofs::{
+    calculate_merkle_root, calculate_multi_merkle_root, generate_proof, is_valid_merkle_branch,
+    verify_merkle_multiproof, verify_merkle_proof,
+};
 
 pub(crate) const BYTES_PER_CHUNK: usize = 32;
 
@@ -23,6 +30,7 @@ pub trait Merkleized {
 pub enum MerkleizationError {
     SerializationError(SerializeError),
     InputExceedsLimit(usize),
+    CannotMerkleize,
 }
 
 impl From<SerializeError> for MerkleizationError {
@@ -37,6 +45,7 @@ impl Display for MerkleizationError {
             Self::SerializationError(err) => {
                 write!(f, "failed to serialize value: {err}")
             }
+            Self::CannotMerkleize => write!(f, "cannot generate proofs for a basic/union type!"),
             Self::InputExceedsLimit(size) => write!(f, "data exceeds the declared limit {size}"),
         }
     }
@@ -120,7 +129,9 @@ fn merkleize_chunks_with_virtual_padding(
     let mut layer = chunks.to_vec();
     let mut last_index = chunk_count - 1;
     for k in (1..height).rev() {
+        // for each layer
         for i in (0..2usize.pow(k)).step_by(2) {
+            // step through each node pairs
             let parent_index = i / 2;
             match i.cmp(&last_index) {
                 Ordering::Less => {
@@ -179,6 +190,30 @@ pub fn merkleize(chunks: &[u8], limit: Option<usize>) -> Result<Node, Merkleizat
         leaf_count = limit.next_power_of_two();
     }
     merkleize_chunks_with_virtual_padding(chunks, leaf_count)
+}
+
+/// Return an array representing the tree nodes by generalized index:
+/// [0, 1, 2, 3, 4, 5, 6, 7], where each layer is a power of 2. The 0 index is ignored. The 1 index
+/// is the root. The result will be twice the size as the padded bottom layer for the input leaves.
+pub fn merkleize_to_virtual_tree(leaves: Vec<Node>) -> Vec<Node> {
+    let mut hasher = Sha256::new();
+    let leaves_len = leaves.len();
+    let bottom_len = leaves_len.next_power_of_two();
+    let padding = bottom_len - leaves_len;
+    let mut out = (0..bottom_len)
+        .map(|_| Node::default())
+        .chain(leaves.into_iter())
+        .chain((0..padding).map(|_| Node::default()))
+        .collect::<Vec<_>>();
+
+    for i in (0..bottom_len).rev() {
+        hasher.update(&out[i * 2]);
+        hasher.update(&out[i * 2 + 1]);
+        out[i] =
+            hasher.finalize_reset().as_slice().try_into().expect("SHA256 digest size is 32; qed");
+    }
+
+    out
 }
 
 fn mix_in_decoration(root: &Node, mut decoration: usize) -> Node {
@@ -319,14 +354,23 @@ mod tests {
     fn test_merkleize_chunks() {
         let chunks = vec![1u8; 3 * BYTES_PER_CHUNK];
         let root = merkleize_chunks_with_virtual_padding(&chunks, 4).expect("can merkleize");
+        let nodes = (0..3).map(|_| Node([1u8; 32])).collect::<Vec<_>>();
+        let calculated = merkleize_to_virtual_tree(nodes);
+        assert_eq!(root, calculated[1]);
         assert_eq!(root, hex!("65aa94f2b59e517abd400cab655f42821374e433e41b8fe599f6bb15484adcec"));
 
         let chunks = vec![1u8; 5 * BYTES_PER_CHUNK];
         let root = merkleize_chunks_with_virtual_padding(&chunks, 8).expect("can merkleize");
+        let nodes = (0..5).map(|_| Node([1u8; 32])).collect::<Vec<_>>();
+        let calculated = merkleize_to_virtual_tree(nodes);
+        assert_eq!(root, calculated[1]);
         assert_eq!(root, hex!("0ae67e34cba4ad2bbfea5dc39e6679b444021522d861fab00f05063c54341289"));
 
         let chunks = vec![1u8; 6 * BYTES_PER_CHUNK];
         let root = merkleize_chunks_with_virtual_padding(&chunks, 8).expect("can merkleize");
+        let nodes = (0..6).map(|_| Node([1u8; 32])).collect::<Vec<_>>();
+        let calculated = merkleize_to_virtual_tree(nodes);
+        assert_eq!(root, calculated[1]);
         assert_eq!(root, hex!("0ef7df63c204ef203d76145627b8083c49aa7c55ebdee2967556f55a4f65a238"));
     }
 

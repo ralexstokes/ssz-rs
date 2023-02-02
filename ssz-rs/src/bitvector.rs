@@ -2,9 +2,9 @@ use crate::{
     de::{Deserialize, DeserializeError},
     error::TypeError,
     lib::*,
-    merkleization::{merkleize, pack_bytes, MerkleizationError, Merkleized, Node},
+    merkleization::{merkleize, pack_bytes, MerkleizationError, Merkleized, Node, SszReflect},
     ser::{Serialize, SerializeError},
-    SimpleSerialize, Sized,
+    ElementsType, SimpleSerialize, Sized, SszTypeClass,
 };
 use bitvec::{
     field::BitField,
@@ -193,6 +193,20 @@ impl<const N: usize> Merkleized for Bitvector<N> {
 }
 
 impl<const N: usize> SimpleSerialize for Bitvector<N> {}
+
+impl<const N: usize> SszReflect for Bitvector<N> {
+    fn ssz_type_class(&self) -> SszTypeClass {
+        SszTypeClass::Bits(ElementsType::Vector)
+    }
+
+    fn list_elem_type(&self) -> Option<&dyn SszReflect> {
+        Some(&0u8)
+    }
+
+    fn list_length(&self) -> Option<usize> {
+        Some(self.len())
+    }
+}
 
 impl<const N: usize> FromIterator<bool> for Bitvector<N> {
     // NOTE: only takes the first `N` values from `iter` and

@@ -1,6 +1,5 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
-#[cfg(not(feature = "std"))]
 extern crate alloc;
 
 mod array;
@@ -25,7 +24,11 @@ pub use bitvector::Bitvector;
 pub use de::{Deserialize, DeserializeError};
 pub use error::Error;
 pub use list::List;
-pub use merkleization::{MerkleizationError, Merkleized, Node};
+pub use merkleization::{
+    calculate_merkle_root, calculate_multi_merkle_root, field_inspect, generate_proof,
+    get_generalized_index, is_valid_merkle_branch, verify_merkle_multiproof, verify_merkle_proof,
+    GeneralizedIndex, MerkleizationError, Merkleized, Node, SszReflect, SszVariableOrIndex,
+};
 pub use ser::{Serialize, SerializeError};
 pub use uint::U256;
 pub use utils::*;
@@ -61,11 +64,29 @@ mod lib {
 
 /// `Sized` is a trait for types that can
 /// provide sizing information relevant for the SSZ spec.
-pub trait Sized {
+pub trait Sized
+where
+    Self: core::marker::Sized,
+{
     // is this type variable or fixed size?
     fn is_variable_size() -> bool;
 
     fn size_hint() -> usize;
+}
+
+#[derive(Ord, PartialOrd, Eq, PartialEq, Debug)]
+pub enum ElementsType {
+    Vector,
+    List,
+}
+
+#[derive(Ord, PartialOrd, Eq, PartialEq, Debug)]
+pub enum SszTypeClass {
+    Basic,
+    Bits(ElementsType),
+    Elements(ElementsType),
+    Container,
+    Union,
 }
 
 /// `SimpleSerialize` is a trait for types

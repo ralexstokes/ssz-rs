@@ -1,4 +1,10 @@
 use crate::{lib::*, prelude::*};
+use core::{
+    array::TryFromSliceError,
+    convert::AsRef,
+    fmt,
+    ops::{Index, IndexMut},
+};
 
 #[derive(Default, Clone, Copy, PartialEq, Eq, SimpleSerialize)]
 pub struct Node(pub(crate) [u8; 32]);

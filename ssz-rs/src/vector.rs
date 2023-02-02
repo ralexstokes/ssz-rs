@@ -3,11 +3,13 @@ use crate::{
     error::{Error, InstanceError, TypeError},
     lib::*,
     merkleization::{
-        merkleize, pack, MerkleCache, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
+        merkleize, pack, MerkleCache, MerkleizationError, Merkleized, Node, SszReflect,
+        BYTES_PER_CHUNK,
     },
     ser::{serialize_composite, Serialize, SerializeError},
-    SimpleSerialize, Sized,
+    ElementsType, SimpleSerialize, Sized, SszTypeClass,
 };
+use as_any::AsAny;
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
 #[cfg(feature = "serde")]
@@ -281,6 +283,24 @@ where
 }
 
 impl<T, const N: usize> SimpleSerialize for Vector<T, N> where T: SimpleSerialize + Clone {}
+
+impl<T, const N: usize> SszReflect for Vector<T, N>
+where
+    T: SimpleSerialize + SszReflect + AsAny + Clone,
+{
+    fn ssz_type_class(&self) -> SszTypeClass {
+        SszTypeClass::Elements(ElementsType::Vector)
+    }
+
+    fn list_elem_type(&self) -> Option<&dyn SszReflect> {
+        Some(self.index(0))
+    }
+
+    fn list_length(&self) -> Option<usize> {
+        Some(self.len())
+    }
+}
+
 
 #[cfg(test)]
 mod tests {

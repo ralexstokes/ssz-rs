@@ -2,9 +2,11 @@ use crate::{
     de::{Deserialize, DeserializeError},
     error::InstanceError,
     lib::*,
-    merkleization::{merkleize, mix_in_length, pack_bytes, MerkleizationError, Merkleized, Node},
+    merkleization::{
+        merkleize, mix_in_length, pack_bytes, MerkleizationError, Merkleized, Node, SszReflect,
+    },
     ser::{Serialize, SerializeError},
-    SimpleSerialize, Sized,
+    ElementsType, SimpleSerialize, Sized, SszTypeClass,
 };
 use bitvec::prelude::{BitVec, Lsb0};
 
@@ -196,8 +198,21 @@ impl<const N: usize> Merkleized for Bitlist<N> {
         Ok(mix_in_length(&data_root, self.len()))
     }
 }
-
 impl<const N: usize> SimpleSerialize for Bitlist<N> {}
+
+impl<const N: usize> SszReflect for Bitlist<N> {
+    fn ssz_type_class(&self) -> SszTypeClass {
+        SszTypeClass::Bits(ElementsType::List)
+    }
+
+    fn list_elem_type(&self) -> Option<&dyn SszReflect> {
+        Some(&0u8)
+    }
+
+    fn list_length(&self) -> Option<usize> {
+        Some(self.len())
+    }
+}
 
 impl<const N: usize> FromIterator<bool> for Bitlist<N> {
     // NOTE: only takes the first `N` values from `iter`.

@@ -1,9 +1,9 @@
 use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
-    merkleization::{MerkleizationError, Merkleized, Node},
+    merkleization::{MerkleizationError, Merkleized, Node, SszReflect},
     ser::{Serialize, SerializeError},
-    SimpleSerialize, Sized,
+    SimpleSerialize, Sized, SszTypeClass,
 };
 
 impl Sized for bool {
@@ -53,6 +53,12 @@ impl Merkleized for bool {
 impl SimpleSerialize for bool {
     fn is_composite_type() -> bool {
         false
+    }
+}
+
+impl SszReflect for bool {
+    fn ssz_type_class(&self) -> SszTypeClass {
+        SszTypeClass::Basic
     }
 }
 

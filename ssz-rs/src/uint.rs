@@ -1,9 +1,9 @@
 use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
-    merkleization::{pack_bytes, MerkleizationError, Merkleized, Node},
+    merkleization::{pack_bytes, MerkleizationError, Merkleized, Node, SszReflect},
     ser::{Serialize, SerializeError},
-    SimpleSerialize, Sized,
+    SimpleSerialize, Sized, SszTypeClass,
 };
 use num_bigint::BigUint;
 
@@ -59,6 +59,12 @@ macro_rules! define_uint {
         impl SimpleSerialize for $uint {
             fn is_composite_type() -> bool {
                 false
+            }
+        }
+
+        impl SszReflect for $uint {
+            fn ssz_type_class(&self) -> SszTypeClass {
+                SszTypeClass::Basic
             }
         }
     };
@@ -174,6 +180,12 @@ impl Merkleized for U256 {
 impl SimpleSerialize for U256 {
     fn is_composite_type() -> bool {
         false
+    }
+}
+
+impl SszReflect for U256 {
+    fn ssz_type_class(&self) -> SszTypeClass {
+        SszTypeClass::Basic
     }
 }
 

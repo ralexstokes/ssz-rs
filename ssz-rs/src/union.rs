@@ -1,9 +1,9 @@
 use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
-    merkleization::{mix_in_selector, MerkleizationError, Merkleized, Node},
+    merkleization::{mix_in_selector, MerkleizationError, Merkleized, Node, SszReflect},
     ser::{Serialize, SerializeError},
-    SimpleSerialize, Sized,
+    SimpleSerialize, Sized, SszTypeClass,
 };
 
 /// `SimpleSerialize` is implemented for `Option` as a convenience
@@ -70,7 +70,14 @@ where
     }
 }
 
-impl<T> SimpleSerialize for Option<T> where T: SimpleSerialize {}
+impl<T> SszReflect for Option<T>
+where
+    T: SimpleSerialize + SszReflect,
+{
+    fn ssz_type_class(&self) -> SszTypeClass {
+        SszTypeClass::Container // really?
+    }
+}
 
 #[cfg(test)]
 mod tests {
