@@ -1,6 +1,8 @@
 use crate::merkleization::Node;
 use sha2::{Digest, Sha256};
 
+/// `is_valid_merkle_branch` verifies the Merkle proof
+/// against the `root` given the other metadata.
 pub fn is_valid_merkle_branch<'a>(
     leaf: &Node,
     mut branch: impl Iterator<Item = &'a Node>,
