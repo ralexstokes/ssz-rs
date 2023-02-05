@@ -21,7 +21,7 @@ pub mod as_hex {
     use super::*;
     use serde::Deserialize;
 
-    pub fn serialize<S, T: AsRef<[u8]>>(data: &T, serializer: S) -> Result<S::Ok, S::Error>
+    pub fn serialize<S, T: AsRef<[u8]>>(data: T, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
