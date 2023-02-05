@@ -43,10 +43,9 @@ ssz-rs = { version = "...", default-features = false }
 
 # Testing
 
-This repo includes a copy of the generic SSZ [consensus spec tests](https://github.com/ethereum/consensus-spec-tests) as integration tests for the `ssz_rs` crate.
+This repo includes a copy of the [`ssz_generic` consensus spec tests](https://github.com/ethereum/consensus-spec-tests) as integration tests for the `ssz_rs` crate.
 The tests are generated from a local clone of the spec tests repo and the generator script under `ssz_rs/scripts`.
 Refer to the README there if you need to update/change these tests.
-
 
 # Versioning
 
