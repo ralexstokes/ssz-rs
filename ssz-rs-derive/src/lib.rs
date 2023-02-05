@@ -120,7 +120,7 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
 
                     #(#serialization_by_field)*
 
-                    ssz_rs::internal::serialize_composite_from_components(fixed, variable, variable_lengths, fixed_lengths_sum, buffer)
+                    ssz_rs::__internal::serialize_composite_from_components(fixed, variable, variable_lengths, fixed_lengths_sum, buffer)
                 }
             }
         }
@@ -381,7 +381,7 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                 fn hash_tree_root(&mut self) -> Result<ssz_rs::Node, ssz_rs::MerkleizationError> {
                     let mut chunks = vec![0u8; #field_count * #BYTES_PER_CHUNK];
                     #(#impl_by_field)*
-                    ssz_rs::internal::merkleize(&chunks, None)
+                    ssz_rs::__internal::merkleize(&chunks, None)
                 }
             }
         }
@@ -394,13 +394,13 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                             Self::#variant_name(value) => {
                                 let selector = #i;
                                 let data_root  = value.hash_tree_root()?;
-                                Ok(ssz_rs::internal::mix_in_selector(&data_root, selector))
+                                Ok(ssz_rs::__internal::mix_in_selector(&data_root, selector))
                             }
                         }
                     }
                     Fields::Unit => {
                         quote_spanned! { variant.span() =>
-                            Self::None => Ok(ssz_rs::internal::mix_in_selector(
+                            Self::None => Ok(ssz_rs::__internal::mix_in_selector(
                                 &ssz_rs::Node::default(),
                                 0,
                             )),

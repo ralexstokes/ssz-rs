@@ -14,22 +14,24 @@ mod list;
 mod merkleization;
 mod ser;
 #[cfg(feature = "serde")]
-mod serde_test;
+mod serde;
 mod uint;
 mod union;
 mod utils;
 mod vector;
 
-pub use bitlist::Bitlist;
-pub use bitvector::Bitvector;
-pub use de::{Deserialize, DeserializeError};
-pub use error::Error;
-pub use list::List;
-pub use merkleization::{MerkleizationError, Merkleized, Node};
-pub use ser::{Serialize, SerializeError};
-pub use uint::U256;
-pub use utils::*;
-pub use vector::Vector;
+pub use crate::{
+    bitlist::Bitlist,
+    bitvector::Bitvector,
+    de::{Deserialize, DeserializeError},
+    error::{Error as SimpleSerializeError, InstanceError, TypeError},
+    list::List,
+    merkleization::{is_valid_merkle_branch, MerkleizationError, Merkleized, Node},
+    ser::{Serialize, SerializeError},
+    uint::U256,
+    utils::{deserialize, serialize},
+    vector::Vector,
+};
 
 mod lib {
     mod core {
@@ -79,28 +81,28 @@ pub trait SimpleSerialize: Serialize + Deserialize + Sized + Merkleized + Defaul
 /// The `prelude` contains common traits and types a user of this library
 /// would want to have handy with a simple (single) import.
 pub mod prelude {
-    pub use crate as ssz_rs;
     pub use crate::{
         bitlist::Bitlist,
         bitvector::Bitvector,
         de::{Deserialize, DeserializeError},
-        error::{InstanceError, TypeError},
+        error::{Error as SimpleSerializeError, InstanceError, TypeError},
         list::List,
-        merkleization::{
-            is_valid_merkle_branch, merkleize, mix_in_selector, pack, pack_bytes,
-            MerkleizationError, Merkleized, Node,
-        },
+        merkleization::{is_valid_merkle_branch, MerkleizationError, Merkleized, Node},
         ser::{Serialize, SerializeError},
         uint::U256,
         utils::{deserialize, serialize},
         vector::Vector,
-        Error as SimpleSerializeError, SimpleSerialize, Sized,
+        SimpleSerialize, Sized,
     };
+    // expose this so the derive macro has everything in scope
+    // with a simple `prelude` import
+    pub use crate as ssz_rs;
     pub use ssz_rs_derive::SimpleSerialize;
 }
 
+#[doc(hidden)]
 /// `internal` contains functionality that is exposed purely for the derive proc macro crate
-pub mod internal {
+pub mod __internal {
     // exported for derive macro to avoid code duplication...
     pub use crate::{
         merkleization::{merkleize, mix_in_selector},

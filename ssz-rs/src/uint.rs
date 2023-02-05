@@ -167,7 +167,9 @@ impl Deserialize for U256 {
 
 impl Merkleized for U256 {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
-        Ok(Node::from_bytes(self.to_bytes_le().try_into().expect("works")))
+        let data = self.to_bytes_le();
+        let node = Node::try_from(data.as_ref()).expect("is right size");
+        Ok(node)
     }
 }
 

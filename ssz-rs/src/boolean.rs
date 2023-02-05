@@ -40,13 +40,11 @@ impl Deserialize for bool {
 
 impl Merkleized for bool {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+        let mut node = Node::default();
         if *self {
-            let mut root = Node::default();
-            root[0] = 1u8;
-            Ok(root)
-        } else {
-            Ok(Node::default())
+            node.as_mut()[0] = 1;
         }
+        Ok(node)
     }
 }
 

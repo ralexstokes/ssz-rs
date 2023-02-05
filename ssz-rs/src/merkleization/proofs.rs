@@ -1,6 +1,8 @@
 use crate::merkleization::Node;
 use sha2::{Digest, Sha256};
 
+/// `is_valid_merkle_branch` verifies the Merkle proof
+/// against the `root` given the other metadata.
 pub fn is_valid_merkle_branch<'a>(
     leaf: &Node,
     mut branch: impl Iterator<Item = &'a Node>,
@@ -17,13 +19,13 @@ pub fn is_valid_merkle_branch<'a>(
             None => return false,
         };
         if (index / 2usize.pow(i as u32)) % 2 != 0 {
-            hasher.update(next_node.0);
-            hasher.update(value.0);
+            hasher.update(next_node.as_ref());
+            hasher.update(value.as_ref());
         } else {
-            hasher.update(value.0);
-            hasher.update(next_node.0);
+            hasher.update(value.as_ref());
+            hasher.update(next_node.as_ref());
         }
-        value.0.copy_from_slice(&hasher.finalize_reset());
+        value.as_mut().copy_from_slice(&hasher.finalize_reset());
     }
     value == *root
 }
@@ -33,7 +35,8 @@ mod tests {
     use super::*;
 
     fn decode_node_from_hex(hex: &str) -> Node {
-        Node::from_bytes(hex::decode(hex).expect("is hex").try_into().expect("is right size"))
+        let bytes = hex::decode(hex).expect("is hex");
+        Node::try_from(bytes.as_ref()).expect("is right size")
     }
 
     #[test]
