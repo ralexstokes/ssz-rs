@@ -99,8 +99,9 @@ pub mod prelude {
     pub use ssz_rs_derive::SimpleSerialize;
 }
 
+#[doc(hidden)]
 /// `internal` contains functionality that is exposed purely for the derive proc macro crate
-pub mod internal {
+pub mod __internal {
     // exported for derive macro to avoid code duplication...
     pub use crate::{
         merkleization::{merkleize, mix_in_selector},
