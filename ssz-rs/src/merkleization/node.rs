@@ -1,56 +1,18 @@
-use crate::{lib::*, prelude::*};
+use crate::{lib::*, prelude::*, utils::write_bytes_to_lower_hex};
 
-#[derive(Default, Clone, Copy, PartialEq, Eq, SimpleSerialize)]
-pub struct Node(pub(crate) [u8; 32]);
-
-#[cfg(feature = "serde")]
-impl serde::Serialize for Node {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.collect_str(&format!("{self}"))
-    }
-}
-
-#[cfg(feature = "serde")]
-impl<'de> serde::Deserialize<'de> for Node {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let s = <String>::deserialize(deserializer)?;
-        let bytes = hex::decode(&s[2..]).map_err(serde::de::Error::custom)?;
-        let value = crate::Deserialize::deserialize(&bytes).map_err(serde::de::Error::custom)?;
-        Ok(value)
-    }
-}
-
-impl Node {
-    pub fn from_bytes(root: [u8; 32]) -> Self {
-        Self(root)
-    }
-
-    pub fn as_bytes(&self) -> &[u8] {
-        &self.0
-    }
-}
+#[derive(Default, Clone, Copy, Eq, SimpleSerialize)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct Node(#[cfg_attr(feature = "serde", serde(with = "crate::serde::as_hex"))] [u8; 32]);
 
 impl fmt::LowerHex for Node {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        if f.alternate() {
-            write!(f, "0x")?;
-        }
-        for i in &self.0[..] {
-            write!(f, "{i:02x}")?;
-        }
-        Ok(())
+        write_bytes_to_lower_hex(f, self)
     }
 }
 
 impl fmt::Debug for Node {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "Node({self:x})")
+        write!(f, "Node({self:#x})")
     }
 }
 
@@ -62,21 +24,13 @@ impl fmt::Display for Node {
 
 impl AsRef<[u8]> for Node {
     fn as_ref(&self) -> &[u8] {
-        self.as_bytes()
+        self.0.as_ref()
     }
 }
 
-impl Index<usize> for Node {
-    type Output = u8;
-
-    fn index(&self, index: usize) -> &Self::Output {
-        &self.0[index]
-    }
-}
-
-impl IndexMut<usize> for Node {
-    fn index_mut(&mut self, index: usize) -> &mut Self::Output {
-        &mut self.0[index]
+impl AsMut<[u8]> for Node {
+    fn as_mut(&mut self) -> &mut [u8] {
+        self.0.as_mut()
     }
 }
 
@@ -89,8 +43,25 @@ impl TryFrom<&[u8]> for Node {
     }
 }
 
-impl PartialEq<[u8; 32]> for Node {
-    fn eq(&self, other: &[u8; 32]) -> bool {
-        self.0 == *other
+impl<T> PartialEq<T> for Node
+where
+    T: AsRef<[u8]>,
+{
+    fn eq(&self, other: &T) -> bool {
+        self.as_ref() == other.as_ref()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_serde() {
+        let mut node = Node::default();
+        node.as_mut()[2] = 33;
+        let node_repr = serde_json::to_string(&node).unwrap();
+        let recovered_node: Node = serde_json::from_str(&node_repr).unwrap();
+        assert_eq!(node, recovered_node);
     }
 }

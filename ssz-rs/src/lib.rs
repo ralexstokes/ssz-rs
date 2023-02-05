@@ -14,7 +14,7 @@ mod list;
 mod merkleization;
 mod ser;
 #[cfg(feature = "serde")]
-mod serde_test;
+mod serde;
 mod uint;
 mod union;
 mod utils;

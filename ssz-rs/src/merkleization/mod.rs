@@ -250,7 +250,7 @@ mod tests {
         let input = pack(input).expect("can pack");
         let result = merkleize(&input, None).expect("can merkle");
         let mut expected = Node::default();
-        expected[0] = 1u8;
+        expected.as_mut()[0] = 1u8;
         assert_eq!(result, expected);
     }
 
