@@ -28,9 +28,7 @@ impl<const N: usize> serde::Serialize for Bitlist<N> {
         let byte_count = byte_length(self.len());
         let mut buf = Vec::with_capacity(byte_count);
         let _ = crate::Serialize::serialize(self, &mut buf).map_err(serde::ser::Error::custom)?;
-        let encoding = hex::encode(buf);
-        let output = format!("0x{encoding}");
-        serializer.collect_str(&output)
+        crate::serde::as_hex::serialize(&buf, serializer)
     }
 }
 
@@ -40,16 +38,7 @@ impl<'de, const N: usize> serde::Deserialize<'de> for Bitlist<N> {
     where
         D: serde::Deserializer<'de>,
     {
-        let s = <String>::deserialize(deserializer)?;
-        if s.len() < 2 {
-            return Err(serde::de::Error::custom(DeserializeError::ExpectedFurtherInput {
-                provided: s.len(),
-                expected: 2,
-            }))
-        }
-        let bytes = hex::decode(&s[2..]).map_err(serde::de::Error::custom)?;
-        let value = crate::Deserialize::deserialize(&bytes).map_err(serde::de::Error::custom)?;
-        Ok(value)
+        crate::serde::as_hex::deserialize(deserializer)
     }
 }
 
@@ -199,6 +188,15 @@ impl<const N: usize> Merkleized for Bitlist<N> {
 
 impl<const N: usize> SimpleSerialize for Bitlist<N> {}
 
+impl<const N: usize> TryFrom<&[u8]> for Bitlist<N> {
+    type Error = DeserializeError;
+
+    fn try_from(value: &[u8]) -> Result<Self, Self::Error> {
+        Self::deserialize(value)
+    }
+}
+
+// TODO: just going to remove this...
 impl<const N: usize> FromIterator<bool> for Bitlist<N> {
     // NOTE: only takes the first `N` values from `iter`.
     fn from_iter<I>(iter: I) -> Self
