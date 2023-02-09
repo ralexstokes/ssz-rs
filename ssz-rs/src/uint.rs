@@ -96,6 +96,11 @@ impl U256 {
         bytes.resize(32, 0u8);
         bytes
     }
+
+    pub fn from_hex(data: &str) -> Option<Self> {
+        let data = data.strip_prefix("0x").unwrap_or(data);
+        BigUint::parse_bytes(data.as_bytes(), 16).map(Self)
+    }
 }
 
 impl From<u64> for U256 {
