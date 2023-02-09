@@ -1,10 +1,13 @@
 use crate::{de::DeserializeError, lib::*, merkleization::MerkleizationError, ser::SerializeError};
 
-// Top-level error to wrap all child errors in crate
+/// Top-level error to wrap all other errors in this crate
 #[derive(Debug)]
 pub enum Error {
+    /// A serialization error.
     Serialize(SerializeError),
+    /// A deserialization error.
     Deserialize(DeserializeError),
+    /// A merkleization error.
     Merkleization(MerkleizationError),
     Instance(InstanceError),
     Type(TypeError),
@@ -45,6 +48,7 @@ impl std::error::Error for Error {}
 
 #[derive(Debug)]
 pub enum TypeError {
+    /// A type is invalid within the given bounds.
     InvalidBound(usize),
 }
 
@@ -61,9 +65,12 @@ impl Display for TypeError {
 #[cfg(feature = "std")]
 impl std::error::Error for TypeError {}
 
+/// Instance errors.
 #[derive(Debug)]
 pub enum InstanceError {
+    /// The number of elements did not match (`provided != required`)
     Exact { required: usize, provided: usize },
+    /// The number of elements exceeded the maximum expected amount (`provided > bound`)
     Bounded { bound: usize, provided: usize },
 }
 

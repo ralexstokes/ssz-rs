@@ -1,3 +1,35 @@
+//! An implementation of the [SSZ][ssz] serialization scheme.
+//!
+//! # Examples
+//!
+//! De/serialize a simple value:
+//!
+//! ```
+//! # use ssz_rs::prelude::*;
+//! let mut buf = Vec::new();
+//! 42u64.serialize(&mut buf);
+//! assert_eq!(u64::deserialize(&buf).unwrap(), 42);
+//! ```
+//!
+//! De/serialize a custom type using the derive macro:
+//!
+//! ```
+//! # use ssz_rs::prelude::*;
+//! #[derive(Debug, Default, Eq, PartialEq, SimpleSerialize)]
+//! struct Data {
+//!   flag: bool,
+//!   value: u64
+//! }
+//!
+//! let mut buf = Vec::new();
+//! Data { flag: true, value: 42 }.serialize(&mut buf);
+//! assert_eq!(
+//!   Data::deserialize(&buf).unwrap(),
+//!   Data { flag: true, value: 42 }
+//! );
+//! ```
+//!
+//! [ssz]: https://github.com/ethereum/consensus-specs/blob/dev/ssz/simple-serialize.md
 #![cfg_attr(not(feature = "std"), no_std)]
 
 #[cfg(not(feature = "std"))]

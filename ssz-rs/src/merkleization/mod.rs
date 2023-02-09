@@ -15,7 +15,7 @@ pub use proofs::is_valid_merkle_branch;
 pub(crate) const BYTES_PER_CHUNK: usize = 32;
 
 pub trait Merkleized {
-    // Compute the "hash tree root" of `Self`.
+    /// Compute the "hash tree root" of `Self`.
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError>;
 }
 
@@ -92,14 +92,17 @@ impl Index<usize> for Context {
 // Grab the precomputed context from the build stage
 include!(concat!(env!("OUT_DIR"), "/context.rs"));
 
-// Return the root of the Merklization of a binary tree formed from `chunks`.
-// `chunks` forms the bottom layer of a binary tree that is Merkleized.
-// This implementation is memory efficient by relying on pre-computed subtrees of all
-// "zero" leaves stored in the `CONTEXT`. SSZ specifies that `chunks` is padded to the next power
-// of two and this can be quite large for some types. "Zero" subtrees are virtualized to avoid the
-// memory and computation cost of large trees with partially empty leaves.
-// Invariant: `chunks.len() % BYTES_PER_CHUNK == 0`
-// Invariant: `leaf_count.next_power_of_two() == leaf_count`
+/// Return the root of the Merklization of a binary tree formed from `chunks`.
+///
+/// `chunks` forms the bottom layer of a binary tree that is Merkleized.
+///
+/// This implementation is memory efficient by relying on pre-computed subtrees of all
+/// "zero" leaves stored in the `CONTEXT`. SSZ specifies that `chunks` is padded to the next power
+/// of two and this can be quite large for some types. "Zero" subtrees are virtualized to avoid the
+/// memory and computation cost of large trees with partially empty leaves.
+///
+/// Invariant: `chunks.len() % BYTES_PER_CHUNK == 0`
+/// Invariant: `leaf_count.next_power_of_two() == leaf_count`
 fn merkleize_chunks_with_virtual_padding(
     chunks: &[u8],
     leaf_count: usize,

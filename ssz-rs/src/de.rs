@@ -5,12 +5,23 @@ use crate::{
     SimpleSerialize,
 };
 
+/// Deserialization errors.
 #[derive(Debug)]
 pub enum DeserializeError {
-    ExpectedFurtherInput { provided: usize, expected: usize },
-    AdditionalInput { provided: usize, expected: usize },
+    /// More data was expected to be in the buffer.
+    ExpectedFurtherInput {
+        provided: usize,
+        expected: usize,
+    },
+    /// The buffer contained more data than expected.
+    AdditionalInput {
+        provided: usize,
+        expected: usize,
+    },
     InvalidByte(u8),
+    /// An invalid instance was encountered.
     InvalidInstance(InstanceError),
+    /// An invalid type was encountered.
     InvalidType(TypeError),
 }
 
@@ -44,7 +55,9 @@ impl Display for DeserializeError {
 #[cfg(feature = "std")]
 impl std::error::Error for DeserializeError {}
 
+/// A data structure that can be deserialized using SSZ.
 pub trait Deserialize {
+    /// Deserialize this value from the given SSZ-encoded buffer.
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError>
     where
         Self: Sized;

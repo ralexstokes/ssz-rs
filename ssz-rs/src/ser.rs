@@ -8,10 +8,14 @@ use crate::{
 pub const BYTES_PER_LENGTH_OFFSET: usize = 4;
 const MAXIMUM_LENGTH: u64 = 2u64.pow((8 * BYTES_PER_LENGTH_OFFSET) as u32);
 
+/// Serialization errors.
 #[derive(Debug)]
 pub enum SerializeError {
+    /// The encoded length exceeds the maximum.
     MaximumEncodedLengthExceeded(usize),
+    /// An invalid instance was encountered.
     InvalidInstance(InstanceError),
+    /// An invalid type was encountered.
     InvalidType(TypeError),
 }
 
@@ -43,9 +47,11 @@ impl Display for SerializeError {
 #[cfg(feature = "std")]
 impl std::error::Error for SerializeError {}
 
+/// A data structure that can be serialized using SSZ.
 pub trait Serialize {
     /// Append an encoding of `self` to the `buffer`.
-    /// Return the number of bytes written.
+    ///
+    /// Returns the number of bytes written.
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError>;
 }
 
