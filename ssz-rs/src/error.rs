@@ -9,7 +9,9 @@ pub enum Error {
     Deserialize(DeserializeError),
     /// A merkleization error.
     Merkleization(MerkleizationError),
+    /// An invalid value.
     Instance(InstanceError),
+    /// An invalid type.
     Type(TypeError),
 }
 
@@ -46,9 +48,10 @@ impl Display for Error {
 #[cfg(feature = "std")]
 impl std::error::Error for Error {}
 
+/// An invalid type.
 #[derive(Debug)]
 pub enum TypeError {
-    /// A type is invalid within the given bounds.
+    /// A type is invalid for the given bounds.
     InvalidBound(usize),
 }
 
@@ -65,7 +68,7 @@ impl Display for TypeError {
 #[cfg(feature = "std")]
 impl std::error::Error for TypeError {}
 
-/// Instance errors.
+/// An invalid value.
 #[derive(Debug)]
 pub enum InstanceError {
     /// The number of elements did not match (`provided != required`)
