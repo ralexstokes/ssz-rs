@@ -1,5 +1,6 @@
 use crate::{lib::*, prelude::*, utils::write_bytes_to_lower_hex};
 
+/// A node in a merkle tree.
 #[derive(Default, Clone, Copy, Eq, SimpleSerialize)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Node(#[cfg_attr(feature = "serde", serde(with = "crate::serde::as_hex"))] [u8; 32]);
