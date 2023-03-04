@@ -199,12 +199,9 @@ impl<const N: usize> SszReflect for Bitvector<N> {
         SszTypeClass::Bits(ElementsType::Vector)
     }
 
-    fn list_elem_type(&self) -> Option<&dyn SszReflect> {
-        Some(&0u8)
-    }
-
-    fn list_length(&self) -> Option<usize> {
-        Some(self.len())
+    fn list_iterator_mut(&mut self) -> Option<Box<dyn Iterator<Item = &mut dyn SszReflect> + '_>> {
+        None
+        // Some(Box::new(self.iter_mut().map(|mut t| t.as_mut() as &mut dyn SszReflect)))
     }
 }
 

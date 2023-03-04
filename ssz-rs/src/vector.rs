@@ -140,6 +140,15 @@ where
     }
 }
 
+impl<T, const N: usize> DerefMut for Vector<T, N>
+where
+    T: SimpleSerialize,
+{
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.data
+    }
+}
+
 // NOTE: implement `IndexMut` rather than `DerefMut` to ensure
 // the `Vector`'s inner `Vec` is not mutated, but its elements
 // can change.
@@ -292,15 +301,10 @@ where
         SszTypeClass::Elements(ElementsType::Vector)
     }
 
-    fn list_elem_type(&self) -> Option<&dyn SszReflect> {
-        Some(self.index(0))
-    }
-
-    fn list_length(&self) -> Option<usize> {
-        Some(self.len())
+    fn list_iterator_mut(&mut self) -> Option<Box<dyn Iterator<Item = &mut dyn SszReflect> + '_>> {
+        Some(Box::new(self.deref_mut().iter_mut().map(|t| t as &mut dyn SszReflect)))
     }
 }
-
 
 #[cfg(test)]
 mod tests {

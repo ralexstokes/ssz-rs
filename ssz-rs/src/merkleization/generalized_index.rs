@@ -15,14 +15,25 @@ pub trait SszReflect: Merkleized + AsAny {
     /// https://github.com/ethereum/consensus-specs/blob/dev/ssz/simple-serialize.md#typing
     fn ssz_type_class(&self) -> SszTypeClass;
 
-    /// Should return an instance of the list element type.
-    fn list_elem_type(&self) -> Option<&dyn SszReflect> {
+    /// Should return an iterator that yields the list items, if it's a list.
+    fn list_iterator_mut<'a>(
+        &'a mut self,
+    ) -> Option<Box<dyn Iterator<Item = &mut dyn SszReflect> + 'a>> {
         None
     }
 
-    /// Should return the size of the list, if it's a list
-    fn list_length(&self) -> Option<usize> {
+    fn list_iterator<'a>(&'a self) -> Option<Box<dyn Iterator<Item = &dyn SszReflect> + 'a>> {
         None
+    }
+
+    /// return an instance of the list element type.
+    fn list_elem_type(&self) -> Option<&dyn SszReflect> {
+        self.list_iterator().map(|iter| iter.peekable().peek_mut().map(|l| *l)).flatten()
+    }
+
+    /// return the size of the list, if it's a list
+    fn list_length(&self) -> Option<usize> {
+        self.list_iterator().map(|iter| iter.size_hint().0)
     }
 
     /// Should return itself, if it is a container type.

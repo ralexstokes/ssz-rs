@@ -318,15 +318,10 @@ where
         SszTypeClass::Elements(ElementsType::List)
     }
 
-    fn list_elem_type(&self) -> Option<&dyn SszReflect> {
-        Some(self.index(0))
-    }
-
-    fn list_length(&self) -> Option<usize> {
-        Some(self.len())
+    fn list_iterator_mut(&mut self) -> Option<Box<dyn Iterator<Item = &mut dyn SszReflect> + '_>> {
+        Some(Box::new(self.iter_mut().map(|t| t as &mut dyn SszReflect)))
     }
 }
-
 
 #[cfg(test)]
 mod tests {

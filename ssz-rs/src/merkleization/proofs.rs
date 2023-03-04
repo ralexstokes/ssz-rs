@@ -1,8 +1,8 @@
 use crate::{
     field_inspect::FieldsIterMut,
     lib::*,
-    merkleization::{merkleize_to_virtual_tree, GeneralizedIndex, Node, BYTES_PER_CHUNK},
-    MerkleizationError, SimpleSerialize, SszReflect, SszTypeClass,
+    merkleization::{merkleize_to_virtual_tree, GeneralizedIndex, Node},
+    ElementsType, MerkleizationError, SimpleSerialize, SszReflect, SszTypeClass,
 };
 use alloc::collections::{BTreeMap, BTreeSet};
 use sha2::{Digest, Sha256};
@@ -43,41 +43,48 @@ pub fn generate_proof<T: SimpleSerialize + SszReflect>(
     // next calculate the required proof indices for given indices to prove.
     // return the nodes for those proof indices.
     let type_class = data.ssz_type_class();
-    let proof = match type_class {
+    let leaves = match type_class {
         SszTypeClass::Basic | SszTypeClass::Union => Err(MerkleizationError::CannotMerkleize)?,
         SszTypeClass::Container => {
             let fields = data.as_mut_field_inspectable().expect("SszTypeClass is a container; qed");
-            let fields_count = fields.fields_count() as usize;
-            let mut chunks = vec![0u8; fields_count * BYTES_PER_CHUNK];
-
-            for (i, (_, field)) in FieldsIterMut::new(fields).enumerate() {
-                let chunk = field.hash_tree_root()?;
-                let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
-                chunks[range].copy_from_slice(chunk.as_ref());
-            }
-
             let mut leaves = vec![];
-            for i in 0..(chunks.len() / BYTES_PER_CHUNK) {
-                let start = i * BYTES_PER_CHUNK;
-                let node = Node::try_from(&chunks[start..(start + BYTES_PER_CHUNK)])
-                    .expect("Each chunk is 32 bytes.");
-                leaves.push(node);
+
+            for (_, (_, field)) in FieldsIterMut::new(fields).enumerate() {
+                let leaf = field.hash_tree_root()?;
+                leaves.push(leaf);
             }
 
-            let virtual_tree = merkleize_to_virtual_tree(leaves);
-            let indices = indices.into_iter().cloned().map(GeneralizedIndex).collect::<Vec<_>>();
-            let proof_indices = get_helper_indices(&indices);
-            let mut proof_nodes = Vec::new();
-
-            for GeneralizedIndex(index) in proof_indices {
-                proof_nodes.push(virtual_tree[index].clone())
-            }
-
-            proof_nodes
+            leaves
         }
-        SszTypeClass::Elements(_) => unimplemented!("honestly, no idea"),
-        SszTypeClass::Bits(_) => unimplemented!("honestly, no idea"),
+        SszTypeClass::Elements(_) | SszTypeClass::Bits(_) => {
+            let iterator = data.list_iterator_mut().expect("Type class declared as elements; qed");
+            let mut leaves = vec![];
+
+            for elem in iterator {
+                // todo: check for composite types?
+                let leaf = elem.hash_tree_root()?;
+                leaves.push(leaf);
+            }
+
+            leaves
+        }
     };
+
+    let virtual_tree = merkleize_to_virtual_tree(leaves);
+    let indices = indices.into_iter().cloned().map(GeneralizedIndex).collect::<Vec<_>>();
+    let proof_indices = get_helper_indices(&indices);
+    let mut proof = Vec::new();
+
+    for GeneralizedIndex(index) in proof_indices {
+        proof.push(virtual_tree[index].clone())
+    }
+
+    if matches!(
+        type_class,
+        SszTypeClass::Bits(ElementsType::Vector) | SszTypeClass::Elements(ElementsType::Vector)
+    ) {
+        // todo: mix in the length.
+    }
 
     Ok(proof)
 }
