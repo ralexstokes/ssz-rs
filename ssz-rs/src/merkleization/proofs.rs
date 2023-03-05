@@ -66,7 +66,7 @@ pub fn generate_proof<T: SimpleSerialize + SszReflect>(
                 .ssz_type_class();
             let mut leaves = vec![];
 
-            if matches!(elem_type, SszTypeClass::Basic | SszTypeClass::Union) {
+            if matches!(elem_type, SszTypeClass::Basic) {
                 let iterator = data.list_iterator().expect("Type class declared as elements; qed");
                 let mut chunks = vec![];
 

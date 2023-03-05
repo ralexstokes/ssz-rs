@@ -75,7 +75,7 @@ where
     T: SimpleSerialize + SszReflect,
 {
     fn ssz_type_class(&self) -> SszTypeClass {
-        SszTypeClass::Container // really?
+        SszTypeClass::Union
     }
 }
 
