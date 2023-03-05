@@ -201,7 +201,7 @@ impl<const N: usize> SszReflect for Bitvector<N> {
 
     fn list_iterator_mut(&mut self) -> Option<Box<dyn Iterator<Item = &mut dyn SszReflect> + '_>> {
         None
-        // Some(Box::new(self.iter_mut().map(|mut t| t.as_mut() as &mut dyn SszReflect)))
+        // todo: Some(Box::new(self.iter_mut().map(|mut t| t.as_mut() as &mut dyn SszReflect)))
     }
 }
 
