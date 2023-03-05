@@ -1,8 +1,11 @@
 use crate::{
     field_inspect::FieldsIterMut,
     lib::*,
-    merkleization::{merkleize_to_virtual_tree, GeneralizedIndex, Node},
-    ElementsType, MerkleizationError, SimpleSerialize, SszReflect, SszTypeClass,
+    merkleization::{
+        merkleize_to_virtual_tree, pack_bytes, GeneralizedIndex, Node, BYTES_PER_CHUNK,
+    },
+    Bitlist, Bitvector, ElementsType, MerkleizationError, Merkleized, SimpleSerialize, SszReflect,
+    SszTypeClass,
 };
 use alloc::collections::{BTreeMap, BTreeSet};
 use sha2::{Digest, Sha256};
@@ -56,13 +59,54 @@ pub fn generate_proof<T: SimpleSerialize + SszReflect>(
 
             leaves
         }
-        SszTypeClass::Elements(_) | SszTypeClass::Bits(_) => {
-            let iterator = data.list_iterator_mut().expect("Type class declared as elements; qed");
+        SszTypeClass::Elements(_) => {
+            let elem_type = data
+                .list_elem_type()
+                .expect("Type class declared as elements; qed")
+                .ssz_type_class();
             let mut leaves = vec![];
 
-            for elem in iterator {
-                // todo: check for composite types?
-                let leaf = elem.hash_tree_root()?;
+            if matches!(elem_type, SszTypeClass::Basic | SszTypeClass::Union) {
+                let iterator = data.list_iterator().expect("Type class declared as elements; qed");
+                let mut chunks = vec![];
+
+                for value in iterator {
+                    value.serialize(&mut chunks)?;
+                }
+                pack_bytes(&mut chunks);
+
+                let mut leaves = vec![];
+                for chunk in chunks.chunks(BYTES_PER_CHUNK) {
+                    let leaf = Node::try_from(chunk).expect("pack bytes pads the buffer len; qed");
+                    leaves.push(leaf);
+                }
+            } else {
+                let iterator =
+                    data.list_iterator_mut().expect("Type class declared as elements; qed");
+                for elem in iterator {
+                    leaves.push(elem.hash_tree_root()?);
+                }
+            };
+
+            leaves
+        }
+        SszTypeClass::Bits(ref typ) => {
+            let chunks = match typ {
+                ElementsType::List => data
+                    .as_any()
+                    .downcast_ref::<Bitlist<{ usize::MAX }>>()
+                    .expect("Ssz Type class is Bitlist; qed")
+                    .pack_bits()?,
+                ElementsType::Vector => data
+                    .as_any()
+                    .downcast_ref::<Bitvector<{ usize::MAX }>>()
+                    .expect("Ssz Type class is Bitlist; qed")
+                    .pack_bits()?,
+            };
+
+            let mut leaves = vec![];
+            for chunk in chunks.chunks(BYTES_PER_CHUNK) {
+                let leaf = Node::try_from(chunk).expect("pack bits pads the buffer len; qed");
                 leaves.push(leaf);
             }
 
@@ -81,9 +125,15 @@ pub fn generate_proof<T: SimpleSerialize + SszReflect>(
 
     if matches!(
         type_class,
-        SszTypeClass::Bits(ElementsType::Vector) | SszTypeClass::Elements(ElementsType::Vector)
+        SszTypeClass::Bits(ElementsType::List) | SszTypeClass::Elements(ElementsType::List)
     ) {
-        // todo: mix in the length.
+        let length = data
+            .list_iterator()
+            .expect("Type class declared as Elements or Bits; qed")
+            .size_hint()
+            .0
+            .hash_tree_root()?;
+        proof.push(length);
     }
 
     Ok(proof)

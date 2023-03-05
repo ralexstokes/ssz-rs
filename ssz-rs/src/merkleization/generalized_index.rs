@@ -1,5 +1,5 @@
 use super::field_inspect::{FieldsInspect, FieldsIter};
-use crate::{ElementsType, Merkleized, SszTypeClass, U256};
+use crate::{ElementsType, Merkleized, Serialize, SszTypeClass, U256};
 use as_any::AsAny;
 use core::any::{Any, TypeId};
 
@@ -10,7 +10,7 @@ pub enum SszVariableOrIndex {
 }
 
 /// This trait is intended to enable runtime reflection for types that implement it
-pub trait SszReflect: Merkleized + AsAny {
+pub trait SszReflect: Serialize + Merkleized + AsAny {
     /// Should return the SszTypeClass see:
     /// https://github.com/ethereum/consensus-specs/blob/dev/ssz/simple-serialize.md#typing
     fn ssz_type_class(&self) -> SszTypeClass;

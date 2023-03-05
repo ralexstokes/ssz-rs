@@ -95,7 +95,7 @@ impl<const N: usize> Bitlist<N> {
         })
     }
 
-    fn pack_bits(&self) -> Result<Vec<u8>, MerkleizationError> {
+    pub(crate) fn pack_bits(&self) -> Result<Vec<u8>, MerkleizationError> {
         let mut data = vec![];
         let _ = self.serialize_with_length(&mut data, false)?;
         pack_bytes(&mut data);
