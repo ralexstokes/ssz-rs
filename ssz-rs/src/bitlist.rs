@@ -95,7 +95,7 @@ impl<const N: usize> Bitlist<N> {
         })
     }
 
-    fn pack_bits(&self) -> Result<Vec<u8>, MerkleizationError> {
+    pub(crate) fn pack_bits(&self) -> Result<Vec<u8>, MerkleizationError> {
         let mut data = vec![];
         let _ = self.serialize_with_length(&mut data, false)?;
         pack_bytes(&mut data);
@@ -205,12 +205,9 @@ impl<const N: usize> SszReflect for Bitlist<N> {
         SszTypeClass::Bits(ElementsType::List)
     }
 
-    fn list_elem_type(&self) -> Option<&dyn SszReflect> {
-        Some(&0u8)
-    }
-
-    fn list_length(&self) -> Option<usize> {
-        Some(self.len())
+    fn list_iterator_mut(&mut self) -> Option<Box<dyn Iterator<Item = &mut dyn SszReflect> + '_>> {
+        None
+        // todo: Some(Box::new(self.iter_mut().map(|mut t| t.as_mut() as &mut dyn SszReflect)))
     }
 }
 
