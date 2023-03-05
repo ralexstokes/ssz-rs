@@ -39,7 +39,7 @@ pub fn is_valid_merkle_branch<'a>(
 
 /// Generates a proof for potentially multiple elements in an SszObject.
 pub fn generate_proof<T: SimpleSerialize + SszReflect>(
-    mut data: T,
+    data: &mut T,
     indices: &[usize],
 ) -> Result<Vec<Node>, MerkleizationError> {
     // first merklize the data, return a virtual tree that maps the generalized index to the node
@@ -120,7 +120,9 @@ pub fn generate_proof<T: SimpleSerialize + SszReflect>(
     let mut proof = Vec::new();
 
     for GeneralizedIndex(index) in proof_indices {
-        proof.push(virtual_tree[index].clone())
+        if index <= virtual_tree.len() {
+            proof.push(virtual_tree[index].clone())
+        }
     }
 
     if matches!(
@@ -261,6 +263,8 @@ pub fn verify_merkle_multiproof(
 
 #[cfg(test)]
 mod tests {
+    use hex_literal::hex;
+    use crate::{get_generalized_index, List, SszVariableOrIndex, Vector};
     use super::*;
 
     fn decode_node_from_hex(hex: &str) -> Node {
@@ -288,5 +292,49 @@ mod tests {
         );
 
         assert!(is_valid_merkle_branch(&leaf, branch.iter(), depth, index, &root))
+    }
+
+    #[test]
+    fn test_elements_proof() {
+        let items = [
+            hex!("8f594dbb4f4219ad4967f86b9cccdb26e37e44995a291582a431eef36ecba45c"),
+            hex!("f8c2ed25e9c31399d4149dcaa48c51f394043a6a1297e65780a5979e3d7bb77c"),
+            hex!("382ba9638ce263e802593b387538faefbaed106e9f51ce793d405f161b105ee6"),
+            hex!("c78009fdf07fc56a11f122370658a353aaa542ed63e44c4bc15ff4cd105ab33c"),
+        ]
+            .into_iter()
+            .collect::<Vec<_>>();
+        let mut list = List::<[u8; 32], 4>::default();
+        let mut vector = Vector::<[u8; 32], 9>::default();
+        for item in items {
+            list.push(item.clone());
+            vector.push(item);
+        }
+
+        {
+            let root = list.hash_tree_root().unwrap();
+            let index = get_generalized_index(&list, &[SszVariableOrIndex::Index(0)]);
+            let proof = generate_proof(&mut list, &[index]).unwrap();
+
+            let calculated = calculate_merkle_root(
+                &list[0].hash_tree_root().unwrap(),
+                &proof,
+                &GeneralizedIndex(index),
+            );
+            assert_eq!(root, calculated)
+        }
+
+        {
+            let root = vector.hash_tree_root().unwrap();
+            let index = get_generalized_index(&vector, &[SszVariableOrIndex::Index(0)]);
+            let proof = generate_proof(&mut vector, &[index]).unwrap();
+
+            let calculated = calculate_merkle_root(
+                &vector[0].hash_tree_root().unwrap(),
+                &proof,
+                &GeneralizedIndex(index),
+            );
+            assert_eq!(root, calculated)
+        }
     }
 }

@@ -321,6 +321,10 @@ where
     fn list_iterator_mut(&mut self) -> Option<Box<dyn Iterator<Item = &mut dyn SszReflect> + '_>> {
         Some(Box::new(self.iter_mut().map(|t| t as &mut dyn SszReflect)))
     }
+
+    fn list_iterator(&self) -> Option<Box<dyn Iterator<Item = &dyn SszReflect> + '_>> {
+        Some(Box::new(self.iter().map(|t| t as &dyn SszReflect)))
+    }
 }
 
 #[cfg(test)]
