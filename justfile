@@ -8,4 +8,4 @@ build:
     cargo build --all-targets --all-features
 build-no-std:
     cargo build --no-default-features
-run-ci: lint build test
+run-ci: lint build build-no-std test

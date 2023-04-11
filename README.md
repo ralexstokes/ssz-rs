@@ -1,6 +1,8 @@
 # ssz-rs ✂️️
 
 [![build](https://github.com/ralexstokes/ssz-rs/actions/workflows/rust.yml/badge.svg?branch=main)](https://github.com/ralexstokes/ssz-rs/actions/workflows/rust.yml)
+[![crates.io](https://img.shields.io/crates/v/ssz_rs.svg)](https://crates.io/crates/ssz_rs)
+[![docs.rs](https://img.shields.io/docsrs/ssz-rs)](https://docs.rs/ssz-rs/)
 
 An implementation of the `SSZ` serialization scheme defined in the [consensus-specs repo](https://github.com/ethereum/consensus-specs).
 
@@ -46,15 +48,3 @@ ssz-rs = { version = "...", default-features = false }
 This repo includes a copy of the [`ssz_generic` consensus spec tests](https://github.com/ethereum/consensus-spec-tests) as integration tests for the `ssz_rs` crate.
 The tests are generated from a local clone of the spec tests repo and the generator script under `ssz_rs/scripts`.
 Refer to the README there if you need to update/change these tests.
-
-# Versioning
-
-This library is still very much in flux so I suggest using the git remote feature of cargo to use this as a dependency for now.
-
-Once things settle down, a version bump will be published to `crates.io`.
-
-This means the following badges refer to **outdated** software. This message will be removed when this is no longer the case.
-
-[![crates.io](https://img.shields.io/crates/v/ssz_rs.svg)](https://crates.io/crates/ssz_rs)
-[![crates.io](https://img.shields.io/crates/v/ssz_rs_derive.svg)](https://crates.io/crates/ssz_rs_derive)
-[![docs.rs](https://img.shields.io/docsrs/ssz-rs)](https://docs.rs/ssz-rs/)
