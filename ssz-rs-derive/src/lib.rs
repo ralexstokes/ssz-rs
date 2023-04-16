@@ -199,6 +199,11 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                         } else {
                             let encoded_length = <#field_type>::size_hint();
                             let end = start + encoded_length;
+                            if end > encoding.len() {
+                                return Err(ssz_rs::DeserializeError::ExpectedFurtherInput {
+                                provided: encoding.len(),
+                                expected: end,
+                            })};
                             let result = <#field_type>::deserialize(&encoding[start..end])?;
                             container.#field_name = result;
                             encoded_length
