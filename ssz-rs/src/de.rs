@@ -1,3 +1,4 @@
+use std::ops::Range;
 use crate::{
     error::{InstanceError, TypeError},
     lib::*,
@@ -23,6 +24,8 @@ pub enum DeserializeError {
     InvalidInstance(InstanceError),
     /// An invalid type was encountered.
     InvalidType(TypeError),
+    /// Failed to get the range from encoding buffer
+    InvalidRange{range: Range<usize>, buffer_length: usize},
 }
 
 impl From<InstanceError> for DeserializeError {
@@ -48,6 +51,7 @@ impl Display for DeserializeError {
             ),
             DeserializeError::InvalidInstance(err) => write!(f, "invalid instance: {err}"),
             DeserializeError::InvalidType(err) => write!(f, "invalid type: {err}"),
+            DeserializeError::InvalidRange{range, buffer_length} => write!(f, "failure on getting range: {range:#?}, for length: {buffer_length}"),
         }
     }
 }
