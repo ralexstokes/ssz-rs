@@ -203,7 +203,7 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                                 range: start..end,
                                 buffer_length:encoding.len(),
                             })?;
-                            let result = <BLSSignature>::deserialize(&enc)?;
+                            let result = <#field_type>::deserialize(&enc)?;
                             container.#field_name = result;
                             encoded_length
                         };
