@@ -192,7 +192,13 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                     Some(field_name) => quote_spanned! { f.span() =>
                         let bytes_read = if <#field_type>::is_variable_size() {
                             let end = start + #BYTES_PER_LENGTH_OFFSET;
-                            let next_offset = u32::deserialize(&encoding[start..end])?;
+                            let next_offset = u32::deserialize(
+                                encoding.get(start..end)
+                                .ok_or(DeserializeError::InvalidRange {
+                                    range: start..end,
+                                    buffer_length:encoding.len(),
+                                })?
+                            )?;
                             offsets.push((#i, next_offset as usize));
 
                             #BYTES_PER_LENGTH_OFFSET
