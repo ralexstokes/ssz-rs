@@ -199,11 +199,13 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                         } else {
                             let encoded_length = <#field_type>::size_hint();
                             let end = start + encoded_length;
-                            let enc = &encoding.get(start..end).ok_or(DeserializeError::InvalidRange{
-                                range: start..end,
-                                buffer_length:encoding.len(),
-                            })?;
-                            let result = <#field_type>::deserialize(&enc)?;
+                            let result = <#field_type>::deserialize(
+                                encoding.get(start..end)
+                                .ok_or(DeserializeError::InvalidRange {
+                                    range: start..end,
+                                    buffer_length:encoding.len(),
+                                })?
+                            )?;
                             container.#field_name = result;
                             encoded_length
                         };
