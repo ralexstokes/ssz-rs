@@ -194,9 +194,9 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                             let end = start + #BYTES_PER_LENGTH_OFFSET;
                             let next_offset = u32::deserialize(
                                 encoding.get(start..end)
-                                .ok_or(DeserializeError::InvalidRange {
-                                    range: start..end,
-                                    buffer_length:encoding.len(),
+                                .ok_or(DeserializeError::ExpectedFurtherInput {
+                                    expected: end,
+                                    provided:encoding.len(),
                                 })?
                             )?;
                             offsets.push((#i, next_offset as usize));
@@ -207,9 +207,9 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                             let end = start + encoded_length;
                             let result = <#field_type>::deserialize(
                                 encoding.get(start..end)
-                                .ok_or(DeserializeError::InvalidRange {
-                                    range: start..end,
-                                    buffer_length:encoding.len(),
+                                .ok_or(DeserializeError::ExpectedFurtherInput {
+                                    expected: end,
+                                    provided:encoding.len(),
                                 })?
                             )?;
                             container.#field_name = result;
