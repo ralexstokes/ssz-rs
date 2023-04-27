@@ -21495,6 +21495,14 @@ fn test_containers_bits_struct_one_chaos_2() {
 }
 
 #[test]
+fn test_containers_not_enough_input() {
+    type Goal = Vector<u8, 6>;
+    let source = vec![];
+    let result = Goal::deserialize(&source);
+    assert!(result.is_err());
+}
+
+#[test]
 #[should_panic]
 fn test_containers_bits_struct_lengthy_offset_6_plus_one() {
     let encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/invalid/BitsStruct_lengthy_offset_6_plus_one/serialized.ssz_snappy");
