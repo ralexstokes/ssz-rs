@@ -262,6 +262,32 @@ where
             merkleize(&chunks, None)
         }
     }
+
+    pub fn iter_mut(&mut self) -> IterMut<'_, T> {
+        let inner = self.data.iter_mut().enumerate();
+        let cache = &mut self.cache;
+        IterMut { inner, cache }
+    }
+}
+
+pub struct IterMut<'a, T: 'a> {
+    inner: Enumerate<slice::IterMut<'a, T>>,
+    cache: &'a mut MerkleCache,
+}
+
+impl<'a, T> Iterator for IterMut<'a, T> {
+    type Item = &'a mut T;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        if let Some((index, next)) = self.inner.next() {
+            // TODO: compute correct `leaf_index`
+            let leaf_index = index;
+            self.cache.invalidate(leaf_index);
+            Some(next)
+        } else {
+            None
+        }
+    }
 }
 
 impl<T, const N: usize> Merkleized for Vector<T, N>
@@ -382,5 +408,21 @@ mod tests {
         let _ = input.serialize(&mut buffer).expect("can serialize");
         let recovered = Vector::<List<u8, 1>, COUNT>::deserialize(&buffer).expect("can decode");
         assert_eq!(input, recovered);
+    }
+
+    #[test]
+    fn can_iter_vector() {
+        let bytes = vec![
+            0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8,
+            1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8,
+        ];
+        let mut input: Vector<u8, COUNT> = bytes.try_into().expect("test data");
+        for (i, &value) in input.iter().enumerate() {
+            assert_eq!(value as usize, i % 8);
+        }
+        for value in input.iter_mut() {
+            *value = 1;
+            assert_eq!(*value, 1);
+        }
     }
 }
