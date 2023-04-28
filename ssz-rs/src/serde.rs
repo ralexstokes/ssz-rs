@@ -115,7 +115,10 @@ mod test {
                 },
             ])
             .unwrap(),
-            h: Bitvector::from_iter([true, false, false, true, false, false, false, true, true]),
+            h: Bitvector::try_from(
+                [true, false, false, true, false, false, false, true, true].as_ref(),
+            )
+            .unwrap(),
             i: Bitlist::from_iter([true, false, true, true]),
             j: U256::from_bytes_le([12u8; 32]),
         };

@@ -33,7 +33,7 @@ fn main() {
             true,
         ]),
         e: Bar::B(List::try_from(vec![true, true, false, false, false, true]).unwrap()),
-        f: Bitvector::from_iter([false, true, false, true]),
+        f: Bitvector::try_from([false, true, false, true].as_ref()).unwrap(),
     };
 
     println!("{example:#?}");
