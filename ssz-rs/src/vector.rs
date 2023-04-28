@@ -121,7 +121,9 @@ where
         let data = vec![T::default(); N];
         match data.try_into() {
             Ok(result) => result,
-            // TODO: not ideal to panic here...
+            // NOTE: safety: panic
+            // ideally we will not panic here but currently there is no way
+            // to enforce statically that `N` is non-zero with const generics
             Err((_, err)) => panic!("{err}"),
         }
     }
@@ -139,8 +141,8 @@ where
 }
 
 // NOTE: implement `IndexMut` rather than `DerefMut` to ensure
-// the `Vector`'s inner `Vec` is not mutated, but its elements
-// can change.
+// the inner data is not mutated without being able to
+// track which elements changed
 impl<T, Idx: SliceIndex<[T]>, const N: usize> Index<Idx> for Vector<T, N>
 where
     T: SimpleSerialize,
@@ -152,10 +154,6 @@ where
     }
 }
 
-// NOTE: had an issue unifying the use of `IndexMut::Idx` for `Vec`
-// and `BitVec` that may be unresolveable due to how lifetimes
-// are defined for this trait method. For now, only allow "one at a time"
-// mutation of the `Vector`s data.
 impl<T, const N: usize> IndexMut<usize> for Vector<T, N>
 where
     T: SimpleSerialize,
