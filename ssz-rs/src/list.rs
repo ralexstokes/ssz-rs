@@ -382,4 +382,20 @@ mod tests {
 
         let _ = recovered.hash_tree_root().unwrap();
     }
+
+    #[test]
+    fn can_iter_list() {
+        let bytes = vec![
+            0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8,
+            1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8,
+        ];
+        let mut input: List<u8, COUNT> = bytes.try_into().unwrap();
+        for (i, &value) in input.iter().enumerate() {
+            assert_eq!(value as usize, i % 8);
+        }
+        for value in input.iter_mut() {
+            *value = 1;
+            assert_eq!(*value, 1);
+        }
+    }
 }
