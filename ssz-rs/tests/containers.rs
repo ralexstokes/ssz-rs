@@ -21496,9 +21496,8 @@ fn test_containers_bits_struct_one_chaos_2() {
 
 #[test]
 fn test_containers_not_enough_input() {
-    type Goal = Vector<u8, 6>;
     let source = vec![];
-    let result = Goal::deserialize(&source);
+    let result = Vector::<u8, 6>::deserialize(&source);
     assert!(result.is_err());
 }
 
