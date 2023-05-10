@@ -92,12 +92,7 @@ where
     T: SimpleSerialize + Default,
 {
     fn default() -> Self {
-        let data = vec![];
-        match Self::try_from(data) {
-            Ok(result) => result,
-            // TODO: not ideal to panic here...
-            Err((_, err)) => panic!("{err}"),
-        }
+        Self { data: vec![], cache: MerkleCache::with_leaves(0) }
     }
 }
 
