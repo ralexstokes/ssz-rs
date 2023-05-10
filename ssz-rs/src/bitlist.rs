@@ -51,6 +51,7 @@ impl<const N: usize> fmt::Debug for Bitlist<N> {
             let value = i32::from(*bit);
             write!(f, "{value}")?;
             bits_written += 1;
+            // TODO: checked_sub
             if bits_written % 4 == 0 && index != len - 1 {
                 write!(f, "_")?;
             }
@@ -110,6 +111,7 @@ impl<const N: usize> Bitlist<N> {
                 *last |= 1u8 << marker_index;
             }
         }
+        // TODO: checked_sub
         Ok(buffer.len() - start_len)
     }
 }
@@ -161,12 +163,15 @@ impl<const N: usize> Deserialize for Bitlist<N> {
         let (last_byte, prefix) = encoding.split_last().unwrap();
         let mut result = BitlistInner::from_slice(prefix);
         let last = BitlistInner::from_element(*last_byte);
+        // TODO: checked_sub
         let high_bit_index = 8 - last.trailing_zeros();
 
+        // TODO: checked_sub
         if !last[high_bit_index - 1] {
             return Err(DeserializeError::InvalidByte(*last_byte))
         }
 
+        // TODO: checked_sub
         for bit in last.iter().take(high_bit_index - 1) {
             result.push(*bit);
         }

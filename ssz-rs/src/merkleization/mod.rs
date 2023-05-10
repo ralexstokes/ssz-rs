@@ -48,6 +48,7 @@ impl std::error::Error for MerkleizationError {}
 pub fn pack_bytes(buffer: &mut Vec<u8>) {
     let data_len = buffer.len();
     if data_len % BYTES_PER_CHUNK != 0 {
+        // TODO: checked_sub
         let bytes_to_pad = BYTES_PER_CHUNK - data_len % BYTES_PER_CHUNK;
         let pad = vec![0u8; bytes_to_pad];
         buffer.extend_from_slice(&pad);
@@ -116,11 +117,13 @@ fn merkleize_chunks_with_virtual_padding(
     let height = leaf_count.trailing_zeros() + 1;
 
     if chunk_count == 0 {
+        // TODO: checked_sub
         let depth = height - 1;
         return Ok(CONTEXT[depth as usize].try_into().expect("can produce a single root chunk"))
     }
 
     let mut layer = chunks.to_vec();
+    // TODO: checked_sub
     let mut last_index = chunk_count - 1;
     for k in (1..height).rev() {
         for i in (0..2usize.pow(k)).step_by(2) {
@@ -129,6 +132,7 @@ fn merkleize_chunks_with_virtual_padding(
                 Ordering::Less => {
                     let focus =
                         &mut layer[parent_index * BYTES_PER_CHUNK..(i + 2) * BYTES_PER_CHUNK];
+                    // TODO: checked_sub
                     let children_index = focus.len() - 2 * BYTES_PER_CHUNK;
                     let (parent, children) = focus.split_at_mut(children_index);
                     let (left, right) = children.split_at_mut(BYTES_PER_CHUNK);
@@ -145,9 +149,11 @@ fn merkleize_chunks_with_virtual_padding(
                 Ordering::Equal => {
                     let focus =
                         &mut layer[parent_index * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK];
+                    // TODO: checked_sub
                     let children_index = focus.len() - BYTES_PER_CHUNK;
                     let (parent, children) = focus.split_at_mut(children_index);
                     let (left, _) = children.split_at_mut(BYTES_PER_CHUNK);
+                    // TODO: checked_sub
                     let depth = height - k - 1;
                     let right = &CONTEXT[depth as usize];
                     if parent.is_empty() {
@@ -265,7 +271,9 @@ mod tests {
         debug_assert!(chunks.len() % BYTES_PER_CHUNK == 0);
         debug_assert!(leaf_count.next_power_of_two() == leaf_count);
 
+        // TODO: checked_sub
         let node_count = 2 * leaf_count - 1;
+        // TODO: checked_sub
         let interior_count = node_count - leaf_count;
         let leaf_start = interior_count * BYTES_PER_CHUNK;
 
@@ -280,8 +288,10 @@ mod tests {
         }
 
         for i in (1..node_count).rev().step_by(2) {
+            // TODO: checked_sub
             let parent_index = (i - 1) / 2;
             let focus = &mut buffer[parent_index * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK];
+            // TODO: checked_sub
             let children_index = focus.len() - 2 * BYTES_PER_CHUNK;
             let (parent, children) = focus.split_at_mut(children_index);
             let left = &children[0..BYTES_PER_CHUNK];
