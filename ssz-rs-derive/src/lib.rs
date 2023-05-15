@@ -192,8 +192,9 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                     Some(field_name) => quote_spanned! { f.span() =>
                         let bytes_read = if <#field_type>::is_variable_size() {
                             let end = start + #BYTES_PER_LENGTH_OFFSET;
-                            let next_offset = u32::deserialize(&encoding[start..end])?;
-                            offsets.push((#i, next_offset as usize));
+                            let next_offset = u32::deserialize(&encoding[start..end])? as usize;
+                            offsets.last().map(|(_, previous_offset)| assert!(next_offset >= *previous_offset));
+                            offsets.push((#i, next_offset));
 
                             #BYTES_PER_LENGTH_OFFSET
                         } else {
@@ -228,7 +229,7 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                         let (_, end) = span[1];
 
                         container.__ssz_rs_set_by_index(index, &encoding[start..end])?;
-                        // TODO: checked_sub
+                        // checked_sub is unnecessary, as offsets are increasing
                         total_bytes_read += end - start;
                     }
 
