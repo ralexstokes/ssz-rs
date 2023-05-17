@@ -151,8 +151,7 @@ fn merkleize_chunks_with_virtual_padding(
                         &mut layer[parent_index * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK];
                     // TODO: checked_sub
                     let children_index = focus.len() - BYTES_PER_CHUNK;
-                    let (parent, children) = focus.split_at_mut(children_index);
-                    let (left, _) = children.split_at_mut(BYTES_PER_CHUNK);
+                    let (parent, left) = focus.split_at_mut(children_index);
                     // TODO: checked_sub
                     let depth = height - k - 1;
                     let right = &CONTEXT[depth as usize];
