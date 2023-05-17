@@ -46,10 +46,10 @@ impl Display for MerkleizationError {
 impl std::error::Error for MerkleizationError {}
 
 pub fn pack_bytes(buffer: &mut Vec<u8>) {
-    let data_len = buffer.len();
-    if data_len % BYTES_PER_CHUNK != 0 {
+    let incomplete_chunk_len = buffer.len() % BYTES_PER_CHUNK;
+    if incomplete_chunk_len != 0 {
         // TODO: checked_sub
-        let bytes_to_pad = BYTES_PER_CHUNK - data_len % BYTES_PER_CHUNK;
+        let bytes_to_pad = BYTES_PER_CHUNK - incomplete_chunk_len;
         let pad = vec![0u8; bytes_to_pad];
         buffer.extend_from_slice(&pad);
     }
