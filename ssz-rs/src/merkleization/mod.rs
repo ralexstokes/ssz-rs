@@ -293,8 +293,7 @@ mod tests {
             // TODO: checked_sub
             let children_index = focus.len() - 2 * BYTES_PER_CHUNK;
             let (parent, children) = focus.split_at_mut(children_index);
-            let left = &children[0..BYTES_PER_CHUNK];
-            let right = &children[BYTES_PER_CHUNK..2 * BYTES_PER_CHUNK];
+            let (left, right) = children.split_at(BYTES_PER_CHUNK);
             hash_nodes(&mut hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
         }
         Ok(buffer[0..BYTES_PER_CHUNK].try_into().expect("can produce a single root chunk"))
