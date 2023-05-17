@@ -279,7 +279,7 @@ mod tests {
         let mut hasher = Sha256::new();
         let mut buffer = vec![0u8; node_count * BYTES_PER_CHUNK];
         buffer[leaf_start..leaf_start + chunks.len()].copy_from_slice(chunks);
-        let zero_chunk = [0u8; 32];
+        let zero_chunk = [0u8; BYTES_PER_CHUNK];
         for i in chunks.len()..leaf_count {
             let start = leaf_start + (i * BYTES_PER_CHUNK);
             let end = leaf_start + (i + 1) * BYTES_PER_CHUNK;
