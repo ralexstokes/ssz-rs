@@ -73,7 +73,7 @@ mod lib {
         pub use std::*;
     }
 
-    pub use self::core::{any, cmp, fmt, iter, slice};
+    pub use self::core::{any, cmp, fmt, iter, marker::PhantomData, slice};
 
     pub use self::{
         cmp::Ordering,

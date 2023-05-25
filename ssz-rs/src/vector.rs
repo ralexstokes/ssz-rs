@@ -8,8 +8,6 @@ use crate::{
 };
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
-#[cfg(feature = "serde")]
-use std::marker::PhantomData;
 
 /// A homogenous collection of a fixed number of values.
 /// NOTE: a `Vector` of length `0` is illegal.
