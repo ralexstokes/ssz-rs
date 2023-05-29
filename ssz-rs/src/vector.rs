@@ -118,8 +118,6 @@ where
     T: SimpleSerialize + Default + Clone,
 {
     fn default() -> Self {
-        // TODO: statically assert that N != 0, possibly with
-        // https://crates.io/crates/static_assertions
         assert!(N > 0);
 
         let data = vec![T::default(); N];
