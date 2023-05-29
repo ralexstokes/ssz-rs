@@ -229,7 +229,7 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                         let (_, end) = span[1];
 
                         container.__ssz_rs_set_by_index(index, &encoding[start..end])?;
-                        // checked_sub is unnecessary, as offsets are increasing
+                        // checked subtraction is unnecessary, as offsets are increasing; qed
                         total_bytes_read += end - start;
                     }
 

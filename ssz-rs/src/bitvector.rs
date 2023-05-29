@@ -60,7 +60,7 @@ impl<const N: usize> fmt::Debug for Bitvector<N> {
             let value = i32::from(*bit);
             write!(f, "{value}")?;
             bits_written += 1;
-            // checked_sub is unnecessary, as len >= 1 for bitvectors
+            // checked subtraction is unnecessary, as len >= 1 for bitvectors; qed
             if bits_written % 4 == 0 && index != len - 1 {
                 write!(f, "_")?;
             }

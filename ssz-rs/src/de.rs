@@ -71,7 +71,7 @@ where
     if remainder != 0 {
         return Err(DeserializeError::AdditionalInput {
             provided: encoding.len(),
-            // checked_sub is unnecessary, as encoding.len() > remainder
+            // checked subtraction is unnecessary, as encoding.len() > remainder; qed
             expected: encoding.len() - remainder,
         })
     }

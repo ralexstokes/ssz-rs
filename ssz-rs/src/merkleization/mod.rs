@@ -48,7 +48,7 @@ impl std::error::Error for MerkleizationError {}
 pub fn pack_bytes(buffer: &mut Vec<u8>) {
     let incomplete_chunk_len = buffer.len() % BYTES_PER_CHUNK;
     if incomplete_chunk_len != 0 {
-        // checked_sub is unnecessary, as BYTES_PER_CHUNK > incomplete_chunk_len
+        // checked subtraction is unnecessary, as BYTES_PER_CHUNK > incomplete_chunk_len; qed
         let bytes_to_pad = BYTES_PER_CHUNK - incomplete_chunk_len;
         let pad = vec![0u8; bytes_to_pad];
         buffer.extend_from_slice(&pad);
@@ -117,13 +117,13 @@ fn merkleize_chunks_with_virtual_padding(
     let height = leaf_count.trailing_zeros() + 1;
 
     if chunk_count == 0 {
-        // checked_sub is unnecessary, as height >= 1
+        // checked subtraction is unnecessary, as height >= 1; qed
         let depth = height - 1;
         return Ok(CONTEXT[depth as usize].try_into().expect("can produce a single root chunk"))
     }
 
     let mut layer = chunks.to_vec();
-    // checked_sub is unnecessary, as we return early when chunk_count == 0
+    // checked subtraction is unnecessary, as we return early when chunk_count == 0; qed
     let mut last_index = chunk_count - 1;
     for k in (1..height).rev() {
         for i in (0..2usize.pow(k)).step_by(2) {
@@ -132,11 +132,11 @@ fn merkleize_chunks_with_virtual_padding(
                 Ordering::Less => {
                     let focus =
                         &mut layer[parent_index * BYTES_PER_CHUNK..(i + 2) * BYTES_PER_CHUNK];
-                    // checked_sub is unnecessary:
-                    // i >= parent_index
-                    // and
+                    // checked subtraction is unnecessary:
                     // focus.len() = (i + 2 - parent_index) * BYTES_PER_CHUNK
-                    // so focus.len() >= 2 * BYTES_PER_CHUNK
+                    // and
+                    // i >= parent_index
+                    // so focus.len() >= 2 * BYTES_PER_CHUNK; qed
                     let children_index = focus.len() - 2 * BYTES_PER_CHUNK;
                     let (parent, children) = focus.split_at_mut(children_index);
                     let (left, right) = children.split_at_mut(BYTES_PER_CHUNK);
@@ -155,15 +155,17 @@ fn merkleize_chunks_with_virtual_padding(
                 Ordering::Equal => {
                     let focus =
                         &mut layer[parent_index * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK];
-                    // checked_sub is unnecessary:
-                    // i >= parent_index
-                    // and
+                    // checked subtraction is unnecessary:
                     // focus.len() = (i + 1 - parent_index) * BYTES_PER_CHUNK
-                    // so focus.len() >= BYTES_PER_CHUNK
+                    // and
+                    // i >= parent_index
+                    // so focus.len() >= BYTES_PER_CHUNK; qed
                     let children_index = focus.len() - BYTES_PER_CHUNK;
                     let (parent, left) = focus.split_at_mut(children_index);
-                    // checked_sub is unnecessary, as k <= height - 1
-                    // so depth >= height - (height - 1) - 1 = 0
+                    // checked subtraction is unnecessary:
+                    // k <= height - 1
+                    // so depth >= height - (height - 1) - 1
+                    //           = 0; qed
                     let depth = height - k - 1;
                     let right = &CONTEXT[depth as usize];
                     if parent.is_empty() {
@@ -281,9 +283,9 @@ mod tests {
         debug_assert!(chunks.len() % BYTES_PER_CHUNK == 0);
         debug_assert!(leaf_count.next_power_of_two() == leaf_count);
 
-        // checked_sub is unnecessary, as leaf_count != 0 (0.next_power_of_two() == 1)
+        // checked subtraction is unnecessary, as leaf_count != 0 (0.next_power_of_two() == 1); qed
         let node_count = 2 * leaf_count - 1;
-        // checked_sub is unnecessary, as node_count >= leaf_count
+        // checked subtraction is unnecessary, as node_count >= leaf_count; qed
         let interior_count = node_count - leaf_count;
         let leaf_start = interior_count * BYTES_PER_CHUNK;
 
@@ -298,16 +300,16 @@ mod tests {
         }
 
         for i in (1..node_count).rev().step_by(2) {
-            // checked_sub is unnecessary, as i >= 1
+            // checked subtraction is unnecessary, as i >= 1; qed
             let parent_index = (i - 1) / 2;
             let focus = &mut buffer[parent_index * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK];
-            // TODO: checked_sub
+            // checked subtraction is unnecessary:
             // focus.len() = (i + 1 - parent_index) * BYTES_PER_CHUNK
             //             = ((2*i + 2 - i + 1) / 2) * BYTES_PER_CHUNK
             //             = ((i + 3) / 2) * BYTES_PER_CHUNK
             // and
             // i >= 1
-            // so focus.len() >= 2 * BYTES_PER_CHUNK
+            // so focus.len() >= 2 * BYTES_PER_CHUNK; qed
             let children_index = focus.len() - 2 * BYTES_PER_CHUNK;
             let (parent, children) = focus.split_at_mut(children_index);
             let (left, right) = children.split_at(BYTES_PER_CHUNK);

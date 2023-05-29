@@ -51,7 +51,7 @@ impl<const N: usize> fmt::Debug for Bitlist<N> {
             let value = i32::from(*bit);
             write!(f, "{value}")?;
             bits_written += 1;
-            // checked_sub is unnecessary, as len >= 1 when this for loop runs
+            // checked subtraction is unnecessary, as len >= 1 when this for loop runs; qed
             if bits_written % 4 == 0 && index != len - 1 {
                 write!(f, "_")?;
             }
@@ -111,7 +111,7 @@ impl<const N: usize> Bitlist<N> {
                 *last |= 1u8 << marker_index;
             }
         }
-        // checked_sub is unnecessary, as buffer.len() > start_len
+        // checked subtraction is unnecessary, as buffer.len() > start_len; qed
         Ok(buffer.len() - start_len)
     }
 }
@@ -167,16 +167,16 @@ impl<const N: usize> Deserialize for Bitlist<N> {
 
         let mut result = BitlistInner::from_slice(prefix);
         let last = BitlistInner::from_element(*last_byte);
-        // checked_sub is unnecessary, as last_byte != 0, so last.trailing_zeros <= 7
+        // checked subtraction is unnecessary, as last_byte != 0, so last.trailing_zeros <= 7; qed
         // high_bit_index >= 1
         let high_bit_index = 8 - last.trailing_zeros();
 
-        // checked_sub is unnecessary, as high_bit_index >= 1
+        // checked subtraction is unnecessary, as high_bit_index >= 1; qed
         if !last[high_bit_index - 1] {
             return Err(DeserializeError::InvalidByte(*last_byte))
         }
 
-        // checked_sub is unnecessary, as high_bit_index >= 1
+        // checked subtraction is unnecessary, as high_bit_index >= 1; qed
         for bit in last.iter().take(high_bit_index - 1) {
             result.push(*bit);
         }
