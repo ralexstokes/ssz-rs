@@ -227,7 +227,13 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                         let (index, start) = span[0];
                         let (_, end) = span[1];
 
-                        container.__ssz_rs_set_by_index(index, &encoding[start..end])?;
+                        let target = encoding.get(start..end).ok_or(
+                            ssz_rs::DeserializeError::ExpectedFurtherInput{
+                                provided: encoding.len() - start,
+                                expected: end - start,
+                            }
+                        )?;
+                        container.__ssz_rs_set_by_index(index, target)?;
                         total_bytes_read += end - start;
                     }
 
