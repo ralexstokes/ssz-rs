@@ -1,9 +1,14 @@
 use crate::{lib::*, prelude::*, utils::write_bytes_to_lower_hex};
 
+use super::BYTES_PER_CHUNK;
+
+// TODO: Should we change Node's length to BYTES_PER_CHUNK?
+// They need to match for merkleization in ssz-rs-derive's hash_tree_root to work.
+
 /// A node in a merkle tree.
 #[derive(Default, Clone, Copy, Eq, SimpleSerialize)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-pub struct Node(#[cfg_attr(feature = "serde", serde(with = "crate::serde::as_hex"))] [u8; 32]);
+pub struct Node(#[cfg_attr(feature = "serde", serde(with = "crate::serde::as_hex"))] [u8; BYTES_PER_CHUNK]);
 
 impl fmt::LowerHex for Node {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
