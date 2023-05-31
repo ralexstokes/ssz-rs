@@ -148,6 +148,7 @@ where
     type Output = <Idx as SliceIndex<[T]>>::Output;
 
     fn index(&self, index: Idx) -> &Self::Output {
+        // Index::index implementations may panic when the given index is out of bounds
         &self.data[index]
     }
 }
@@ -163,6 +164,7 @@ where
     fn index_mut(&mut self, index: usize) -> &mut Self::Output {
         let leaf_index = self.get_leaf_index(index);
         self.cache.invalidate(leaf_index);
+        // IndexMut::index implementations may panic when the given index is out of bounds
         &mut self.data[index]
     }
 }
@@ -254,6 +256,7 @@ where
             for (i, elem) in self.data.iter_mut().enumerate() {
                 let chunk = elem.hash_tree_root()?;
                 let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
+                // index is safe as long as Node::len() == BYTES_PER_CHUNK
                 chunks[range].copy_from_slice(chunk.as_ref());
             }
             merkleize(&chunks, None)

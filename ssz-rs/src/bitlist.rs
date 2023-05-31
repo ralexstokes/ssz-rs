@@ -163,6 +163,9 @@ impl<const N: usize> Deserialize for Bitlist<N> {
         let last = BitlistInner::from_element(*last_byte);
         let high_bit_index = 8 - last.trailing_zeros();
 
+        // index should be safe because the last_byte shouldn't be 0
+        // for a check for this condition, see
+        // https://github.com/ralexstokes/ssz-rs/pull/57/files#diff-7424acc2e06bfc6ea7bd3686c0618f6541553fca52fb1c71149a08ad0e93c52bR164-R175
         if !last[high_bit_index - 1] {
             return Err(DeserializeError::InvalidByte(*last_byte))
         }
