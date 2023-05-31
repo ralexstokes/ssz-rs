@@ -170,6 +170,7 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                 // "tuple" struct
                 // only support the case with one unnamed field, to support "newtype" pattern
                 Fields::Unnamed(ref fields) => {
+                    // index is safe because Punctuated always has a first element; qed
                     let f = &fields.unnamed[0];
                     let field_type = &f.ty;
                     return quote! {
@@ -224,6 +225,7 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                     offsets.push((dummy_index, encoding.len()));
 
                     for span in offsets.windows(2) {
+                        // indexes are safe because span is a pair; qed
                         let (index, start) = span[0];
                         let (_, end) = span[1];
 
@@ -263,9 +265,11 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                     let variant_name = &variant.ident;
                     match &variant.fields {
                         Fields::Unnamed(inner) => {
+                            // index is safe because Punctuated always has a first element; qed
                             let variant_type = &inner.unnamed[0];
                             quote_spanned! { variant.span() =>
                                 #i => {
+                                    // index is safe because encoding isn't empty; qed
                                     let value = <#variant_type>::deserialize(&encoding[1..])?;
                                     Ok(Self::#variant_name(value))
                                 }
@@ -289,6 +293,7 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                         });
                     }
 
+                    // index is safe because encoding isn't empty; qed
                     match encoding[0] {
                         #(#deserialization_by_variant)*
                         b => Err(ssz_rs::DeserializeError::InvalidByte(b)),
@@ -376,7 +381,7 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                     let chunk = self.#field_name.hash_tree_root()?;
                     let range = #i*#BYTES_PER_CHUNK..(#i+1)*#BYTES_PER_CHUNK;
                     let chunks_byte_count = chunks.len();
-                    // slice is safe as long as Node::len() == BYTES_PER_CHUNK
+                    // index is safe as long as Node::len() == BYTES_PER_CHUNK
                     chunks
                         .get_mut(range)
                         .ok_or(MerkleizationError::InputInsufficient(chunks_byte_count))?
@@ -386,7 +391,7 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                     let chunk = self.0.hash_tree_root()?;
                     let range = #i*#BYTES_PER_CHUNK..(#i+1)*#BYTES_PER_CHUNK;
                     let chunks_byte_count = chunks.len();
-                    // slice is safe as long as Node::len() == BYTES_PER_CHUNK
+                    // index is safe as long as Node::len() == BYTES_PER_CHUNK
                     chunks
                         .get_mut(range)
                         .ok_or(MerkleizationError::InputInsufficient(chunks_byte_count))?
