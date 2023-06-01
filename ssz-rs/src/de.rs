@@ -25,8 +25,8 @@ pub enum DeserializeError {
     InvalidType(TypeError),
     /// The number of bytes used for length offsets wasn't a multiple of BYTES_PER_LENGTH_OFFSET.
     IncompleteLengthOffsets(usize),
-    /// The span of an element in a collection was empty.
-    EmptySpan {
+    /// An offset was found with start > end.
+    OffsetNotIncreasing {
         start: usize,
         end: usize,
     },
@@ -56,7 +56,7 @@ impl Display for DeserializeError {
             DeserializeError::InvalidInstance(err) => write!(f, "invalid instance: {err}"),
             DeserializeError::InvalidType(err) => write!(f, "invalid type: {err}"),
             DeserializeError::IncompleteLengthOffsets(err) => write!(f, "incomplete length offsets: {err}"),
-            DeserializeError::EmptySpan { start, end } => write!(f, "empty span from {start} to {end} bytes"),
+            DeserializeError::OffsetNotIncreasing { start, end } => write!(f, "empty span from {start} to {end} bytes"),
         }
     }
 }
@@ -137,11 +137,11 @@ where
         // index is safe because span is a pair; qed
         let start = span[0];
         let end = span[1];
-        if start >= end {
-            return Err(DeserializeError::EmptySpan { start, end });
+        if start > end {
+            return Err(DeserializeError::OffsetNotIncreasing { start, end });
         }
 
-        // index is safe because start < end; qed
+        // index is safe because start <= end; qed
         let element = T::deserialize(&encoding[start..end])?;
         result.push(element);
     }
