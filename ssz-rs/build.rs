@@ -24,7 +24,7 @@ fn compute_zero_hashes() -> [u8; MAX_MERKLE_TREE_DEPTH * BYTES_PER_CHUNK] {
 }
 
 // This function derives a set of bytes corresponding to "zero hashes" at build-time
-// in lieu of needing to declar any sort of runtime static memory or similar technique.
+// in lieu of needing to declare any sort of runtime static memory or similar technique.
 // If any of the hashing code changes significantly for the SSZ accumulator scheme,
 // this code will need to be updated as well.
 fn generate() -> std::io::Result<()> {
