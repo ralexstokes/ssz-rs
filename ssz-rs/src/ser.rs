@@ -18,7 +18,7 @@ pub enum SerializeError {
     /// An invalid type was encountered.
     InvalidType(TypeError),
     /// Too few variable lengths were provided.
-    InsufficientVariableLengths { provided: usize, expected_min: usize },
+    InsufficientVariableLengths { provided: usize, min_bound: usize },
 }
 
 impl From<InstanceError> for SerializeError {
@@ -42,8 +42,8 @@ impl Display for SerializeError {
             ),
             SerializeError::InvalidInstance(err) => write!(f, "invalid instance: {err}"),
             SerializeError::InvalidType(err) => write!(f, "invalid type: {err}"),
-            SerializeError::InsufficientVariableLengths { provided, expected_min } => {
-                write!(f, "{provided} variable lengths given but expected at least {expected_min}")
+            SerializeError::InsufficientVariableLengths { provided, min_bound } => {
+                write!(f, "{provided} variable lengths given but expected at least {min_bound}")
             }
         }
     }
@@ -75,7 +75,7 @@ pub fn serialize_composite_from_components(
     if fixed.len() > variable_lengths.len() {
         return Err(SerializeError::InsufficientVariableLengths {
             provided: variable_lengths.len(),
-            expected_min: fixed.len(),
+            min_bound: fixed.len(),
         })
     }
 
