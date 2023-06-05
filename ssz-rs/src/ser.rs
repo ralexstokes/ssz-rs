@@ -73,9 +73,7 @@ pub fn serialize_composite_from_components(
         } else {
             let variable_lengths_sum = variable_lengths[0..i].iter().sum::<usize>();
             let length = (fixed_lengths_sum + variable_lengths_sum) as u32;
-            let mut offset_buffer = Vec::with_capacity(4);
-            let _ = length.serialize(&mut offset_buffer)?;
-            buffer.append(&mut offset_buffer);
+            let _ = length.serialize(buffer)?;
         }
     }
 
