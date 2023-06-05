@@ -1,3 +1,8 @@
+use bitvec::{
+    field::BitField,
+    prelude::{BitVec, Lsb0},
+};
+
 use crate::{
     de::{Deserialize, DeserializeError},
     error::TypeError,
@@ -5,10 +10,6 @@ use crate::{
     merkleization::{merkleize, pack_bytes, MerkleizationError, Merkleized, Node},
     ser::{Serialize, SerializeError},
     SimpleSerialize, Sized,
-};
-use bitvec::{
-    field::BitField,
-    prelude::{BitVec, Lsb0},
 };
 
 fn byte_length(bound: usize) -> usize {

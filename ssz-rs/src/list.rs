@@ -1,3 +1,9 @@
+#[cfg(feature = "serde")]
+use std::marker::PhantomData;
+
+#[cfg(feature = "serde")]
+use serde::ser::SerializeSeq;
+
 use crate::{
     de::{deserialize_homogeneous_composite, Deserialize, DeserializeError},
     error::{Error, InstanceError},
@@ -9,10 +15,6 @@ use crate::{
     ser::{serialize_composite, Serialize, SerializeError},
     SimpleSerialize, Sized,
 };
-#[cfg(feature = "serde")]
-use serde::ser::SerializeSeq;
-#[cfg(feature = "serde")]
-use std::marker::PhantomData;
 
 /// A homogenous collection of a variable number of values.
 #[derive(Clone)]

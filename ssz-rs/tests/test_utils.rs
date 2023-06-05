@@ -1,5 +1,6 @@
-use ssz_rs::prelude::*;
 use std::{convert::TryInto, fs::File, io::Read, path::PathBuf};
+
+use ssz_rs::prelude::*;
 
 pub fn root_from_hex(hex_str: &str) -> Node {
     hex::decode(hex_str).expect("can read hex").as_slice().try_into().expect("can extract root")

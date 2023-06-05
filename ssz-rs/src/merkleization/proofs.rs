@@ -1,5 +1,6 @@
-use crate::merkleization::Node;
 use sha2::{Digest, Sha256};
+
+use crate::merkleization::Node;
 
 /// `is_valid_merkle_branch` verifies the Merkle proof
 /// against the `root` given the other metadata.

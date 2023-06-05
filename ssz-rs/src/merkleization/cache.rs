@@ -1,5 +1,6 @@
-use crate::merkleization::Node;
 use bitvec::prelude::{bitvec, BitVec, Lsb0};
+
+use crate::merkleization::Node;
 
 #[derive(Default, Debug, Clone)]
 pub struct Cache {
