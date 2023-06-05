@@ -67,11 +67,8 @@ pub fn serialize_composite_from_components(
         return Err(SerializeError::MaximumEncodedLengthExceeded(total_size))
     }
 
-    let mut total_bytes_written = 0;
-
     for (i, part_opt) in fixed.iter_mut().enumerate() {
         if let Some(part) = part_opt {
-            total_bytes_written += part.len();
             buffer.append(part);
         } else {
             let variable_lengths_sum = variable_lengths[0..i].iter().sum::<usize>();
@@ -79,16 +76,14 @@ pub fn serialize_composite_from_components(
             let mut offset_buffer = Vec::with_capacity(4);
             let _ = length.serialize(&mut offset_buffer)?;
             buffer.append(&mut offset_buffer);
-            total_bytes_written += 4;
         }
     }
 
     for part in variable.iter_mut() {
-        total_bytes_written += part.len();
         buffer.append(part);
     }
 
-    Ok(total_bytes_written)
+    Ok(total_size)
 }
 
 pub fn serialize_composite<T: SimpleSerialize>(
