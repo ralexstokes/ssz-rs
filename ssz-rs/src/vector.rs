@@ -337,6 +337,13 @@ mod tests {
     }
 
     #[test]
+    fn decode_vector_with_no_input() {
+        let source = vec![];
+        let result = Vector::<u8, 6>::deserialize(&source);
+        assert!(matches!(result, Err(DeserializeError::ExpectedFurtherInput { .. })));
+    }
+
+    #[test]
     fn decode_variable_vector() {
         const COUNT: usize = 4;
         let mut inner: Vec<List<u8, 1>> =
