@@ -192,7 +192,7 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                     Some(field_name) => quote_spanned! { f.span() =>
                         let bytes_read = if <#field_type>::is_variable_size() {
                             let end = start + #BYTES_PER_LENGTH_OFFSET;
-                            let target = encoding.get(start..end).ok_or(
+                            let target = encoding.get(start..end).ok_or_else(||
                                 ssz_rs::DeserializeError::ExpectedFurtherInput {
                                     provided: encoding.len() - start,
                                     expected: #BYTES_PER_LENGTH_OFFSET,
@@ -205,7 +205,7 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                         } else {
                             let encoded_length = <#field_type>::size_hint();
                             let end = start + encoded_length;
-                            let target = encoding.get(start..end).ok_or(
+                            let target = encoding.get(start..end).ok_or_else(||
                                 ssz_rs::DeserializeError::ExpectedFurtherInput{
                                     provided: encoding.len() - start,
                                     expected: encoded_length,
