@@ -57,7 +57,7 @@ pub trait Serialize {
 
 pub fn serialize_composite_from_components(
     mut fixed: Vec<Option<Vec<u8>>>,
-    mut variable: Vec<Vec<u8>>,
+    mut variable: Vec<u8>,
     variable_lengths: Vec<usize>,
     fixed_lengths_sum: usize,
     buffer: &mut Vec<u8>,
@@ -77,9 +77,7 @@ pub fn serialize_composite_from_components(
         }
     }
 
-    for part in variable.iter_mut() {
-        buffer.append(part);
-    }
+    buffer.append(&mut variable);
 
     Ok(total_size)
 }
@@ -94,18 +92,18 @@ pub fn serialize_composite<T: SimpleSerialize>(
     let mut fixed_lengths_sum = 0;
 
     for element in elements {
-        let mut buffer = Vec::with_capacity(T::size_hint());
-        element.serialize(&mut buffer)?;
+        let mut element_buffer = Vec::with_capacity(T::size_hint());
+        element.serialize(&mut element_buffer)?;
 
-        let buffer_len = buffer.len();
+        let element_buffer_len = element_buffer.len();
         if T::is_variable_size() {
             fixed.push(None);
             fixed_lengths_sum += BYTES_PER_LENGTH_OFFSET;
-            variable.push(buffer);
-            variable_lengths.push(buffer_len);
+            variable.append(&mut element_buffer);
+            variable_lengths.push(element_buffer_len);
         } else {
-            fixed.push(Some(buffer));
-            fixed_lengths_sum += buffer_len;
+            fixed.push(Some(element_buffer));
+            fixed_lengths_sum += element_buffer_len;
             variable_lengths.push(0)
         }
     }
