@@ -1,3 +1,5 @@
+use num_bigint::BigUint;
+
 use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
@@ -5,7 +7,6 @@ use crate::{
     ser::{Serialize, SerializeError},
     SimpleSerialize, Sized,
 };
-use num_bigint::BigUint;
 
 macro_rules! define_uint {
     ($uint:ty) => {

@@ -18,8 +18,9 @@ fn try_bytes_from_hex_str(s: &str) -> Result<Vec<u8>, HexError> {
 }
 
 pub mod as_hex {
-    use super::*;
     use serde::Deserialize;
+
+    use super::*;
 
     pub fn serialize<S, T: AsRef<[u8]>>(data: T, serializer: S) -> Result<S::Ok, S::Error>
     where

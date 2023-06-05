@@ -2,15 +2,15 @@ mod cache;
 mod node;
 mod proofs;
 
+pub use cache::Cache as MerkleCache;
+pub use node::Node;
+pub use proofs::is_valid_merkle_branch;
+use sha2::{Digest, Sha256};
+
 use crate::{
     lib::*,
     ser::{Serialize, SerializeError},
 };
-use sha2::{Digest, Sha256};
-
-pub use cache::Cache as MerkleCache;
-pub use node::Node;
-pub use proofs::is_valid_merkle_branch;
 
 pub(crate) const BYTES_PER_CHUNK: usize = 32;
 
@@ -203,11 +203,12 @@ pub fn mix_in_selector(root: &Node, selector: usize) -> Node {
 
 #[cfg(test)]
 mod tests {
+    use hex_literal::hex;
+    use ssz_rs_derive::SimpleSerialize;
+
     use super::*;
     use crate as ssz_rs;
     use crate::prelude::*;
-    use hex_literal::hex;
-    use ssz_rs_derive::SimpleSerialize;
 
     #[test]
     fn test_packing_basic_types_simple() {

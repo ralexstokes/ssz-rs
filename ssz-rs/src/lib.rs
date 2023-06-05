@@ -73,24 +73,25 @@ mod lib {
         pub use std::*;
     }
 
-    pub use self::core::{any, cmp, fmt, iter, slice};
+    #[cfg(not(feature = "std"))]
+    pub use alloc::{format, string::String, vec, vec::Vec};
+    #[cfg(feature = "std")]
+    pub use std::vec::Vec;
 
     pub use self::{
         cmp::Ordering,
         core::{
+            any,
             array::TryFromSliceError,
+            cmp, fmt,
             fmt::{Debug, Display, Formatter},
+            iter,
             ops::{Deref, DerefMut, Index, IndexMut},
+            slice,
             slice::{IterMut, SliceIndex},
         },
         iter::Enumerate,
     };
-
-    #[cfg(not(feature = "std"))]
-    pub use alloc::{format, string::String, vec, vec::Vec};
-
-    #[cfg(feature = "std")]
-    pub use std::vec::Vec;
 }
 
 /// `Sized` is a trait for types that can
@@ -113,6 +114,11 @@ pub trait SimpleSerialize: Serialize + Deserialize + Sized + Merkleized + Defaul
 /// The `prelude` contains common traits and types a user of this library
 /// would want to have handy with a simple (single) import.
 pub mod prelude {
+    pub use ssz_rs_derive::SimpleSerialize;
+
+    // expose this so the derive macro has everything in scope
+    // with a simple `prelude` import
+    pub use crate as ssz_rs;
     pub use crate::{
         bitlist::Bitlist,
         bitvector::Bitvector,
@@ -126,10 +132,6 @@ pub mod prelude {
         vector::Vector,
         SimpleSerialize, Sized,
     };
-    // expose this so the derive macro has everything in scope
-    // with a simple `prelude` import
-    pub use crate as ssz_rs;
-    pub use ssz_rs_derive::SimpleSerialize;
 }
 
 #[doc(hidden)]

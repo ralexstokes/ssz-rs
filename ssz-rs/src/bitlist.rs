@@ -1,3 +1,5 @@
+use bitvec::prelude::{BitVec, Lsb0};
+
 use crate::{
     de::{Deserialize, DeserializeError},
     error::InstanceError,
@@ -6,7 +8,6 @@ use crate::{
     ser::{Serialize, SerializeError},
     SimpleSerialize, Sized,
 };
-use bitvec::prelude::{BitVec, Lsb0};
 
 // +1 for length bit
 fn byte_length(bound: usize) -> usize {
