@@ -193,9 +193,10 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                         let bytes_read = if <#field_type>::is_variable_size() {
                             let end = start + #BYTES_PER_LENGTH_OFFSET;
                             let target = encoding.get(start..end).ok_or(
-                                ssz_rs::DeserializeError::ExpectedFurtherInput{
-                                    provided: encoding.len(),
-                                    expected: #BYTES_PER_LENGTH_OFFSET,}
+                                ssz_rs::DeserializeError::ExpectedFurtherInput {
+                                    provided: encoding.len() - start,
+                                    expected: #BYTES_PER_LENGTH_OFFSET,
+                                }
                             )?;
                             let next_offset = u32::deserialize(target)?;
                             offsets.push((#i, next_offset as usize));
@@ -206,7 +207,7 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                             let end = start + encoded_length;
                             let target = encoding.get(start..end).ok_or(
                                 ssz_rs::DeserializeError::ExpectedFurtherInput{
-                                    provided: encoding.len(),
+                                    provided: encoding.len() - start,
                                     expected: encoded_length,
                                 }
                             )?;
