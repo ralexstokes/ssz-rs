@@ -163,6 +163,13 @@ mod tests {
     }
 
     #[test]
+    fn decode_container_with_no_input() {
+        let data = vec![];
+        let result = VarTestStruct::deserialize(&data);
+        assert!(matches!(result, Err(DeserializeError::ExpectedFurtherInput { .. })));
+    }
+
+    #[test]
     fn can_derive_struct_with_const_generics() {
         let value = VarWithGenericTestStruct {
             a: 2u16,
