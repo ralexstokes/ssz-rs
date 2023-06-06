@@ -67,13 +67,18 @@ pub fn serialize_composite_from_components(
         return Err(SerializeError::MaximumEncodedLengthExceeded(total_size))
     }
 
-    for (i, part_opt) in fixed.iter_mut().enumerate() {
+    // SAFETY: `fixed_lengths_sum` fits in `u32` if the total size check holds
+    let mut running_length = fixed_lengths_sum as u32;
+    debug_assert_eq!(fixed.len(), variable_lengths.len());
+    for (part_opt, variable_length) in fixed.iter_mut().zip(variable_lengths) {
         if let Some(part) = part_opt {
             buffer.append(part);
         } else {
-            let variable_lengths_sum = variable_lengths[0..i].iter().sum::<usize>();
-            let length = (fixed_lengths_sum + variable_lengths_sum) as u32;
-            let _ = length.serialize(buffer)?;
+            // SAFETY: `variable_length` fits in `u32` if the total size check holds
+            let bytes_written = running_length.serialize(buffer)?;
+            debug_assert_eq!(bytes_written, BYTES_PER_LENGTH_OFFSET);
+
+            running_length += variable_length as u32;
         }
     }
 
