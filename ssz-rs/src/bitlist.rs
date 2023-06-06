@@ -168,7 +168,7 @@ impl<const N: usize> Deserialize for Bitlist<N> {
         let mut result = BitlistInner::from_slice(prefix);
         let last = BitlistInner::from_element(*last_byte);
         // checked subtraction is unnecessary, as last_byte != 0, so last.trailing_zeros <= 7; qed
-        // high_bit_index >= 1
+        // therefore: high_bit_index >= 1
         let high_bit_index = 8 - last.trailing_zeros();
 
         // checked subtraction is unnecessary, as high_bit_index >= 1; qed
