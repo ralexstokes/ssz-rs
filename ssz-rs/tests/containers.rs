@@ -64,11 +64,11 @@ fn test_containers_bits_struct_extra_byte() {
 #[test]
 fn test_containers_bits_struct_lengthy_0() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([62]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([117]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([29]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([62]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([117]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([29]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -88,11 +88,11 @@ fn test_containers_bits_struct_lengthy_0() {
 #[test]
 fn test_containers_bits_struct_lengthy_1() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([50]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([88]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([92]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([50]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([88]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([92]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -112,11 +112,12 @@ fn test_containers_bits_struct_lengthy_1() {
 #[test]
 fn test_containers_bits_struct_lengthy_2() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([36]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([67]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([145]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([36]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([67]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([145]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -136,11 +137,11 @@ fn test_containers_bits_struct_lengthy_2() {
 #[test]
 fn test_containers_bits_struct_lengthy_3() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([49]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([100]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([52]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([49]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([100]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([52]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -160,11 +161,11 @@ fn test_containers_bits_struct_lengthy_3() {
 #[test]
 fn test_containers_bits_struct_lengthy_4() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([35]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([87]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([51]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([35]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([87]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([51]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -184,11 +185,12 @@ fn test_containers_bits_struct_lengthy_4() {
 #[test]
 fn test_containers_bits_struct_lengthy_5() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([43]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([124]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([222]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([43]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([124]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([222]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -208,11 +210,12 @@ fn test_containers_bits_struct_lengthy_5() {
 #[test]
 fn test_containers_bits_struct_lengthy_6() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([55]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([122]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([198]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([55]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([122]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([198]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -232,11 +235,11 @@ fn test_containers_bits_struct_lengthy_6() {
 #[test]
 fn test_containers_bits_struct_lengthy_7() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([57]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([110]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([88]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([57]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([110]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([88]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -256,11 +259,11 @@ fn test_containers_bits_struct_lengthy_7() {
 #[test]
 fn test_containers_bits_struct_lengthy_8() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([55]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([121]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([32]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([55]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([121]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([32]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -280,11 +283,11 @@ fn test_containers_bits_struct_lengthy_8() {
 #[test]
 fn test_containers_bits_struct_lengthy_9() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([53]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([99]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([66]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([53]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([99]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([66]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -304,11 +307,12 @@ fn test_containers_bits_struct_lengthy_9() {
 #[test]
 fn test_containers_bits_struct_lengthy_chaos_0() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([51]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([94]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([252]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([51]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([94]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([252]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -328,11 +332,11 @@ fn test_containers_bits_struct_lengthy_chaos_0() {
 #[test]
 fn test_containers_bits_struct_lengthy_chaos_1() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([54]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([103]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([59]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([54]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([103]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([59]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -352,11 +356,11 @@ fn test_containers_bits_struct_lengthy_chaos_1() {
 #[test]
 fn test_containers_bits_struct_lengthy_chaos_2() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([56]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([70]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([45]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([56]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([70]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([45]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -456,11 +460,12 @@ fn test_containers_bits_struct_lengthy_offset_6_zeroed() {
 #[test]
 fn test_containers_bits_struct_max() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([63]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([255]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([63]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -480,11 +485,12 @@ fn test_containers_bits_struct_max() {
 #[test]
 fn test_containers_bits_struct_max_0() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([255]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -504,11 +510,12 @@ fn test_containers_bits_struct_max_0() {
 #[test]
 fn test_containers_bits_struct_max_1() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([255]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -528,11 +535,12 @@ fn test_containers_bits_struct_max_1() {
 #[test]
 fn test_containers_bits_struct_max_2() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([127]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([255]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([127]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -552,11 +560,12 @@ fn test_containers_bits_struct_max_2() {
 #[test]
 fn test_containers_bits_struct_max_3() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([255]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -576,11 +585,12 @@ fn test_containers_bits_struct_max_3() {
 #[test]
 fn test_containers_bits_struct_max_4() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([255]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -600,11 +610,12 @@ fn test_containers_bits_struct_max_4() {
 #[test]
 fn test_containers_bits_struct_max_5() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([127]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([255]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([127]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -624,11 +635,12 @@ fn test_containers_bits_struct_max_5() {
 #[test]
 fn test_containers_bits_struct_max_6() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([63]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([63]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([255]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([63]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([63]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -648,11 +660,12 @@ fn test_containers_bits_struct_max_6() {
 #[test]
 fn test_containers_bits_struct_max_7() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([63]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([255]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([63]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -672,11 +685,12 @@ fn test_containers_bits_struct_max_7() {
 #[test]
 fn test_containers_bits_struct_max_8() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([255]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -696,11 +710,12 @@ fn test_containers_bits_struct_max_8() {
 #[test]
 fn test_containers_bits_struct_max_9() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([63]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([255]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([63]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -720,11 +735,12 @@ fn test_containers_bits_struct_max_9() {
 #[test]
 fn test_containers_bits_struct_max_chaos_0() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([255]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -744,11 +760,12 @@ fn test_containers_bits_struct_max_chaos_0() {
 #[test]
 fn test_containers_bits_struct_max_chaos_1() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([63]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([255]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([63]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -768,11 +785,12 @@ fn test_containers_bits_struct_max_chaos_1() {
 #[test]
 fn test_containers_bits_struct_max_chaos_2() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([255]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -792,11 +810,12 @@ fn test_containers_bits_struct_max_chaos_2() {
 #[test]
 fn test_containers_bits_struct_nil_0() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([109]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([109]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -816,11 +835,12 @@ fn test_containers_bits_struct_nil_0() {
 #[test]
 fn test_containers_bits_struct_nil_1() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([163]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([163]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -840,11 +860,12 @@ fn test_containers_bits_struct_nil_1() {
 #[test]
 fn test_containers_bits_struct_nil_2() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([188]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([188]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -864,11 +885,12 @@ fn test_containers_bits_struct_nil_2() {
 #[test]
 fn test_containers_bits_struct_nil_3() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([121]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([121]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -888,11 +910,12 @@ fn test_containers_bits_struct_nil_3() {
 #[test]
 fn test_containers_bits_struct_nil_4() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([136]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([136]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -912,11 +935,12 @@ fn test_containers_bits_struct_nil_4() {
 #[test]
 fn test_containers_bits_struct_nil_5() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([241]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([241]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -936,11 +960,11 @@ fn test_containers_bits_struct_nil_5() {
 #[test]
 fn test_containers_bits_struct_nil_6() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([47]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([47]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -960,11 +984,11 @@ fn test_containers_bits_struct_nil_6() {
 #[test]
 fn test_containers_bits_struct_nil_7() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([84]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([84]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -984,11 +1008,12 @@ fn test_containers_bits_struct_nil_7() {
 #[test]
 fn test_containers_bits_struct_nil_8() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([245]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([245]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1008,11 +1033,11 @@ fn test_containers_bits_struct_nil_8() {
 #[test]
 fn test_containers_bits_struct_nil_9() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([12]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([12]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1032,11 +1057,12 @@ fn test_containers_bits_struct_nil_9() {
 #[test]
 fn test_containers_bits_struct_nil_chaos_0() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([177]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([177]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1056,11 +1082,12 @@ fn test_containers_bits_struct_nil_chaos_0() {
 #[test]
 fn test_containers_bits_struct_nil_chaos_1() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([203]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([203]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1080,11 +1107,12 @@ fn test_containers_bits_struct_nil_chaos_1() {
 #[test]
 fn test_containers_bits_struct_nil_chaos_2() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([211]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([211]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1164,11 +1192,11 @@ fn test_containers_bits_struct_nil_offset_6_zeroed() {
 #[test]
 fn test_containers_bits_struct_one_0() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([22]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([22]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1188,11 +1216,12 @@ fn test_containers_bits_struct_one_0() {
 #[test]
 fn test_containers_bits_struct_one_1() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([189]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([189]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1212,11 +1241,12 @@ fn test_containers_bits_struct_one_1() {
 #[test]
 fn test_containers_bits_struct_one_2() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([212]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([212]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1236,11 +1266,12 @@ fn test_containers_bits_struct_one_2() {
 #[test]
 fn test_containers_bits_struct_one_3() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([165]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([165]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1260,11 +1291,12 @@ fn test_containers_bits_struct_one_3() {
 #[test]
 fn test_containers_bits_struct_one_4() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([165]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([165]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1284,11 +1316,11 @@ fn test_containers_bits_struct_one_4() {
 #[test]
 fn test_containers_bits_struct_one_5() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([45]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([45]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1308,11 +1340,12 @@ fn test_containers_bits_struct_one_5() {
 #[test]
 fn test_containers_bits_struct_one_6() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([198]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([198]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1332,11 +1365,11 @@ fn test_containers_bits_struct_one_6() {
 #[test]
 fn test_containers_bits_struct_one_7() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([96]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([96]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1356,11 +1389,12 @@ fn test_containers_bits_struct_one_7() {
 #[test]
 fn test_containers_bits_struct_one_8() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([128]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([128]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1380,11 +1414,11 @@ fn test_containers_bits_struct_one_8() {
 #[test]
 fn test_containers_bits_struct_one_9() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1404,11 +1438,12 @@ fn test_containers_bits_struct_one_9() {
 #[test]
 fn test_containers_bits_struct_one_chaos_0() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([175]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([175]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1428,11 +1463,11 @@ fn test_containers_bits_struct_one_chaos_0() {
 #[test]
 fn test_containers_bits_struct_one_chaos_1() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([74]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([74]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1452,11 +1487,11 @@ fn test_containers_bits_struct_one_chaos_1() {
 #[test]
 fn test_containers_bits_struct_one_chaos_2() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([58]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([58]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1560,11 +1595,12 @@ fn test_containers_bits_struct_one_offset_6_zeroed() {
 #[test]
 fn test_containers_bits_struct_random_0() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([114]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([114]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1584,11 +1620,11 @@ fn test_containers_bits_struct_random_0() {
 #[test]
 fn test_containers_bits_struct_random_1() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([71]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([71]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1608,11 +1644,12 @@ fn test_containers_bits_struct_random_1() {
 #[test]
 fn test_containers_bits_struct_random_2() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([9]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([17]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([101]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([9]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([17]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([101]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1632,11 +1669,12 @@ fn test_containers_bits_struct_random_2() {
 #[test]
 fn test_containers_bits_struct_random_3() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([13]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([5]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([135]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([13]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([5]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([135]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1656,11 +1694,12 @@ fn test_containers_bits_struct_random_3() {
 #[test]
 fn test_containers_bits_struct_random_4() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([6]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([228]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([6]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([228]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1680,11 +1719,12 @@ fn test_containers_bits_struct_random_4() {
 #[test]
 fn test_containers_bits_struct_random_5() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([12]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([196]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([12]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([196]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1704,11 +1744,12 @@ fn test_containers_bits_struct_random_5() {
 #[test]
 fn test_containers_bits_struct_random_6() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([62]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([104]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([143]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([62]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([104]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([143]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1728,11 +1769,12 @@ fn test_containers_bits_struct_random_6() {
 #[test]
 fn test_containers_bits_struct_random_7() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([5]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([5]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([229]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([5]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([5]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([229]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1752,11 +1794,12 @@ fn test_containers_bits_struct_random_7() {
 #[test]
 fn test_containers_bits_struct_random_8() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([180]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([180]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1776,11 +1819,11 @@ fn test_containers_bits_struct_random_8() {
 #[test]
 fn test_containers_bits_struct_random_9() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([27]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([29]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([80]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([27]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([29]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([80]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1800,11 +1843,12 @@ fn test_containers_bits_struct_random_9() {
 #[test]
 fn test_containers_bits_struct_random_chaos_0() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([10]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([215]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([10]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([215]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1824,11 +1868,12 @@ fn test_containers_bits_struct_random_chaos_0() {
 #[test]
 fn test_containers_bits_struct_random_chaos_1() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([55]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([108]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([55]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([108]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1848,11 +1893,12 @@ fn test_containers_bits_struct_random_chaos_1() {
 #[test]
 fn test_containers_bits_struct_random_chaos_2() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([56]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([239]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([56]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([239]).as_ref())
+            .unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1928,11 +1974,11 @@ fn test_containers_bits_struct_random_offset_6_zeroed() {
 #[test]
 fn test_containers_bits_struct_zero() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1952,11 +1998,11 @@ fn test_containers_bits_struct_zero() {
 #[test]
 fn test_containers_bits_struct_zero_0() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -1976,11 +2022,11 @@ fn test_containers_bits_struct_zero_0() {
 #[test]
 fn test_containers_bits_struct_zero_1() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -2000,11 +2046,11 @@ fn test_containers_bits_struct_zero_1() {
 #[test]
 fn test_containers_bits_struct_zero_2() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -2024,11 +2070,11 @@ fn test_containers_bits_struct_zero_2() {
 #[test]
 fn test_containers_bits_struct_zero_3() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -2048,11 +2094,11 @@ fn test_containers_bits_struct_zero_3() {
 #[test]
 fn test_containers_bits_struct_zero_4() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -2072,11 +2118,11 @@ fn test_containers_bits_struct_zero_4() {
 #[test]
 fn test_containers_bits_struct_zero_5() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -2096,11 +2142,11 @@ fn test_containers_bits_struct_zero_5() {
 #[test]
 fn test_containers_bits_struct_zero_6() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -2120,11 +2166,11 @@ fn test_containers_bits_struct_zero_6() {
 #[test]
 fn test_containers_bits_struct_zero_7() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -2144,11 +2190,11 @@ fn test_containers_bits_struct_zero_7() {
 #[test]
 fn test_containers_bits_struct_zero_8() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([32]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([32]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -2168,11 +2214,11 @@ fn test_containers_bits_struct_zero_8() {
 #[test]
 fn test_containers_bits_struct_zero_9() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -2192,11 +2238,11 @@ fn test_containers_bits_struct_zero_9() {
 #[test]
 fn test_containers_bits_struct_zero_chaos_0() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -2216,11 +2262,11 @@ fn test_containers_bits_struct_zero_chaos_0() {
 #[test]
 fn test_containers_bits_struct_zero_chaos_1() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -2240,11 +2286,11 @@ fn test_containers_bits_struct_zero_chaos_1() {
 #[test]
 fn test_containers_bits_struct_zero_chaos_2() {
     let mut value = BitsStruct {
-        a: Bitlist::<5>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap(),
-        b: Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        c: Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
-        d: Bitlist::<6>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
-        e: Bitvector::<8>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap(),
+        b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
+        d: <Bitlist<6> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
+        e: <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
     };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(

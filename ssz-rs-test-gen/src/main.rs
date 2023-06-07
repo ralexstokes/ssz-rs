@@ -163,13 +163,13 @@ fn to_rust_u256(value: &serde_yaml::Value) -> String {
 fn to_rust_bitvector(value: &serde_yaml::Value, rust_type: &str) -> String {
     let data = value.as_str().unwrap();
     let bytes = hex::decode(data.strip_prefix("0x").unwrap()).unwrap();
-    format!("{rust_type}::try_from(Vec::<u8>::from_iter({bytes:?}).as_ref()).unwrap()")
+    format!("<{rust_type} as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter({bytes:?}).as_ref()).unwrap()")
 }
 
 fn to_rust_bitlist(value: &serde_yaml::Value, rust_type: &str) -> String {
     let data = value.as_str().unwrap();
     let bytes = hex::decode(data.strip_prefix("0x").unwrap()).unwrap();
-    format!("{rust_type}::try_from(Vec::<u8>::from_iter({bytes:?}).as_ref()).unwrap()")
+    format!("<{rust_type} as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter({bytes:?}).as_ref()).unwrap()")
 }
 
 fn to_rust_vector(value: serde_yaml::Value, rust_type: &str) -> String {

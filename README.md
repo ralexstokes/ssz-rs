@@ -20,11 +20,11 @@ To conform to the `SSZ` spec, a given Rust type should implement the [`SimpleSer
 
 ## Encoding / decoding
 
-`ssz_rs` aims to add as little ceremony over the built-in Rust types as possible.
-The `ssz_rs_derive` crate provides macros to derive the encoding and decoding routines for SSZ containers and unions (represented as Rust `struct`s and `enum`s, respectively).
-See the `ssz_rs/examples` for example usage.
+This library provides routines to serialize and deserialize from a Rust type to the corresponding `SSZ` data.
 
 ## Merkleization
+
+* *NOTE*: under construction
 
 This library provides the hash tree root computation for types implementing `SimpleSerialize`.
 
@@ -47,7 +47,28 @@ For example, in `Cargo.toml`:
 ssz_rs = { version = "...", default-features = false }
 ```
 
+## Custom types
+
+This library attempts to provide as minimal an interface over the native Rust types as possible when implementing `SSZ` types.
+For example, the `uint64` type from the `SSZ` spec is represented by Rust's native `u64` type.
+
+The library also provides custom types for `List`, `Vector`, `Bitlist` and `Bitvector` following the `SSZ` spec.
+Each of these custom types should behave approximately like Rust's `Vec` type.
+For safety, there are only a few ways to construct an instance of each of these custom types:
+
+* `Default::default`
+
+* `TryFrom::try_from`
+
+* `ssz_rs::Deserialize`
+
+Moreover, the `ssz_rs_derive` package provides macros to derive the encoding and decoding routines for `SSZ` containers and unions (represented as Rust `struct`s and `enum`s, respectively).
+
+# Examples
+
+See the [`examples`](./ssz-rs/examples) for example usage of the facilities of this library.
+
 # Testing
 
-This repo includes a copy of the [`ssz_generic` consensus spec tests](https://github.com/ethereum/consensus-spec-tests) as integration tests for the `ssz_rs` crate, along with hand-written unit tests.
+This repo includes a copy of the [`ssz_generic` consensus spec tests](https://github.com/ethereum/consensus-spec-tests) as integration tests for the `ssz_rs` package, along with hand-written unit tests.
 The integration tests are generated via a utility under `ssz-rs-test-gen` package. See the README there for further details.

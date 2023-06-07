@@ -93,11 +93,10 @@ where
 {
     fn default() -> Self {
         let data = vec![];
-        match Self::try_from(data) {
-            Ok(result) => result,
-            // TODO: not ideal to panic here...
-            Err((_, err)) => panic!("{err}"),
-        }
+        Self::try_from(data)
+            // need to drop data so we do not require it as Debug as required by `expect`
+            .map_err(|(_, err)| err)
+            .expect("any List can be constructed from an empty Vec")
     }
 }
 
@@ -141,8 +140,8 @@ where
 }
 
 // NOTE: implement `IndexMut` rather than `DerefMut` to ensure
-// the `List`'s inner `Vec` is not mutated, but its elements
-// can change.
+// the inner data is not mutated without being able to
+// track which elements changed
 impl<T, Idx: SliceIndex<[T]>, const N: usize> Index<Idx> for List<T, N>
 where
     T: SimpleSerialize,
@@ -154,10 +153,6 @@ where
     }
 }
 
-// NOTE: had an issue unifying the use of `IndexMut::Idx` for `Vec`
-// and `BitVec` that may be unresolveable due to how lifetimes
-// are defined for this trait method. For now, only allow "one at a time"
-// mutation of the `List`s data.
 impl<T, const N: usize> IndexMut<usize> for List<T, N>
 where
     T: SimpleSerialize,
@@ -381,5 +376,21 @@ mod tests {
         assert_eq!(value, recovered);
 
         let _ = recovered.hash_tree_root().unwrap();
+    }
+
+    #[test]
+    fn can_iter_list() {
+        let bytes = vec![
+            0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8,
+            1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8,
+        ];
+        let mut input: List<u8, COUNT> = bytes.try_into().unwrap();
+        for (i, &value) in input.iter().enumerate() {
+            assert_eq!(value as usize, i % 8);
+        }
+        for value in input.iter_mut() {
+            *value = 1;
+            assert_eq!(*value, 1);
+        }
     }
 }

@@ -115,8 +115,11 @@ mod test {
                 },
             ])
             .unwrap(),
-            h: Bitvector::from_iter([true, false, false, true, false, false, false, true, true]),
-            i: Bitlist::from_iter([true, false, true, true]),
+            h: Bitvector::try_from(
+                [true, false, false, true, false, false, false, true, true].as_ref(),
+            )
+            .unwrap(),
+            i: Bitlist::try_from([true, false, true, true].as_ref()).unwrap(),
             j: U256::from_bytes_le([12u8; 32]),
         };
         let json_repr = serde_json::to_value(&value).unwrap();
