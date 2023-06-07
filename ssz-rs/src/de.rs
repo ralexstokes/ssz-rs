@@ -56,7 +56,7 @@ impl Display for DeserializeError {
             DeserializeError::InvalidInstance(err) => write!(f, "invalid instance: {err}"),
             DeserializeError::InvalidType(err) => write!(f, "invalid type: {err}"),
             DeserializeError::IncompleteLengthOffsets(err) => write!(f, "incomplete length offsets: {err}"),
-            DeserializeError::OffsetNotIncreasing { start, end } => write!(f, "empty span from {start} to {end} bytes"),
+            DeserializeError::OffsetNotIncreasing { start, end } => write!(f, "invalid offset points to byte {end} before byte {start}"),
         }
     }
 }
