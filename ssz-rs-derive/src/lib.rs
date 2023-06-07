@@ -380,11 +380,13 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                 Some(field_name) => quote_spanned! { f.span() =>
                     let chunk = self.#field_name.hash_tree_root()?;
                     let range = #i*#BYTES_PER_CHUNK..(#i+1)*#BYTES_PER_CHUNK;
+                    // SAFETY: index is safe because Node::len() == BYTES_PER_CHUNK == range.len()
                     chunks[range].copy_from_slice(chunk.as_ref());
                 },
                 None => quote_spanned! { f.span() =>
                     let chunk = self.0.hash_tree_root()?;
                     let range = #i*#BYTES_PER_CHUNK..(#i+1)*#BYTES_PER_CHUNK;
+                    // SAFETY: index is safe because Node::len() == BYTES_PER_CHUNK == range.len()
                     chunks[range].copy_from_slice(chunk.as_ref());
                 },
             });
