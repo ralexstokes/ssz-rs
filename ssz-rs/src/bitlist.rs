@@ -283,6 +283,12 @@ mod tests {
         let expected =
             Bitlist::from_iter(vec![false, false, false, true, true, false, false, false, true]);
         assert_eq!(result, expected);
+
+        let bytes = vec![24u8, 0u8];
+        let result = Bitlist::<COUNT>::deserialize(&bytes).expect_err("test data is incorrect");
+        let expected =
+            DeserializeError::InvalidByte(0u8);
+        assert_eq!(result.to_string(), expected.to_string());
     }
 
     #[test]
