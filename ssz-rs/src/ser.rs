@@ -76,7 +76,7 @@ pub fn serialize_composite_from_components(
             total_bytes_written += part.len();
             buffer.append(part);
         } else {
-            // SAFETY: index is safe because variable_lengths.len() >= fixed.len()
+            // SAFETY: index is safe because variable_lengths.len() == fixed.len()
             let variable_lengths_sum = variable_lengths[0..i].iter().sum::<usize>();
             let length = (fixed_lengths_sum + variable_lengths_sum) as u32;
             let mut offset_buffer = Vec::with_capacity(BYTES_PER_LENGTH_OFFSET);
