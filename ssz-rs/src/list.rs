@@ -92,7 +92,9 @@ where
     T: SimpleSerialize + Default,
 {
     fn default() -> Self {
-        Self { data: vec![], cache: MerkleCache::with_leaves(0) }
+        let data = vec![];
+        // SAFETY: unwrap is safe because data.len() == 0 <= N; qed
+        data.try_into().map_err(|(_, err)| err).unwrap()
     }
 }
 

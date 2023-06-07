@@ -121,8 +121,8 @@ where
         assert!(N > 0);
 
         let data = vec![T::default(); N];
-        let leaf_count = Self::get_leaf_count();
-        Self { data, cache: MerkleCache::with_leaves(leaf_count) }
+        // SAFETY: unwrap is safe because data.len() == N != 0; qed
+        data.try_into().map_err(|(_, err)| err).unwrap()
     }
 }
 
