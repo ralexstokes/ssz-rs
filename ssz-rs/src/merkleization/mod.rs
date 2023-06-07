@@ -123,8 +123,7 @@ fn merkleize_chunks_with_virtual_padding(
 
     if chunk_count == 0 {
         let depth = height - 1;
-        // index is safe as long as depth == leaf_count.trailing_zeros() < MAX_MERKLE_TREE_DEPTH;
-        // qed
+        // index is safe while depth == leaf_count.trailing_zeros() < MAX_MERKLE_TREE_DEPTH; qed
         return Ok(CONTEXT[depth as usize].try_into().expect("can produce a single root chunk"))
     }
 
