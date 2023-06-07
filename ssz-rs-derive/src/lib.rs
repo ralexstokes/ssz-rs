@@ -192,7 +192,15 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                     Some(field_name) => quote_spanned! { f.span() =>
                         let bytes_read = if <#field_type>::is_variable_size() {
                             let end = start + #BYTES_PER_LENGTH_OFFSET;
-                            let next_offset = u32::deserialize(&encoding[start..end])? as usize;
+
+                            let target = encoding.get(start..end).ok_or_else(||
+                                ssz_rs::DeserializeError::ExpectedFurtherInput {
+                                    provided: encoding.len() - start,
+                                    expected: #BYTES_PER_LENGTH_OFFSET,
+                                }
+                            )?;
+                            let next_offset = u32::deserialize(target)? as usize;
+                            offsets.push((#i, next_offset));
 
                             if let Some((_, previous_offset)) = offsets.last() {
                                 if next_offset < *previous_offset {
@@ -203,13 +211,17 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                                 }
                             };
 
-                            offsets.push((#i, next_offset));
-
                             #BYTES_PER_LENGTH_OFFSET
                         } else {
                             let encoded_length = <#field_type>::size_hint();
                             let end = start + encoded_length;
-                            let result = <#field_type>::deserialize(&encoding[start..end])?;
+                            let target = encoding.get(start..end).ok_or_else(||
+                                ssz_rs::DeserializeError::ExpectedFurtherInput{
+                                    provided: encoding.len() - start,
+                                    expected: encoded_length,
+                                }
+                            )?;
+                            let result = <#field_type>::deserialize(target)?;
                             container.#field_name = result;
                             encoded_length
                         };
