@@ -18,7 +18,9 @@ fn test_bitvector_bitvec_0() {
 
 #[test]
 fn test_bitvector_bitvec_16_max() {
-    let mut value = Bitvector::<16>::try_from(Vec::<u8>::from_iter([255, 255]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255, 255]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_16_max/serialized.ssz_snappy",
@@ -46,7 +48,9 @@ fn test_bitvector_bitvec_16_max_8() {
 
 #[test]
 fn test_bitvector_bitvec_16_random() {
-    let mut value = Bitvector::<16>::try_from(Vec::<u8>::from_iter([46, 236]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([46, 236]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_16_random/serialized.ssz_snappy",
@@ -74,7 +78,8 @@ fn test_bitvector_bitvec_16_random_8() {
 
 #[test]
 fn test_bitvector_bitvec_16_zero() {
-    let mut value = Bitvector::<16>::try_from(Vec::<u8>::from_iter([0, 0]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0, 0]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_16_zero/serialized.ssz_snappy",
@@ -102,7 +107,8 @@ fn test_bitvector_bitvec_16_zero_8() {
 
 #[test]
 fn test_bitvector_bitvec_1_max() {
-    let mut value = Bitvector::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_1_max/serialized.ssz_snappy",
@@ -130,7 +136,8 @@ fn test_bitvector_bitvec_1_max_2() {
 
 #[test]
 fn test_bitvector_bitvec_1_random() {
-    let mut value = Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_1_random/serialized.ssz_snappy",
@@ -158,7 +165,8 @@ fn test_bitvector_bitvec_1_random_2() {
 
 #[test]
 fn test_bitvector_bitvec_1_zero() {
-    let mut value = Bitvector::<1>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_1_zero/serialized.ssz_snappy",
@@ -186,7 +194,8 @@ fn test_bitvector_bitvec_1_zero_2() {
 
 #[test]
 fn test_bitvector_bitvec_2_max() {
-    let mut value = Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_2_max/serialized.ssz_snappy",
@@ -214,7 +223,8 @@ fn test_bitvector_bitvec_2_max_3() {
 
 #[test]
 fn test_bitvector_bitvec_2_random() {
-    let mut value = Bitvector::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_2_random/serialized.ssz_snappy",
@@ -242,7 +252,8 @@ fn test_bitvector_bitvec_2_random_3() {
 
 #[test]
 fn test_bitvector_bitvec_2_zero() {
-    let mut value = Bitvector::<2>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_2_zero/serialized.ssz_snappy",
@@ -270,8 +281,10 @@ fn test_bitvector_bitvec_2_zero_3() {
 
 #[test]
 fn test_bitvector_bitvec_31_max() {
-    let mut value =
-        Bitvector::<31>::try_from(Vec::<u8>::from_iter([255, 255, 255, 127]).as_ref()).unwrap();
+    let mut value = <Bitvector<31> as TryFrom<&[u8]>>::try_from(
+        Vec::<u8>::from_iter([255, 255, 255, 127]).as_ref(),
+    )
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_31_max/serialized.ssz_snappy",
@@ -289,8 +302,10 @@ fn test_bitvector_bitvec_31_max() {
 
 #[test]
 fn test_bitvector_bitvec_31_random() {
-    let mut value =
-        Bitvector::<31>::try_from(Vec::<u8>::from_iter([114, 223, 100, 21]).as_ref()).unwrap();
+    let mut value = <Bitvector<31> as TryFrom<&[u8]>>::try_from(
+        Vec::<u8>::from_iter([114, 223, 100, 21]).as_ref(),
+    )
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_31_random/serialized.ssz_snappy",
@@ -308,7 +323,9 @@ fn test_bitvector_bitvec_31_random() {
 
 #[test]
 fn test_bitvector_bitvec_31_zero() {
-    let mut value = Bitvector::<31>::try_from(Vec::<u8>::from_iter([0, 0, 0, 0]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<31> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0, 0, 0, 0]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_31_zero/serialized.ssz_snappy",
@@ -356,7 +373,8 @@ fn test_bitvector_bitvec_32_zero_33() {
 
 #[test]
 fn test_bitvector_bitvec_3_max() {
-    let mut value = Bitvector::<3>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_3_max/serialized.ssz_snappy",
@@ -384,7 +402,8 @@ fn test_bitvector_bitvec_3_max_4() {
 
 #[test]
 fn test_bitvector_bitvec_3_random() {
-    let mut value = Bitvector::<3>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_3_random/serialized.ssz_snappy",
@@ -412,7 +431,8 @@ fn test_bitvector_bitvec_3_random_4() {
 
 #[test]
 fn test_bitvector_bitvec_3_zero() {
-    let mut value = Bitvector::<3>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_3_zero/serialized.ssz_snappy",
@@ -440,7 +460,8 @@ fn test_bitvector_bitvec_3_zero_4() {
 
 #[test]
 fn test_bitvector_bitvec_4_max() {
-    let mut value = Bitvector::<4>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_4_max/serialized.ssz_snappy",
@@ -468,7 +489,8 @@ fn test_bitvector_bitvec_4_max_5() {
 
 #[test]
 fn test_bitvector_bitvec_4_random() {
-    let mut value = Bitvector::<4>::try_from(Vec::<u8>::from_iter([13]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([13]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_4_random/serialized.ssz_snappy",
@@ -496,7 +518,8 @@ fn test_bitvector_bitvec_4_random_5() {
 
 #[test]
 fn test_bitvector_bitvec_4_zero() {
-    let mut value = Bitvector::<4>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_4_zero/serialized.ssz_snappy",
@@ -524,7 +547,7 @@ fn test_bitvector_bitvec_4_zero_5() {
 
 #[test]
 fn test_bitvector_bitvec_512_max() {
-    let mut value = Bitvector::<512>::try_from(
+    let mut value = <Bitvector<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -561,7 +584,7 @@ fn test_bitvector_bitvec_512_max_513() {
 
 #[test]
 fn test_bitvector_bitvec_512_random() {
-    let mut value = Bitvector::<512>::try_from(
+    let mut value = <Bitvector<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             80, 152, 209, 178, 29, 181, 106, 197, 239, 143, 96, 144, 164, 12, 18, 211, 12, 52, 56,
             123, 68, 155, 79, 101, 99, 209, 248, 11, 40, 23, 218, 4, 52, 27, 132, 94, 218, 129,
@@ -598,7 +621,7 @@ fn test_bitvector_bitvec_512_random_513() {
 
 #[test]
 fn test_bitvector_bitvec_512_zero() {
-    let mut value = Bitvector::<512>::try_from(
+    let mut value = <Bitvector<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -634,7 +657,7 @@ fn test_bitvector_bitvec_512_zero_513() {
 
 #[test]
 fn test_bitvector_bitvec_513_max() {
-    let mut value = Bitvector::<513>::try_from(
+    let mut value = <Bitvector<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -661,7 +684,7 @@ fn test_bitvector_bitvec_513_max() {
 
 #[test]
 fn test_bitvector_bitvec_513_random() {
-    let mut value = Bitvector::<513>::try_from(
+    let mut value = <Bitvector<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             35, 7, 207, 77, 114, 9, 148, 22, 93, 128, 20, 64, 206, 32, 22, 204, 234, 200, 252, 243,
             1, 27, 216, 80, 138, 122, 252, 100, 16, 87, 153, 189, 121, 111, 50, 2, 193, 3, 227, 15,
@@ -688,7 +711,7 @@ fn test_bitvector_bitvec_513_random() {
 
 #[test]
 fn test_bitvector_bitvec_513_zero() {
-    let mut value = Bitvector::<513>::try_from(
+    let mut value = <Bitvector<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -714,7 +737,8 @@ fn test_bitvector_bitvec_513_zero() {
 
 #[test]
 fn test_bitvector_bitvec_5_max() {
-    let mut value = Bitvector::<5>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_5_max/serialized.ssz_snappy",
@@ -742,7 +766,8 @@ fn test_bitvector_bitvec_5_max_6() {
 
 #[test]
 fn test_bitvector_bitvec_5_random() {
-    let mut value = Bitvector::<5>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_5_random/serialized.ssz_snappy",
@@ -770,7 +795,8 @@ fn test_bitvector_bitvec_5_random_6() {
 
 #[test]
 fn test_bitvector_bitvec_5_zero() {
-    let mut value = Bitvector::<5>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_5_zero/serialized.ssz_snappy",
@@ -798,7 +824,8 @@ fn test_bitvector_bitvec_5_zero_6() {
 
 #[test]
 fn test_bitvector_bitvec_8_max() {
-    let mut value = Bitvector::<8>::try_from(Vec::<u8>::from_iter([255]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_8_max/serialized.ssz_snappy",
@@ -826,7 +853,8 @@ fn test_bitvector_bitvec_8_max_9() {
 
 #[test]
 fn test_bitvector_bitvec_8_random() {
-    let mut value = Bitvector::<8>::try_from(Vec::<u8>::from_iter([223]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([223]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_8_random/serialized.ssz_snappy",
@@ -854,7 +882,8 @@ fn test_bitvector_bitvec_8_random_9() {
 
 #[test]
 fn test_bitvector_bitvec_8_zero() {
-    let mut value = Bitvector::<8>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
+    let mut value =
+        <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitvector/valid/bitvec_8_zero/serialized.ssz_snappy",

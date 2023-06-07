@@ -8,7 +8,9 @@ use test_utils::{
 
 #[test]
 fn test_bitlist_bitlist_16_lengthy_0() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([160, 92, 1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([160, 92, 1]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_lengthy_0/serialized.ssz_snappy",
@@ -26,7 +28,9 @@ fn test_bitlist_bitlist_16_lengthy_0() {
 
 #[test]
 fn test_bitlist_bitlist_16_lengthy_1() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([64, 179, 1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([64, 179, 1]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_lengthy_1/serialized.ssz_snappy",
@@ -44,7 +48,9 @@ fn test_bitlist_bitlist_16_lengthy_1() {
 
 #[test]
 fn test_bitlist_bitlist_16_lengthy_2() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([161, 151, 1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([161, 151, 1]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_lengthy_2/serialized.ssz_snappy",
@@ -62,7 +68,9 @@ fn test_bitlist_bitlist_16_lengthy_2() {
 
 #[test]
 fn test_bitlist_bitlist_16_lengthy_3() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([137, 3, 1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([137, 3, 1]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_lengthy_3/serialized.ssz_snappy",
@@ -80,7 +88,9 @@ fn test_bitlist_bitlist_16_lengthy_3() {
 
 #[test]
 fn test_bitlist_bitlist_16_lengthy_4() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([30, 209, 1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([30, 209, 1]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_lengthy_4/serialized.ssz_snappy",
@@ -98,7 +108,8 @@ fn test_bitlist_bitlist_16_lengthy_4() {
 
 #[test]
 fn test_bitlist_bitlist_16_max_0() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([255, 1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255, 1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_max_0/serialized.ssz_snappy",
@@ -116,7 +127,9 @@ fn test_bitlist_bitlist_16_max_0() {
 
 #[test]
 fn test_bitlist_bitlist_16_max_1() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([255, 255, 1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255, 255, 1]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_max_1/serialized.ssz_snappy",
@@ -134,7 +147,8 @@ fn test_bitlist_bitlist_16_max_1() {
 
 #[test]
 fn test_bitlist_bitlist_16_max_2() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([255, 7]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255, 7]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_max_2/serialized.ssz_snappy",
@@ -152,7 +166,9 @@ fn test_bitlist_bitlist_16_max_2() {
 
 #[test]
 fn test_bitlist_bitlist_16_max_3() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([255, 63]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255, 63]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_max_3/serialized.ssz_snappy",
@@ -170,7 +186,8 @@ fn test_bitlist_bitlist_16_max_3() {
 
 #[test]
 fn test_bitlist_bitlist_16_max_4() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_max_4/serialized.ssz_snappy",
@@ -188,7 +205,8 @@ fn test_bitlist_bitlist_16_max_4() {
 
 #[test]
 fn test_bitlist_bitlist_16_nil_0() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_nil_0/serialized.ssz_snappy",
@@ -206,7 +224,8 @@ fn test_bitlist_bitlist_16_nil_0() {
 
 #[test]
 fn test_bitlist_bitlist_16_nil_1() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_nil_1/serialized.ssz_snappy",
@@ -224,7 +243,8 @@ fn test_bitlist_bitlist_16_nil_1() {
 
 #[test]
 fn test_bitlist_bitlist_16_nil_2() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_nil_2/serialized.ssz_snappy",
@@ -242,7 +262,8 @@ fn test_bitlist_bitlist_16_nil_2() {
 
 #[test]
 fn test_bitlist_bitlist_16_nil_3() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_nil_3/serialized.ssz_snappy",
@@ -260,7 +281,8 @@ fn test_bitlist_bitlist_16_nil_3() {
 
 #[test]
 fn test_bitlist_bitlist_16_nil_4() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_nil_4/serialized.ssz_snappy",
@@ -278,7 +300,8 @@ fn test_bitlist_bitlist_16_nil_4() {
 
 #[test]
 fn test_bitlist_bitlist_16_random_0() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([180, 3]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([180, 3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_random_0/serialized.ssz_snappy",
@@ -296,7 +319,8 @@ fn test_bitlist_bitlist_16_random_0() {
 
 #[test]
 fn test_bitlist_bitlist_16_random_1() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_random_1/serialized.ssz_snappy",
@@ -314,7 +338,8 @@ fn test_bitlist_bitlist_16_random_1() {
 
 #[test]
 fn test_bitlist_bitlist_16_random_2() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([59, 1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([59, 1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_random_2/serialized.ssz_snappy",
@@ -332,7 +357,9 @@ fn test_bitlist_bitlist_16_random_2() {
 
 #[test]
 fn test_bitlist_bitlist_16_random_3() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([104, 23]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([104, 23]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_random_3/serialized.ssz_snappy",
@@ -350,7 +377,8 @@ fn test_bitlist_bitlist_16_random_3() {
 
 #[test]
 fn test_bitlist_bitlist_16_random_4() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([25]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([25]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_random_4/serialized.ssz_snappy",
@@ -368,7 +396,8 @@ fn test_bitlist_bitlist_16_random_4() {
 
 #[test]
 fn test_bitlist_bitlist_16_zero_0() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([0, 64]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0, 64]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_zero_0/serialized.ssz_snappy",
@@ -386,7 +415,8 @@ fn test_bitlist_bitlist_16_zero_0() {
 
 #[test]
 fn test_bitlist_bitlist_16_zero_1() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([0, 2]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0, 2]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_zero_1/serialized.ssz_snappy",
@@ -404,7 +434,8 @@ fn test_bitlist_bitlist_16_zero_1() {
 
 #[test]
 fn test_bitlist_bitlist_16_zero_2() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([0, 4]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0, 4]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_zero_2/serialized.ssz_snappy",
@@ -422,7 +453,8 @@ fn test_bitlist_bitlist_16_zero_2() {
 
 #[test]
 fn test_bitlist_bitlist_16_zero_3() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([64]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([64]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_zero_3/serialized.ssz_snappy",
@@ -440,7 +472,9 @@ fn test_bitlist_bitlist_16_zero_3() {
 
 #[test]
 fn test_bitlist_bitlist_16_zero_4() {
-    let mut value = Bitlist::<16>::try_from(Vec::<u8>::from_iter([0, 0, 1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0, 0, 1]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_16_zero_4/serialized.ssz_snappy",
@@ -488,7 +522,8 @@ fn test_bitlist_bitlist_1_but_9() {
 
 #[test]
 fn test_bitlist_bitlist_1_lengthy_0() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_lengthy_0/serialized.ssz_snappy",
@@ -506,7 +541,8 @@ fn test_bitlist_bitlist_1_lengthy_0() {
 
 #[test]
 fn test_bitlist_bitlist_1_lengthy_1() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_lengthy_1/serialized.ssz_snappy",
@@ -524,7 +560,8 @@ fn test_bitlist_bitlist_1_lengthy_1() {
 
 #[test]
 fn test_bitlist_bitlist_1_lengthy_2() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_lengthy_2/serialized.ssz_snappy",
@@ -542,7 +579,8 @@ fn test_bitlist_bitlist_1_lengthy_2() {
 
 #[test]
 fn test_bitlist_bitlist_1_lengthy_3() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_lengthy_3/serialized.ssz_snappy",
@@ -560,7 +598,8 @@ fn test_bitlist_bitlist_1_lengthy_3() {
 
 #[test]
 fn test_bitlist_bitlist_1_lengthy_4() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_lengthy_4/serialized.ssz_snappy",
@@ -578,7 +617,8 @@ fn test_bitlist_bitlist_1_lengthy_4() {
 
 #[test]
 fn test_bitlist_bitlist_1_max_0() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_max_0/serialized.ssz_snappy",
@@ -596,7 +636,8 @@ fn test_bitlist_bitlist_1_max_0() {
 
 #[test]
 fn test_bitlist_bitlist_1_max_1() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_max_1/serialized.ssz_snappy",
@@ -614,7 +655,8 @@ fn test_bitlist_bitlist_1_max_1() {
 
 #[test]
 fn test_bitlist_bitlist_1_max_2() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_max_2/serialized.ssz_snappy",
@@ -632,7 +674,8 @@ fn test_bitlist_bitlist_1_max_2() {
 
 #[test]
 fn test_bitlist_bitlist_1_max_3() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_max_3/serialized.ssz_snappy",
@@ -650,7 +693,8 @@ fn test_bitlist_bitlist_1_max_3() {
 
 #[test]
 fn test_bitlist_bitlist_1_max_4() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_max_4/serialized.ssz_snappy",
@@ -668,7 +712,8 @@ fn test_bitlist_bitlist_1_max_4() {
 
 #[test]
 fn test_bitlist_bitlist_1_nil_0() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_nil_0/serialized.ssz_snappy",
@@ -686,7 +731,8 @@ fn test_bitlist_bitlist_1_nil_0() {
 
 #[test]
 fn test_bitlist_bitlist_1_nil_1() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_nil_1/serialized.ssz_snappy",
@@ -704,7 +750,8 @@ fn test_bitlist_bitlist_1_nil_1() {
 
 #[test]
 fn test_bitlist_bitlist_1_nil_2() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_nil_2/serialized.ssz_snappy",
@@ -722,7 +769,8 @@ fn test_bitlist_bitlist_1_nil_2() {
 
 #[test]
 fn test_bitlist_bitlist_1_nil_3() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_nil_3/serialized.ssz_snappy",
@@ -740,7 +788,8 @@ fn test_bitlist_bitlist_1_nil_3() {
 
 #[test]
 fn test_bitlist_bitlist_1_nil_4() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_nil_4/serialized.ssz_snappy",
@@ -758,7 +807,8 @@ fn test_bitlist_bitlist_1_nil_4() {
 
 #[test]
 fn test_bitlist_bitlist_1_random_0() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_random_0/serialized.ssz_snappy",
@@ -776,7 +826,8 @@ fn test_bitlist_bitlist_1_random_0() {
 
 #[test]
 fn test_bitlist_bitlist_1_random_1() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_random_1/serialized.ssz_snappy",
@@ -794,7 +845,8 @@ fn test_bitlist_bitlist_1_random_1() {
 
 #[test]
 fn test_bitlist_bitlist_1_random_2() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_random_2/serialized.ssz_snappy",
@@ -812,7 +864,8 @@ fn test_bitlist_bitlist_1_random_2() {
 
 #[test]
 fn test_bitlist_bitlist_1_random_3() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_random_3/serialized.ssz_snappy",
@@ -830,7 +883,8 @@ fn test_bitlist_bitlist_1_random_3() {
 
 #[test]
 fn test_bitlist_bitlist_1_random_4() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_random_4/serialized.ssz_snappy",
@@ -848,7 +902,8 @@ fn test_bitlist_bitlist_1_random_4() {
 
 #[test]
 fn test_bitlist_bitlist_1_zero_0() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_zero_0/serialized.ssz_snappy",
@@ -866,7 +921,8 @@ fn test_bitlist_bitlist_1_zero_0() {
 
 #[test]
 fn test_bitlist_bitlist_1_zero_1() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_zero_1/serialized.ssz_snappy",
@@ -884,7 +940,8 @@ fn test_bitlist_bitlist_1_zero_1() {
 
 #[test]
 fn test_bitlist_bitlist_1_zero_2() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_zero_2/serialized.ssz_snappy",
@@ -902,7 +959,8 @@ fn test_bitlist_bitlist_1_zero_2() {
 
 #[test]
 fn test_bitlist_bitlist_1_zero_3() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_zero_3/serialized.ssz_snappy",
@@ -920,7 +978,8 @@ fn test_bitlist_bitlist_1_zero_3() {
 
 #[test]
 fn test_bitlist_bitlist_1_zero_4() {
-    let mut value = Bitlist::<1>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_1_zero_4/serialized.ssz_snappy",
@@ -948,7 +1007,8 @@ fn test_bitlist_bitlist_2_but_3() {
 
 #[test]
 fn test_bitlist_bitlist_2_lengthy_0() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_lengthy_0/serialized.ssz_snappy",
@@ -966,7 +1026,8 @@ fn test_bitlist_bitlist_2_lengthy_0() {
 
 #[test]
 fn test_bitlist_bitlist_2_lengthy_1() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([5]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([5]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_lengthy_1/serialized.ssz_snappy",
@@ -984,7 +1045,8 @@ fn test_bitlist_bitlist_2_lengthy_1() {
 
 #[test]
 fn test_bitlist_bitlist_2_lengthy_2() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_lengthy_2/serialized.ssz_snappy",
@@ -1002,7 +1064,8 @@ fn test_bitlist_bitlist_2_lengthy_2() {
 
 #[test]
 fn test_bitlist_bitlist_2_lengthy_3() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([5]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([5]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_lengthy_3/serialized.ssz_snappy",
@@ -1020,7 +1083,8 @@ fn test_bitlist_bitlist_2_lengthy_3() {
 
 #[test]
 fn test_bitlist_bitlist_2_lengthy_4() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([5]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([5]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_lengthy_4/serialized.ssz_snappy",
@@ -1038,7 +1102,8 @@ fn test_bitlist_bitlist_2_lengthy_4() {
 
 #[test]
 fn test_bitlist_bitlist_2_max_0() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_max_0/serialized.ssz_snappy",
@@ -1056,7 +1121,8 @@ fn test_bitlist_bitlist_2_max_0() {
 
 #[test]
 fn test_bitlist_bitlist_2_max_1() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_max_1/serialized.ssz_snappy",
@@ -1074,7 +1140,8 @@ fn test_bitlist_bitlist_2_max_1() {
 
 #[test]
 fn test_bitlist_bitlist_2_max_2() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_max_2/serialized.ssz_snappy",
@@ -1092,7 +1159,8 @@ fn test_bitlist_bitlist_2_max_2() {
 
 #[test]
 fn test_bitlist_bitlist_2_max_3() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_max_3/serialized.ssz_snappy",
@@ -1110,7 +1178,8 @@ fn test_bitlist_bitlist_2_max_3() {
 
 #[test]
 fn test_bitlist_bitlist_2_max_4() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_max_4/serialized.ssz_snappy",
@@ -1128,7 +1197,8 @@ fn test_bitlist_bitlist_2_max_4() {
 
 #[test]
 fn test_bitlist_bitlist_2_nil_0() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_nil_0/serialized.ssz_snappy",
@@ -1146,7 +1216,8 @@ fn test_bitlist_bitlist_2_nil_0() {
 
 #[test]
 fn test_bitlist_bitlist_2_nil_1() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_nil_1/serialized.ssz_snappy",
@@ -1164,7 +1235,8 @@ fn test_bitlist_bitlist_2_nil_1() {
 
 #[test]
 fn test_bitlist_bitlist_2_nil_2() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_nil_2/serialized.ssz_snappy",
@@ -1182,7 +1254,8 @@ fn test_bitlist_bitlist_2_nil_2() {
 
 #[test]
 fn test_bitlist_bitlist_2_nil_3() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_nil_3/serialized.ssz_snappy",
@@ -1200,7 +1273,8 @@ fn test_bitlist_bitlist_2_nil_3() {
 
 #[test]
 fn test_bitlist_bitlist_2_nil_4() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_nil_4/serialized.ssz_snappy",
@@ -1218,7 +1292,8 @@ fn test_bitlist_bitlist_2_nil_4() {
 
 #[test]
 fn test_bitlist_bitlist_2_random_0() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_random_0/serialized.ssz_snappy",
@@ -1236,7 +1311,8 @@ fn test_bitlist_bitlist_2_random_0() {
 
 #[test]
 fn test_bitlist_bitlist_2_random_1() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([6]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([6]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_random_1/serialized.ssz_snappy",
@@ -1254,7 +1330,8 @@ fn test_bitlist_bitlist_2_random_1() {
 
 #[test]
 fn test_bitlist_bitlist_2_random_2() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_random_2/serialized.ssz_snappy",
@@ -1272,7 +1349,8 @@ fn test_bitlist_bitlist_2_random_2() {
 
 #[test]
 fn test_bitlist_bitlist_2_random_3() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_random_3/serialized.ssz_snappy",
@@ -1290,7 +1368,8 @@ fn test_bitlist_bitlist_2_random_3() {
 
 #[test]
 fn test_bitlist_bitlist_2_random_4() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_random_4/serialized.ssz_snappy",
@@ -1308,7 +1387,8 @@ fn test_bitlist_bitlist_2_random_4() {
 
 #[test]
 fn test_bitlist_bitlist_2_zero_0() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_zero_0/serialized.ssz_snappy",
@@ -1326,7 +1406,8 @@ fn test_bitlist_bitlist_2_zero_0() {
 
 #[test]
 fn test_bitlist_bitlist_2_zero_1() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_zero_1/serialized.ssz_snappy",
@@ -1344,7 +1425,8 @@ fn test_bitlist_bitlist_2_zero_1() {
 
 #[test]
 fn test_bitlist_bitlist_2_zero_2() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_zero_2/serialized.ssz_snappy",
@@ -1362,7 +1444,8 @@ fn test_bitlist_bitlist_2_zero_2() {
 
 #[test]
 fn test_bitlist_bitlist_2_zero_3() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_zero_3/serialized.ssz_snappy",
@@ -1380,7 +1463,8 @@ fn test_bitlist_bitlist_2_zero_3() {
 
 #[test]
 fn test_bitlist_bitlist_2_zero_4() {
-    let mut value = Bitlist::<2>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_2_zero_4/serialized.ssz_snappy",
@@ -1398,8 +1482,10 @@ fn test_bitlist_bitlist_2_zero_4() {
 
 #[test]
 fn test_bitlist_bitlist_31_lengthy_0() {
-    let mut value =
-        Bitlist::<31>::try_from(Vec::<u8>::from_iter([4, 107, 245, 244]).as_ref()).unwrap();
+    let mut value = <Bitlist<31> as TryFrom<&[u8]>>::try_from(
+        Vec::<u8>::from_iter([4, 107, 245, 244]).as_ref(),
+    )
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_lengthy_0/serialized.ssz_snappy",
@@ -1417,8 +1503,10 @@ fn test_bitlist_bitlist_31_lengthy_0() {
 
 #[test]
 fn test_bitlist_bitlist_31_lengthy_1() {
-    let mut value =
-        Bitlist::<31>::try_from(Vec::<u8>::from_iter([16, 43, 211, 221]).as_ref()).unwrap();
+    let mut value = <Bitlist<31> as TryFrom<&[u8]>>::try_from(
+        Vec::<u8>::from_iter([16, 43, 211, 221]).as_ref(),
+    )
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_lengthy_1/serialized.ssz_snappy",
@@ -1436,8 +1524,10 @@ fn test_bitlist_bitlist_31_lengthy_1() {
 
 #[test]
 fn test_bitlist_bitlist_31_lengthy_2() {
-    let mut value =
-        Bitlist::<31>::try_from(Vec::<u8>::from_iter([149, 146, 83, 204]).as_ref()).unwrap();
+    let mut value = <Bitlist<31> as TryFrom<&[u8]>>::try_from(
+        Vec::<u8>::from_iter([149, 146, 83, 204]).as_ref(),
+    )
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_lengthy_2/serialized.ssz_snappy",
@@ -1455,8 +1545,10 @@ fn test_bitlist_bitlist_31_lengthy_2() {
 
 #[test]
 fn test_bitlist_bitlist_31_lengthy_3() {
-    let mut value =
-        Bitlist::<31>::try_from(Vec::<u8>::from_iter([188, 71, 14, 158]).as_ref()).unwrap();
+    let mut value = <Bitlist<31> as TryFrom<&[u8]>>::try_from(
+        Vec::<u8>::from_iter([188, 71, 14, 158]).as_ref(),
+    )
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_lengthy_3/serialized.ssz_snappy",
@@ -1474,8 +1566,10 @@ fn test_bitlist_bitlist_31_lengthy_3() {
 
 #[test]
 fn test_bitlist_bitlist_31_lengthy_4() {
-    let mut value =
-        Bitlist::<31>::try_from(Vec::<u8>::from_iter([46, 129, 210, 162]).as_ref()).unwrap();
+    let mut value = <Bitlist<31> as TryFrom<&[u8]>>::try_from(
+        Vec::<u8>::from_iter([46, 129, 210, 162]).as_ref(),
+    )
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_lengthy_4/serialized.ssz_snappy",
@@ -1493,7 +1587,9 @@ fn test_bitlist_bitlist_31_lengthy_4() {
 
 #[test]
 fn test_bitlist_bitlist_31_max_0() {
-    let mut value = Bitlist::<31>::try_from(Vec::<u8>::from_iter([255, 255]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<31> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255, 255]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_max_0/serialized.ssz_snappy",
@@ -1511,7 +1607,8 @@ fn test_bitlist_bitlist_31_max_0() {
 
 #[test]
 fn test_bitlist_bitlist_31_max_1() {
-    let mut value = Bitlist::<31>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<31> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_max_1/serialized.ssz_snappy",
@@ -1529,8 +1626,10 @@ fn test_bitlist_bitlist_31_max_1() {
 
 #[test]
 fn test_bitlist_bitlist_31_max_2() {
-    let mut value =
-        Bitlist::<31>::try_from(Vec::<u8>::from_iter([255, 255, 255, 3]).as_ref()).unwrap();
+    let mut value = <Bitlist<31> as TryFrom<&[u8]>>::try_from(
+        Vec::<u8>::from_iter([255, 255, 255, 3]).as_ref(),
+    )
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_max_2/serialized.ssz_snappy",
@@ -1549,7 +1648,8 @@ fn test_bitlist_bitlist_31_max_2() {
 #[test]
 fn test_bitlist_bitlist_31_max_3() {
     let mut value =
-        Bitlist::<31>::try_from(Vec::<u8>::from_iter([255, 255, 255]).as_ref()).unwrap();
+        <Bitlist<31> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255, 255, 255]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_max_3/serialized.ssz_snappy",
@@ -1567,7 +1667,9 @@ fn test_bitlist_bitlist_31_max_3() {
 
 #[test]
 fn test_bitlist_bitlist_31_max_4() {
-    let mut value = Bitlist::<31>::try_from(Vec::<u8>::from_iter([255, 31]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<31> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255, 31]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_max_4/serialized.ssz_snappy",
@@ -1585,7 +1687,8 @@ fn test_bitlist_bitlist_31_max_4() {
 
 #[test]
 fn test_bitlist_bitlist_31_nil_0() {
-    let mut value = Bitlist::<31>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<31> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_nil_0/serialized.ssz_snappy",
@@ -1603,7 +1706,8 @@ fn test_bitlist_bitlist_31_nil_0() {
 
 #[test]
 fn test_bitlist_bitlist_31_nil_1() {
-    let mut value = Bitlist::<31>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<31> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_nil_1/serialized.ssz_snappy",
@@ -1621,7 +1725,8 @@ fn test_bitlist_bitlist_31_nil_1() {
 
 #[test]
 fn test_bitlist_bitlist_31_nil_2() {
-    let mut value = Bitlist::<31>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<31> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_nil_2/serialized.ssz_snappy",
@@ -1639,7 +1744,8 @@ fn test_bitlist_bitlist_31_nil_2() {
 
 #[test]
 fn test_bitlist_bitlist_31_nil_3() {
-    let mut value = Bitlist::<31>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<31> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_nil_3/serialized.ssz_snappy",
@@ -1657,7 +1763,8 @@ fn test_bitlist_bitlist_31_nil_3() {
 
 #[test]
 fn test_bitlist_bitlist_31_nil_4() {
-    let mut value = Bitlist::<31>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<31> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_nil_4/serialized.ssz_snappy",
@@ -1675,7 +1782,8 @@ fn test_bitlist_bitlist_31_nil_4() {
 
 #[test]
 fn test_bitlist_bitlist_31_random_0() {
-    let mut value = Bitlist::<31>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<31> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_random_0/serialized.ssz_snappy",
@@ -1693,7 +1801,8 @@ fn test_bitlist_bitlist_31_random_0() {
 
 #[test]
 fn test_bitlist_bitlist_31_random_1() {
-    let mut value = Bitlist::<31>::try_from(Vec::<u8>::from_iter([106, 1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<31> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([106, 1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_random_1/serialized.ssz_snappy",
@@ -1711,8 +1820,10 @@ fn test_bitlist_bitlist_31_random_1() {
 
 #[test]
 fn test_bitlist_bitlist_31_random_2() {
-    let mut value =
-        Bitlist::<31>::try_from(Vec::<u8>::from_iter([106, 141, 117, 7]).as_ref()).unwrap();
+    let mut value = <Bitlist<31> as TryFrom<&[u8]>>::try_from(
+        Vec::<u8>::from_iter([106, 141, 117, 7]).as_ref(),
+    )
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_random_2/serialized.ssz_snappy",
@@ -1730,7 +1841,8 @@ fn test_bitlist_bitlist_31_random_2() {
 
 #[test]
 fn test_bitlist_bitlist_31_random_3() {
-    let mut value = Bitlist::<31>::try_from(Vec::<u8>::from_iter([155, 1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<31> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([155, 1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_random_3/serialized.ssz_snappy",
@@ -1748,7 +1860,8 @@ fn test_bitlist_bitlist_31_random_3() {
 
 #[test]
 fn test_bitlist_bitlist_31_random_4() {
-    let mut value = Bitlist::<31>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<31> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_random_4/serialized.ssz_snappy",
@@ -1766,7 +1879,9 @@ fn test_bitlist_bitlist_31_random_4() {
 
 #[test]
 fn test_bitlist_bitlist_31_zero_0() {
-    let mut value = Bitlist::<31>::try_from(Vec::<u8>::from_iter([0, 0, 0, 16]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<31> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0, 0, 0, 16]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_zero_0/serialized.ssz_snappy",
@@ -1784,7 +1899,9 @@ fn test_bitlist_bitlist_31_zero_0() {
 
 #[test]
 fn test_bitlist_bitlist_31_zero_1() {
-    let mut value = Bitlist::<31>::try_from(Vec::<u8>::from_iter([0, 0, 0, 64]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<31> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0, 0, 0, 64]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_zero_1/serialized.ssz_snappy",
@@ -1802,7 +1919,9 @@ fn test_bitlist_bitlist_31_zero_1() {
 
 #[test]
 fn test_bitlist_bitlist_31_zero_2() {
-    let mut value = Bitlist::<31>::try_from(Vec::<u8>::from_iter([0, 0, 2]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<31> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0, 0, 2]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_zero_2/serialized.ssz_snappy",
@@ -1820,7 +1939,9 @@ fn test_bitlist_bitlist_31_zero_2() {
 
 #[test]
 fn test_bitlist_bitlist_31_zero_3() {
-    let mut value = Bitlist::<31>::try_from(Vec::<u8>::from_iter([0, 0, 0, 8]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<31> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0, 0, 0, 8]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_zero_3/serialized.ssz_snappy",
@@ -1838,7 +1959,8 @@ fn test_bitlist_bitlist_31_zero_3() {
 
 #[test]
 fn test_bitlist_bitlist_31_zero_4() {
-    let mut value = Bitlist::<31>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<31> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_31_zero_4/serialized.ssz_snappy",
@@ -1886,7 +2008,8 @@ fn test_bitlist_bitlist_3_but_4() {
 
 #[test]
 fn test_bitlist_bitlist_3_lengthy_0() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_lengthy_0/serialized.ssz_snappy",
@@ -1904,7 +2027,8 @@ fn test_bitlist_bitlist_3_lengthy_0() {
 
 #[test]
 fn test_bitlist_bitlist_3_lengthy_1() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_lengthy_1/serialized.ssz_snappy",
@@ -1922,7 +2046,8 @@ fn test_bitlist_bitlist_3_lengthy_1() {
 
 #[test]
 fn test_bitlist_bitlist_3_lengthy_2() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([9]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([9]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_lengthy_2/serialized.ssz_snappy",
@@ -1940,7 +2065,8 @@ fn test_bitlist_bitlist_3_lengthy_2() {
 
 #[test]
 fn test_bitlist_bitlist_3_lengthy_3() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([12]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([12]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_lengthy_3/serialized.ssz_snappy",
@@ -1958,7 +2084,8 @@ fn test_bitlist_bitlist_3_lengthy_3() {
 
 #[test]
 fn test_bitlist_bitlist_3_lengthy_4() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_lengthy_4/serialized.ssz_snappy",
@@ -1976,7 +2103,8 @@ fn test_bitlist_bitlist_3_lengthy_4() {
 
 #[test]
 fn test_bitlist_bitlist_3_max_0() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_max_0/serialized.ssz_snappy",
@@ -1994,7 +2122,8 @@ fn test_bitlist_bitlist_3_max_0() {
 
 #[test]
 fn test_bitlist_bitlist_3_max_1() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_max_1/serialized.ssz_snappy",
@@ -2012,7 +2141,8 @@ fn test_bitlist_bitlist_3_max_1() {
 
 #[test]
 fn test_bitlist_bitlist_3_max_2() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_max_2/serialized.ssz_snappy",
@@ -2030,7 +2160,8 @@ fn test_bitlist_bitlist_3_max_2() {
 
 #[test]
 fn test_bitlist_bitlist_3_max_3() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_max_3/serialized.ssz_snappy",
@@ -2048,7 +2179,8 @@ fn test_bitlist_bitlist_3_max_3() {
 
 #[test]
 fn test_bitlist_bitlist_3_max_4() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_max_4/serialized.ssz_snappy",
@@ -2066,7 +2198,8 @@ fn test_bitlist_bitlist_3_max_4() {
 
 #[test]
 fn test_bitlist_bitlist_3_nil_0() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_nil_0/serialized.ssz_snappy",
@@ -2084,7 +2217,8 @@ fn test_bitlist_bitlist_3_nil_0() {
 
 #[test]
 fn test_bitlist_bitlist_3_nil_1() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_nil_1/serialized.ssz_snappy",
@@ -2102,7 +2236,8 @@ fn test_bitlist_bitlist_3_nil_1() {
 
 #[test]
 fn test_bitlist_bitlist_3_nil_2() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_nil_2/serialized.ssz_snappy",
@@ -2120,7 +2255,8 @@ fn test_bitlist_bitlist_3_nil_2() {
 
 #[test]
 fn test_bitlist_bitlist_3_nil_3() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_nil_3/serialized.ssz_snappy",
@@ -2138,7 +2274,8 @@ fn test_bitlist_bitlist_3_nil_3() {
 
 #[test]
 fn test_bitlist_bitlist_3_nil_4() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_nil_4/serialized.ssz_snappy",
@@ -2156,7 +2293,8 @@ fn test_bitlist_bitlist_3_nil_4() {
 
 #[test]
 fn test_bitlist_bitlist_3_random_0() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_random_0/serialized.ssz_snappy",
@@ -2174,7 +2312,8 @@ fn test_bitlist_bitlist_3_random_0() {
 
 #[test]
 fn test_bitlist_bitlist_3_random_1() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_random_1/serialized.ssz_snappy",
@@ -2192,7 +2331,8 @@ fn test_bitlist_bitlist_3_random_1() {
 
 #[test]
 fn test_bitlist_bitlist_3_random_2() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([5]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([5]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_random_2/serialized.ssz_snappy",
@@ -2210,7 +2350,8 @@ fn test_bitlist_bitlist_3_random_2() {
 
 #[test]
 fn test_bitlist_bitlist_3_random_3() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_random_3/serialized.ssz_snappy",
@@ -2228,7 +2369,8 @@ fn test_bitlist_bitlist_3_random_3() {
 
 #[test]
 fn test_bitlist_bitlist_3_random_4() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_random_4/serialized.ssz_snappy",
@@ -2246,7 +2388,8 @@ fn test_bitlist_bitlist_3_random_4() {
 
 #[test]
 fn test_bitlist_bitlist_3_zero_0() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_zero_0/serialized.ssz_snappy",
@@ -2264,7 +2407,8 @@ fn test_bitlist_bitlist_3_zero_0() {
 
 #[test]
 fn test_bitlist_bitlist_3_zero_1() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_zero_1/serialized.ssz_snappy",
@@ -2282,7 +2426,8 @@ fn test_bitlist_bitlist_3_zero_1() {
 
 #[test]
 fn test_bitlist_bitlist_3_zero_2() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_zero_2/serialized.ssz_snappy",
@@ -2300,7 +2445,8 @@ fn test_bitlist_bitlist_3_zero_2() {
 
 #[test]
 fn test_bitlist_bitlist_3_zero_3() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_zero_3/serialized.ssz_snappy",
@@ -2318,7 +2464,8 @@ fn test_bitlist_bitlist_3_zero_3() {
 
 #[test]
 fn test_bitlist_bitlist_3_zero_4() {
-    let mut value = Bitlist::<3>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_3_zero_4/serialized.ssz_snappy",
@@ -2346,7 +2493,8 @@ fn test_bitlist_bitlist_4_but_5() {
 
 #[test]
 fn test_bitlist_bitlist_4_lengthy_0() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([27]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([27]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_lengthy_0/serialized.ssz_snappy",
@@ -2364,7 +2512,8 @@ fn test_bitlist_bitlist_4_lengthy_0() {
 
 #[test]
 fn test_bitlist_bitlist_4_lengthy_1() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([21]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([21]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_lengthy_1/serialized.ssz_snappy",
@@ -2382,7 +2531,8 @@ fn test_bitlist_bitlist_4_lengthy_1() {
 
 #[test]
 fn test_bitlist_bitlist_4_lengthy_2() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([23]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([23]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_lengthy_2/serialized.ssz_snappy",
@@ -2400,7 +2550,8 @@ fn test_bitlist_bitlist_4_lengthy_2() {
 
 #[test]
 fn test_bitlist_bitlist_4_lengthy_3() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([17]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([17]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_lengthy_3/serialized.ssz_snappy",
@@ -2418,7 +2569,8 @@ fn test_bitlist_bitlist_4_lengthy_3() {
 
 #[test]
 fn test_bitlist_bitlist_4_lengthy_4() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([22]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([22]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_lengthy_4/serialized.ssz_snappy",
@@ -2436,7 +2588,8 @@ fn test_bitlist_bitlist_4_lengthy_4() {
 
 #[test]
 fn test_bitlist_bitlist_4_max_0() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_max_0/serialized.ssz_snappy",
@@ -2454,7 +2607,8 @@ fn test_bitlist_bitlist_4_max_0() {
 
 #[test]
 fn test_bitlist_bitlist_4_max_1() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_max_1/serialized.ssz_snappy",
@@ -2472,7 +2626,8 @@ fn test_bitlist_bitlist_4_max_1() {
 
 #[test]
 fn test_bitlist_bitlist_4_max_2() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_max_2/serialized.ssz_snappy",
@@ -2490,7 +2645,8 @@ fn test_bitlist_bitlist_4_max_2() {
 
 #[test]
 fn test_bitlist_bitlist_4_max_3() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_max_3/serialized.ssz_snappy",
@@ -2508,7 +2664,8 @@ fn test_bitlist_bitlist_4_max_3() {
 
 #[test]
 fn test_bitlist_bitlist_4_max_4() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_max_4/serialized.ssz_snappy",
@@ -2526,7 +2683,8 @@ fn test_bitlist_bitlist_4_max_4() {
 
 #[test]
 fn test_bitlist_bitlist_4_nil_0() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_nil_0/serialized.ssz_snappy",
@@ -2544,7 +2702,8 @@ fn test_bitlist_bitlist_4_nil_0() {
 
 #[test]
 fn test_bitlist_bitlist_4_nil_1() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_nil_1/serialized.ssz_snappy",
@@ -2562,7 +2721,8 @@ fn test_bitlist_bitlist_4_nil_1() {
 
 #[test]
 fn test_bitlist_bitlist_4_nil_2() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_nil_2/serialized.ssz_snappy",
@@ -2580,7 +2740,8 @@ fn test_bitlist_bitlist_4_nil_2() {
 
 #[test]
 fn test_bitlist_bitlist_4_nil_3() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_nil_3/serialized.ssz_snappy",
@@ -2598,7 +2759,8 @@ fn test_bitlist_bitlist_4_nil_3() {
 
 #[test]
 fn test_bitlist_bitlist_4_nil_4() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_nil_4/serialized.ssz_snappy",
@@ -2616,7 +2778,8 @@ fn test_bitlist_bitlist_4_nil_4() {
 
 #[test]
 fn test_bitlist_bitlist_4_random_0() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([13]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([13]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_random_0/serialized.ssz_snappy",
@@ -2634,7 +2797,8 @@ fn test_bitlist_bitlist_4_random_0() {
 
 #[test]
 fn test_bitlist_bitlist_4_random_1() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([17]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([17]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_random_1/serialized.ssz_snappy",
@@ -2652,7 +2816,8 @@ fn test_bitlist_bitlist_4_random_1() {
 
 #[test]
 fn test_bitlist_bitlist_4_random_2() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_random_2/serialized.ssz_snappy",
@@ -2670,7 +2835,8 @@ fn test_bitlist_bitlist_4_random_2() {
 
 #[test]
 fn test_bitlist_bitlist_4_random_3() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_random_3/serialized.ssz_snappy",
@@ -2688,7 +2854,8 @@ fn test_bitlist_bitlist_4_random_3() {
 
 #[test]
 fn test_bitlist_bitlist_4_random_4() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_random_4/serialized.ssz_snappy",
@@ -2706,7 +2873,8 @@ fn test_bitlist_bitlist_4_random_4() {
 
 #[test]
 fn test_bitlist_bitlist_4_zero_0() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_zero_0/serialized.ssz_snappy",
@@ -2724,7 +2892,8 @@ fn test_bitlist_bitlist_4_zero_0() {
 
 #[test]
 fn test_bitlist_bitlist_4_zero_1() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_zero_1/serialized.ssz_snappy",
@@ -2742,7 +2911,8 @@ fn test_bitlist_bitlist_4_zero_1() {
 
 #[test]
 fn test_bitlist_bitlist_4_zero_2() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_zero_2/serialized.ssz_snappy",
@@ -2760,7 +2930,8 @@ fn test_bitlist_bitlist_4_zero_2() {
 
 #[test]
 fn test_bitlist_bitlist_4_zero_3() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_zero_3/serialized.ssz_snappy",
@@ -2778,7 +2949,8 @@ fn test_bitlist_bitlist_4_zero_3() {
 
 #[test]
 fn test_bitlist_bitlist_4_zero_4() {
-    let mut value = Bitlist::<4>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_4_zero_4/serialized.ssz_snappy",
@@ -2806,7 +2978,7 @@ fn test_bitlist_bitlist_512_but_513() {
 
 #[test]
 fn test_bitlist_bitlist_512_lengthy_0() {
-    let mut value = Bitlist::<512>::try_from(
+    let mut value = <Bitlist<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             0, 41, 128, 156, 65, 44, 152, 213, 145, 249, 231, 3, 54, 176, 161, 20, 245, 248, 201,
             32, 174, 50, 123, 243, 222, 100, 4, 130, 7, 198, 31, 26, 234, 146, 83, 208, 194, 122,
@@ -2833,7 +3005,7 @@ fn test_bitlist_bitlist_512_lengthy_0() {
 
 #[test]
 fn test_bitlist_bitlist_512_lengthy_1() {
-    let mut value = Bitlist::<512>::try_from(
+    let mut value = <Bitlist<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             94, 184, 1, 99, 49, 235, 82, 205, 193, 182, 48, 217, 245, 230, 218, 190, 200, 144, 130,
             53, 80, 167, 110, 209, 85, 249, 213, 138, 164, 151, 175, 125, 200, 249, 196, 207, 214,
@@ -2860,7 +3032,7 @@ fn test_bitlist_bitlist_512_lengthy_1() {
 
 #[test]
 fn test_bitlist_bitlist_512_lengthy_2() {
-    let mut value = Bitlist::<512>::try_from(
+    let mut value = <Bitlist<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             161, 54, 224, 29, 250, 19, 154, 61, 234, 110, 180, 240, 239, 156, 21, 64, 107, 106, 17,
             233, 80, 37, 181, 67, 39, 44, 105, 232, 196, 133, 9, 158, 189, 240, 53, 62, 87, 32,
@@ -2887,7 +3059,7 @@ fn test_bitlist_bitlist_512_lengthy_2() {
 
 #[test]
 fn test_bitlist_bitlist_512_lengthy_3() {
-    let mut value = Bitlist::<512>::try_from(
+    let mut value = <Bitlist<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             7, 77, 193, 97, 6, 198, 213, 2, 67, 206, 135, 31, 250, 188, 197, 117, 43, 158, 239,
             119, 214, 235, 178, 157, 44, 138, 110, 35, 81, 248, 201, 84, 190, 88, 184, 122, 203,
@@ -2914,7 +3086,7 @@ fn test_bitlist_bitlist_512_lengthy_3() {
 
 #[test]
 fn test_bitlist_bitlist_512_lengthy_4() {
-    let mut value = Bitlist::<512>::try_from(
+    let mut value = <Bitlist<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             18, 50, 181, 231, 116, 52, 232, 102, 4, 191, 32, 1, 249, 166, 102, 194, 183, 79, 119,
             8, 192, 206, 36, 45, 150, 71, 35, 141, 185, 152, 251, 167, 194, 89, 90, 22, 11, 201,
@@ -2941,7 +3113,7 @@ fn test_bitlist_bitlist_512_lengthy_4() {
 
 #[test]
 fn test_bitlist_bitlist_512_max_0() {
-    let mut value = Bitlist::<512>::try_from(
+    let mut value = <Bitlist<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -2967,7 +3139,7 @@ fn test_bitlist_bitlist_512_max_0() {
 
 #[test]
 fn test_bitlist_bitlist_512_max_1() {
-    let mut value = Bitlist::<512>::try_from(
+    let mut value = <Bitlist<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -2993,7 +3165,7 @@ fn test_bitlist_bitlist_512_max_1() {
 
 #[test]
 fn test_bitlist_bitlist_512_max_2() {
-    let mut value = Bitlist::<512>::try_from(
+    let mut value = <Bitlist<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -3019,9 +3191,10 @@ fn test_bitlist_bitlist_512_max_2() {
 
 #[test]
 fn test_bitlist_bitlist_512_max_3() {
-    let mut value =
-        Bitlist::<512>::try_from(Vec::<u8>::from_iter([255, 255, 255, 255, 255, 255, 7]).as_ref())
-            .unwrap();
+    let mut value = <Bitlist<512> as TryFrom<&[u8]>>::try_from(
+        Vec::<u8>::from_iter([255, 255, 255, 255, 255, 255, 7]).as_ref(),
+    )
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_512_max_3/serialized.ssz_snappy",
@@ -3039,7 +3212,7 @@ fn test_bitlist_bitlist_512_max_3() {
 
 #[test]
 fn test_bitlist_bitlist_512_max_4() {
-    let mut value = Bitlist::<512>::try_from(
+    let mut value = <Bitlist<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 31,
@@ -3064,7 +3237,8 @@ fn test_bitlist_bitlist_512_max_4() {
 
 #[test]
 fn test_bitlist_bitlist_512_nil_0() {
-    let mut value = Bitlist::<512>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<512> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_512_nil_0/serialized.ssz_snappy",
@@ -3082,7 +3256,8 @@ fn test_bitlist_bitlist_512_nil_0() {
 
 #[test]
 fn test_bitlist_bitlist_512_nil_1() {
-    let mut value = Bitlist::<512>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<512> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_512_nil_1/serialized.ssz_snappy",
@@ -3100,7 +3275,8 @@ fn test_bitlist_bitlist_512_nil_1() {
 
 #[test]
 fn test_bitlist_bitlist_512_nil_2() {
-    let mut value = Bitlist::<512>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<512> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_512_nil_2/serialized.ssz_snappy",
@@ -3118,7 +3294,8 @@ fn test_bitlist_bitlist_512_nil_2() {
 
 #[test]
 fn test_bitlist_bitlist_512_nil_3() {
-    let mut value = Bitlist::<512>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<512> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_512_nil_3/serialized.ssz_snappy",
@@ -3136,7 +3313,8 @@ fn test_bitlist_bitlist_512_nil_3() {
 
 #[test]
 fn test_bitlist_bitlist_512_nil_4() {
-    let mut value = Bitlist::<512>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<512> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_512_nil_4/serialized.ssz_snappy",
@@ -3154,7 +3332,7 @@ fn test_bitlist_bitlist_512_nil_4() {
 
 #[test]
 fn test_bitlist_bitlist_512_random_0() {
-    let mut value = Bitlist::<512>::try_from(
+    let mut value = <Bitlist<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             159, 193, 65, 83, 153, 201, 138, 172, 149, 135, 213, 123, 40, 144, 145, 240, 5, 101,
             30, 231, 103, 140, 116, 89, 117, 244, 128, 217, 64, 252, 136, 195, 115, 226, 161, 234,
@@ -3180,8 +3358,10 @@ fn test_bitlist_bitlist_512_random_0() {
 
 #[test]
 fn test_bitlist_bitlist_512_random_1() {
-    let mut value =
-        Bitlist::<512>::try_from(Vec::<u8>::from_iter([138, 214, 36, 127, 4, 4]).as_ref()).unwrap();
+    let mut value = <Bitlist<512> as TryFrom<&[u8]>>::try_from(
+        Vec::<u8>::from_iter([138, 214, 36, 127, 4, 4]).as_ref(),
+    )
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_512_random_1/serialized.ssz_snappy",
@@ -3199,7 +3379,7 @@ fn test_bitlist_bitlist_512_random_1() {
 
 #[test]
 fn test_bitlist_bitlist_512_random_2() {
-    let mut value = Bitlist::<512>::try_from(
+    let mut value = <Bitlist<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             55, 212, 241, 100, 234, 188, 0, 34, 27, 192, 190, 127, 91, 209, 229, 142, 167, 28, 205,
             84, 238, 210, 242, 138, 164, 125, 156, 167, 143, 125, 166, 47, 243, 117, 126, 131, 242,
@@ -3225,7 +3405,7 @@ fn test_bitlist_bitlist_512_random_2() {
 
 #[test]
 fn test_bitlist_bitlist_512_random_3() {
-    let mut value = Bitlist::<512>::try_from(
+    let mut value = <Bitlist<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             114, 184, 230, 175, 17, 28, 190, 227, 166, 99, 92, 23, 192, 50, 85, 247, 116, 227, 60,
             162, 196, 86, 135, 217, 176, 85, 95, 52, 220, 1, 21, 183, 204, 52,
@@ -3250,7 +3430,7 @@ fn test_bitlist_bitlist_512_random_3() {
 
 #[test]
 fn test_bitlist_bitlist_512_random_4() {
-    let mut value = Bitlist::<512>::try_from(
+    let mut value = <Bitlist<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             96, 46, 1, 71, 234, 203, 14, 250, 120, 192, 34, 73, 169, 192, 182, 165, 161, 213, 114,
             128, 250, 72, 183, 182, 164, 2, 138, 211, 54, 233, 137, 237, 21, 53, 242, 229, 217, 36,
@@ -3276,7 +3456,7 @@ fn test_bitlist_bitlist_512_random_4() {
 
 #[test]
 fn test_bitlist_bitlist_512_zero_0() {
-    let mut value = Bitlist::<512>::try_from(
+    let mut value = <Bitlist<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16])
             .as_ref(),
     )
@@ -3298,7 +3478,7 @@ fn test_bitlist_bitlist_512_zero_0() {
 
 #[test]
 fn test_bitlist_bitlist_512_zero_1() {
-    let mut value = Bitlist::<512>::try_from(
+    let mut value = <Bitlist<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -3324,7 +3504,7 @@ fn test_bitlist_bitlist_512_zero_1() {
 
 #[test]
 fn test_bitlist_bitlist_512_zero_2() {
-    let mut value = Bitlist::<512>::try_from(
+    let mut value = <Bitlist<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 1,
@@ -3349,7 +3529,7 @@ fn test_bitlist_bitlist_512_zero_2() {
 
 #[test]
 fn test_bitlist_bitlist_512_zero_3() {
-    let mut value = Bitlist::<512>::try_from(
+    let mut value = <Bitlist<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
@@ -3374,9 +3554,10 @@ fn test_bitlist_bitlist_512_zero_3() {
 
 #[test]
 fn test_bitlist_bitlist_512_zero_4() {
-    let mut value =
-        Bitlist::<512>::try_from(Vec::<u8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 64]).as_ref())
-            .unwrap();
+    let mut value = <Bitlist<512> as TryFrom<&[u8]>>::try_from(
+        Vec::<u8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 64]).as_ref(),
+    )
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_512_zero_4/serialized.ssz_snappy",
@@ -3394,7 +3575,7 @@ fn test_bitlist_bitlist_512_zero_4() {
 
 #[test]
 fn test_bitlist_bitlist_513_lengthy_0() {
-    let mut value = Bitlist::<513>::try_from(
+    let mut value = <Bitlist<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             104, 108, 147, 82, 247, 10, 41, 236, 81, 255, 119, 145, 12, 63, 124, 131, 21, 211, 196,
             125, 161, 242, 222, 193, 156, 133, 68, 174, 17, 238, 8, 37, 152, 152, 73, 25, 20, 138,
@@ -3421,7 +3602,7 @@ fn test_bitlist_bitlist_513_lengthy_0() {
 
 #[test]
 fn test_bitlist_bitlist_513_lengthy_1() {
-    let mut value = Bitlist::<513>::try_from(
+    let mut value = <Bitlist<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             57, 91, 36, 187, 64, 156, 244, 32, 187, 84, 133, 47, 148, 184, 58, 241, 3, 82, 62, 202,
             39, 171, 189, 7, 100, 10, 34, 56, 58, 210, 187, 14, 160, 147, 70, 195, 165, 234, 63,
@@ -3448,7 +3629,7 @@ fn test_bitlist_bitlist_513_lengthy_1() {
 
 #[test]
 fn test_bitlist_bitlist_513_lengthy_2() {
-    let mut value = Bitlist::<513>::try_from(
+    let mut value = <Bitlist<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             33, 218, 166, 15, 249, 225, 154, 205, 6, 215, 100, 77, 14, 16, 207, 196, 191, 216, 118,
             102, 63, 223, 211, 47, 81, 105, 148, 151, 230, 101, 199, 64, 63, 199, 177, 176, 74,
@@ -3475,7 +3656,7 @@ fn test_bitlist_bitlist_513_lengthy_2() {
 
 #[test]
 fn test_bitlist_bitlist_513_lengthy_3() {
-    let mut value = Bitlist::<513>::try_from(
+    let mut value = <Bitlist<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             244, 116, 125, 246, 185, 122, 37, 121, 40, 135, 61, 96, 114, 88, 163, 166, 254, 68,
             177, 16, 10, 122, 24, 95, 35, 204, 170, 225, 207, 108, 158, 179, 248, 186, 81, 253,
@@ -3502,7 +3683,7 @@ fn test_bitlist_bitlist_513_lengthy_3() {
 
 #[test]
 fn test_bitlist_bitlist_513_lengthy_4() {
-    let mut value = Bitlist::<513>::try_from(
+    let mut value = <Bitlist<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             61, 93, 109, 239, 248, 61, 228, 130, 190, 124, 243, 93, 119, 224, 242, 90, 116, 204,
             103, 69, 123, 151, 6, 222, 218, 77, 32, 82, 17, 10, 27, 133, 187, 42, 87, 77, 193, 194,
@@ -3529,7 +3710,7 @@ fn test_bitlist_bitlist_513_lengthy_4() {
 
 #[test]
 fn test_bitlist_bitlist_513_max_0() {
-    let mut value = Bitlist::<513>::try_from(
+    let mut value = <Bitlist<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 7,
@@ -3554,7 +3735,8 @@ fn test_bitlist_bitlist_513_max_0() {
 
 #[test]
 fn test_bitlist_bitlist_513_max_1() {
-    let mut value = Bitlist::<513>::try_from(Vec::<u8>::from_iter([127]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<513> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([127]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_513_max_1/serialized.ssz_snappy",
@@ -3572,7 +3754,9 @@ fn test_bitlist_bitlist_513_max_1() {
 
 #[test]
 fn test_bitlist_bitlist_513_max_2() {
-    let mut value = Bitlist::<513>::try_from(Vec::<u8>::from_iter([255, 1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<513> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255, 1]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_513_max_2/serialized.ssz_snappy",
@@ -3590,7 +3774,7 @@ fn test_bitlist_bitlist_513_max_2() {
 
 #[test]
 fn test_bitlist_bitlist_513_max_3() {
-    let mut value = Bitlist::<513>::try_from(
+    let mut value = <Bitlist<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -3616,7 +3800,7 @@ fn test_bitlist_bitlist_513_max_3() {
 
 #[test]
 fn test_bitlist_bitlist_513_max_4() {
-    let mut value = Bitlist::<513>::try_from(
+    let mut value = <Bitlist<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 1,
         ])
@@ -3640,7 +3824,8 @@ fn test_bitlist_bitlist_513_max_4() {
 
 #[test]
 fn test_bitlist_bitlist_513_nil_0() {
-    let mut value = Bitlist::<513>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<513> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_513_nil_0/serialized.ssz_snappy",
@@ -3658,7 +3843,8 @@ fn test_bitlist_bitlist_513_nil_0() {
 
 #[test]
 fn test_bitlist_bitlist_513_nil_1() {
-    let mut value = Bitlist::<513>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<513> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_513_nil_1/serialized.ssz_snappy",
@@ -3676,7 +3862,8 @@ fn test_bitlist_bitlist_513_nil_1() {
 
 #[test]
 fn test_bitlist_bitlist_513_nil_2() {
-    let mut value = Bitlist::<513>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<513> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_513_nil_2/serialized.ssz_snappy",
@@ -3694,7 +3881,8 @@ fn test_bitlist_bitlist_513_nil_2() {
 
 #[test]
 fn test_bitlist_bitlist_513_nil_3() {
-    let mut value = Bitlist::<513>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<513> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_513_nil_3/serialized.ssz_snappy",
@@ -3712,7 +3900,8 @@ fn test_bitlist_bitlist_513_nil_3() {
 
 #[test]
 fn test_bitlist_bitlist_513_nil_4() {
-    let mut value = Bitlist::<513>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<513> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_513_nil_4/serialized.ssz_snappy",
@@ -3730,7 +3919,7 @@ fn test_bitlist_bitlist_513_nil_4() {
 
 #[test]
 fn test_bitlist_bitlist_513_random_0() {
-    let mut value = Bitlist::<513>::try_from(
+    let mut value = <Bitlist<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([176, 215, 228, 180, 55, 102, 22, 56, 171, 0, 210, 26]).as_ref(),
     )
     .unwrap();
@@ -3751,7 +3940,7 @@ fn test_bitlist_bitlist_513_random_0() {
 
 #[test]
 fn test_bitlist_bitlist_513_random_1() {
-    let mut value = Bitlist::<513>::try_from(
+    let mut value = <Bitlist<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             245, 161, 103, 135, 184, 153, 184, 107, 212, 115, 240, 116, 67, 139, 183, 180, 192, 56,
             42, 59, 93, 140, 253, 38, 235, 169, 190, 107, 72, 235, 179, 66, 239,
@@ -3776,7 +3965,7 @@ fn test_bitlist_bitlist_513_random_1() {
 
 #[test]
 fn test_bitlist_bitlist_513_random_2() {
-    let mut value = Bitlist::<513>::try_from(
+    let mut value = <Bitlist<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             186, 79, 229, 99, 225, 114, 253, 235, 154, 116, 179, 60, 152, 109, 119, 170, 93, 63,
             174, 162, 177, 182, 89, 12, 145, 140, 95, 44, 142, 239, 49, 74, 73, 181, 146, 240, 65,
@@ -3802,8 +3991,10 @@ fn test_bitlist_bitlist_513_random_2() {
 
 #[test]
 fn test_bitlist_bitlist_513_random_3() {
-    let mut value =
-        Bitlist::<513>::try_from(Vec::<u8>::from_iter([218, 86, 210, 218]).as_ref()).unwrap();
+    let mut value = <Bitlist<513> as TryFrom<&[u8]>>::try_from(
+        Vec::<u8>::from_iter([218, 86, 210, 218]).as_ref(),
+    )
+    .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_513_random_3/serialized.ssz_snappy",
@@ -3821,7 +4012,7 @@ fn test_bitlist_bitlist_513_random_3() {
 
 #[test]
 fn test_bitlist_bitlist_513_random_4() {
-    let mut value = Bitlist::<513>::try_from(
+    let mut value = <Bitlist<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([104, 76, 185, 82, 136, 235, 228, 30, 187, 193, 232, 34, 2]).as_ref(),
     )
     .unwrap();
@@ -3842,7 +4033,7 @@ fn test_bitlist_bitlist_513_random_4() {
 
 #[test]
 fn test_bitlist_bitlist_513_zero_0() {
-    let mut value = Bitlist::<513>::try_from(
+    let mut value = <Bitlist<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 2,
@@ -3867,7 +4058,7 @@ fn test_bitlist_bitlist_513_zero_0() {
 
 #[test]
 fn test_bitlist_bitlist_513_zero_1() {
-    let mut value = Bitlist::<513>::try_from(
+    let mut value = <Bitlist<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -3894,7 +4085,8 @@ fn test_bitlist_bitlist_513_zero_1() {
 #[test]
 fn test_bitlist_bitlist_513_zero_2() {
     let mut value =
-        Bitlist::<513>::try_from(Vec::<u8>::from_iter([0, 0, 0, 0, 1]).as_ref()).unwrap();
+        <Bitlist<513> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0, 0, 0, 0, 1]).as_ref())
+            .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_513_zero_2/serialized.ssz_snappy",
@@ -3912,7 +4104,7 @@ fn test_bitlist_bitlist_513_zero_2() {
 
 #[test]
 fn test_bitlist_bitlist_513_zero_3() {
-    let mut value = Bitlist::<513>::try_from(
+    let mut value = <Bitlist<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4]).as_ref(),
     )
     .unwrap();
@@ -3933,7 +4125,7 @@ fn test_bitlist_bitlist_513_zero_3() {
 
 #[test]
 fn test_bitlist_bitlist_513_zero_4() {
-    let mut value = Bitlist::<513>::try_from(
+    let mut value = <Bitlist<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 64,
@@ -3968,7 +4160,8 @@ fn test_bitlist_bitlist_5_but_6() {
 
 #[test]
 fn test_bitlist_bitlist_5_lengthy_0() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([36]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([36]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_lengthy_0/serialized.ssz_snappy",
@@ -3986,7 +4179,8 @@ fn test_bitlist_bitlist_5_lengthy_0() {
 
 #[test]
 fn test_bitlist_bitlist_5_lengthy_1() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([57]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([57]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_lengthy_1/serialized.ssz_snappy",
@@ -4004,7 +4198,8 @@ fn test_bitlist_bitlist_5_lengthy_1() {
 
 #[test]
 fn test_bitlist_bitlist_5_lengthy_2() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([34]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([34]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_lengthy_2/serialized.ssz_snappy",
@@ -4022,7 +4217,8 @@ fn test_bitlist_bitlist_5_lengthy_2() {
 
 #[test]
 fn test_bitlist_bitlist_5_lengthy_3() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([58]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([58]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_lengthy_3/serialized.ssz_snappy",
@@ -4040,7 +4236,8 @@ fn test_bitlist_bitlist_5_lengthy_3() {
 
 #[test]
 fn test_bitlist_bitlist_5_lengthy_4() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([48]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([48]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_lengthy_4/serialized.ssz_snappy",
@@ -4058,7 +4255,8 @@ fn test_bitlist_bitlist_5_lengthy_4() {
 
 #[test]
 fn test_bitlist_bitlist_5_max_0() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_max_0/serialized.ssz_snappy",
@@ -4076,7 +4274,8 @@ fn test_bitlist_bitlist_5_max_0() {
 
 #[test]
 fn test_bitlist_bitlist_5_max_1() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_max_1/serialized.ssz_snappy",
@@ -4094,7 +4293,8 @@ fn test_bitlist_bitlist_5_max_1() {
 
 #[test]
 fn test_bitlist_bitlist_5_max_2() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_max_2/serialized.ssz_snappy",
@@ -4112,7 +4312,8 @@ fn test_bitlist_bitlist_5_max_2() {
 
 #[test]
 fn test_bitlist_bitlist_5_max_3() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_max_3/serialized.ssz_snappy",
@@ -4130,7 +4331,8 @@ fn test_bitlist_bitlist_5_max_3() {
 
 #[test]
 fn test_bitlist_bitlist_5_max_4() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_max_4/serialized.ssz_snappy",
@@ -4148,7 +4350,8 @@ fn test_bitlist_bitlist_5_max_4() {
 
 #[test]
 fn test_bitlist_bitlist_5_nil_0() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_nil_0/serialized.ssz_snappy",
@@ -4166,7 +4369,8 @@ fn test_bitlist_bitlist_5_nil_0() {
 
 #[test]
 fn test_bitlist_bitlist_5_nil_1() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_nil_1/serialized.ssz_snappy",
@@ -4184,7 +4388,8 @@ fn test_bitlist_bitlist_5_nil_1() {
 
 #[test]
 fn test_bitlist_bitlist_5_nil_2() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_nil_2/serialized.ssz_snappy",
@@ -4202,7 +4407,8 @@ fn test_bitlist_bitlist_5_nil_2() {
 
 #[test]
 fn test_bitlist_bitlist_5_nil_3() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_nil_3/serialized.ssz_snappy",
@@ -4220,7 +4426,8 @@ fn test_bitlist_bitlist_5_nil_3() {
 
 #[test]
 fn test_bitlist_bitlist_5_nil_4() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_nil_4/serialized.ssz_snappy",
@@ -4238,7 +4445,8 @@ fn test_bitlist_bitlist_5_nil_4() {
 
 #[test]
 fn test_bitlist_bitlist_5_random_0() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_random_0/serialized.ssz_snappy",
@@ -4256,7 +4464,8 @@ fn test_bitlist_bitlist_5_random_0() {
 
 #[test]
 fn test_bitlist_bitlist_5_random_1() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_random_1/serialized.ssz_snappy",
@@ -4274,7 +4483,8 @@ fn test_bitlist_bitlist_5_random_1() {
 
 #[test]
 fn test_bitlist_bitlist_5_random_2() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_random_2/serialized.ssz_snappy",
@@ -4292,7 +4502,8 @@ fn test_bitlist_bitlist_5_random_2() {
 
 #[test]
 fn test_bitlist_bitlist_5_random_3() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([6]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([6]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_random_3/serialized.ssz_snappy",
@@ -4310,7 +4521,8 @@ fn test_bitlist_bitlist_5_random_3() {
 
 #[test]
 fn test_bitlist_bitlist_5_random_4() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([22]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([22]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_random_4/serialized.ssz_snappy",
@@ -4328,7 +4540,8 @@ fn test_bitlist_bitlist_5_random_4() {
 
 #[test]
 fn test_bitlist_bitlist_5_zero_0() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_zero_0/serialized.ssz_snappy",
@@ -4346,7 +4559,8 @@ fn test_bitlist_bitlist_5_zero_0() {
 
 #[test]
 fn test_bitlist_bitlist_5_zero_1() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([32]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([32]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_zero_1/serialized.ssz_snappy",
@@ -4364,7 +4578,8 @@ fn test_bitlist_bitlist_5_zero_1() {
 
 #[test]
 fn test_bitlist_bitlist_5_zero_2() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_zero_2/serialized.ssz_snappy",
@@ -4382,7 +4597,8 @@ fn test_bitlist_bitlist_5_zero_2() {
 
 #[test]
 fn test_bitlist_bitlist_5_zero_3() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_zero_3/serialized.ssz_snappy",
@@ -4400,7 +4616,8 @@ fn test_bitlist_bitlist_5_zero_3() {
 
 #[test]
 fn test_bitlist_bitlist_5_zero_4() {
-    let mut value = Bitlist::<5>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_5_zero_4/serialized.ssz_snappy",
@@ -4428,7 +4645,8 @@ fn test_bitlist_bitlist_8_but_9() {
 
 #[test]
 fn test_bitlist_bitlist_8_lengthy_0() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([206, 1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([206, 1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_lengthy_0/serialized.ssz_snappy",
@@ -4446,7 +4664,8 @@ fn test_bitlist_bitlist_8_lengthy_0() {
 
 #[test]
 fn test_bitlist_bitlist_8_lengthy_1() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([180, 1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([180, 1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_lengthy_1/serialized.ssz_snappy",
@@ -4464,7 +4683,8 @@ fn test_bitlist_bitlist_8_lengthy_1() {
 
 #[test]
 fn test_bitlist_bitlist_8_lengthy_2() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([83, 1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([83, 1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_lengthy_2/serialized.ssz_snappy",
@@ -4482,7 +4702,8 @@ fn test_bitlist_bitlist_8_lengthy_2() {
 
 #[test]
 fn test_bitlist_bitlist_8_lengthy_3() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([99, 1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([99, 1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_lengthy_3/serialized.ssz_snappy",
@@ -4500,7 +4721,8 @@ fn test_bitlist_bitlist_8_lengthy_3() {
 
 #[test]
 fn test_bitlist_bitlist_8_lengthy_4() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([227, 1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([227, 1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_lengthy_4/serialized.ssz_snappy",
@@ -4518,7 +4740,8 @@ fn test_bitlist_bitlist_8_lengthy_4() {
 
 #[test]
 fn test_bitlist_bitlist_8_max_0() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([255, 1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255, 1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_max_0/serialized.ssz_snappy",
@@ -4536,7 +4759,8 @@ fn test_bitlist_bitlist_8_max_0() {
 
 #[test]
 fn test_bitlist_bitlist_8_max_1() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([255, 1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255, 1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_max_1/serialized.ssz_snappy",
@@ -4554,7 +4778,8 @@ fn test_bitlist_bitlist_8_max_1() {
 
 #[test]
 fn test_bitlist_bitlist_8_max_2() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_max_2/serialized.ssz_snappy",
@@ -4572,7 +4797,8 @@ fn test_bitlist_bitlist_8_max_2() {
 
 #[test]
 fn test_bitlist_bitlist_8_max_3() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([63]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([63]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_max_3/serialized.ssz_snappy",
@@ -4590,7 +4816,8 @@ fn test_bitlist_bitlist_8_max_3() {
 
 #[test]
 fn test_bitlist_bitlist_8_max_4() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_max_4/serialized.ssz_snappy",
@@ -4608,7 +4835,8 @@ fn test_bitlist_bitlist_8_max_4() {
 
 #[test]
 fn test_bitlist_bitlist_8_nil_0() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_nil_0/serialized.ssz_snappy",
@@ -4626,7 +4854,8 @@ fn test_bitlist_bitlist_8_nil_0() {
 
 #[test]
 fn test_bitlist_bitlist_8_nil_1() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_nil_1/serialized.ssz_snappy",
@@ -4644,7 +4873,8 @@ fn test_bitlist_bitlist_8_nil_1() {
 
 #[test]
 fn test_bitlist_bitlist_8_nil_2() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_nil_2/serialized.ssz_snappy",
@@ -4662,7 +4892,8 @@ fn test_bitlist_bitlist_8_nil_2() {
 
 #[test]
 fn test_bitlist_bitlist_8_nil_3() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_nil_3/serialized.ssz_snappy",
@@ -4680,7 +4911,8 @@ fn test_bitlist_bitlist_8_nil_3() {
 
 #[test]
 fn test_bitlist_bitlist_8_nil_4() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_nil_4/serialized.ssz_snappy",
@@ -4698,7 +4930,8 @@ fn test_bitlist_bitlist_8_nil_4() {
 
 #[test]
 fn test_bitlist_bitlist_8_random_0() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([79]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([79]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_random_0/serialized.ssz_snappy",
@@ -4716,7 +4949,8 @@ fn test_bitlist_bitlist_8_random_0() {
 
 #[test]
 fn test_bitlist_bitlist_8_random_1() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_random_1/serialized.ssz_snappy",
@@ -4734,7 +4968,8 @@ fn test_bitlist_bitlist_8_random_1() {
 
 #[test]
 fn test_bitlist_bitlist_8_random_2() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_random_2/serialized.ssz_snappy",
@@ -4752,7 +4987,8 @@ fn test_bitlist_bitlist_8_random_2() {
 
 #[test]
 fn test_bitlist_bitlist_8_random_3() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_random_3/serialized.ssz_snappy",
@@ -4770,7 +5006,8 @@ fn test_bitlist_bitlist_8_random_3() {
 
 #[test]
 fn test_bitlist_bitlist_8_random_4() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_random_4/serialized.ssz_snappy",
@@ -4788,7 +5025,8 @@ fn test_bitlist_bitlist_8_random_4() {
 
 #[test]
 fn test_bitlist_bitlist_8_zero_0() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([64]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([64]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_zero_0/serialized.ssz_snappy",
@@ -4806,7 +5044,8 @@ fn test_bitlist_bitlist_8_zero_0() {
 
 #[test]
 fn test_bitlist_bitlist_8_zero_1() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_zero_1/serialized.ssz_snappy",
@@ -4824,7 +5063,8 @@ fn test_bitlist_bitlist_8_zero_1() {
 
 #[test]
 fn test_bitlist_bitlist_8_zero_2() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([64]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([64]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_zero_2/serialized.ssz_snappy",
@@ -4842,7 +5082,8 @@ fn test_bitlist_bitlist_8_zero_2() {
 
 #[test]
 fn test_bitlist_bitlist_8_zero_3() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([64]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([64]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_zero_3/serialized.ssz_snappy",
@@ -4860,7 +5101,8 @@ fn test_bitlist_bitlist_8_zero_3() {
 
 #[test]
 fn test_bitlist_bitlist_8_zero_4() {
-    let mut value = Bitlist::<8>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap();
+    let mut value =
+        <Bitlist<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/bitlist/valid/bitlist_8_zero_4/serialized.ssz_snappy",
