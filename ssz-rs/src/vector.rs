@@ -121,7 +121,7 @@ where
         let data = vec![T::default(); N];
         match data.try_into() {
             Ok(result) => result,
-            // NOTE: safety: panic
+            // SAFETY: panic
             // ideally we will not panic here but currently there is no way
             // to enforce statically that `N` is non-zero with const generics
             Err((_, err)) => panic!("{err}"),

@@ -71,7 +71,7 @@ impl<const N: usize> fmt::Debug for Bitvector<N> {
 
 impl<const N: usize> Default for Bitvector<N> {
     fn default() -> Self {
-        // NOTE: safety: panic
+        // SAFETY: panic
         // no way to assert statically that `N == 0`
         assert!(N > 0);
         Self(BitVec::repeat(false, N))
