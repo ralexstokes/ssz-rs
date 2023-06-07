@@ -1,5 +1,8 @@
 [workspace]
+resolver = "2"
+
 members = [
     "ssz-rs",
     "ssz-rs-derive",
+    "ssz-rs-test-gen"
 ]
