@@ -119,12 +119,7 @@ where
         return Err(DeserializeError::InvalidOffsetsLength(offsets_len));
     }
 
-    let offsets = &mut encoding
-        .get(..offsets_len)
-        .ok_or_else(|| DeserializeError::ExpectedFurtherInput {
-            provided: encoding.len(),
-            expected: offsets_len,
-        })?
+    let offsets = &mut encoding[..offsets_len]
         .chunks_exact(BYTES_PER_LENGTH_OFFSET)
         .map(|chunk| u32::deserialize(chunk).map(|offset| offset as usize))
         .collect::<Result<Vec<usize>, DeserializeError>>()?;
