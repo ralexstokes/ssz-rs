@@ -28,7 +28,7 @@ impl Deserialize for bool {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         match encoding.len() {
             0 => Err(DeserializeError::ExpectedFurtherInput { provided: 0, expected: 1 }),
-            // index is safe because encoding is not empty; qed
+            // SAFETY: index is safe because encoding is not empty; qed
             1 => match encoding[0] {
                 0u8 => Ok(false),
                 1u8 => Ok(true),

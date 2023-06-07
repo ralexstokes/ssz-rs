@@ -133,14 +133,14 @@ where
     let element_count = offsets_len / BYTES_PER_LENGTH_OFFSET;
     let mut result = Vec::with_capacity(element_count);
     for span in offsets.windows(2) {
-        // index is safe because span is a pair; qed
+        // SAFETY: index is safe because span is a pair; qed
         let start = span[0];
         let end = span[1];
         if start > end {
             return Err(DeserializeError::OffsetNotIncreasing { start, end });
         }
 
-        // index is safe because start <= end; qed
+        // SAFETY: index is safe because start <= end; qed
         let element = T::deserialize(&encoding[start..end])?;
         result.push(element);
     }
