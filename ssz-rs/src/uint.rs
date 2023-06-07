@@ -94,7 +94,7 @@ impl U256 {
 
     pub fn to_bytes_le(&self) -> Vec<u8> {
         let mut bytes = self.0.to_bytes_le();
-        bytes.resize(32, 0u8);
+        bytes.resize(Self::size_hint(), 0u8);
         bytes
     }
 
