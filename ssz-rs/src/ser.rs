@@ -17,8 +17,6 @@ pub enum SerializeError {
     InvalidInstance(InstanceError),
     /// An invalid type was encountered.
     InvalidType(TypeError),
-    /// Too few variable lengths were provided.
-    InsufficientVariableLengths { provided: usize, min_bound: usize },
 }
 
 impl From<InstanceError> for SerializeError {
@@ -42,9 +40,6 @@ impl Display for SerializeError {
             ),
             SerializeError::InvalidInstance(err) => write!(f, "invalid instance: {err}"),
             SerializeError::InvalidType(err) => write!(f, "invalid type: {err}"),
-            SerializeError::InsufficientVariableLengths { provided, min_bound } => {
-                write!(f, "{provided} variable lengths given but expected at least {min_bound}")
-            }
         }
     }
 }
@@ -67,16 +62,11 @@ pub fn serialize_composite_from_components(
     fixed_lengths_sum: usize,
     buffer: &mut Vec<u8>,
 ) -> Result<usize, SerializeError> {
+    debug_assert_eq!(fixed.len(), variable_lengths.len());
+
     let total_size = fixed_lengths_sum + variable_lengths.iter().sum::<usize>();
     if total_size as u64 >= MAXIMUM_LENGTH {
         return Err(SerializeError::MaximumEncodedLengthExceeded(total_size))
-    }
-    // TODO: should this be == instead?
-    if fixed.len() > variable_lengths.len() {
-        return Err(SerializeError::InsufficientVariableLengths {
-            provided: variable_lengths.len(),
-            min_bound: fixed.len(),
-        })
     }
 
     let mut total_bytes_written = 0;
