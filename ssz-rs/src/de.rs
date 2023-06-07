@@ -23,6 +23,11 @@ pub enum DeserializeError {
     InvalidInstance(InstanceError),
     /// An invalid type was encountered.
     InvalidType(TypeError),
+    /// An offset was found with start > end.
+    OffsetNotIncreasing {
+        start: usize,
+        end: usize,
+    },
 }
 
 impl From<InstanceError> for DeserializeError {
@@ -48,6 +53,7 @@ impl Display for DeserializeError {
             ),
             DeserializeError::InvalidInstance(err) => write!(f, "invalid instance: {err}"),
             DeserializeError::InvalidType(err) => write!(f, "invalid type: {err}"),
+            DeserializeError::OffsetNotIncreasing { start, end } => write!(f, "invalid offset points to byte {end} before byte {start}"),
         }
     }
 }

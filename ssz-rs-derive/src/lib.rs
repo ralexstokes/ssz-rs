@@ -193,7 +193,16 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                         let bytes_read = if <#field_type>::is_variable_size() {
                             let end = start + #BYTES_PER_LENGTH_OFFSET;
                             let next_offset = u32::deserialize(&encoding[start..end])? as usize;
-                            offsets.last().map(|(_, previous_offset)| assert!(next_offset >= *previous_offset));
+
+                            if let Some((_, previous_offset)) = offsets.last() {
+                                if next_offset < *previous_offset {
+                                    return Err(DeserializeError::OffsetNotIncreasing {
+                                        start: *previous_offset,
+                                        end: next_offset,
+                                    });
+                                }
+                            };
+
                             offsets.push((#i, next_offset));
 
                             #BYTES_PER_LENGTH_OFFSET
