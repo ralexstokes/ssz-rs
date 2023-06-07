@@ -24,7 +24,7 @@ pub enum DeserializeError {
     /// An invalid type was encountered.
     InvalidType(TypeError),
     /// The number of bytes used for length offsets wasn't a multiple of BYTES_PER_LENGTH_OFFSET.
-    IncompleteLengthOffsets(usize),
+    InvalidOffsetsLength(usize),
     /// An offset was found with start > end.
     OffsetNotIncreasing {
         start: usize,
@@ -116,7 +116,7 @@ where
         })
     }
     if offsets_len % BYTES_PER_LENGTH_OFFSET != 0 {
-        return Err(DeserializeError::IncompleteLengthOffsets(offsets_len));
+        return Err(DeserializeError::InvalidOffsetsLength(offsets_len));
     }
 
     let offsets = &mut encoding
