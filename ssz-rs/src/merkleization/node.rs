@@ -1,6 +1,4 @@
-use crate::{lib::*, prelude::*, utils::write_bytes_to_lower_hex};
-
-use super::BYTES_PER_CHUNK;
+use crate::{lib::*, merkleization::BYTES_PER_CHUNK, prelude::*, utils::write_bytes_to_lower_hex};
 
 /// A node in a merkle tree.
 #[derive(Default, Clone, Copy, Eq, SimpleSerialize)]
