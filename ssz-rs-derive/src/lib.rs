@@ -229,7 +229,7 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                         let (index, start) = span[0];
                         let (_, end) = span[1];
 
-                        let target = encoding.get(start..end).ok_or(
+                        let target = encoding.get(start..end).ok_or_else(||
                             ssz_rs::DeserializeError::ExpectedFurtherInput{
                                 provided: encoding.len() - start,
                                 expected: end - start,
@@ -383,7 +383,7 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                     let chunks_byte_count = chunks.len();
                     chunks
                         .get_mut(range)
-                        .ok_or(MerkleizationError::InputInsufficient(chunks_byte_count))?
+                        .ok_or_else(|| MerkleizationError::InputInsufficient(chunks_byte_count))?
                         .copy_from_slice(chunk.as_ref());
                 },
                 None => quote_spanned! { f.span() =>
@@ -392,7 +392,7 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                     let chunks_byte_count = chunks.len();
                     chunks
                         .get_mut(range)
-                        .ok_or(MerkleizationError::InputInsufficient(chunks_byte_count))?
+                        .ok_or_else(|| MerkleizationError::InputInsufficient(chunks_byte_count))?
                         .copy_from_slice(chunk.as_ref());
                 },
             });

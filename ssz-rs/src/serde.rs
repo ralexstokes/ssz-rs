@@ -12,7 +12,7 @@ pub enum HexError {
 }
 
 fn try_bytes_from_hex_str(s: &str) -> Result<Vec<u8>, HexError> {
-    let target = s.strip_prefix(HEX_ENCODING_PREFIX).ok_or(HexError::MissingPrefix)?;
+    let target = s.strip_prefix(HEX_ENCODING_PREFIX).ok_or_else(|| HexError::MissingPrefix)?;
     let data = hex::decode(target)?;
     Ok(data)
 }

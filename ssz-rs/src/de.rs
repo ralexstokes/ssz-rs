@@ -103,7 +103,7 @@ where
     }
 
     let offsets_len =
-        encoding.get(..BYTES_PER_LENGTH_OFFSET).ok_or(DeserializeError::ExpectedFurtherInput {
+        encoding.get(..BYTES_PER_LENGTH_OFFSET).ok_or_else(|| DeserializeError::ExpectedFurtherInput {
             provided: encoding.len(),
             expected: BYTES_PER_LENGTH_OFFSET,
         })?;
@@ -121,7 +121,7 @@ where
 
     let offsets = &mut encoding
         .get(..offsets_len)
-        .ok_or(DeserializeError::ExpectedFurtherInput {
+        .ok_or_else(|| DeserializeError::ExpectedFurtherInput {
             provided: encoding.len(),
             expected: offsets_len,
         })?
