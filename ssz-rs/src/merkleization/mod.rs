@@ -106,6 +106,7 @@ include!(concat!(env!("OUT_DIR"), "/context.rs"));
 ///
 /// Invariant: `chunks.len() % BYTES_PER_CHUNK == 0`
 /// Invariant: `leaf_count.next_power_of_two() == leaf_count`
+/// Invariant: `leaf_count != 0`
 /// Invariant: `leaf_count.trailing_zeros() < MAX_MERKLE_TREE_DEPTH`
 fn merkleize_chunks_with_virtual_padding(
     chunks: &[u8],
@@ -115,8 +116,9 @@ fn merkleize_chunks_with_virtual_padding(
 
     let mut hasher = Sha256::new();
     debug_assert!(chunks.len() % BYTES_PER_CHUNK == 0);
+    // NOTE: This also asserts that leaf_count != 0
     debug_assert!(leaf_count.next_power_of_two() == leaf_count);
-    // SAFETY: this holds as long as usize is no longer than u64
+    // SAFETY: this holds as long as leaf_count != 0 and usize is no longer than u64
     debug_assert!((leaf_count.trailing_zeros() as usize) < MAX_MERKLE_TREE_DEPTH);
 
     let height = leaf_count.trailing_zeros() + 1;
