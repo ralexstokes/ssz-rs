@@ -23,7 +23,6 @@ pub trait Merkleized {
 pub enum MerkleizationError {
     SerializationError(SerializeError),
     InputExceedsLimit(usize),
-    InputInsufficient(usize),
 }
 
 impl From<SerializeError> for MerkleizationError {
@@ -39,7 +38,6 @@ impl Display for MerkleizationError {
                 write!(f, "failed to serialize value: {err}")
             }
             Self::InputExceedsLimit(size) => write!(f, "data exceeds the declared limit {size}"),
-            Self::InputInsufficient(size) => write!(f, "data too short: {size}"),
         }
     }
 }

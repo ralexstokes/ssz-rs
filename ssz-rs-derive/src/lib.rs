@@ -380,20 +380,12 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
                 Some(field_name) => quote_spanned! { f.span() =>
                     let chunk = self.#field_name.hash_tree_root()?;
                     let range = #i*#BYTES_PER_CHUNK..(#i+1)*#BYTES_PER_CHUNK;
-                    let chunks_byte_count = chunks.len();
-                    chunks
-                        .get_mut(range)
-                        .ok_or_else(|| MerkleizationError::InputInsufficient(chunks_byte_count))?
-                        .copy_from_slice(chunk.as_ref());
+                    chunks[range].copy_from_slice(chunk.as_ref());
                 },
                 None => quote_spanned! { f.span() =>
                     let chunk = self.0.hash_tree_root()?;
                     let range = #i*#BYTES_PER_CHUNK..(#i+1)*#BYTES_PER_CHUNK;
-                    let chunks_byte_count = chunks.len();
-                    chunks
-                        .get_mut(range)
-                        .ok_or_else(|| MerkleizationError::InputInsufficient(chunks_byte_count))?
-                        .copy_from_slice(chunk.as_ref());
+                    chunks[range].copy_from_slice(chunk.as_ref());
                 },
             });
             quote! {
