@@ -80,7 +80,6 @@ macro_rules! define_ssz_for_array_of_size {
                     for (i, elem) in self.iter_mut().enumerate() {
                         let chunk = elem.hash_tree_root()?;
                         let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
-                        // SAFETY: index is safe because Node::len() == BYTES_PER_CHUNK == range.len()
                         chunks[range].copy_from_slice(chunk.as_ref());
                     }
                     merkleize(&chunks, None)
