@@ -148,7 +148,6 @@ where
     type Output = <Idx as SliceIndex<[T]>>::Output;
 
     fn index(&self, index: Idx) -> &Self::Output {
-        // Index::index implementations may panic when the given index is out of bounds
         &self.data[index]
     }
 }
@@ -164,7 +163,6 @@ where
     fn index_mut(&mut self, index: usize) -> &mut Self::Output {
         let leaf_index = self.get_leaf_index(index);
         self.cache.invalidate(leaf_index);
-        // IndexMut::index implementations may panic when the given index is out of bounds
         &mut self.data[index]
     }
 }

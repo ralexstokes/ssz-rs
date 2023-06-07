@@ -85,7 +85,6 @@ impl Index<usize> for Context {
     type Output = [u8];
 
     fn index(&self, index: usize) -> &Self::Output {
-        // Index::index implementations may panic when the given index is out of bounds; qed
         &self.zero_hashes[index * BYTES_PER_CHUNK..(index + 1) * BYTES_PER_CHUNK]
     }
 }
