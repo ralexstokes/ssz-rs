@@ -162,6 +162,7 @@ fn merkleize_chunks_with_virtual_padding(
                     // i >= parent_index
                     // so focus.len() >= BYTES_PER_CHUNK; qed
                     let children_index = focus.len() - BYTES_PER_CHUNK;
+                    // NOTE: left.len() == BYTES_PER_CHUNK
                     let (parent, left) = focus.split_at_mut(children_index);
                     // SAFETY: checked subtraction is unnecessary:
                     // k <= height - 1
@@ -313,6 +314,7 @@ mod tests {
             // i >= 1
             // so focus.len() >= 2 * BYTES_PER_CHUNK; qed
             let children_index = focus.len() - 2 * BYTES_PER_CHUNK;
+            // NOTE: children.len() == 2 * BYTES_PER_CHUNK
             let (parent, children) = focus.split_at_mut(children_index);
             let (left, right) = children.split_at(BYTES_PER_CHUNK);
             hash_nodes(&mut hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
