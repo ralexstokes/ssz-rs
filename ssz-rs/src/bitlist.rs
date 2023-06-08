@@ -169,7 +169,10 @@ impl<const N: usize> Deserialize for Bitlist<N> {
         let additional_members = bit_length - 1; // skip marker bit
         let total_members = result.len() + additional_members;
         if total_members > N {
-            return Err(DeserializeError::InvalidByte(*last_byte))
+            return Err(DeserializeError::InvalidInstance(InstanceError::Bounded {
+                bound: N,
+                provided: total_members,
+            }))
         }
 
         result.extend_from_bitslice(&last[..additional_members]);
