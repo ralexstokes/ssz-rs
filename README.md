@@ -5,7 +5,7 @@
 [![docs.rs](https://img.shields.io/docsrs/ssz_rs)](https://docs.rs/ssz_rs/)
 [![codecov](https://codecov.io/gh/ralexstokes/ssz-rs/branch/main/graph/badge.svg)](https://codecov.io/gh/ralexstokes/ssz-rs)
 
-An implementation of the `SSZ` serialization scheme defined in the [consensus-specs repo](https://github.com/ethereum/consensus-specs).
+An implementation of the [`SSZ` serialization scheme defined in the consensus-specs repo](https://github.com/ethereum/consensus-specs/tree/fa09d896484bbe240334fa21ffaa454bafe5842e/ssz).
 
 This repo aims to remain lightweight and relatively free-standing, rather than coupled to other ethereum consensus code/dependencies.
 
@@ -21,17 +21,17 @@ To conform to the `SSZ` spec, a given Rust type should implement the [`SimpleSer
 
 ## Encoding / decoding
 
-This library provides routines to serialize from and deserialize into a Rust type to/from the corresponding `SSZ` data via the [`Serialize`](https://docs.rs/ssz_rs/latest/ssz_rs/trait.Serialize.html) and [Deserialize](https://docs.rs/ssz_rs/latest/ssz_rs/trait.Deserialize.html) traits.
+This library provides routines to serialize from and deserialize into a Rust type to/from the corresponding `SSZ` data via the [`Serialize`](https://docs.rs/ssz_rs/latest/ssz_rs/trait.Serialize.html) and [`Deserialize`](https://docs.rs/ssz_rs/latest/ssz_rs/trait.Deserialize.html) traits.
 
 ## Merkleization
 
-This library provides the [hash tree root](https://docs.rs/ssz_rs/latest/ssz_rs/trait.Merkleized.html#tymethod.hash_tree_root) computation for types implementing [`Merkleized`](https://docs.rs/ssz_rs/latest/ssz_rs/trait.Merkleized.html).
+This library provides the [hash tree root](https://github.com/ethereum/consensus-specs/blob/fa09d896484bbe240334fa21ffaa454bafe5842e/ssz/simple-serialize.md#merkleization) computation for types implementing [`Merkleized`](https://docs.rs/ssz_rs/latest/ssz_rs/trait.Merkleized.html).
 
 * *NOTE*: more sophisticated hashing strategies are possible, users may run into memory or performance issues with the current implementation.
 
 ## Multiproofs
 
-This library provides the ability to reason about [generalized indices](https://github.com/ethereum/consensus-specs/blob/dev/ssz/merkle-proofs.md#generalized-merkle-tree-index) for a given `SSZ` definition,
+This library provides the ability to reason about [generalized indices](https://github.com/ethereum/consensus-specs/blob/fa09d896484bbe240334fa21ffaa454bafe5842e/ssz/merkle-proofs.md#generalized-merkle-tree-index) for a given `SSZ` definition,
 along with the ability to generate and verify proofs of data at those indices.
 
 * *NOTE*: still under construction
