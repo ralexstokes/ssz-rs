@@ -47,8 +47,8 @@ impl From<TypeError> for DeserializeError {
 impl Display for DeserializeError {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         match self {
-            DeserializeError::ExpectedFurtherInput { provided, expected } => write!(f, "expected at least {expected} bytes when decoding but provided only {provided} bytes"),
-            DeserializeError::AdditionalInput { provided, expected } => write!(f, "{provided} bytes given but only expected {expected} bytes"),
+            DeserializeError::ExpectedFurtherInput { provided, expected } => write!(f, "expected at least {expected} byte(s) when decoding but provided only {provided} byte(s)"),
+            DeserializeError::AdditionalInput { provided, expected } => write!(f, "{provided} byte(s) given but only expected (up to) {expected} byte(s)"),
             DeserializeError::InvalidByte(b) => write!(
                 f,
                 "invalid byte {b:x} when decoding data of the expected type"

@@ -57,7 +57,7 @@ pub trait Serialize {
 
 pub fn serialize_composite_from_components(
     mut fixed: Vec<Option<Vec<u8>>>,
-    mut variable: Vec<Vec<u8>>,
+    mut variable: Vec<u8>,
     variable_lengths: Vec<usize>,
     fixed_lengths_sum: usize,
     buffer: &mut Vec<u8>,
@@ -69,29 +69,24 @@ pub fn serialize_composite_from_components(
         return Err(SerializeError::MaximumEncodedLengthExceeded(total_size))
     }
 
-    let mut total_bytes_written = 0;
-
-    for (i, part_opt) in fixed.iter_mut().enumerate() {
+    // SAFETY: `fixed_lengths_sum` fits in `u32` if the total size check holds
+    let mut running_length = fixed_lengths_sum as u32;
+    debug_assert_eq!(fixed.len(), variable_lengths.len());
+    for (part_opt, variable_length) in fixed.iter_mut().zip(variable_lengths) {
         if let Some(part) = part_opt {
-            total_bytes_written += part.len();
             buffer.append(part);
         } else {
-            // SAFETY: index is safe because variable_lengths.len() == fixed.len()
-            let variable_lengths_sum = variable_lengths[0..i].iter().sum::<usize>();
-            let length = (fixed_lengths_sum + variable_lengths_sum) as u32;
-            let mut offset_buffer = Vec::with_capacity(BYTES_PER_LENGTH_OFFSET);
-            let _ = length.serialize(&mut offset_buffer)?;
-            buffer.append(&mut offset_buffer);
-            total_bytes_written += BYTES_PER_LENGTH_OFFSET;
+            // SAFETY: `variable_length` fits in `u32` if the total size check holds
+            let bytes_written = running_length.serialize(buffer)?;
+            debug_assert_eq!(bytes_written, BYTES_PER_LENGTH_OFFSET);
+
+            running_length += variable_length as u32;
         }
     }
 
-    for part in variable.iter_mut() {
-        total_bytes_written += part.len();
-        buffer.append(part);
-    }
+    buffer.append(&mut variable);
 
-    Ok(total_bytes_written)
+    Ok(total_size)
 }
 
 pub fn serialize_composite<T: SimpleSerialize>(
@@ -104,18 +99,18 @@ pub fn serialize_composite<T: SimpleSerialize>(
     let mut fixed_lengths_sum = 0;
 
     for element in elements {
-        let mut buffer = Vec::with_capacity(T::size_hint());
-        element.serialize(&mut buffer)?;
+        let mut element_buffer = Vec::with_capacity(T::size_hint());
+        element.serialize(&mut element_buffer)?;
 
-        let buffer_len = buffer.len();
+        let element_buffer_len = element_buffer.len();
         if T::is_variable_size() {
             fixed.push(None);
             fixed_lengths_sum += BYTES_PER_LENGTH_OFFSET;
-            variable.push(buffer);
-            variable_lengths.push(buffer_len);
+            variable.append(&mut element_buffer);
+            variable_lengths.push(element_buffer_len);
         } else {
-            fixed.push(Some(buffer));
-            fixed_lengths_sum += buffer_len;
+            fixed.push(Some(element_buffer));
+            fixed_lengths_sum += element_buffer_len;
             variable_lengths.push(0)
         }
     }

@@ -61,6 +61,13 @@ mod tests {
     #[derive(Default, Debug, PartialEq, Eq, SimpleSerialize)]
     struct TupleStruct(u8);
 
+    #[derive(Default, Debug, PartialEq, Eq, SimpleSerialize)]
+    struct AnotherVarTestStruct {
+        a: List<u16, 1024>,
+        b: u16,
+        c: u8,
+    }
+
     #[test]
     fn encode_container() {
         let value = Foo { a: 5u32 };
@@ -160,6 +167,20 @@ mod tests {
         let data = vec![5u8, 0u8, 7u8, 0u8, 0u8, 0u8, 5u8, 255u8];
         let result = VarTestStruct::deserialize(&data);
         assert!(result.is_err());
+    }
+
+    #[test]
+    fn decode_variable_container_with_no_input() {
+        let data = vec![];
+        let result = AnotherVarTestStruct::deserialize(&data);
+        assert!(matches!(result, Err(DeserializeError::ExpectedFurtherInput { .. })));
+    }
+
+    #[test]
+    fn decode_fixed_container_with_no_input() {
+        let data = vec![];
+        let result = BasicContainer::deserialize(&data);
+        assert!(matches!(result, Err(DeserializeError::ExpectedFurtherInput { .. })));
     }
 
     #[test]
