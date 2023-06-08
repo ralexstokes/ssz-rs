@@ -102,7 +102,7 @@ where
         return Ok(vec![])
     }
 
-    let offsets_len = encoding.get(..BYTES_PER_LENGTH_OFFSET).ok_or_else(|| {
+    let offsets_len = encoding.get(..BYTES_PER_LENGTH_OFFSET).ok_or({
         DeserializeError::ExpectedFurtherInput {
             provided: encoding.len(),
             expected: BYTES_PER_LENGTH_OFFSET,
