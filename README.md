@@ -20,15 +20,13 @@ To conform to the `SSZ` spec, a given Rust type should implement the [`SimpleSer
 
 ## Encoding / decoding
 
-This library provides routines to serialize and deserialize from a Rust type to the corresponding `SSZ` data.
+This library provides routines to serialize from and deserialize into a Rust type to/from the corresponding `SSZ` data via the [`Serialize`](https://docs.rs/ssz_rs/latest/ssz_rs/trait.Serialize.html) and [Deserialize](https://docs.rs/ssz_rs/latest/ssz_rs/trait.Deserialize.html) traits.
 
 ## Merkleization
 
-* *NOTE*: under construction
+This library provides the [hash tree root](https://docs.rs/ssz_rs/latest/ssz_rs/trait.Merkleized.html#tymethod.hash_tree_root) computation for types implementing [`Merkleized`](https://docs.rs/ssz_rs/latest/ssz_rs/trait.Merkleized.html).
 
-This library provides the hash tree root computation for types implementing `SimpleSerialize`.
-
-* *NOTE*: more sophisticated caching strategies are possible, users may run into memory issues with the current implementation.
+* *NOTE*: more sophisticated hashing strategies are possible, users may run into memory or performance issues with the current implementation.
 
 ## Multiproofs
 
