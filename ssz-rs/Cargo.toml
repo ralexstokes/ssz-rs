@@ -8,7 +8,6 @@ readme = "../README.md"
 description = "ethereum's simple serialize"
 repository = "https://github.com/ralexstokes/ssz-rs"
 exclude = [
-    "scripts",
     "tests/data",
 ]
 
@@ -29,8 +28,8 @@ bitvec = { version = "1.0.0", default-features = false, features = ["alloc"] }
 ssz_rs_derive = { path = "../ssz-rs-derive", version = "0.8.0" }
 sha2 = { version ="0.9.8", default-features = false}
 serde = { version = "1.0", features = ["derive"], optional = true }
-hex = {version = "0.4.3", optional = true }
-num-bigint = { version ="0.4.3", default-features = false}
+hex = { version = "0.4.3", optional = true }
+num-bigint = { version = "0.4.3", default-features = false }
 
 [dev-dependencies]
 hex-literal = "0.3.3"

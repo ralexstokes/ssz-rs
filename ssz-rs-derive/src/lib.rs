@@ -95,15 +95,15 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
                         let mut element_buffer = Vec::with_capacity(<#field_type>::size_hint());
                         self.#field_name.serialize(&mut element_buffer)?;
 
-                        let buffer_len = element_buffer.len();
+                        let element_buffer_len = element_buffer.len();
                         if <#field_type>::is_variable_size() {
                             fixed.push(None);
                             fixed_lengths_sum += #BYTES_PER_LENGTH_OFFSET;
-                            variable.push(element_buffer);
-                            variable_lengths.push(buffer_len);
+                            variable.append(&mut element_buffer);
+                            variable_lengths.push(element_buffer_len);
                         } else {
                             fixed.push(Some(element_buffer));
-                            fixed_lengths_sum += buffer_len;
+                            fixed_lengths_sum += element_buffer_len;
                             variable_lengths.push(0)
                         }
                     },
@@ -192,14 +192,26 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                     Some(field_name) => quote_spanned! { f.span() =>
                         let bytes_read = if <#field_type>::is_variable_size() {
                             let end = start + #BYTES_PER_LENGTH_OFFSET;
-                            let next_offset = u32::deserialize(&encoding[start..end])?;
+                            let target = encoding.get(start..end).ok_or_else(||
+                                ssz_rs::DeserializeError::ExpectedFurtherInput {
+                                    provided: encoding.len() - start,
+                                    expected: #BYTES_PER_LENGTH_OFFSET,
+                                }
+                            )?;
+                            let next_offset = u32::deserialize(target)?;
                             offsets.push((#i, next_offset as usize));
 
                             #BYTES_PER_LENGTH_OFFSET
                         } else {
                             let encoded_length = <#field_type>::size_hint();
                             let end = start + encoded_length;
-                            let result = <#field_type>::deserialize(&encoding[start..end])?;
+                            let target = encoding.get(start..end).ok_or_else(||
+                                ssz_rs::DeserializeError::ExpectedFurtherInput{
+                                    provided: encoding.len() - start,
+                                    expected: encoded_length,
+                                }
+                            )?;
+                            let result = <#field_type>::deserialize(target)?;
                             container.#field_name = result;
                             encoded_length
                         };

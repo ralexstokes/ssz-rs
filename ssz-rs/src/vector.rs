@@ -121,8 +121,10 @@ where
         assert!(N > 0);
 
         let data = vec![T::default(); N];
-        // SAFETY: unwrap is safe because data.len() == N != 0; qed
-        data.try_into().map_err(|(_, err)| err).unwrap()
+        // SAFETY: panic can't happen because data.len() == N != 0; qed
+        // ideally we will not panic here but currently there is no way
+        // to enforce statically that `N` is non-zero with const generics
+        data.try_into().unwrap_or_else(|(_, err)| panic!("{err}"))
     }
 }
 
@@ -138,8 +140,8 @@ where
 }
 
 // NOTE: implement `IndexMut` rather than `DerefMut` to ensure
-// the `Vector`'s inner `Vec` is not mutated, but its elements
-// can change.
+// the inner data is not mutated without being able to
+// track which elements changed
 impl<T, Idx: SliceIndex<[T]>, const N: usize> Index<Idx> for Vector<T, N>
 where
     T: SimpleSerialize,
@@ -151,10 +153,6 @@ where
     }
 }
 
-// NOTE: had an issue unifying the use of `IndexMut::Idx` for `Vec`
-// and `BitVec` that may be unresolveable due to how lifetimes
-// are defined for this trait method. For now, only allow "one at a time"
-// mutation of the `Vector`s data.
 impl<T, const N: usize> IndexMut<usize> for Vector<T, N>
 where
     T: SimpleSerialize,
@@ -261,6 +259,32 @@ where
             merkleize(&chunks, None)
         }
     }
+
+    pub fn iter_mut(&mut self) -> IterMut<'_, T> {
+        let inner = self.data.iter_mut().enumerate();
+        let cache = &mut self.cache;
+        IterMut { inner, cache }
+    }
+}
+
+pub struct IterMut<'a, T: 'a> {
+    inner: Enumerate<slice::IterMut<'a, T>>,
+    cache: &'a mut MerkleCache,
+}
+
+impl<'a, T> Iterator for IterMut<'a, T> {
+    type Item = &'a mut T;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        if let Some((index, next)) = self.inner.next() {
+            // TODO: compute correct `leaf_index`
+            let leaf_index = index;
+            self.cache.invalidate(leaf_index);
+            Some(next)
+        } else {
+            None
+        }
+    }
 }
 
 impl<T, const N: usize> Merkleized for Vector<T, N>
@@ -336,6 +360,13 @@ mod tests {
     }
 
     #[test]
+    fn decode_vector_with_no_input() {
+        let source = vec![];
+        let result = Vector::<u8, 6>::deserialize(&source);
+        assert!(matches!(result, Err(DeserializeError::ExpectedFurtherInput { .. })));
+    }
+
+    #[test]
     fn decode_variable_vector() {
         const COUNT: usize = 4;
         let mut inner: Vec<List<u8, 1>> =
@@ -374,5 +405,21 @@ mod tests {
         let _ = input.serialize(&mut buffer).expect("can serialize");
         let recovered = Vector::<List<u8, 1>, COUNT>::deserialize(&buffer).expect("can decode");
         assert_eq!(input, recovered);
+    }
+
+    #[test]
+    fn can_iter_vector() {
+        let bytes = vec![
+            0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8,
+            1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8,
+        ];
+        let mut input: Vector<u8, COUNT> = bytes.try_into().expect("test data");
+        for (i, &value) in input.iter().enumerate() {
+            assert_eq!(value as usize, i % 8);
+        }
+        for value in input.iter_mut() {
+            *value = 1;
+            assert_eq!(*value, 1);
+        }
     }
 }

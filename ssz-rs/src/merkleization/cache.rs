@@ -1,3 +1,5 @@
+//! NOTE: this module is currently under construction
+
 use crate::merkleization::Node;
 use bitvec::prelude::{bitvec, BitVec, Lsb0};
 
@@ -21,7 +23,6 @@ impl Cache {
 
     pub fn invalidate(&mut self, leaf_index: usize) {
         if let Some(mut bit) = self.dirty_leaves.get_mut(leaf_index) {
-            // TODO: unconditionally access bit
             *bit = true;
         }
     }

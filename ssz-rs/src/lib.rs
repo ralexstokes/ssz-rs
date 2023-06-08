@@ -15,7 +15,7 @@
 //!
 //! ```
 //! # use ssz_rs::prelude::*;
-//! #[derive(Debug, Default, Eq, PartialEq, SimpleSerialize)]
+//! #[derive(Debug, Default, PartialEq, Eq, SimpleSerialize)]
 //! struct Data {
 //!   flag: bool,
 //!   value: u64

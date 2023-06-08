@@ -1,6 +1,6 @@
 use crate::{
     de::{Deserialize, DeserializeError},
-    error::TypeError,
+    error::{Error, InstanceError, TypeError},
     lib::*,
     merkleization::{merkleize, pack_bytes, MerkleizationError, Merkleized, Node},
     ser::{Serialize, SerializeError},
@@ -71,6 +71,8 @@ impl<const N: usize> fmt::Debug for Bitvector<N> {
 
 impl<const N: usize> Default for Bitvector<N> {
     fn default() -> Self {
+        // SAFETY: panic
+        // no way to assert statically that `N == 0`
         assert!(N > 0);
         Self(BitVec::repeat(false, N))
     }
@@ -184,28 +186,27 @@ impl<const N: usize> Merkleized for Bitvector<N> {
 impl<const N: usize> SimpleSerialize for Bitvector<N> {}
 
 impl<const N: usize> TryFrom<&[u8]> for Bitvector<N> {
-    type Error = DeserializeError;
+    type Error = Error;
 
     fn try_from(value: &[u8]) -> Result<Self, Self::Error> {
-        Self::deserialize(value)
+        Self::deserialize(value).map_err(Error::Deserialize)
     }
 }
 
-// TODO: just going to remove this...
-impl<const N: usize> FromIterator<bool> for Bitvector<N> {
-    // NOTE: only takes the first `N` values from `iter` and
-    // uses the default `false` for missing values.
-    fn from_iter<I>(iter: I) -> Self
-    where
-        I: IntoIterator<Item = bool>,
-    {
-        assert!(N > 0);
+impl<const N: usize> TryFrom<&[bool]> for Bitvector<N> {
+    type Error = Error;
 
-        let mut result: Bitvector<N> = Default::default();
-        for (index, bit) in iter.into_iter().enumerate().take(N) {
-            result.set(index, bit);
+    fn try_from(value: &[bool]) -> Result<Self, Self::Error> {
+        if value.len() != N {
+            let len = value.len();
+            Err(Error::Instance(InstanceError::Exact { required: N, provided: len }))
+        } else {
+            let mut result = Self::default();
+            for (i, &bit) in value.iter().enumerate() {
+                result.set(i, bit);
+            }
+            Ok(result)
         }
-        result
     }
 }
 
@@ -242,7 +243,7 @@ mod tests {
     fn decode_bitvector() {
         let bytes = vec![12u8];
         let result = Bitvector::<4>::deserialize(&bytes).expect("test data is correct");
-        let expected = Bitvector::from_iter(vec![false, false, true, true]);
+        let expected = Bitvector::try_from([false, false, true, true].as_ref()).unwrap();
         assert_eq!(result, expected);
     }
 
@@ -250,17 +251,21 @@ mod tests {
     fn decode_bitvector_several() {
         let bytes = vec![24u8, 1u8];
         let result = Bitvector::<COUNT>::deserialize(&bytes).expect("test data is correct");
-        let expected = Bitvector::from_iter(vec![
-            false, false, false, true, true, false, false, false, true, false, false, false,
-        ]);
+        let expected = Bitvector::try_from(
+            [false, false, false, true, true, false, false, false, true, false, false, false]
+                .as_ref(),
+        )
+        .unwrap();
         assert_eq!(result, expected);
     }
 
     #[test]
     fn roundtrip_bitvector() {
-        let input = Bitvector::<COUNT>::from_iter(vec![
-            false, false, false, true, true, false, false, false, false, false, false, false,
-        ]);
+        let input = Bitvector::<COUNT>::try_from(
+            [false, false, false, true, true, false, false, false, false, false, false, false]
+                .as_ref(),
+        )
+        .unwrap();
         let mut buffer = vec![];
         let _ = input.serialize(&mut buffer).expect("can serialize");
         let recovered = Bitvector::<COUNT>::deserialize(&buffer).expect("can decode");

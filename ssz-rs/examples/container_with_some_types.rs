@@ -23,17 +23,32 @@ struct Foo<const N: usize> {
 }
 
 fn main() {
+    let mut b = Vector::try_from(vec![3u32, 2u32, 1u32, 10u32]).unwrap();
+    for i in b.iter() {
+        println!("{i}");
+    }
+    for i in b.iter_mut() {
+        *i += 1;
+    }
+    for i in b.iter() {
+        println!("{i}");
+    }
+
     let mut example: Foo<4> = Foo {
         a: 16u32,
-        b: Vector::try_from(vec![3u32, 2u32, 1u32, 10u32]).unwrap(),
+        b,
         c: true,
-        d: Bitlist::from_iter([
-            true, false, false, true, true, false, true, false, true, true, false, false, true,
-            true, false, true, false, true, true, false, false, true, true, false, true, false,
-            true,
-        ]),
+        d: Bitlist::try_from(
+            [
+                true, false, false, true, true, false, true, false, true, true, false, false, true,
+                true, false, true, false, true, true, false, false, true, true, false, true, false,
+                true,
+            ]
+            .as_ref(),
+        )
+        .unwrap(),
         e: Bar::B(List::try_from(vec![true, true, false, false, false, true]).unwrap()),
-        f: Bitvector::from_iter([false, true, false, true]),
+        f: Bitvector::try_from([false, true, false, true].as_ref()).unwrap(),
     };
 
     println!("{example:#?}");
