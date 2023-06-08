@@ -90,7 +90,7 @@ where
 {
     fn default() -> Self {
         let data = vec![];
-        Self::try_from(data)
+        data.try_into()
             // need to drop data so we do not require it as Debug as required by `expect`
             .map_err(|(_, err)| err)
             .expect("any List can be constructed from an empty Vec")

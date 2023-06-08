@@ -114,14 +114,17 @@ where
     T: SimpleSerialize + Default + Clone,
 {
     fn default() -> Self {
+        // SAFETY: there is currently no way to enforce statically
+        // that `N` is non-zero with const generics so panics are possible.
+        assert!(N > 0);
+
         let data = vec![T::default(); N];
-        match data.try_into() {
-            Ok(result) => result,
-            // SAFETY: panic
-            // ideally we will not panic here but currently there is no way
-            // to enforce statically that `N` is non-zero with const generics
-            Err((_, err)) => panic!("{err}"),
-        }
+
+        // SAFETY: panic can't happen because data.len() == N != 0; qed
+        data.try_into()
+            // need to drop data so we do not require it as Debug as required by `expect`
+            .map_err(|(_, err)| err)
+            .expect("any Vector can be constructed with nonzero default data")
     }
 }
 
