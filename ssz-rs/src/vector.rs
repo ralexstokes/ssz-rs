@@ -122,8 +122,6 @@ where
 
         let data = vec![T::default(); N];
         // SAFETY: panic can't happen because data.len() == N != 0; qed
-        // ideally we will not panic here but currently there is no way
-        // to enforce statically that `N` is non-zero with const generics
         data.try_into().unwrap_or_else(|(_, err)| panic!("{err}"))
     }
 }
