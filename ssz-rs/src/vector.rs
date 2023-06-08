@@ -124,7 +124,7 @@ where
 
         let data = vec![T::default(); N];
         // SAFETY: panic can't happen because data.len() == N != 0; qed
-        data.try_into().unwrap_or_else(|(_, err)| panic!("{err}"))
+        data.try_into().map_err(|(_, err)| err).expect("any Vector can be constructed with default data")
     }
 }
 
