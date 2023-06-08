@@ -2,9 +2,7 @@ use crate::{
     de::{deserialize_homogeneous_composite, Deserialize, DeserializeError},
     error::{Error, InstanceError, TypeError},
     lib::*,
-    merkleization::{
-        merkleize, pack, MerkleCache, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
-    },
+    merkleization::{merkleize, pack, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK},
     ser::{serialize_composite, Serialize, SerializeError},
     SimpleSerialize, Sized,
 };
@@ -18,7 +16,6 @@ use std::marker::PhantomData;
 #[derive(Clone)]
 pub struct Vector<T: SimpleSerialize, const N: usize> {
     data: Vec<T>,
-    cache: MerkleCache,
 }
 
 #[cfg(feature = "serde")]
@@ -94,8 +91,7 @@ impl<T: SimpleSerialize, const N: usize> TryFrom<Vec<T>> for Vector<T, N> {
             let len = data.len();
             Err((data, Error::Instance(InstanceError::Exact { required: N, provided: len })))
         } else {
-            let leaf_count = Self::get_leaf_count();
-            Ok(Self { data, cache: MerkleCache::with_leaves(leaf_count) })
+            Ok(Self { data })
         }
     }
 }
@@ -159,8 +155,6 @@ where
     T: SimpleSerialize,
 {
     fn index_mut(&mut self, index: usize) -> &mut Self::Output {
-        let leaf_index = self.get_leaf_index(index);
-        self.cache.invalidate(leaf_index);
         &mut self.data[index]
     }
 }
@@ -227,25 +221,6 @@ impl<T, const N: usize> Vector<T, N>
 where
     T: SimpleSerialize,
 {
-    // the number of leafs in the Merkle tree of this `Vector`
-    fn get_leaf_count() -> usize {
-        if T::is_composite_type() {
-            N
-        } else {
-            let encoded_length = Self::size_hint();
-            (encoded_length + 31) / 32
-        }
-    }
-
-    fn get_leaf_index(&self, index: usize) -> usize {
-        if T::is_composite_type() {
-            index
-        } else {
-            // TODO: compute correct leaf index
-            index + 1
-        }
-    }
-
     fn compute_hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         if T::is_composite_type() {
             let mut chunks = vec![0u8; self.len() * BYTES_PER_CHUNK];
@@ -262,29 +237,20 @@ where
     }
 
     pub fn iter_mut(&mut self) -> IterMut<'_, T> {
-        let inner = self.data.iter_mut().enumerate();
-        let cache = &mut self.cache;
-        IterMut { inner, cache }
+        let inner = self.data.iter_mut();
+        IterMut { inner }
     }
 }
 
 pub struct IterMut<'a, T: 'a> {
-    inner: Enumerate<slice::IterMut<'a, T>>,
-    cache: &'a mut MerkleCache,
+    inner: slice::IterMut<'a, T>,
 }
 
 impl<'a, T> Iterator for IterMut<'a, T> {
     type Item = &'a mut T;
 
     fn next(&mut self) -> Option<Self::Item> {
-        if let Some((index, next)) = self.inner.next() {
-            // TODO: compute correct `leaf_index`
-            let leaf_index = index;
-            self.cache.invalidate(leaf_index);
-            Some(next)
-        } else {
-            None
-        }
+        self.inner.next()
     }
 }
 
@@ -293,14 +259,7 @@ where
     T: SimpleSerialize,
 {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
-        if !self.cache.valid() {
-            // which leaves are dirty
-            // figure out which elements are needed and recompute leaves
-            // update cache w/ new leaves
-            let root = self.compute_hash_tree_root()?;
-            self.cache.update(root);
-        }
-        Ok(self.cache.root())
+        self.compute_hash_tree_root()
     }
 }
 

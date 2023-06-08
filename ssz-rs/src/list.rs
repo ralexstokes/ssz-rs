@@ -3,8 +3,7 @@ use crate::{
     error::{Error, InstanceError},
     lib::*,
     merkleization::{
-        merkleize, mix_in_length, pack, MerkleCache, MerkleizationError, Merkleized, Node,
-        BYTES_PER_CHUNK,
+        merkleize, mix_in_length, pack, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
     },
     ser::{serialize_composite, Serialize, SerializeError},
     SimpleSerialize, Sized,
@@ -18,7 +17,6 @@ use std::marker::PhantomData;
 #[derive(Clone)]
 pub struct List<T: SimpleSerialize, const N: usize> {
     data: Vec<T>,
-    cache: MerkleCache,
 }
 
 #[cfg(feature = "serde")]
@@ -121,8 +119,7 @@ where
             let len = data.len();
             Err((data, Error::Instance(InstanceError::Bounded { bound: N, provided: len })))
         } else {
-            let leaf_count = Self::get_leaf_count(data.len());
-            Ok(Self { data, cache: MerkleCache::with_leaves(leaf_count) })
+            Ok(Self { data })
         }
     }
 }
@@ -157,8 +154,6 @@ where
     T: SimpleSerialize,
 {
     fn index_mut(&mut self, index: usize) -> &mut Self::Output {
-        let leaf_index = Self::get_leaf_index(index);
-        self.cache.invalidate(leaf_index);
         &mut self.data[index]
     }
 }
@@ -209,25 +204,6 @@ impl<T, const N: usize> List<T, N>
 where
     T: SimpleSerialize,
 {
-    // the number of leafs in the Merkle tree of this `Vector`
-    fn get_leaf_count(element_count: usize) -> usize {
-        if T::is_composite_type() {
-            element_count
-        } else {
-            let encoded_length = T::size_hint() * element_count;
-            (encoded_length + 31) / 32
-        }
-    }
-
-    fn get_leaf_index(index: usize) -> usize {
-        if T::is_composite_type() {
-            index
-        } else {
-            // TODO: compute correct leaf index
-            index + 1
-        }
-    }
-
     fn compute_hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         if T::is_composite_type() {
             let mut chunks = vec![0u8; self.len() * BYTES_PER_CHUNK];
@@ -248,22 +224,18 @@ where
 
     pub fn push(&mut self, element: T) {
         self.data.push(element);
-        self.cache.resize(self.len());
     }
 
     pub fn pop(&mut self) -> Option<T> {
-        let element = self.data.pop();
-        self.cache.resize(self.len());
-        element
+        self.data.pop()
     }
 
     pub fn clear(&mut self) {
         self.data.clear();
-        self.cache.resize(0);
     }
 
     pub fn iter_mut(&mut self) -> IterMut<'_, T, N> {
-        IterMut { inner: self.data.iter_mut().enumerate(), cache: &mut self.cache }
+        IterMut { inner: self.data.iter_mut() }
     }
 }
 
@@ -271,8 +243,7 @@ pub struct IterMut<'a, T, const N: usize>
 where
     T: SimpleSerialize,
 {
-    inner: Enumerate<slice::IterMut<'a, T>>,
-    cache: &'a mut MerkleCache,
+    inner: slice::IterMut<'a, T>,
 }
 
 impl<'a, T, const N: usize> Iterator for IterMut<'a, T, N>
@@ -282,13 +253,7 @@ where
     type Item = &'a mut T;
 
     fn next(&mut self) -> Option<Self::Item> {
-        if let Some((index, next)) = self.inner.next() {
-            let leaf_index = List::<T, N>::get_leaf_index(index);
-            self.cache.invalidate(leaf_index);
-            Some(next)
-        } else {
-            None
-        }
+        self.inner.next()
     }
 }
 
