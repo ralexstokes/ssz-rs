@@ -1,4 +1,3 @@
-mod cache;
 mod node;
 mod proofs;
 
@@ -8,7 +7,6 @@ use crate::{
 };
 use sha2::{Digest, Sha256};
 
-pub use cache::Cache as MerkleCache;
 pub use node::Node;
 pub use proofs::is_valid_merkle_branch;
 
