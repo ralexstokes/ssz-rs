@@ -118,6 +118,8 @@ where
     T: SimpleSerialize + Default + Clone,
 {
     fn default() -> Self {
+        // SAFETY: ideally we will not panic here but currently there is no way
+        // to enforce statically that `N` is non-zero with const generics
         assert!(N > 0);
 
         let data = vec![T::default(); N];
