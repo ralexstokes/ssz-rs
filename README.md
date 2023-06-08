@@ -20,7 +20,7 @@ To conform to the `SSZ` spec, a given Rust type should implement the [`SimpleSer
 
 ## Encoding / decoding
 
-This library provides routines to serialize from and deserialize into a Rust type to/from the corresponding `SSZ` data via the [`Serialize`](https://docs.rs/ssz_rs/latest/ssz_rs/trait.Serialize.html) and [Deserialize](https://docs.rs/ssz_rs/latest/ssz_rs/trait.Deserialize.html) traits.
+This library provides routines to serialize from and deserialize into a Rust type to/from the corresponding `SSZ` data via the [`Serialize`](https://docs.rs/ssz_rs/latest/ssz_rs/trait.Serialize.html) and [`Deserialize`](https://docs.rs/ssz_rs/latest/ssz_rs/trait.Deserialize.html) traits.
 
 ## Merkleization
 
