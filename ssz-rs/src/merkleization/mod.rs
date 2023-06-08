@@ -122,7 +122,8 @@ fn merkleize_chunks_with_virtual_padding(
 
     if chunk_count == 0 {
         let depth = height - 1;
-        // SAFETY: index is safe while depth == leaf_count.trailing_zeros() < MAX_MERKLE_TREE_DEPTH; qed
+        // SAFETY: index is safe while depth == leaf_count.trailing_zeros() < MAX_MERKLE_TREE_DEPTH;
+        // qed
         return Ok(CONTEXT[depth as usize].try_into().expect("can produce a single root chunk"))
     }
 
@@ -149,8 +150,8 @@ fn merkleize_chunks_with_virtual_padding(
                         hasher.update(right);
                         left.copy_from_slice(&hasher.finalize_reset());
                     } else {
-                        // SAFETY: index is safe because parent.len() % BYTES_PER_CHUNK == 0 and parent
-                        // isn't empty; qed
+                        // SAFETY: index is safe because parent.len() % BYTES_PER_CHUNK == 0 and
+                        // parent isn't empty; qed
                         hash_nodes(&mut hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
                     }
                 }
@@ -175,8 +176,8 @@ fn merkleize_chunks_with_virtual_padding(
                         hasher.update(right);
                         left.copy_from_slice(&hasher.finalize_reset());
                     } else {
-                        // SAFETY: index is safe because parent.len() % BYTES_PER_CHUNK == 0 and parent
-                        // isn't empty; qed
+                        // SAFETY: index is safe because parent.len() % BYTES_PER_CHUNK == 0 and
+                        // parent isn't empty; qed
                         hash_nodes(&mut hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
                     }
                 }

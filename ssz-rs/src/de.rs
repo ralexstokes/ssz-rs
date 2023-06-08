@@ -102,11 +102,12 @@ where
         return Ok(vec![])
     }
 
-    let offsets_len =
-        encoding.get(..BYTES_PER_LENGTH_OFFSET).ok_or_else(|| DeserializeError::ExpectedFurtherInput {
+    let offsets_len = encoding.get(..BYTES_PER_LENGTH_OFFSET).ok_or_else(|| {
+        DeserializeError::ExpectedFurtherInput {
             provided: encoding.len(),
             expected: BYTES_PER_LENGTH_OFFSET,
-        })?;
+        }
+    })?;
     let offsets_len = u32::deserialize(offsets_len)?;
     let offsets_len = offsets_len as usize;
     if encoding.len() < offsets_len {
@@ -116,7 +117,7 @@ where
         })
     }
     if offsets_len % BYTES_PER_LENGTH_OFFSET != 0 {
-        return Err(DeserializeError::InvalidOffsetsLength(offsets_len));
+        return Err(DeserializeError::InvalidOffsetsLength(offsets_len))
     }
 
     let offsets = &mut encoding[..offsets_len]
@@ -132,7 +133,7 @@ where
         let start = span[0];
         let end = span[1];
         if start > end {
-            return Err(DeserializeError::OffsetNotIncreasing { start, end });
+            return Err(DeserializeError::OffsetNotIncreasing { start, end })
         }
 
         // SAFETY: index is safe because start <= end; qed

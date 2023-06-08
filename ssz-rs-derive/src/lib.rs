@@ -277,7 +277,8 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                     let variant_name = &variant.ident;
                     match &variant.fields {
                         Fields::Unnamed(inner) => {
-                            // SAFETY: index is safe because Punctuated always has a first element; qed
+                            // SAFETY: index is safe because Punctuated always has a first element;
+                            // qed
                             let variant_type = &inner.unnamed[0];
                             quote_spanned! { variant.span() =>
                                 #i => {
