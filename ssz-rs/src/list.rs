@@ -21,7 +21,6 @@ pub struct List<T: SimpleSerialize, const N: usize> {
     cache: MerkleCache,
 }
 
-// TODO clean up impls here for Vector and List...
 #[cfg(feature = "serde")]
 impl<T: SimpleSerialize + serde::Serialize, const N: usize> serde::Serialize for List<T, N> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
