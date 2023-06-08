@@ -47,9 +47,11 @@ where
             return Err(DeserializeError::ExpectedFurtherInput { provided: 0, expected: 1 })
         }
 
+        // SAFETY: index is safe because encoding is not empty; qed
         match encoding[0] {
             0 => Ok(None),
             1 => {
+                // SAFETY: index is safe because encoding is not empty; qed
                 let inner = T::deserialize(&encoding[1..])?;
                 Ok(Some(inner))
             }

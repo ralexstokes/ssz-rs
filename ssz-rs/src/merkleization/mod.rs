@@ -101,6 +101,8 @@ include!(concat!(env!("OUT_DIR"), "/context.rs"));
 ///
 /// Invariant: `chunks.len() % BYTES_PER_CHUNK == 0`
 /// Invariant: `leaf_count.next_power_of_two() == leaf_count`
+/// Invariant: `leaf_count != 0`
+/// Invariant: `leaf_count.trailing_zeros() < MAX_MERKLE_TREE_DEPTH`
 fn merkleize_chunks_with_virtual_padding(
     chunks: &[u8],
     leaf_count: usize,
@@ -109,12 +111,17 @@ fn merkleize_chunks_with_virtual_padding(
 
     let mut hasher = Sha256::new();
     debug_assert!(chunks.len() % BYTES_PER_CHUNK == 0);
+    // NOTE: This also asserts that leaf_count != 0
     debug_assert!(leaf_count.next_power_of_two() == leaf_count);
+    // SAFETY: this holds as long as leaf_count != 0 and usize is no longer than u64
+    debug_assert!((leaf_count.trailing_zeros() as usize) < MAX_MERKLE_TREE_DEPTH);
 
     let height = leaf_count.trailing_zeros() + 1;
 
     if chunk_count == 0 {
         let depth = height - 1;
+        // SAFETY: index is safe while depth == leaf_count.trailing_zeros() < MAX_MERKLE_TREE_DEPTH;
+        // qed
         return Ok(CONTEXT[depth as usize].try_into().expect("can produce a single root chunk"))
     }
 
@@ -125,6 +132,10 @@ fn merkleize_chunks_with_virtual_padding(
             let parent_index = i / 2;
             match i.cmp(&last_index) {
                 Ordering::Less => {
+                    // SAFETY: index is safe because (i+1)*BYTES_PER_CHUNK < layer.len():
+                    // i < last_index == chunk_count - 1 == (layer.len() / BYTES_PER_CHUNK) - 1
+                    // so i+1 < layer.len() / BYTES_PER_CHUNK
+                    // so (i+1)*BYTES_PER_CHUNK < layer.len(); qed
                     let focus =
                         &mut layer[parent_index * BYTES_PER_CHUNK..(i + 2) * BYTES_PER_CHUNK];
                     let children_index = focus.len() - 2 * BYTES_PER_CHUNK;
@@ -137,16 +148,24 @@ fn merkleize_chunks_with_virtual_padding(
                         hasher.update(right);
                         left.copy_from_slice(&hasher.finalize_reset());
                     } else {
+                        // SAFETY: index is safe because parent.len() % BYTES_PER_CHUNK == 0 and
+                        // parent isn't empty; qed
                         hash_nodes(&mut hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
                     }
                 }
                 Ordering::Equal => {
+                    // SAFETY: index is safe because i*BYTES_PER_CHUNK < layer.len():
+                    // i*BYTES_PER_CHUNK < (i+1)*BYTES_PER_CHUNK < layer.len()
+                    // (see previous case); qed
                     let focus =
                         &mut layer[parent_index * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK];
                     let children_index = focus.len() - BYTES_PER_CHUNK;
                     let (parent, children) = focus.split_at_mut(children_index);
                     let (left, _) = children.split_at_mut(BYTES_PER_CHUNK);
                     let depth = height - k - 1;
+                    // SAFETY: index is safe because depth < CONTEXT.len():
+                    // depth <= height - 1 == leaf_count.trailing_zeros()
+                    // leaf_count.trailing_zeros() < MAX_MERKLE_TREE_DEPTH == CONTEXT.len(); qed
                     let right = &CONTEXT[depth as usize];
                     if parent.is_empty() {
                         // NOTE: have to specially handle the situation where the children nodes and
@@ -155,6 +174,8 @@ fn merkleize_chunks_with_virtual_padding(
                         hasher.update(right);
                         left.copy_from_slice(&hasher.finalize_reset());
                     } else {
+                        // SAFETY: index is safe because parent.len() % BYTES_PER_CHUNK == 0 and
+                        // parent isn't empty; qed
                         hash_nodes(&mut hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
                     }
                 }
@@ -164,6 +185,10 @@ fn merkleize_chunks_with_virtual_padding(
         last_index /= 2;
     }
 
+    // SAFETY: index is safe because layer.len() >= BYTES_PER_CHUNK:
+    // layer.len() == chunks.len()
+    // chunks.len() % BYTES_PER_CHUNK == 0 and chunks.len() != 0 (because chunk_count != 0)
+    // so chunks.len() >= BYTES_PER_CHUNK; qed
     Ok(layer[..BYTES_PER_CHUNK].try_into().expect("can produce a single root chunk"))
 }
 
