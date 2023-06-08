@@ -53,7 +53,7 @@ For example, the `uint64` type from the `SSZ` spec is represented by Rust's nati
 
 The library also provides custom types for `List`, `Vector`, `Bitlist` and `Bitvector` following the `SSZ` spec.
 Each of these custom types should behave approximately like Rust's `Vec` type. A notable exception is deferring to
-the underlying types iteration capabilities; e.g. to iterate a `List` you must explicitly call `.iter()`.
+the underlying type's iteration capabilities; e.g. to iterate a `List` you must explicitly call `.iter()`.
 
 For safety, there are only a few ways to construct an instance of each of these custom types:
 
