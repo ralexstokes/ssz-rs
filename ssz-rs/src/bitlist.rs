@@ -1,6 +1,6 @@
 use crate::{
     de::{Deserialize, DeserializeError},
-    error::InstanceError,
+    error::{Error, InstanceError},
     lib::*,
     merkleization::{merkleize, mix_in_length, pack_bytes, MerkleizationError, Merkleized, Node},
     ser::{Serialize, SerializeError},
@@ -148,11 +148,13 @@ impl<const N: usize> Serialize for Bitlist<N> {
 
 impl<const N: usize> Deserialize for Bitlist<N> {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
-        let max_len = byte_length(N);
+        // validate byte length - min
         if encoding.is_empty() {
-            return Err(DeserializeError::ExpectedFurtherInput { provided: 0, expected: max_len })
+            return Err(DeserializeError::ExpectedFurtherInput { provided: 0, expected: 1 })
         }
 
+        // validate byte length - max
+        let max_len = byte_length(N);
         if encoding.len() > max_len {
             return Err(DeserializeError::AdditionalInput {
                 provided: encoding.len(),
@@ -167,24 +169,19 @@ impl<const N: usize> Deserialize for Bitlist<N> {
 
         let mut result = BitlistInner::from_slice(prefix);
         let last = BitlistInner::from_element(*last_byte);
+
+        // validate bit length satisfies bound `N`
         // SAFETY: checked subtraction is unnecessary,
         // as last_byte != 0, so last.trailing_zeros <= 7; qed
-        // therefore: high_bit_index >= 1
-        let high_bit_index = 8 - last.trailing_zeros();
-
-        // SAFETY: checked subtraction is unnecessary, as high_bit_index >= 1; qed
-        if !last[high_bit_index - 1] {
+        // therefore: bit_length >= 1
+        let bit_length = 8 - last.trailing_zeros();
+        let additional_members = bit_length - 1; // skip marker bit
+        let total_members = result.len() + additional_members;
+        if total_members > N {
             return Err(DeserializeError::InvalidByte(*last_byte))
         }
 
-        // SAFETY: checked subtraction is unnecessary, as high_bit_index >= 1; qed
-        for bit in last.iter().take(high_bit_index - 1) {
-            result.push(*bit);
-        }
-        // TODO: this seems redundant...
-        if result.len() > N {
-            return Err(InstanceError::Bounded { bound: N, provided: result.len() }.into())
-        }
+        result.extend_from_bitslice(&last[..additional_members]);
         Ok(Self(result))
     }
 }
@@ -200,25 +197,27 @@ impl<const N: usize> Merkleized for Bitlist<N> {
 impl<const N: usize> SimpleSerialize for Bitlist<N> {}
 
 impl<const N: usize> TryFrom<&[u8]> for Bitlist<N> {
-    type Error = DeserializeError;
+    type Error = Error;
 
     fn try_from(value: &[u8]) -> Result<Self, Self::Error> {
-        Self::deserialize(value)
+        Self::deserialize(value).map_err(Error::Deserialize)
     }
 }
 
-// TODO: just going to remove this...
-impl<const N: usize> FromIterator<bool> for Bitlist<N> {
-    // NOTE: only takes the first `N` values from `iter`.
-    fn from_iter<I>(iter: I) -> Self
-    where
-        I: IntoIterator<Item = bool>,
-    {
-        let mut result: Bitlist<N> = Default::default();
-        for bit in iter.into_iter().take(N) {
-            result.push(bit);
+impl<const N: usize> TryFrom<&[bool]> for Bitlist<N> {
+    type Error = Error;
+
+    fn try_from(value: &[bool]) -> Result<Self, Self::Error> {
+        if value.len() > N {
+            let len = value.len();
+            Err(Error::Instance(InstanceError::Bounded { bound: N, provided: len }))
+        } else {
+            let mut result = Self::default();
+            for bit in value {
+                result.push(*bit);
+            }
+            Ok(result)
         }
-        result
     }
 }
 
@@ -265,24 +264,29 @@ mod tests {
     fn decode_bitlist() {
         let bytes = vec![1u8];
         let result = Bitlist::<COUNT>::deserialize(&bytes).expect("test data is correct");
-        let expected = Bitlist::from_iter(vec![]);
+        let expected = Bitlist::<COUNT>::default();
         assert_eq!(result, expected);
 
         let bytes = vec![24u8, 1u8];
         let result = Bitlist::<COUNT>::deserialize(&bytes).expect("test data is correct");
         let expected =
-            Bitlist::from_iter(vec![false, false, false, true, true, false, false, false]);
+            Bitlist::try_from([false, false, false, true, true, false, false, false].as_ref())
+                .unwrap();
         assert_eq!(result, expected);
 
         let bytes = vec![24u8, 2u8];
         let result = Bitlist::<COUNT>::deserialize(&bytes).expect("test data is correct");
-        let expected =
-            Bitlist::from_iter(vec![false, false, false, true, true, false, false, false, false]);
+        let expected = Bitlist::try_from(
+            [false, false, false, true, true, false, false, false, false].as_ref(),
+        )
+        .unwrap();
         assert_eq!(result, expected);
         let bytes = vec![24u8, 3u8];
         let result = Bitlist::<COUNT>::deserialize(&bytes).expect("test data is correct");
-        let expected =
-            Bitlist::from_iter(vec![false, false, false, true, true, false, false, false, true]);
+        let expected = Bitlist::try_from(
+            [false, false, false, true, true, false, false, false, true].as_ref(),
+        )
+        .unwrap();
         assert_eq!(result, expected);
 
         let bytes = vec![24u8, 0u8];
@@ -294,10 +298,15 @@ mod tests {
 
     #[test]
     fn roundtrip_bitlist() {
-        let input = Bitlist::<COUNT>::from_iter(vec![
-            false, false, false, true, true, false, false, false, false, false, false, false,
-            false, false, false, true, true, false, false, false, false, false, false, false, true,
-        ]);
+        let input = Bitlist::<COUNT>::try_from(
+            [
+                false, false, false, true, true, false, false, false, false, false, false, false,
+                false, false, false, true, true, false, false, false, false, false, false, false,
+                true,
+            ]
+            .as_ref(),
+        )
+        .unwrap();
         let mut buffer = vec![];
         let _ = input.serialize(&mut buffer).expect("can serialize");
         let recovered = Bitlist::<COUNT>::deserialize(&buffer).expect("can decode");

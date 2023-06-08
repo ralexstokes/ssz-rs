@@ -1,0 +1,33 @@
+default-fmt := "true"
+
+generate-all:
+    #!/usr/bin/env sh
+    for TYP in basic_vector bitlist bitvector boolean containers uints; do
+        just generate $TYP false
+    done;
+    just fmt
+
+generate TYPE FMT=default-fmt:
+    cargo run -p ssz-rs-test-gen {{TYPE}}
+    if {{FMT}} == true; then just fmt; fi
+
+fmt:
+    cargo +nightly fmt --all
+
+generate-clean:
+    rm -rf ../ssz-rs/tests/data
+
+download-integration-tests: integration-tests-clean
+    #!/usr/bin/env sh
+    TESTS_TAG=$(cat spec-test-version)
+    REPO_NAME=consensus-spec-tests
+    CONFIG="general"
+    mkdir ${REPO_NAME}
+    wget https://github.com/ethereum/${REPO_NAME}/releases/download/${TESTS_TAG}/${CONFIG}.tar.gz
+    tar -xzf ${CONFIG}.tar.gz -C ${REPO_NAME}
+    rm -f *tar.gz
+
+integration-tests-clean:
+    rm -rf consensus-spec-tests
+
+clean: generate-clean integration-tests-clean
