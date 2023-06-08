@@ -95,15 +95,15 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
                         let mut element_buffer = Vec::with_capacity(<#field_type>::size_hint());
                         self.#field_name.serialize(&mut element_buffer)?;
 
-                        let buffer_len = element_buffer.len();
+                        let element_buffer_len = element_buffer.len();
                         if <#field_type>::is_variable_size() {
                             fixed.push(None);
                             fixed_lengths_sum += #BYTES_PER_LENGTH_OFFSET;
-                            variable.push(element_buffer);
-                            variable_lengths.push(buffer_len);
+                            variable.append(&mut element_buffer);
+                            variable_lengths.push(element_buffer_len);
                         } else {
                             fixed.push(Some(element_buffer));
-                            fixed_lengths_sum += buffer_len;
+                            fixed_lengths_sum += element_buffer_len;
                             variable_lengths.push(0)
                         }
                     },
