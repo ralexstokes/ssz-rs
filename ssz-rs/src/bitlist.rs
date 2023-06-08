@@ -164,7 +164,7 @@ impl<const N: usize> Deserialize for Bitlist<N> {
 
         let (last_byte, prefix) = encoding.split_last().unwrap();
         if *last_byte == 0u8 {
-            return Err(DeserializeError::InvalidByte(*last_byte));
+            return Err(DeserializeError::InvalidByte(*last_byte))
         }
 
         let mut result = BitlistInner::from_slice(prefix);
@@ -294,8 +294,7 @@ mod tests {
 
         let bytes = vec![24u8, 0u8];
         let result = Bitlist::<COUNT>::deserialize(&bytes).expect_err("test data is incorrect");
-        let expected =
-            DeserializeError::InvalidByte(0u8);
+        let expected = DeserializeError::InvalidByte(0u8);
         assert_eq!(result.to_string(), expected.to_string());
     }
 
