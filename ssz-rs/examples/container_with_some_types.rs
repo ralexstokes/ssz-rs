@@ -23,9 +23,20 @@ struct Foo<const N: usize> {
 }
 
 fn main() {
+    let mut b = Vector::try_from(vec![3u32, 2u32, 1u32, 10u32]).unwrap();
+    for i in b.iter() {
+        println!("{i}");
+    }
+    for i in b.iter_mut() {
+        *i += 1;
+    }
+    for i in b.iter() {
+        println!("{i}");
+    }
+
     let mut example: Foo<4> = Foo {
         a: 16u32,
-        b: Vector::try_from(vec![3u32, 2u32, 1u32, 10u32]).unwrap(),
+        b,
         c: true,
         d: Bitlist::try_from(
             [
