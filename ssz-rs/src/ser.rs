@@ -62,6 +62,8 @@ pub fn serialize_composite_from_components(
     fixed_lengths_sum: usize,
     buffer: &mut Vec<u8>,
 ) -> Result<usize, SerializeError> {
+    debug_assert_eq!(fixed.len(), variable_lengths.len());
+
     let total_size = fixed_lengths_sum + variable_lengths.iter().sum::<usize>();
     if total_size as u64 >= MAXIMUM_LENGTH {
         return Err(SerializeError::MaximumEncodedLengthExceeded(total_size))

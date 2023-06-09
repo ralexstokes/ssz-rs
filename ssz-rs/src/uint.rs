@@ -42,6 +42,7 @@ macro_rules! define_uint {
                     })
                 }
 
+                // SAFETY: index is safe because encoding.len() has been checked above; qed
                 let bytes = encoding[..byte_size].try_into().expect("slice has right length");
                 Ok(<$uint>::from_le_bytes(bytes))
             }
@@ -93,7 +94,7 @@ impl U256 {
 
     pub fn to_bytes_le(&self) -> Vec<u8> {
         let mut bytes = self.0.to_bytes_le();
-        bytes.resize(32, 0u8);
+        bytes.resize(Self::size_hint(), 0u8);
         bytes
     }
 
@@ -145,13 +146,13 @@ impl Sized for U256 {
 impl Serialize for U256 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         buffer.extend_from_slice(&self.to_bytes_le());
-        Ok(32)
+        Ok(Self::size_hint())
     }
 }
 
 impl Deserialize for U256 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
-        let byte_size = 32;
+        let byte_size = Self::size_hint();
         if encoding.len() < byte_size {
             return Err(DeserializeError::ExpectedFurtherInput {
                 provided: encoding.len(),
@@ -165,6 +166,7 @@ impl Deserialize for U256 {
             })
         }
 
+        // SAFETY: index is safe because encoding.len() == byte_size; qed
         let value = BigUint::from_bytes_le(&encoding[..byte_size]);
         Ok(Self(value))
     }

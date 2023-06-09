@@ -23,6 +23,8 @@ pub enum DeserializeError {
     InvalidInstance(InstanceError),
     /// An invalid type was encountered.
     InvalidType(TypeError),
+    /// The number of bytes used for length offsets wasn't a multiple of BYTES_PER_LENGTH_OFFSET.
+    InvalidOffsetsLength(usize),
     /// An offset was found with start > end.
     OffsetNotIncreasing {
         start: usize,
@@ -53,6 +55,7 @@ impl Display for DeserializeError {
             ),
             DeserializeError::InvalidInstance(err) => write!(f, "invalid instance: {err}"),
             DeserializeError::InvalidType(err) => write!(f, "invalid type: {err}"),
+            DeserializeError::InvalidOffsetsLength(len) => write!(f, "the offsets length provided {len} is not a multiple of the size per length offset {BYTES_PER_LENGTH_OFFSET} bytes"),
             DeserializeError::OffsetNotIncreasing { start, end } => write!(f, "invalid offset points to byte {end} before byte {start}"),
         }
     }
@@ -100,26 +103,41 @@ where
         return Ok(vec![])
     }
 
-    let data_pointer = u32::deserialize(&encoding[..BYTES_PER_LENGTH_OFFSET])?;
-    let data_pointer = data_pointer as usize;
-    if encoding.len() < data_pointer {
+    let offsets_len = encoding.get(..BYTES_PER_LENGTH_OFFSET).ok_or({
+        DeserializeError::ExpectedFurtherInput {
+            provided: encoding.len(),
+            expected: BYTES_PER_LENGTH_OFFSET,
+        }
+    })?;
+    let offsets_len = u32::deserialize(offsets_len)?;
+    let offsets_len = offsets_len as usize;
+    if encoding.len() < offsets_len {
         return Err(DeserializeError::ExpectedFurtherInput {
             provided: encoding.len(),
-            expected: data_pointer,
+            expected: offsets_len,
         })
     }
+    if offsets_len % BYTES_PER_LENGTH_OFFSET != 0 {
+        return Err(DeserializeError::InvalidOffsetsLength(offsets_len))
+    }
 
-    let offsets = &mut encoding[..data_pointer]
+    let offsets = &mut encoding[..offsets_len]
         .chunks_exact(BYTES_PER_LENGTH_OFFSET)
         .map(|chunk| u32::deserialize(chunk).map(|offset| offset as usize))
         .collect::<Result<Vec<usize>, DeserializeError>>()?;
     offsets.push(encoding.len());
 
-    let element_count = data_pointer / BYTES_PER_LENGTH_OFFSET;
+    let element_count = offsets_len / BYTES_PER_LENGTH_OFFSET;
     let mut result = Vec::with_capacity(element_count);
     for span in offsets.windows(2) {
+        // SAFETY: index is safe because span is a pair; qed
         let start = span[0];
         let end = span[1];
+        if start > end {
+            return Err(DeserializeError::OffsetNotIncreasing { start, end })
+        }
+
+        // SAFETY: index is safe because start <= end; qed
         let element = T::deserialize(&encoding[start..end])?;
         result.push(element);
     }
