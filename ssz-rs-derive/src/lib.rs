@@ -200,7 +200,6 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                                 }
                             )?;
                             let next_offset = u32::deserialize(target)? as usize;
-                            offsets.push((#i, next_offset));
 
                             if let Some((_, previous_offset)) = offsets.last() {
                                 if next_offset < *previous_offset {
@@ -210,6 +209,8 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                                     });
                                 }
                             };
+
+                            offsets.push((#i, next_offset));
 
                             #BYTES_PER_LENGTH_OFFSET
                         } else {
