@@ -49,8 +49,7 @@ pub fn pack_bytes(buffer: &mut Vec<u8>) {
         // SAFETY: checked subtraction is unnecessary,
         // as BYTES_PER_CHUNK > incomplete_chunk_len; qed
         let bytes_to_pad = BYTES_PER_CHUNK - incomplete_chunk_len;
-        let pad = vec![0u8; bytes_to_pad];
-        buffer.extend_from_slice(&pad);
+        buffer.resize(buffer.len() + bytes_to_pad, 0);
     }
 }
 
