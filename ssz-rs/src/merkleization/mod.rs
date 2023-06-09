@@ -43,6 +43,8 @@ impl Display for MerkleizationError {
 #[cfg(feature = "std")]
 impl std::error::Error for MerkleizationError {}
 
+// Ensures `buffer` can be exactly broken up into `BYTES_PER_CHUNK` chunks of bytes
+// via padding any partial chunks at the end of `buffer`
 pub fn pack_bytes(buffer: &mut Vec<u8>) {
     let incomplete_chunk_len = buffer.len() % BYTES_PER_CHUNK;
     if incomplete_chunk_len != 0 {
