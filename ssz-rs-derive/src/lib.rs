@@ -207,9 +207,9 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                                     return Err(DeserializeError::OffsetNotIncreasing {
                                         start: *previous_offset,
                                         end: next_offset,
-                                    });
+                                    })
                                 }
-                            };
+                            }
 
                             offsets.push((#i, next_offset));
 
