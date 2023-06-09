@@ -319,12 +319,6 @@ mod tests {
         let mut hasher = Sha256::new();
         let mut buffer = vec![0u8; node_count * BYTES_PER_CHUNK];
         buffer[leaf_start..leaf_start + chunks.len()].copy_from_slice(chunks);
-        let zero_chunk = [0u8; BYTES_PER_CHUNK];
-        for i in chunks.len()..leaf_count {
-            let start = leaf_start + (i * BYTES_PER_CHUNK);
-            let end = leaf_start + (i + 1) * BYTES_PER_CHUNK;
-            buffer[start..end].copy_from_slice(&zero_chunk);
-        }
 
         for i in (1..node_count).rev().step_by(2) {
             // SAFETY: checked subtraction is unnecessary, as i >= 1; qed
@@ -343,7 +337,7 @@ mod tests {
             let (left, right) = children.split_at(BYTES_PER_CHUNK);
             hash_nodes(&mut hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
         }
-        Ok(buffer[0..BYTES_PER_CHUNK].try_into().expect("can produce a single root chunk"))
+        Ok(buffer[..BYTES_PER_CHUNK].try_into().expect("can produce a single root chunk"))
     }
 
     #[test]
