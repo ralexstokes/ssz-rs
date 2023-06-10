@@ -51,6 +51,7 @@ impl<const N: usize> fmt::Debug for Bitlist<N> {
             let value = i32::from(*bit);
             write!(f, "{value}")?;
             bits_written += 1;
+            // SAFETY: checked subtraction is unnecessary, as len >= 1 when this for loop runs; qed
             if bits_written % 4 == 0 && index != len - 1 {
                 write!(f, "_")?;
             }
@@ -110,6 +111,7 @@ impl<const N: usize> Bitlist<N> {
                 *last |= 1u8 << marker_index;
             }
         }
+        // SAFETY: checked subtraction is unnecessary, as buffer.len() > start_len; qed
         Ok(buffer.len() - start_len)
     }
 }
@@ -161,10 +163,17 @@ impl<const N: usize> Deserialize for Bitlist<N> {
         }
 
         let (last_byte, prefix) = encoding.split_last().unwrap();
+        if *last_byte == 0u8 {
+            return Err(DeserializeError::InvalidByte(*last_byte))
+        }
+
         let mut result = BitlistInner::from_slice(prefix);
         let last = BitlistInner::from_element(*last_byte);
 
         // validate bit length satisfies bound `N`
+        // SAFETY: checked subtraction is unnecessary,
+        // as last_byte != 0, so last.trailing_zeros <= 7; qed
+        // therefore: bit_length >= 1
         let bit_length = 8 - last.trailing_zeros();
         let additional_members = bit_length - 1; // skip marker bit
         let total_members = result.len() + additional_members;
@@ -282,6 +291,11 @@ mod tests {
         )
         .unwrap();
         assert_eq!(result, expected);
+
+        let bytes = vec![24u8, 0u8];
+        let result = Bitlist::<COUNT>::deserialize(&bytes).expect_err("test data is incorrect");
+        let expected = DeserializeError::InvalidByte(0u8);
+        assert_eq!(result.to_string(), expected.to_string());
     }
 
     #[test]

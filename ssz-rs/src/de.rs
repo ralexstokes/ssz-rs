@@ -80,6 +80,7 @@ where
     if remainder != 0 {
         return Err(DeserializeError::AdditionalInput {
             provided: encoding.len(),
+            // SAFETY: checked subtraction is unnecessary, as encoding.len() > remainder; qed
             expected: encoding.len() - remainder,
         })
     }

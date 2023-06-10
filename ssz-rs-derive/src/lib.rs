@@ -193,14 +193,25 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                     Some(field_name) => quote_spanned! { f.span() =>
                         let bytes_read = if <#field_type>::is_variable_size() {
                             let end = start + #BYTES_PER_LENGTH_OFFSET;
+
                             let target = encoding.get(start..end).ok_or_else(||
                                 ssz_rs::DeserializeError::ExpectedFurtherInput {
                                     provided: encoding.len() - start,
                                     expected: #BYTES_PER_LENGTH_OFFSET,
                                 }
                             )?;
-                            let next_offset = u32::deserialize(target)?;
-                            offsets.push((#i, next_offset as usize));
+                            let next_offset = u32::deserialize(target)? as usize;
+
+                            if let Some((_, previous_offset)) = offsets.last() {
+                                if next_offset < *previous_offset {
+                                    return Err(DeserializeError::OffsetNotIncreasing {
+                                        start: *previous_offset,
+                                        end: next_offset,
+                                    })
+                                }
+                            }
+
+                            offsets.push((#i, next_offset));
 
                             #BYTES_PER_LENGTH_OFFSET
                         } else {
@@ -248,6 +259,9 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                             }
                         )?;
                         container.__ssz_rs_set_by_index(index, target)?;
+
+                        // SAFETY: checked subtraction is unnecessary,
+                        // as offsets are increasing; qed
                         total_bytes_read += end - start;
                     }
 
