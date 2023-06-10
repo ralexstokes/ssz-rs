@@ -1,3 +1,5 @@
+#![doc(hidden)]
+
 use convert_case::{Case, Casing};
 use num_bigint::BigUint;
 use std::{collections::BTreeMap, env, ffi::OsStr, fmt, fs, fs::DirEntry, path::PathBuf};

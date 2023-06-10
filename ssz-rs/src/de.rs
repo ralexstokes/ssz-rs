@@ -9,15 +9,10 @@ use crate::{
 #[derive(Debug)]
 pub enum DeserializeError {
     /// More data was expected to be in the buffer.
-    ExpectedFurtherInput {
-        provided: usize,
-        expected: usize,
-    },
+    ExpectedFurtherInput { provided: usize, expected: usize },
     /// The buffer contained more data than expected.
-    AdditionalInput {
-        provided: usize,
-        expected: usize,
-    },
+    AdditionalInput { provided: usize, expected: usize },
+    /// An invalid byte was encountered when deserializing the given type
     InvalidByte(u8),
     /// An invalid instance was encountered.
     InvalidInstance(InstanceError),
@@ -26,10 +21,7 @@ pub enum DeserializeError {
     /// The number of bytes used for length offsets wasn't a multiple of BYTES_PER_LENGTH_OFFSET.
     InvalidOffsetsLength(usize),
     /// An offset was found with start > end.
-    OffsetNotIncreasing {
-        start: usize,
-        end: usize,
-    },
+    OffsetNotIncreasing { start: usize, end: usize },
 }
 
 impl From<InstanceError> for DeserializeError {
