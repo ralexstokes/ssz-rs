@@ -102,6 +102,10 @@ include!(concat!(env!("OUT_DIR"), "/context.rs"));
 /// of two and this can be quite large for some types. "Zero" subtrees are virtualized to avoid the
 /// memory and computation cost of large trees with partially empty leaves.
 ///
+/// The implementation approach treats `chunks` as the bottom layer of a perfect binary tree
+/// and for each height performs the hashing required to compute the parent layer in place.
+/// This process is repated until the root is computed.
+///
 /// Invariant: `chunks.len() % BYTES_PER_CHUNK == 0`
 /// Invariant: `leaf_count.next_power_of_two() == leaf_count`
 /// Invariant: `leaf_count != 0`
@@ -131,7 +135,9 @@ fn merkleize_chunks_with_virtual_padding(
     // SAFETY: checked subtraction is unnecessary, as we return early when chunk_count == 0; qed
     let mut last_index = chunk_count - 1;
     let mut hasher = Sha256::new();
+    // for each layer of the tree, starting from the bottom and walking up to the root:
     for k in (1..height).rev() {
+        // for each pair of nodes in this layer:
         for i in (0..2usize.pow(k)).step_by(2) {
             let parent_index = i / 2;
             match i.cmp(&last_index) {
