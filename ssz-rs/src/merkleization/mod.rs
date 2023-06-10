@@ -110,15 +110,13 @@ fn merkleize_chunks_with_virtual_padding(
     chunks: &[u8],
     leaf_count: usize,
 ) -> Result<Node, MerkleizationError> {
-    let chunk_count = chunks.len() / BYTES_PER_CHUNK;
-
-    let mut hasher = Sha256::new();
     debug_assert!(chunks.len() % BYTES_PER_CHUNK == 0);
     // NOTE: This also asserts that leaf_count != 0
     debug_assert!(leaf_count.next_power_of_two() == leaf_count);
     // SAFETY: this holds as long as leaf_count != 0 and usize is no longer than u64
     debug_assert!((leaf_count.trailing_zeros() as usize) < MAX_MERKLE_TREE_DEPTH);
 
+    let chunk_count = chunks.len() / BYTES_PER_CHUNK;
     let height = leaf_count.trailing_zeros() + 1;
 
     if chunk_count == 0 {
@@ -132,6 +130,7 @@ fn merkleize_chunks_with_virtual_padding(
     let mut layer = chunks.to_vec();
     // SAFETY: checked subtraction is unnecessary, as we return early when chunk_count == 0; qed
     let mut last_index = chunk_count - 1;
+    let mut hasher = Sha256::new();
     for k in (1..height).rev() {
         for i in (0..2usize.pow(k)).step_by(2) {
             let parent_index = i / 2;
