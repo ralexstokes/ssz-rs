@@ -140,7 +140,7 @@ fn merkleize_chunks_with_virtual_padding(
         // for each pair of nodes in this layer:
         for i in (0..2usize.pow(k)).step_by(2) {
             let parent_index = i / 2;
-            match i.cmp(&last_index) {
+            let (parent, left, right) = match i.cmp(&last_index) {
                 Ordering::Less => {
                     // SAFETY: index is safe because (i+1)*BYTES_PER_CHUNK < layer.len():
                     // i < last_index == chunk_count - 1 == (layer.len() / BYTES_PER_CHUNK) - 1
@@ -156,19 +156,9 @@ fn merkleize_chunks_with_virtual_padding(
                     let children_index = focus.len() - 2 * BYTES_PER_CHUNK;
                     let (parent, children) = focus.split_at_mut(children_index);
                     let (left, right) = children.split_at_mut(BYTES_PER_CHUNK);
-                    if parent.is_empty() {
-                        // TODO: Why not i == 0? Is there another case where the left node is used
-                        // to store the parent?
-                        // NOTE: have to specially handle the situation where the children nodes and
-                        // parent node share memory
-                        hasher.update(&left);
-                        hasher.update(right);
-                        left.copy_from_slice(&hasher.finalize_reset());
-                    } else {
-                        // SAFETY: index is safe because parent.len() % BYTES_PER_CHUNK == 0 and
-                        // parent isn't empty; qed
-                        hash_nodes(&mut hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
-                    }
+
+                    // NOTE: we do not need mutability on `right` here so drop that capability
+                    (parent, left, &*right)
                 }
                 Ordering::Equal => {
                     // SAFETY: index is safe because i*BYTES_PER_CHUNK < layer.len():
@@ -193,20 +183,22 @@ fn merkleize_chunks_with_virtual_padding(
                     // depth <= height - 1 == leaf_count.trailing_zeros()
                     // leaf_count.trailing_zeros() < MAX_MERKLE_TREE_DEPTH == CONTEXT.len(); qed
                     let right = &CONTEXT[depth as usize];
-                    if parent.is_empty() {
-                        // NOTE: have to specially handle the situation where the children nodes and
-                        // parent node share memory
-                        hasher.update(&left);
-                        hasher.update(right);
-                        left.copy_from_slice(&hasher.finalize_reset());
-                    } else {
-                        // SAFETY: index is safe because parent.len() % BYTES_PER_CHUNK == 0 and
-                        // parent isn't empty; qed
-                        hash_nodes(&mut hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
-                    }
+                    (parent, left, right)
                 }
                 _ => break,
             };
+            if i == 0 {
+                // NOTE: nodes share memory here and so we can't use the `hash_nodes` utility
+                // as the disjunct nature is reflect in that functions type signature
+                // so instead we will just replicate here.
+                hasher.update(&left);
+                hasher.update(right);
+                left.copy_from_slice(&hasher.finalize_reset());
+            } else {
+                // SAFETY: index is safe because parent.len() % BYTES_PER_CHUNK == 0 and
+                // parent isn't empty; qed
+                hash_nodes(&mut hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
+            }
         }
         last_index /= 2;
     }
