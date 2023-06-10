@@ -72,6 +72,7 @@ define_uint!(u64);
 define_uint!(u128);
 define_uint!(usize);
 
+/// An unsigned integer represented by 256 bits
 #[derive(Default, Debug, PartialEq, Eq, Clone, PartialOrd, Ord, Hash)]
 pub struct U256(BigUint);
 

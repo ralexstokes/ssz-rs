@@ -12,14 +12,18 @@ pub use proofs::is_valid_merkle_branch;
 
 pub(crate) const BYTES_PER_CHUNK: usize = 32;
 
+/// A `Merkleized` type provides a "hash tree root" following the SSZ spec.
 pub trait Merkleized {
     /// Compute the "hash tree root" of `Self`.
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError>;
 }
 
+/// An error encountered during merkleization.
 #[derive(Debug)]
 pub enum MerkleizationError {
+    /// An error serializing a type while computing the hash tree.
     SerializationError(SerializeError),
+    /// More data was provided than expected
     InputExceedsLimit(usize),
 }
 
