@@ -13,3 +13,6 @@ serde_yaml = "0.9"
 num-bigint = "0.4.3"
 hex = "0.4.3"
 convert_case = "0.6.0"
+
+[profile.release]
+overflow-checks = true

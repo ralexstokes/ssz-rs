@@ -6,3 +6,6 @@ members = [
     "ssz-rs-derive",
     "ssz-rs-test-gen"
 ]
+
+[profile.release]
+overflow-checks = true
