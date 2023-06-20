@@ -17,6 +17,8 @@ pub enum SerializeError {
     InvalidInstance(InstanceError),
     /// An invalid type was encountered.
     InvalidType(TypeError),
+    /// An unexpected size sanity check was encountered.
+    UnexpectedSize(usize, usize),
 }
 
 impl From<InstanceError> for SerializeError {
@@ -40,6 +42,7 @@ impl Display for SerializeError {
             ),
             SerializeError::InvalidInstance(err) => write!(f, "invalid instance: {err}"),
             SerializeError::InvalidType(err) => write!(f, "invalid type: {err}"),
+            SerializeError::UnexpectedSize(size1, size2) => write!(f, "unexpected size: {size1} not equal to {size2}"),
         }
     }
 }
@@ -62,7 +65,9 @@ pub fn serialize_composite_from_components(
     fixed_lengths_sum: usize,
     buffer: &mut Vec<u8>,
 ) -> Result<usize, SerializeError> {
-    debug_assert_eq!(fixed.len(), variable_lengths.len());
+    if fixed.len() != variable_lengths.len() {
+        return Err(SerializeError::UnexpectedSize(fixed.len(), variable_lengths.len()))
+    }
 
     let total_size = fixed_lengths_sum + variable_lengths.iter().sum::<usize>();
     if total_size as u64 >= MAXIMUM_LENGTH {
@@ -71,14 +76,15 @@ pub fn serialize_composite_from_components(
 
     // SAFETY: `fixed_lengths_sum` fits in `u32` if the total size check holds
     let mut running_length = fixed_lengths_sum as u32;
-    debug_assert_eq!(fixed.len(), variable_lengths.len());
     for (part_opt, variable_length) in fixed.iter_mut().zip(variable_lengths) {
         if let Some(part) = part_opt {
             buffer.append(part);
         } else {
             // SAFETY: `variable_length` fits in `u32` if the total size check holds
             let bytes_written = running_length.serialize(buffer)?;
-            debug_assert_eq!(bytes_written, BYTES_PER_LENGTH_OFFSET);
+            if bytes_written != BYTES_PER_LENGTH_OFFSET {
+                return Err(SerializeError::UnexpectedSize(bytes_written, BYTES_PER_LENGTH_OFFSET))
+            }
 
             running_length += variable_length as u32;
         }
