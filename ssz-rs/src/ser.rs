@@ -42,7 +42,9 @@ impl Display for SerializeError {
             ),
             SerializeError::InvalidInstance(err) => write!(f, "invalid instance: {err}"),
             SerializeError::InvalidType(err) => write!(f, "invalid type: {err}"),
-            SerializeError::UnexpectedSize(size1, size2) => write!(f, "unexpected size: {size1} not equal to {size2}"),
+            SerializeError::UnexpectedSize(size1, size2) => {
+                write!(f, "unexpected size: {size1} not equal to {size2}")
+            }
         }
     }
 }
