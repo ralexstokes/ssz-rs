@@ -131,3 +131,23 @@ pub fn serialize_composite<T: SimpleSerialize>(
         buffer,
     )
 }
+
+#[cfg(test)]
+mod test {
+    use crate::{ser::serialize_composite_from_components, SerializeError};
+
+    #[test]
+    fn invalid_serialize_composite_from_components() {
+        let fixed = vec![Some(vec![0, 8]), None];
+        let mut buffer = Vec::new();
+        let res = serialize_composite_from_components(fixed, vec![], vec![], 1, &mut buffer);
+
+        assert!(res.is_err());
+        if let SerializeError::UnexpectedSize(size1, size2) = res.unwrap_err() {
+            assert_eq!(size1, 2);
+            assert_eq!(size2, 0);
+        } else {
+            panic!("Not an UnexpectedSize error.");
+        }
+    }
+}
