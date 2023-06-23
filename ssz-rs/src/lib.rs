@@ -52,19 +52,6 @@ mod union;
 mod utils;
 mod vector;
 
-pub use crate::{
-    bitlist::Bitlist,
-    bitvector::Bitvector,
-    de::{Deserialize, DeserializeError},
-    error::{Error as SimpleSerializeError, InstanceError, TypeError},
-    list::List,
-    merkleization::{is_valid_merkle_branch, MerkleizationError, Merkleized, Node},
-    ser::{Serialize, SerializeError},
-    uint::U256,
-    utils::{deserialize, serialize},
-    vector::Vector,
-};
-
 mod lib {
     mod core {
         #[cfg(not(feature = "std"))]
@@ -110,9 +97,7 @@ pub trait SimpleSerialize: Serialize + Deserialize + Sized + Merkleized + Defaul
     }
 }
 
-/// The `prelude` contains common traits and types a user of this library
-/// would want to have handy with a simple (single) import.
-pub mod prelude {
+mod exports {
     pub use crate::{
         bitlist::Bitlist,
         bitvector::Bitvector,
@@ -126,6 +111,15 @@ pub mod prelude {
         vector::Vector,
         SimpleSerialize, Sized,
     };
+}
+
+pub use crate::exports::*;
+
+/// The `prelude` contains common traits and types a user of this library
+/// would want to have handy with a simple (single) import.
+pub mod prelude {
+    pub use crate::exports::*;
+
     // expose this so the derive macro has everything in scope
     // with a simple `prelude` import
     pub use crate as ssz_rs;
