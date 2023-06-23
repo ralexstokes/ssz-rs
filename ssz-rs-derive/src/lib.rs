@@ -97,14 +97,13 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
 
                         let element_buffer_len = element_buffer.len();
                         if <#field_type>::is_variable_size() {
-                            fixed.push(None);
-                            fixed_lengths_sum += #BYTES_PER_LENGTH_OFFSET;
+                            parts.push(ssz_rs::__internal::Part::Offset(element_buffer_len));
                             variable.append(&mut element_buffer);
-                            variable_lengths.push(element_buffer_len);
+                            fixed_lengths_sum += #BYTES_PER_LENGTH_OFFSET;
+                            variable_lengths_sum += element_buffer_len;
                         } else {
-                            fixed.push(Some(element_buffer));
+                            parts.push(ssz_rs::__internal::Part::Fixed(element_buffer));
                             fixed_lengths_sum += element_buffer_len;
-                            variable_lengths.push(0)
                         }
                     },
                     None => panic!("should have already returned an impl"),
@@ -113,14 +112,14 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
 
             quote! {
                 fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, ssz_rs::SerializeError> {
-                    let mut fixed = vec![];
+                    let mut parts = vec![];
                     let mut variable = vec![];
-                    let mut variable_lengths = vec![];
                     let mut fixed_lengths_sum = 0;
+                    let mut variable_lengths_sum = 0;
 
                     #(#serialization_by_field)*
 
-                    ssz_rs::__internal::serialize_composite_from_components(fixed, variable, variable_lengths, fixed_lengths_sum, buffer)
+                    ssz_rs::__internal::serialize_composite_from_components(parts, variable, fixed_lengths_sum, variable_lengths_sum, buffer)
                 }
             }
         }

@@ -135,6 +135,6 @@ pub mod __internal {
     // exported for derive macro to avoid code duplication...
     pub use crate::{
         merkleization::{merkleize, mix_in_selector},
-        ser::serialize_composite_from_components,
+        ser::{serialize_composite_from_components, Part},
     };
 }
