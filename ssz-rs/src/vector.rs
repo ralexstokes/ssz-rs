@@ -3,7 +3,7 @@ use crate::{
     error::{Error, InstanceError, TypeError},
     lib::*,
     merkleization::{elements_to_chunks, merkleize, pack, MerkleizationError, Merkleized, Node},
-    ser::{serialize_composite, Serialize, SerializeError},
+    ser::{Serialize, SerializeError, Serializer},
     SimpleSerialize, Sized,
 };
 #[cfg(feature = "serde")]
@@ -181,7 +181,11 @@ where
         if N == 0 {
             return Err(TypeError::InvalidBound(N).into())
         }
-        serialize_composite(&self.data, buffer)
+        let mut serializer = Serializer::default();
+        for element in &self.data {
+            serializer.with_element(element)?;
+        }
+        serializer.serialize(buffer)
     }
 }
 

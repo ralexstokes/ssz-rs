@@ -88,38 +88,20 @@ fn derive_serialize_impl(data: &Data) -> TokenStream {
                     "this type of struct is currently not supported by this derive macro"
                 ),
             };
-            let serialization_by_field = fields.iter().map(|f| {
-                let field_type = &f.ty;
-                match &f.ident {
-                    Some(field_name) => quote_spanned! { f.span() =>
-                        let mut element_buffer = Vec::with_capacity(<#field_type>::size_hint());
-                        self.#field_name.serialize(&mut element_buffer)?;
-
-                        let element_buffer_len = element_buffer.len();
-                        if <#field_type>::is_variable_size() {
-                            parts.push(ssz_rs::__internal::Part::Offset(element_buffer_len));
-                            variable.append(&mut element_buffer);
-                            fixed_lengths_sum += #BYTES_PER_LENGTH_OFFSET;
-                            variable_lengths_sum += element_buffer_len;
-                        } else {
-                            parts.push(ssz_rs::__internal::Part::Fixed(element_buffer));
-                            fixed_lengths_sum += element_buffer_len;
-                        }
-                    },
-                    None => panic!("should have already returned an impl"),
-                }
+            let serialization_by_field = fields.iter().map(|f| match &f.ident {
+                Some(field_name) => quote_spanned! { f.span() =>
+                    serializer.with_element(&self.#field_name)?;
+                },
+                None => panic!("should have already returned an impl"),
             });
 
             quote! {
                 fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, ssz_rs::SerializeError> {
-                    let mut parts = vec![];
-                    let mut variable = vec![];
-                    let mut fixed_lengths_sum = 0;
-                    let mut variable_lengths_sum = 0;
+                    let mut serializer = ssz_rs::__internal::Serializer::default();
 
                     #(#serialization_by_field)*
 
-                    ssz_rs::__internal::serialize_composite_from_components(parts, variable, fixed_lengths_sum, variable_lengths_sum, buffer)
+                    serializer.serialize(buffer)
                 }
             }
         }
