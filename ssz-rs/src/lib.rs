@@ -91,6 +91,8 @@ pub trait Sized {
     // is this type variable or fixed size?
     fn is_variable_size() -> bool;
 
+    // expected number of bytes for the serialization of this type
+    // or 0 if unknown ahead of time
     fn size_hint() -> usize;
 }
 
