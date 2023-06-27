@@ -11,8 +11,8 @@ const MAXIMUM_LENGTH: u64 = 2u64.pow((8 * BYTES_PER_LENGTH_OFFSET) as u32);
 /// Serialization errors.
 #[derive(Debug)]
 pub enum SerializeError {
-    /// The encoded length exceeds the maximum.
-    MaximumEncodedLengthExceeded(usize),
+    /// The encoded length was at least as big as the maximum length possible.
+    MaximumEncodedLengthReached(usize),
     /// An invalid instance was encountered.
     InvalidInstance(InstanceError),
     /// An invalid type was encountered.
@@ -34,9 +34,9 @@ impl From<TypeError> for SerializeError {
 impl Display for SerializeError {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         match self {
-            SerializeError::MaximumEncodedLengthExceeded(size) => write!(
+            SerializeError::MaximumEncodedLengthReached(size) => write!(
                 f,
-                "the encoded length is {size} which exceeds the maximum length {MAXIMUM_LENGTH}",
+                "the encoded length is {size} which meets or exceeds the maximum length {MAXIMUM_LENGTH}",
             ),
             SerializeError::InvalidInstance(err) => write!(f, "invalid instance: {err}"),
             SerializeError::InvalidType(err) => write!(f, "invalid type: {err}"),
@@ -74,7 +74,7 @@ impl Serializer {
     pub fn serialize(mut self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         let total_size = self.fixed_lengths_sum + self.variable_lengths_sum;
         if total_size as u64 >= MAXIMUM_LENGTH {
-            return Err(SerializeError::MaximumEncodedLengthExceeded(total_size))
+            return Err(SerializeError::MaximumEncodedLengthReached(total_size))
         }
 
         // SAFETY: `fixed_lengths_sum` fits in `u32` if the total size check holds
