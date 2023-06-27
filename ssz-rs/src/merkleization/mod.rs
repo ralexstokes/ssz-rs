@@ -246,6 +246,19 @@ pub fn mix_in_selector(root: &Node, selector: usize) -> Node {
     mix_in_decoration(root, selector)
 }
 
+pub(crate) fn elements_to_chunks<'a, T: Merkleized + 'a>(
+    elements: impl Iterator<Item = (usize, &'a mut T)>,
+    count: usize,
+) -> Result<Vec<u8>, MerkleizationError> {
+    let mut chunks = vec![0u8; count * BYTES_PER_CHUNK];
+    for (i, elem) in elements {
+        let chunk = elem.hash_tree_root()?;
+        let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
+        chunks[range].copy_from_slice(chunk.as_ref());
+    }
+    Ok(chunks)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

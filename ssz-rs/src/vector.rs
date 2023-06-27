@@ -2,7 +2,7 @@ use crate::{
     de::{deserialize_homogeneous_composite, Deserialize, DeserializeError},
     error::{Error, InstanceError, TypeError},
     lib::*,
-    merkleization::{merkleize, pack, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK},
+    merkleization::{elements_to_chunks, merkleize, pack, MerkleizationError, Merkleized, Node},
     ser::{serialize_composite, Serialize, SerializeError},
     SimpleSerialize, Sized,
 };
@@ -226,12 +226,8 @@ where
 {
     fn compute_hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         if T::is_composite_type() {
-            let mut chunks = vec![0u8; self.len() * BYTES_PER_CHUNK];
-            for (i, elem) in self.data.iter_mut().enumerate() {
-                let chunk = elem.hash_tree_root()?;
-                let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
-                chunks[range].copy_from_slice(chunk.as_ref());
-            }
+            let count = self.len();
+            let chunks = elements_to_chunks(self.data.iter_mut().enumerate(), count)?;
             merkleize(&chunks, None)
         } else {
             let chunks = pack(&self.data)?;
