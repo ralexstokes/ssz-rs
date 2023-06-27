@@ -188,6 +188,18 @@ where
     T: SimpleSerialize,
 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
+        if !T::is_variable_size() {
+            let remainder = encoding.len() % T::size_hint();
+            if remainder != 0 {
+                return Err(DeserializeError::AdditionalInput {
+                    provided: encoding.len(),
+                    // SAFETY: checked subtraction is unnecessary, as encoding.len() > remainder;
+                    // qed
+                    expected: encoding.len() - remainder,
+                })
+            }
+        }
+
         let result = deserialize_homogeneous_composite(encoding)?;
         if result.len() > N {
             return Err(InstanceError::Bounded { bound: N, provided: result.len() }.into())
