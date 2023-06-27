@@ -2,15 +2,19 @@ use crate::{
     de::{Deserialize, DeserializeError},
     error::{Error, InstanceError},
     lib::*,
-    merkleization::{merkleize, mix_in_length, pack_bytes, MerkleizationError, Merkleized, Node},
+    merkleization::{
+        merkleize, mix_in_length, pack_bytes, MerkleizationError, Merkleized, Node, BITS_PER_CHUNK,
+    },
     ser::{Serialize, SerializeError},
     SimpleSerialize, Sized,
 };
 use bitvec::prelude::{BitVec, Lsb0};
 
+const BITS_PER_BYTE: usize = crate::BITS_PER_BYTE as usize;
+
 // +1 for length bit
 fn byte_length(bound: usize) -> usize {
-    (bound + 7 + 1) / 8
+    (bound + BITS_PER_BYTE - 1 + 1) / BITS_PER_BYTE
 }
 
 type BitlistInner = BitVec<u8, Lsb0>;
@@ -103,7 +107,7 @@ impl<const N: usize> Bitlist<N> {
 
         if with_length_bit {
             let element_count = self.len();
-            let marker_index = element_count % 8;
+            let marker_index = element_count % BITS_PER_BYTE;
             if marker_index == 0 {
                 buffer.push(1u8);
             } else {
@@ -113,6 +117,10 @@ impl<const N: usize> Bitlist<N> {
         }
         // SAFETY: checked subtraction is unnecessary, as buffer.len() > start_len; qed
         Ok(buffer.len() - start_len)
+    }
+
+    fn chunk_count() -> usize {
+        (N + BITS_PER_CHUNK - 1) / BITS_PER_CHUNK
     }
 }
 
@@ -174,7 +182,7 @@ impl<const N: usize> Deserialize for Bitlist<N> {
         // SAFETY: checked subtraction is unnecessary,
         // as last_byte != 0, so last.trailing_zeros <= 7; qed
         // therefore: bit_length >= 1
-        let bit_length = 8 - last.trailing_zeros();
+        let bit_length = BITS_PER_BYTE - last.trailing_zeros();
         let additional_members = bit_length - 1; // skip marker bit
         let total_members = result.len() + additional_members;
         if total_members > N {
@@ -192,7 +200,7 @@ impl<const N: usize> Deserialize for Bitlist<N> {
 impl<const N: usize> Merkleized for Bitlist<N> {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         let chunks = self.pack_bits()?;
-        let data_root = merkleize(&chunks, Some((N + 255) / 256))?;
+        let data_root = merkleize(&chunks, Some(Self::chunk_count()))?;
         Ok(mix_in_length(&data_root, self.len()))
     }
 }
