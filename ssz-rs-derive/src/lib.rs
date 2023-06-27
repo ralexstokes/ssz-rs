@@ -463,21 +463,12 @@ fn is_valid_none_identifier(ident: &Ident) -> bool {
     *ident == format_ident!("None")
 }
 
-// Refers to the validation state of proc macro's input
-enum ValidationState<'a> {
-    Unvalidated(&'a Data),
-    Validated(&'a Data),
-}
-
 // Validates the incoming data follows the rules
 // for mapping the Rust term to something that can
 // implement the `SimpleSerialize` trait.
-fn validate_derive_data(data: ValidationState) -> ValidationState {
-    let data = match data {
-        ValidationState::Unvalidated(data) => data,
-        data @ ValidationState::Validated(..) => return data,
-    };
-
+//
+// Panics if validation fails which aborts the macro derivation.
+fn validate_derive_data(data: &Data) {
     match data {
         Data::Struct(ref data) => match data.fields {
             Fields::Named(ref fields) => {
@@ -535,22 +526,14 @@ fn validate_derive_data(data: ValidationState) -> ValidationState {
         }
         Data::Union(..) => panic!("Rust unions cannot produce valid SSZ types"),
     }
-
-    ValidationState::Validated(data)
 }
 
 #[proc_macro_derive(SimpleSerialize)]
 pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
 
-    let data = ValidationState::Unvalidated(&input.data);
-
-    let data = &validate_derive_data(data);
-
-    let data = match *data {
-        ValidationState::Validated(data) => data,
-        ValidationState::Unvalidated(..) => panic!("do not process unvalidated input"),
-    };
+    let data = &input.data;
+    validate_derive_data(data);
 
     let name = &input.ident;
     let generics = &input.generics;
