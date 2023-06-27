@@ -12,6 +12,7 @@ use crate::{
 ///     None,
 ///     Some(T),
 /// }
+/// The SSZ schema for this value would be `Union[None, T]`.
 impl<T: SimpleSerialize> Sized for Option<T> {
     fn is_variable_size() -> bool {
         true
@@ -49,7 +50,15 @@ where
 
         // SAFETY: index is safe because encoding is not empty; qed
         match encoding[0] {
-            0 => Ok(None),
+            0 => {
+                if encoding.len() != 1 {
+                    return Err(DeserializeError::AdditionalInput {
+                        provided: encoding.len(),
+                        expected: 1,
+                    })
+                }
+                Ok(None)
+            }
             1 => {
                 // SAFETY: index is safe because encoding is not empty; qed
                 let inner = T::deserialize(&encoding[1..])?;
@@ -168,6 +177,17 @@ mod tests {
         let _ = x.serialize(&mut buffer).expect("can serialize");
         let recovered = Option::<u8>::deserialize(&buffer).expect("can decode");
         assert_eq!(x, recovered);
+    }
+
+    #[test]
+    fn test_options_with_extra_input() {
+        let buffer = vec![0u8, 123, 234];
+        let result = Option::<u8>::deserialize(&buffer);
+        assert!(matches!(result, Err(DeserializeError::AdditionalInput { .. })));
+
+        let buffer = vec![0u8, 123, 234];
+        let result = AnotherOption::deserialize(&buffer);
+        assert!(matches!(result, Err(DeserializeError::AdditionalInput { .. })));
     }
 
     #[test]
