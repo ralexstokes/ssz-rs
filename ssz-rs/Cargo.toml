@@ -20,7 +20,7 @@ std = [
     "sha2/default",
     "num-bigint/default",
 ]
-serde = ["dep:serde", "dep:hex"]
+serde = ["dep:serde", "hex"]
 
 [dependencies]
 thiserror = "1.0.25"
