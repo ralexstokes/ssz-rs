@@ -264,9 +264,11 @@ where
 }
 
 pub enum ListPath<Continuation> {
-    Index(IndexPath<Continuation>),
+    Index(usize, Continuation),
     Len,
 }
+
+impl<C> IndexedPath for ListPath<C> {}
 
 impl<T: SimpleSerialize + Indexed<Path = C>, C, const N: usize> Indexed for List<T, N> {
     type Path = ListPath<C>;
@@ -277,7 +279,7 @@ impl<T: SimpleSerialize + Indexed<Path = C>, C, const N: usize> Indexed for List
 
     fn generalized_index(root: GeneralizedIndex, path: &Self::Path) -> GeneralizedIndex {
         match path {
-            ListPath::Index((i, rest)) => {
+            ListPath::Index(i, rest) => {
                 let chunk_position = i * T::item_length() / 32;
                 let root = root * 2 * get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
                 T::generalized_index(root, rest)

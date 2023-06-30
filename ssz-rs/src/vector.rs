@@ -264,8 +264,12 @@ where
     }
 }
 
-impl<T: SimpleSerialize + Indexed<Path = C>, C, const N: usize> Indexed for Vector<T, N> {
-    type Path = IndexPath<C>;
+impl<C> IndexedPath for (usize, C) {}
+
+impl<T: SimpleSerialize + Indexed<Path = Continuation>, Continuation, const N: usize> Indexed
+    for Vector<T, N>
+{
+    type Path = (usize, Continuation);
 
     fn chunk_count() -> usize {
         (N * T::item_length() + 31) / 32
