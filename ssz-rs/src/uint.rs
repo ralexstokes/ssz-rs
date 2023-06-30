@@ -1,7 +1,7 @@
 use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
-    merkleization::{pack_bytes, MerkleizationError, Merkleized, Node},
+    merkleization::{multiproofs::*, pack_bytes, MerkleizationError, Merkleized, Node},
     ser::{Serialize, SerializeError},
     SimpleSerialize, Sized,
 };
@@ -54,6 +54,18 @@ macro_rules! define_uint {
                 let _ = self.serialize(&mut root)?;
                 pack_bytes(&mut root);
                 Ok(root.as_slice().try_into().expect("is valid root"))
+            }
+        }
+
+        impl Indexed for $uint {
+            type Path = Done;
+
+            fn item_length() -> usize {
+                <$uint>::size_hint()
+            }
+
+            fn generalized_index(root: GeneralizedIndex, _path: &Self::Path) -> GeneralizedIndex {
+                root
             }
         }
 
@@ -178,6 +190,18 @@ impl Merkleized for U256 {
         let data = self.to_bytes_le();
         let node = Node::try_from(data.as_ref()).expect("is right size");
         Ok(node)
+    }
+}
+
+impl Indexed for U256 {
+    type Path = Done;
+
+    fn item_length() -> usize {
+        Self::size_hint()
+    }
+
+    fn generalized_index(root: GeneralizedIndex, _path: &Self::Path) -> GeneralizedIndex {
+        root
     }
 }
 

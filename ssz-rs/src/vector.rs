@@ -2,7 +2,9 @@ use crate::{
     de::{deserialize_homogeneous_composite, Deserialize, DeserializeError},
     error::{Error, InstanceError, TypeError},
     lib::*,
-    merkleization::{elements_to_chunks, merkleize, pack, MerkleizationError, Merkleized, Node},
+    merkleization::{
+        elements_to_chunks, merkleize, multiproofs::*, pack, MerkleizationError, Merkleized, Node,
+    },
     ser::{serialize_composite, Serialize, SerializeError},
     SimpleSerialize, Sized,
 };
@@ -259,6 +261,21 @@ where
 {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         self.compute_hash_tree_root()
+    }
+}
+
+impl<T: SimpleSerialize + Indexed<Path = C>, C, const N: usize> Indexed for Vector<T, N> {
+    type Path = IndexPath<C>;
+
+    fn chunk_count() -> usize {
+        (N * T::item_length() + 31) / 32
+    }
+
+    fn generalized_index(root: GeneralizedIndex, path: &Self::Path) -> GeneralizedIndex {
+        let (i, rest) = path;
+        let chunk_position = i * T::item_length() / 32;
+        let root = root * 2 * get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
+        T::generalized_index(root, rest)
     }
 }
 

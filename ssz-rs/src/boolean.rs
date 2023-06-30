@@ -1,7 +1,7 @@
 use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
-    merkleization::{MerkleizationError, Merkleized, Node},
+    merkleization::{multiproofs::*, MerkleizationError, Merkleized, Node},
     ser::{Serialize, SerializeError},
     SimpleSerialize, Sized,
 };
@@ -46,6 +46,18 @@ impl Merkleized for bool {
             node.as_mut()[0] = 1;
         }
         Ok(node)
+    }
+}
+
+impl Indexed for bool {
+    type Path = Done;
+
+    fn item_length() -> usize {
+        Self::size_hint()
+    }
+
+    fn generalized_index(root: GeneralizedIndex, _path: &Self::Path) -> GeneralizedIndex {
+        root
     }
 }
 

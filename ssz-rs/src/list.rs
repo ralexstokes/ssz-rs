@@ -3,7 +3,8 @@ use crate::{
     error::{Error, InstanceError},
     lib::*,
     merkleization::{
-        elements_to_chunks, merkleize, mix_in_length, pack, MerkleizationError, Merkleized, Node,
+        elements_to_chunks, merkleize, mix_in_length, multiproofs::*, pack, MerkleizationError,
+        Merkleized, Node,
     },
     ser::{serialize_composite, Serialize, SerializeError},
     SimpleSerialize, Sized,
@@ -259,6 +260,30 @@ where
 {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         self.compute_hash_tree_root()
+    }
+}
+
+pub enum ListPath<Continuation> {
+    Index(IndexPath<Continuation>),
+    Len,
+}
+
+impl<T: SimpleSerialize + Indexed<Path = C>, C, const N: usize> Indexed for List<T, N> {
+    type Path = ListPath<C>;
+
+    fn chunk_count() -> usize {
+        (N * T::item_length() + 31) / 32
+    }
+
+    fn generalized_index(root: GeneralizedIndex, path: &Self::Path) -> GeneralizedIndex {
+        match path {
+            ListPath::Index((i, rest)) => {
+                let chunk_position = i * T::item_length() / 32;
+                let root = root * 2 * get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
+                T::generalized_index(root, rest)
+            }
+            ListPath::Len => root * 2 + 1,
+        }
     }
 }
 
