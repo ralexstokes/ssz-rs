@@ -1,7 +1,7 @@
 use crate::{lib::*, merkleization::BYTES_PER_CHUNK, prelude::*, utils::write_bytes_to_lower_hex};
 
 /// A node in a merkle tree.
-#[derive(Default, Clone, Copy, Eq, SimpleSerialize)]
+#[derive(Default, Clone, Copy, Eq, Hash, SimpleSerialize)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Node(
     #[cfg_attr(feature = "serde", serde(with = "crate::serde::as_hex"))] [u8; BYTES_PER_CHUNK],
