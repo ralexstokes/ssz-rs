@@ -8,7 +8,8 @@ fn log_2(x: usize) -> u32 {
     num_bits::<usize>() as u32 - x.leading_zeros() - 1
 }
 
-pub(crate) fn get_power_of_two_ceil(x: usize) -> usize {
+// TODO hide as much as possible
+pub fn get_power_of_two_ceil(x: usize) -> usize {
     match x {
         x if x <= 1 => 1,
         2 => 2,

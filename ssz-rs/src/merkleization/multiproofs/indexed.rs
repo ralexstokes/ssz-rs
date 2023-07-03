@@ -1,14 +1,34 @@
-use crate::merkleization::{multiproofs::GeneralizedIndex, BYTES_PER_CHUNK};
+use crate::{
+    lib::*,
+    merkleization::{multiproofs::GeneralizedIndex, BYTES_PER_CHUNK},
+};
 
-pub trait IndexedPath {}
+#[derive(Debug, Clone)]
+pub enum PathElement {
+    Index(usize),
+    Field(&'static str),
+    Length,
+}
 
-pub struct Done;
+#[derive(Debug)]
+pub enum PathError {
+    Type(PathElement),
+    EmptyPath,
+}
 
-impl IndexedPath for Done {}
+impl Display for PathError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::Type(elem) => write!(f, "invalid path element {elem:?} when walking type"),
+            Self::EmptyPath => write!(f, ""),
+        }
+    }
+}
+
+#[cfg(feature = "std")]
+impl std::error::Error for PathError {}
 
 pub trait Indexed {
-    type Path: IndexedPath;
-
     fn item_length() -> usize {
         BYTES_PER_CHUNK
     }
@@ -18,5 +38,8 @@ pub trait Indexed {
     }
 
     // Compute the generalized index starting from the `root` index and following `path`.
-    fn generalized_index(root: GeneralizedIndex, path: &Self::Path) -> GeneralizedIndex;
+    fn generalized_index(
+        root: GeneralizedIndex,
+        path: &[PathElement],
+    ) -> Result<GeneralizedIndex, PathError>;
 }

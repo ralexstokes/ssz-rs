@@ -50,14 +50,16 @@ impl Merkleized for bool {
 }
 
 impl Indexed for bool {
-    type Path = Done;
-
     fn item_length() -> usize {
         Self::size_hint()
     }
 
-    fn generalized_index(root: GeneralizedIndex, _path: &Self::Path) -> GeneralizedIndex {
-        root
+    fn generalized_index(
+        root: GeneralizedIndex,
+        path: &[PathElement],
+    ) -> Result<GeneralizedIndex, PathError> {
+        // TODO validate no path
+        Ok(root)
     }
 }
 

@@ -118,7 +118,7 @@ pub mod prelude {
         bitvector::Bitvector,
         de::{Deserialize, DeserializeError},
         error::{Error as SimpleSerializeError, InstanceError, TypeError},
-        list::{List, ListPath},
+        list::List,
         merkleization::{
             is_valid_merkle_branch, multiproofs::*, MerkleizationError, Merkleized, Node,
         },

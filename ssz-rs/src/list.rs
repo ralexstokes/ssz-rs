@@ -263,28 +263,31 @@ where
     }
 }
 
-pub enum ListPath<Continuation> {
-    Index(usize, Continuation),
-    Len,
-}
-
-impl<C> IndexedPath for ListPath<C> {}
-
-impl<T: SimpleSerialize + Indexed<Path = C>, C, const N: usize> Indexed for List<T, N> {
-    type Path = ListPath<C>;
-
+impl<T: SimpleSerialize + Indexed, const N: usize> Indexed for List<T, N> {
     fn chunk_count() -> usize {
         (N * T::item_length() + 31) / 32
     }
 
-    fn generalized_index(root: GeneralizedIndex, path: &Self::Path) -> GeneralizedIndex {
-        match path {
-            ListPath::Index(i, rest) => {
-                let chunk_position = i * T::item_length() / 32;
-                let root = root * 2 * get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
-                T::generalized_index(root, rest)
+    fn generalized_index(
+        root: GeneralizedIndex,
+        path: &[PathElement],
+    ) -> Result<GeneralizedIndex, PathError> {
+        if let Some((next, rest)) = path.split_first() {
+            match next {
+                PathElement::Index(i) => {
+                    let chunk_position = i * T::item_length() / 32;
+                    let root =
+                        root * 2 * get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
+                    T::generalized_index(root, rest)
+                }
+                PathElement::Length => {
+                    // TODO validate no more path
+                    Ok(root * 2 + 1)
+                }
+                elem => Err(PathError::Type(elem.clone())),
             }
-            ListPath::Len => root * 2 + 1,
+        } else {
+            Ok(root)
         }
     }
 }

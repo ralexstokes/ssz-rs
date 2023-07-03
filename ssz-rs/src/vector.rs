@@ -3,7 +3,9 @@ use crate::{
     error::{Error, InstanceError, TypeError},
     lib::*,
     merkleization::{
-        elements_to_chunks, merkleize, multiproofs::*, pack, MerkleizationError, Merkleized, Node,
+        elements_to_chunks, merkleize,
+        multiproofs::{get_power_of_two_ceil, GeneralizedIndex, Indexed, PathElement, PathError},
+        pack, MerkleizationError, Merkleized, Node,
     },
     ser::{serialize_composite, Serialize, SerializeError},
     SimpleSerialize, Sized,
@@ -264,22 +266,27 @@ where
     }
 }
 
-impl<C> IndexedPath for (usize, C) {}
-
-impl<T: SimpleSerialize + Indexed<Path = Continuation>, Continuation, const N: usize> Indexed
-    for Vector<T, N>
-{
-    type Path = (usize, Continuation);
-
+impl<T: SimpleSerialize + Indexed, const N: usize> Indexed for Vector<T, N> {
     fn chunk_count() -> usize {
         (N * T::item_length() + 31) / 32
     }
 
-    fn generalized_index(root: GeneralizedIndex, path: &Self::Path) -> GeneralizedIndex {
-        let (i, rest) = path;
-        let chunk_position = i * T::item_length() / 32;
-        let root = root * 2 * get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
-        T::generalized_index(root, rest)
+    fn generalized_index(
+        root: GeneralizedIndex,
+        path: &[PathElement],
+    ) -> Result<GeneralizedIndex, PathError> {
+        if let Some((next, rest)) = path.split_first() {
+            match next {
+                PathElement::Index(i) => {
+                    let chunk_position = i * T::item_length() / 32;
+                    let root = root * get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
+                    T::generalized_index(root, rest)
+                }
+                elem => Err(PathError::Type(elem.clone())),
+            }
+        } else {
+            Ok(root)
+        }
     }
 }
 

@@ -58,14 +58,16 @@ macro_rules! define_uint {
         }
 
         impl Indexed for $uint {
-            type Path = Done;
-
             fn item_length() -> usize {
                 <$uint>::size_hint()
             }
 
-            fn generalized_index(root: GeneralizedIndex, _path: &Self::Path) -> GeneralizedIndex {
-                root
+            fn generalized_index(
+                root: GeneralizedIndex,
+                path: &[PathElement],
+            ) -> Result<GeneralizedIndex, PathError> {
+                //TODO validate no path
+                Ok(root)
             }
         }
 
@@ -194,14 +196,16 @@ impl Merkleized for U256 {
 }
 
 impl Indexed for U256 {
-    type Path = Done;
-
     fn item_length() -> usize {
         Self::size_hint()
     }
 
-    fn generalized_index(root: GeneralizedIndex, _path: &Self::Path) -> GeneralizedIndex {
-        root
+    fn generalized_index(
+        root: GeneralizedIndex,
+        path: &[PathElement],
+    ) -> Result<GeneralizedIndex, PathError> {
+        // TODO validate no path
+        Ok(root)
     }
 }
 

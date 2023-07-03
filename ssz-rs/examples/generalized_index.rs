@@ -2,38 +2,56 @@ use ssz_rs::prelude::*;
 
 #[derive(Default, Debug, SimpleSerialize)]
 struct Bar {
+    c: u8,
     f: Foo,
     a: List<u8, 25>,
 }
 
-enum BarPath {
-    F(FooPath),
-    A(ListPath<Done>),
+impl Bar {
+    fn __ssz_rs_generalized_index_by_field(
+        root: GeneralizedIndex,
+        path: &[PathElement],
+        field: &str,
+    ) -> Result<GeneralizedIndex, PathError> {
+        match field {
+            "c" => {
+                let chunk_position = 0;
+                let root = root + get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
+                u8::generalized_index(root, path)
+            }
+            "f" => {
+                let chunk_position = 1;
+                let root = root + get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
+                Foo::generalized_index(root, path)
+            }
+            "a" => {
+                let chunk_position = 2;
+                let root = root + get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
+                List::<u8, 25>::generalized_index(root, path)
+            }
+            s => Err(PathError::Type(PathElement::Field(s))),
+        }
+    }
 }
 
 impl Indexed for Bar {
-    type Path = BarPath;
-
     fn chunk_count() -> usize {
-        2
+        3
     }
 
-    fn generalized_index(root: GeneralizedIndex, path: &Self::Path) -> GeneralizedIndex {
-        match path {
-            BarPath::F(path) => {
-                let chunk_position = 0;
-                let base_index = 1;
-                let root =
-                    root * base_index + get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
-                Foo::generalized_index(root, path)
+    fn generalized_index(
+        root: GeneralizedIndex,
+        path: &[PathElement],
+    ) -> Result<GeneralizedIndex, PathError> {
+        if let Some((next, rest)) = path.split_first() {
+            match next {
+                PathElement::Field(field) => {
+                    Self::__ssz_rs_generalized_index_by_field(root, rest, *field)
+                }
+                elem => Err(PathError::Type(elem.clone())),
             }
-            BarPath::A(path) => {
-                let chunk_position = 1;
-                let base_index = 1;
-                let root =
-                    root * base_index + get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
-                List::<u8, 25>::generalized_index(root, path)
-            }
+        } else {
+            Ok(root)
         }
     }
 }
@@ -44,34 +62,46 @@ struct Foo {
     y: List<Qux, 256>,
 }
 
-enum FooPath {
-    X(IndexPath<Done>),
-    Y(ListPath<QuxPath>),
+impl Foo {
+    fn __ssz_rs_generalized_index_by_field(
+        root: GeneralizedIndex,
+        path: &[PathElement],
+        field: &str,
+    ) -> Result<GeneralizedIndex, PathError> {
+        match field {
+            "x" => {
+                let chunk_position = 0;
+                let root = root + get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
+                Vector::<u8, 32>::generalized_index(root, path)
+            }
+            "y" => {
+                let chunk_position = 1;
+                let root = root + get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
+                List<Qux, 256>::generalized_index(root, path)
+            }
+            s => Err(PathError::Type(PathElement::Field(s))),
+        }
+    }
 }
 
 impl Indexed for Foo {
-    type Path = FooPath;
-
     fn chunk_count() -> usize {
         2
     }
 
-    fn generalized_index(root: GeneralizedIndex, path: &Self::Path) -> GeneralizedIndex {
-        match path {
-            FooPath::X(path) => {
-                let chunk_position = 0;
-                let base_index = 1;
-                let root =
-                    root * base_index + get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
-                Vector::<u8, 32>::generalized_index(root, path)
+    fn generalized_index(
+        root: GeneralizedIndex,
+        path: &[PathElement],
+    ) -> Result<GeneralizedIndex, PathError> {
+        if let Some((next, rest)) = path.split_first() {
+            match next {
+                PathElement::Field(field) => {
+                    Self::__ssz_rs_generalized_index_by_field(root, rest, *field)
+                }
+                elem => Err(PathError::Type(elem.clone())),
             }
-            FooPath::Y(path) => {
-                let chunk_position = 1;
-                let base_index = 1;
-                let root =
-                    root * base_index + get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
-                List::<Qux, 256>::generalized_index(root, path)
-            }
+        } else {
+            Ok(root)
         }
     }
 }
@@ -81,32 +111,68 @@ struct Qux {
     a: Vector<u16, 8>,
 }
 
-enum QuxPath {
-    A(IndexPath<Done>),
+impl Qux{
+    fn __ssz_rs_generalized_index_by_field(
+        root: GeneralizedIndex,
+        path: &[PathElement],
+        field: &str,
+    ) -> Result<GeneralizedIndex, PathError> {
+        match field {
+            "a" => {
+                let chunk_position = 0;
+                let root = root + get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
+                Vector::<u16, 8>::generalized_index(root, path)
+            }
+            s => Err(PathError::Type(PathElement::Field(s))),
+        }
+    }
 }
 
 impl Indexed for Qux {
-    type Path = QuxPath;
-
     fn chunk_count() -> usize {
         1
     }
 
-    fn generalized_index(root: GeneralizedIndex, path: &Self::Path) -> GeneralizedIndex {
-        match path {
-            QuxPath::A(path) => {
-                let chunk_position = 0;
-                let base_index = 1;
-                let root =
-                    root * base_index + get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
-                Vector::<u16, 8>::generalized_index(root, path)
+    fn generalized_index(
+        root: GeneralizedIndex,
+        path: &[PathElement],
+    ) -> Result<GeneralizedIndex, PathError> {
+        if let Some((next, rest)) = path.split_first() {
+            match next {
+                PathElement::Field(field) => {
+                    Self::__ssz_rs_generalized_index_by_field(root, rest, *field)
+                }
+                elem => Err(PathError::Type(elem.clone())),
             }
+        } else {
+            Ok(root)
         }
     }
 }
 
 fn main() {
-    let path = BarPath::F(FooPath::Y(ListPath::Index((2, QuxPath::A((3, Done))))));
+    let root = 1;
+
+    // {bit,}vector
+    let path = [Path::Index(2)];
+    let index = Vector::<u8, 16>::generalized_index(root, &path);
+
+    // {bit,}list
+    let path = [Path::Index(2)];
+    let index = List::<u8, 256>::generalized_index(root, &path);
+    let path = [Path::Length];
+    let index = List::<u8, 256>::generalized_index(root, &path);
+
+    // containers
+    let path = [Path::Field("c")];
+    let index = Bar::generalized_index(root, &path);
+
+    // nested access
+    let path = [Path::Field("a"), Path::Index(2)];
+    let index = Bar::generalized_index(root, &path);
+
+    let path =
+        [Path::Field("f"), Path::Field("y"), Path::Index(2), Path::Field("a"), Path::Index(3)];
     let root = 1;
     let index = Bar::generalized_index(root, &path);
     dbg!(index);
