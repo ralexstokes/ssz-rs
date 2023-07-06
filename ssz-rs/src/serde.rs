@@ -1,15 +1,33 @@
+use crate::lib::*;
 use hex::FromHexError;
-use thiserror::Error;
 
 const HEX_ENCODING_PREFIX: &str = "0x";
 
-#[derive(Debug, Error)]
+#[derive(Debug)]
 pub enum HexError {
-    #[error("{0}")]
-    Hex(#[from] FromHexError),
-    #[error("missing prefix `{HEX_ENCODING_PREFIX}` when deserializing hex data")]
+    Hex(FromHexError),
     MissingPrefix,
 }
+
+impl fmt::Display for HexError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::Hex(e) => write!(f, "{e}"),
+            Self::MissingPrefix => {
+                write!(f, "missing prefix `{HEX_ENCODING_PREFIX}` when deserializing hex data")
+            }
+        }
+    }
+}
+
+impl From<FromHexError> for HexError {
+    fn from(e: FromHexError) -> Self {
+        Self::Hex(e)
+    }
+}
+
+#[cfg(feature = "std")]
+impl std::error::Error for HexError {}
 
 fn try_bytes_from_hex_str(s: &str) -> Result<Vec<u8>, HexError> {
     let target = s.strip_prefix(HEX_ENCODING_PREFIX).ok_or(HexError::MissingPrefix)?;

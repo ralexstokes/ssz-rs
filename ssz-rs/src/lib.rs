@@ -91,6 +91,9 @@ mod lib {
 
     #[cfg(feature = "std")]
     pub use std::vec::Vec;
+
+    #[cfg(feature = "serde")]
+    pub use self::core::marker::PhantomData;
 }
 
 /// `Sized` is a trait for types that can
