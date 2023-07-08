@@ -1,6 +1,6 @@
 [package]
 name = "ssz_rs"
-version = "0.8.0"
+version = "0.9.0"
 authors = ["Alex Stokes <r.alex.stokes@gmail.com>"]
 edition = "2021"
 license = "MIT OR Apache-2.0"
@@ -24,7 +24,7 @@ serde = ["dep:serde", "hex"]
 
 [dependencies]
 bitvec = { version = "1.0.0", default-features = false, features = ["alloc"] }
-ssz_rs_derive = { path = "../ssz-rs-derive", version = "0.8.0" }
+ssz_rs_derive = { path = "../ssz-rs-derive", version = "0.9.0" }
 sha2 = { version ="0.9.8", default-features = false}
 serde = { version = "1.0", default-features = false, features = ["alloc", "derive"], optional = true }
 hex = { version = "0.4.3", default-features = false, features = ["alloc"], optional = true }
