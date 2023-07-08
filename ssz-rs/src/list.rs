@@ -5,7 +5,7 @@ use crate::{
     merkleization::{
         elements_to_chunks, merkleize, mix_in_length, pack, MerkleizationError, Merkleized, Node,
     },
-    ser::{serialize_composite, Serialize, SerializeError},
+    ser::{Serialize, SerializeError, Serializer},
     SimpleSerialize, Sized,
 };
 #[cfg(feature = "serde")]
@@ -177,7 +177,11 @@ where
         if self.len() > N {
             return Err(InstanceError::Bounded { bound: N, provided: self.len() }.into())
         }
-        serialize_composite(&self.data, buffer)
+        let mut serializer = Serializer::default();
+        for element in &self.data {
+            serializer.with_element(element)?;
+        }
+        serializer.serialize(buffer)
     }
 }
 

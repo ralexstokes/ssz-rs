@@ -8,7 +8,7 @@ use crate::{
     error::{InstanceError, TypeError},
     lib::*,
     merkleization::{elements_to_chunks, merkleize, pack, MerkleizationError, Merkleized, Node},
-    ser::{serialize_composite, Serialize, SerializeError},
+    ser::{Serialize, SerializeError, Serializer},
     SimpleSerialize, Sized,
 };
 
@@ -35,7 +35,11 @@ macro_rules! define_ssz_for_array_of_size {
                 if $n == 0 {
                     return Err(TypeError::InvalidBound($n).into())
                 }
-                serialize_composite(self, buffer)
+                let mut serializer = Serializer::default();
+                for element in self {
+                    serializer.with_element(element)?;
+                }
+                serializer.serialize(buffer)
             }
         }
 
