@@ -285,7 +285,15 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                         }
                         Fields::Unit => {
                             quote_spanned! { variant.span() =>
-                                0 => Ok(Self::None),
+                                0 => {
+                                    if encoding.len() != 1 {
+                                        return Err(DeserializeError::AdditionalInput {
+                                            provided: encoding.len(),
+                                            expected: 1,
+                                        })
+                                    }
+                                    Ok(Self::None)
+                                },
                             }
                         }
                         _ => unreachable!(),
