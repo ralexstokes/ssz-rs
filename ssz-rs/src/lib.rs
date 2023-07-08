@@ -83,12 +83,16 @@ mod lib {
     pub use self::core::marker::PhantomData;
 }
 
+pub(crate) const BITS_PER_BYTE: u32 = 8;
+
 /// `Sized` is a trait for types that can
 /// provide sizing information relevant for the SSZ spec.
 pub trait Sized {
     // is this type variable or fixed size?
     fn is_variable_size() -> bool;
 
+    // expected number of bytes for the serialization of this type
+    // or 0 if unknown ahead of time
     fn size_hint() -> usize;
 }
 

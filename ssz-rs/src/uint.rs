@@ -3,9 +3,14 @@ use crate::{
     lib::*,
     merkleization::{pack_bytes, MerkleizationError, Merkleized, Node},
     ser::{Serialize, SerializeError},
-    SimpleSerialize, Sized,
+    SimpleSerialize, Sized, BITS_PER_BYTE,
 };
 use num_bigint::BigUint;
+
+#[inline]
+fn bits_to_bytes(count: u32) -> usize {
+    (count / BITS_PER_BYTE) as usize
+}
 
 macro_rules! define_uint {
     ($uint:ty) => {
@@ -15,20 +20,20 @@ macro_rules! define_uint {
             }
 
             fn size_hint() -> usize {
-                (<$uint>::BITS / 8) as usize
+                bits_to_bytes(<$uint>::BITS)
             }
         }
 
         impl Serialize for $uint {
             fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
                 buffer.extend_from_slice(&self.to_le_bytes());
-                Ok((<$uint>::BITS / 8) as usize)
+                Ok(bits_to_bytes(<$uint>::BITS))
             }
         }
 
         impl Deserialize for $uint {
             fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
-                let byte_size = (<$uint>::BITS / 8) as usize;
+                let byte_size = bits_to_bytes(<$uint>::BITS);
                 if encoding.len() < byte_size {
                     return Err(DeserializeError::ExpectedFurtherInput {
                         provided: encoding.len(),

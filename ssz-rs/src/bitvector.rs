@@ -2,7 +2,7 @@ use crate::{
     de::{Deserialize, DeserializeError},
     error::{Error, InstanceError, TypeError},
     lib::*,
-    merkleization::{merkleize, pack_bytes, MerkleizationError, Merkleized, Node},
+    merkleization::{merkleize, pack_bytes, MerkleizationError, Merkleized, Node, BITS_PER_CHUNK},
     ser::{Serialize, SerializeError},
     SimpleSerialize, Sized,
 };
@@ -11,8 +11,10 @@ use bitvec::{
     prelude::{BitVec, Lsb0},
 };
 
+const BITS_PER_BYTE: usize = crate::BITS_PER_BYTE as usize;
+
 fn byte_length(bound: usize) -> usize {
-    (bound + 7) / 8
+    (bound + BITS_PER_BYTE - 1) / BITS_PER_BYTE
 }
 
 type BitvectorInner = BitVec<u8, Lsb0>;
@@ -102,6 +104,10 @@ impl<const N: usize> Bitvector<N> {
         pack_bytes(&mut data);
         Ok(data)
     }
+
+    fn chunk_count() -> usize {
+        (N + BITS_PER_CHUNK - 1) / BITS_PER_CHUNK
+    }
 }
 
 impl<const N: usize> Deref for Bitvector<N> {
@@ -124,7 +130,7 @@ impl<const N: usize> Sized for Bitvector<N> {
     }
 
     fn size_hint() -> usize {
-        (N + 7) / 8
+        byte_length(N)
     }
 }
 
@@ -135,7 +141,7 @@ impl<const N: usize> Serialize for Bitvector<N> {
         }
         let bytes_to_write = Self::size_hint();
         buffer.reserve(bytes_to_write);
-        for byte in self.chunks(8) {
+        for byte in self.chunks(BITS_PER_BYTE) {
             buffer.push(byte.load());
         }
         Ok(bytes_to_write)
@@ -163,10 +169,10 @@ impl<const N: usize> Deserialize for Bitvector<N> {
         }
 
         let mut result = Self::default();
-        for (slot, byte) in result.chunks_mut(8).zip(encoding.iter().copied()) {
+        for (slot, byte) in result.chunks_mut(BITS_PER_BYTE).zip(encoding.iter().copied()) {
             slot.store_le(byte);
         }
-        let remainder_count = N % 8;
+        let remainder_count = N % BITS_PER_BYTE;
         if remainder_count != 0 {
             let last_byte = encoding.last().unwrap();
             let remainder_bits = last_byte >> remainder_count;
@@ -181,7 +187,7 @@ impl<const N: usize> Deserialize for Bitvector<N> {
 impl<const N: usize> Merkleized for Bitvector<N> {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         let chunks = self.pack_bits()?;
-        merkleize(&chunks, Some((N + 255) / 256))
+        merkleize(&chunks, Some(Self::chunk_count()))
     }
 }
 
