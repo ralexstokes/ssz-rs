@@ -68,14 +68,8 @@ fn deserialize_fixed_homogeneous_composite<T>(encoding: &[u8]) -> Result<Vec<T>,
 where
     T: SimpleSerialize,
 {
-    let remainder = encoding.len() % T::size_hint();
-    if remainder != 0 {
-        return Err(DeserializeError::AdditionalInput {
-            provided: encoding.len(),
-            // SAFETY: checked subtraction is unnecessary, as encoding.len() > remainder; qed
-            expected: encoding.len() - remainder,
-        })
-    }
+    // NOTE: Callers have already validated `encoding` is correctly sized
+    debug_assert_eq!(encoding.len() % T::size_hint(), 0);
 
     let mut elements = vec![];
     for chunk in encoding.chunks_exact(T::size_hint()) {
