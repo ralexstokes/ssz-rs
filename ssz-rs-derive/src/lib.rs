@@ -3,7 +3,10 @@
 //! Refer to the `examples` in the `ssz_rs` crate for a better idea on how to use this derive macro.
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote, quote_spanned};
-use syn::{parse_macro_input, spanned::Spanned, Data, DeriveInput, Fields, Ident};
+use syn::{
+    parse_macro_input, spanned::Spanned, Data, DeriveInput, Fields, Ident, ImplGenerics,
+    TypeGenerics,
+};
 
 // NOTE: copied here from `ssz_rs` crate as it is unlikely to change
 // and can keep it out of the crate's public interface.
@@ -392,6 +395,53 @@ fn validate_derive_data(data: &Data) {
     }
 }
 
+fn impl_serilizable(
+    data: &Data,
+    name: &Ident,
+    impl_generics: &ImplGenerics,
+    ty_generics: &TypeGenerics,
+) -> proc_macro2::TokenStream {
+    let serialize_impl = derive_serialize_impl(data);
+    let deserialize_impl = derive_deserialize_impl(data);
+    let is_variable_size_impl = derive_variable_size_impl(data);
+    let size_hint_impl = derive_size_hint_impl(data);
+
+    quote! {
+        impl #impl_generics ssz_rs::Serialize for #name #ty_generics {
+            #serialize_impl
+        }
+
+        impl #impl_generics ssz_rs::Deserialize for #name #ty_generics {
+            #deserialize_impl
+        }
+
+        impl #impl_generics ssz_rs::Serializable for #name #ty_generics {
+            fn is_variable_size() -> bool {
+                #is_variable_size_impl
+            }
+
+            fn size_hint() -> usize {
+                #size_hint_impl
+            }
+        }
+    }
+}
+
+#[proc_macro_derive(Serializable)]
+pub fn derive_serializable(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    let input = parse_macro_input!(input as DeriveInput);
+
+    let data = &input.data;
+    validate_derive_data(data);
+
+    let name = &input.ident;
+    let generics = &input.generics;
+
+    let (impl_generics, ty_generics, _) = generics.split_for_impl();
+    let expand = impl_serilizable(data, name, &impl_generics, &ty_generics);
+    proc_macro::TokenStream::from(expand)
+}
+
 #[proc_macro_derive(SimpleSerialize)]
 pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
@@ -401,49 +451,20 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
 
     let name = &input.ident;
     let generics = &input.generics;
-    let serialize_impl = derive_serialize_impl(data);
-    let deserialize_impl = derive_deserialize_impl(data);
-    let is_variable_size_impl = derive_variable_size_impl(data);
-    let size_hint_impl = derive_size_hint_impl(data);
     let merkleization_impl = derive_merkleization_impl(data);
 
-    let impl_impl = if generics.params.is_empty() {
-        quote! { impl }
-    } else {
-        quote! { impl #generics }
-    };
+    let (impl_generics, ty_generics, _) = generics.split_for_impl();
 
-    let name_impl = if generics.params.is_empty() {
-        quote! { #name }
-    } else {
-        let (_, ty_generics, _) = generics.split_for_impl();
-        quote! { #name #ty_generics }
-    };
+    let serializable_impl = impl_serilizable(data, name, &impl_generics, &ty_generics);
 
     let expansion = quote! {
-        #impl_impl ssz_rs::Serialize for #name_impl {
-            #serialize_impl
-        }
+        #serializable_impl
 
-        #impl_impl ssz_rs::Deserialize for #name_impl {
-            #deserialize_impl
-        }
-
-        #impl_impl ssz_rs::Serializable for #name_impl {
-            fn is_variable_size() -> bool {
-                #is_variable_size_impl
-            }
-
-            fn size_hint() -> usize {
-                #size_hint_impl
-            }
-        }
-
-        #impl_impl ssz_rs::Merkleized for #name_impl {
+        impl #impl_generics ssz_rs::Merkleized for #name #ty_generics {
             #merkleization_impl
         }
 
-        #impl_impl ssz_rs::SimpleSerialize for #name_impl {}
+        impl #impl_generics ssz_rs::SimpleSerialize for #name #ty_generics {}
     };
 
     proc_macro::TokenStream::from(expansion)

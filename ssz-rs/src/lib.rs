@@ -127,7 +127,7 @@ pub mod prelude {
     // expose this so the derive macro has everything in scope
     // with a simple `prelude` import
     pub use crate as ssz_rs;
-    pub use ssz_rs_derive::SimpleSerialize;
+    pub use ssz_rs_derive::{Serializable, SimpleSerialize};
 }
 
 #[doc(hidden)]
