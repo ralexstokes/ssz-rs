@@ -3,7 +3,7 @@ use crate::{
     lib::*,
     merkleization::{mix_in_selector, MerkleizationError, Merkleized, Node},
     ser::{Serialize, SerializeError},
-    SimpleSerialize, Sized,
+    Serializable, SimpleSerialize,
 };
 
 /// `SimpleSerialize` is implemented for `Option` as a convenience
@@ -13,7 +13,7 @@ use crate::{
 ///     Some(T),
 /// }
 /// The SSZ schema for this value would be `Union[None, T]`.
-impl<T: SimpleSerialize> Sized for Option<T> {
+impl<T: Serializable> Serializable for Option<T> {
     fn is_variable_size() -> bool {
         true
     }
@@ -25,7 +25,7 @@ impl<T: SimpleSerialize> Sized for Option<T> {
 
 impl<T> Serialize for Option<T>
 where
-    T: SimpleSerialize,
+    T: Serializable,
 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         match self {
@@ -41,7 +41,7 @@ where
 
 impl<T> Deserialize for Option<T>
 where
-    T: SimpleSerialize,
+    T: Serializable,
 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if encoding.is_empty() {

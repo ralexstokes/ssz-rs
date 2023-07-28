@@ -9,14 +9,14 @@ use crate::{
     lib::*,
     merkleization::{elements_to_chunks, merkleize, pack, MerkleizationError, Merkleized, Node},
     ser::{Serialize, SerializeError, Serializer},
-    SimpleSerialize, Sized,
+    Serializable, SimpleSerialize,
 };
 
 macro_rules! define_ssz_for_array_of_size {
     ($n: literal) => {
-        impl<T> Sized for [T; $n]
+        impl<T> Serializable for [T; $n]
         where
-            T: SimpleSerialize,
+            T: Serializable,
         {
             fn is_variable_size() -> bool {
                 T::is_variable_size()
@@ -29,7 +29,7 @@ macro_rules! define_ssz_for_array_of_size {
 
         impl<T> Serialize for [T; $n]
         where
-            T: SimpleSerialize,
+            T: Serializable,
         {
             fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
                 if $n == 0 {
@@ -45,7 +45,7 @@ macro_rules! define_ssz_for_array_of_size {
 
         impl<T> Deserialize for [T; $n]
         where
-            T: SimpleSerialize,
+            T: Serializable,
         {
             fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
                 if $n == 0 {

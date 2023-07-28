@@ -3,7 +3,7 @@ use crate::{
     lib::*,
     merkleization::{pack_bytes, MerkleizationError, Merkleized, Node},
     ser::{Serialize, SerializeError},
-    SimpleSerialize, Sized, BITS_PER_BYTE,
+    Serializable, SimpleSerialize, BITS_PER_BYTE,
 };
 use num_bigint::BigUint;
 
@@ -14,7 +14,7 @@ fn bits_to_bytes(count: u32) -> usize {
 
 macro_rules! define_uint {
     ($uint:ty) => {
-        impl Sized for $uint {
+        impl Serializable for $uint {
             fn is_variable_size() -> bool {
                 false
             }
@@ -116,7 +116,7 @@ impl From<u64> for U256 {
     }
 }
 
-impl Sized for U256 {
+impl Serializable for U256 {
     fn is_variable_size() -> bool {
         false
     }

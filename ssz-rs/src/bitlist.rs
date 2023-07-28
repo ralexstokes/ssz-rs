@@ -6,7 +6,7 @@ use crate::{
         merkleize, mix_in_length, pack_bytes, MerkleizationError, Merkleized, Node, BITS_PER_CHUNK,
     },
     ser::{Serialize, SerializeError},
-    SimpleSerialize, Sized,
+    Serializable, SimpleSerialize,
 };
 use bitvec::prelude::{BitVec, Lsb0};
 
@@ -115,7 +115,7 @@ impl<const N: usize> DerefMut for Bitlist<N> {
     }
 }
 
-impl<const N: usize> Sized for Bitlist<N> {
+impl<const N: usize> Serializable for Bitlist<N> {
     fn is_variable_size() -> bool {
         true
     }

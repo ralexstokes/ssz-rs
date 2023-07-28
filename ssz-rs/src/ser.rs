@@ -1,7 +1,7 @@
 use crate::{
     error::{InstanceError, TypeError},
     lib::*,
-    SimpleSerialize,
+    Serializable,
 };
 
 // NOTE: if this is changed, go change in `ssz_derive` as well!
@@ -99,7 +99,7 @@ impl Serializer {
         Ok(total_size)
     }
 
-    pub fn with_element<T: SimpleSerialize>(&mut self, element: &T) -> Result<(), SerializeError> {
+    pub fn with_element<T: Serializable>(&mut self, element: &T) -> Result<(), SerializeError> {
         let mut element_buffer = Vec::with_capacity(T::size_hint());
         element.serialize(&mut element_buffer)?;
 
