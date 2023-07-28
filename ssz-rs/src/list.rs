@@ -88,9 +88,6 @@ where
     }
 }
 
-// NOTE: implement `IndexMut` rather than `DerefMut` to ensure
-// the inner data is not mutated without being able to
-// track which elements changed
 impl<T, Idx: SliceIndex<[T]>, const N: usize> Index<Idx> for List<T, N>
 where
     T: Serializable,
@@ -102,6 +99,9 @@ where
     }
 }
 
+// NOTE: implement `IndexMut` rather than `DerefMut` to ensure
+// the inner data is not mutated without being able to
+// track which elements changed
 impl<T, const N: usize> IndexMut<usize> for List<T, N>
 where
     T: Serializable,
