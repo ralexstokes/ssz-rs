@@ -185,16 +185,16 @@ where
         self.data.clear();
     }
 
-    pub fn iter_mut(&mut self) -> IterMut<'_, T, N> {
+    pub fn iter_mut(&mut self) -> IterMut<'_, T> {
         IterMut { inner: self.data.iter_mut() }
     }
 }
 
-pub struct IterMut<'a, T, const N: usize> {
+pub struct IterMut<'a, T> {
     inner: slice::IterMut<'a, T>,
 }
 
-impl<'a, T, const N: usize> Iterator for IterMut<'a, T, N> {
+impl<'a, T> Iterator for IterMut<'a, T> {
     type Item = &'a mut T;
 
     fn next(&mut self) -> Option<Self::Item> {
