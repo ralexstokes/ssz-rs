@@ -39,7 +39,7 @@ where
 
 impl<T, const N: usize> Default for List<T, N>
 where
-    T: SimpleSerialize + Default,
+    T: SimpleSerialize,
 {
     fn default() -> Self {
         let data = vec![];

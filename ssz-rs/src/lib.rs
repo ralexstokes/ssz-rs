@@ -98,7 +98,7 @@ pub trait Sized {
 
 /// `SimpleSerialize` is a trait for types
 /// conforming to the SSZ spec.
-pub trait SimpleSerialize: Serialize + Deserialize + Sized + Merkleized + Default {}
+pub trait SimpleSerialize: Serialize + Deserialize + Sized + Merkleized {}
 
 mod exports {
     pub use crate::{
