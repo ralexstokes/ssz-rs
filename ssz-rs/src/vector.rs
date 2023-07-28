@@ -61,14 +61,17 @@ where
 
 impl<T, const N: usize> Default for Vector<T, N>
 where
-    T: SimpleSerialize + Default + Clone,
+    T: SimpleSerialize + Default,
 {
     fn default() -> Self {
         // SAFETY: there is currently no way to enforce statically
         // that `N` is non-zero with const generics so panics are possible.
         assert!(N > 0);
 
-        let data = vec![T::default(); N];
+        let mut data = Vec::with_capacity(N);
+        for _ in 0..N {
+            data.push(T::default());
+        }
 
         // SAFETY: panic can't happen because data.len() == N != 0; qed
         data.try_into()
@@ -216,7 +219,7 @@ where
     }
 }
 
-impl<T, const N: usize> SimpleSerialize for Vector<T, N> where T: SimpleSerialize + Clone {}
+impl<T, const N: usize> SimpleSerialize for Vector<T, N> where T: SimpleSerialize {}
 
 #[cfg(feature = "serde")]
 impl<T: SimpleSerialize + serde::Serialize, const N: usize> serde::Serialize for Vector<T, N> {
