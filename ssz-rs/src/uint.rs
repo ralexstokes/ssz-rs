@@ -116,29 +116,6 @@ impl From<u64> for U256 {
     }
 }
 
-#[cfg(feature = "serde")]
-impl serde::Serialize for U256 {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        let output = format!("{}", self.0);
-        serializer.collect_str(&output)
-    }
-}
-
-#[cfg(feature = "serde")]
-impl<'de> serde::Deserialize<'de> for U256 {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let s = <String>::deserialize(deserializer)?;
-        let value = s.parse::<BigUint>().map_err(serde::de::Error::custom)?;
-        Ok(Self(value))
-    }
-}
-
 impl Sized for U256 {
     fn is_variable_size() -> bool {
         false
@@ -191,6 +168,29 @@ impl Merkleized for U256 {
 }
 
 impl SimpleSerialize for U256 {}
+
+#[cfg(feature = "serde")]
+impl serde::Serialize for U256 {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        let output = format!("{}", self.0);
+        serializer.collect_str(&output)
+    }
+}
+
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for U256 {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let s = <String>::deserialize(deserializer)?;
+        let value = s.parse::<BigUint>().map_err(serde::de::Error::custom)?;
+        Ok(Self(value))
+    }
+}
 
 #[cfg(test)]
 mod tests {
