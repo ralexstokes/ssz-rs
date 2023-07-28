@@ -60,13 +60,13 @@ macro_rules! define_uint {
                 pack_bytes(&mut root);
                 Ok(root.as_slice().try_into().expect("is valid root"))
             }
-        }
 
-        impl SimpleSerialize for $uint {
             fn is_composite_type() -> bool {
                 false
             }
         }
+
+        impl SimpleSerialize for $uint {}
     };
 }
 
@@ -184,13 +184,13 @@ impl Merkleized for U256 {
         let node = Node::try_from(data.as_ref()).expect("is right size");
         Ok(node)
     }
-}
 
-impl SimpleSerialize for U256 {
     fn is_composite_type() -> bool {
         false
     }
 }
+
+impl SimpleSerialize for U256 {}
 
 #[cfg(test)]
 mod tests {

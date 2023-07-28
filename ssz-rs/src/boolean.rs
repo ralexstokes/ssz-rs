@@ -47,13 +47,13 @@ impl Merkleized for bool {
         }
         Ok(node)
     }
-}
 
-impl SimpleSerialize for bool {
     fn is_composite_type() -> bool {
         false
     }
 }
+
+impl SimpleSerialize for bool {}
 
 #[cfg(test)]
 mod tests {

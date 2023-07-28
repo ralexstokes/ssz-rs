@@ -17,6 +17,11 @@ pub(crate) const BITS_PER_CHUNK: usize = BYTES_PER_CHUNK * (crate::BITS_PER_BYTE
 pub trait Merkleized {
     /// Compute the "hash tree root" of `Self`.
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError>;
+
+    /// Indicate the "composite" nature of `Self`.
+    fn is_composite_type() -> bool {
+        true
+    }
 }
 
 /// An error encountered during merkleization.
