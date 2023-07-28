@@ -2,7 +2,7 @@ use crate::{
     error::{InstanceError, TypeError},
     lib::*,
     ser::BYTES_PER_LENGTH_OFFSET,
-    SimpleSerialize,
+    Serializable,
 };
 
 /// Deserialization errors.
@@ -66,7 +66,7 @@ pub trait Deserialize {
 
 fn deserialize_fixed_homogeneous_composite<T>(encoding: &[u8]) -> Result<Vec<T>, DeserializeError>
 where
-    T: SimpleSerialize,
+    T: Serializable,
 {
     // NOTE: Callers have already validated `encoding` is correctly sized
     debug_assert_eq!(encoding.len() % T::size_hint(), 0);
@@ -83,7 +83,7 @@ fn deserialize_variable_homogeneous_composite<T>(
     encoding: &[u8],
 ) -> Result<Vec<T>, DeserializeError>
 where
-    T: SimpleSerialize,
+    T: Deserialize,
 {
     if encoding.is_empty() {
         return Ok(vec![])
@@ -132,7 +132,7 @@ where
 
 pub fn deserialize_homogeneous_composite<T>(encoding: &[u8]) -> Result<Vec<T>, DeserializeError>
 where
-    T: SimpleSerialize,
+    T: Serializable,
 {
     if T::is_variable_size() {
         deserialize_variable_homogeneous_composite(encoding)

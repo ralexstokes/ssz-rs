@@ -85,9 +85,9 @@ mod lib {
 
 pub(crate) const BITS_PER_BYTE: u32 = 8;
 
-/// `Sized` is a trait for types that can
-/// provide sizing information relevant for the SSZ spec.
-pub trait Sized {
+/// `Serializable` is a trait for types that can be
+/// serialized and deserialized according to the SSZ spec.
+pub trait Serializable: Serialize + Deserialize {
     // is this type variable or fixed size?
     fn is_variable_size() -> bool;
 
@@ -96,9 +96,10 @@ pub trait Sized {
     fn size_hint() -> usize;
 }
 
-/// `SimpleSerialize` is a trait for types
-/// conforming to the SSZ spec.
-pub trait SimpleSerialize: Serialize + Deserialize + Sized + Merkleized {}
+/// `SimpleSerialize` is a trait for types conforming to the SSZ spec.
+/// These types can be encoded and decoded while also supporting the
+/// merkelization scheme of SSZ.
+pub trait SimpleSerialize: Serializable + Merkleized {}
 
 mod exports {
     pub use crate::{
@@ -112,7 +113,7 @@ mod exports {
         uint::U256,
         utils::{deserialize, serialize},
         vector::Vector,
-        SimpleSerialize, Sized,
+        Serializable, SimpleSerialize,
     };
 }
 

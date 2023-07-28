@@ -557,7 +557,7 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
             #deserialize_impl
         }
 
-        #impl_impl ssz_rs::Sized for #name_impl {
+        #impl_impl ssz_rs::Serializable for #name_impl {
             fn is_variable_size() -> bool {
                 #is_variable_size_impl
             }

@@ -3,10 +3,10 @@ use crate::{
     lib::*,
     merkleization::{MerkleizationError, Merkleized, Node},
     ser::{Serialize, SerializeError},
-    SimpleSerialize, Sized,
+    Serializable, SimpleSerialize,
 };
 
-impl Sized for bool {
+impl Serializable for bool {
     fn is_variable_size() -> bool {
         false
     }

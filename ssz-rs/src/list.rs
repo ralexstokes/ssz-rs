@@ -7,18 +7,18 @@ use crate::{
         BYTES_PER_CHUNK,
     },
     ser::{Serialize, SerializeError, Serializer},
-    SimpleSerialize, Sized,
+    Serializable, SimpleSerialize,
 };
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
 
 /// A homogenous collection of a variable number of values.
 #[derive(Clone)]
-pub struct List<T: SimpleSerialize, const N: usize> {
+pub struct List<T: Serializable, const N: usize> {
     data: Vec<T>,
 }
 
-impl<T: SimpleSerialize, const N: usize> AsRef<[T]> for List<T, N> {
+impl<T: Serializable, const N: usize> AsRef<[T]> for List<T, N> {
     fn as_ref(&self) -> &[T] {
         &self.data
     }
@@ -26,7 +26,7 @@ impl<T: SimpleSerialize, const N: usize> AsRef<[T]> for List<T, N> {
 
 impl<T, const N: usize> fmt::Debug for List<T, N>
 where
-    T: SimpleSerialize + fmt::Debug,
+    T: Serializable + fmt::Debug,
 {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
         if f.alternate() {
@@ -39,7 +39,7 @@ where
 
 impl<T, const N: usize> Default for List<T, N>
 where
-    T: SimpleSerialize,
+    T: Serializable,
 {
     fn default() -> Self {
         let data = vec![];
@@ -52,18 +52,18 @@ where
 
 impl<T, const N: usize> PartialEq for List<T, N>
 where
-    T: SimpleSerialize + PartialEq,
+    T: Serializable + PartialEq,
 {
     fn eq(&self, other: &Self) -> bool {
         self.data == other.data
     }
 }
 
-impl<T, const N: usize> Eq for List<T, N> where T: SimpleSerialize + Eq {}
+impl<T, const N: usize> Eq for List<T, N> where T: Serializable + Eq {}
 
 impl<T, const N: usize> TryFrom<Vec<T>> for List<T, N>
 where
-    T: SimpleSerialize,
+    T: Serializable,
 {
     type Error = (Vec<T>, Error);
 
@@ -79,7 +79,7 @@ where
 
 impl<T, const N: usize> Deref for List<T, N>
 where
-    T: SimpleSerialize,
+    T: Serializable,
 {
     type Target = Vec<T>;
 
@@ -93,7 +93,7 @@ where
 // track which elements changed
 impl<T, Idx: SliceIndex<[T]>, const N: usize> Index<Idx> for List<T, N>
 where
-    T: SimpleSerialize,
+    T: Serializable,
 {
     type Output = <Idx as SliceIndex<[T]>>::Output;
 
@@ -104,16 +104,16 @@ where
 
 impl<T, const N: usize> IndexMut<usize> for List<T, N>
 where
-    T: SimpleSerialize,
+    T: Serializable,
 {
     fn index_mut(&mut self, index: usize) -> &mut Self::Output {
         &mut self.data[index]
     }
 }
 
-impl<T, const N: usize> Sized for List<T, N>
+impl<T, const N: usize> Serializable for List<T, N>
 where
-    T: SimpleSerialize,
+    T: Serializable,
 {
     fn is_variable_size() -> bool {
         true
@@ -126,7 +126,7 @@ where
 
 impl<T, const N: usize> Serialize for List<T, N>
 where
-    T: SimpleSerialize,
+    T: Serializable,
 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         if self.len() > N {
@@ -142,7 +142,7 @@ where
 
 impl<T, const N: usize> Deserialize for List<T, N>
 where
-    T: SimpleSerialize,
+    T: Serializable,
 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if !T::is_variable_size() {
@@ -171,6 +171,39 @@ where
 
 impl<T, const N: usize> List<T, N>
 where
+    T: Serializable,
+{
+    pub fn push(&mut self, element: T) {
+        self.data.push(element);
+    }
+
+    pub fn pop(&mut self) -> Option<T> {
+        self.data.pop()
+    }
+
+    pub fn clear(&mut self) {
+        self.data.clear();
+    }
+
+    pub fn iter_mut(&mut self) -> IterMut<'_, T, N> {
+        IterMut { inner: self.data.iter_mut() }
+    }
+}
+
+pub struct IterMut<'a, T, const N: usize> {
+    inner: slice::IterMut<'a, T>,
+}
+
+impl<'a, T, const N: usize> Iterator for IterMut<'a, T, N> {
+    type Item = &'a mut T;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.inner.next()
+    }
+}
+
+impl<T, const N: usize> List<T, N>
+where
     T: SimpleSerialize,
 {
     // Number of chunks for this type, rounded up to a complete number of chunks
@@ -190,40 +223,6 @@ where
             Ok(mix_in_length(&data_root, self.len()))
         }
     }
-
-    pub fn push(&mut self, element: T) {
-        self.data.push(element);
-    }
-
-    pub fn pop(&mut self) -> Option<T> {
-        self.data.pop()
-    }
-
-    pub fn clear(&mut self) {
-        self.data.clear();
-    }
-
-    pub fn iter_mut(&mut self) -> IterMut<'_, T, N> {
-        IterMut { inner: self.data.iter_mut() }
-    }
-}
-
-pub struct IterMut<'a, T, const N: usize>
-where
-    T: SimpleSerialize,
-{
-    inner: slice::IterMut<'a, T>,
-}
-
-impl<'a, T, const N: usize> Iterator for IterMut<'a, T, N>
-where
-    T: SimpleSerialize,
-{
-    type Item = &'a mut T;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.inner.next()
-    }
 }
 
 impl<T, const N: usize> Merkleized for List<T, N>
@@ -238,7 +237,7 @@ where
 impl<T, const N: usize> SimpleSerialize for List<T, N> where T: SimpleSerialize {}
 
 #[cfg(feature = "serde")]
-impl<T: SimpleSerialize + serde::Serialize, const N: usize> serde::Serialize for List<T, N> {
+impl<T: Serializable + serde::Serialize, const N: usize> serde::Serialize for List<T, N> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -252,10 +251,10 @@ impl<T: SimpleSerialize + serde::Serialize, const N: usize> serde::Serialize for
 }
 
 #[cfg(feature = "serde")]
-struct ListVisitor<T: SimpleSerialize>(PhantomData<Vec<T>>);
+struct ListVisitor<T: Serializable>(PhantomData<Vec<T>>);
 
 #[cfg(feature = "serde")]
-impl<'de, T: SimpleSerialize + serde::Deserialize<'de>> serde::de::Visitor<'de> for ListVisitor<T> {
+impl<'de, T: Serializable + serde::Deserialize<'de>> serde::de::Visitor<'de> for ListVisitor<T> {
     type Value = Vec<T>;
 
     fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
@@ -271,7 +270,7 @@ impl<'de, T: SimpleSerialize + serde::Deserialize<'de>> serde::de::Visitor<'de> 
 }
 
 #[cfg(feature = "serde")]
-impl<'de, T: SimpleSerialize + serde::de::Deserialize<'de>, const N: usize> serde::Deserialize<'de>
+impl<'de, T: Serializable + serde::de::Deserialize<'de>, const N: usize> serde::Deserialize<'de>
     for List<T, N>
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>

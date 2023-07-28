@@ -4,7 +4,7 @@ use crate::{
     lib::*,
     merkleization::{merkleize, pack_bytes, MerkleizationError, Merkleized, Node, BITS_PER_CHUNK},
     ser::{Serialize, SerializeError},
-    SimpleSerialize, Sized,
+    Serializable, SimpleSerialize,
 };
 use bitvec::{
     field::BitField,
@@ -102,7 +102,7 @@ impl<const N: usize> DerefMut for Bitvector<N> {
     }
 }
 
-impl<const N: usize> Sized for Bitvector<N> {
+impl<const N: usize> Serializable for Bitvector<N> {
     fn is_variable_size() -> bool {
         false
     }

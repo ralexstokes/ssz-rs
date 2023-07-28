@@ -4,7 +4,7 @@ use crate::{
     lib::*,
     merkleization::{elements_to_chunks, merkleize, pack, MerkleizationError, Merkleized, Node},
     ser::{Serialize, SerializeError, Serializer},
-    SimpleSerialize, Sized,
+    Serializable, SimpleSerialize,
 };
 #[cfg(feature = "serde")]
 use serde::ser::SerializeSeq;
@@ -12,25 +12,25 @@ use serde::ser::SerializeSeq;
 /// A homogenous collection of a fixed number of values.
 /// NOTE: a `Vector` of length `0` is illegal.
 #[derive(Clone)]
-pub struct Vector<T: SimpleSerialize, const N: usize> {
+pub struct Vector<T: Serializable, const N: usize> {
     data: Vec<T>,
 }
 
-impl<T: SimpleSerialize, const N: usize> AsRef<[T]> for Vector<T, N> {
+impl<T: Serializable, const N: usize> AsRef<[T]> for Vector<T, N> {
     fn as_ref(&self) -> &[T] {
         &self.data
     }
 }
 
-impl<T: SimpleSerialize + PartialEq, const N: usize> PartialEq for Vector<T, N> {
+impl<T: Serializable + PartialEq, const N: usize> PartialEq for Vector<T, N> {
     fn eq(&self, other: &Self) -> bool {
         self.data == other.data
     }
 }
 
-impl<T: SimpleSerialize + Eq, const N: usize> Eq for Vector<T, N> {}
+impl<T: Serializable + Eq, const N: usize> Eq for Vector<T, N> {}
 
-impl<T: SimpleSerialize, const N: usize> TryFrom<Vec<T>> for Vector<T, N> {
+impl<T: Serializable, const N: usize> TryFrom<Vec<T>> for Vector<T, N> {
     type Error = (Vec<T>, Error);
 
     fn try_from(data: Vec<T>) -> Result<Self, Self::Error> {
@@ -48,7 +48,7 @@ impl<T: SimpleSerialize, const N: usize> TryFrom<Vec<T>> for Vector<T, N> {
 
 impl<T, const N: usize> fmt::Debug for Vector<T, N>
 where
-    T: SimpleSerialize + fmt::Debug,
+    T: Serializable + fmt::Debug,
 {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
         if f.alternate() {
@@ -61,7 +61,7 @@ where
 
 impl<T, const N: usize> Default for Vector<T, N>
 where
-    T: SimpleSerialize + Default,
+    T: Serializable + Default,
 {
     fn default() -> Self {
         // SAFETY: there is currently no way to enforce statically
@@ -83,7 +83,7 @@ where
 
 impl<T, const N: usize> Deref for Vector<T, N>
 where
-    T: SimpleSerialize,
+    T: Serializable,
 {
     type Target = Vec<T>;
 
@@ -97,7 +97,7 @@ where
 // track which elements changed
 impl<T, Idx: SliceIndex<[T]>, const N: usize> Index<Idx> for Vector<T, N>
 where
-    T: SimpleSerialize,
+    T: Serializable,
 {
     type Output = <Idx as SliceIndex<[T]>>::Output;
 
@@ -108,16 +108,16 @@ where
 
 impl<T, const N: usize> IndexMut<usize> for Vector<T, N>
 where
-    T: SimpleSerialize,
+    T: Serializable,
 {
     fn index_mut(&mut self, index: usize) -> &mut Self::Output {
         &mut self.data[index]
     }
 }
 
-impl<T, const N: usize> Sized for Vector<T, N>
+impl<T, const N: usize> Serializable for Vector<T, N>
 where
-    T: SimpleSerialize,
+    T: Serializable,
 {
     fn is_variable_size() -> bool {
         T::is_variable_size()
@@ -130,7 +130,7 @@ where
 
 impl<T, const N: usize> Serialize for Vector<T, N>
 where
-    T: SimpleSerialize,
+    T: Serializable,
 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
         if N == 0 {
@@ -146,7 +146,7 @@ where
 
 impl<T, const N: usize> Deserialize for Vector<T, N>
 where
-    T: SimpleSerialize,
+    T: Serializable,
 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if N == 0 {
@@ -179,19 +179,8 @@ where
 
 impl<T, const N: usize> Vector<T, N>
 where
-    T: SimpleSerialize,
+    T: Serializable,
 {
-    fn compute_hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
-        if T::is_composite_type() {
-            let count = self.len();
-            let chunks = elements_to_chunks(self.data.iter_mut().enumerate(), count)?;
-            merkleize(&chunks, None)
-        } else {
-            let chunks = pack(&self.data)?;
-            merkleize(&chunks, None)
-        }
-    }
-
     pub fn iter_mut(&mut self) -> IterMut<'_, T> {
         let inner = self.data.iter_mut();
         IterMut { inner }
@@ -210,6 +199,22 @@ impl<'a, T> Iterator for IterMut<'a, T> {
     }
 }
 
+impl<T, const N: usize> Vector<T, N>
+where
+    T: SimpleSerialize,
+{
+    fn compute_hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+        if T::is_composite_type() {
+            let count = self.len();
+            let chunks = elements_to_chunks(self.data.iter_mut().enumerate(), count)?;
+            merkleize(&chunks, None)
+        } else {
+            let chunks = pack(&self.data)?;
+            merkleize(&chunks, None)
+        }
+    }
+}
+
 impl<T, const N: usize> Merkleized for Vector<T, N>
 where
     T: SimpleSerialize,
@@ -222,7 +227,7 @@ where
 impl<T, const N: usize> SimpleSerialize for Vector<T, N> where T: SimpleSerialize {}
 
 #[cfg(feature = "serde")]
-impl<T: SimpleSerialize + serde::Serialize, const N: usize> serde::Serialize for Vector<T, N> {
+impl<T: Serializable + serde::Serialize, const N: usize> serde::Serialize for Vector<T, N> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -236,12 +241,10 @@ impl<T: SimpleSerialize + serde::Serialize, const N: usize> serde::Serialize for
 }
 
 #[cfg(feature = "serde")]
-struct VectorVisitor<T: SimpleSerialize>(PhantomData<Vec<T>>);
+struct VectorVisitor<T: Serializable>(PhantomData<Vec<T>>);
 
 #[cfg(feature = "serde")]
-impl<'de, T: SimpleSerialize + serde::Deserialize<'de>> serde::de::Visitor<'de>
-    for VectorVisitor<T>
-{
+impl<'de, T: Serializable + serde::Deserialize<'de>> serde::de::Visitor<'de> for VectorVisitor<T> {
     type Value = Vec<T>;
 
     fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
@@ -257,7 +260,7 @@ impl<'de, T: SimpleSerialize + serde::Deserialize<'de>> serde::de::Visitor<'de>
 }
 
 #[cfg(feature = "serde")]
-impl<'de, T: SimpleSerialize + serde::de::Deserialize<'de>, const N: usize> serde::Deserialize<'de>
+impl<'de, T: Serializable + serde::de::Deserialize<'de>, const N: usize> serde::Deserialize<'de>
     for Vector<T, N>
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
