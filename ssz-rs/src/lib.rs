@@ -98,11 +98,7 @@ pub trait Sized {
 
 /// `SimpleSerialize` is a trait for types
 /// conforming to the SSZ spec.
-pub trait SimpleSerialize: Serialize + Deserialize + Sized + Merkleized + Default {
-    fn is_composite_type() -> bool {
-        true
-    }
-}
+pub trait SimpleSerialize: Serialize + Deserialize + Sized + Merkleized + Default {}
 
 mod exports {
     pub use crate::{
