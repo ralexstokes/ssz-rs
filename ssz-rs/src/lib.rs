@@ -135,6 +135,7 @@ pub mod prelude {
 pub mod __internal {
     // exported for derive macro to avoid code duplication...
     pub use crate::{
+        de::ContainerDeserializer,
         merkleization::{merkleize, mix_in_selector},
         ser::Serializer,
     };

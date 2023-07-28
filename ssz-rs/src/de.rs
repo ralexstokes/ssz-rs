@@ -22,6 +22,8 @@ pub enum DeserializeError {
     InvalidOffsetsLength(usize),
     /// An offset was found with start > end.
     OffsetNotIncreasing { start: usize, end: usize },
+    /// An offset was absent when expected.
+    MissingOffset,
 }
 
 impl From<InstanceError> for DeserializeError {
@@ -49,6 +51,7 @@ impl Display for DeserializeError {
             DeserializeError::InvalidType(err) => write!(f, "invalid type: {err}"),
             DeserializeError::InvalidOffsetsLength(len) => write!(f, "the offsets length provided {len} is not a multiple of the size per length offset {BYTES_PER_LENGTH_OFFSET} bytes"),
             DeserializeError::OffsetNotIncreasing { start, end } => write!(f, "invalid offset points to byte {end} before byte {start}"),
+            DeserializeError::MissingOffset => write!(f, "an offset was missing when deserializing a variable-sized type"),
         }
     }
 }
@@ -138,5 +141,144 @@ where
         deserialize_variable_homogeneous_composite(encoding)
     } else {
         deserialize_fixed_homogeneous_composite(encoding)
+    }
+}
+
+#[derive(Debug)]
+enum Segment {
+    Fixed(usize, usize),
+    Offset,
+}
+
+// `ContainerDeserializer` facilitates the deserialization of possibly variable
+// heterogenous composite types.
+// Intended use:
+// - call `parse` for each field of the container along with the input to decode
+// - call `finalize` after parsing each field, and use the resulting spans into the input to
+//   deserialize each individual field
+// NOTE: mainly intended for private use in the proc derive macro.
+#[derive(Debug, Default)]
+pub struct ContainerDeserializer {
+    segments: Vec<Segment>,
+    offsets: Vec<usize>,
+    total_bytes_read: usize,
+}
+
+impl ContainerDeserializer {
+    // NOTE: segments must be parsed in order following the order of the fields of the container.
+    pub fn parse<T: Serializable>(&mut self, encoding: &[u8]) -> Result<(), DeserializeError> {
+        let start = self.total_bytes_read;
+        if T::is_variable_size() {
+            let end = start + BYTES_PER_LENGTH_OFFSET;
+
+            let target =
+                encoding.get(start..end).ok_or(DeserializeError::ExpectedFurtherInput {
+                    provided: encoding.len() - start,
+                    expected: BYTES_PER_LENGTH_OFFSET,
+                })?;
+            let next_offset = u32::deserialize(target)? as usize;
+
+            if let Some(previous_offset) = self.offsets.last() {
+                if next_offset < *previous_offset {
+                    return Err(DeserializeError::OffsetNotIncreasing {
+                        start: *previous_offset,
+                        end: next_offset,
+                    })
+                }
+
+                if *previous_offset > encoding.len() {
+                    return Err(DeserializeError::ExpectedFurtherInput {
+                        provided: encoding.len() - previous_offset,
+                        expected: next_offset - previous_offset,
+                    })
+                }
+
+                if next_offset > encoding.len() {
+                    return Err(DeserializeError::ExpectedFurtherInput {
+                        provided: encoding.len() - next_offset,
+                        expected: next_offset - previous_offset,
+                    })
+                }
+            }
+
+            self.total_bytes_read += BYTES_PER_LENGTH_OFFSET;
+            self.offsets.push(next_offset);
+            self.segments.push(Segment::Offset);
+        } else {
+            let encoded_length = T::size_hint();
+            let end = self.total_bytes_read + encoded_length;
+            if encoding.len() < self.total_bytes_read {
+                return Err(DeserializeError::ExpectedFurtherInput {
+                    provided: encoding.len(),
+                    expected: self.total_bytes_read,
+                })
+            }
+            if encoding.len() < end {
+                return Err(DeserializeError::ExpectedFurtherInput {
+                    provided: encoding.len() - self.total_bytes_read,
+                    expected: encoded_length,
+                })
+            }
+
+            self.total_bytes_read += encoded_length;
+            self.segments.push(Segment::Fixed(start, end));
+        };
+        Ok(())
+    }
+
+    // Assembles a validated list of (pairs of) indices into `encoding` that point to the
+    // slice containing the encoding for each field of the target container.
+    // For example, if some container has three fields, the result will have 6 indices into
+    // `encoding` for the (start, end) of the encoding of each field.
+    pub fn finalize(mut self, encoding: &[u8]) -> Result<Vec<usize>, DeserializeError> {
+        self.offsets.push(encoding.len());
+
+        let mut spans = vec![];
+        let mut offsets = &self.offsets[..];
+        for segment in self.segments {
+            match segment {
+                Segment::Fixed(start, end) => {
+                    spans.push(start);
+                    spans.push(end);
+                }
+                Segment::Offset => {
+                    let start = offsets.first().ok_or(DeserializeError::MissingOffset)?;
+                    let end = offsets.get(1).ok_or(DeserializeError::MissingOffset)?;
+
+                    if encoding.len() < *start {
+                        return Err(DeserializeError::ExpectedFurtherInput {
+                            provided: encoding.len(),
+                            expected: *start,
+                        })
+                    }
+                    if encoding.len() < *end {
+                        return Err(DeserializeError::ExpectedFurtherInput {
+                            provided: encoding.len(),
+                            expected: *end,
+                        })
+                    }
+
+                    self.total_bytes_read += end - start;
+                    spans.push(*start);
+                    spans.push(*end);
+                    offsets = &offsets[1..];
+                }
+            }
+        }
+        if self.total_bytes_read > encoding.len() {
+            return Err(DeserializeError::ExpectedFurtherInput {
+                provided: encoding.len(),
+                expected: self.total_bytes_read,
+            })
+        }
+
+        if self.total_bytes_read < encoding.len() {
+            return Err(DeserializeError::AdditionalInput {
+                provided: encoding.len(),
+                expected: self.total_bytes_read,
+            })
+        }
+
+        Ok(spans)
     }
 }
