@@ -3,71 +3,11 @@
 //! Refer to the `examples` in the `ssz_rs` crate for a better idea on how to use this derive macro.
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote, quote_spanned};
-use syn::{parse_macro_input, spanned::Spanned, Data, DeriveInput, Fields, Generics, Ident};
+use syn::{parse_macro_input, spanned::Spanned, Data, DeriveInput, Fields, Ident};
 
 // NOTE: copied here from `ssz_rs` crate as it is unlikely to change
 // and can keep it out of the crate's public interface.
-const BYTES_PER_LENGTH_OFFSET: usize = 4;
 const BYTES_PER_CHUNK: usize = 32;
-
-fn derive_container_set_by_index_impl(
-    name: &Ident,
-    data: &Data,
-    generics: &Generics,
-) -> TokenStream {
-    match data {
-        Data::Struct(ref data) => {
-            let fields = match data.fields {
-                // "regular" struct with 1+ fields
-                Fields::Named(ref fields) => &fields.named,
-                // "tuple" struct
-                // only support the case with one unnamed field, to support "newtype" pattern
-                Fields::Unnamed(ref fields) => &fields.unnamed,
-                _ => unimplemented!(
-                    "this type of struct is currently not supported by this derive macro"
-                ),
-            };
-
-            let set_by_field = fields.iter().enumerate().map(|(i, f)| {
-                let field_type = &f.ty;
-                match &f.ident {
-                    Some(field_name) => quote_spanned! { f.span() =>
-                        #i => {
-                            let result = <#field_type>::deserialize(encoding)?;
-                            self.#field_name = result;
-                        },
-                    },
-                    None => quote_spanned! { f.span() =>
-                        #i => {
-                            let result = <#field_type>::deserialize(encoding)?;
-                            self.0 = result;
-                        },
-                    },
-                }
-            });
-
-            let impl_impl = if generics.params.is_empty() {
-                quote! { #name }
-            } else {
-                let (_, ty_generics, _) = generics.split_for_impl();
-                quote! { #generics #name #ty_generics }
-            };
-            quote! {
-                impl #impl_impl {
-                    fn __ssz_rs_set_by_index(&mut self, index: usize, encoding: &[u8]) -> Result<(), ssz_rs::DeserializeError> {
-                        match index {
-                            #(#set_by_field)*
-                            _ => unreachable!(),
-                        }
-                        Ok(())
-                    }
-                }
-            }
-        }
-        Data::Enum(..) => quote! {},
-        Data::Union(..) => unreachable!("data was already validated to exclude union types"),
-    }
-}
 
 fn derive_serialize_impl(data: &Data) -> TokenStream {
     match data {
@@ -156,11 +96,8 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                     let field_type = &f.ty;
                     return quote! {
                         fn deserialize(encoding: &[u8]) -> Result<Self, ssz_rs::DeserializeError> {
-                            let mut container = Self::default();
                             let result = <#field_type>::deserialize(&encoding)?;
-                            container.0 = result;
-
-                            Ok(container)
+                            Ok(Self(result))
                         }
                     }
                 }
@@ -168,47 +105,21 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
                     "this type of struct is currently not supported by this derive macro"
                 ),
             };
-            let deserialization_by_field = fields.iter().enumerate().map(|(i, f)| {
+            let deserialization_by_field = fields.iter().map(|f| {
+                let field_type = &f.ty;
+                match &f.ident {
+                    Some(_) => quote_spanned! { f.span() =>
+                        deserializer.parse::<#field_type>(encoding)?;
+                    },
+                    None => panic!("should have already returned an impl"),
+                }
+            });
+
+            let initialization_by_field = fields.iter().enumerate().map(|(i, f)| {
                 let field_type = &f.ty;
                 match &f.ident {
                     Some(field_name) => quote_spanned! { f.span() =>
-                        let bytes_read = if <#field_type>::is_variable_size() {
-                            let end = start + #BYTES_PER_LENGTH_OFFSET;
-
-                            let target = encoding.get(start..end).ok_or_else(||
-                                ssz_rs::DeserializeError::ExpectedFurtherInput {
-                                    provided: encoding.len() - start,
-                                    expected: #BYTES_PER_LENGTH_OFFSET,
-                                }
-                            )?;
-                            let next_offset = u32::deserialize(target)? as usize;
-
-                            if let Some((_, previous_offset)) = offsets.last() {
-                                if next_offset < *previous_offset {
-                                    return Err(DeserializeError::OffsetNotIncreasing {
-                                        start: *previous_offset,
-                                        end: next_offset,
-                                    })
-                                }
-                            }
-
-                            offsets.push((#i, next_offset));
-
-                            #BYTES_PER_LENGTH_OFFSET
-                        } else {
-                            let encoded_length = <#field_type>::size_hint();
-                            let end = start + encoded_length;
-                            let target = encoding.get(start..end).ok_or_else(||
-                                ssz_rs::DeserializeError::ExpectedFurtherInput{
-                                    provided: encoding.len() - start,
-                                    expected: encoded_length,
-                                }
-                            )?;
-                            let result = <#field_type>::deserialize(target)?;
-                            container.#field_name = result;
-                            encoded_length
-                        };
-                        start += bytes_read;
+                        #field_name: <#field_type>::deserialize(&encoding[spans[2*#i]..spans[2*#i+1]])?,
                     },
                     None => panic!("should have already returned an impl"),
                 }
@@ -216,51 +127,15 @@ fn derive_deserialize_impl(data: &Data) -> TokenStream {
 
             quote! {
                 fn deserialize(encoding: &[u8]) -> Result<Self, ssz_rs::DeserializeError> {
-                    let mut start = 0;
-                    let mut offsets = vec![];
-                    let mut container = Self::default();
+                    let mut deserializer = ssz_rs::__internal::ContainerDeserializer::default();
 
                     #(#deserialization_by_field)*
 
-                    let mut total_bytes_read = start;
+                    let spans = deserializer.finalize(encoding)?;
 
-                    // NOTE: this value is not read
-                    let dummy_index = 0;
-                    offsets.push((dummy_index, encoding.len()));
-
-                    for span in offsets.windows(2) {
-                        // SAFETY: indexes are safe because span is a pair; qed
-                        let (index, start) = span[0];
-                        let (_, end) = span[1];
-
-                        let target = encoding.get(start..end).ok_or_else(||
-                            ssz_rs::DeserializeError::ExpectedFurtherInput{
-                                provided: encoding.len() - start,
-                                expected: end - start,
-                            }
-                        )?;
-                        container.__ssz_rs_set_by_index(index, target)?;
-
-                        // SAFETY: checked subtraction is unnecessary,
-                        // as offsets are increasing; qed
-                        total_bytes_read += end - start;
-                    }
-
-                    if total_bytes_read > encoding.len() {
-                        return Err(ssz_rs::DeserializeError::ExpectedFurtherInput {
-                            provided: encoding.len(),
-                            expected: total_bytes_read,
-                        });
-                    }
-
-                    if total_bytes_read < encoding.len() {
-                        return Err(ssz_rs::DeserializeError::AdditionalInput {
-                            provided: encoding.len(),
-                            expected: total_bytes_read,
-                        });
-                    }
-
-                    Ok(container)
+                    Ok(Self {
+                        #(#initialization_by_field)*
+                    })
                 }
             }
         }
@@ -526,7 +401,6 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
 
     let name = &input.ident;
     let generics = &input.generics;
-    let set_by_index_impl = derive_container_set_by_index_impl(name, data, generics);
     let serialize_impl = derive_serialize_impl(data);
     let deserialize_impl = derive_deserialize_impl(data);
     let is_variable_size_impl = derive_variable_size_impl(data);
@@ -547,8 +421,6 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     };
 
     let expansion = quote! {
-        #set_by_index_impl
-
         #impl_impl ssz_rs::Serialize for #name_impl {
             #serialize_impl
         }
