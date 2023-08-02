@@ -36,6 +36,18 @@ struct ComplexTestStruct {
     g: Vector<VarTestStruct, 2>,
 }
 
+#[derive(PartialEq, Eq, Debug, Default, Serializable)]
+struct SerializableStruct {
+    a: u16,
+    b: List<u16, 128>,
+    c: u8,
+    d: List<u8, 256>,
+    e: VarTestStruct,
+    f: Vector<FixedTestStruct, 4>,
+    g: Vector<VarTestStruct, 2>,
+    h: u32,
+}
+
 fn main() {
     let mut value = ComplexTestStruct {
         a: 51972,
