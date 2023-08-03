@@ -395,7 +395,7 @@ fn validate_derive_data(data: &Data) {
     }
 }
 
-fn impl_serializable(
+fn derive_serializable_impl(
     data: &Data,
     name: &Ident,
     impl_generics: &ImplGenerics,
@@ -438,7 +438,7 @@ pub fn derive_serializable(input: proc_macro::TokenStream) -> proc_macro::TokenS
     let generics = &input.generics;
 
     let (impl_generics, ty_generics, _) = generics.split_for_impl();
-    let expansion = impl_serializable(data, name, &impl_generics, &ty_generics);
+    let expansion = derive_serializable_impl(data, name, &impl_generics, &ty_generics);
     proc_macro::TokenStream::from(expansion)
 }
 
@@ -455,7 +455,7 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
 
     let (impl_generics, ty_generics, _) = generics.split_for_impl();
 
-    let serializable_impl = impl_serializable(data, name, &impl_generics, &ty_generics);
+    let serializable_impl = derive_serializable_impl(data, name, &impl_generics, &ty_generics);
 
     let expansion = quote! {
         #serializable_impl
