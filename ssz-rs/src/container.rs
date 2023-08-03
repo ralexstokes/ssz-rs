@@ -68,6 +68,14 @@ mod tests {
         c: u8,
     }
 
+    #[derive(Default, Debug, PartialEq, Eq, Serializable)]
+    struct SerializableStruct {
+        a: List<u16, 1024>,
+        b: u16,
+        c: u8,
+        d: BasicContainer,
+    }
+
     #[test]
     fn encode_container() {
         let value = Foo { a: 5u32 };
@@ -199,5 +207,19 @@ mod tests {
         let value = TupleStruct(22);
         let mut buffer = vec![];
         let _ = value.serialize(&mut buffer).expect("can serialize");
+    }
+
+    #[test]
+    fn derive_only_serializable() {
+        let value = SerializableStruct {
+            a: List::<u16, 1024>::try_from(vec![1u16]).unwrap(),
+            b: 2u16,
+            c: 16u8,
+            d: BasicContainer { a: 5u32, d: true },
+        };
+        let mut buffer = vec![];
+        let _ = value.serialize(&mut buffer).expect("can serialize");
+        let recovered = SerializableStruct::deserialize(&buffer).expect("can decode");
+        assert_eq!(value, recovered);
     }
 }
