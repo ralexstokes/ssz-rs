@@ -93,4 +93,39 @@ fn main() {
     let root = value.hash_tree_root().expect("can find root");
     let expected_root = "69b0ce69dfbc8abb8ae4fba564dcb813f5cc5b93c76d2b3d0689687c35821036";
     assert_eq!(hex::encode(root), expected_root);
+
+    let value = SerializableStruct {
+        a: 61,
+        b: List::<u16, 128>::try_from(vec![48645]).unwrap(),
+        c: 11,
+        d: List::<u8, 256>::try_from(vec![105]).unwrap(),
+        e: VarTestStruct { a: 1558, b: List::<u16, 1024>::try_from(vec![39947]).unwrap(), c: 23 },
+        f: Vector::<FixedTestStruct, 4>::try_from(vec![
+            FixedTestStruct { a: 70, b: 51234123, c: 1234 },
+            FixedTestStruct { a: 44, b: 136234623461234, c: 15123 },
+            FixedTestStruct { a: 73, b: 4521345, c: 1234 },
+            FixedTestStruct { a: 159, b: 561346, c: 1234 },
+        ])
+        .unwrap(),
+        g: Vector::<VarTestStruct, 2>::try_from(vec![
+            VarTestStruct { a: 4315, b: List::<u16, 1024>::try_from(vec![6445]).unwrap(), c: 33 },
+            VarTestStruct { a: 3214, b: List::<u16, 1024>::try_from(vec![6234]).unwrap(), c: 44 },
+        ])
+        .unwrap(),
+        h: 0,
+    };
+
+    let encoding = serialize(&value).expect("can serialize");
+    let expected_encoding = vec![
+        61, 0, 75, 0, 0, 0, 11, 77, 0, 0, 0, 78, 0, 0, 0, 70, 75, 197, 13, 3, 0, 0, 0, 0, 210, 4,
+        0, 0, 44, 114, 103, 86, 152, 231, 123, 0, 0, 19, 59, 0, 0, 73, 129, 253, 68, 0, 0, 0, 0, 0,
+        210, 4, 0, 0, 159, 194, 144, 8, 0, 0, 0, 0, 0, 210, 4, 0, 0, 87, 0, 0, 0, 0, 0, 0, 0, 5,
+        190, 105, 22, 6, 7, 0, 0, 0, 23, 11, 156, 8, 0, 0, 0, 17, 0, 0, 0, 219, 16, 7, 0, 0, 0, 33,
+        45, 25, 142, 12, 7, 0, 0, 0, 44, 90, 24,
+    ];
+    assert_eq!(encoding, expected_encoding);
+
+    let recovered_value: SerializableStruct =
+        deserialize(&expected_encoding).expect("can deserialize");
+    assert_eq!(recovered_value, value);
 }
