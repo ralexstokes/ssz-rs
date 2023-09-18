@@ -127,6 +127,7 @@ pub mod prelude {
     // with a simple `prelude` import
     pub use crate as ssz_rs;
     pub use ssz_rs_derive::{Serializable, SimpleSerialize};
+    pub use alloy_primitives::U256;
 }
 
 #[doc(hidden)]

@@ -5,7 +5,7 @@ use crate::{
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize, BITS_PER_BYTE,
 };
-use alloy_primitives::{U128, U16, U256, U32, U64, U8};
+use alloy_primitives::U256;
 
 #[inline]
 fn bits_to_bytes(count: u32) -> usize {
@@ -137,11 +137,6 @@ define_uint!(u64);
 define_uint!(u128);
 define_uint!(usize);
 
-define_alloy!(U8);
-define_alloy!(U16);
-define_alloy!(U32);
-define_alloy!(U64);
-define_alloy!(U128);
 define_alloy!(U256);
 
 #[cfg(test)]

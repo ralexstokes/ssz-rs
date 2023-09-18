@@ -65,8 +65,6 @@ pub mod as_hex {
 
 #[cfg(test)]
 mod test {
-    use alloy_primitives::U256;
-
     use crate::prelude::*;
 
     #[derive(
