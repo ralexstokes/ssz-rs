@@ -5,7 +5,7 @@ use crate::{
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize, BITS_PER_BYTE,
 };
-use alloy_primitives::U256;
+pub use alloy_primitives::U256;
 
 #[inline]
 fn bits_to_bytes(count: u32) -> usize {
@@ -70,66 +70,6 @@ macro_rules! define_uint {
     };
 }
 
-macro_rules! define_alloy {
-    ($uint:ty) => {
-        impl Serializable for $uint {
-            fn is_variable_size() -> bool {
-                false
-            }
-
-            fn size_hint() -> usize {
-                <$uint>::BYTES
-            }
-        }
-
-        impl Serialize for $uint {
-            fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
-                const BYTE_SIZE: usize = <$uint>::BYTES;
-                buffer.extend_from_slice(&self.to_le_bytes::<BYTE_SIZE>());
-                Ok(<$uint>::BYTES)
-            }
-        }
-
-        impl Deserialize for $uint {
-            fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
-                const BYTE_SIZE: usize = <$uint>::BYTES;
-                if encoding.len() < BYTE_SIZE {
-                    return Err(DeserializeError::ExpectedFurtherInput {
-                        provided: encoding.len(),
-                        expected: BYTE_SIZE,
-                    })
-                }
-                if encoding.len() > BYTE_SIZE {
-                    return Err(DeserializeError::AdditionalInput {
-                        provided: encoding.len(),
-                        expected: BYTE_SIZE,
-                    })
-                }
-
-                // SAFETY: index is safe because encoding.len() has been checked above; qed
-                let bytes = encoding[..BYTE_SIZE].try_into().expect("slice has right length");
-
-                Ok(<$uint>::from_le_bytes::<BYTE_SIZE>(bytes))
-            }
-        }
-
-        impl Merkleized for $uint {
-            fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
-                let mut root = vec![];
-                let _ = self.serialize(&mut root)?;
-                pack_bytes(&mut root);
-                Ok(root.as_slice().try_into().expect("is valid root"))
-            }
-
-            fn is_composite_type() -> bool {
-                false
-            }
-        }
-
-        impl SimpleSerialize for $uint {}
-    };
-}
-
 define_uint!(u8);
 define_uint!(u16);
 define_uint!(u32);
@@ -137,7 +77,58 @@ define_uint!(u64);
 define_uint!(u128);
 define_uint!(usize);
 
-define_alloy!(U256);
+impl Serializable for U256 {
+    fn is_variable_size() -> bool {
+        false
+    }
+
+    fn size_hint() -> usize {
+        32
+    }
+}
+
+impl Serialize for U256 {
+    fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
+        buffer.extend_from_slice(&self.as_le_bytes());
+        Ok(Self::size_hint())
+    }
+}
+
+impl Deserialize for U256 {
+    fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
+        let byte_size = Self::size_hint();
+        if encoding.len() < byte_size {
+            return Err(DeserializeError::ExpectedFurtherInput {
+                provided: encoding.len(),
+                expected: byte_size,
+            })
+        }
+        if encoding.len() > byte_size {
+            return Err(DeserializeError::AdditionalInput {
+                provided: encoding.len(),
+                expected: byte_size,
+            })
+        }
+
+        // SAFETY: index is safe because encoding.len() == byte_size; qed
+        let value = U256::try_from_le_slice(&encoding[..byte_size]).unwrap();
+        Ok(value)
+    }
+}
+
+impl Merkleized for U256 {
+    fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+        let data = self.as_le_bytes();
+        let node = Node::try_from(data.as_ref()).expect("is right size");
+        Ok(node)
+    }
+
+    fn is_composite_type() -> bool {
+        false
+    }
+}
+
+impl SimpleSerialize for U256 {}
 
 #[cfg(test)]
 mod tests {
