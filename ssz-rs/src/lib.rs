@@ -110,7 +110,6 @@ mod exports {
         list::List,
         merkleization::{is_valid_merkle_branch, MerkleizationError, Merkleized, Node},
         ser::{Serialize, SerializeError},
-        uint::U256,
         utils::{deserialize, serialize},
         vector::Vector,
         Serializable, SimpleSerialize,

@@ -1,5 +1,3 @@
-use core::str::FromStr;
-
 use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
@@ -7,7 +5,7 @@ use crate::{
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize, BITS_PER_BYTE,
 };
-use alloy_primitives::Uint;
+use alloy_primitives::U256;
 
 #[inline]
 fn bits_to_bytes(count: u32) -> usize {
@@ -79,48 +77,19 @@ define_uint!(u64);
 define_uint!(u128);
 define_uint!(usize);
 
-#[derive(Default, Debug, PartialEq, Eq, Clone, PartialOrd, Ord, Hash)]
-pub struct U256(Uint<256, 4>);
-
-impl U256 {
-    pub fn new() -> Self {
-        Self(Uint::<256, 4>::default())
-    }
-
-    pub fn zero() -> Self {
-        Self::default()
-    }
-
-    pub fn try_from_bytes_le(bytes: &[u8]) -> Result<Self, DeserializeError> {
-        Self::deserialize(bytes)
-    }
-
-    pub fn from_bytes_le(bytes: [u8; 32]) -> Self {
-        Self::deserialize(&bytes).unwrap()
-    }
-
-    pub fn to_bytes_le(&self) -> Vec<u8> {
-        self.0.to_le_bytes::<32>().to_vec()
-    }
-
-    pub fn from_hex(data: &str) -> Option<Self> {
-        Uint::<256, 4>::from_str(data).ok().map(Self)
-    }
-}
-
 impl Serializable for U256 {
     fn is_variable_size() -> bool {
         false
     }
 
     fn size_hint() -> usize {
-        32
+        U256::BYTES
     }
 }
 
 impl Serialize for U256 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
-        buffer.extend_from_slice(&self.0.to_le_bytes::<32>());
+        buffer.extend_from_slice(&self.to_le_bytes::<32>());
         Ok(Self::size_hint())
     }
 }
@@ -142,14 +111,14 @@ impl Deserialize for U256 {
         }
 
         // SAFETY: index is safe because encoding.len() == byte_size; qed
-        let value = U256::try_from_bytes_le(&encoding[..byte_size]).unwrap();
+        let value = U256::try_from_le_slice(&encoding[..byte_size]).unwrap();
         Ok(value)
     }
 }
 
 impl Merkleized for U256 {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
-        let data = self.0.as_le_bytes();
+        let data = self.as_le_bytes();
         let node = Node::try_from(data.as_ref()).expect("is right size");
         Ok(node)
     }
@@ -160,29 +129,6 @@ impl Merkleized for U256 {
 }
 
 impl SimpleSerialize for U256 {}
-
-#[cfg(feature = "serde")]
-impl serde::Serialize for U256 {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        let output = format!("{}", self.0);
-        serializer.collect_str(&output)
-    }
-}
-
-#[cfg(feature = "serde")]
-impl<'de> serde::Deserialize<'de> for U256 {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let s = <String>::deserialize(deserializer)?;
-        let value = s.parse::<Uint<256, 4>>().map_err(serde::de::Error::custom)?;
-        Ok(Self(value))
-    }
-}
 
 #[cfg(test)]
 mod tests {
@@ -236,8 +182,8 @@ mod tests {
             assert_eq!(result, expected);
         }
         let tests = vec![
-            (U256::from_bytes_le([2u8; 32]), [2u8; 32]),
-            (U256::from_bytes_le([u8::MAX; 32]), [u8::MAX; 32]),
+            (U256::from_le_bytes([2u8; 32]), [2u8; 32]),
+            (U256::from_le_bytes([u8::MAX; 32]), [u8::MAX; 32]),
         ];
         for (value, expected) in tests {
             let result = serialize(&value).expect("can encode");
@@ -292,8 +238,8 @@ mod tests {
             assert_eq!(result, expected);
         }
         let tests = vec![
-            (U256::from_bytes_le([2u8; 32]), [2u8; 32]),
-            (U256::from_bytes_le([u8::MAX; 32]), [u8::MAX; 32]),
+            (U256::from_le_bytes([2u8; 32]), [2u8; 32]),
+            (U256::from_le_bytes([u8::MAX; 32]), [u8::MAX; 32]),
         ];
         for (expected, bytes) in tests {
             let result = U256::deserialize(&bytes).expect("can encode");

@@ -65,6 +65,8 @@ pub mod as_hex {
 
 #[cfg(test)]
 mod test {
+    use alloy_primitives::U256;
+
     use crate::prelude::*;
 
     #[derive(
@@ -138,7 +140,7 @@ mod test {
             )
             .unwrap(),
             i: Bitlist::try_from([true, false, true, true].as_ref()).unwrap(),
-            j: U256::from_bytes_le([12u8; 32]),
+            j: U256::from_le_bytes([12u8; 32]),
         };
         let json_repr = serde_json::to_value(&value).unwrap();
         let roundtrip_value: ComplexTestStruct = serde_json::from_value(json_repr).unwrap();

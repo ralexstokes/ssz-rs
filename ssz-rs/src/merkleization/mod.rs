@@ -270,6 +270,7 @@ mod tests {
     use super::*;
     use crate as ssz_rs;
     use crate::prelude::*;
+    use alloy_primitives::U256;
     use hex_literal::hex;
     use ssz_rs_derive::SimpleSerialize;
 
@@ -298,7 +299,7 @@ mod tests {
 
     #[test]
     fn test_packing_basic_types_multiple() {
-        let data = U256::from_bytes_le([1u8; 32]);
+        let data = U256::from_le_bytes([1u8; 32]);
         let input = &[data.clone(), data.clone(), data];
         let result = pack(input).expect("can pack values");
 

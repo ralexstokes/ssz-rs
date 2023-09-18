@@ -1,4 +1,5 @@
 #![cfg(feature = "serde")]
+use alloy_primitives::U256;
 use ssz_rs::prelude::*;
 
 #[derive(
@@ -65,7 +66,7 @@ fn main() {
         )
         .unwrap(),
         i: Bitlist::try_from([true, false, true, true].as_ref()).unwrap(),
-        j: U256::from_bytes_le([12u8; 32]),
+        j: U256::from_le_bytes([12u8; 32]),
     };
     let json_repr = serde_json::to_value(&value).unwrap();
     dbg!(&json_repr);
