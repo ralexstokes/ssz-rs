@@ -11,7 +11,10 @@ This repo aims to remain lightweight and relatively free-standing, rather than c
 
 # 🚧 WARNING 🚧
 
-This implementation has **not** been audited for security and is primarily intended for R&D use cases.
+This implementation is primarily intended for R&D use cases and comes with no guarantees including those around performance or security.
+
+That being said, an audit has been completed by [@oak-security](https://github.com/oak-security) you can [find here](https://github.com/oak-security/audit-reports/blob/master/ssz-rs/2023-09-28%20Audit%20Report%20-%20ssz-rs%20v1.0.pdf).
+It covers this commit of this repository: [b8729699f07f0d348053251dd6ddf838656849d1](https://github.com/ralexstokes/ssz-rs/commit/b8729699f07f0d348053251dd6ddf838656849d1)
 
 If you need a battle-tested implementation (e.g. for consensus-critical work), refer to the [Lighthouse implementation](https://github.com/sigp/lighthouse).
 
