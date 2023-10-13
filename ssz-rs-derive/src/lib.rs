@@ -3,10 +3,7 @@
 //! Refer to the `examples` in the `ssz_rs` crate for a better idea on how to use this derive macro.
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote, quote_spanned};
-use syn::{
-    parse_macro_input, spanned::Spanned, Data, DeriveInput, Fields, Ident, ImplGenerics,
-    TypeGenerics,
-};
+use syn::{parse_macro_input, spanned::Spanned, Data, DeriveInput, Fields, Generics, Ident};
 
 // NOTE: copied here from `ssz_rs` crate as it is unlikely to change
 // and can keep it out of the crate's public interface.
@@ -259,8 +256,8 @@ fn derive_size_hint_impl(data: &Data) -> TokenStream {
     }
 }
 
-fn derive_merkleization_impl(data: &Data) -> TokenStream {
-    match data {
+fn derive_merkleization_impl(data: &Data, name: &Ident, generics: &Generics) -> TokenStream {
+    let method = match data {
         Data::Struct(ref data) => {
             let fields = match data.fields {
                 Fields::Named(ref fields) => &fields.named,
@@ -323,6 +320,12 @@ fn derive_merkleization_impl(data: &Data) -> TokenStream {
             }
         }
         Data::Union(..) => unreachable!("data was already validated to exclude union types"),
+    };
+    let (impl_generics, ty_generics, _) = generics.split_for_impl();
+    quote! {
+        impl #impl_generics ssz_rs::Merkleized for #name #ty_generics {
+            #method
+        }
     }
 }
 
@@ -398,14 +401,14 @@ fn validate_derive_data(data: &Data) {
 fn derive_serializable_impl(
     data: &Data,
     name: &Ident,
-    impl_generics: &ImplGenerics,
-    ty_generics: &TypeGenerics,
+    generics: &Generics,
 ) -> proc_macro2::TokenStream {
     let serialize_impl = derive_serialize_impl(data);
     let deserialize_impl = derive_deserialize_impl(data);
     let is_variable_size_impl = derive_variable_size_impl(data);
     let size_hint_impl = derive_size_hint_impl(data);
 
+    let (impl_generics, ty_generics, _) = generics.split_for_impl();
     quote! {
         impl #impl_generics ssz_rs::Serialize for #name #ty_generics {
             #serialize_impl
@@ -427,6 +430,14 @@ fn derive_serializable_impl(
     }
 }
 
+fn derive_simple_serialilze_impl(name: &Ident, generics: &Generics) -> proc_macro2::TokenStream {
+    let (impl_generics, ty_generics, _) = generics.split_for_impl();
+
+    quote! {
+        impl #impl_generics ssz_rs::SimpleSerialize for #name #ty_generics {}
+    }
+}
+
 #[proc_macro_derive(Serializable)]
 pub fn derive_serializable(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
@@ -437,8 +448,21 @@ pub fn derive_serializable(input: proc_macro::TokenStream) -> proc_macro::TokenS
     let name = &input.ident;
     let generics = &input.generics;
 
-    let (impl_generics, ty_generics, _) = generics.split_for_impl();
-    let expansion = derive_serializable_impl(data, name, &impl_generics, &ty_generics);
+    let expansion = derive_serializable_impl(data, name, generics);
+    proc_macro::TokenStream::from(expansion)
+}
+
+#[proc_macro_derive(Merkleized)]
+pub fn derive_merkleized(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    let input = parse_macro_input!(input as DeriveInput);
+
+    let data = &input.data;
+    validate_derive_data(data);
+
+    let name = &input.ident;
+    let generics = &input.generics;
+
+    let expansion = derive_merkleization_impl(data, name, generics);
     proc_macro::TokenStream::from(expansion)
 }
 
@@ -451,20 +475,18 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
 
     let name = &input.ident;
     let generics = &input.generics;
-    let merkleization_impl = derive_merkleization_impl(data);
+    let merkleization_impl = derive_merkleization_impl(data, name, generics);
 
-    let (impl_generics, ty_generics, _) = generics.split_for_impl();
+    let serializable_impl = derive_serializable_impl(data, name, generics);
 
-    let serializable_impl = derive_serializable_impl(data, name, &impl_generics, &ty_generics);
+    let simple_serialize_impl = derive_simple_serialilze_impl(name, generics);
 
     let expansion = quote! {
         #serializable_impl
 
-        impl #impl_generics ssz_rs::Merkleized for #name #ty_generics {
-            #merkleization_impl
-        }
+        #merkleization_impl
 
-        impl #impl_generics ssz_rs::SimpleSerialize for #name #ty_generics {}
+        #simple_serialize_impl
     };
 
     proc_macro::TokenStream::from(expansion)

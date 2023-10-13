@@ -271,7 +271,6 @@ mod tests {
     use crate as ssz_rs;
     use crate::prelude::*;
     use hex_literal::hex;
-    use ssz_rs_derive::SimpleSerialize;
 
     #[test]
     fn test_packing_basic_types_simple() {
@@ -544,5 +543,20 @@ mod tests {
 
         let hash_tree_root = root.hash_tree_root().expect("can find root");
         assert_eq!(hash_tree_root, Node::default());
+    }
+
+    #[test]
+    fn test_derive_merkleized() {
+        #[derive(Debug, Merkleized)]
+        struct Foo {
+            a: U256,
+        }
+
+        let mut foo = Foo { a: U256::from(68) };
+        let foo_root = foo.hash_tree_root().unwrap();
+        let expected_root =
+            hex::decode("4400000000000000000000000000000000000000000000000000000000000000")
+                .unwrap();
+        assert_eq!(foo_root, expected_root);
     }
 }
