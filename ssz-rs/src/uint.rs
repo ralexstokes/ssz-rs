@@ -79,7 +79,8 @@ define_uint!(usize);
 
 /// An unsigned integer represented by 256 bits
 #[derive(Default, Debug, PartialEq, Eq, Clone, PartialOrd, Ord, Hash)]
-pub struct U256(BigUint);
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct U256(#[cfg_attr(feature = "serde", serde(with = "crate::serde::as_str"))] BigUint);
 
 impl U256 {
     pub fn new() -> Self {
@@ -168,29 +169,6 @@ impl Merkleized for U256 {
 }
 
 impl SimpleSerialize for U256 {}
-
-#[cfg(feature = "serde")]
-impl serde::Serialize for U256 {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        let output = format!("{}", self.0);
-        serializer.collect_str(&output)
-    }
-}
-
-#[cfg(feature = "serde")]
-impl<'de> serde::Deserialize<'de> for U256 {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let s = <String>::deserialize(deserializer)?;
-        let value = s.parse::<BigUint>().map_err(serde::de::Error::custom)?;
-        Ok(Self(value))
-    }
-}
 
 #[cfg(test)]
 mod tests {
@@ -307,5 +285,13 @@ mod tests {
             let result = U256::deserialize(&bytes).expect("can encode");
             assert_eq!(result, expected);
         }
+    }
+
+    #[test]
+    fn test_serde() {
+        let x = U256::from(23);
+        let x_str = serde_json::to_string(&x).unwrap();
+        let recovered_x = serde_json::from_str(&x_str).unwrap();
+        assert_eq!(x, recovered_x);
     }
 }

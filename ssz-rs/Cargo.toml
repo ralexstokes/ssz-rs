@@ -13,8 +13,8 @@ exclude = ["tests/data"]
 
 [features]
 default = ["serde", "std"]
-serde = ["dep:serde", "hex"]
 std = ["bitvec/default", "sha2/default", "num-bigint/default"]
+serde = ["dep:serde", "hex"]
 
 [dependencies]
 bitvec = { version = "1.0.0", default-features = false, features = ["alloc"] }
