@@ -48,18 +48,39 @@ pub mod as_hex {
         serializer.collect_str(&output)
     }
 
-    pub fn deserialize<'de, D, T>(deserializer: D) -> Result<T, D::Error>
+    pub fn deserialize<'de, D, T, E>(deserializer: D) -> Result<T, D::Error>
     where
         D: serde::Deserializer<'de>,
-        T: for<'a> TryFrom<&'a [u8]>,
+        T: for<'a> TryFrom<&'a [u8], Error = E>,
+        E: Display,
     {
-        let s = <String>::deserialize(deserializer)?;
+        let str = String::deserialize(deserializer)?;
 
-        let data = try_bytes_from_hex_str(&s).map_err(serde::de::Error::custom)?;
+        let data = try_bytes_from_hex_str(&str).map_err(serde::de::Error::custom)?;
 
-        let inner = T::try_from(&data)
-            .map_err(|_| serde::de::Error::custom("could not parse instance from byte data"))?;
-        Ok(inner)
+        T::try_from(&data).map_err(serde::de::Error::custom)
+    }
+}
+
+pub mod as_str {
+    use super::*;
+    use serde::Deserialize;
+
+    pub fn serialize<S, T: Display>(data: T, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.collect_str(&data.to_string())
+    }
+
+    pub fn deserialize<'de, D, T, E>(deserializer: D) -> Result<T, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+        T: FromStr<Err = E>,
+        E: Display,
+    {
+        let s = String::deserialize(deserializer)?;
+        T::from_str(&s).map_err(serde::de::Error::custom)
     }
 }
 

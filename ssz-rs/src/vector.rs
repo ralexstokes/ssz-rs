@@ -6,12 +6,11 @@ use crate::{
     ser::{Serialize, SerializeError, Serializer},
     Serializable, SimpleSerialize,
 };
-#[cfg(feature = "serde")]
-use serde::ser::SerializeSeq;
 
 /// A homogenous collection of a fixed number of values.
 /// NOTE: a `Vector` of length `0` is illegal.
 #[derive(Clone)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize), serde(transparent))]
 pub struct Vector<T: Serializable, const N: usize> {
     data: Vec<T>,
 }
@@ -227,20 +226,6 @@ where
 impl<T, const N: usize> SimpleSerialize for Vector<T, N> where T: SimpleSerialize {}
 
 #[cfg(feature = "serde")]
-impl<T: Serializable + serde::Serialize, const N: usize> serde::Serialize for Vector<T, N> {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        let mut seq = serializer.serialize_seq(Some(N))?;
-        for element in &self.data {
-            seq.serialize_element(element)?;
-        }
-        seq.end()
-    }
-}
-
-#[cfg(feature = "serde")]
 struct VectorVisitor<T: Serializable>(PhantomData<Vec<T>>);
 
 #[cfg(feature = "serde")]
@@ -248,7 +233,7 @@ impl<'de, T: Serializable + serde::Deserialize<'de>> serde::de::Visitor<'de> for
     type Value = Vec<T>;
 
     fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
-        formatter.write_str("array of objects")
+        formatter.write_str("sequence")
     }
 
     fn visit_seq<S>(self, visitor: S) -> Result<Self::Value, S::Error>
@@ -260,7 +245,7 @@ impl<'de, T: Serializable + serde::Deserialize<'de>> serde::de::Visitor<'de> for
 }
 
 #[cfg(feature = "serde")]
-impl<'de, T: Serializable + serde::de::Deserialize<'de>, const N: usize> serde::Deserialize<'de>
+impl<'de, T: Serializable + serde::Deserialize<'de>, const N: usize> serde::Deserialize<'de>
     for Vector<T, N>
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
@@ -388,5 +373,23 @@ mod tests {
             *value = 1;
             assert_eq!(*value, 1);
         }
+    }
+
+    #[test]
+    fn test_serde() {
+        type V = Vector<u8, 4>;
+        let data = vec![1u8, 0, 22, 33];
+        let input = V::try_from(data).unwrap();
+        let input_str = serde_json::to_string(&input).unwrap();
+        let recovered_input: V = serde_json::from_str(&input_str).unwrap();
+        assert_eq!(input, recovered_input);
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_illegal_serde() {
+        type V = Vector<u8, 4>;
+        let bad_input_str = "[]";
+        let _: V = serde_json::from_str(bad_input_str).unwrap();
     }
 }
