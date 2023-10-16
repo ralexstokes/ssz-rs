@@ -69,6 +69,7 @@ mod lib {
             fmt::{Debug, Display, Formatter},
             ops::{Deref, DerefMut, Index, IndexMut},
             slice::{IterMut, SliceIndex},
+            str::FromStr,
         },
         iter::Enumerate,
     };
