@@ -45,6 +45,25 @@ impl<T: Serializable, const N: usize> TryFrom<Vec<T>> for Vector<T, N> {
     }
 }
 
+impl<T, const N: usize> TryFrom<&[T]> for Vector<T, N>
+where
+    T: Serializable + Clone,
+{
+    type Error = Error;
+
+    fn try_from(data: &[T]) -> Result<Self, Self::Error> {
+        if N == 0 {
+            return Err(Error::Type(TypeError::InvalidBound(N)))
+        }
+        if data.len() != N {
+            let len = data.len();
+            Err(Error::Instance(InstanceError::Exact { required: N, provided: len }))
+        } else {
+            Ok(Self { data: data.to_vec() })
+        }
+    }
+}
+
 impl<T, const N: usize> fmt::Debug for Vector<T, N>
 where
     T: Serializable + fmt::Debug,

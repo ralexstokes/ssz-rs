@@ -91,8 +91,9 @@ fn main() {
     assert_eq!(recovered_value, value);
 
     let root = value.hash_tree_root().expect("can find root");
-    let expected_root = "69b0ce69dfbc8abb8ae4fba564dcb813f5cc5b93c76d2b3d0689687c35821036";
-    assert_eq!(hex::encode(root), expected_root);
+    let expected_root =
+        hex::decode("69b0ce69dfbc8abb8ae4fba564dcb813f5cc5b93c76d2b3d0689687c35821036").unwrap();
+    assert_eq!(root.as_ref(), expected_root);
 
     let value = SerializableStruct {
         a: 61,
