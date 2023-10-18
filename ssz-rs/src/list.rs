@@ -76,6 +76,22 @@ where
     }
 }
 
+impl<T, const N: usize> TryFrom<&[T]> for List<T, N>
+where
+    T: Serializable + Clone,
+{
+    type Error = Error;
+
+    fn try_from(data: &[T]) -> Result<Self, Self::Error> {
+        if data.len() > N {
+            let len = data.len();
+            Err(Error::Instance(InstanceError::Bounded { bound: N, provided: len }))
+        } else {
+            Ok(Self { data: data.to_vec() })
+        }
+    }
+}
+
 impl<T, const N: usize> Deref for List<T, N>
 where
     T: Serializable,
