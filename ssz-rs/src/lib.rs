@@ -49,7 +49,7 @@ mod ser;
 mod serde;
 mod uint;
 mod union;
-mod utils;
+pub mod utils;
 mod vector;
 
 mod lib {
@@ -71,7 +71,7 @@ mod lib {
             slice::{IterMut, SliceIndex},
             str::FromStr,
         },
-        iter::Enumerate,
+        iter::{Enumerate, ExactSizeIterator},
     };
 
     #[cfg(not(feature = "std"))]
