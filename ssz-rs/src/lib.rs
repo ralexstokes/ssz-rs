@@ -46,7 +46,7 @@ mod list;
 mod merkleization;
 mod ser;
 #[cfg(feature = "serde")]
-mod serde;
+pub mod serde;
 mod uint;
 mod union;
 pub mod utils;
