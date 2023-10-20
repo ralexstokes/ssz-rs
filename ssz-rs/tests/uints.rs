@@ -644,7 +644,7 @@ fn test_uints_uint_16_zero_4() {
 
 #[test]
 fn test_uints_uint_256_last_byte_empty() {
-    let mut value = U256::try_from_bytes_le(
+    let mut value = U256::try_from_le_slice(
         Vec::<u8>::from_iter([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 0,
@@ -669,7 +669,7 @@ fn test_uints_uint_256_last_byte_empty() {
 
 #[test]
 fn test_uints_uint_256_max_0() {
-    let mut value = U256::try_from_bytes_le(
+    let mut value = U256::try_from_le_slice(
         Vec::<u8>::from_iter([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -694,7 +694,7 @@ fn test_uints_uint_256_max_0() {
 
 #[test]
 fn test_uints_uint_256_max_1() {
-    let mut value = U256::try_from_bytes_le(
+    let mut value = U256::try_from_le_slice(
         Vec::<u8>::from_iter([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -719,7 +719,7 @@ fn test_uints_uint_256_max_1() {
 
 #[test]
 fn test_uints_uint_256_max_2() {
-    let mut value = U256::try_from_bytes_le(
+    let mut value = U256::try_from_le_slice(
         Vec::<u8>::from_iter([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -744,7 +744,7 @@ fn test_uints_uint_256_max_2() {
 
 #[test]
 fn test_uints_uint_256_max_3() {
-    let mut value = U256::try_from_bytes_le(
+    let mut value = U256::try_from_le_slice(
         Vec::<u8>::from_iter([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -769,7 +769,7 @@ fn test_uints_uint_256_max_3() {
 
 #[test]
 fn test_uints_uint_256_max_4() {
-    let mut value = U256::try_from_bytes_le(
+    let mut value = U256::try_from_le_slice(
         Vec::<u8>::from_iter([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -824,7 +824,7 @@ fn test_uints_uint_256_one_too_high() {
 
 #[test]
 fn test_uints_uint_256_random_0() {
-    let mut value = U256::try_from_bytes_le(
+    let mut value = U256::try_from_le_slice(
         Vec::<u8>::from_iter([
             58, 55, 99, 28, 168, 145, 249, 244, 255, 81, 153, 135, 170, 128, 39, 36, 202, 1, 166,
             171, 97, 55, 46, 78, 36, 161, 66, 116, 168, 139, 34, 10,
@@ -849,7 +849,7 @@ fn test_uints_uint_256_random_0() {
 
 #[test]
 fn test_uints_uint_256_random_1() {
-    let mut value = U256::try_from_bytes_le(
+    let mut value = U256::try_from_le_slice(
         Vec::<u8>::from_iter([
             160, 200, 243, 199, 115, 30, 235, 132, 127, 224, 146, 208, 192, 97, 24, 112, 2, 157,
             177, 75, 95, 22, 105, 70, 180, 97, 182, 31, 39, 79, 21, 199,
@@ -874,7 +874,7 @@ fn test_uints_uint_256_random_1() {
 
 #[test]
 fn test_uints_uint_256_random_2() {
-    let mut value = U256::try_from_bytes_le(
+    let mut value = U256::try_from_le_slice(
         Vec::<u8>::from_iter([
             145, 36, 54, 124, 134, 65, 119, 96, 224, 3, 87, 209, 164, 118, 23, 209, 5, 72, 9, 168,
             251, 195, 102, 65, 122, 101, 27, 164, 66, 115, 0, 49,
@@ -899,7 +899,7 @@ fn test_uints_uint_256_random_2() {
 
 #[test]
 fn test_uints_uint_256_random_3() {
-    let mut value = U256::try_from_bytes_le(
+    let mut value = U256::try_from_le_slice(
         Vec::<u8>::from_iter([
             9, 220, 230, 65, 45, 6, 68, 219, 208, 26, 176, 18, 183, 94, 87, 176, 157, 70, 34, 109,
             52, 201, 18, 243, 217, 129, 175, 51, 196, 80, 238, 25,
@@ -924,7 +924,7 @@ fn test_uints_uint_256_random_3() {
 
 #[test]
 fn test_uints_uint_256_random_4() {
-    let mut value = U256::try_from_bytes_le(
+    let mut value = U256::try_from_le_slice(
         Vec::<u8>::from_iter([
             236, 44, 123, 92, 134, 169, 87, 238, 98, 219, 210, 219, 26, 37, 128, 52, 156, 71, 217,
             131, 206, 187, 193, 227, 34, 128, 209, 179, 17, 9, 210, 107,
@@ -949,7 +949,7 @@ fn test_uints_uint_256_random_4() {
 
 #[test]
 fn test_uints_uint_256_zero_0() {
-    let mut value = U256::try_from_bytes_le(
+    let mut value = U256::try_from_le_slice(
         Vec::<u8>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -974,7 +974,7 @@ fn test_uints_uint_256_zero_0() {
 
 #[test]
 fn test_uints_uint_256_zero_1() {
-    let mut value = U256::try_from_bytes_le(
+    let mut value = U256::try_from_le_slice(
         Vec::<u8>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -999,7 +999,7 @@ fn test_uints_uint_256_zero_1() {
 
 #[test]
 fn test_uints_uint_256_zero_2() {
-    let mut value = U256::try_from_bytes_le(
+    let mut value = U256::try_from_le_slice(
         Vec::<u8>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -1024,7 +1024,7 @@ fn test_uints_uint_256_zero_2() {
 
 #[test]
 fn test_uints_uint_256_zero_3() {
-    let mut value = U256::try_from_bytes_le(
+    let mut value = U256::try_from_le_slice(
         Vec::<u8>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,
@@ -1049,7 +1049,7 @@ fn test_uints_uint_256_zero_3() {
 
 #[test]
 fn test_uints_uint_256_zero_4() {
-    let mut value = U256::try_from_bytes_le(
+    let mut value = U256::try_from_le_slice(
         Vec::<u8>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0,

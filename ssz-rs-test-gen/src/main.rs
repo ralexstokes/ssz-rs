@@ -159,7 +159,7 @@ fn to_rust_u256(value: &serde_yaml::Value) -> String {
     let mut x_bytes = x.to_bytes_le();
     assert!(x_bytes.len() <= 32);
     x_bytes.resize(32, 0);
-    format!("U256::try_from_bytes_le(Vec::<u8>::from_iter({x_bytes:?}).as_ref()).unwrap()")
+    format!("U256::try_from_le_slice(Vec::<u8>::from_iter({x_bytes:?}).as_ref()).unwrap()")
 }
 
 fn to_rust_bitvector(value: &serde_yaml::Value, rust_type: &str) -> String {
