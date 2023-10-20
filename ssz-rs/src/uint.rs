@@ -5,7 +5,6 @@ use crate::{
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize, BITS_PER_BYTE,
 };
-use num_bigint::BigUint;
 
 #[inline]
 fn bits_to_bytes(count: u32) -> usize {
@@ -78,44 +77,9 @@ define_uint!(u128);
 define_uint!(usize);
 
 /// An unsigned integer represented by 256 bits
-#[derive(Default, Debug, PartialEq, Eq, Clone, PartialOrd, Ord, Hash)]
-#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-pub struct U256(#[cfg_attr(feature = "serde", serde(with = "crate::serde::as_str"))] BigUint);
+pub type U256 = alloy_primitives::U256;
 
-impl U256 {
-    pub fn new() -> Self {
-        Self(BigUint::default())
-    }
-
-    pub fn zero() -> Self {
-        Self::default()
-    }
-
-    pub fn try_from_bytes_le(bytes: &[u8]) -> Result<Self, DeserializeError> {
-        Self::deserialize(bytes)
-    }
-
-    pub fn from_bytes_le(bytes: [u8; 32]) -> Self {
-        Self::deserialize(&bytes).unwrap()
-    }
-
-    pub fn to_bytes_le(&self) -> Vec<u8> {
-        let mut bytes = self.0.to_bytes_le();
-        bytes.resize(Self::size_hint(), 0u8);
-        bytes
-    }
-
-    pub fn from_hex(data: &str) -> Option<Self> {
-        let data = data.strip_prefix("0x").unwrap_or(data);
-        BigUint::parse_bytes(data.as_bytes(), 16).map(Self)
-    }
-}
-
-impl From<u64> for U256 {
-    fn from(x: u64) -> Self {
-        Self(x.into())
-    }
-}
+const U256_BYTE_COUNT: usize = 32;
 
 impl Serializable for U256 {
     fn is_variable_size() -> bool {
@@ -123,44 +87,42 @@ impl Serializable for U256 {
     }
 
     fn size_hint() -> usize {
-        32
+        U256_BYTE_COUNT
     }
 }
 
 impl Serialize for U256 {
     fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
-        buffer.extend_from_slice(&self.to_bytes_le());
+        buffer.extend_from_slice(self.as_le_slice());
         Ok(Self::size_hint())
     }
 }
 
 impl Deserialize for U256 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
-        let byte_size = Self::size_hint();
-        if encoding.len() < byte_size {
+        if encoding.len() < U256_BYTE_COUNT {
             return Err(DeserializeError::ExpectedFurtherInput {
                 provided: encoding.len(),
-                expected: byte_size,
+                expected: U256_BYTE_COUNT,
             })
         }
-        if encoding.len() > byte_size {
+        if encoding.len() > U256_BYTE_COUNT {
             return Err(DeserializeError::AdditionalInput {
                 provided: encoding.len(),
-                expected: byte_size,
+                expected: U256_BYTE_COUNT,
             })
         }
 
         // SAFETY: index is safe because encoding.len() == byte_size; qed
-        let value = BigUint::from_bytes_le(&encoding[..byte_size]);
-        Ok(Self(value))
+        Ok(Self::from_le_bytes::<U256_BYTE_COUNT>(
+            encoding[..U256_BYTE_COUNT].try_into().expect("is correct size"),
+        ))
     }
 }
 
 impl Merkleized for U256 {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
-        let data = self.to_bytes_le();
-        let node = Node::try_from(data.as_ref()).expect("is right size");
-        Ok(node)
+        Ok(Node::try_from(self.as_le_bytes().as_ref()).expect("is right size"))
     }
 
     fn is_composite_type() -> bool {
@@ -222,8 +184,8 @@ mod tests {
             assert_eq!(result, expected);
         }
         let tests = vec![
-            (U256::try_from_bytes_le(&[2u8; 32]).unwrap(), [2u8; 32]),
-            (U256::try_from_bytes_le(&[u8::MAX; 32]).unwrap(), [u8::MAX; 32]),
+            (U256::try_from_le_slice(&[2u8; 32]).unwrap(), [2u8; 32]),
+            (U256::try_from_le_slice(&[u8::MAX; 32]).unwrap(), [u8::MAX; 32]),
         ];
         for (value, expected) in tests {
             let result = serialize(&value).expect("can encode");
@@ -278,8 +240,8 @@ mod tests {
             assert_eq!(result, expected);
         }
         let tests = vec![
-            (U256::try_from_bytes_le(&[2u8; 32]).unwrap(), [2u8; 32]),
-            (U256::try_from_bytes_le(&[u8::MAX; 32]).unwrap(), [u8::MAX; 32]),
+            (U256::try_from_le_slice(&[2u8; 32]).unwrap(), [2u8; 32]),
+            (U256::try_from_le_slice(&[u8::MAX; 32]).unwrap(), [u8::MAX; 32]),
         ];
         for (expected, bytes) in tests {
             let result = U256::deserialize(&bytes).expect("can encode");

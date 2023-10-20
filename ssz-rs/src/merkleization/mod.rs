@@ -302,8 +302,8 @@ mod tests {
 
     #[test]
     fn test_packing_basic_types_multiple() {
-        let data = U256::from_bytes_le([1u8; 32]);
-        let input = &[data.clone(), data.clone(), data];
+        let data = U256::from_le_bytes([1u8; 32]);
+        let input = &[data, data, data];
         let result = pack(input).expect("can pack values");
 
         let expected = vec![1u8; 3 * 32];
