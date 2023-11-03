@@ -68,10 +68,10 @@ mod lib {
             array::TryFromSliceError,
             fmt::{Debug, Display, Formatter},
             ops::{Deref, DerefMut, Index, IndexMut},
-            slice::{IterMut, SliceIndex},
+            slice::SliceIndex,
             str::FromStr,
         },
-        iter::{Enumerate, ExactSizeIterator},
+        iter::ExactSizeIterator,
     };
 
     #[cfg(not(feature = "std"))]
