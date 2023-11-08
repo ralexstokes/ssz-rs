@@ -1,3 +1,4 @@
+pub mod multiproofs;
 mod node;
 mod proofs;
 
