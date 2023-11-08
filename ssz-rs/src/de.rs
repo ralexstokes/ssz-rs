@@ -24,6 +24,9 @@ pub enum DeserializeError {
     OffsetNotIncreasing { start: usize, end: usize },
     /// An offset was absent when expected.
     MissingOffset,
+    /// No corresponding variant of the requested enum was present. (refer to `transparent`
+    /// attribute of `ssz-rs-derive` macro)
+    NoMatchingVariant,
 }
 
 impl From<InstanceError> for DeserializeError {
@@ -52,6 +55,7 @@ impl Display for DeserializeError {
             DeserializeError::InvalidOffsetsLength(len) => write!(f, "the offsets length provided {len} is not a multiple of the size per length offset {BYTES_PER_LENGTH_OFFSET} bytes"),
             DeserializeError::OffsetNotIncreasing { start, end } => write!(f, "invalid offset points to byte {end} before byte {start}"),
             DeserializeError::MissingOffset => write!(f, "an offset was missing when deserializing a variable-sized type"),
+            DeserializeError::NoMatchingVariant => write!(f, "no corresponding variant of the requested enum was present"),
         }
     }
 }
