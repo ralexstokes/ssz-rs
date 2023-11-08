@@ -31,6 +31,8 @@ pub enum MerkleizationError {
     SerializationError(SerializeError),
     /// More data was provided than expected
     InputExceedsLimit(usize),
+    /// Proof verification failed
+    InvalidProof,
 }
 
 impl From<SerializeError> for MerkleizationError {
@@ -46,6 +48,7 @@ impl Display for MerkleizationError {
                 write!(f, "failed to serialize value: {err}")
             }
             Self::InputExceedsLimit(size) => write!(f, "data exceeds the declared limit {size}"),
+            Self::InvalidProof => write!(f, "merkle proof verification failed"),
         }
     }
 }
