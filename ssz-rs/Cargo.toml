@@ -27,7 +27,7 @@ serde = { version = "1.0", default-features = false, features = [
 hex = { version = "0.4.3", default-features = false, features = [
     "alloc",
 ], optional = true }
-alloy-primitives = { version = "0.4.2", default-features = false }
+alloy-primitives = { version = "^0.5.0", default-features = false }
 
 [dev-dependencies]
 snap = "1.0"
