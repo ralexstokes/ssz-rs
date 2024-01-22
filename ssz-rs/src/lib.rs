@@ -103,15 +103,15 @@ pub trait Serializable: Serialize + Deserialize {
 pub trait SimpleSerialize: Serializable + Merkleized {}
 
 mod exports {
+    #[cfg(feature = "std")]
+    pub use crate::merkleization::multiproofs::*;
     pub use crate::{
         bitlist::Bitlist,
         bitvector::Bitvector,
         de::{Deserialize, DeserializeError},
         error::{Error as SimpleSerializeError, InstanceError, TypeError},
         list::List,
-        merkleization::{
-            is_valid_merkle_branch, multiproofs::*, MerkleizationError, Merkleized, Node,
-        },
+        merkleization::{is_valid_merkle_branch, MerkleizationError, Merkleized, Node},
         ser::{Serialize, SerializeError},
         uint::U256,
         utils::{deserialize, serialize},

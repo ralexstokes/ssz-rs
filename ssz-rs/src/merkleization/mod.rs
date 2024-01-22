@@ -1,3 +1,4 @@
+#[cfg(feature = "std")]
 pub mod multiproofs;
 mod node;
 mod proofs;
