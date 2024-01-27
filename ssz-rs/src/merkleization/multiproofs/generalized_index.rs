@@ -1,10 +1,10 @@
-use crate::merkleization::MerkleizationError as Error;
+use crate::{lib::mem, merkleization::MerkleizationError as Error};
 
 const BITS_PER_BYTE: usize = crate::BITS_PER_BYTE as usize;
 
 // From: https://users.rust-lang.org/t/logarithm-of-integers/8506/5
 const fn num_bits<T>() -> usize {
-    std::mem::size_of::<T>() * BITS_PER_BYTE
+    mem::size_of::<T>() * BITS_PER_BYTE
 }
 
 // Return base 2 logarithm of `x`.

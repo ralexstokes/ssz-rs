@@ -2,9 +2,11 @@ mod generalized_index;
 
 pub use generalized_index::*;
 
-use crate::merkleization::{MerkleizationError as Error, Node};
+use crate::{
+    lib::*,
+    merkleization::{MerkleizationError as Error, Node},
+};
 use sha2::{Digest, Sha256};
-use std::collections::{HashMap, HashSet};
 
 fn get_branch_indices(tree_index: GeneralizedIndex) -> Vec<GeneralizedIndex> {
     let mut focus = sibling(tree_index);
