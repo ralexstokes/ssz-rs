@@ -2,7 +2,11 @@ use crate::{
     de::{deserialize_homogeneous_composite, Deserialize, DeserializeError},
     error::{InstanceError, TypeError},
     lib::*,
-    merkleization::{elements_to_chunks, merkleize, pack, MerkleizationError, Merkleized, Node},
+    merkleization::{
+        elements_to_chunks, merkleize,
+        multiproofs::{get_power_of_two_ceil, GeneralizedIndex, Indexed, Path, PathElement},
+        pack, MerkleizationError, Merkleized, Node,
+    },
     ser::{Serialize, SerializeError, Serializer},
     Serializable, SimpleSerialize,
 };
@@ -84,6 +88,34 @@ where
 
     fn is_composite_type() -> bool {
         T::is_composite_type()
+    }
+}
+
+impl<T, const N: usize> Indexed for [T; N]
+where
+    T: Indexed,
+{
+    fn chunk_count() -> usize {
+        (N * T::item_length() + 31) / 32
+    }
+
+    fn compute_generalized_index(
+        parent: GeneralizedIndex,
+        path: Path<'_>,
+    ) -> Result<GeneralizedIndex, MerkleizationError> {
+        if let Some((next, rest)) = path.split_first() {
+            match next {
+                PathElement::Index(i) => {
+                    let chunk_position = i * T::item_length() / 32;
+                    let child =
+                        parent * get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
+                    T::compute_generalized_index(child, rest)
+                }
+                elem => Err(MerkleizationError::InvalidPathElement(elem.clone())),
+            }
+        } else {
+            Ok(parent)
+        }
     }
 }
 

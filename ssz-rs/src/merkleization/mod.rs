@@ -36,6 +36,12 @@ pub enum MerkleizationError {
     InvalidProof,
     /// Signals an invalid generalized index (e.g. `0`) was presented.
     InvalidGeneralizedIndex,
+    /// Signals an invalid type of path element when walking an
+    /// `crate::merkleization::multiproofs::Indexed` type
+    InvalidPathElement(multiproofs::PathElement),
+    /// Signals an invalid path when walking an
+    /// `crate::merkleization::multiproofs::Indexed` type
+    InvalidPath(Vec<multiproofs::PathElement>),
 }
 
 impl From<SerializeError> for MerkleizationError {
@@ -53,6 +59,8 @@ impl Display for MerkleizationError {
             Self::InputExceedsLimit(size) => write!(f, "data exceeds the declared limit {size}"),
             Self::InvalidProof => write!(f, "merkle proof verification failed"),
             Self::InvalidGeneralizedIndex => write!(f, "invalid generalized index"),
+            Self::InvalidPathElement(element) => write!(f, "invalid path element {element:?}"),
+            Self::InvalidPath(path) => write!(f, "invalid path {path:?}"),
         }
     }
 }

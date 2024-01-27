@@ -1,7 +1,7 @@
 use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
-    merkleization::{MerkleizationError, Merkleized, Node},
+    merkleization::{multiproofs::Indexed, MerkleizationError, Merkleized, Node},
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,
 };
@@ -54,6 +54,12 @@ impl Merkleized for bool {
 }
 
 impl SimpleSerialize for bool {}
+
+impl Indexed for bool {
+    fn item_length() -> usize {
+        Self::size_hint()
+    }
+}
 
 #[cfg(test)]
 mod tests {
