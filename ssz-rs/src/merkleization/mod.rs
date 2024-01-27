@@ -1,3 +1,4 @@
+pub mod multiproofs;
 mod node;
 mod proofs;
 
@@ -33,6 +34,8 @@ pub enum MerkleizationError {
     InputExceedsLimit(usize),
     /// Proof verification failed
     InvalidProof,
+    /// Signals an invalid generalized index (e.g. `0`) was presented.
+    InvalidGeneralizedIndex,
 }
 
 impl From<SerializeError> for MerkleizationError {
@@ -49,6 +52,7 @@ impl Display for MerkleizationError {
             }
             Self::InputExceedsLimit(size) => write!(f, "data exceeds the declared limit {size}"),
             Self::InvalidProof => write!(f, "merkle proof verification failed"),
+            Self::InvalidGeneralizedIndex => write!(f, "invalid generalized index"),
         }
     }
 }
