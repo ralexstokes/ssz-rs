@@ -2,7 +2,7 @@ mod generalized_index;
 
 pub use generalized_index::*;
 
-use crate::merkleization::Node;
+use crate::merkleization::{MerkleizationError as Error, Node};
 use sha2::{Digest, Sha256};
 use std::collections::{HashMap, HashSet};
 
@@ -43,8 +43,15 @@ fn get_helper_indices(indices: &[GeneralizedIndex]) -> Vec<GeneralizedIndex> {
     all_branch_indices
 }
 
-pub fn calculate_merkle_root(leaf: Node, proof: &[Node], index: GeneralizedIndex) -> Node {
-    debug_assert_eq!(proof.len(), get_path_length(index));
+pub fn calculate_merkle_root(
+    leaf: Node,
+    proof: &[Node],
+    index: GeneralizedIndex,
+) -> Result<Node, Error> {
+    let path_length = get_path_length(index)?;
+    if path_length != proof.len() {
+        return Err(Error::InvalidProof)
+    }
     let mut result = leaf;
 
     let mut hasher = Sha256::new();
@@ -58,7 +65,7 @@ pub fn calculate_merkle_root(leaf: Node, proof: &[Node], index: GeneralizedIndex
         }
         result.as_mut().copy_from_slice(&hasher.finalize_reset());
     }
-    result
+    Ok(result)
 }
 
 pub fn verify_merkle_proof(
@@ -66,18 +73,26 @@ pub fn verify_merkle_proof(
     proof: &[Node],
     index: GeneralizedIndex,
     root: Node,
-) -> bool {
-    calculate_merkle_root(leaf, proof, index) == root
+) -> Result<(), Error> {
+    if calculate_merkle_root(leaf, proof, index)? == root {
+        Ok(())
+    } else {
+        Err(Error::InvalidProof)
+    }
 }
 
 pub fn calculate_multi_merkle_root(
     leaves: &[Node],
     proof: &[Node],
     indices: &[GeneralizedIndex],
-) -> Node {
-    debug_assert_eq!(leaves.len(), indices.len());
+) -> Result<Node, Error> {
+    if leaves.len() != indices.len() {
+        return Err(Error::InvalidProof)
+    }
     let helper_indices = get_helper_indices(indices);
-    debug_assert_eq!(proof.len(), helper_indices.len());
+    if proof.len() != helper_indices.len() {
+        return Err(Error::InvalidProof)
+    }
 
     let mut objects = HashMap::new();
     for (index, node) in indices.iter().zip(leaves.iter()) {
@@ -102,8 +117,8 @@ pub fn calculate_multi_merkle_root(
         if should_compute {
             let right_index = key | 1;
             let left_index = sibling(right_index);
-            let left_input = objects.get(&left_index).unwrap();
-            let right_input = objects.get(&right_index).unwrap();
+            let left_input = objects.get(&left_index).expect("contains index");
+            let right_input = objects.get(&right_index).expect("contains index");
             hasher.update(left_input.as_ref());
             hasher.update(right_input.as_ref());
 
@@ -114,7 +129,8 @@ pub fn calculate_multi_merkle_root(
         pos += 1;
     }
 
-    *objects.get(&1).unwrap()
+    let root = *objects.get(&1).expect("contains index");
+    Ok(root)
 }
 
 pub fn verify_merkle_multiproof(
@@ -122,6 +138,10 @@ pub fn verify_merkle_multiproof(
     proof: &[Node],
     indices: &[GeneralizedIndex],
     root: Node,
-) -> bool {
-    calculate_multi_merkle_root(leaves, proof, indices) == root
+) -> Result<(), Error> {
+    if calculate_multi_merkle_root(leaves, proof, indices)? == root {
+        Ok(())
+    } else {
+        Err(Error::InvalidProof)
+    }
 }

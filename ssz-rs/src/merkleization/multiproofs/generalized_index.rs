@@ -1,11 +1,20 @@
+use crate::merkleization::MerkleizationError as Error;
+
+const BITS_PER_BYTE: usize = crate::BITS_PER_BYTE as usize;
+
 // From: https://users.rust-lang.org/t/logarithm-of-integers/8506/5
 const fn num_bits<T>() -> usize {
-    std::mem::size_of::<T>() * 8
+    std::mem::size_of::<T>() * BITS_PER_BYTE
 }
 
-fn log_2(x: usize) -> u32 {
-    assert!(x > 0);
-    num_bits::<usize>() as u32 - x.leading_zeros() - 1
+// Return base 2 logarithm of `x`.
+// `None` is returned if `x` is `0` as this logarithm is undefined.
+fn log_2(x: usize) -> Option<u32> {
+    if x == 0 {
+        None
+    } else {
+        Some(num_bits::<usize>() as u32 - x.leading_zeros() - 1)
+    }
 }
 
 pub fn get_power_of_two_ceil(x: usize) -> usize {
@@ -18,8 +27,9 @@ pub fn get_power_of_two_ceil(x: usize) -> usize {
 
 pub type GeneralizedIndex = usize;
 
-pub fn get_path_length(index: GeneralizedIndex) -> usize {
-    log_2(index) as usize
+pub fn get_path_length(index: GeneralizedIndex) -> Result<usize, Error> {
+    let length = log_2(index).ok_or(Error::InvalidGeneralizedIndex)?;
+    Ok(length as usize)
 }
 
 pub fn get_bit(index: GeneralizedIndex, position: usize) -> bool {
