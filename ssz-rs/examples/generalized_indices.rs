@@ -19,11 +19,11 @@ struct Qux {
 }
 
 fn main() {
-    let path = &[PathElement::Index(2)];
-    let index = get_generalized_index::<Vector<u8, 16>>(path).unwrap();
+    let path = &[2.into()];
+    let index = Vector::<u8, 16>::generalized_index(path).unwrap();
     dbg!(index);
 
-    let path = &[PathElement::Index(2)];
+    let path = &[2.into()];
     let index = get_generalized_index::<List<u8, 256>>(path).unwrap();
     dbg!(index);
     let path = &[PathElement::Length];
@@ -31,27 +31,20 @@ fn main() {
     dbg!(index);
 
     // containers
-    let path = &[PathElement::Field("c".into())];
+    let path = &["c".into()];
     let index = Bar::generalized_index(path).unwrap();
     dbg!(index);
 
     // nested access
-    let path = &[PathElement::Field("a".into()), PathElement::Index(2)];
+    let path = &["a".into(), 2.into()];
     let index = Bar::generalized_index(path).unwrap();
     dbg!(index);
 
-    let path = &[
-        PathElement::Field("f".into()),
-        PathElement::Field("y".into()),
-        PathElement::Index(2),
-        PathElement::Field("a".into()),
-        PathElement::Index(3),
-    ];
+    let path = &["f".into(), "y".into(), 2.into(), "a".into(), 3.into()];
     let index = Bar::generalized_index(path).unwrap();
     dbg!(index);
 
-    let path =
-        &[PathElement::Field("f".into()), PathElement::Field("y".into()), PathElement::Length];
+    let path = &["f".into(), "y".into(), PathElement::Length];
     let index = Bar::generalized_index(path).unwrap();
     dbg!(index);
 }

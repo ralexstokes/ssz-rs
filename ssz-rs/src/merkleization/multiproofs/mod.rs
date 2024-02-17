@@ -15,6 +15,18 @@ pub enum PathElement {
     Length,
 }
 
+impl From<&str> for PathElement {
+    fn from(value: &str) -> Self {
+        PathElement::Field(value.to_string())
+    }
+}
+
+impl From<usize> for PathElement {
+    fn from(value: usize) -> Self {
+        PathElement::Index(value)
+    }
+}
+
 pub type Path<'a> = &'a [PathElement];
 
 pub trait Indexed {
