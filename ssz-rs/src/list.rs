@@ -3,8 +3,9 @@ use crate::{
     error::{Error, InstanceError},
     lib::*,
     merkleization::{
-        elements_to_chunks, merkleize, mix_in_length, pack, MerkleizationError, Merkleized, Node,
-        BYTES_PER_CHUNK,
+        elements_to_chunks, merkleize, mix_in_length,
+        multiproofs::{get_power_of_two_ceil, GeneralizedIndex, Indexed, Path, PathElement},
+        pack, MerkleizationError, Merkleized, Node, BYTES_PER_CHUNK,
     },
     ser::{Serialize, SerializeError, Serializer},
     Serializable, SimpleSerialize,
@@ -250,6 +251,42 @@ where
 }
 
 impl<T, const N: usize> SimpleSerialize for List<T, N> where T: SimpleSerialize {}
+
+impl<T, const N: usize> Indexed for List<T, N>
+where
+    T: SimpleSerialize + Indexed,
+{
+    fn chunk_count() -> usize {
+        (N * T::item_length() + 31) / 32
+    }
+
+    fn compute_generalized_index(
+        parent: GeneralizedIndex,
+        path: Path,
+    ) -> Result<GeneralizedIndex, MerkleizationError> {
+        if let Some((next, rest)) = path.split_first() {
+            match next {
+                PathElement::Index(i) => {
+                    let chunk_position = i * T::item_length() / 32;
+                    let child =
+                        parent * 2 * get_power_of_two_ceil(<Self as Indexed>::chunk_count()) +
+                            chunk_position;
+                    T::compute_generalized_index(child, rest)
+                }
+                PathElement::Length => {
+                    if rest.is_empty() {
+                        Ok(parent * 2 + 1)
+                    } else {
+                        Err(MerkleizationError::InvalidPath(rest.to_vec()))
+                    }
+                }
+                elem => Err(MerkleizationError::InvalidPathElement(elem.clone())),
+            }
+        } else {
+            Ok(parent)
+        }
+    }
+}
 
 #[cfg(feature = "serde")]
 struct ListVisitor<T: Serializable>(PhantomData<Vec<T>>);

@@ -4,9 +4,56 @@ pub use generalized_index::*;
 
 use crate::{
     lib::*,
-    merkleization::{MerkleizationError as Error, Node},
+    merkleization::{MerkleizationError as Error, Node, BYTES_PER_CHUNK},
 };
 use sha2::{Digest, Sha256};
+
+#[derive(Debug, Clone)]
+pub enum PathElement {
+    Index(usize),
+    Field(String),
+    Length,
+}
+
+pub type Path<'a> = &'a [PathElement];
+
+pub trait Indexed {
+    fn item_length() -> usize {
+        BYTES_PER_CHUNK
+    }
+
+    /// Return the chunk count when merkleizing this type.
+    /// Default implementation for "basic" types that fit in one chunk.
+    fn chunk_count() -> usize {
+        1
+    }
+
+    /// Compute the generalized index starting from `parent` and following `path` through the
+    /// implementing type.
+    /// Default implementation for "basic" types with no further children in the Merkle tree.
+    fn compute_generalized_index(
+        parent: GeneralizedIndex,
+        path: Path,
+    ) -> Result<GeneralizedIndex, Error> {
+        if path.is_empty() {
+            Ok(parent)
+        } else {
+            Err(Error::InvalidPath(path.to_vec()))
+        }
+    }
+
+    fn generalized_index(path: Path) -> Result<GeneralizedIndex, Error>
+    where
+        Self: Sized,
+    {
+        get_generalized_index::<Self>(path)
+    }
+}
+
+pub fn get_generalized_index<T: Indexed>(path: Path) -> Result<GeneralizedIndex, Error> {
+    let root = default_generalized_index();
+    T::compute_generalized_index(root, path)
+}
 
 fn get_branch_indices(tree_index: GeneralizedIndex) -> Vec<GeneralizedIndex> {
     let mut focus = sibling(tree_index);

@@ -116,7 +116,8 @@ mod exports {
         error::{Error as SimpleSerializeError, InstanceError, TypeError},
         list::List,
         merkleization::{
-            is_valid_merkle_branch, multiproofs, MerkleizationError, Merkleized, Node,
+            is_valid_merkle_branch, multiproofs, multiproofs::*, MerkleizationError, Merkleized,
+            Node,
         },
         ser::{Serialize, SerializeError},
         uint::U256,
@@ -136,7 +137,7 @@ pub mod prelude {
     // expose this so the derive macro has everything in scope
     // with a simple `prelude` import
     pub use crate as ssz_rs;
-    pub use ssz_rs_derive::{Merkleized, Serializable, SimpleSerialize};
+    pub use ssz_rs_derive::{Indexed, Merkleized, Serializable, SimpleSerialize};
 }
 
 #[doc(hidden)]

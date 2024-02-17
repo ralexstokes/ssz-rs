@@ -1,7 +1,7 @@
 use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
-    merkleization::{pack_bytes, MerkleizationError, Merkleized, Node},
+    merkleization::{multiproofs::Indexed, pack_bytes, MerkleizationError, Merkleized, Node},
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize, BITS_PER_BYTE,
 };
@@ -66,6 +66,12 @@ macro_rules! define_uint {
         }
 
         impl SimpleSerialize for $uint {}
+
+        impl Indexed for $uint {
+            fn item_length() -> usize {
+                Self::size_hint()
+            }
+        }
     };
 }
 
@@ -131,6 +137,12 @@ impl Merkleized for U256 {
 }
 
 impl SimpleSerialize for U256 {}
+
+impl Indexed for U256 {
+    fn item_length() -> usize {
+        Self::size_hint()
+    }
+}
 
 #[cfg(test)]
 mod tests {

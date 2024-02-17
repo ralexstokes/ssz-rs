@@ -25,29 +25,37 @@ pub fn get_power_of_two_ceil(x: usize) -> usize {
     }
 }
 
+/// Represents a "generalized index" from the SSZ spec.
+/// Note: the default `GeneralizedIndex` is _not_ what `Default::default()`
+/// provides. See the function `default_generalized_index` when working with
+/// these values.
 pub type GeneralizedIndex = usize;
+
+pub const fn default_generalized_index() -> GeneralizedIndex {
+    1
+}
 
 pub fn get_path_length(index: GeneralizedIndex) -> Result<usize, Error> {
     let length = log_2(index).ok_or(Error::InvalidGeneralizedIndex)?;
     Ok(length as usize)
 }
 
-pub fn get_bit(index: GeneralizedIndex, position: usize) -> bool {
+pub const fn get_bit(index: GeneralizedIndex, position: usize) -> bool {
     index & (1 << position) > 0
 }
 
-pub fn sibling(index: GeneralizedIndex) -> GeneralizedIndex {
+pub const fn sibling(index: GeneralizedIndex) -> GeneralizedIndex {
     index ^ 1
 }
 
-pub fn child_left(index: GeneralizedIndex) -> GeneralizedIndex {
+pub const fn child_left(index: GeneralizedIndex) -> GeneralizedIndex {
     index * 2
 }
 
-pub fn child_right(index: GeneralizedIndex) -> GeneralizedIndex {
+pub const fn child_right(index: GeneralizedIndex) -> GeneralizedIndex {
     index * 2 + 1
 }
 
-pub fn parent(index: GeneralizedIndex) -> GeneralizedIndex {
+pub const fn parent(index: GeneralizedIndex) -> GeneralizedIndex {
     index / 2
 }
