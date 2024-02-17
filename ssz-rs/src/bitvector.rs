@@ -2,7 +2,9 @@ use crate::{
     de::{Deserialize, DeserializeError},
     error::{Error, InstanceError, TypeError},
     lib::*,
-    merkleization::{merkleize, pack_bytes, MerkleizationError, Merkleized, Node, BITS_PER_CHUNK},
+    merkleization::{
+        merkleize, multiproofs::*, pack_bytes, MerkleizationError, Merkleized, Node, BITS_PER_CHUNK,
+    },
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,
 };
@@ -166,6 +168,15 @@ impl<const N: usize> Merkleized for Bitvector<N> {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         let chunks = self.pack_bits()?;
         merkleize(&chunks, Some(Self::chunk_count()))
+    }
+}
+
+impl<const N: usize> Indexed for Bitvector<N> {
+    fn generalized_index(_path: Path) -> Result<GeneralizedIndex, MerkleizationError>
+    where
+        Self: Sized,
+    {
+        unimplemented!()
     }
 }
 

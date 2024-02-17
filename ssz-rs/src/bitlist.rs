@@ -3,7 +3,8 @@ use crate::{
     error::{Error, InstanceError},
     lib::*,
     merkleization::{
-        merkleize, mix_in_length, pack_bytes, MerkleizationError, Merkleized, Node, BITS_PER_CHUNK,
+        merkleize, mix_in_length, multiproofs::*, pack_bytes, MerkleizationError, Merkleized, Node,
+        BITS_PER_CHUNK,
     },
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,
@@ -179,6 +180,15 @@ impl<const N: usize> Merkleized for Bitlist<N> {
         let chunks = self.pack_bits()?;
         let data_root = merkleize(&chunks, Some(Self::chunk_count()))?;
         Ok(mix_in_length(&data_root, self.len()))
+    }
+}
+
+impl<const N: usize> Indexed for Bitlist<N> {
+    fn generalized_index(_path: Path) -> Result<GeneralizedIndex, MerkleizationError>
+    where
+        Self: Sized,
+    {
+        unimplemented!()
     }
 }
 
