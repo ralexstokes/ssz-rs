@@ -75,7 +75,7 @@ mod lib {
     };
 
     #[cfg(not(feature = "std"))]
-    pub use alloc::{format, string::String, vec, vec::Vec};
+    pub use alloc::{format, string::String, string::ToString, vec, vec::Vec};
 
     #[cfg(feature = "std")]
     pub use std::vec::Vec;

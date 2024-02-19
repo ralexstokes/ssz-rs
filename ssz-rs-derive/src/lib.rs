@@ -413,7 +413,7 @@ fn derive_indexed_impl(data: &Data, name: &Ident, generics: &Generics) -> TokenS
                     quote! {
                         #selector => {
                             let chunk_position = #i;
-                            let child = parent + get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
+                            let child = parent * get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
                             <#field_ty as ssz_rs::Indexed>::compute_generalized_index(child, path)
                         }
                     }

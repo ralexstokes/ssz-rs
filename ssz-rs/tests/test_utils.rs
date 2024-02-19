@@ -1,5 +1,5 @@
 use ssz_rs::prelude::*;
-use std::{convert::TryInto, fs::File, io::Read, path::PathBuf};
+use std::{fs::File, io::Read, path::PathBuf};
 
 pub fn root_from_hex(hex_str: &str) -> Node {
     let hex_str = hex_str.trim_start_matches("0x");

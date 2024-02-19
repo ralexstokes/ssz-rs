@@ -15,6 +15,18 @@ pub enum PathElement {
     Length,
 }
 
+impl From<&str> for PathElement {
+    fn from(value: &str) -> Self {
+        PathElement::Field(value.to_string())
+    }
+}
+
+impl From<usize> for PathElement {
+    fn from(value: usize) -> Self {
+        PathElement::Index(value)
+    }
+}
+
 pub type Path<'a> = &'a [PathElement];
 
 pub trait Indexed {
@@ -192,5 +204,65 @@ pub fn verify_merkle_multiproof(
         Ok(())
     } else {
         Err(Error::InvalidProof)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::prelude::*;
+
+    #[derive(Default, Debug, SimpleSerialize, Indexed)]
+    struct Bar {
+        c: u8,
+        f: Foo,
+        a: List<u8, 25>,
+    }
+
+    #[derive(Default, Debug, SimpleSerialize, Indexed)]
+    struct Foo {
+        x: Vector<u8, 32>,
+        y: List<Qux, 256>,
+    }
+
+    #[derive(Default, Debug, SimpleSerialize, Indexed)]
+    struct Qux {
+        a: Vector<u16, 8>,
+    }
+
+    #[test]
+    fn test_basic_generalized_index_computation() {
+        let mut indices = vec![];
+
+        let path = &[2.into()];
+        let index = Vector::<u8, 16>::generalized_index(path).unwrap();
+        indices.push(index);
+
+        let path = &[2.into()];
+        let index = get_generalized_index::<List<u8, 256>>(path).unwrap();
+        indices.push(index);
+
+        let path = &[PathElement::Length];
+        let index = List::<u8, 256>::generalized_index(path).unwrap();
+        indices.push(index);
+
+        // containers
+        let path = &["c".into()];
+        let index = Bar::generalized_index(path).unwrap();
+        indices.push(index);
+
+        // nested access
+        let path = &["a".into(), 2.into()];
+        let index = Bar::generalized_index(path).unwrap();
+        indices.push(index);
+
+        let path = &["f".into(), "y".into(), 2.into(), "a".into(), 3.into()];
+        let index = Bar::generalized_index(path).unwrap();
+        indices.push(index);
+
+        let path = &["f".into(), "y".into(), PathElement::Length];
+        let index = Bar::generalized_index(path).unwrap();
+        indices.push(index);
+
+        assert_eq!(indices, [1, 16, 3, 4, 12, 5634, 23])
     }
 }
