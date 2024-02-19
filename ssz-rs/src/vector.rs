@@ -263,6 +263,9 @@ where
         if let Some((next, rest)) = path.split_first() {
             match next {
                 PathElement::Index(i) => {
+                    if *i >= N {
+                        return Err(MerkleizationError::InvalidPathElement(next.clone()))
+                    }
                     let chunk_position = i * T::item_length() / 32;
                     let child =
                         parent * get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
@@ -442,5 +445,14 @@ mod tests {
         type V = Vector<u8, 4>;
         let bad_input_str = "[]";
         let _: V = serde_json::from_str(bad_input_str).unwrap();
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_illegal_generalized_index() {
+        type V = Vector<u8, 4>;
+
+        let path = &[5.into()];
+        let _ = V::generalized_index(path).unwrap();
     }
 }
