@@ -106,6 +106,9 @@ where
         if let Some((next, rest)) = path.split_first() {
             match next {
                 PathElement::Index(i) => {
+                    if *i >= N {
+                        return Err(MerkleizationError::InvalidPathElement(next.clone()))
+                    }
                     let chunk_position = i * T::item_length() / 32;
                     let child =
                         parent * get_power_of_two_ceil(Self::chunk_count()) + chunk_position;

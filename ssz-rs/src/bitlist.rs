@@ -184,11 +184,31 @@ impl<const N: usize> Merkleized for Bitlist<N> {
 }
 
 impl<const N: usize> Indexed for Bitlist<N> {
-    fn generalized_index(_path: Path) -> Result<GeneralizedIndex, MerkleizationError>
-    where
-        Self: Sized,
-    {
-        unimplemented!()
+    fn chunk_count() -> usize {
+        Self::chunk_count()
+    }
+
+    fn compute_generalized_index(
+        parent: GeneralizedIndex,
+        path: Path,
+    ) -> Result<GeneralizedIndex, MerkleizationError> {
+        if let Some((next, rest)) = path.split_first() {
+            match next {
+                PathElement::Index(i) => {
+                    if *i >= N {
+                        return Err(MerkleizationError::InvalidPathElement(next.clone()))
+                    }
+                    let chunk_position = i / 256;
+                    let child = parent * get_power_of_two_ceil(<Self as Indexed>::chunk_count()) +
+                        chunk_position;
+                    // NOTE: use `bool` as effective type of element
+                    bool::compute_generalized_index(child, rest)
+                }
+                elem => Err(MerkleizationError::InvalidPathElement(elem.clone())),
+            }
+        } else {
+            Ok(parent)
+        }
     }
 }
 
