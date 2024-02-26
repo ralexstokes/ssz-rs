@@ -1,20 +1,9 @@
-use crate::{lib::mem, merkleization::MerkleizationError as Error};
-
-const BITS_PER_BYTE: usize = crate::BITS_PER_BYTE as usize;
-
-// From: https://users.rust-lang.org/t/logarithm-of-integers/8506/5
-const fn num_bits<T>() -> usize {
-    mem::size_of::<T>() * BITS_PER_BYTE
-}
+use crate::merkleization::MerkleizationError as Error;
 
 // Return base 2 logarithm of `x`.
 // `None` is returned if `x` is `0` as this logarithm is undefined.
 fn log_2(x: usize) -> Option<u32> {
-    if x == 0 {
-        None
-    } else {
-        Some(num_bits::<usize>() as u32 - x.leading_zeros() - 1)
-    }
+    x.checked_ilog2()
 }
 
 pub fn get_power_of_two_ceil(x: usize) -> usize {
