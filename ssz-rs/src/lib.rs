@@ -60,7 +60,7 @@ mod lib {
         pub use std::*;
     }
 
-    pub use self::core::{any, cmp, fmt, iter, mem, slice};
+    pub use self::core::{any, cmp, fmt, iter, slice};
 
     pub use self::{
         cmp::Ordering,
