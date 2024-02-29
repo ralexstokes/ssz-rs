@@ -64,7 +64,7 @@ jobs:
   coverage:
     runs-on: ubuntu-latest
     container:
-      image: xd009642/tarpaulin:develop-nightly
+      image: xd009642/tarpaulin:latest
       options: --security-opt seccomp=unconfined
     steps:
       - name: Checkout sources
