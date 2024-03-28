@@ -5,8 +5,8 @@ use crate::{
 };
 use sha2::{Digest, Sha256};
 
-/// A `Merkleized` type provides a "hash tree root" following the SSZ spec.
-pub trait Merkleized {
+/// Types that can provide the root of their corresponding Merkle tree following the SSZ spec.
+pub trait HashTreeRoot {
     /// Compute the "hash tree root" of `Self`.
     fn hash_tree_root(&mut self) -> Result<Node, Error>;
 
@@ -66,9 +66,9 @@ impl Index<usize> for Context {
 // Grab the precomputed context from the build stage
 include!(concat!(env!("OUT_DIR"), "/context.rs"));
 
-/// Return the root of the Merklization of a binary tree formed from `chunks`.
+/// Return the root of the root node of a binary tree formed from `chunks`.
 ///
-/// `chunks` forms the bottom layer of a binary tree that is Merkleized.
+/// `chunks` forms the bottom layer of this tree.
 ///
 /// This implementation is memory efficient by relying on pre-computed subtrees of all
 /// "zero" leaves stored in the `CONTEXT`. SSZ specifies that `chunks` is padded to the next power
@@ -212,7 +212,7 @@ pub fn mix_in_selector(root: &Node, selector: usize) -> Node {
     mix_in_decoration(root, selector)
 }
 
-pub(crate) fn elements_to_chunks<'a, T: Merkleized + 'a>(
+pub(crate) fn elements_to_chunks<'a, T: HashTreeRoot + 'a>(
     elements: impl Iterator<Item = (usize, &'a mut T)>,
     count: usize,
 ) -> Result<Vec<u8>, Error> {
@@ -565,8 +565,8 @@ mod tests {
     }
 
     #[test]
-    fn test_derive_merkleized() {
-        #[derive(Debug, Merkleized)]
+    fn test_derive_hash_tree_root() {
+        #[derive(Debug, HashTreeRoot)]
         struct Foo {
             a: U256,
         }

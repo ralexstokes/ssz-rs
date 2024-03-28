@@ -4,7 +4,7 @@ use crate::{
     lib::*,
     merkleization::{
         elements_to_chunks, get_power_of_two_ceil, merkleize, mix_in_length, pack,
-        GeneralizedIndex, Indexed, MerkleizationError, Merkleized, Node, Path, PathElement,
+        GeneralizedIndex, HashTreeRoot, Indexed, MerkleizationError, Node, Path, PathElement,
         BYTES_PER_CHUNK,
     },
     ser::{Serialize, SerializeError, Serializer},
@@ -241,7 +241,7 @@ where
     }
 }
 
-impl<T, const N: usize> Merkleized for List<T, N>
+impl<T, const N: usize> HashTreeRoot for List<T, N>
 where
     T: SimpleSerialize,
 {

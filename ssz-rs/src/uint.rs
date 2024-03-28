@@ -1,7 +1,7 @@
 use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
-    merkleization::{pack_bytes, Indexed, MerkleizationError, Merkleized, Node},
+    merkleization::{pack_bytes, HashTreeRoot, Indexed, MerkleizationError, Node},
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize, BITS_PER_BYTE,
 };
@@ -52,7 +52,7 @@ macro_rules! define_uint {
             }
         }
 
-        impl Merkleized for $uint {
+        impl HashTreeRoot for $uint {
             fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
                 let mut root = vec![];
                 let _ = self.serialize(&mut root)?;
@@ -126,7 +126,7 @@ impl Deserialize for U256 {
     }
 }
 
-impl Merkleized for U256 {
+impl HashTreeRoot for U256 {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         Ok(Node::try_from(self.as_le_bytes().as_ref()).expect("is right size"))
     }

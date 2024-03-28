@@ -1,7 +1,7 @@
 use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
-    merkleization::{mix_in_selector, MerkleizationError, Merkleized, Node},
+    merkleization::{mix_in_selector, HashTreeRoot, MerkleizationError, Node},
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,
 };
@@ -69,7 +69,7 @@ where
     }
 }
 
-impl<T> Merkleized for Option<T>
+impl<T> HashTreeRoot for Option<T>
 where
     T: SimpleSerialize,
 {
