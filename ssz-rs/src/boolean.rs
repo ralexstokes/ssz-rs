@@ -1,7 +1,7 @@
 use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
-    merkleization::{multiproofs::Indexed, MerkleizationError, Merkleized, Node},
+    merkleization::{multiproofs::Indexed, MerkleizationError, Merkleized, Node, Prover},
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,
 };
@@ -52,6 +52,8 @@ impl Merkleized for bool {
         false
     }
 }
+
+impl Prover for bool {}
 
 impl SimpleSerialize for bool {}
 

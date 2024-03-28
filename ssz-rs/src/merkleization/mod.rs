@@ -9,7 +9,7 @@ use crate::{
 use sha2::{Digest, Sha256};
 
 pub use node::Node;
-pub use proofs::is_valid_merkle_branch;
+pub use proofs::{is_valid_merkle_branch, Proof, ProofAndWitness, Prover};
 
 pub(crate) const BYTES_PER_CHUNK: usize = 32;
 pub(crate) const BITS_PER_CHUNK: usize = BYTES_PER_CHUNK * (crate::BITS_PER_BYTE as usize);
