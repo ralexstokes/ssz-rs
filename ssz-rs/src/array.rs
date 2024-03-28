@@ -3,9 +3,8 @@ use crate::{
     error::{InstanceError, TypeError},
     lib::*,
     merkleization::{
-        elements_to_chunks, merkleize,
-        multiproofs::{get_power_of_two_ceil, GeneralizedIndex, Indexed, Path, PathElement},
-        pack, MerkleizationError, Merkleized, Node,
+        elements_to_chunks, get_power_of_two_ceil, merkleize, pack, GeneralizedIndex, Indexed,
+        MerkleizationError, Merkleized, Node, Path, PathElement,
     },
     ser::{Serialize, SerializeError, Serializer},
     Serializable, SimpleSerialize,

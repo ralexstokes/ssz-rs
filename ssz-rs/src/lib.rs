@@ -115,10 +115,7 @@ mod exports {
         de::{Deserialize, DeserializeError},
         error::{Error as SimpleSerializeError, InstanceError, TypeError},
         list::List,
-        merkleization::{
-            is_valid_merkle_branch, multiproofs, multiproofs::*, MerkleizationError, Merkleized,
-            Node,
-        },
+        merkleization::*,
         ser::{Serialize, SerializeError},
         uint::U256,
         utils::{deserialize, serialize},

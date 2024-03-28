@@ -3,8 +3,8 @@ use crate::{
     error::{Error, InstanceError},
     lib::*,
     merkleization::{
-        merkleize, mix_in_length, multiproofs::*, pack_bytes, MerkleizationError, Merkleized, Node,
-        BITS_PER_CHUNK,
+        get_power_of_two_ceil, merkleize, mix_in_length, pack_bytes, GeneralizedIndex, Indexed,
+        MerkleizationError, Merkleized, Node, Path, PathElement, BITS_PER_CHUNK,
     },
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,

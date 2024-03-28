@@ -1,6 +1,5 @@
 use crate::{
     lib::*,
-    merkleization::BYTES_PER_CHUNK,
     prelude::*,
     utils::{write_bytes_to_lower_hex, write_bytes_to_lower_hex_display},
 };
