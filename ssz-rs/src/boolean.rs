@@ -3,7 +3,7 @@ use crate::{
     lib::*,
     merkleization::{
         prove_primitive, GeneralizedIndex, GeneralizedIndexable, HashTreeRoot, MerkleizationError,
-        Node, ProofAndWitness, Prover,
+        Node, ProofAndWitness, Prove,
     },
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,
@@ -56,7 +56,7 @@ impl HashTreeRoot for bool {
     }
 }
 
-impl Prover for bool {
+impl Prove for bool {
     fn prove(&mut self, index: GeneralizedIndex) -> Result<ProofAndWitness, MerkleizationError> {
         prove_primitive(self, index)
     }
