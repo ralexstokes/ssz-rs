@@ -3,8 +3,8 @@ use crate::{
     error::{InstanceError, TypeError},
     lib::*,
     merkleization::{
-        elements_to_chunks, get_power_of_two_ceil, merkleize, pack, GeneralizedIndex, Indexed,
-        MerkleizationError, Merkleized, Node, Path, PathElement,
+        elements_to_chunks, get_power_of_two_ceil, merkleize, pack, GeneralizedIndex, HashTreeRoot,
+        Indexed, MerkleizationError, Node, Path, PathElement,
     },
     ser::{Serialize, SerializeError, Serializer},
     Serializable, SimpleSerialize,
@@ -70,7 +70,7 @@ where
     }
 }
 
-impl<T, const N: usize> Merkleized for [T; N]
+impl<T, const N: usize> HashTreeRoot for [T; N]
 where
     T: SimpleSerialize,
 {

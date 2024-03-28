@@ -3,8 +3,8 @@ use crate::{
     error::{Error, InstanceError},
     lib::*,
     merkleization::{
-        get_power_of_two_ceil, merkleize, mix_in_length, pack_bytes, GeneralizedIndex, Indexed,
-        MerkleizationError, Merkleized, Node, Path, PathElement, BITS_PER_CHUNK,
+        get_power_of_two_ceil, merkleize, mix_in_length, pack_bytes, GeneralizedIndex,
+        HashTreeRoot, Indexed, MerkleizationError, Node, Path, PathElement, BITS_PER_CHUNK,
     },
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,
@@ -175,7 +175,7 @@ impl<const N: usize> Deserialize for Bitlist<N> {
     }
 }
 
-impl<const N: usize> Merkleized for Bitlist<N> {
+impl<const N: usize> HashTreeRoot for Bitlist<N> {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         let chunks = self.pack_bits()?;
         let data_root = merkleize(&chunks, Some(Self::chunk_count()))?;

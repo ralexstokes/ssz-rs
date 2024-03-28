@@ -1,7 +1,7 @@
 use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
-    merkleization::{Indexed, MerkleizationError, Merkleized, Node},
+    merkleization::{HashTreeRoot, Indexed, MerkleizationError, Node},
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,
 };
@@ -39,7 +39,7 @@ impl Deserialize for bool {
     }
 }
 
-impl Merkleized for bool {
+impl HashTreeRoot for bool {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         let mut node = Node::default();
         if *self {

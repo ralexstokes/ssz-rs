@@ -381,7 +381,7 @@ fn derive_merkleization_impl(
     };
     let (impl_generics, ty_generics, _) = generics.split_for_impl();
     quote! {
-        impl #impl_generics ssz_rs::Merkleized for #name #ty_generics {
+        impl #impl_generics ssz_rs::HashTreeRoot for #name #ty_generics {
             #method
         }
     }
@@ -705,8 +705,8 @@ pub fn derive_serializable(input: proc_macro::TokenStream) -> proc_macro::TokenS
     proc_macro::TokenStream::from(expansion)
 }
 
-#[proc_macro_derive(Merkleized, attributes(ssz))]
-pub fn derive_merkleized(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+#[proc_macro_derive(HashTreeRoot, attributes(ssz))]
+pub fn derive_hash_tree_root(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
 
     let data = &input.data;
