@@ -1,9 +1,20 @@
 use crate::{
     lib::*,
-    merkleization::{MerkleizationError as Error, Merkleized, Node, BYTES_PER_CHUNK},
+    merkleization::{MerkleizationError as Error, Node, BYTES_PER_CHUNK},
     ser::Serialize,
 };
 use sha2::{Digest, Sha256};
+
+/// A `Merkleized` type provides a "hash tree root" following the SSZ spec.
+pub trait Merkleized {
+    /// Compute the "hash tree root" of `Self`.
+    fn hash_tree_root(&mut self) -> Result<Node, Error>;
+
+    /// Indicate the "composite" nature of `Self`.
+    fn is_composite_type() -> bool {
+        true
+    }
+}
 
 // Ensures `buffer` can be exactly broken up into `BYTES_PER_CHUNK` chunks of bytes
 // via padding any partial chunks at the end of `buffer`

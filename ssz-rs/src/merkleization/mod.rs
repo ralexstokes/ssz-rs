@@ -16,17 +16,6 @@ pub use proofs::*;
 pub(crate) const BYTES_PER_CHUNK: usize = 32;
 pub(crate) const BITS_PER_CHUNK: usize = BYTES_PER_CHUNK * (crate::BITS_PER_BYTE as usize);
 
-/// A `Merkleized` type provides a "hash tree root" following the SSZ spec.
-pub trait Merkleized {
-    /// Compute the "hash tree root" of `Self`.
-    fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError>;
-
-    /// Indicate the "composite" nature of `Self`.
-    fn is_composite_type() -> bool {
-        true
-    }
-}
-
 /// An error encountered during merkleization.
 #[derive(Debug)]
 pub enum MerkleizationError {
