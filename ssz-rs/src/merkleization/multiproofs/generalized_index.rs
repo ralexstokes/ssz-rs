@@ -2,8 +2,8 @@ use crate::merkleization::MerkleizationError as Error;
 
 // Return base 2 logarithm of `x`.
 // `None` is returned if `x` is `0` as this logarithm is undefined.
-pub fn log_2(x: usize) -> Option<usize> {
-    x.checked_ilog2().map(|x| x as usize)
+pub fn log_2(x: usize) -> Option<u32> {
+    x.checked_ilog2()
 }
 
 pub fn get_power_of_two_ceil(x: usize) -> usize {
