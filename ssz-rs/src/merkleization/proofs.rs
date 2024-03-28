@@ -1,8 +1,8 @@
 use crate::{
     lib::*,
     merkleization::{
-        default_generalized_index, generalized_index::log_2, GeneralizedIndex, Indexed,
-        MerkleizationError as Error, Merkleized, Node, Path,
+        default_generalized_index, generalized_index::log_2, GeneralizedIndex,
+        GeneralizedIndexable, HashTreeRoot, MerkleizationError as Error, Node, Path,
     },
 };
 use sha2::{Digest, Sha256};
@@ -32,7 +32,7 @@ impl Proof {
 
 pub type ProofAndWitness = (Proof, Node);
 
-pub fn prove_primitive<T: Prover + ?Sized>(
+pub fn prove_primitive<T: HashTreeRoot + ?Sized>(
     data: &mut T,
     index: GeneralizedIndex,
 ) -> Result<ProofAndWitness, Error> {
@@ -46,14 +46,17 @@ pub fn prove_primitive<T: Prover + ?Sized>(
 }
 
 /// Types that can produce Merkle proofs against themselves given a `GeneralizedIndex`.
-pub trait Prover: Merkleized + Indexed {
+pub trait Prover {
     /// Provide a Merkle proof of the node in this type's merkle tree corresponding to the `index`.
     fn prove(&mut self, index: GeneralizedIndex) -> Result<ProofAndWitness, Error>;
 }
 
 /// Produce a Merkle proof (and corresponding witness) for the type `T` at the given `path` relative
 /// to `T`.
-pub fn prove<T: Prover>(data: &mut T, path: Path) -> Result<ProofAndWitness, Error> {
+pub fn prove<T: GeneralizedIndexable + Prove>(
+    data: &mut T,
+    path: Path,
+) -> Result<ProofAndWitness, Error> {
     let index = T::generalized_index(path)?;
     data.prove(index)
 }
