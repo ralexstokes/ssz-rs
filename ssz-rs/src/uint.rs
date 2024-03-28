@@ -1,7 +1,9 @@
 use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
-    merkleization::{multiproofs::Indexed, pack_bytes, MerkleizationError, Merkleized, Node},
+    merkleization::{
+        multiproofs::Indexed, pack_bytes, MerkleizationError, Merkleized, Node, Prover,
+    },
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize, BITS_PER_BYTE,
 };
@@ -64,6 +66,8 @@ macro_rules! define_uint {
                 false
             }
         }
+
+        impl Prover for $uint {}
 
         impl SimpleSerialize for $uint {}
 
@@ -135,6 +139,8 @@ impl Merkleized for U256 {
         false
     }
 }
+
+impl Prover for U256 {}
 
 impl SimpleSerialize for U256 {}
 

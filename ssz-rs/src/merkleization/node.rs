@@ -46,6 +46,12 @@ impl TryFrom<&[u8]> for Node {
     }
 }
 
+impl AsRef<[u8]> for Node {
+    fn as_ref(&self) -> &[u8] {
+        &self.0
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

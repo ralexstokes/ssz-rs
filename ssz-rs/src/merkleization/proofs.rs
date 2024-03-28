@@ -1,5 +1,69 @@
-use crate::merkleization::{MerkleizationError as Error, Node};
+use crate::{
+    merkleization::{MerkleizationError as Error, Node},
+    multiproofs::{self, default_generalized_index, GeneralizedIndex},
+    Merkleized,
+};
 use sha2::{Digest, Sha256};
+
+#[derive(Debug)]
+pub struct Proof {
+    pub leaf: Node,
+    pub branch: Vec<Node>,
+    pub index: GeneralizedIndex,
+}
+
+impl Proof {
+    pub fn verify(&self, root: Node) -> Result<(), Error> {
+        is_valid_merkle_branch_for_generalized_index(self.leaf, &self.branch, self.index, root)
+    }
+}
+
+impl Default for Proof {
+    fn default() -> Self {
+        Self {
+            leaf: Default::default(),
+            branch: Default::default(),
+            index: default_generalized_index(),
+        }
+    }
+}
+
+pub type ProofAndWitness = (Proof, Node);
+
+pub fn prove_primitive<T: Prover + ?Sized>(
+    data: &mut T,
+    index: GeneralizedIndex,
+) -> Result<ProofAndWitness, Error> {
+    if index != default_generalized_index() {
+        return Err(Error::InvalidGeneralizedIndex)
+    }
+
+    let root = data.hash_tree_root()?;
+    let proof = Proof { leaf: root, branch: vec![], index };
+    Ok((proof, root))
+}
+
+pub trait Prover: Merkleized {
+    fn prove(&mut self, index: GeneralizedIndex) -> Result<ProofAndWitness, Error> {
+        prove_primitive(self, index)
+    }
+}
+
+pub fn get_subtree_index(i: GeneralizedIndex) -> Result<usize, Error> {
+    let i_log2 = multiproofs::log_2(i).ok_or(Error::InvalidGeneralizedIndex)?;
+    Ok(i % 2usize.pow(i_log2))
+}
+
+pub fn is_valid_merkle_branch_for_generalized_index<T: AsRef<[u8]>>(
+    leaf: Node,
+    branch: &[T],
+    generalized_index: GeneralizedIndex,
+    root: Node,
+) -> Result<(), Error> {
+    let index = multiproofs::log_2(generalized_index).unwrap() as usize;
+    let depth = get_subtree_index(generalized_index).unwrap();
+    is_valid_merkle_branch(leaf, branch, depth, index, root)
+}
 
 /// `is_valid_merkle_branch` verifies the Merkle proof
 /// against the `root` given the other metadata.
@@ -39,6 +103,8 @@ pub fn is_valid_merkle_branch<T: AsRef<[u8]>>(
 
 #[cfg(test)]
 mod tests {
+    use crate::U256;
+
     use super::*;
 
     fn decode_node_from_hex(hex: &str) -> Node {
@@ -66,5 +132,38 @@ mod tests {
         );
 
         assert!(is_valid_merkle_branch(leaf, &branch, depth, index, root).is_ok());
+    }
+
+    #[test]
+    fn test_proving_primitives() {
+        let index = default_generalized_index();
+
+        let mut data = 8u8;
+        let (proof, witness) = data.prove(index).unwrap();
+        assert_eq!(witness, data.hash_tree_root().unwrap());
+        let result = proof.verify(witness);
+        assert!(result.is_ok());
+
+        let mut data = 234238u64;
+        let (proof, witness) = data.prove(index).unwrap();
+        assert_eq!(witness, data.hash_tree_root().unwrap());
+        let result = proof.verify(witness);
+        assert!(result.is_ok());
+
+        let mut data = U256::from_str_radix(
+            "f8c2ed25e9c31399d4149dcaa48c51f394043a6a1297e65780a5979e3d7bb77c",
+            16,
+        )
+        .unwrap();
+        let (proof, witness) = data.prove(index).unwrap();
+        assert_eq!(witness, data.hash_tree_root().unwrap());
+        let result = proof.verify(witness);
+        assert!(result.is_ok());
+
+        let mut data = true;
+        let (proof, witness) = data.prove(index).unwrap();
+        assert_eq!(witness, data.hash_tree_root().unwrap());
+        let result = proof.verify(witness);
+        assert!(result.is_ok())
     }
 }

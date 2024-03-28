@@ -20,6 +20,7 @@ pub fn get_power_of_two_ceil(x: usize) -> usize {
 /// these values.
 pub type GeneralizedIndex = usize;
 
+#[inline]
 pub const fn default_generalized_index() -> GeneralizedIndex {
     1
 }
