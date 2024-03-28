@@ -3,7 +3,9 @@ use crate::{
     lib::*,
     merkleization::{MerkleizationError as Error, Node, BYTES_PER_CHUNK},
     ser::Serialize,
+    GeneralizedIndex,
 };
+use alloy_primitives::hex;
 use sha2::{Digest, Sha256};
 
 /// Types that can provide the root of their corresponding Merkle tree following the SSZ spec.
@@ -43,7 +45,7 @@ where
     Ok(buffer)
 }
 
-fn hash_nodes(hasher: &mut Sha256, a: &[u8], b: &[u8], out: &mut [u8]) {
+pub fn hash_nodes(hasher: &mut Sha256, a: &[u8], b: &[u8], out: &mut [u8]) {
     hasher.update(a);
     hasher.update(b);
     out.copy_from_slice(&hasher.finalize_reset());
@@ -226,16 +228,84 @@ pub(crate) fn elements_to_chunks<'a, T: HashTreeRoot + 'a>(
     Ok(chunks)
 }
 
+pub struct Tree(Vec<u8>);
+
+impl Index<GeneralizedIndex> for Tree {
+    type Output = [u8];
+
+    fn index(&self, index: GeneralizedIndex) -> &Self::Output {
+        let start = (index - 1) * BYTES_PER_CHUNK;
+        let end = index * BYTES_PER_CHUNK;
+        &self.0[start..end]
+    }
+}
+
+impl std::fmt::Debug for Tree {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        f.debug_list().entries(self.0.chunks(BYTES_PER_CHUNK).map(hex::encode)).finish()
+    }
+}
+
+// Return the full Merkle tree of the `chunks`.
+// Invariant: `chunks.len() % BYTES_PER_CHUNK == 0`
+// Invariant: `leaf_count.next_power_of_two() == leaf_count`
+// NOTE: naive implementation, can make much more efficient
+pub fn compute_merkle_tree(
+    hasher: &mut Sha256,
+    chunks: &[u8],
+    leaf_count: usize,
+) -> Result<Tree, Error> {
+    debug_assert!(chunks.len() % BYTES_PER_CHUNK == 0);
+    debug_assert!(leaf_count.next_power_of_two() == leaf_count);
+
+    // SAFETY: checked subtraction is unnecessary,
+    // as leaf_count != 0 (0.next_power_of_two() == 1); qed
+    let node_count = 2 * leaf_count - 1;
+    // SAFETY: checked subtraction is unnecessary, as node_count >= leaf_count; qed
+    let interior_count = node_count - leaf_count;
+    let leaf_start = interior_count * BYTES_PER_CHUNK;
+
+    let mut buffer = vec![0u8; node_count * BYTES_PER_CHUNK];
+    buffer[leaf_start..leaf_start + chunks.len()].copy_from_slice(chunks);
+
+    for i in (1..node_count).rev().step_by(2) {
+        // SAFETY: checked subtraction is unnecessary, as i >= 1; qed
+        let parent_index = (i - 1) / 2;
+        let focus = &mut buffer[parent_index * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK];
+        // SAFETY: checked subtraction is unnecessary:
+        // focus.len() = (i + 1 - parent_index) * BYTES_PER_CHUNK
+        //             = ((2*i + 2 - i + 1) / 2) * BYTES_PER_CHUNK
+        //             = ((i + 3) / 2) * BYTES_PER_CHUNK
+        // and
+        // i >= 1
+        // so focus.len() >= 2 * BYTES_PER_CHUNK; qed
+        let children_index = focus.len() - 2 * BYTES_PER_CHUNK;
+        // NOTE: children.len() == 2 * BYTES_PER_CHUNK
+        let (parent, children) = focus.split_at_mut(children_index);
+        let (left, right) = children.split_at(BYTES_PER_CHUNK);
+        hash_nodes(hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
+    }
+    Ok(Tree(buffer))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate as ssz_rs;
-    use crate::prelude::*;
+    use crate::{merkleization::default_generalized_index, prelude::*};
 
     macro_rules! hex {
         ($input:expr) => {
             hex::decode($input).unwrap()
         };
+    }
+
+    // Return the root of the Merklization of a binary tree formed from `chunks`.
+    fn merkleize_chunks(chunks: &[u8], leaf_count: usize) -> Result<Node, Error> {
+        let mut hasher = Sha256::new();
+        let tree = compute_merkle_tree(&mut hasher, chunks, leaf_count)?;
+        let root_index = default_generalized_index();
+        Ok(tree[root_index].try_into().expect("can produce a single root chunk"))
     }
 
     #[test]
@@ -284,45 +354,6 @@ mod tests {
         let mut expected = Node::default();
         expected.as_mut()[0] = 1u8;
         assert_eq!(result, expected);
-    }
-
-    // Return the root of the Merklization of a binary tree formed from `chunks`.
-    // Invariant: `chunks.len() % BYTES_PER_CHUNK == 0`
-    // Invariant: `leaf_count.next_power_of_two() == leaf_count`
-    // NOTE: naive implementation, can make much more efficient
-    fn merkleize_chunks(chunks: &[u8], leaf_count: usize) -> Result<Node, MerkleizationError> {
-        debug_assert!(chunks.len() % BYTES_PER_CHUNK == 0);
-        debug_assert!(leaf_count.next_power_of_two() == leaf_count);
-
-        // SAFETY: checked subtraction is unnecessary,
-        // as leaf_count != 0 (0.next_power_of_two() == 1); qed
-        let node_count = 2 * leaf_count - 1;
-        // SAFETY: checked subtraction is unnecessary, as node_count >= leaf_count; qed
-        let interior_count = node_count - leaf_count;
-        let leaf_start = interior_count * BYTES_PER_CHUNK;
-
-        let mut hasher = Sha256::new();
-        let mut buffer = vec![0u8; node_count * BYTES_PER_CHUNK];
-        buffer[leaf_start..leaf_start + chunks.len()].copy_from_slice(chunks);
-
-        for i in (1..node_count).rev().step_by(2) {
-            // SAFETY: checked subtraction is unnecessary, as i >= 1; qed
-            let parent_index = (i - 1) / 2;
-            let focus = &mut buffer[parent_index * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK];
-            // SAFETY: checked subtraction is unnecessary:
-            // focus.len() = (i + 1 - parent_index) * BYTES_PER_CHUNK
-            //             = ((2*i + 2 - i + 1) / 2) * BYTES_PER_CHUNK
-            //             = ((i + 3) / 2) * BYTES_PER_CHUNK
-            // and
-            // i >= 1
-            // so focus.len() >= 2 * BYTES_PER_CHUNK; qed
-            let children_index = focus.len() - 2 * BYTES_PER_CHUNK;
-            // NOTE: children.len() == 2 * BYTES_PER_CHUNK
-            let (parent, children) = focus.split_at_mut(children_index);
-            let (left, right) = children.split_at(BYTES_PER_CHUNK);
-            hash_nodes(&mut hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
-        }
-        Ok(buffer[..BYTES_PER_CHUNK].try_into().expect("can produce a single root chunk"))
     }
 
     #[test]

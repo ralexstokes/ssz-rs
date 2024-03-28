@@ -3,8 +3,10 @@ use crate::{
     error::{Error, InstanceError, TypeError},
     lib::*,
     merkleization::{
-        elements_to_chunks, get_power_of_two_ceil, merkleize, pack, GeneralizedIndex,
-        GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, Path, PathElement,
+        compute_merkle_tree, elements_to_chunks, get_power_of_two_ceil, merkleize, pack,
+        proofs::{Prove, Prover},
+        GeneralizedIndex, GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, Path,
+        PathElement,
     },
     ser::{Serialize, SerializeError, Serializer},
     Serializable, SimpleSerialize,
@@ -224,15 +226,18 @@ impl<T, const N: usize> Vector<T, N>
 where
     T: SimpleSerialize,
 {
-    fn compute_hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+    fn to_chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
         if T::is_composite_type() {
             let count = self.len();
-            let chunks = elements_to_chunks(self.data.iter_mut().enumerate(), count)?;
-            merkleize(&chunks, None)
+            elements_to_chunks(self.data.iter_mut().enumerate(), count)
         } else {
-            let chunks = pack(&self.data)?;
-            merkleize(&chunks, None)
+            pack(&self.data)
         }
+    }
+
+    fn compute_hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+        let chunks = self.to_chunks()?;
+        merkleize(&chunks, None)
     }
 }
 
@@ -247,7 +252,7 @@ where
 
 impl<T, const N: usize> GeneralizedIndexable for Vector<T, N>
 where
-    T: SimpleSerialize + GeneralizedIndexable,
+    T: SimpleSerialize,
 {
     fn chunk_count() -> usize {
         (N * T::item_length() + 31) / 32
@@ -278,10 +283,49 @@ where
 
 impl<T, const N: usize> Prove for Vector<T, N>
 where
-    T: SimpleSerialize + GeneralizedIndexable + Prove,
+    T: SimpleSerialize + Prove,
 {
-    fn prove(&mut self, index: GeneralizedIndex) -> Result<ProofAndWitness, MerkleizationError> {
-        todo!()
+    fn prove(&mut self, prover: &mut Prover) -> Result<(), MerkleizationError> {
+        let (local_depth, local_index) = prover.compute_depth_and_index(prover.proof.index)?;
+        if local_index >= N {
+            return Err(MerkleizationError::InvalidIndex)
+        }
+
+        let chunk_count = Self::chunk_count();
+        let leaf_count = chunk_count.next_power_of_two();
+        let mut is_basic_type = false;
+        if T::is_composite_type() {
+            let parent_index = prover.proof.index;
+            let child_index = parent_index - leaf_count - local_index + 1;
+            prover.proof.index = child_index;
+            self[local_index].prove(prover)?;
+            prover.proof.index = parent_index;
+        } else {
+            // need to set leaf from merkle tree below...
+            is_basic_type = true;
+        }
+        let chunks = self.to_chunks()?;
+        let tree = compute_merkle_tree(&mut prover.hasher, &chunks, leaf_count)?;
+
+        if is_basic_type {
+            let leaf = &tree[prover.proof.index];
+            prover.set_leaf(leaf.try_into().expect("is correct size"));
+        }
+
+        let mut target = prover.proof.index;
+        for _ in 0..local_depth {
+            let sibling = if target % 2 != 0 { &tree[target - 1] } else { &tree[target + 1] };
+            prover.extend_branch(sibling.try_into().expect("is correct size"));
+            target /= 2;
+        }
+
+        // TODO: remove, but these should match at this point
+        debug_assert_eq!(&tree[1], self.hash_tree_root().unwrap().as_ref());
+
+        let root = &tree[1];
+        prover.set_witness(root.try_into().expect("is correct size"));
+
+        Ok(())
     }
 }
 
@@ -322,7 +366,7 @@ impl<'de, T: Serializable + serde::Deserialize<'de>, const N: usize> serde::Dese
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{list::List, serialize};
+    use crate::{list::List, merkleization::proofs::prove, serialize, U256};
 
     const COUNT: usize = 32;
 
@@ -462,5 +506,54 @@ mod tests {
 
         let path = &[5.into()];
         let _ = V::generalized_index(path).unwrap();
+    }
+
+    #[test]
+    fn test_prove_vector_over_chunk_sized_primitive() {
+        type V = Vector<U256, 7>;
+
+        let mut data = V::try_from(vec![
+            U256::from(23),
+            U256::from(34),
+            U256::from(45),
+            U256::from(56),
+            U256::from(67),
+            U256::from(78),
+            U256::from(11),
+        ])
+        .unwrap();
+
+        let path = &[3.into()];
+        let (proof, witness) = prove(&mut data, path).unwrap();
+
+        let expected_index = 11;
+        let index = V::generalized_index(path).unwrap();
+        assert_eq!(expected_index, index);
+        let mut prover = expected_index.into();
+        data.prove(&mut prover).unwrap();
+        let (proof_from_index, witness_from_index) = prover.into();
+        assert_eq!(proof, proof_from_index);
+        assert_eq!(witness, witness_from_index);
+        assert!(proof.verify(witness).is_ok());
+    }
+
+    #[test]
+    fn test_prove_vector_over_nonchunk_sized_primitive() {
+        type V = Vector<u64, 7>;
+
+        let mut data = V::try_from(vec![23, 34, 45, 56, 67, 78, 11]).unwrap();
+
+        let path = &[3.into()];
+        let (proof, witness) = prove(&mut data, path).unwrap();
+
+        let expected_index = 2;
+        let index = V::generalized_index(path).unwrap();
+        assert_eq!(expected_index, index);
+        let mut prover = expected_index.into();
+        data.prove(&mut prover).unwrap();
+        let (proof_from_index, witness_from_index) = prover.into();
+        assert_eq!(proof, proof_from_index);
+        assert_eq!(witness, witness_from_index);
+        assert!(proof_from_index.verify(witness_from_index).is_ok());
     }
 }
