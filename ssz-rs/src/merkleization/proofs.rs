@@ -1,11 +1,75 @@
-use crate::merkleization::{
-    generalized_index::log_2, GeneralizedIndex, MerkleizationError as Error, Node,
+use crate::{
+    lib::*,
+    merkleization::{
+        default_generalized_index, generalized_index::log_2, GeneralizedIndex,
+        GeneralizedIndexable, HashTreeRoot, MerkleizationError as Error, Node, Path,
+    },
 };
 use sha2::{Digest, Sha256};
 
 pub fn get_subtree_index(i: GeneralizedIndex) -> Result<usize, Error> {
     let i_log2 = log_2(i).ok_or(Error::InvalidGeneralizedIndex)?;
     Ok(i % 2usize.pow(i_log2))
+}
+
+/// Contains data necessary to verify `leaf` was included under some witness "root" node
+/// at the generalized position `index`.
+#[derive(Debug)]
+pub struct Proof {
+    pub leaf: Node,
+    pub branch: Vec<Node>,
+    pub index: GeneralizedIndex,
+}
+
+impl Proof {
+    /// Verify `self` against the provided `root` witness node.
+    /// This `root` is the hash tree root of the SSZ object that produced the proof.
+    /// See `Prover` for further information.
+    pub fn verify(&self, root: Node) -> Result<(), Error> {
+        is_valid_merkle_branch_for_generalized_index(self.leaf, &self.branch, self.index, root)
+    }
+}
+
+pub type ProofAndWitness = (Proof, Node);
+
+pub fn prove_primitive<T: HashTreeRoot + ?Sized>(
+    data: &mut T,
+    index: GeneralizedIndex,
+) -> Result<ProofAndWitness, Error> {
+    if index != default_generalized_index() {
+        return Err(Error::InvalidGeneralizedIndex)
+    }
+
+    let root = data.hash_tree_root()?;
+    let proof = Proof { leaf: root, branch: vec![], index };
+    Ok((proof, root))
+}
+
+/// Types that can produce Merkle proofs against themselves given a `GeneralizedIndex`.
+pub trait Prover {
+    /// Provide a Merkle proof of the node in this type's merkle tree corresponding to the `index`.
+    fn prove(&mut self, index: GeneralizedIndex) -> Result<ProofAndWitness, Error>;
+}
+
+/// Produce a Merkle proof (and corresponding witness) for the type `T` at the given `path` relative
+/// to `T`.
+pub fn prove<T: GeneralizedIndexable + Prove>(
+    data: &mut T,
+    path: Path,
+) -> Result<ProofAndWitness, Error> {
+    let index = T::generalized_index(path)?;
+    data.prove(index)
+}
+
+pub fn is_valid_merkle_branch_for_generalized_index<T: AsRef<[u8]>>(
+    leaf: Node,
+    branch: &[T],
+    generalized_index: GeneralizedIndex,
+    root: Node,
+) -> Result<(), Error> {
+    let index = log_2(generalized_index).ok_or(Error::InvalidGeneralizedIndex)? as usize;
+    let depth = get_subtree_index(generalized_index)?;
+    is_valid_merkle_branch(leaf, branch, depth, index, root)
 }
 
 /// `is_valid_merkle_branch` verifies the Merkle proof
@@ -46,6 +110,8 @@ pub fn is_valid_merkle_branch<T: AsRef<[u8]>>(
 
 #[cfg(test)]
 mod tests {
+    use crate::U256;
+
     use super::*;
 
     fn decode_node_from_hex(hex: &str) -> Node {
@@ -73,5 +139,36 @@ mod tests {
         );
 
         assert!(is_valid_merkle_branch(leaf, &branch, depth, index, root).is_ok());
+    }
+
+    #[test]
+    fn test_proving_primitives() {
+        let mut data = 8u8;
+        let (proof, witness) = prove(&mut data, &[]).unwrap();
+        assert_eq!(witness, data.hash_tree_root().unwrap());
+        let result = proof.verify(witness);
+        assert!(result.is_ok());
+
+        let mut data = 234238u64;
+        let (proof, witness) = prove(&mut data, &[]).unwrap();
+        assert_eq!(witness, data.hash_tree_root().unwrap());
+        let result = proof.verify(witness);
+        assert!(result.is_ok());
+
+        let mut data = U256::from_str_radix(
+            "f8c2ed25e9c31399d4149dcaa48c51f394043a6a1297e65780a5979e3d7bb77c",
+            16,
+        )
+        .unwrap();
+        let (proof, witness) = prove(&mut data, &[]).unwrap();
+        assert_eq!(witness, data.hash_tree_root().unwrap());
+        let result = proof.verify(witness);
+        assert!(result.is_ok());
+
+        let mut data = true;
+        let (proof, witness) = prove(&mut data, &[]).unwrap();
+        assert_eq!(witness, data.hash_tree_root().unwrap());
+        let result = proof.verify(witness);
+        assert!(result.is_ok())
     }
 }

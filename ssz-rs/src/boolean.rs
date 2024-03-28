@@ -1,7 +1,10 @@
 use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
-    merkleization::{GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node},
+    merkleization::{
+        prove_primitive, GeneralizedIndex, GeneralizedIndexable, HashTreeRoot, MerkleizationError,
+        Node, ProofAndWitness, Prover,
+    },
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,
 };
@@ -50,6 +53,12 @@ impl HashTreeRoot for bool {
 
     fn is_composite_type() -> bool {
         false
+    }
+}
+
+impl Prover for bool {
+    fn prove(&mut self, index: GeneralizedIndex) -> Result<ProofAndWitness, MerkleizationError> {
+        prove_primitive(self, index)
     }
 }
 
