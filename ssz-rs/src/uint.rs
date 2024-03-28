@@ -1,7 +1,10 @@
 use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
-    merkleization::{pack_bytes, GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node},
+    merkleization::{
+        pack_bytes, prove_primitive, GeneralizedIndex, GeneralizedIndexable, HashTreeRoot,
+        MerkleizationError, Node, ProofAndWitness, Prover,
+    },
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize, BITS_PER_BYTE,
 };
@@ -62,6 +65,15 @@ macro_rules! define_uint {
 
             fn is_composite_type() -> bool {
                 false
+            }
+        }
+
+        impl Prover for $uint {
+            fn prove(
+                &mut self,
+                index: GeneralizedIndex,
+            ) -> Result<ProofAndWitness, MerkleizationError> {
+                prove_primitive(self, index)
             }
         }
 
@@ -133,6 +145,12 @@ impl HashTreeRoot for U256 {
 
     fn is_composite_type() -> bool {
         false
+    }
+}
+
+impl Prover for U256 {
+    fn prove(&mut self, index: GeneralizedIndex) -> Result<ProofAndWitness, MerkleizationError> {
+        prove_primitive(self, index)
     }
 }
 
