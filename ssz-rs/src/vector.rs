@@ -3,8 +3,10 @@ use crate::{
     error::{Error, InstanceError, TypeError},
     lib::*,
     merkleization::{
-        elements_to_chunks, get_power_of_two_ceil, merkleize, pack, GeneralizedIndex,
-        GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, Path, PathElement,
+        elements_to_chunks, get_power_of_two_ceil, merkleize, pack,
+        proofs::{ProofAndWitness, Prove},
+        GeneralizedIndex, GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, Path,
+        PathElement,
     },
     ser::{Serialize, SerializeError, Serializer},
     Serializable, SimpleSerialize,
