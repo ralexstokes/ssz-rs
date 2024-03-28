@@ -3,7 +3,7 @@ use crate::{
     lib::*,
     merkleization::{
         pack_bytes, prove_primitive, GeneralizedIndex, GeneralizedIndexable, HashTreeRoot,
-        MerkleizationError, Node, ProofAndWitness, Prover,
+        MerkleizationError, Node, ProofAndWitness, Prove,
     },
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize, BITS_PER_BYTE,
@@ -68,7 +68,7 @@ macro_rules! define_uint {
             }
         }
 
-        impl Prover for $uint {
+        impl Prove for $uint {
             fn prove(
                 &mut self,
                 index: GeneralizedIndex,
@@ -148,7 +148,7 @@ impl HashTreeRoot for U256 {
     }
 }
 
-impl Prover for U256 {
+impl Prove for U256 {
     fn prove(&mut self, index: GeneralizedIndex) -> Result<ProofAndWitness, MerkleizationError> {
         prove_primitive(self, index)
     }

@@ -46,7 +46,7 @@ pub fn prove_primitive<T: HashTreeRoot + ?Sized>(
 }
 
 /// Types that can produce Merkle proofs against themselves given a `GeneralizedIndex`.
-pub trait Prover {
+pub trait Prove {
     /// Provide a Merkle proof of the node in this type's merkle tree corresponding to the `index`.
     fn prove(&mut self, index: GeneralizedIndex) -> Result<ProofAndWitness, Error>;
 }
