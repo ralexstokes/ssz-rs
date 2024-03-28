@@ -24,6 +24,7 @@ impl From<usize> for PathElement {
 
 pub type Path<'a> = &'a [PathElement];
 
+/// Types that can compute generalized indices given a `Path`.
 pub trait Indexed {
     fn item_length() -> usize {
         BYTES_PER_CHUNK
