@@ -1,71 +1,11 @@
-mod generalized_index;
-
-pub use generalized_index::*;
-
 use crate::{
     lib::*,
-    merkleization::{MerkleizationError as Error, Node, BYTES_PER_CHUNK},
+    merkleization::{
+        generalized_index::{get_bit, get_path_length, parent, sibling},
+        GeneralizedIndex, MerkleizationError as Error, Node,
+    },
 };
 use sha2::{Digest, Sha256};
-
-#[derive(Debug, Clone)]
-pub enum PathElement {
-    Index(usize),
-    Field(String),
-    Length,
-}
-
-impl From<&str> for PathElement {
-    fn from(value: &str) -> Self {
-        PathElement::Field(value.to_string())
-    }
-}
-
-impl From<usize> for PathElement {
-    fn from(value: usize) -> Self {
-        PathElement::Index(value)
-    }
-}
-
-pub type Path<'a> = &'a [PathElement];
-
-pub trait Indexed {
-    fn item_length() -> usize {
-        BYTES_PER_CHUNK
-    }
-
-    /// Return the chunk count when merkleizing this type.
-    /// Default implementation for "basic" types that fit in one chunk.
-    fn chunk_count() -> usize {
-        1
-    }
-
-    /// Compute the generalized index starting from `parent` and following `path` through the
-    /// implementing type.
-    /// Default implementation for "basic" types with no further children in the Merkle tree.
-    fn compute_generalized_index(
-        parent: GeneralizedIndex,
-        path: Path,
-    ) -> Result<GeneralizedIndex, Error> {
-        if path.is_empty() {
-            Ok(parent)
-        } else {
-            Err(Error::InvalidPath(path.to_vec()))
-        }
-    }
-
-    fn generalized_index(path: Path) -> Result<GeneralizedIndex, Error>
-    where
-        Self: Sized,
-    {
-        get_generalized_index::<Self>(path)
-    }
-}
-
-pub fn get_generalized_index<T: Indexed>(path: Path) -> Result<GeneralizedIndex, Error> {
-    let root = default_generalized_index();
-    T::compute_generalized_index(root, path)
-}
 
 fn get_branch_indices(tree_index: GeneralizedIndex) -> Vec<GeneralizedIndex> {
     let mut focus = sibling(tree_index);
@@ -204,65 +144,5 @@ pub fn verify_merkle_multiproof(
         Ok(())
     } else {
         Err(Error::InvalidProof)
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use crate::prelude::*;
-
-    #[derive(Default, Debug, SimpleSerialize, Indexed)]
-    struct Bar {
-        c: u8,
-        f: Foo,
-        a: List<u8, 25>,
-    }
-
-    #[derive(Default, Debug, SimpleSerialize, Indexed)]
-    struct Foo {
-        x: Vector<u8, 32>,
-        y: List<Qux, 256>,
-    }
-
-    #[derive(Default, Debug, SimpleSerialize, Indexed)]
-    struct Qux {
-        a: Vector<u16, 8>,
-    }
-
-    #[test]
-    fn test_basic_generalized_index_computation() {
-        let mut indices = vec![];
-
-        let path = &[2.into()];
-        let index = Vector::<u8, 16>::generalized_index(path).unwrap();
-        indices.push(index);
-
-        let path = &[2.into()];
-        let index = get_generalized_index::<List<u8, 256>>(path).unwrap();
-        indices.push(index);
-
-        let path = &[PathElement::Length];
-        let index = List::<u8, 256>::generalized_index(path).unwrap();
-        indices.push(index);
-
-        // containers
-        let path = &["c".into()];
-        let index = Bar::generalized_index(path).unwrap();
-        indices.push(index);
-
-        // nested access
-        let path = &["a".into(), 2.into()];
-        let index = Bar::generalized_index(path).unwrap();
-        indices.push(index);
-
-        let path = &["f".into(), "y".into(), 2.into(), "a".into(), 3.into()];
-        let index = Bar::generalized_index(path).unwrap();
-        indices.push(index);
-
-        let path = &["f".into(), "y".into(), PathElement::Length];
-        let index = Bar::generalized_index(path).unwrap();
-        indices.push(index);
-
-        assert_eq!(indices, [1, 16, 3, 4, 12, 5634, 23])
     }
 }

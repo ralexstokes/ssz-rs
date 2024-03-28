@@ -1,6 +1,5 @@
 use crate::{
     lib::*,
-    merkleization::BYTES_PER_CHUNK,
     prelude::*,
     utils::{write_bytes_to_lower_hex, write_bytes_to_lower_hex_display},
 };
@@ -43,6 +42,12 @@ impl TryFrom<&[u8]> for Node {
 
     fn try_from(value: &[u8]) -> Result<Self, Self::Error> {
         Ok(Self(value.try_into()?))
+    }
+}
+
+impl AsRef<[u8]> for Node {
+    fn as_ref(&self) -> &[u8] {
+        &self.0
     }
 }
 

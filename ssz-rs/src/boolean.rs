@@ -1,7 +1,7 @@
 use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
-    merkleization::{multiproofs::Indexed, MerkleizationError, Merkleized, Node},
+    merkleization::{Indexed, MerkleizationError, Merkleized, Node},
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,
 };

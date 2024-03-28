@@ -1,5 +1,12 @@
-use crate::merkleization::{MerkleizationError as Error, Node};
+use crate::merkleization::{
+    generalized_index::log_2, GeneralizedIndex, MerkleizationError as Error, Node,
+};
 use sha2::{Digest, Sha256};
+
+pub fn get_subtree_index(i: GeneralizedIndex) -> Result<usize, Error> {
+    let i_log2 = log_2(i).ok_or(Error::InvalidGeneralizedIndex)?;
+    Ok(i % 2usize.pow(i_log2))
+}
 
 /// `is_valid_merkle_branch` verifies the Merkle proof
 /// against the `root` given the other metadata.
