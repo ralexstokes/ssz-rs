@@ -1,13 +1,20 @@
+//! Support for generalized indices and computation over them.
 use crate::{
     lib::*,
     merkleization::{MerkleizationError as Error, BYTES_PER_CHUNK},
 };
 
+/// Describes part of a `GeneralizedIndexable` type.
 #[derive(Debug, Clone)]
 pub enum PathElement {
+    // Refers to either an element in a SSZ collection
+    // or a particular variant of a SSZ union.
     Index(usize),
+    // Refers to one of the members of a SSZ container
     Field(String),
+    // Refers to the length of a variably-sized SSZ collection
     Length,
+    // Refers to the "type tag" of a SSZ union
     Selector,
 }
 
@@ -23,6 +30,7 @@ impl From<usize> for PathElement {
     }
 }
 
+/// A collection of `PathElement`s that navigate a `GeneralizedIndexable` type.
 pub type Path<'a> = &'a [PathElement];
 
 /// Types that can compute generalized indices given a `Path`.
@@ -92,14 +100,6 @@ pub const fn get_bit(index: GeneralizedIndex, position: usize) -> bool {
 
 pub const fn sibling(index: GeneralizedIndex) -> GeneralizedIndex {
     index ^ 1
-}
-
-pub const fn child_left(index: GeneralizedIndex) -> GeneralizedIndex {
-    index * 2
-}
-
-pub const fn child_right(index: GeneralizedIndex) -> GeneralizedIndex {
-    index * 2 + 1
 }
 
 pub const fn parent(index: GeneralizedIndex) -> GeneralizedIndex {

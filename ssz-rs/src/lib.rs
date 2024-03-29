@@ -115,7 +115,12 @@ mod exports {
         de::{Deserialize, DeserializeError},
         error::{Error as SimpleSerializeError, InstanceError, TypeError},
         list::List,
-        merkleization::*,
+        merkleization::{
+            multiproofs,
+            proofs::{self, is_valid_merkle_branch},
+            GeneralizedIndex, GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, Path,
+            PathElement,
+        },
         ser::{Serialize, SerializeError},
         uint::U256,
         utils::{deserialize, serialize},
@@ -143,7 +148,7 @@ pub mod __internal {
     // exported for derive macro to avoid code duplication...
     pub use crate::{
         de::ContainerDeserializer,
-        merkleization::{merkleize, mix_in_selector},
+        merkleization::{generalized_index::get_power_of_two_ceil, merkleize, mix_in_selector},
         ser::Serializer,
     };
 }

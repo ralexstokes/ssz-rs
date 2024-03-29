@@ -1,3 +1,4 @@
+//! Support for constructing and verifying Merkle proofs.
 use crate::{
     lib::*,
     merkleization::{

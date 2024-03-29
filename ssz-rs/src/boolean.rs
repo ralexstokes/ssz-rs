@@ -2,8 +2,8 @@ use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
     merkleization::{
-        prove_primitive, GeneralizedIndex, GeneralizedIndexable, HashTreeRoot, MerkleizationError,
-        Node, ProofAndWitness, Prove,
+        proofs::{prove_primitive, ProofAndWitness, Prove},
+        GeneralizedIndex, GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node,
     },
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,
