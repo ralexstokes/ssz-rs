@@ -24,7 +24,7 @@ fn main() {
     dbg!(index);
 
     let path = &[2.into()];
-    let index = get_generalized_index::<List<u8, 256>>(path).unwrap();
+    let index = List::<u8, 256>::generalized_index(path).unwrap();
     dbg!(index);
     let path = &[PathElement::Length];
     let index = List::<u8, 256>::generalized_index(path).unwrap();

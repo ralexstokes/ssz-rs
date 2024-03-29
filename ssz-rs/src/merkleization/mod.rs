@@ -6,8 +6,7 @@ mod proofs;
 
 use crate::{lib::*, ser::SerializeError};
 pub use generalized_index::{
-    default_generalized_index, get_generalized_index, get_power_of_two_ceil, GeneralizedIndex,
-    Indexed, Path, PathElement,
+    default_generalized_index, get_power_of_two_ceil, GeneralizedIndex, Indexed, Path, PathElement,
 };
 pub use merkleize::*;
 pub use node::*;

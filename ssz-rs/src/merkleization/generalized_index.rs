@@ -50,17 +50,10 @@ pub trait Indexed {
         }
     }
 
-    fn generalized_index(path: Path) -> Result<GeneralizedIndex, Error>
-    where
-        Self: Sized,
-    {
-        get_generalized_index::<Self>(path)
+    fn generalized_index(path: Path) -> Result<GeneralizedIndex, Error> {
+        let root = default_generalized_index();
+        Self::compute_generalized_index(root, path)
     }
-}
-
-pub fn get_generalized_index<T: Indexed>(path: Path) -> Result<GeneralizedIndex, Error> {
-    let root = default_generalized_index();
-    T::compute_generalized_index(root, path)
 }
 
 // Return base 2 logarithm of `x`.
@@ -143,7 +136,7 @@ mod tests {
         indices.push(index);
 
         let path = &[2.into()];
-        let index = get_generalized_index::<List<u8, 256>>(path).unwrap();
+        let index = List::<u8, 256>::generalized_index(path).unwrap();
         indices.push(index);
 
         let path = &[PathElement::Length];
