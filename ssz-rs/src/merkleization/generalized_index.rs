@@ -8,6 +8,7 @@ pub enum PathElement {
     Index(usize),
     Field(String),
     Length,
+    Selector,
 }
 
 impl From<&str> for PathElement {

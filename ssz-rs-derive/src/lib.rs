@@ -448,7 +448,70 @@ fn derive_generalized_indexable_impl(
             }
             Fields::Unit => unreachable!("validated to exclude this type"),
         },
-        Data::Enum(_) => unimplemented!("no support for Rust enums to derive `Indexed`"),
+        Data::Enum(ref data) => {
+            let variant_count = data.variants.len();
+
+            let impl_by_variant = data.variants.iter().enumerate().map(|(i, variant)| {
+                let variant_name = &variant.ident;
+                match &variant.fields {
+                    Fields::Unnamed(ref fields) => {
+                        let field =
+                            fields.unnamed.first().expect("validated to only have one field");
+                        let ty = &field.ty;
+                        quote! {
+                            #i => {
+                                <#ty as ssz_rs::GeneralizedIndexable>::compute_generalized_index(child, rest)
+                            }
+                        }
+                    }
+                    Fields::Unit => {
+                        // NOTE: this has already been validated to conform to:
+                        // first variant, and is `None` identifier
+                        if i != 0 || !is_valid_none_identifier(variant_name) {
+                            panic!("internal validation inconsistency; check proc derive macro");
+                        }
+                        quote! {
+                            0 => {
+                                if rest.is_empty() {
+                                    Ok(child)
+                                } else {
+                                    Err(MerkleizationError::InvalidPath(rest.to_vec()))
+                                }
+                            }
+                        }
+                    }
+                    _ => unreachable!(),
+                }
+            });
+
+            let trait_impl = quote! {
+                if let Some((next, rest)) = path.split_first() {
+                    match next {
+                        PathElement::Index(i) => {
+                            if *i >= #variant_count {
+                                return Err(MerkleizationError::InvalidPathElement(next.clone()))
+                            }
+                            let child = parent * 2;
+                            match *i {
+                                #(#impl_by_variant)*
+                                _ => unreachable!("validated in covered range"),
+                            }
+                        }
+                        PathElement::Selector => {
+                            if rest.is_empty() {
+                                Ok(parent * 2 + 1)
+                            } else {
+                                Err(MerkleizationError::InvalidPath(rest.to_vec()))
+                            }
+                        }
+                        elem => Err(MerkleizationError::InvalidPathElement(elem.clone())),
+                    }
+                } else {
+                    Ok(parent)
+                }
+            };
+            (trait_impl, None)
+        }
         Data::Union(..) => unreachable!("data was already validated to exclude union types"),
     };
 
@@ -458,7 +521,9 @@ fn derive_generalized_indexable_impl(
                 let fields = &fields.named;
                 let field_count = fields.iter().len();
                 quote! {
-                    #field_count
+                    fn chunk_count() -> usize {
+                        #field_count
+                    }
                 }
             }
             Fields::Unnamed(ref fields) => {
@@ -466,22 +531,22 @@ fn derive_generalized_indexable_impl(
                 let field = fields.unnamed.first().expect("validated to only have one field");
                 let ty = &field.ty;
                 quote! {
-                    <#ty as ssz_rs::Indexed>::chunk_count()
+                    fn chunk_count() -> usize {
+                        <#ty as ssz_rs::GeneralizedIndexable>::chunk_count()
+                    }
                 }
             }
             Fields::Unit => unreachable!("validated to exclude this type"),
         },
-        Data::Enum(_) => unimplemented!("no support for Rust enums to derive `Indexed`"),
+        Data::Enum(_) => quote!(), // use trait default impl
         Data::Union(..) => unreachable!("data was already validated to exclude union types"),
     };
 
     quote! {
         #helper_impl
 
-            fn chunk_count() -> usize {
-                #chunk_count_impl
-            }
         impl #impl_generics ssz_rs::GeneralizedIndexable for #name #ty_generics {
+            #chunk_count_impl
 
             fn compute_generalized_index(
                 parent: ssz_rs::GeneralizedIndex,
@@ -755,12 +820,16 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
 
     let merkleization_impl = derive_merkleization_impl(data, name, generics, helper_attr);
 
+    let generalized_indexable_impl = derive_generalized_indexable_impl(data, name, generics);
+
     let simple_serialize_impl = derive_simple_serialize_impl(name, generics);
 
     let expansion = quote! {
         #serializable_impl
 
         #merkleization_impl
+
+        #generalized_indexable_impl
 
         #simple_serialize_impl
     };
