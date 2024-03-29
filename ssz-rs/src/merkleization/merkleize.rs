@@ -1,3 +1,4 @@
+//! Support for computing Merkle trees.
 use crate::{
     lib::*,
     merkleization::{MerkleizationError as Error, Node, BYTES_PER_CHUNK},

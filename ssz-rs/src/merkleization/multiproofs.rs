@@ -1,3 +1,4 @@
+//! Experimental support for multiproofs.
 use crate::{
     lib::*,
     merkleization::{

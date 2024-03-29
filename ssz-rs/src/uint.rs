@@ -2,8 +2,9 @@ use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
     merkleization::{
-        pack_bytes, prove_primitive, GeneralizedIndex, GeneralizedIndexable, HashTreeRoot,
-        MerkleizationError, Node, ProofAndWitness, Prove,
+        pack_bytes,
+        proofs::{prove_primitive, ProofAndWitness, Prove},
+        GeneralizedIndex, GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node,
     },
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize, BITS_PER_BYTE,

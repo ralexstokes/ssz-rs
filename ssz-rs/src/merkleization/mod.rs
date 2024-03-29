@@ -1,8 +1,8 @@
 pub mod generalized_index;
 mod merkleize;
-pub mod multiproof;
+pub mod multiproofs;
 mod node;
-mod proofs;
+pub mod proofs;
 
 use crate::{lib::*, ser::SerializeError};
 pub use generalized_index::{
@@ -11,7 +11,6 @@ pub use generalized_index::{
 };
 pub use merkleize::*;
 pub use node::*;
-pub use proofs::*;
 
 pub(crate) const BYTES_PER_CHUNK: usize = 32;
 pub(crate) const BITS_PER_CHUNK: usize = BYTES_PER_CHUNK * (crate::BITS_PER_BYTE as usize);
