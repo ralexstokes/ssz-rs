@@ -92,7 +92,7 @@ where
 
 impl<T, const N: usize> GeneralizedIndexable for [T; N]
 where
-    T: GeneralizedIndexable,
+    T: SimpleSerialize,
 {
     fn chunk_count() -> usize {
         (N * T::item_length() + 31) / 32

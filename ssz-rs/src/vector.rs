@@ -249,7 +249,7 @@ where
 
 impl<T, const N: usize> GeneralizedIndexable for Vector<T, N>
 where
-    T: SimpleSerialize + GeneralizedIndexable,
+    T: SimpleSerialize,
 {
     fn chunk_count() -> usize {
         (N * T::item_length() + 31) / 32
@@ -280,7 +280,7 @@ where
 
 impl<T, const N: usize> Prove for Vector<T, N>
 where
-    T: SimpleSerialize + GeneralizedIndexable + Prove,
+    T: SimpleSerialize + Prove,
 {
     fn prove(&mut self, index: GeneralizedIndex) -> Result<ProofAndWitness, MerkleizationError> {
         todo!()
