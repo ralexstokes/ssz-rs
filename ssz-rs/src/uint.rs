@@ -69,6 +69,12 @@ macro_rules! define_uint {
             }
         }
 
+        impl GeneralizedIndexable for $uint {
+            fn item_length() -> usize {
+                Self::size_hint()
+            }
+        }
+
         impl Prove for $uint {
             fn prove(
                 &mut self,
@@ -79,12 +85,6 @@ macro_rules! define_uint {
         }
 
         impl SimpleSerialize for $uint {}
-
-        impl GeneralizedIndexable for $uint {
-            fn item_length() -> usize {
-                Self::size_hint()
-            }
-        }
     };
 }
 
@@ -149,6 +149,12 @@ impl HashTreeRoot for U256 {
     }
 }
 
+impl GeneralizedIndexable for U256 {
+    fn item_length() -> usize {
+        Self::size_hint()
+    }
+}
+
 impl Prove for U256 {
     fn prove(&mut self, index: GeneralizedIndex) -> Result<ProofAndWitness, MerkleizationError> {
         prove_primitive(self, index)
@@ -156,12 +162,6 @@ impl Prove for U256 {
 }
 
 impl SimpleSerialize for U256 {}
-
-impl GeneralizedIndexable for U256 {
-    fn item_length() -> usize {
-        Self::size_hint()
-    }
-}
 
 #[cfg(test)]
 mod tests {

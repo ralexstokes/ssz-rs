@@ -56,6 +56,12 @@ impl HashTreeRoot for bool {
     }
 }
 
+impl GeneralizedIndexable for bool {
+    fn item_length() -> usize {
+        Self::size_hint()
+    }
+}
+
 impl Prove for bool {
     fn prove(&mut self, index: GeneralizedIndex) -> Result<ProofAndWitness, MerkleizationError> {
         prove_primitive(self, index)
@@ -63,12 +69,6 @@ impl Prove for bool {
 }
 
 impl SimpleSerialize for bool {}
-
-impl GeneralizedIndexable for bool {
-    fn item_length() -> usize {
-        Self::size_hint()
-    }
-}
 
 #[cfg(test)]
 mod tests {

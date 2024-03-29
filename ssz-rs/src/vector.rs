@@ -245,8 +245,6 @@ where
     }
 }
 
-impl<T, const N: usize> SimpleSerialize for Vector<T, N> where T: SimpleSerialize {}
-
 impl<T, const N: usize> GeneralizedIndexable for Vector<T, N>
 where
     T: SimpleSerialize + GeneralizedIndexable,
@@ -277,6 +275,17 @@ where
         }
     }
 }
+
+impl<T, const N: usize> Prove for Vector<T, N>
+where
+    T: SimpleSerialize + GeneralizedIndexable + Prove,
+{
+    fn prove(&mut self, index: GeneralizedIndex) -> Result<ProofAndWitness, MerkleizationError> {
+        todo!()
+    }
+}
+
+impl<T, const N: usize> SimpleSerialize for Vector<T, N> where T: SimpleSerialize {}
 
 #[cfg(feature = "serde")]
 struct VectorVisitor<T: Serializable>(PhantomData<Vec<T>>);

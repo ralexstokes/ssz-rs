@@ -8,9 +8,27 @@ use crate::{
 };
 use sha2::{Digest, Sha256};
 
+pub type ProofAndWitness = (Proof, Node);
+
 pub fn get_subtree_index(i: GeneralizedIndex) -> Result<usize, Error> {
     let i_log2 = log_2(i).ok_or(Error::InvalidGeneralizedIndex)?;
     Ok(i % 2usize.pow(i_log2))
+}
+
+/// Types that can produce Merkle proofs against themselves given a `GeneralizedIndex`.
+pub trait Prove {
+    /// Provide a Merkle proof of the node in this type's merkle tree corresponding to the `index`.
+    fn prove(&mut self, index: GeneralizedIndex) -> Result<ProofAndWitness, Error>;
+}
+
+/// Produce a Merkle proof (and corresponding witness) for the type `T` at the given `path` relative
+/// to `T`.
+pub fn prove<T: GeneralizedIndexable + Prove>(
+    data: &mut T,
+    path: Path,
+) -> Result<ProofAndWitness, Error> {
+    let index = T::generalized_index(path)?;
+    data.prove(index)
 }
 
 /// Contains data necessary to verify `leaf` was included under some witness "root" node
@@ -31,8 +49,6 @@ impl Proof {
     }
 }
 
-pub type ProofAndWitness = (Proof, Node);
-
 pub fn prove_primitive<T: HashTreeRoot + ?Sized>(
     data: &mut T,
     index: GeneralizedIndex,
@@ -44,22 +60,6 @@ pub fn prove_primitive<T: HashTreeRoot + ?Sized>(
     let root = data.hash_tree_root()?;
     let proof = Proof { leaf: root, branch: vec![], index };
     Ok((proof, root))
-}
-
-/// Types that can produce Merkle proofs against themselves given a `GeneralizedIndex`.
-pub trait Prove {
-    /// Provide a Merkle proof of the node in this type's merkle tree corresponding to the `index`.
-    fn prove(&mut self, index: GeneralizedIndex) -> Result<ProofAndWitness, Error>;
-}
-
-/// Produce a Merkle proof (and corresponding witness) for the type `T` at the given `path` relative
-/// to `T`.
-pub fn prove<T: GeneralizedIndexable + Prove>(
-    data: &mut T,
-    path: Path,
-) -> Result<ProofAndWitness, Error> {
-    let index = T::generalized_index(path)?;
-    data.prove(index)
 }
 
 pub fn is_valid_merkle_branch_for_generalized_index<T: AsRef<[u8]>>(

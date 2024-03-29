@@ -250,8 +250,6 @@ where
     }
 }
 
-impl<T, const N: usize> SimpleSerialize for List<T, N> where T: SimpleSerialize {}
-
 impl<T, const N: usize> GeneralizedIndexable for List<T, N>
 where
     T: SimpleSerialize + GeneralizedIndexable,
@@ -291,6 +289,8 @@ where
         }
     }
 }
+
+impl<T, const N: usize> SimpleSerialize for List<T, N> where T: SimpleSerialize {}
 
 #[cfg(feature = "serde")]
 struct ListVisitor<T: Serializable>(PhantomData<Vec<T>>);
