@@ -1,7 +1,7 @@
 use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
-    merkleization::{HashTreeRoot, Indexed, MerkleizationError, Node},
+    merkleization::{GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node},
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,
 };
@@ -55,7 +55,7 @@ impl HashTreeRoot for bool {
 
 impl SimpleSerialize for bool {}
 
-impl Indexed for bool {
+impl GeneralizedIndexable for bool {
     fn item_length() -> usize {
         Self::size_hint()
     }

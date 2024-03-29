@@ -3,8 +3,8 @@ use crate::{
     error::{Error, InstanceError, TypeError},
     lib::*,
     merkleization::{
-        get_power_of_two_ceil, merkleize, pack_bytes, GeneralizedIndex, HashTreeRoot, Indexed,
-        MerkleizationError, Node, Path, PathElement, BITS_PER_CHUNK,
+        get_power_of_two_ceil, merkleize, pack_bytes, GeneralizedIndex, GeneralizedIndexable,
+        HashTreeRoot, MerkleizationError, Node, Path, PathElement, BITS_PER_CHUNK,
     },
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,
@@ -172,7 +172,7 @@ impl<const N: usize> HashTreeRoot for Bitvector<N> {
     }
 }
 
-impl<const N: usize> Indexed for Bitvector<N> {
+impl<const N: usize> GeneralizedIndexable for Bitvector<N> {
     fn chunk_count() -> usize {
         Self::chunk_count()
     }
@@ -188,7 +188,8 @@ impl<const N: usize> Indexed for Bitvector<N> {
                         return Err(MerkleizationError::InvalidPathElement(next.clone()))
                     }
                     let chunk_position = i / 256;
-                    let child = parent * get_power_of_two_ceil(<Self as Indexed>::chunk_count()) +
+                    let child = parent *
+                        get_power_of_two_ceil(<Self as GeneralizedIndexable>::chunk_count()) +
                         chunk_position;
                     // NOTE: use `bool` as effective type of element
                     bool::compute_generalized_index(child, rest)

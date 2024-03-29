@@ -1,7 +1,10 @@
 use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
-    merkleization::{mix_in_selector, HashTreeRoot, MerkleizationError, Node},
+    merkleization::{
+        mix_in_selector, GeneralizedIndex, GeneralizedIndexable, HashTreeRoot, MerkleizationError,
+        Node, Path, PathElement,
+    },
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,
 };
@@ -77,6 +80,48 @@ where
         match self {
             Some(value) => Ok(mix_in_selector(&value.hash_tree_root()?, 1)),
             None => Ok(mix_in_selector(&Node::default(), 0)),
+        }
+    }
+}
+
+impl<T> GeneralizedIndexable for Option<T>
+where
+    T: SimpleSerialize,
+{
+    fn compute_generalized_index(
+        parent: GeneralizedIndex,
+        path: Path,
+    ) -> Result<GeneralizedIndex, MerkleizationError> {
+        if let Some((next, rest)) = path.split_first() {
+            match next {
+                PathElement::Index(i) => {
+                    if *i >= 2 {
+                        return Err(MerkleizationError::InvalidPathElement(next.clone()))
+                    }
+                    let child = parent * 2;
+                    match i {
+                        0 => {
+                            if rest.is_empty() {
+                                Ok(child)
+                            } else {
+                                Err(MerkleizationError::InvalidPath(rest.to_vec()))
+                            }
+                        }
+                        1 => T::compute_generalized_index(child, rest),
+                        _ => unreachable!("validated in covered range"),
+                    }
+                }
+                PathElement::Selector => {
+                    if rest.is_empty() {
+                        Ok(parent * 2 + 1)
+                    } else {
+                        Err(MerkleizationError::InvalidPath(rest.to_vec()))
+                    }
+                }
+                elem => Err(MerkleizationError::InvalidPathElement(elem.clone())),
+            }
+        } else {
+            Ok(parent)
         }
     }
 }

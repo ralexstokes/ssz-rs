@@ -1,7 +1,7 @@
 use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
-    merkleization::{pack_bytes, HashTreeRoot, Indexed, MerkleizationError, Node},
+    merkleization::{pack_bytes, GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node},
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize, BITS_PER_BYTE,
 };
@@ -67,7 +67,7 @@ macro_rules! define_uint {
 
         impl SimpleSerialize for $uint {}
 
-        impl Indexed for $uint {
+        impl GeneralizedIndexable for $uint {
             fn item_length() -> usize {
                 Self::size_hint()
             }
@@ -138,7 +138,7 @@ impl HashTreeRoot for U256 {
 
 impl SimpleSerialize for U256 {}
 
-impl Indexed for U256 {
+impl GeneralizedIndexable for U256 {
     fn item_length() -> usize {
         Self::size_hint()
     }

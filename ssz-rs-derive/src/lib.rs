@@ -387,7 +387,11 @@ fn derive_merkleization_impl(
     }
 }
 
-fn derive_indexed_impl(data: &Data, name: &Ident, generics: &Generics) -> TokenStream {
+fn derive_generalized_indexable_impl(
+    data: &Data,
+    name: &Ident,
+    generics: &Generics,
+) -> TokenStream {
     let (impl_generics, ty_generics, _) = generics.split_for_impl();
 
     let (compute_generalized_index_impl, helper_impl) = match data {
@@ -414,7 +418,7 @@ fn derive_indexed_impl(data: &Data, name: &Ident, generics: &Generics) -> TokenS
                         #selector => {
                             let chunk_position = #i;
                             let child = parent * get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
-                            <#field_ty as ssz_rs::Indexed>::compute_generalized_index(child, path)
+                            <#field_ty as ssz_rs::GeneralizedIndexable>::compute_generalized_index(child, path)
                         }
                     }
                 });
@@ -438,13 +442,76 @@ fn derive_indexed_impl(data: &Data, name: &Ident, generics: &Generics) -> TokenS
                 let field = fields.unnamed.first().expect("validated to only have one field");
                 let ty = &field.ty;
                 let trait_impl = quote! {
-                    <#ty as ssz_rs::Indexed>::compute_generalized_index(parent, path)
+                    <#ty as ssz_rs::GeneralizedIndexable>::compute_generalized_index(parent, path)
                 };
                 (trait_impl, None)
             }
             Fields::Unit => unreachable!("validated to exclude this type"),
         },
-        Data::Enum(_) => unimplemented!("no support for Rust enums to derive `Indexed`"),
+        Data::Enum(ref data) => {
+            let variant_count = data.variants.len();
+
+            let impl_by_variant = data.variants.iter().enumerate().map(|(i, variant)| {
+                let variant_name = &variant.ident;
+                match &variant.fields {
+                    Fields::Unnamed(ref fields) => {
+                        let field =
+                            fields.unnamed.first().expect("validated to only have one field");
+                        let ty = &field.ty;
+                        quote! {
+                            #i => {
+                                <#ty as ssz_rs::GeneralizedIndexable>::compute_generalized_index(child, rest)
+                            }
+                        }
+                    }
+                    Fields::Unit => {
+                        // NOTE: this has already been validated to conform to:
+                        // first variant, and is `None` identifier
+                        if i != 0 || !is_valid_none_identifier(variant_name) {
+                            panic!("internal validation inconsistency; check proc derive macro");
+                        }
+                        quote! {
+                            0 => {
+                                if rest.is_empty() {
+                                    Ok(child)
+                                } else {
+                                    Err(MerkleizationError::InvalidPath(rest.to_vec()))
+                                }
+                            }
+                        }
+                    }
+                    _ => unreachable!(),
+                }
+            });
+
+            let trait_impl = quote! {
+                if let Some((next, rest)) = path.split_first() {
+                    match next {
+                        PathElement::Index(i) => {
+                            if *i >= #variant_count {
+                                return Err(MerkleizationError::InvalidPathElement(next.clone()))
+                            }
+                            let child = parent * 2;
+                            match *i {
+                                #(#impl_by_variant)*
+                                _ => unreachable!("validated in covered range"),
+                            }
+                        }
+                        PathElement::Selector => {
+                            if rest.is_empty() {
+                                Ok(parent * 2 + 1)
+                            } else {
+                                Err(MerkleizationError::InvalidPath(rest.to_vec()))
+                            }
+                        }
+                        elem => Err(MerkleizationError::InvalidPathElement(elem.clone())),
+                    }
+                } else {
+                    Ok(parent)
+                }
+            };
+            (trait_impl, None)
+        }
         Data::Union(..) => unreachable!("data was already validated to exclude union types"),
     };
 
@@ -454,7 +521,9 @@ fn derive_indexed_impl(data: &Data, name: &Ident, generics: &Generics) -> TokenS
                 let fields = &fields.named;
                 let field_count = fields.iter().len();
                 quote! {
-                    #field_count
+                    fn chunk_count() -> usize {
+                        #field_count
+                    }
                 }
             }
             Fields::Unnamed(ref fields) => {
@@ -462,22 +531,22 @@ fn derive_indexed_impl(data: &Data, name: &Ident, generics: &Generics) -> TokenS
                 let field = fields.unnamed.first().expect("validated to only have one field");
                 let ty = &field.ty;
                 quote! {
-                    <#ty as ssz_rs::Indexed>::chunk_count()
+                    fn chunk_count() -> usize {
+                        <#ty as ssz_rs::GeneralizedIndexable>::chunk_count()
+                    }
                 }
             }
             Fields::Unit => unreachable!("validated to exclude this type"),
         },
-        Data::Enum(_) => unimplemented!("no support for Rust enums to derive `Indexed`"),
+        Data::Enum(_) => quote!(), // use trait default impl
         Data::Union(..) => unreachable!("data was already validated to exclude union types"),
     };
 
     quote! {
         #helper_impl
 
-        impl #impl_generics ssz_rs::Indexed for #name #ty_generics {
-            fn chunk_count() -> usize {
-                #chunk_count_impl
-            }
+        impl #impl_generics ssz_rs::GeneralizedIndexable for #name #ty_generics {
+            #chunk_count_impl
 
             fn compute_generalized_index(
                 parent: ssz_rs::GeneralizedIndex,
@@ -721,10 +790,9 @@ pub fn derive_hash_tree_root(input: proc_macro::TokenStream) -> proc_macro::Toke
     proc_macro::TokenStream::from(expansion)
 }
 
-/// Derive an `ssz_rs::Indexed` implementation.
-/// Currently only supports structs.
-#[proc_macro_derive(Indexed)]
-pub fn derive_indexed(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+/// Derive an `ssz_rs::GeneralizedIndexable` implementation.
+#[proc_macro_derive(GeneralizedIndexable)]
+pub fn derive_generalized_indexable(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
 
     let data = &input.data;
@@ -732,7 +800,7 @@ pub fn derive_indexed(input: proc_macro::TokenStream) -> proc_macro::TokenStream
     let name = &input.ident;
     let generics = &input.generics;
 
-    let expansion = derive_indexed_impl(data, name, generics);
+    let expansion = derive_generalized_indexable_impl(data, name, generics);
     proc_macro::TokenStream::from(expansion)
 }
 
@@ -752,12 +820,16 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
 
     let merkleization_impl = derive_merkleization_impl(data, name, generics, helper_attr);
 
+    let generalized_indexable_impl = derive_generalized_indexable_impl(data, name, generics);
+
     let simple_serialize_impl = derive_simple_serialize_impl(name, generics);
 
     let expansion = quote! {
         #serializable_impl
 
         #merkleization_impl
+
+        #generalized_indexable_impl
 
         #simple_serialize_impl
     };
