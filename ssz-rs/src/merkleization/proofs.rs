@@ -10,15 +10,67 @@ use sha2::{Digest, Sha256};
 
 pub type ProofAndWitness = (Proof, Node);
 
+fn get_depth(i: GeneralizedIndex) -> Result<u32, Error> {
+    log_2(i).ok_or(Error::InvalidGeneralizedIndex)
+}
+
+fn get_index(i: GeneralizedIndex, depth: u32) -> usize {
+    i % 2usize.pow(depth)
+}
+
 pub fn get_subtree_index(i: GeneralizedIndex) -> Result<usize, Error> {
-    let i_log2 = log_2(i).ok_or(Error::InvalidGeneralizedIndex)?;
-    Ok(i % 2usize.pow(i_log2))
+    let depth = get_depth(i)?;
+    Ok(get_index(i, depth))
+}
+
+#[derive(Debug)]
+pub struct Prover {
+    pub(crate) hasher: Sha256,
+    pub proof: Proof,
+    pub witness: Node,
+}
+
+impl Prover {
+    pub fn set_leaf(&mut self, leaf: Node) {
+        self.proof.leaf = leaf;
+    }
+
+    // Adds a node to the Merkle proof's branch.
+    // Assumes nodes are provided going from the bottom of the tree to the top.
+    pub fn extend_branch(&mut self, node: Node) {
+        self.proof.branch.push(node)
+    }
+
+    pub fn set_witness(&mut self, witness: Node) {
+        self.witness = witness;
+    }
+
+    pub fn compute_depth_and_index(&self, i: GeneralizedIndex) -> Result<(u32, usize), Error> {
+        let depth = get_depth(i)?;
+        Ok((depth, get_index(i, depth)))
+    }
+}
+
+impl From<Prover> for ProofAndWitness {
+    fn from(value: Prover) -> Self {
+        (value.proof, value.witness)
+    }
+}
+
+impl From<GeneralizedIndex> for Prover {
+    fn from(index: GeneralizedIndex) -> Self {
+        Self {
+            hasher: Sha256::new(),
+            proof: Proof { leaf: Default::default(), branch: vec![], index },
+            witness: Default::default(),
+        }
+    }
 }
 
 /// Types that can produce Merkle proofs against themselves given a `GeneralizedIndex`.
 pub trait Prove {
     /// Provide a Merkle proof of the node in this type's merkle tree corresponding to the `index`.
-    fn prove(&mut self, index: GeneralizedIndex) -> Result<ProofAndWitness, Error>;
+    fn prove(&mut self, prover: &mut Prover) -> Result<(), Error>;
 }
 
 /// Produce a Merkle proof (and corresponding witness) for the type `T` at the given `path` relative
@@ -28,12 +80,14 @@ pub fn prove<T: GeneralizedIndexable + Prove>(
     path: Path,
 ) -> Result<ProofAndWitness, Error> {
     let index = T::generalized_index(path)?;
-    data.prove(index)
+    let mut prover = index.into();
+    data.prove(&mut prover)?;
+    Ok(prover.into())
 }
 
 /// Contains data necessary to verify `leaf` was included under some witness "root" node
 /// at the generalized position `index`.
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 pub struct Proof {
     pub leaf: Node,
     pub branch: Vec<Node>,
@@ -51,15 +105,17 @@ impl Proof {
 
 pub fn prove_primitive<T: HashTreeRoot + ?Sized>(
     data: &mut T,
-    index: GeneralizedIndex,
-) -> Result<ProofAndWitness, Error> {
+    prover: &mut Prover,
+) -> Result<(), Error> {
+    let index = prover.proof.index;
     if index != default_generalized_index() {
         return Err(Error::InvalidGeneralizedIndex)
     }
 
     let root = data.hash_tree_root()?;
-    let proof = Proof { leaf: root, branch: vec![], index };
-    Ok((proof, root))
+    prover.set_leaf(root);
+    prover.set_witness(root);
+    Ok(())
 }
 
 pub fn is_valid_merkle_branch_for_generalized_index<T: AsRef<[u8]>>(

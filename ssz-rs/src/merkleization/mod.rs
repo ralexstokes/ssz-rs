@@ -30,6 +30,8 @@ pub enum MerkleizationError {
     InvalidPathElement(PathElement),
     /// Signals an invalid path when walking a `GeneralizedIndexable` type
     InvalidPath(Vec<PathElement>),
+    InvalidDepth,
+    InvalidIndex,
 }
 
 impl From<SerializeError> for MerkleizationError {
@@ -49,6 +51,8 @@ impl Display for MerkleizationError {
             Self::InvalidGeneralizedIndex => write!(f, "invalid generalized index"),
             Self::InvalidPathElement(element) => write!(f, "invalid path element {element:?}"),
             Self::InvalidPath(path) => write!(f, "invalid path {path:?}"),
+            Self::InvalidDepth => write!(f, "error computing depth for proof"),
+            Self::InvalidIndex => write!(f, "error computing index for proof"),
         }
     }
 }
