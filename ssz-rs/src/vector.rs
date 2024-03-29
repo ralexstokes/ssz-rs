@@ -3,8 +3,8 @@ use crate::{
     error::{Error, InstanceError, TypeError},
     lib::*,
     merkleization::{
-        elements_to_chunks, get_power_of_two_ceil, merkleize, pack, GeneralizedIndex, HashTreeRoot,
-        Indexed, MerkleizationError, Node, Path, PathElement,
+        elements_to_chunks, get_power_of_two_ceil, merkleize, pack, GeneralizedIndex,
+        GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, Path, PathElement,
     },
     ser::{Serialize, SerializeError, Serializer},
     Serializable, SimpleSerialize,
@@ -247,9 +247,9 @@ where
 
 impl<T, const N: usize> SimpleSerialize for Vector<T, N> where T: SimpleSerialize {}
 
-impl<T, const N: usize> Indexed for Vector<T, N>
+impl<T, const N: usize> GeneralizedIndexable for Vector<T, N>
 where
-    T: SimpleSerialize + Indexed,
+    T: SimpleSerialize + GeneralizedIndexable,
 {
     fn chunk_count() -> usize {
         (N * T::item_length() + 31) / 32

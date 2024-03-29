@@ -25,7 +25,7 @@ impl From<usize> for PathElement {
 pub type Path<'a> = &'a [PathElement];
 
 /// Types that can compute generalized indices given a `Path`.
-pub trait Indexed {
+pub trait GeneralizedIndexable {
     fn item_length() -> usize {
         BYTES_PER_CHUNK
     }
@@ -109,20 +109,20 @@ pub const fn parent(index: GeneralizedIndex) -> GeneralizedIndex {
 mod tests {
     use crate::prelude::*;
 
-    #[derive(Default, Debug, SimpleSerialize, Indexed)]
+    #[derive(Default, Debug, SimpleSerialize)]
     struct Bar {
         c: u8,
         f: Foo,
         a: List<u8, 25>,
     }
 
-    #[derive(Default, Debug, SimpleSerialize, Indexed)]
+    #[derive(Default, Debug, SimpleSerialize)]
     struct Foo {
         x: Vector<u8, 32>,
         y: List<Qux, 256>,
     }
 
-    #[derive(Default, Debug, SimpleSerialize, Indexed)]
+    #[derive(Default, Debug, SimpleSerialize)]
     struct Qux {
         a: Vector<u16, 8>,
     }

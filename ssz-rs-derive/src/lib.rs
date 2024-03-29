@@ -387,7 +387,11 @@ fn derive_merkleization_impl(
     }
 }
 
-fn derive_indexed_impl(data: &Data, name: &Ident, generics: &Generics) -> TokenStream {
+fn derive_generalized_indexable_impl(
+    data: &Data,
+    name: &Ident,
+    generics: &Generics,
+) -> TokenStream {
     let (impl_generics, ty_generics, _) = generics.split_for_impl();
 
     let (compute_generalized_index_impl, helper_impl) = match data {
@@ -414,7 +418,7 @@ fn derive_indexed_impl(data: &Data, name: &Ident, generics: &Generics) -> TokenS
                         #selector => {
                             let chunk_position = #i;
                             let child = parent * get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
-                            <#field_ty as ssz_rs::Indexed>::compute_generalized_index(child, path)
+                            <#field_ty as ssz_rs::GeneralizedIndexable>::compute_generalized_index(child, path)
                         }
                     }
                 });
@@ -438,7 +442,7 @@ fn derive_indexed_impl(data: &Data, name: &Ident, generics: &Generics) -> TokenS
                 let field = fields.unnamed.first().expect("validated to only have one field");
                 let ty = &field.ty;
                 let trait_impl = quote! {
-                    <#ty as ssz_rs::Indexed>::compute_generalized_index(parent, path)
+                    <#ty as ssz_rs::GeneralizedIndexable>::compute_generalized_index(parent, path)
                 };
                 (trait_impl, None)
             }
@@ -474,10 +478,10 @@ fn derive_indexed_impl(data: &Data, name: &Ident, generics: &Generics) -> TokenS
     quote! {
         #helper_impl
 
-        impl #impl_generics ssz_rs::Indexed for #name #ty_generics {
             fn chunk_count() -> usize {
                 #chunk_count_impl
             }
+        impl #impl_generics ssz_rs::GeneralizedIndexable for #name #ty_generics {
 
             fn compute_generalized_index(
                 parent: ssz_rs::GeneralizedIndex,
@@ -721,10 +725,9 @@ pub fn derive_hash_tree_root(input: proc_macro::TokenStream) -> proc_macro::Toke
     proc_macro::TokenStream::from(expansion)
 }
 
-/// Derive an `ssz_rs::Indexed` implementation.
-/// Currently only supports structs.
-#[proc_macro_derive(Indexed)]
-pub fn derive_indexed(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+/// Derive an `ssz_rs::GeneralizedIndexable` implementation.
+#[proc_macro_derive(GeneralizedIndexable)]
+pub fn derive_generalized_indexable(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
 
     let data = &input.data;
@@ -732,7 +735,7 @@ pub fn derive_indexed(input: proc_macro::TokenStream) -> proc_macro::TokenStream
     let name = &input.ident;
     let generics = &input.generics;
 
-    let expansion = derive_indexed_impl(data, name, generics);
+    let expansion = derive_generalized_indexable_impl(data, name, generics);
     proc_macro::TokenStream::from(expansion)
 }
 

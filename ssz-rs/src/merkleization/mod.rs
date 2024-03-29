@@ -6,7 +6,8 @@ mod proofs;
 
 use crate::{lib::*, ser::SerializeError};
 pub use generalized_index::{
-    default_generalized_index, get_power_of_two_ceil, GeneralizedIndex, Indexed, Path, PathElement,
+    default_generalized_index, get_power_of_two_ceil, GeneralizedIndex, GeneralizedIndexable, Path,
+    PathElement,
 };
 pub use merkleize::*;
 pub use node::*;
@@ -26,11 +27,9 @@ pub enum MerkleizationError {
     InvalidProof,
     /// Signals an invalid generalized index (e.g. `0`) was presented.
     InvalidGeneralizedIndex,
-    /// Signals an invalid type of path element when walking an
-    /// `crate::merkleization::multiproofs::Indexed` type
+    /// Signals an invalid type of path element when walking a `GeneralizedIndexable` type
     InvalidPathElement(PathElement),
-    /// Signals an invalid path when walking an
-    /// `crate::merkleization::multiproofs::Indexed` type
+    /// Signals an invalid path when walking a `GeneralizedIndexable` type
     InvalidPath(Vec<PathElement>),
 }
 

@@ -4,8 +4,8 @@ use crate::{
     lib::*,
     merkleization::{
         elements_to_chunks, get_power_of_two_ceil, merkleize, mix_in_length, pack,
-        GeneralizedIndex, HashTreeRoot, Indexed, MerkleizationError, Node, Path, PathElement,
-        BYTES_PER_CHUNK,
+        GeneralizedIndex, GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, Path,
+        PathElement, BYTES_PER_CHUNK,
     },
     ser::{Serialize, SerializeError, Serializer},
     Serializable, SimpleSerialize,
@@ -252,9 +252,9 @@ where
 
 impl<T, const N: usize> SimpleSerialize for List<T, N> where T: SimpleSerialize {}
 
-impl<T, const N: usize> Indexed for List<T, N>
+impl<T, const N: usize> GeneralizedIndexable for List<T, N>
 where
-    T: SimpleSerialize + Indexed,
+    T: SimpleSerialize + GeneralizedIndexable,
 {
     fn chunk_count() -> usize {
         (N * T::item_length() + 31) / 32
@@ -271,9 +271,10 @@ where
                         return Err(MerkleizationError::InvalidPathElement(next.clone()))
                     }
                     let chunk_position = i * T::item_length() / 32;
-                    let child =
-                        parent * 2 * get_power_of_two_ceil(<Self as Indexed>::chunk_count()) +
-                            chunk_position;
+                    let child = parent *
+                        2 *
+                        get_power_of_two_ceil(<Self as GeneralizedIndexable>::chunk_count()) +
+                        chunk_position;
                     T::compute_generalized_index(child, rest)
                 }
                 PathElement::Length => {

@@ -5,7 +5,7 @@ use crate::{
 };
 
 /// A node in a merkle tree.
-#[derive(Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, SimpleSerialize, Indexed)]
+#[derive(Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, SimpleSerialize)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Node(
     #[cfg_attr(feature = "serde", serde(with = "crate::serde::as_hex"))] [u8; BYTES_PER_CHUNK],
