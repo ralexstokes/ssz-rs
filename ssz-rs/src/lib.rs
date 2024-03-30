@@ -116,6 +116,7 @@ mod exports {
         error::{Error as SimpleSerializeError, InstanceError, TypeError},
         list::List,
         merkleization::{
+            generalized_index::default_generalized_index,
             multiproofs,
             proofs::{self, is_valid_merkle_branch},
             GeneralizedIndex, GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, Path,
