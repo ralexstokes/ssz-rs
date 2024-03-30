@@ -2,8 +2,8 @@ use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
     merkleization::{
-        proofs::{NoChilden, Prove},
-        GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node,
+        proofs::Prove, GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node,
+        BYTES_PER_CHUNK,
     },
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,
@@ -63,14 +63,14 @@ impl GeneralizedIndexable for bool {
 }
 
 impl Prove for bool {
-    type Child = NoChilden;
+    type InnerElement = ();
 
     fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
-        let mut node = Node::default();
+        let mut vec = vec![0u8; BYTES_PER_CHUNK];
         if *self {
-            node.as_mut()[0] = 1;
+            vec[0] = 1;
         }
-        Ok(node.to_vec())
+        Ok(vec)
     }
 }
 

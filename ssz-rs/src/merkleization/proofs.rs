@@ -46,18 +46,18 @@ pub struct Prover {
 }
 
 impl Prover {
-    fn set_leaf(&mut self, leaf: Node) {
-        self.proof.leaf = leaf;
+    fn set_leaf(&mut self, leaf: &[u8]) {
+        self.proof.leaf = leaf.try_into().expect("is correct size");
     }
 
     // Adds a node to the Merkle proof's branch.
     // Assumes nodes are provided going from the bottom of the tree to the top.
-    fn extend_branch(&mut self, node: Node) {
-        self.proof.branch.push(node)
+    fn extend_branch(&mut self, node: &[u8]) {
+        self.proof.branch.push(node.try_into().expect("is correct size"))
     }
 
-    fn set_witness(&mut self, witness: Node) {
-        self.witness = witness;
+    fn set_witness(&mut self, witness: &[u8]) {
+        self.witness = witness.try_into().expect("is correct size");
     }
 
     /// Derive a Merkle proof relative to `data` given the parameters in `self`.
@@ -77,7 +77,7 @@ impl Prover {
                 parent_index / local_generalized_index + 1
             };
             self.proof.index = child_index;
-            let child = data.child(local_index)?;
+            let child = data.inner_element(local_index)?;
             self.compute_proof(child)?;
             self.proof.index = parent_index;
         } else {
@@ -88,19 +88,17 @@ impl Prover {
         let tree = compute_merkle_tree(&mut self.hasher, &chunks, leaf_count)?;
 
         if is_leaf_local {
-            let leaf = &tree[parent_index];
-            self.set_leaf(leaf.try_into().expect("is correct size"));
+            self.set_leaf(&tree[parent_index]);
         }
 
         let mut target = local_generalized_index;
         for _ in 0..local_depth {
             let sibling = if target % 2 != 0 { &tree[target - 1] } else { &tree[target + 1] };
-            self.extend_branch(sibling.try_into().expect("is correct size"));
+            self.extend_branch(sibling);
             target /= 2;
         }
 
-        let root = &tree[1];
-        self.set_witness(root.try_into().expect("is correct size"));
+        self.set_witness(&tree[1]);
 
         Ok(())
     }
@@ -122,27 +120,38 @@ impl From<GeneralizedIndex> for Prover {
     }
 }
 
-/// Types that can produce Merkle proofs against themselves given a `GeneralizedIndex`.
+/// Required functionality to support computing Merkle proofs.
 pub trait Prove: GeneralizedIndexable {
-    type Child: Prove;
+    type InnerElement: Prove;
 
-    fn chunks(&mut self) -> Result<Vec<u8>, Error>;
+    /// Compute the "chunks" of this type as required for the SSZ merkle tree computation.
+    /// Default implementation signals an error. Implementing types should override
+    /// to provide the correct behavior.
+    fn chunks(&mut self) -> Result<Vec<u8>, Error> {
+        Err(Error::NotChunkable)
+    }
 
-    fn child(&mut self, _index: usize) -> Result<&mut Self::Child, Error> {
-        Err(Error::NoChildren)
+    /// Provide a reference to a member element of a composite type.
+    /// Default implementation signals an error. Implementing types should override
+    /// to provide the correct behavior.
+    fn inner_element(&mut self, _index: usize) -> Result<&mut Self::InnerElement, Error> {
+        Err(Error::NoInnerElement)
     }
 }
 
-pub struct NoChilden;
-
-impl GeneralizedIndexable for NoChilden {}
-
-impl Prove for NoChilden {
-    type Child = bool;
-
-    fn chunks(&mut self) -> Result<Vec<u8>, Error> {
-        Err(Error::NoChildren)
+// Implement `GeneralizedIndexable` for `()` for use as a marker type in `Prove`.
+impl GeneralizedIndexable for () {
+    fn compute_generalized_index(
+        _parent: GeneralizedIndex,
+        path: Path,
+    ) -> Result<GeneralizedIndex, Error> {
+        Err(Error::InvalidPath(path.to_vec()))
     }
+}
+
+// Implement the default `Prove` functionality for use of `()` as a marker type.
+impl Prove for () {
+    type InnerElement = ();
 }
 
 /// Produce a Merkle proof (and corresponding witness) for the type `T` at the given `path` relative

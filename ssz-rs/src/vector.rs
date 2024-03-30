@@ -284,15 +284,18 @@ impl<T, const N: usize> Prove for Vector<T, N>
 where
     T: SimpleSerialize + Prove,
 {
-    type Child = T;
+    type InnerElement = T;
 
     fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
         self.assemble_chunks()
     }
 
-    fn child(&mut self, index: usize) -> Result<&mut Self::Child, MerkleizationError> {
+    fn inner_element(
+        &mut self,
+        index: usize,
+    ) -> Result<&mut Self::InnerElement, MerkleizationError> {
         if index >= N {
-            Err(MerkleizationError::InvalidIndex)
+            Err(MerkleizationError::InvalidInnerIndex)
         } else {
             Ok(&mut self[index])
         }

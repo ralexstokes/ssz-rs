@@ -2,9 +2,8 @@ use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
     merkleization::{
-        pack_bytes,
-        proofs::{NoChilden, Prove},
-        GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, BYTES_PER_CHUNK,
+        pack_bytes, proofs::Prove, GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node,
+        BYTES_PER_CHUNK,
     },
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize, BITS_PER_BYTE,
@@ -74,7 +73,7 @@ macro_rules! define_uint {
         }
 
         impl Prove for $uint {
-            type Child = NoChilden;
+            type InnerElement = ();
 
             fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
                 let mut root = Vec::with_capacity(BYTES_PER_CHUNK);
@@ -156,7 +155,7 @@ impl GeneralizedIndexable for U256 {
 }
 
 impl Prove for U256 {
-    type Child = NoChilden;
+    type InnerElement = ();
 
     fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
         Ok(self.as_le_bytes().to_vec())

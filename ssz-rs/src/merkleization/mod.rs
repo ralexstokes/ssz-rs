@@ -29,9 +29,13 @@ pub enum MerkleizationError {
     InvalidPathElement(PathElement),
     /// Signals an invalid path when walking a `GeneralizedIndexable` type
     InvalidPath(Vec<PathElement>),
-    InvalidDepth,
-    InvalidIndex,
-    NoChildren,
+    /// Attempt to prove an inner element outside the bounds of what the implementing type
+    /// supports.
+    InvalidInnerIndex,
+    /// Attempt to prove an inner element for a "basic" type that doesn't have one
+    NoInnerElement,
+    /// Attempt to turn an instance of a type in Merkle chunks when this is not supported
+    NotChunkable,
 }
 
 impl From<SerializeError> for MerkleizationError {
@@ -51,12 +55,14 @@ impl Display for MerkleizationError {
             Self::InvalidGeneralizedIndex => write!(f, "invalid generalized index"),
             Self::InvalidPathElement(element) => write!(f, "invalid path element {element:?}"),
             Self::InvalidPath(path) => write!(f, "invalid path {path:?}"),
-            Self::InvalidDepth => write!(f, "error computing depth for proof"),
-            Self::InvalidIndex => write!(f, "error computing index for proof"),
-            Self::NoChildren => write!(
+            Self::InvalidInnerIndex => write!(f, "requested to compute proof for an inner element outside the bounds of what this type supports"),
+            Self::NoInnerElement => write!(
                 f,
-                "requested to compute proof for a child which does not exist for this type"
+                "requested to compute proof for an inner element which does not exist for this type"
             ),
+            Self::NotChunkable => {
+                write!(f, "requested to compute chunks for a type which does not support this")
+            }
         }
     }
 }

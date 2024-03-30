@@ -5,7 +5,6 @@ use crate::{
     ser::Serialize,
     GeneralizedIndex,
 };
-use alloy_primitives::hex;
 use sha2::{Digest, Sha256};
 
 /// Types that can provide the root of their corresponding Merkle tree following the SSZ spec.
@@ -240,6 +239,7 @@ impl Index<GeneralizedIndex> for Tree {
     }
 }
 
+#[cfg(feature = "serde")]
 impl std::fmt::Debug for Tree {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         f.debug_list().entries(self.0.chunks(BYTES_PER_CHUNK).map(hex::encode)).finish()
