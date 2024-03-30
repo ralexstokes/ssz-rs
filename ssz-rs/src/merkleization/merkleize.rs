@@ -242,12 +242,7 @@ impl Index<GeneralizedIndex> for Tree {
 
 impl std::fmt::Debug for Tree {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        for chunk in self.0.chunks(BYTES_PER_CHUNK) {
-            let node = hex::encode(chunk);
-            f.write_str(&node)?;
-            f.write_str(",\n")?;
-        }
-        Ok(())
+        f.debug_list().entries(self.0.chunks(BYTES_PER_CHUNK).map(hex::encode)).finish()
     }
 }
 
