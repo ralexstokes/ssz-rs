@@ -280,7 +280,9 @@ pub(crate) mod tests {
         let (proof, witness) = prove(data, path).unwrap();
         assert_eq!(witness, data.hash_tree_root().unwrap());
         let result = proof.verify(witness);
-        assert!(result.is_ok());
+        if let Err(err) = result {
+            panic!("{err} for {proof:?} with witness {witness}")
+        }
     }
 
     #[test]

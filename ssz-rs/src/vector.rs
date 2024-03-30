@@ -644,4 +644,80 @@ mod tests {
         let expected_index = 7;
         compute_and_verify_proof(&mut data, path, expected_index);
     }
+
+    #[test]
+    fn test_prove_vector_with_smaller_wrapper_and_aligned_member() {
+        type T = U256;
+        const W_BOUND: usize = 18;
+        type W = Vector<T, W_BOUND>;
+        const V_BOUND: usize = 2;
+        type V = Vector<W, V_BOUND>;
+
+        let inner = W::try_from(vec![T::from(11u32); W_BOUND]).unwrap();
+        let mut data = V::try_from(vec![inner; V_BOUND]).unwrap();
+
+        for i in 0..V_BOUND {
+            for j in 0..W_BOUND {
+                let path = &[i.into(), j.into()];
+                crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+            }
+        }
+    }
+
+    #[test]
+    fn test_prove_vector_with_smaller_wrapper_and_non_aligned_member() {
+        type T = u64;
+        const W_BOUND: usize = 18;
+        type W = Vector<T, W_BOUND>;
+        const V_BOUND: usize = 2;
+        type V = Vector<W, V_BOUND>;
+
+        let inner = W::try_from(vec![T::from(11u32); W_BOUND]).unwrap();
+        let mut data = V::try_from(vec![inner; V_BOUND]).unwrap();
+
+        for i in 0..V_BOUND {
+            for j in 0..W_BOUND {
+                let path = &[i.into(), j.into()];
+                crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+            }
+        }
+    }
+
+    #[test]
+    fn test_prove_vector_with_larger_wrapper_and_aligned_member() {
+        type T = U256;
+        const W_BOUND: usize = 3;
+        type W = Vector<T, W_BOUND>;
+        const V_BOUND: usize = 18;
+        type V = Vector<W, V_BOUND>;
+
+        let inner = W::try_from(vec![T::from(11u32); W_BOUND]).unwrap();
+        let mut data = V::try_from(vec![inner; V_BOUND]).unwrap();
+
+        for i in 0..V_BOUND {
+            for j in 0..W_BOUND {
+                let path = &[i.into(), j.into()];
+                crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+            }
+        }
+    }
+
+    #[test]
+    fn test_prove_vector_with_larger_wrapper_and_non_aligned_member() {
+        type T = u64;
+        const W_BOUND: usize = 3;
+        type W = Vector<T, W_BOUND>;
+        const V_BOUND: usize = 18;
+        type V = Vector<W, V_BOUND>;
+
+        let inner = W::try_from(vec![T::from(11u32); W_BOUND]).unwrap();
+        let mut data = V::try_from(vec![inner; V_BOUND]).unwrap();
+
+        for i in 0..V_BOUND {
+            for j in 0..W_BOUND {
+                let path = &[i.into(), j.into()];
+                crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+            }
+        }
+    }
 }
