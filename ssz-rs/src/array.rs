@@ -77,15 +77,8 @@ where
     T: SimpleSerialize,
 {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
-        // TODO clean up once SimpleSerialize includes Prove
-        if T::is_composite_type() {
-            let count = self.len();
-            let chunks = elements_to_chunks(self.iter_mut().enumerate(), count)?;
-            merkleize(&chunks, None)
-        } else {
-            let chunks = pack(self)?;
-            merkleize(&chunks, None)
-        }
+        let chunks = self.chunks()?;
+        merkleize(&chunks, None)
     }
 
     fn is_composite_type() -> bool {
