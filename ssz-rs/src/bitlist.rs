@@ -201,6 +201,7 @@ impl<const N: usize> GeneralizedIndexable for Bitlist<N> {
                     }
                     let chunk_position = i / 256;
                     let child = parent *
+                        2 *
                         get_power_of_two_ceil(<Self as GeneralizedIndexable>::chunk_count()) +
                         chunk_position;
                     // NOTE: use `bool` as effective type of element
