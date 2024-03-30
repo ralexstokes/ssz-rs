@@ -71,12 +71,9 @@ pub fn log_2(x: usize) -> Option<u32> {
     x.checked_ilog2()
 }
 
+#[inline]
 pub fn get_power_of_two_ceil(x: usize) -> usize {
-    match x {
-        x if x <= 1 => 1,
-        2 => 2,
-        x => 2 * get_power_of_two_ceil((x + 1) / 2),
-    }
+    x.next_power_of_two()
 }
 
 /// Represents a "generalized index" from the SSZ spec.
