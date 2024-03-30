@@ -45,7 +45,7 @@ where
     Ok(buffer)
 }
 
-pub fn hash_nodes(hasher: &mut Sha256, a: &[u8], b: &[u8], out: &mut [u8]) {
+fn hash_nodes(hasher: &mut Sha256, a: &[u8], b: &[u8], out: &mut [u8]) {
     hasher.update(a);
     hasher.update(b);
     out.copy_from_slice(&hasher.finalize_reset());
@@ -291,8 +291,7 @@ pub fn compute_merkle_tree(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate as ssz_rs;
-    use crate::{merkleization::default_generalized_index, prelude::*};
+    use crate::prelude::*;
 
     macro_rules! hex {
         ($input:expr) => {

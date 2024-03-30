@@ -2,8 +2,8 @@
 use crate::{
     lib::*,
     merkleization::{
-        compute_merkle_tree, default_generalized_index, generalized_index::log_2, GeneralizedIndex,
-        GeneralizedIndexable, HashTreeRoot, MerkleizationError as Error, Node, Path,
+        compute_merkle_tree, generalized_index::log_2, GeneralizedIndex, GeneralizedIndexable,
+        MerkleizationError as Error, Node, Path,
     },
 };
 use sha2::{Digest, Sha256};
@@ -40,23 +40,23 @@ pub fn compute_local_merkle_coordinates(
 
 #[derive(Debug)]
 pub struct Prover {
-    pub(crate) hasher: Sha256,
-    pub proof: Proof,
-    pub witness: Node,
+    hasher: Sha256,
+    proof: Proof,
+    witness: Node,
 }
 
 impl Prover {
-    pub fn set_leaf(&mut self, leaf: Node) {
+    fn set_leaf(&mut self, leaf: Node) {
         self.proof.leaf = leaf;
     }
 
     // Adds a node to the Merkle proof's branch.
     // Assumes nodes are provided going from the bottom of the tree to the top.
-    pub fn extend_branch(&mut self, node: Node) {
+    fn extend_branch(&mut self, node: Node) {
         self.proof.branch.push(node)
     }
 
-    pub fn set_witness(&mut self, witness: Node) {
+    fn set_witness(&mut self, witness: Node) {
         self.witness = witness;
     }
 
@@ -170,21 +170,6 @@ impl Proof {
     pub fn verify(&self, root: Node) -> Result<(), Error> {
         is_valid_merkle_branch_for_generalized_index(self.leaf, &self.branch, self.index, root)
     }
-}
-
-pub fn prove_primitive<T: HashTreeRoot + ?Sized>(
-    data: &mut T,
-    prover: &mut Prover,
-) -> Result<(), Error> {
-    let index = prover.proof.index;
-    if index != default_generalized_index() {
-        return Err(Error::InvalidGeneralizedIndex)
-    }
-
-    let root = data.hash_tree_root()?;
-    prover.set_leaf(root);
-    prover.set_witness(root);
-    Ok(())
 }
 
 pub fn is_valid_merkle_branch_for_generalized_index<T: AsRef<[u8]>>(

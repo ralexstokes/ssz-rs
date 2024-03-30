@@ -225,7 +225,7 @@ impl<T, const N: usize> Vector<T, N>
 where
     T: SimpleSerialize,
 {
-    fn to_chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+    fn assemble_chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
         if T::is_composite_type() {
             let count = self.len();
             elements_to_chunks(self.data.iter_mut().enumerate(), count)
@@ -235,7 +235,7 @@ where
     }
 
     fn compute_hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
-        let chunks = self.to_chunks()?;
+        let chunks = self.assemble_chunks()?;
         merkleize(&chunks, None)
     }
 }
@@ -287,7 +287,7 @@ where
     type Child = T;
 
     fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
-        self.to_chunks()
+        self.assemble_chunks()
     }
 
     fn child(&mut self, index: usize) -> Result<&mut Self::Child, MerkleizationError> {
