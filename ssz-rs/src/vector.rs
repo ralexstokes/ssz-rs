@@ -3,8 +3,7 @@ use crate::{
     error::{Error, InstanceError, TypeError},
     lib::*,
     merkleization::{
-        compute_merkle_tree, elements_to_chunks, get_power_of_two_ceil, merkleize, pack,
-        proofs::{Prove, Prover},
+        elements_to_chunks, get_power_of_two_ceil, merkleize, pack, proofs::Prove,
         GeneralizedIndex, GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, Path,
         PathElement,
     },
@@ -285,47 +284,18 @@ impl<T, const N: usize> Prove for Vector<T, N>
 where
     T: SimpleSerialize + Prove,
 {
-    fn prove(&mut self, prover: &mut Prover) -> Result<(), MerkleizationError> {
-        let (local_depth, local_index) = prover.compute_depth_and_index(prover.proof.index)?;
-        if local_index >= N {
-            return Err(MerkleizationError::InvalidIndex)
-        }
+    type Child = T;
 
-        let chunk_count = Self::chunk_count();
-        let leaf_count = chunk_count.next_power_of_two();
-        let mut is_basic_type = false;
-        if T::is_composite_type() {
-            let parent_index = prover.proof.index;
-            let child_index = parent_index - leaf_count - local_index + 1;
-            prover.proof.index = child_index;
-            self[local_index].prove(prover)?;
-            prover.proof.index = parent_index;
+    fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+        self.to_chunks()
+    }
+
+    fn child(&mut self, index: usize) -> Result<&mut Self::Child, MerkleizationError> {
+        if index >= N {
+            Err(MerkleizationError::InvalidIndex)
         } else {
-            // need to set leaf from merkle tree below...
-            is_basic_type = true;
+            Ok(&mut self[index])
         }
-        let chunks = self.to_chunks()?;
-        let tree = compute_merkle_tree(&mut prover.hasher, &chunks, leaf_count)?;
-
-        if is_basic_type {
-            let leaf = &tree[prover.proof.index];
-            prover.set_leaf(leaf.try_into().expect("is correct size"));
-        }
-
-        let mut target = prover.proof.index;
-        for _ in 0..local_depth {
-            let sibling = if target % 2 != 0 { &tree[target - 1] } else { &tree[target + 1] };
-            prover.extend_branch(sibling.try_into().expect("is correct size"));
-            target /= 2;
-        }
-
-        // TODO: remove, but these should match at this point
-        debug_assert_eq!(&tree[1], self.hash_tree_root().unwrap().as_ref());
-
-        let root = &tree[1];
-        prover.set_witness(root.try_into().expect("is correct size"));
-
-        Ok(())
     }
 }
 
@@ -366,7 +336,11 @@ impl<'de, T: Serializable + serde::Deserialize<'de>, const N: usize> serde::Dese
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{list::List, merkleization::proofs::prove, serialize, U256};
+    use crate::{
+        list::List,
+        merkleization::proofs::{prove, Prover},
+        serialize, U256,
+    };
 
     const COUNT: usize = 32;
 
@@ -509,7 +483,69 @@ mod tests {
     }
 
     #[test]
-    fn test_prove_vector_over_chunk_sized_primitive() {
+    fn test_generalized_index_for_vector_over_non_aligned_vector() {
+        type W = Vector<u64, 2>;
+        type V = Vector<W, 2>;
+
+        let path = &[0.into(), 0.into()];
+        let index = V::generalized_index(path).unwrap();
+        assert_eq!(index, 2);
+
+        let path = &[0.into(), 1.into()];
+        let index = V::generalized_index(path).unwrap();
+        assert_eq!(index, 2);
+
+        let path = &[1.into(), 0.into()];
+        let index = V::generalized_index(path).unwrap();
+        assert_eq!(index, 3);
+
+        let path = &[1.into(), 1.into()];
+        let index = V::generalized_index(path).unwrap();
+        assert_eq!(index, 3);
+    }
+
+    #[test]
+    fn test_generalized_index_for_vector_over_aligned_vector() {
+        type W = Vector<U256, 2>;
+        type V = Vector<W, 2>;
+
+        let path = &[0.into(), 0.into()];
+        let index = V::generalized_index(path).unwrap();
+        assert_eq!(index, 4);
+
+        let path = &[0.into(), 1.into()];
+        let index = V::generalized_index(path).unwrap();
+        assert_eq!(index, 5);
+
+        let path = &[1.into(), 0.into()];
+        let index = V::generalized_index(path).unwrap();
+        assert_eq!(index, 6);
+
+        let path = &[1.into(), 1.into()];
+        let index = V::generalized_index(path).unwrap();
+        assert_eq!(index, 7);
+    }
+
+    fn compute_and_verify_proof<T: SimpleSerialize + Prove>(
+        data: &mut T,
+        path: Path,
+        expected_index: GeneralizedIndex,
+    ) {
+        let (proof, witness) = prove(data, path).unwrap();
+        assert!(proof.verify(witness).is_ok());
+
+        let index = T::generalized_index(path).unwrap();
+        assert_eq!(expected_index, index);
+        let mut prover = Prover::from(expected_index);
+        prover.compute_proof(data).unwrap();
+        let (proof_from_index, witness_from_index) = prover.into();
+        assert_eq!(proof, proof_from_index);
+        assert_eq!(witness, witness_from_index);
+        assert!(proof.verify(witness).is_ok());
+    }
+
+    #[test]
+    fn test_prove_vector_over_aligned_primitive() {
         type V = Vector<U256, 7>;
 
         let mut data = V::try_from(vec![
@@ -524,36 +560,88 @@ mod tests {
         .unwrap();
 
         let path = &[3.into()];
-        let (proof, witness) = prove(&mut data, path).unwrap();
-
         let expected_index = 11;
-        let index = V::generalized_index(path).unwrap();
-        assert_eq!(expected_index, index);
-        let mut prover = expected_index.into();
-        data.prove(&mut prover).unwrap();
-        let (proof_from_index, witness_from_index) = prover.into();
-        assert_eq!(proof, proof_from_index);
-        assert_eq!(witness, witness_from_index);
-        assert!(proof.verify(witness).is_ok());
+        compute_and_verify_proof(&mut data, path, expected_index);
     }
 
     #[test]
-    fn test_prove_vector_over_nonchunk_sized_primitive() {
+    fn test_prove_vector_over_non_aligned_primitive() {
         type V = Vector<u64, 7>;
 
         let mut data = V::try_from(vec![23, 34, 45, 56, 67, 78, 11]).unwrap();
 
         let path = &[3.into()];
-        let (proof, witness) = prove(&mut data, path).unwrap();
-
         let expected_index = 2;
-        let index = V::generalized_index(path).unwrap();
-        assert_eq!(expected_index, index);
-        let mut prover = expected_index.into();
-        data.prove(&mut prover).unwrap();
-        let (proof_from_index, witness_from_index) = prover.into();
-        assert_eq!(proof, proof_from_index);
-        assert_eq!(witness, witness_from_index);
-        assert!(proof_from_index.verify(witness_from_index).is_ok());
+        compute_and_verify_proof(&mut data, path, expected_index);
+    }
+
+    #[test]
+    fn test_prove_vector_over_vector_of_non_aligned_primitives() {
+        type W = Vector<bool, 2>;
+        type V = Vector<W, 2>;
+
+        let inner = W::try_from(vec![true, true]).unwrap();
+        let mut data = V::try_from(vec![inner.clone(), inner]).unwrap();
+
+        // prove into non-leaf
+        let path = &[0.into()];
+        let expected_index = 2;
+        compute_and_verify_proof(&mut data, path, expected_index);
+
+        let path = &[1.into()];
+        let expected_index = 3;
+        compute_and_verify_proof(&mut data, path, expected_index);
+
+        // prove into leaf
+        let path = &[0.into(), 0.into()];
+        let expected_index = 2;
+        compute_and_verify_proof(&mut data, path, expected_index);
+
+        let path = &[0.into(), 1.into()];
+        let expected_index = 2;
+        compute_and_verify_proof(&mut data, path, expected_index);
+
+        let path = &[1.into(), 0.into()];
+        let expected_index = 3;
+        compute_and_verify_proof(&mut data, path, expected_index);
+
+        let path = &[1.into(), 1.into()];
+        let expected_index = 3;
+        compute_and_verify_proof(&mut data, path, expected_index);
+    }
+
+    #[test]
+    fn test_prove_vector_over_vector_of_aligned_primitives() {
+        type W = Vector<U256, 2>;
+        type V = Vector<W, 2>;
+
+        let inner = W::try_from(vec![U256::from(1), U256::from(2)]).unwrap();
+        let mut data = V::try_from(vec![inner.clone(), inner]).unwrap();
+
+        // prove into non-leaf
+        let path = &[0.into()];
+        let expected_index = 2;
+        compute_and_verify_proof(&mut data, path, expected_index);
+
+        let path = &[1.into()];
+        let expected_index = 3;
+        compute_and_verify_proof(&mut data, path, expected_index);
+
+        // prove into leaf
+        let path = &[0.into(), 0.into()];
+        let expected_index = 4;
+        compute_and_verify_proof(&mut data, path, expected_index);
+
+        let path = &[0.into(), 1.into()];
+        let expected_index = 5;
+        compute_and_verify_proof(&mut data, path, expected_index);
+
+        let path = &[1.into(), 0.into()];
+        let expected_index = 6;
+        compute_and_verify_proof(&mut data, path, expected_index);
+
+        let path = &[1.into(), 1.into()];
+        let expected_index = 7;
+        compute_and_verify_proof(&mut data, path, expected_index);
     }
 }

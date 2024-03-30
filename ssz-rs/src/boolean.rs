@@ -2,7 +2,7 @@ use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
     merkleization::{
-        proofs::{prove_primitive, Prove, Prover},
+        proofs::{NoChilden, Prove},
         GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node,
     },
     ser::{Serialize, SerializeError},
@@ -63,8 +63,14 @@ impl GeneralizedIndexable for bool {
 }
 
 impl Prove for bool {
-    fn prove(&mut self, prover: &mut Prover) -> Result<(), MerkleizationError> {
-        prove_primitive(self, prover)
+    type Child = NoChilden;
+
+    fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+        let mut node = Node::default();
+        if *self {
+            node.as_mut()[0] = 1;
+        }
+        Ok(node.to_vec())
     }
 }
 

@@ -3,8 +3,8 @@ use crate::{
     lib::*,
     merkleization::{
         pack_bytes,
-        proofs::{prove_primitive, Prove, Prover},
-        GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node,
+        proofs::{NoChilden, Prove},
+        GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, BYTES_PER_CHUNK,
     },
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize, BITS_PER_BYTE,
@@ -58,9 +58,7 @@ macro_rules! define_uint {
 
         impl HashTreeRoot for $uint {
             fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
-                let mut root = vec![];
-                let _ = self.serialize(&mut root)?;
-                pack_bytes(&mut root);
+                let root = self.chunks()?;
                 Ok(root.as_slice().try_into().expect("is valid root"))
             }
 
@@ -76,8 +74,13 @@ macro_rules! define_uint {
         }
 
         impl Prove for $uint {
-            fn prove(&mut self, prover: &mut Prover) -> Result<(), MerkleizationError> {
-                prove_primitive(self, prover)
+            type Child = NoChilden;
+
+            fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+                let mut root = Vec::with_capacity(BYTES_PER_CHUNK);
+                let _ = self.serialize(&mut root)?;
+                pack_bytes(&mut root);
+                Ok(root)
             }
         }
 
@@ -138,7 +141,7 @@ impl Deserialize for U256 {
 
 impl HashTreeRoot for U256 {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
-        Ok(Node::try_from(self.as_le_bytes().as_ref()).expect("is right size"))
+        Ok(Node::try_from(self.chunks().unwrap().as_ref()).expect("is right size"))
     }
 
     fn is_composite_type() -> bool {
@@ -153,8 +156,10 @@ impl GeneralizedIndexable for U256 {
 }
 
 impl Prove for U256 {
-    fn prove(&mut self, prover: &mut Prover) -> Result<(), MerkleizationError> {
-        prove_primitive(self, prover)
+    type Child = NoChilden;
+
+    fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+        Ok(self.as_le_bytes().to_vec())
     }
 }
 

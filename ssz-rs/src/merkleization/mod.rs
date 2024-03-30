@@ -32,6 +32,7 @@ pub enum MerkleizationError {
     InvalidPath(Vec<PathElement>),
     InvalidDepth,
     InvalidIndex,
+    NoChildren,
 }
 
 impl From<SerializeError> for MerkleizationError {
@@ -53,6 +54,10 @@ impl Display for MerkleizationError {
             Self::InvalidPath(path) => write!(f, "invalid path {path:?}"),
             Self::InvalidDepth => write!(f, "error computing depth for proof"),
             Self::InvalidIndex => write!(f, "error computing index for proof"),
+            Self::NoChildren => write!(
+                f,
+                "requested to compute proof for a child which does not exist for this type"
+            ),
         }
     }
 }
