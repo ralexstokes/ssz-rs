@@ -2,8 +2,10 @@ use crate::{
     de::{Deserialize, DeserializeError},
     lib::*,
     merkleization::{
-        mix_in_selector, GeneralizedIndex, GeneralizedIndexable, HashTreeRoot, MerkleizationError,
-        Node, Path, PathElement,
+        mix_in_selector,
+        proofs::{Prove, Prover},
+        GeneralizedIndex, GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, Path,
+        PathElement, BYTES_PER_CHUNK,
     },
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,
@@ -77,9 +79,10 @@ where
     T: SimpleSerialize,
 {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+        let chunks = Node::try_from(self.chunks()?.as_ref()).expect("is correct size");
         match self {
-            Some(value) => Ok(mix_in_selector(&value.hash_tree_root()?, 1)),
-            None => Ok(mix_in_selector(&Node::default(), 0)),
+            Some(_) => Ok(mix_in_selector(&chunks, 1)),
+            None => Ok(mix_in_selector(&chunks, 0)),
         }
     }
 }
@@ -123,6 +126,29 @@ where
         } else {
             Ok(parent)
         }
+    }
+}
+
+impl<T> Prove for Option<T>
+where
+    T: SimpleSerialize,
+{
+    fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+        match self {
+            Some(value) => {
+                let root = value.hash_tree_root()?;
+                Ok(root.to_vec())
+            }
+            None => Ok(vec![0u8; BYTES_PER_CHUNK]),
+        }
+    }
+
+    fn prove_element(
+        &mut self,
+        _index: usize,
+        _prover: &mut Prover,
+    ) -> Result<(), MerkleizationError> {
+        unimplemented!("behavior not currently supported")
     }
 }
 

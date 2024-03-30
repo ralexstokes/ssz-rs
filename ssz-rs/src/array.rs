@@ -3,8 +3,10 @@ use crate::{
     error::{InstanceError, TypeError},
     lib::*,
     merkleization::{
-        elements_to_chunks, get_power_of_two_ceil, merkleize, pack, GeneralizedIndex,
-        GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, Path, PathElement,
+        elements_to_chunks, get_power_of_two_ceil, merkleize, pack,
+        proofs::{Prove, Prover},
+        GeneralizedIndex, GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, Path,
+        PathElement,
     },
     ser::{Serialize, SerializeError, Serializer},
     Serializable, SimpleSerialize,
@@ -75,6 +77,7 @@ where
     T: SimpleSerialize,
 {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+        // TODO clean up once SimpleSerialize includes Prove
         if T::is_composite_type() {
             let count = self.len();
             let chunks = elements_to_chunks(self.iter_mut().enumerate(), count)?;
@@ -117,6 +120,33 @@ where
             }
         } else {
             Ok(parent)
+        }
+    }
+}
+
+impl<T, const N: usize> Prove for [T; N]
+where
+    T: SimpleSerialize,
+{
+    fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+        if T::is_composite_type() {
+            let count = self.len();
+            elements_to_chunks(self.iter_mut().enumerate(), count)
+        } else {
+            pack(self)
+        }
+    }
+
+    fn prove_element(
+        &mut self,
+        index: usize,
+        prover: &mut Prover,
+    ) -> Result<(), MerkleizationError> {
+        if index >= N {
+            Err(MerkleizationError::InvalidInnerIndex)
+        } else {
+            let child = &mut self[index];
+            prover.compute_proof(child)
         }
     }
 }

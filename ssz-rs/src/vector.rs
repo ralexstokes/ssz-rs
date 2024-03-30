@@ -3,7 +3,8 @@ use crate::{
     error::{Error, InstanceError, TypeError},
     lib::*,
     merkleization::{
-        elements_to_chunks, get_power_of_two_ceil, merkleize, pack, proofs::Prove,
+        elements_to_chunks, get_power_of_two_ceil, merkleize, pack,
+        proofs::{Prove, Prover},
         GeneralizedIndex, GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, Path,
         PathElement,
     },
@@ -282,22 +283,22 @@ where
 
 impl<T, const N: usize> Prove for Vector<T, N>
 where
-    T: SimpleSerialize + Prove,
+    T: SimpleSerialize,
 {
-    type InnerElement = T;
-
     fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
         self.assemble_chunks()
     }
 
-    fn inner_element(
+    fn prove_element(
         &mut self,
         index: usize,
-    ) -> Result<&mut Self::InnerElement, MerkleizationError> {
+        prover: &mut Prover,
+    ) -> Result<(), MerkleizationError> {
         if index >= N {
             Err(MerkleizationError::InvalidInnerIndex)
         } else {
-            Ok(&mut self[index])
+            let child = &mut self[index];
+            prover.compute_proof(child)
         }
     }
 }
@@ -339,11 +340,7 @@ impl<'de, T: Serializable + serde::Deserialize<'de>, const N: usize> serde::Dese
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{
-        list::List,
-        merkleization::proofs::{prove, Prover},
-        serialize, U256,
-    };
+    use crate::{list::List, merkleization::proofs::prove, serialize, U256};
 
     const COUNT: usize = 32;
 
@@ -529,7 +526,7 @@ mod tests {
         assert_eq!(index, 7);
     }
 
-    fn compute_and_verify_proof<T: SimpleSerialize + Prove>(
+    fn compute_and_verify_proof<T: SimpleSerialize>(
         data: &mut T,
         path: Path,
         expected_index: GeneralizedIndex,

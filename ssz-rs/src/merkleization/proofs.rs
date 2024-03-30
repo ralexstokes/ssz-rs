@@ -77,8 +77,7 @@ impl Prover {
                 parent_index / local_generalized_index + 1
             };
             self.proof.index = child_index;
-            let child = data.inner_element(local_index)?;
-            self.compute_proof(child)?;
+            data.prove_element(local_index, self)?;
             self.proof.index = parent_index;
         } else {
             // NOTE: leaf is within the current object, set a flag to grab from merkle tree later
@@ -122,8 +121,6 @@ impl From<GeneralizedIndex> for Prover {
 
 /// Required functionality to support computing Merkle proofs.
 pub trait Prove: GeneralizedIndexable {
-    type InnerElement: Prove;
-
     /// Compute the "chunks" of this type as required for the SSZ merkle tree computation.
     /// Default implementation signals an error. Implementing types should override
     /// to provide the correct behavior.
@@ -131,27 +128,11 @@ pub trait Prove: GeneralizedIndexable {
         Err(Error::NotChunkable)
     }
 
-    /// Provide a reference to a member element of a composite type.
-    /// Default implementation signals an error. Implementing types should override
-    /// to provide the correct behavior.
-    fn inner_element(&mut self, _index: usize) -> Result<&mut Self::InnerElement, Error> {
+    /// Construct a proof of the member element located at the type-specific `index` assuming the
+    /// context in `prover`.
+    fn prove_element(&mut self, _index: usize, _prover: &mut Prover) -> Result<(), Error> {
         Err(Error::NoInnerElement)
     }
-}
-
-// Implement `GeneralizedIndexable` for `()` for use as a marker type in `Prove`.
-impl GeneralizedIndexable for () {
-    fn compute_generalized_index(
-        _parent: GeneralizedIndex,
-        path: Path,
-    ) -> Result<GeneralizedIndex, Error> {
-        Err(Error::InvalidPath(path.to_vec()))
-    }
-}
-
-// Implement the default `Prove` functionality for use of `()` as a marker type.
-impl Prove for () {
-    type InnerElement = ();
 }
 
 /// Produce a Merkle proof (and corresponding witness) for the type `T` at the given `path` relative
@@ -295,7 +276,7 @@ mod tests {
         assert!(result.is_err());
     }
 
-    fn compute_and_verify_proof_for_path<T: SimpleSerialize + Prove>(data: &mut T, path: Path) {
+    fn compute_and_verify_proof_for_path<T: SimpleSerialize>(data: &mut T, path: Path) {
         let (proof, witness) = prove(data, path).unwrap();
         assert_eq!(witness, data.hash_tree_root().unwrap());
         let result = proof.verify(witness);

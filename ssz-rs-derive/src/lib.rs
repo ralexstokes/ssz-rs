@@ -308,7 +308,7 @@ fn derive_merkleization_impl(
     generics: &Generics,
     helper_attr: Option<&HelperAttr>,
 ) -> TokenStream {
-    let method = match data {
+    let (hash_tree_root_impl, chunks_impl) = match data {
         Data::Struct(ref data) => {
             let fields = match data.fields {
                 Fields::Named(ref fields) => &fields.named,
@@ -330,13 +330,20 @@ fn derive_merkleization_impl(
                     chunks[range].copy_from_slice(chunk.as_ref());
                 },
             });
-            quote! {
-                fn hash_tree_root(&mut self) -> Result<ssz_rs::Node, ssz_rs::MerkleizationError> {
+            let chunks_impl = quote! {
+                fn assemble_chunks(&mut self) -> Result<Vec<u8>, ssz_rs::MerkleizationError> {
                     let mut chunks = vec![0u8; #field_count * #BYTES_PER_CHUNK];
                     #(#impl_by_field)*
+                    Ok(chunks)
+                }
+            };
+            let hash_tree_root_impl = quote! {
+                fn hash_tree_root(&mut self) -> Result<ssz_rs::Node, ssz_rs::MerkleizationError> {
+                    let chunks = self.assemble_chunks()?;
                     ssz_rs::__internal::merkleize(&chunks, None)
                 }
-            }
+            };
+            (hash_tree_root_impl, Some(chunks_impl))
         }
         Data::Enum(ref data) => {
             let hash_tree_root_by_variant = data.variants.iter().enumerate().map(|(i, variant)| {
@@ -369,20 +376,27 @@ fn derive_merkleization_impl(
                     _ => unreachable!(),
                 }
             });
-            quote! {
-                fn hash_tree_root(&mut self) -> Result<ssz_rs::Node, ssz_rs::MerkleizationError> {
-                    match self {
-                            #(#hash_tree_root_by_variant)*
+            (
+                quote! {
+                    fn hash_tree_root(&mut self) -> Result<ssz_rs::Node, ssz_rs::MerkleizationError> {
+                        match self {
+                                #(#hash_tree_root_by_variant)*
+                        }
                     }
-                }
-            }
+                },
+                None,
+            )
         }
         Data::Union(..) => unreachable!("data was already validated to exclude union types"),
     };
     let (impl_generics, ty_generics, _) = generics.split_for_impl();
     quote! {
+        impl #impl_generics #name #ty_generics {
+            #chunks_impl
+        }
+
         impl #impl_generics ssz_rs::HashTreeRoot for #name #ty_generics {
-            #method
+            #hash_tree_root_impl
         }
     }
 }
@@ -554,6 +568,81 @@ fn derive_generalized_indexable_impl(
             ) -> Result<ssz_rs::GeneralizedIndex, ssz_rs::MerkleizationError> {
                 #compute_generalized_index_impl
             }
+        }
+    }
+}
+
+fn derive_prove_impl(data: &Data, name: &Ident, generics: &Generics) -> TokenStream {
+    let (impl_generics, ty_generics, _) = generics.split_for_impl();
+
+    let (chunks_impl, prove_element_impl) = match data {
+        Data::Struct(ref data) => match data.fields {
+            Fields::Named(ref fields) => {
+                let fields = &fields.named;
+                let field_count = fields.len();
+                let impl_by_field = fields.iter().enumerate().map(|(i, field)| {
+                    let field_name = field.ident.as_ref().expect("only named fields");
+                    quote! {
+                         #i => {
+                            let child = &mut self.#field_name;
+                            prover.compute_proof(child)
+                        }
+                    }
+                });
+                let chunks_impl = quote! {
+                    fn chunks(&mut self) -> Result<Vec<u8>, ssz_rs::MerkleizationError> {
+                        self.assemble_chunks()
+                    }
+                };
+
+                let prove_element_impl = quote! {
+                    fn prove_element(
+                        &mut self,
+                        index: usize,
+                        prover: &mut ssz_rs::proofs::Prover,
+                    ) -> Result<(), MerkleizationError> {
+                        if index >= #field_count {
+                            Err(MerkleizationError::InvalidInnerIndex)
+                        } else {
+                            match index {
+                                #(#impl_by_field)*
+                                _ => unreachable!("validated `index` to be within container type"),
+                            }
+                        }
+                    }
+                };
+
+                (chunks_impl, Some(prove_element_impl))
+            }
+            Fields::Unnamed(..) => {
+                let chunks_impl = quote! {
+                    fn chunks(&mut self) -> Result<Vec<u8>, ssz_rs::MerkleizationError> {
+                        self.0.chunks()
+                    }
+                };
+
+                let prove_element_impl = quote! {
+                    fn prove_element(
+                        &mut self,
+                        index: usize,
+                        prover: &mut ssz_rs::proofs::Prover,
+                    ) -> Result<(), MerkleizationError> {
+                        self.0.prove_element(index, prover)
+                    }
+                };
+                (chunks_impl, Some(prove_element_impl))
+            }
+            Fields::Unit => unreachable!("validated to exclude this type"),
+        },
+        Data::Enum(..) => (quote! {}, None),
+        Data::Union(..) => unreachable!("data was already validated to exclude union types"),
+    };
+
+    quote! {
+        impl #impl_generics ssz_rs::Prove for #name #ty_generics {
+            #chunks_impl
+
+            #prove_element_impl
         }
     }
 }
@@ -790,7 +879,6 @@ pub fn derive_hash_tree_root(input: proc_macro::TokenStream) -> proc_macro::Toke
     proc_macro::TokenStream::from(expansion)
 }
 
-/// Derive an `ssz_rs::GeneralizedIndexable` implementation.
 #[proc_macro_derive(GeneralizedIndexable)]
 pub fn derive_generalized_indexable(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
@@ -801,6 +889,19 @@ pub fn derive_generalized_indexable(input: proc_macro::TokenStream) -> proc_macr
     let generics = &input.generics;
 
     let expansion = derive_generalized_indexable_impl(data, name, generics);
+    proc_macro::TokenStream::from(expansion)
+}
+
+#[proc_macro_derive(Prove)]
+pub fn derive_prove(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    let input = parse_macro_input!(input as DeriveInput);
+
+    let data = &input.data;
+    validate_derive_input(data, &[]);
+    let name = &input.ident;
+    let generics = &input.generics;
+
+    let expansion = derive_prove_impl(data, name, generics);
     proc_macro::TokenStream::from(expansion)
 }
 
@@ -822,6 +923,8 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
 
     let generalized_indexable_impl = derive_generalized_indexable_impl(data, name, generics);
 
+    let prove_impl = derive_prove_impl(data, name, generics);
+
     let simple_serialize_impl = derive_simple_serialize_impl(name, generics);
 
     let expansion = quote! {
@@ -830,6 +933,8 @@ pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
         #merkleization_impl
 
         #generalized_indexable_impl
+
+        #prove_impl
 
         #simple_serialize_impl
     };
