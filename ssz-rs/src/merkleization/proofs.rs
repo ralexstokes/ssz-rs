@@ -2,9 +2,10 @@
 use crate::{
     lib::*,
     merkleization::{
-        compute_merkle_tree, generalized_index::log_2, GeneralizedIndex, GeneralizedIndexable,
-        MerkleizationError as Error, Node, Path,
+        compute_merkle_tree, generalized_index::log_2, mix_in_decoration, GeneralizedIndex,
+        GeneralizedIndexable, MerkleizationError as Error, Node, Path,
     },
+    HashTreeRoot,
 };
 use sha2::{Digest, Sha256};
 
@@ -56,15 +57,22 @@ impl Prover {
         self.proof.branch.push(node.try_into().expect("is correct size"))
     }
 
-    fn set_witness(&mut self, witness: &[u8]) {
-        self.witness = witness.try_into().expect("is correct size");
+    fn set_witness(&mut self, witness: Node) {
+        self.witness = witness;
     }
 
     /// Derive a Merkle proof relative to `data` given the parameters in `self`.
     pub fn compute_proof<T: Prove>(&mut self, data: &mut T) -> Result<(), Error> {
         let chunk_count = T::chunk_count();
         let leaf_count = chunk_count.next_power_of_two();
-        let parent_index = self.proof.index;
+        let mut parent_index = self.proof.index;
+        let decoration = data.decoration();
+        if decoration.is_some() {
+            if parent_index == 3 {
+                return Err(Error::ProofOfDecorationIsNotSupported)
+            }
+            parent_index /= 2;
+        }
 
         let (local_depth, local_index, local_generalized_index) =
             compute_local_merkle_coordinates(parent_index, leaf_count)?;
@@ -97,7 +105,14 @@ impl Prover {
             target /= 2;
         }
 
-        self.set_witness(&tree[1]);
+        let mut root = tree[1].try_into().expect("is right size");
+        if let Some(mut decoration) = decoration {
+            // TODO: support proving decoration itself...
+            root = mix_in_decoration(&root, decoration);
+            self.extend_branch(decoration.hash_tree_root()?.as_ref())
+        }
+
+        self.set_witness(root);
 
         Ok(())
     }
@@ -132,6 +147,10 @@ pub trait Prove: GeneralizedIndexable {
     /// context in `prover`.
     fn prove_element(&mut self, _index: usize, _prover: &mut Prover) -> Result<(), Error> {
         Err(Error::NoInnerElement)
+    }
+
+    fn decoration(&self) -> Option<usize> {
+        None
     }
 }
 

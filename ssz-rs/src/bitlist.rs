@@ -219,6 +219,10 @@ impl<const N: usize> Prove for Bitlist<N> {
     fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
         self.pack_bits()
     }
+
+    fn decoration(&self) -> Option<usize> {
+        Some(self.len())
+    }
 }
 
 impl<const N: usize> SimpleSerialize for Bitlist<N> {}

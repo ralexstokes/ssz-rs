@@ -197,7 +197,7 @@ pub fn merkleize(chunks: &[u8], limit: Option<usize>) -> Result<Node, Error> {
     merkleize_chunks_with_virtual_padding(chunks, leaf_count)
 }
 
-fn mix_in_decoration(root: &Node, mut decoration: usize) -> Node {
+pub(crate) fn mix_in_decoration(root: &Node, mut decoration: usize) -> Node {
     let decoration_data = decoration.hash_tree_root().expect("can merkleize usize");
 
     let mut hasher = Sha256::new();

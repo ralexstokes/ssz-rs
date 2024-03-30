@@ -257,13 +257,8 @@ mod tests {
             d: Vector::<bool, 4>::try_from(vec![true, true, false, true]).unwrap(),
             e: 255,
         };
-        let paths: &[Path] = &[
-            &["a".into()],
-            // TODO: fix lists
-            /* &["c".into(), 27.into()] , */
-            &["d".into(), 2.into()],
-            &["e".into()],
-        ];
+        let paths: &[Path] =
+            &[&["a".into()], &["c".into(), 27.into()], &["d".into(), 2.into()], &["e".into()]];
         for &path in paths {
             compute_and_verify_proof_for_path(&mut data, path);
         }

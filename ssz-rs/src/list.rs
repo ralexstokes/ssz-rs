@@ -317,6 +317,10 @@ where
             prover.compute_proof(child)
         }
     }
+
+    fn decoration(&self) -> Option<usize> {
+        Some(self.len())
+    }
 }
 
 impl<T, const N: usize> SimpleSerialize for List<T, N> where T: SimpleSerialize {}
@@ -468,5 +472,14 @@ mod tests {
 
         let path = &[5.into()];
         let _ = L::generalized_index(path).unwrap();
+    }
+
+    #[test]
+    fn test_prove_list() {
+        type L = List<bool, 32>;
+
+        let mut data = L::try_from(vec![true, true, false, true]).unwrap();
+        let path = &[27.into()];
+        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path)
     }
 }
