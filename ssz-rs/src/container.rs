@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::prelude::*;
+    use crate::{prelude::*, proofs::tests::compute_and_verify_proof_for_path};
 
     #[derive(Default, Debug, PartialEq, Eq, SimpleSerialize)]
     struct Foo {
@@ -221,5 +221,65 @@ mod tests {
         let _ = value.serialize(&mut buffer).expect("can serialize");
         let recovered = SerializableStruct::deserialize(&buffer).expect("can decode");
         assert_eq!(value, recovered);
+    }
+
+    #[test]
+    fn test_prove_container() {
+        type V = Vector<u8, 25>;
+        type W = Vector<V, 888>;
+        type X = Vector<U256, 70>;
+        type Y = Vector<X, 2>;
+
+        #[derive(SimpleSerialize)]
+        struct Foo {
+            a: W,
+            b: u8,
+        }
+
+        #[derive(SimpleSerialize)]
+        struct Bar {
+            a: Y,
+            b: u64,
+        }
+
+        let mut data = BasicContainer { a: 2343, d: true };
+        let path = &["a".into()];
+        compute_and_verify_proof_for_path(&mut data, path);
+
+        let mut data = BasicContainer { a: 2343, d: true };
+        let path = &["d".into()];
+        compute_and_verify_proof_for_path(&mut data, path);
+
+        let mut data = AnotherContainer {
+            a: 23089,
+            b: false,
+            c: List::<bool, 32>::try_from(vec![true, false, false, false, true]).unwrap(),
+            d: Vector::<bool, 4>::try_from(vec![true, true, false, true]).unwrap(),
+            e: 255,
+        };
+        let paths: &[Path] = &[
+            &["a".into()],
+            // TODO: fix lists
+            /* &["c".into(), 27.into()] , */
+            &["d".into(), 2.into()],
+            &["e".into()],
+        ];
+        for &path in paths {
+            compute_and_verify_proof_for_path(&mut data, path);
+        }
+
+        let inner = V::try_from(vec![11u8; 25]).unwrap();
+        let mut data = Foo { a: W::try_from(vec![inner; 888]).unwrap(), b: 23 };
+        let paths: &[Path] = &[&["a".into()], &["a".into(), 333.into(), 20.into()], &["b".into()]];
+        for &path in paths {
+            compute_and_verify_proof_for_path(&mut data, path);
+        }
+
+        let inner = X::try_from(vec![U256::from(11usize); 70]).unwrap();
+        let mut data = Bar { a: Y::try_from(vec![inner; 2]).unwrap(), b: 88888 };
+        let paths: &[Path] = &[&["a".into()], &["a".into(), 0.into(), 64.into()], &["b".into()]];
+        for &path in paths {
+            compute_and_verify_proof_for_path(&mut data, path);
+        }
     }
 }

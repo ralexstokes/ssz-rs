@@ -210,7 +210,7 @@ pub fn is_valid_merkle_branch<T: AsRef<[u8]>>(
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use crate::{PathElement, SimpleSerialize, U256};
 
     use super::*;
@@ -276,7 +276,7 @@ mod tests {
         assert!(result.is_err());
     }
 
-    fn compute_and_verify_proof_for_path<T: SimpleSerialize>(data: &mut T, path: Path) {
+    pub(crate) fn compute_and_verify_proof_for_path<T: SimpleSerialize>(data: &mut T, path: Path) {
         let (proof, witness) = prove(data, path).unwrap();
         assert_eq!(witness, data.hash_tree_root().unwrap());
         let result = proof.verify(witness);
