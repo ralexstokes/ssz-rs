@@ -65,17 +65,17 @@ impl Prover {
         let chunk_count = T::chunk_count();
         let leaf_count = chunk_count.next_power_of_two();
         let parent_index = self.proof.index;
+
         let (local_depth, local_index, local_generalized_index) =
             compute_local_merkle_coordinates(parent_index, leaf_count)?;
 
         let mut is_leaf_local = false;
         if local_generalized_index < parent_index {
             // NOTE: need to recurse to children to find ultimate leaf
-            let child_index = if parent_index % 2 == 0 {
-                parent_index / local_generalized_index
-            } else {
-                parent_index / local_generalized_index + 1
-            };
+            let parent_depth = get_depth(parent_index)?;
+            let child_depth = parent_depth - local_depth;
+            let node_count = 2usize.pow(child_depth);
+            let child_index = node_count + parent_index % node_count;
             self.proof.index = child_index;
             data.prove_element(local_index, self)?;
             self.proof.index = parent_index;
