@@ -2,9 +2,10 @@
 use crate::{
     lib::*,
     merkleization::{
-        compute_merkle_tree, generalized_index::log_2, GeneralizedIndex, GeneralizedIndexable,
-        MerkleizationError as Error, Node, Path,
+        compute_merkle_tree, generalized_index::log_2, mix_in_decoration, GeneralizedIndex,
+        GeneralizedIndexable, MerkleizationError as Error, Node, Path,
     },
+    HashTreeRoot,
 };
 use sha2::{Digest, Sha256};
 
@@ -56,29 +57,35 @@ impl Prover {
         self.proof.branch.push(node.try_into().expect("is correct size"))
     }
 
-    fn set_witness(&mut self, witness: &[u8]) {
-        self.witness = witness.try_into().expect("is correct size");
+    fn set_witness(&mut self, witness: Node) {
+        self.witness = witness;
     }
 
     /// Derive a Merkle proof relative to `data` given the parameters in `self`.
     pub fn compute_proof<T: Prove>(&mut self, data: &mut T) -> Result<(), Error> {
         let chunk_count = T::chunk_count();
         let leaf_count = chunk_count.next_power_of_two();
-        let parent_index = self.proof.index;
+        let mut parent_index = self.proof.index;
+        let decoration = data.decoration();
+        if decoration.is_some() {
+            if parent_index == 3 {
+                return Err(Error::ProofOfDecorationIsNotSupported)
+            }
+            parent_index /= 2;
+        }
+
         let (local_depth, local_index, local_generalized_index) =
             compute_local_merkle_coordinates(parent_index, leaf_count)?;
 
         let mut is_leaf_local = false;
         if local_generalized_index < parent_index {
             // NOTE: need to recurse to children to find ultimate leaf
-            let child_index = if parent_index % 2 == 0 {
-                parent_index / local_generalized_index
-            } else {
-                parent_index / local_generalized_index + 1
-            };
+            let parent_depth = get_depth(parent_index)?;
+            let child_depth = parent_depth - local_depth;
+            let node_count = 2usize.pow(child_depth);
+            let child_index = node_count + parent_index % node_count;
             self.proof.index = child_index;
-            let child = data.inner_element(local_index)?;
-            self.compute_proof(child)?;
+            data.prove_element(local_index, self)?;
             self.proof.index = parent_index;
         } else {
             // NOTE: leaf is within the current object, set a flag to grab from merkle tree later
@@ -98,7 +105,14 @@ impl Prover {
             target /= 2;
         }
 
-        self.set_witness(&tree[1]);
+        let mut root = tree[1].try_into().expect("is right size");
+        if let Some(mut decoration) = decoration {
+            // TODO: support proving decoration itself...
+            root = mix_in_decoration(&root, decoration);
+            self.extend_branch(decoration.hash_tree_root()?.as_ref())
+        }
+
+        self.set_witness(root);
 
         Ok(())
     }
@@ -122,8 +136,6 @@ impl From<GeneralizedIndex> for Prover {
 
 /// Required functionality to support computing Merkle proofs.
 pub trait Prove: GeneralizedIndexable {
-    type InnerElement: Prove;
-
     /// Compute the "chunks" of this type as required for the SSZ merkle tree computation.
     /// Default implementation signals an error. Implementing types should override
     /// to provide the correct behavior.
@@ -131,27 +143,15 @@ pub trait Prove: GeneralizedIndexable {
         Err(Error::NotChunkable)
     }
 
-    /// Provide a reference to a member element of a composite type.
-    /// Default implementation signals an error. Implementing types should override
-    /// to provide the correct behavior.
-    fn inner_element(&mut self, _index: usize) -> Result<&mut Self::InnerElement, Error> {
+    /// Construct a proof of the member element located at the type-specific `index` assuming the
+    /// context in `prover`.
+    fn prove_element(&mut self, _index: usize, _prover: &mut Prover) -> Result<(), Error> {
         Err(Error::NoInnerElement)
     }
-}
 
-// Implement `GeneralizedIndexable` for `()` for use as a marker type in `Prove`.
-impl GeneralizedIndexable for () {
-    fn compute_generalized_index(
-        _parent: GeneralizedIndex,
-        path: Path,
-    ) -> Result<GeneralizedIndex, Error> {
-        Err(Error::InvalidPath(path.to_vec()))
+    fn decoration(&self) -> Option<usize> {
+        None
     }
-}
-
-// Implement the default `Prove` functionality for use of `()` as a marker type.
-impl Prove for () {
-    type InnerElement = ();
 }
 
 /// Produce a Merkle proof (and corresponding witness) for the type `T` at the given `path` relative
@@ -229,7 +229,7 @@ pub fn is_valid_merkle_branch<T: AsRef<[u8]>>(
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use crate::{PathElement, SimpleSerialize, U256};
 
     use super::*;
@@ -295,11 +295,13 @@ mod tests {
         assert!(result.is_err());
     }
 
-    fn compute_and_verify_proof_for_path<T: SimpleSerialize + Prove>(data: &mut T, path: Path) {
+    pub(crate) fn compute_and_verify_proof_for_path<T: SimpleSerialize>(data: &mut T, path: Path) {
         let (proof, witness) = prove(data, path).unwrap();
         assert_eq!(witness, data.hash_tree_root().unwrap());
         let result = proof.verify(witness);
-        assert!(result.is_ok());
+        if let Err(err) = result {
+            panic!("{err} for {proof:?} with witness {witness}")
+        }
     }
 
     #[test]

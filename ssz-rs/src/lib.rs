@@ -106,7 +106,7 @@ pub trait Serializable: Serialize + Deserialize {
 /// `SimpleSerialize` is a trait for types conforming to the SSZ spec.
 /// These types can be encoded and decoded while also supporting the
 /// merkelization scheme of SSZ.
-pub trait SimpleSerialize: Serializable + HashTreeRoot + GeneralizedIndexable {}
+pub trait SimpleSerialize: Serializable + HashTreeRoot + GeneralizedIndexable + Prove {}
 
 mod exports {
     pub use crate::{
@@ -118,7 +118,7 @@ mod exports {
         merkleization::{
             generalized_index::default_generalized_index,
             multiproofs,
-            proofs::{self, is_valid_merkle_branch},
+            proofs::{self, is_valid_merkle_branch, Prove},
             GeneralizedIndex, GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, Path,
             PathElement,
         },

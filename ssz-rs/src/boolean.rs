@@ -63,8 +63,6 @@ impl GeneralizedIndexable for bool {
 }
 
 impl Prove for bool {
-    type InnerElement = ();
-
     fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
         let mut vec = vec![0u8; BYTES_PER_CHUNK];
         if *self {

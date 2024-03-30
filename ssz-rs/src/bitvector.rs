@@ -3,8 +3,9 @@ use crate::{
     error::{Error, InstanceError, TypeError},
     lib::*,
     merkleization::{
-        get_power_of_two_ceil, merkleize, pack_bytes, GeneralizedIndex, GeneralizedIndexable,
-        HashTreeRoot, MerkleizationError, Node, Path, PathElement, BITS_PER_CHUNK,
+        get_power_of_two_ceil, merkleize, pack_bytes, proofs::Prove, GeneralizedIndex,
+        GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, Path, PathElement,
+        BITS_PER_CHUNK,
     },
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,
@@ -122,7 +123,7 @@ impl<const N: usize> Serialize for Bitvector<N> {
         }
         let bytes_to_write = Self::size_hint();
         buffer.reserve(bytes_to_write);
-        for byte in self.chunks(BITS_PER_BYTE) {
+        for byte in self.0.chunks(BITS_PER_BYTE) {
             buffer.push(byte.load());
         }
         Ok(bytes_to_write)
@@ -199,6 +200,12 @@ impl<const N: usize> GeneralizedIndexable for Bitvector<N> {
         } else {
             Ok(parent)
         }
+    }
+}
+
+impl<const N: usize> Prove for Bitvector<N> {
+    fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+        self.pack_bits()
     }
 }
 

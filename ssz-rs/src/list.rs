@@ -4,6 +4,7 @@ use crate::{
     lib::*,
     merkleization::{
         elements_to_chunks, get_power_of_two_ceil, merkleize, mix_in_length, pack,
+        proofs::{Prove, Prover},
         GeneralizedIndex, GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, Path,
         PathElement, BYTES_PER_CHUNK,
     },
@@ -187,7 +188,7 @@ where
 
 impl<T, const N: usize> List<T, N>
 where
-    T: Serializable,
+    T: SimpleSerialize,
 {
     pub fn push(&mut self, element: T) {
         self.data.push(element);
@@ -203,6 +204,15 @@ where
 
     pub fn iter_mut(&mut self) -> IterMut<'_, T> {
         IterMut { inner: self.data.iter_mut() }
+    }
+
+    pub fn assemble_chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+        if T::is_composite_type() {
+            let count = self.len();
+            elements_to_chunks(self.data.iter_mut().enumerate(), count)
+        } else {
+            pack(self)
+        }
     }
 }
 
@@ -228,16 +238,13 @@ where
     }
 
     fn compute_hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
-        if T::is_composite_type() {
-            let count = self.len();
-            let chunks = elements_to_chunks(self.data.iter_mut().enumerate(), count)?;
-            let data_root = merkleize(&chunks, Some(N))?;
-            Ok(mix_in_length(&data_root, self.len()))
+        let chunks = self.assemble_chunks()?;
+        let data_root = if T::is_composite_type() {
+            merkleize(&chunks, Some(N))?
         } else {
-            let chunks = pack(self)?;
-            let data_root = merkleize(&chunks, Some(Self::chunk_count()))?;
-            Ok(mix_in_length(&data_root, self.len()))
-        }
+            merkleize(&chunks, Some(Self::chunk_count()))?
+        };
+        Ok(mix_in_length(&data_root, self.len()))
     }
 }
 
@@ -287,6 +294,32 @@ where
         } else {
             Ok(parent)
         }
+    }
+}
+
+impl<T, const N: usize> Prove for List<T, N>
+where
+    T: SimpleSerialize,
+{
+    fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+        self.assemble_chunks()
+    }
+
+    fn prove_element(
+        &mut self,
+        index: usize,
+        prover: &mut Prover,
+    ) -> Result<(), MerkleizationError> {
+        if index >= N {
+            Err(MerkleizationError::InvalidInnerIndex)
+        } else {
+            let child = &mut self[index];
+            prover.compute_proof(child)
+        }
+    }
+
+    fn decoration(&self) -> Option<usize> {
+        Some(self.len())
     }
 }
 
@@ -439,5 +472,14 @@ mod tests {
 
         let path = &[5.into()];
         let _ = L::generalized_index(path).unwrap();
+    }
+
+    #[test]
+    fn test_prove_list() {
+        type L = List<bool, 32>;
+
+        let mut data = L::try_from(vec![true, true, false, true]).unwrap();
+        let path = &[27.into()];
+        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path)
     }
 }

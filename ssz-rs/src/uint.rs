@@ -73,8 +73,6 @@ macro_rules! define_uint {
         }
 
         impl Prove for $uint {
-            type InnerElement = ();
-
             fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
                 let mut root = Vec::with_capacity(BYTES_PER_CHUNK);
                 let _ = self.serialize(&mut root)?;
@@ -155,8 +153,6 @@ impl GeneralizedIndexable for U256 {
 }
 
 impl Prove for U256 {
-    type InnerElement = ();
-
     fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
         Ok(self.as_le_bytes().to_vec())
     }

@@ -3,9 +3,9 @@ use crate::{
     error::{Error, InstanceError},
     lib::*,
     merkleization::{
-        get_power_of_two_ceil, merkleize, mix_in_length, pack_bytes, GeneralizedIndex,
-        GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, Path, PathElement,
-        BITS_PER_CHUNK,
+        get_power_of_two_ceil, merkleize, mix_in_length, pack_bytes, proofs::Prove,
+        GeneralizedIndex, GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, Path,
+        PathElement, BITS_PER_CHUNK,
     },
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,
@@ -212,6 +212,16 @@ impl<const N: usize> GeneralizedIndexable for Bitlist<N> {
         } else {
             Ok(parent)
         }
+    }
+}
+
+impl<const N: usize> Prove for Bitlist<N> {
+    fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+        self.pack_bits()
+    }
+
+    fn decoration(&self) -> Option<usize> {
+        Some(self.len())
     }
 }
 
