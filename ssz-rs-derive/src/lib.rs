@@ -331,27 +331,23 @@ fn derive_merkleization_impl(
                 },
             });
             let chunks_impl = quote! {
-                fn assemble_chunks(&mut self) -> Result<Vec<u8>, ssz_rs::MerkleizationError> {
-                    let mut chunks = vec![0u8; #field_count * #BYTES_PER_CHUNK];
-                    #(#impl_by_field)*
-                    Ok(chunks)
-                }
+                let mut chunks = vec![0u8; #field_count * #BYTES_PER_CHUNK];
+                #(#impl_by_field)*
+                Ok(chunks)
             };
             let hash_tree_root_impl = quote! {
-                fn hash_tree_root(&mut self) -> Result<ssz_rs::Node, ssz_rs::MerkleizationError> {
-                    let chunks = self.assemble_chunks()?;
-                    ssz_rs::__internal::merkleize(&chunks, None)
-                }
+                let chunks = self.assemble_chunks()?;
+                ssz_rs::__internal::merkleize(&chunks, None)
             };
-            (hash_tree_root_impl, Some(chunks_impl))
+            (hash_tree_root_impl, chunks_impl)
         }
         Data::Enum(ref data) => {
-            let hash_tree_root_by_variant = data.variants.iter().enumerate().map(|(i, variant)| {
+            let implementations = data.variants.iter().enumerate().map(|(i, variant)| {
                 let variant_name = &variant.ident;
                 match &variant.fields {
                     Fields::Unnamed(..) => {
                         // NOTE: validated to only be `transparent` operation at this point...
-                        if helper_attr.is_some() {
+                        let hash_tree_by_variant = if helper_attr.is_some() {
                             quote_spanned! { variant.span() =>
                                Self::#variant_name(value) => value.hash_tree_root(),
                             }
@@ -359,32 +355,43 @@ fn derive_merkleization_impl(
                             quote_spanned! { variant.span() =>
                                Self::#variant_name(value) => {
                                    let selector = #i;
-                                   let data_root  = value.hash_tree_root()?;
-                                   Ok(ssz_rs::__internal::mix_in_selector(&data_root, selector))
+                                   let chunks = value.hash_tree_root()?;
+                                   Ok(ssz_rs::__internal::mix_in_selector(&chunks, selector))
                                }
                             }
-                        }
+                        };
+                        let chunks_by_variant = quote! {
+                           Self::#variant_name(value) => Ok(value.hash_tree_root()?.to_vec()),
+                        };
+                        (hash_tree_by_variant, chunks_by_variant)
                     }
-                    Fields::Unit => {
+                    Fields::Unit => (
                         quote_spanned! { variant.span() =>
                             Self::None => Ok(ssz_rs::__internal::mix_in_selector(
-                                &ssz_rs::Node::default(),
+                                &Node::default(),
                                 0,
                             )),
-                        }
-                    }
+                        },
+                        quote! {
+                            Self::None => Ok(Node::default().to_vec()),
+                        },
+                    ),
                     _ => unreachable!(),
                 }
             });
+            let (hash_tree_root_by_variant, chunks_by_variant): (Vec<_>, Vec<_>) =
+                implementations.unzip();
             (
                 quote! {
-                    fn hash_tree_root(&mut self) -> Result<ssz_rs::Node, ssz_rs::MerkleizationError> {
-                        match self {
-                                #(#hash_tree_root_by_variant)*
-                        }
+                    match self {
+                        #(#hash_tree_root_by_variant)*
                     }
                 },
-                None,
+                quote! {
+                    match self {
+                        #(#chunks_by_variant)*
+                    }
+                },
             )
         }
         Data::Union(..) => unreachable!("data was already validated to exclude union types"),
@@ -392,11 +399,15 @@ fn derive_merkleization_impl(
     let (impl_generics, ty_generics, _) = generics.split_for_impl();
     quote! {
         impl #impl_generics #name #ty_generics {
-            #chunks_impl
+            fn assemble_chunks(&mut self) -> Result<Vec<u8>, ssz_rs::MerkleizationError> {
+                #chunks_impl
+            }
         }
 
         impl #impl_generics ssz_rs::HashTreeRoot for #name #ty_generics {
-            #hash_tree_root_impl
+            fn hash_tree_root(&mut self) -> Result<ssz_rs::Node, ssz_rs::MerkleizationError> {
+                #hash_tree_root_impl
+            }
         }
     }
 }
@@ -575,7 +586,7 @@ fn derive_generalized_indexable_impl(
 fn derive_prove_impl(data: &Data, name: &Ident, generics: &Generics) -> TokenStream {
     let (impl_generics, ty_generics, _) = generics.split_for_impl();
 
-    let (chunks_impl, prove_element_impl) = match data {
+    let (chunks_impl, prove_element_impl, decoration_impl) = match data {
         Data::Struct(ref data) => match data.fields {
             Fields::Named(ref fields) => {
                 let fields = &fields.named;
@@ -590,59 +601,112 @@ fn derive_prove_impl(data: &Data, name: &Ident, generics: &Generics) -> TokenStr
                     }
                 });
                 let chunks_impl = quote! {
-                    fn chunks(&mut self) -> Result<Vec<u8>, ssz_rs::MerkleizationError> {
-                        self.assemble_chunks()
-                    }
+                    self.assemble_chunks()
                 };
 
                 let prove_element_impl = quote! {
-                    fn prove_element(
-                        &mut self,
-                        index: usize,
-                        prover: &mut ssz_rs::proofs::Prover,
-                    ) -> Result<(), MerkleizationError> {
-                        if index >= #field_count {
-                            Err(MerkleizationError::InvalidInnerIndex)
-                        } else {
-                            match index {
-                                #(#impl_by_field)*
-                                _ => unreachable!("validated `index` to be within container type"),
-                            }
+                    if index >= #field_count {
+                        Err(MerkleizationError::InvalidInnerIndex)
+                    } else {
+                        match index {
+                            #(#impl_by_field)*
+                            _ => unreachable!("validated `index` to be within container type"),
                         }
                     }
                 };
 
-                (chunks_impl, Some(prove_element_impl))
+                (chunks_impl, prove_element_impl, None)
             }
             Fields::Unnamed(..) => {
                 let chunks_impl = quote! {
-                    fn chunks(&mut self) -> Result<Vec<u8>, ssz_rs::MerkleizationError> {
-                        self.0.chunks()
-                    }
+                    self.0.chunks()
                 };
 
                 let prove_element_impl = quote! {
-                    fn prove_element(
-                        &mut self,
-                        index: usize,
-                        prover: &mut ssz_rs::proofs::Prover,
-                    ) -> Result<(), MerkleizationError> {
-                        self.0.prove_element(index, prover)
-                    }
+                    self.0.prove_element(index, prover)
                 };
-                (chunks_impl, Some(prove_element_impl))
+                (chunks_impl, prove_element_impl, None)
             }
             Fields::Unit => unreachable!("validated to exclude this type"),
         },
-        Data::Enum(..) => (quote! {}, None),
+        Data::Enum(ref data) => {
+            let variant_count = data.variants.len();
+
+            let implementations = data.variants.iter().enumerate().map(|(i, variant)| {
+                let variant_name = &variant.ident;
+                match &variant.fields {
+                    Fields::Unnamed(..) => {
+                        let prove_element_impl = quote! {
+                            Self::#variant_name(value) => prover.compute_proof(value),
+                        };
+                        let decoration_impl = quote! {
+                            Self::#variant_name(_) => Some(#i),
+                        };
+                        (prove_element_impl, decoration_impl)
+                    }
+                    Fields::Unit => {
+                        // NOTE: this has already been validated to conform to:
+                        // first variant, and is `None` identifier
+                        if i != 0 || !is_valid_none_identifier(variant_name) {
+                            panic!("internal validation inconsistency; check proc derive macro");
+                        }
+                        (
+                            quote! {
+                                Self::None => {
+                                    let mut leaf = 0usize;
+                                    prover.compute_proof(&mut leaf)
+                                }
+                            },
+                            quote! {
+                                Self::None => Some(#i),
+                            },
+                        )
+                    }
+                    _ => unreachable!(),
+                }
+            });
+            let (impl_by_variant, decoration_by_variant): (Vec<_>, Vec<_>) =
+                implementations.unzip();
+
+            let prove_element_impl = quote! {
+                if index >= #variant_count {
+                    Err(ssz_rs::MerkleizationError::InvalidInnerIndex)
+                } else {
+                    match self {
+                        #(#impl_by_variant)*
+                    }
+                }
+            };
+            let chunks_impl = quote! {
+                self.assemble_chunks()
+            };
+            let decoration_impl = quote! {
+                fn decoration(&self) -> Option<usize> {
+                    match self {
+                        #(#decoration_by_variant)*
+                    }
+                }
+            };
+            (chunks_impl, prove_element_impl, Some(decoration_impl))
+        }
         Data::Union(..) => unreachable!("data was already validated to exclude union types"),
     };
 
     quote! {
         impl #impl_generics ssz_rs::Prove for #name #ty_generics {
-            #chunks_impl
+            fn chunks(&mut self) -> Result<Vec<u8>, ssz_rs::MerkleizationError> {
+                #chunks_impl
+            }
 
-            #prove_element_impl
+            fn prove_element(
+                &mut self,
+                index: usize,
+                prover: &mut ssz_rs::proofs::Prover,
+            ) -> Result<(), ssz_rs::MerkleizationError> {
+                #prove_element_impl
+            }
+
+            #decoration_impl
         }
     }
 }
