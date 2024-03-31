@@ -477,4 +477,32 @@ mod tests {
         let path = &[1.into()];
         crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
     }
+
+    #[test]
+    fn prove_unions() {
+        let mut data = Boo::default();
+        let path = &[0.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let mut data = Boo::B(Default::default());
+        let path = &[1.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        let path = &[1.into(), "data".into(), 7.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let mut data = Boo::C(Default::default());
+        let path = &[2.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        let path = &[2.into(), 0.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let mut data = Boo::D(Default::default());
+        let path = &[3.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let path = &[3.into(), 0.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        let path = &[3.into(), 1.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+    }
 }
