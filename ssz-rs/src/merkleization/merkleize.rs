@@ -7,6 +7,8 @@ use crate::{
 };
 use sha2::{Digest, Sha256};
 
+const DECORATION_GENERALIZED_INDEX: GeneralizedIndex = 3;
+
 /// Types that can provide the root of their corresponding Merkle tree following the SSZ spec.
 pub trait HashTreeRoot {
     /// Compute the "hash tree root" of `Self`.
@@ -197,7 +199,7 @@ pub fn merkleize(chunks: &[u8], limit: Option<usize>) -> Result<Node, Error> {
     merkleize_chunks_with_virtual_padding(chunks, leaf_count)
 }
 
-pub(crate) fn mix_in_decoration(root: &Node, mut decoration: usize) -> Node {
+fn mix_in_decoration(root: &Node, mut decoration: usize) -> Node {
     let decoration_data = decoration.hash_tree_root().expect("can merkleize usize");
 
     let mut hasher = Sha256::new();
@@ -229,6 +231,22 @@ pub(crate) fn elements_to_chunks<'a, T: HashTreeRoot + 'a>(
 
 pub struct Tree(Vec<u8>);
 
+impl Tree {
+    pub fn mix_in_decoration(
+        &mut self,
+        mut decoration: usize,
+        hasher: &mut Sha256,
+    ) -> Result<(), Error> {
+        let target_node = &mut self[DECORATION_GENERALIZED_INDEX];
+        let decoration_node = decoration.hash_tree_root()?;
+        target_node.copy_from_slice(decoration_node.as_ref());
+        hasher.update(&self[2]);
+        hasher.update(&self[DECORATION_GENERALIZED_INDEX]);
+        self[1].copy_from_slice(&hasher.finalize_reset());
+        Ok(())
+    }
+}
+
 impl Index<GeneralizedIndex> for Tree {
     type Output = [u8];
 
@@ -236,6 +254,14 @@ impl Index<GeneralizedIndex> for Tree {
         let start = (index - 1) * BYTES_PER_CHUNK;
         let end = index * BYTES_PER_CHUNK;
         &self.0[start..end]
+    }
+}
+
+impl IndexMut<GeneralizedIndex> for Tree {
+    fn index_mut(&mut self, index: GeneralizedIndex) -> &mut Self::Output {
+        let start = (index - 1) * BYTES_PER_CHUNK;
+        let end = index * BYTES_PER_CHUNK;
+        &mut self.0[start..end]
     }
 }
 

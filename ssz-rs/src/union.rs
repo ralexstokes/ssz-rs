@@ -145,10 +145,27 @@ where
 
     fn prove_element(
         &mut self,
-        _index: usize,
-        _prover: &mut Prover,
+        index: usize,
+        prover: &mut Prover,
     ) -> Result<(), MerkleizationError> {
-        unimplemented!("behavior not currently supported")
+        if index >= 2 {
+            Err(MerkleizationError::InvalidInnerIndex)
+        } else {
+            match self {
+                Some(value) => prover.compute_proof(value),
+                None => {
+                    let mut leaf = 0usize;
+                    prover.compute_proof(&mut leaf)
+                }
+            }
+        }
+    }
+
+    fn decoration(&self) -> Option<usize> {
+        match self {
+            Some(_) => Some(1),
+            None => Some(0),
+        }
     }
 }
 
@@ -424,5 +441,68 @@ mod tests {
         let _ = value.serialize(&mut buffer).expect("can serialize");
         let recovered = Boo::deserialize(&buffer).expect("can decode");
         assert_eq!(value, recovered);
+    }
+
+    #[test]
+    fn prove_option() {
+        let mut data = Some(11u8);
+        let path = &[0.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let mut data = Some(11u8);
+        let path = &[1.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let mut data = Some(U256::from(23423u16));
+        let path = &[0.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let mut data = Some(U256::from(23423u16));
+        let path = &[1.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let mut data = Option::<U256>::None;
+        let path = &[0.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let mut data = Option::<U256>::None;
+        let path = &[1.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let mut data = Option::<u16>::None;
+        let path = &[0.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let mut data = Option::<u16>::None;
+        let path = &[1.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+    }
+
+    #[test]
+    fn prove_unions() {
+        let mut data = Boo::default();
+        let path = &[0.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let mut data = Boo::B(Default::default());
+        let path = &[1.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        let path = &[1.into(), "data".into(), 7.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let mut data = Boo::C(Default::default());
+        let path = &[2.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        let path = &[2.into(), 0.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let mut data = Boo::D(Default::default());
+        let path = &[3.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let path = &[3.into(), 0.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        let path = &[3.into(), 1.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
     }
 }

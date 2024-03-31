@@ -2,10 +2,9 @@
 use crate::{
     lib::*,
     merkleization::{
-        compute_merkle_tree, generalized_index::log_2, mix_in_decoration, GeneralizedIndex,
-        GeneralizedIndexable, MerkleizationError as Error, Node, Path,
+        compute_merkle_tree, generalized_index::log_2, GeneralizedIndex, GeneralizedIndexable,
+        MerkleizationError as Error, Node, Path,
     },
-    HashTreeRoot,
 };
 use sha2::{Digest, Sha256};
 
@@ -57,21 +56,22 @@ impl Prover {
         self.proof.branch.push(node.try_into().expect("is correct size"))
     }
 
-    fn set_witness(&mut self, witness: Node) {
-        self.witness = witness;
+    fn set_witness(&mut self, witness: &[u8]) {
+        self.witness = witness.try_into().expect("is correct size");
     }
 
     /// Derive a Merkle proof relative to `data` given the parameters in `self`.
     pub fn compute_proof<T: Prove>(&mut self, data: &mut T) -> Result<(), Error> {
         let chunk_count = T::chunk_count();
-        let leaf_count = chunk_count.next_power_of_two();
-        let mut parent_index = self.proof.index;
+        let mut leaf_count = chunk_count.next_power_of_two();
+        let parent_index = self.proof.index;
         let decoration = data.decoration();
         if decoration.is_some() {
             if parent_index == 3 {
                 return Err(Error::ProofOfDecorationIsNotSupported)
             }
-            parent_index /= 2;
+            // double to account for decoration layer
+            leaf_count *= 2;
         }
 
         let (local_depth, local_index, local_generalized_index) =
@@ -92,7 +92,10 @@ impl Prover {
             is_leaf_local = true;
         }
         let chunks = data.chunks()?;
-        let tree = compute_merkle_tree(&mut self.hasher, &chunks, leaf_count)?;
+        let mut tree = compute_merkle_tree(&mut self.hasher, &chunks, leaf_count)?;
+        if let Some(decoration) = decoration {
+            tree.mix_in_decoration(decoration, &mut self.hasher)?;
+        }
 
         if is_leaf_local {
             self.set_leaf(&tree[parent_index]);
@@ -105,13 +108,7 @@ impl Prover {
             target /= 2;
         }
 
-        let mut root = tree[1].try_into().expect("is right size");
-        if let Some(mut decoration) = decoration {
-            // TODO: support proving decoration itself...
-            root = mix_in_decoration(&root, decoration);
-            self.extend_branch(decoration.hash_tree_root()?.as_ref())
-        }
-
+        let root = &tree[1];
         self.set_witness(root);
 
         Ok(())
