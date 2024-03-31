@@ -67,9 +67,6 @@ impl Prover {
         let parent_index = self.proof.index;
         let decoration = data.decoration();
         if decoration.is_some() {
-            if parent_index == 3 {
-                return Err(Error::ProofOfDecorationIsNotSupported)
-            }
             // double to account for decoration layer
             leaf_count *= 2;
         }

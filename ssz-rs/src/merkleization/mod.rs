@@ -36,7 +36,6 @@ pub enum MerkleizationError {
     NoInnerElement,
     /// Attempt to turn an instance of a type in Merkle chunks when this is not supported
     NotChunkable,
-    ProofOfDecorationIsNotSupported,
 }
 
 impl From<SerializeError> for MerkleizationError {
@@ -63,9 +62,6 @@ impl Display for MerkleizationError {
             ),
             Self::NotChunkable => {
                 write!(f, "requested to compute chunks for a type which does not support this")
-            }
-            Self::ProofOfDecorationIsNotSupported => {
-                write!(f, "requested to prove the decoration of a type, and this is currently not supported")
             }
         }
     }
