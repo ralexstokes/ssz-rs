@@ -461,6 +461,9 @@ mod tests {
         let path = &[1.into()];
         crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
 
+        let path = &[PathElement::Selector];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
         let mut data = Option::<U256>::None;
         let path = &[0.into()];
         crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
@@ -475,6 +478,9 @@ mod tests {
 
         let mut data = Option::<u16>::None;
         let path = &[1.into()];
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let path = &[PathElement::Selector];
         crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
     }
 

@@ -484,7 +484,10 @@ mod tests {
 
         let mut data = L::default();
         let path = &[27.into()];
-        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path)
+        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let path = &[PathElement::Length];
+        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
     }
 
     #[test]
@@ -509,6 +512,9 @@ mod tests {
 
         let mut data = L::try_from(vec![U256::from(23)]).unwrap();
         let path = &[2.into()];
+        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let path = &[PathElement::Length];
         crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
 
         let mut data = L::default();
