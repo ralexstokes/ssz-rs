@@ -360,7 +360,7 @@ impl<'de, T: Serializable + serde::Deserialize<'de>, const N: usize> serde::Dese
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::serialize;
+    use crate::{serialize, U256};
 
     const COUNT: usize = 32;
 
@@ -480,6 +480,39 @@ mod tests {
 
         let mut data = L::try_from(vec![true, true, false, true]).unwrap();
         let path = &[27.into()];
+        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let mut data = L::default();
+        let path = &[27.into()];
+        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path)
+    }
+
+    #[test]
+    fn test_prove_list_with_missing_data() {
+        type L = List<U256, 3>;
+        type M = List<U256, 1>;
+        type N = List<U256, 256>;
+
+        let mut data = M::default();
+        let path = &[0.into()];
+        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let mut data = N::try_from(vec![U256::from(11)]).unwrap();
+        let path = &[0.into()];
+        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let path = &[1.into()];
+        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let path = &[255.into()];
+        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let mut data = L::try_from(vec![U256::from(23)]).unwrap();
+        let path = &[2.into()];
+        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+
+        let mut data = L::default();
+        let path = &[0.into()];
         crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path)
     }
 }
