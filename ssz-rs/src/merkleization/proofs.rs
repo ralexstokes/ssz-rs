@@ -1,9 +1,10 @@
 //! Support for constructing and verifying Merkle proofs.
+pub use crate::merkleization::generalized_index::log_2;
 use crate::{
     lib::*,
     merkleization::{
-        compute_merkle_tree, generalized_index::log_2, GeneralizedIndex, GeneralizedIndexable,
-        MerkleizationError as Error, Node, Path,
+        compute_merkle_tree, GeneralizedIndex, GeneralizedIndexable, MerkleizationError as Error,
+        Node, Path,
     },
 };
 use sha2::{Digest, Sha256};
