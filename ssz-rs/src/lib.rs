@@ -126,7 +126,6 @@ mod exports {
         uint::U256,
         utils::{deserialize, serialize},
         vector::Vector,
-        Serializable, SimpleSerialize,
     };
 }
 
@@ -135,7 +134,7 @@ pub use crate::exports::*;
 /// The `prelude` contains common traits and types a user of this library
 /// would want to have handy with a simple (single) import.
 pub mod prelude {
-    pub use crate::exports::*;
+    pub use crate::{exports::*, Serializable, SimpleSerialize};
 
     // expose this so the derive macro has everything in scope
     // with a simple `prelude` import
