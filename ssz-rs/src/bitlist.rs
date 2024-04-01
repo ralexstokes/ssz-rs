@@ -10,6 +10,8 @@ use crate::{
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,
 };
+#[cfg(feature = "serde")]
+use alloy_primitives::Bytes;
 use bitvec::prelude::{BitVec, Lsb0};
 
 const BITS_PER_BYTE: usize = crate::BITS_PER_BYTE as usize;
@@ -260,8 +262,8 @@ impl<const N: usize> serde::Serialize for Bitlist<N> {
     {
         let byte_count = byte_length(self.len());
         let mut buf = Vec::with_capacity(byte_count);
-        let _ = crate::Serialize::serialize(self, &mut buf).map_err(serde::ser::Error::custom)?;
-        crate::serde::as_hex::serialize(&buf, serializer)
+        Serialize::serialize(self, &mut buf).map_err(serde::ser::Error::custom)?;
+        alloy_primitives::serde_hex::serialize(Bytes::from(buf), serializer)
     }
 }
 
@@ -271,7 +273,8 @@ impl<'de, const N: usize> serde::Deserialize<'de> for Bitlist<N> {
     where
         D: serde::Deserializer<'de>,
     {
-        crate::serde::as_hex::deserialize(deserializer)
+        let data: Bytes = alloy_primitives::serde_hex::deserialize(deserializer)?;
+        Self::try_from(data.as_ref()).map_err(serde::de::Error::custom)
     }
 }
 
@@ -364,5 +367,33 @@ mod tests {
         let _ = input.serialize(&mut buffer).expect("can serialize");
         let recovered = Bitlist::<COUNT>::deserialize(&buffer).expect("can decode");
         assert_eq!(input, recovered);
+    }
+
+    #[test]
+    fn serde_roundtrip() {
+        let input = Bitlist::<COUNT>::try_from(
+            [
+                false, false, false, true, true, false, false, false, false, false, false, false,
+                false, false, false, true, true, false, false, false, false, false, false, false,
+                true,
+            ]
+            .as_ref(),
+        )
+        .unwrap();
+
+        let serialization = serde_json::to_string(&input).unwrap();
+        let recovered: Bitlist<COUNT> = serde_json::from_str(&serialization).expect("can decode");
+        assert_eq!(input, recovered);
+    }
+
+    #[test]
+    fn serde_bitlist() {
+        let input = Bitlist::<COUNT>::try_from(
+            [true, true, true, true, true, true, true, true, false, true, true, true].as_ref(),
+        )
+        .unwrap();
+
+        let serialization = serde_json::to_string(&input).unwrap();
+        assert_eq!(serialization, "\"0xff1e\"");
     }
 }

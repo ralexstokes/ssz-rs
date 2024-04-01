@@ -10,6 +10,8 @@ use crate::{
     ser::{Serialize, SerializeError},
     Serializable, SimpleSerialize,
 };
+#[cfg(feature = "serde")]
+use alloy_primitives::Bytes;
 use bitvec::{
     field::BitField,
     prelude::{BitVec, Lsb0},
@@ -243,8 +245,8 @@ impl<const N: usize> serde::Serialize for Bitvector<N> {
         S: serde::Serializer,
     {
         let mut buf = Vec::with_capacity(byte_length(N));
-        let _ = crate::Serialize::serialize(self, &mut buf).map_err(serde::ser::Error::custom)?;
-        crate::serde::as_hex::serialize(&buf, serializer)
+        Serialize::serialize(self, &mut buf).map_err(serde::ser::Error::custom)?;
+        alloy_primitives::serde_hex::serialize(Bytes::from(buf), serializer)
     }
 }
 
@@ -254,7 +256,8 @@ impl<'de, const N: usize> serde::Deserialize<'de> for Bitvector<N> {
     where
         D: serde::Deserializer<'de>,
     {
-        crate::serde::as_hex::deserialize(deserializer)
+        let data: Bytes = alloy_primitives::serde_hex::deserialize(deserializer)?;
+        Self::try_from(data.as_ref()).map_err(serde::de::Error::custom)
     }
 }
 
@@ -318,5 +321,30 @@ mod tests {
         let _ = input.serialize(&mut buffer).expect("can serialize");
         let recovered = Bitvector::<COUNT>::deserialize(&buffer).expect("can decode");
         assert_eq!(input, recovered);
+    }
+
+    #[test]
+    fn serde_roundtrip() {
+        let input = Bitvector::<COUNT>::try_from(
+            [false, false, false, true, true, false, false, false, false, false, false, false]
+                .as_ref(),
+        )
+        .unwrap();
+
+        let serialization = serde_json::to_string(&input).unwrap();
+        let recovered: Bitvector<COUNT> = serde_json::from_str(&serialization).expect("can decode");
+        assert_eq!(input, recovered);
+    }
+
+    #[test]
+    fn serde_bitvector() {
+        let input = Bitvector::<COUNT>::try_from(
+            [false, false, false, true, true, false, false, false, false, true, false, false]
+                .as_ref(),
+        )
+        .unwrap();
+
+        let serialization = serde_json::to_string(&input).unwrap();
+        assert_eq!(serialization, "\"0x1802\"");
     }
 }

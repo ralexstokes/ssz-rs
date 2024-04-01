@@ -46,7 +46,7 @@ mod list;
 mod merkleization;
 mod ser;
 #[cfg(feature = "serde")]
-pub mod serde;
+mod serde;
 mod uint;
 mod union;
 pub mod utils;
@@ -106,9 +106,6 @@ pub trait Serializable: Serialize + Deserialize {
 pub trait SimpleSerialize: Serializable + HashTreeRoot + GeneralizedIndexable + Prove {}
 
 mod exports {
-    #[cfg(feature = "serde")]
-    pub use alloy_primitives::hex::{self, FromHex};
-
     pub use crate::{
         bitlist::Bitlist,
         bitvector::Bitvector,
