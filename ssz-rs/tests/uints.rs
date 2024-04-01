@@ -25,83 +25,11 @@ fn test_uints_uint_128_last_byte_empty() {
 }
 
 #[test]
-fn test_uints_uint_128_max_0() {
+fn test_uints_uint_128_max() {
     let mut value = 340282366920938463463374607431768211455;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_max_0/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u128 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xffffffffffffffffffffffffffffffff00000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_128_max_1() {
-    let mut value = 340282366920938463463374607431768211455;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_max_1/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u128 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xffffffffffffffffffffffffffffffff00000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_128_max_2() {
-    let mut value = 340282366920938463463374607431768211455;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_max_2/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u128 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xffffffffffffffffffffffffffffffff00000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_128_max_3() {
-    let mut value = 340282366920938463463374607431768211455;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_max_3/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u128 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xffffffffffffffffffffffffffffffff00000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_128_max_4() {
-    let mut value = 340282366920938463463374607431768211455;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_max_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/uints/valid/uint_128_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -235,83 +163,11 @@ fn test_uints_uint_128_random_4() {
 }
 
 #[test]
-fn test_uints_uint_128_zero_0() {
+fn test_uints_uint_128_zero() {
     let mut value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_zero_0/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u128 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_128_zero_1() {
-    let mut value = 0;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_zero_1/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u128 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_128_zero_2() {
-    let mut value = 0;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_zero_2/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u128 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_128_zero_3() {
-    let mut value = 0;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_zero_3/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u128 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_128_zero_4() {
-    let mut value = 0;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_128_zero_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/uints/valid/uint_128_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -343,83 +199,11 @@ fn test_uints_uint_16_last_byte_empty() {
 }
 
 #[test]
-fn test_uints_uint_16_max_0() {
+fn test_uints_uint_16_max() {
     let mut value = 65535;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_max_0/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u16 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xffff000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_16_max_1() {
-    let mut value = 65535;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_max_1/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u16 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xffff000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_16_max_2() {
-    let mut value = 65535;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_max_2/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u16 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xffff000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_16_max_3() {
-    let mut value = 65535;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_max_3/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u16 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xffff000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_16_max_4() {
-    let mut value = 65535;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_max_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/uints/valid/uint_16_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -553,83 +337,11 @@ fn test_uints_uint_16_random_4() {
 }
 
 #[test]
-fn test_uints_uint_16_zero_0() {
+fn test_uints_uint_16_zero() {
     let mut value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_zero_0/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u16 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_16_zero_1() {
-    let mut value = 0;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_zero_1/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u16 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_16_zero_2() {
-    let mut value = 0;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_zero_2/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u16 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_16_zero_3() {
-    let mut value = 0;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_zero_3/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u16 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_16_zero_4() {
-    let mut value = 0;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_16_zero_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/uints/valid/uint_16_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -668,7 +380,7 @@ fn test_uints_uint_256_last_byte_empty() {
 }
 
 #[test]
-fn test_uints_uint_256_max_0() {
+fn test_uints_uint_256_max() {
     let mut value = U256::try_from_le_slice(
         Vec::<u8>::from_iter([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -679,107 +391,7 @@ fn test_uints_uint_256_max_0() {
     .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_max_0/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: U256 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_256_max_1() {
-    let mut value = U256::try_from_le_slice(
-        Vec::<u8>::from_iter([
-            255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-            255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-        ])
-        .as_ref(),
-    )
-    .unwrap();
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_max_1/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: U256 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_256_max_2() {
-    let mut value = U256::try_from_le_slice(
-        Vec::<u8>::from_iter([
-            255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-            255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-        ])
-        .as_ref(),
-    )
-    .unwrap();
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_max_2/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: U256 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_256_max_3() {
-    let mut value = U256::try_from_le_slice(
-        Vec::<u8>::from_iter([
-            255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-            255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-        ])
-        .as_ref(),
-    )
-    .unwrap();
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_max_3/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: U256 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_256_max_4() {
-    let mut value = U256::try_from_le_slice(
-        Vec::<u8>::from_iter([
-            255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-            255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-        ])
-        .as_ref(),
-    )
-    .unwrap();
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_max_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/uints/valid/uint_256_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -948,7 +560,7 @@ fn test_uints_uint_256_random_4() {
 }
 
 #[test]
-fn test_uints_uint_256_zero_0() {
+fn test_uints_uint_256_zero() {
     let mut value = U256::try_from_le_slice(
         Vec::<u8>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -959,107 +571,7 @@ fn test_uints_uint_256_zero_0() {
     .unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_zero_0/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: U256 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_256_zero_1() {
-    let mut value = U256::try_from_le_slice(
-        Vec::<u8>::from_iter([
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0,
-        ])
-        .as_ref(),
-    )
-    .unwrap();
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_zero_1/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: U256 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_256_zero_2() {
-    let mut value = U256::try_from_le_slice(
-        Vec::<u8>::from_iter([
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0,
-        ])
-        .as_ref(),
-    )
-    .unwrap();
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_zero_2/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: U256 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_256_zero_3() {
-    let mut value = U256::try_from_le_slice(
-        Vec::<u8>::from_iter([
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0,
-        ])
-        .as_ref(),
-    )
-    .unwrap();
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_zero_3/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: U256 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_256_zero_4() {
-    let mut value = U256::try_from_le_slice(
-        Vec::<u8>::from_iter([
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0,
-        ])
-        .as_ref(),
-    )
-    .unwrap();
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_256_zero_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/uints/valid/uint_256_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1091,83 +603,11 @@ fn test_uints_uint_32_last_byte_empty() {
 }
 
 #[test]
-fn test_uints_uint_32_max_0() {
+fn test_uints_uint_32_max() {
     let mut value = 4294967295;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_max_0/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u32 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xffffffff00000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_32_max_1() {
-    let mut value = 4294967295;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_max_1/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u32 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xffffffff00000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_32_max_2() {
-    let mut value = 4294967295;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_max_2/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u32 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xffffffff00000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_32_max_3() {
-    let mut value = 4294967295;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_max_3/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u32 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xffffffff00000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_32_max_4() {
-    let mut value = 4294967295;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_max_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/uints/valid/uint_32_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1301,83 +741,11 @@ fn test_uints_uint_32_random_4() {
 }
 
 #[test]
-fn test_uints_uint_32_zero_0() {
+fn test_uints_uint_32_zero() {
     let mut value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_zero_0/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u32 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_32_zero_1() {
-    let mut value = 0;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_zero_1/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u32 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_32_zero_2() {
-    let mut value = 0;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_zero_2/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u32 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_32_zero_3() {
-    let mut value = 0;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_zero_3/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u32 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_32_zero_4() {
-    let mut value = 0;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_32_zero_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/uints/valid/uint_32_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1409,83 +777,11 @@ fn test_uints_uint_64_last_byte_empty() {
 }
 
 #[test]
-fn test_uints_uint_64_max_0() {
+fn test_uints_uint_64_max() {
     let mut value = 18446744073709551615;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_max_0/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u64 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xffffffffffffffff000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_64_max_1() {
-    let mut value = 18446744073709551615;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_max_1/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u64 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xffffffffffffffff000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_64_max_2() {
-    let mut value = 18446744073709551615;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_max_2/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u64 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xffffffffffffffff000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_64_max_3() {
-    let mut value = 18446744073709551615;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_max_3/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u64 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xffffffffffffffff000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_64_max_4() {
-    let mut value = 18446744073709551615;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_max_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/uints/valid/uint_64_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1619,83 +915,11 @@ fn test_uints_uint_64_random_4() {
 }
 
 #[test]
-fn test_uints_uint_64_zero_0() {
+fn test_uints_uint_64_zero() {
     let mut value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_zero_0/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u64 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_64_zero_1() {
-    let mut value = 0;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_zero_1/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u64 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_64_zero_2() {
-    let mut value = 0;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_zero_2/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u64 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_64_zero_3() {
-    let mut value = 0;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_zero_3/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u64 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_64_zero_4() {
-    let mut value = 0;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_64_zero_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/uints/valid/uint_64_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1727,83 +951,11 @@ fn test_uints_uint_8_last_byte_empty() {
 }
 
 #[test]
-fn test_uints_uint_8_max_0() {
+fn test_uints_uint_8_max() {
     let mut value = 255;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_max_0/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u8 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xff00000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_8_max_1() {
-    let mut value = 255;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_max_1/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u8 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xff00000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_8_max_2() {
-    let mut value = 255;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_max_2/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u8 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xff00000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_8_max_3() {
-    let mut value = 255;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_max_3/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u8 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0xff00000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_8_max_4() {
-    let mut value = 255;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_max_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/uints/valid/uint_8_max/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
@@ -1937,83 +1089,11 @@ fn test_uints_uint_8_random_4() {
 }
 
 #[test]
-fn test_uints_uint_8_zero_0() {
+fn test_uints_uint_8_zero() {
     let mut value = 0;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_zero_0/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u8 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_8_zero_1() {
-    let mut value = 0;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_zero_1/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u8 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_8_zero_2() {
-    let mut value = 0;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_zero_2/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u8 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_8_zero_3() {
-    let mut value = 0;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_zero_3/serialized.ssz_snappy",
-    );
-    assert_eq!(encoding, expected_encoding);
-
-    let recovered_value: u8 = deserialize(&expected_encoding);
-    assert_eq!(recovered_value, value);
-
-    let root = hash_tree_root(&mut value);
-    let expected_root =
-        root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
-    assert_eq!(root, expected_root);
-}
-
-#[test]
-fn test_uints_uint_8_zero_4() {
-    let mut value = 0;
-    let encoding = serialize(&value);
-    let expected_encoding = read_ssz_snappy_from_test_data(
-        "ssz-rs/tests/data/uints/valid/uint_8_zero_4/serialized.ssz_snappy",
+        "ssz-rs/tests/data/uints/valid/uint_8_zero/serialized.ssz_snappy",
     );
     assert_eq!(encoding, expected_encoding);
 
