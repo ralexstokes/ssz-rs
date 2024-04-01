@@ -124,7 +124,7 @@ mod exports {
     };
 
     /// `serialize` is a convenience function for taking a value that
-    /// implements `SimpleSerialize` and attempting to encode it to
+    /// implements `SimpleSerialize` and attempts to encode it to
     /// a `Vec<u8>` according to the SSZ spec.
     pub fn serialize<T>(value: &T) -> Result<crate::lib::Vec<u8>, SerializeError>
     where
