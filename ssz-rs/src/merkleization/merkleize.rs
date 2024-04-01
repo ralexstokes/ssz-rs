@@ -8,6 +8,10 @@ use crate::{
 use alloy_primitives::hex::FromHex;
 use sha2::{Digest, Sha256};
 
+// The generalized index for the root of the "decorated" type in any Merkleized type that supports
+// decoration.
+const INNER_ROOT_GENERALIZED_INDEX: GeneralizedIndex = 2;
+// The generalized index for the "decoration" in any Merkleized type that supports decoration.
 const DECORATION_GENERALIZED_INDEX: GeneralizedIndex = 3;
 
 /// Types that can provide the root of their corresponding Merkle tree following the SSZ spec.
@@ -241,7 +245,7 @@ impl Tree {
         let target_node = &mut self[DECORATION_GENERALIZED_INDEX];
         let decoration_node = decoration.hash_tree_root()?;
         target_node.copy_from_slice(decoration_node.as_ref());
-        hasher.update(&self[2]);
+        hasher.update(&self[INNER_ROOT_GENERALIZED_INDEX]);
         hasher.update(&self[DECORATION_GENERALIZED_INDEX]);
         self[1].copy_from_slice(&hasher.finalize_reset());
         Ok(())
