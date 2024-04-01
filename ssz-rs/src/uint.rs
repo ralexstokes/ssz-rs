@@ -138,7 +138,8 @@ impl Deserialize for U256 {
 
 impl HashTreeRoot for U256 {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
-        Ok(Node::try_from(self.chunks().unwrap().as_ref()).expect("is right size"))
+        let chunks = self.chunks()?;
+        Ok(Node::try_from(chunks.as_slice()).expect("is right size"))
     }
 
     fn is_composite_type() -> bool {

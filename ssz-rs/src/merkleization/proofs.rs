@@ -176,9 +176,9 @@ impl Proof {
     }
 }
 
-pub fn is_valid_merkle_branch_for_generalized_index<T: AsRef<[u8]>>(
+pub fn is_valid_merkle_branch_for_generalized_index(
     leaf: Node,
-    branch: &[T],
+    branch: &[Node],
     generalized_index: GeneralizedIndex,
     root: Node,
 ) -> Result<(), Error> {
@@ -189,9 +189,9 @@ pub fn is_valid_merkle_branch_for_generalized_index<T: AsRef<[u8]>>(
 
 /// `is_valid_merkle_branch` verifies the Merkle proof
 /// against the `root` given the other metadata.
-pub fn is_valid_merkle_branch<T: AsRef<[u8]>>(
+pub fn is_valid_merkle_branch(
     leaf: Node,
-    branch: &[T],
+    branch: &[Node],
     depth: usize,
     index: usize,
     root: Node,
@@ -204,14 +204,12 @@ pub fn is_valid_merkle_branch<T: AsRef<[u8]>>(
     let mut hasher = Sha256::new();
 
     for (i, node) in branch.iter().enumerate() {
-        let node = Node::try_from(node.as_ref()).map_err(|_| Error::InvalidProof)?;
-
         if (index / 2usize.pow(i as u32)) % 2 != 0 {
-            hasher.update(node.as_ref());
-            hasher.update(derived_root.as_ref());
+            hasher.update(node);
+            hasher.update(derived_root);
         } else {
-            hasher.update(derived_root.as_ref());
-            hasher.update(node.as_ref());
+            hasher.update(derived_root);
+            hasher.update(node);
         }
         derived_root.copy_from_slice(&hasher.finalize_reset());
     }
@@ -225,13 +223,21 @@ pub fn is_valid_merkle_branch<T: AsRef<[u8]>>(
 
 #[cfg(test)]
 pub(crate) mod tests {
-    use crate::{PathElement, SimpleSerialize, U256};
-
     use super::*;
+    use crate::prelude::*;
+    use alloy_primitives::hex::FromHex;
 
-    fn decode_node_from_hex(hex: &str) -> Node {
-        let bytes = hex::decode(hex).expect("is hex");
-        Node::try_from(bytes.as_ref()).expect("is right size")
+    pub(crate) fn decode_node_from_hex(hex: &str) -> Node {
+        Node::from_hex(hex).unwrap()
+    }
+
+    pub(crate) fn compute_and_verify_proof_for_path<T: SimpleSerialize>(data: &mut T, path: Path) {
+        let (proof, witness) = prove(data, path).unwrap();
+        assert_eq!(witness, data.hash_tree_root().unwrap());
+        let result = proof.verify(witness);
+        if let Err(err) = result {
+            panic!("{err} for {proof:?} with witness {witness}")
+        }
     }
 
     #[test]
@@ -245,7 +251,7 @@ pub(crate) mod tests {
             "382ba9638ce263e802593b387538faefbaed106e9f51ce793d405f161b105ee6",
         ]
         .into_iter()
-        .map(|str| hex::decode(str).expect("is valid"))
+        .map(decode_node_from_hex)
         .collect::<Vec<_>>();
         let depth = 3;
         let index = 2;
@@ -288,15 +294,6 @@ pub(crate) mod tests {
         let mut data = true;
         let result = prove(&mut data, &[234.into()]);
         assert!(result.is_err());
-    }
-
-    pub(crate) fn compute_and_verify_proof_for_path<T: SimpleSerialize>(data: &mut T, path: Path) {
-        let (proof, witness) = prove(data, path).unwrap();
-        assert_eq!(witness, data.hash_tree_root().unwrap());
-        let result = proof.verify(witness);
-        if let Err(err) = result {
-            panic!("{err} for {proof:?} with witness {witness}")
-        }
     }
 
     #[test]

@@ -244,7 +244,7 @@ where
         } else {
             merkleize(&chunks, Some(Self::chunk_count()))?
         };
-        Ok(mix_in_length(&data_root, self.len()))
+        Ok(mix_in_length(data_root, self.len()))
     }
 }
 

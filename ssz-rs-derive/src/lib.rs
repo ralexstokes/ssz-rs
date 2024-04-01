@@ -356,7 +356,7 @@ fn derive_merkleization_impl(
                                Self::#variant_name(value) => {
                                    let selector = #i;
                                    let chunks = value.hash_tree_root()?;
-                                   Ok(ssz_rs::__internal::mix_in_selector(&chunks, selector))
+                                   Ok(ssz_rs::__internal::mix_in_selector(chunks, selector))
                                }
                             }
                         };
@@ -368,7 +368,7 @@ fn derive_merkleization_impl(
                     Fields::Unit => (
                         quote_spanned! { variant.span() =>
                             Self::None => Ok(ssz_rs::__internal::mix_in_selector(
-                                &Node::default(),
+                                Node::default(),
                                 0,
                             )),
                         },
