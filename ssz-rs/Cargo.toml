@@ -14,7 +14,7 @@ exclude = ["tests/data"]
 [features]
 default = ["serde", "std"]
 std = ["bitvec/default", "sha2/default", "alloy-primitives/default"]
-serde = ["dep:serde", "hex", "alloy-primitives/serde"]
+serde = ["dep:serde", "alloy-primitives/serde"]
 
 [dependencies]
 bitvec = { version = "1.0.0", default-features = false, features = ["alloc"] }
@@ -24,10 +24,7 @@ serde = { version = "1.0", default-features = false, features = [
     "alloc",
     "derive",
 ], optional = true }
-hex = { version = "0.4.3", default-features = false, features = [
-    "alloc",
-], optional = true }
-alloy-primitives = { version = "^0.5.0", default-features = false }
+alloy-primitives = { version = "^0.7.0", default-features = false }
 
 [dev-dependencies]
 snap = "1.0"

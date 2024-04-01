@@ -46,7 +46,7 @@ impl HashTreeRoot for bool {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         let mut node = Node::default();
         if *self {
-            node.as_mut()[0] = 1;
+            node[0] = 1;
         }
         Ok(node)
     }

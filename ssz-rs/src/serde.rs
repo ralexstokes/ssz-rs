@@ -1,5 +1,5 @@
 use crate::lib::*;
-use hex::FromHexError;
+use alloy_primitives::{hex, hex::FromHexError};
 
 const HEX_ENCODING_PREFIX: &str = "0x";
 
@@ -36,27 +36,27 @@ pub mod as_hex {
     }
 }
 
-pub mod as_str {
-    use super::*;
-    use serde::Deserialize;
+// pub mod as_str {
+//     use super::*;
+//     use serde::Deserialize;
 
-    pub fn serialize<S, T: Display>(data: T, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.collect_str(&data.to_string())
-    }
+//     pub fn serialize<S, T: Display>(data: T, serializer: S) -> Result<S::Ok, S::Error>
+//     where
+//         S: serde::Serializer,
+//     {
+//         serializer.collect_str(&data.to_string())
+//     }
 
-    pub fn deserialize<'de, D, T, E>(deserializer: D) -> Result<T, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-        T: FromStr<Err = E>,
-        E: Display,
-    {
-        let s = String::deserialize(deserializer)?;
-        T::from_str(&s).map_err(serde::de::Error::custom)
-    }
-}
+//     pub fn deserialize<'de, D, T, E>(deserializer: D) -> Result<T, D::Error>
+//     where
+//         D: serde::Deserializer<'de>,
+//         T: FromStr<Err = E>,
+//         E: Display,
+//     {
+//         let s = String::deserialize(deserializer)?;
+//         T::from_str(&s).map_err(serde::de::Error::custom)
+//     }
+// }
 
 #[cfg(test)]
 mod test {

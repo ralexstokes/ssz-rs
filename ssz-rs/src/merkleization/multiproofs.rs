@@ -59,13 +59,13 @@ pub fn calculate_merkle_root(
     let mut hasher = Sha256::new();
     for (i, next) in proof.iter().enumerate() {
         if get_bit(index, i) {
-            hasher.update(next.as_ref());
-            hasher.update(result.as_ref());
+            hasher.update(next);
+            hasher.update(result);
         } else {
-            hasher.update(result.as_ref());
-            hasher.update(next.as_ref());
+            hasher.update(result);
+            hasher.update(next);
         }
-        result.as_mut().copy_from_slice(&hasher.finalize_reset());
+        result.copy_from_slice(&hasher.finalize_reset());
     }
     Ok(result)
 }
@@ -121,11 +121,11 @@ pub fn calculate_multi_merkle_root(
             let left_index = sibling(right_index);
             let left_input = objects.get(&left_index).expect("contains index");
             let right_input = objects.get(&right_index).expect("contains index");
-            hasher.update(left_input.as_ref());
-            hasher.update(right_input.as_ref());
+            hasher.update(left_input);
+            hasher.update(right_input);
 
             let parent = objects.entry(parent_index).or_default();
-            parent.as_mut().copy_from_slice(&hasher.finalize_reset());
+            parent.copy_from_slice(&hasher.finalize_reset());
             keys.push(parent_index);
         }
         pos += 1;

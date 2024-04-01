@@ -180,7 +180,7 @@ impl<const N: usize> HashTreeRoot for Bitlist<N> {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
         let chunks = self.pack_bits()?;
         let data_root = merkleize(&chunks, Some(Self::chunk_count()))?;
-        Ok(mix_in_length(&data_root, self.len()))
+        Ok(mix_in_length(data_root, self.len()))
     }
 }
 

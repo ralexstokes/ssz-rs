@@ -1,56 +1,64 @@
-use crate::{
-    lib::*,
-    merkleization::BYTES_PER_CHUNK,
-    prelude::*,
-    utils::{write_bytes_to_lower_hex, write_bytes_to_lower_hex_display},
-};
+use crate::{lib::*, merkleization::BYTES_PER_CHUNK, prelude::*};
 
-/// A node in a merkle tree.
-#[derive(Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, SimpleSerialize)]
-#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-pub struct Node(
-    #[cfg_attr(feature = "serde", serde(with = "crate::serde::as_hex"))] [u8; BYTES_PER_CHUNK],
-);
+pub type Node = alloy_primitives::B256;
 
-impl fmt::Debug for Node {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write_bytes_to_lower_hex(f, self.0)
+impl Serialize for Node {
+    fn serialize(&self, buffer: &mut Vec<u8>) -> Result<usize, SerializeError> {
+        buffer.extend_from_slice(self.as_slice());
+        Ok(Self::size_hint())
     }
 }
 
-impl fmt::Display for Node {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write_bytes_to_lower_hex_display(f, self.0.iter())
+impl Deserialize for Node {
+    fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
+        if encoding.len() < BYTES_PER_CHUNK {
+            return Err(DeserializeError::ExpectedFurtherInput {
+                provided: encoding.len(),
+                expected: BYTES_PER_CHUNK,
+            })
+        }
+        if encoding.len() > BYTES_PER_CHUNK {
+            return Err(DeserializeError::AdditionalInput {
+                provided: encoding.len(),
+                expected: BYTES_PER_CHUNK,
+            })
+        }
+
+        // SAFETY: index is safe because encoding.len() == byte_size; qed
+        Ok(Self::from_slice(&encoding[..BYTES_PER_CHUNK]))
     }
 }
 
-impl Deref for Node {
-    type Target = [u8];
+impl Serializable for Node {
+    fn is_variable_size() -> bool {
+        false
+    }
 
-    fn deref(&self) -> &Self::Target {
-        &self.0
+    fn size_hint() -> usize {
+        BYTES_PER_CHUNK
     }
 }
 
-impl DerefMut for Node {
-    fn deref_mut(&mut self) -> &mut Self::Target {
-        &mut self.0
+impl HashTreeRoot for Node {
+    fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+        let chunks = self.chunks()?;
+        Ok(Node::try_from(chunks.as_slice()).expect("is right size"))
+    }
+
+    fn is_composite_type() -> bool {
+        false
     }
 }
 
-impl TryFrom<&[u8]> for Node {
-    type Error = TryFromSliceError;
+impl GeneralizedIndexable for Node {}
 
-    fn try_from(value: &[u8]) -> Result<Self, Self::Error> {
-        Ok(Self(value.try_into()?))
+impl Prove for Node {
+    fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+        Ok(self.to_vec())
     }
 }
 
-impl AsRef<[u8]> for Node {
-    fn as_ref(&self) -> &[u8] {
-        &self.0
-    }
-}
+impl SimpleSerialize for Node {}
 
 #[cfg(test)]
 mod tests {
@@ -71,6 +79,6 @@ mod tests {
         let dbg = format!("{node:?}");
         assert_eq!(dbg, "0x1717171717171717171717171717171717171717171717171717171717171717");
         let display = format!("{node}");
-        assert_eq!(display, "0x1717…1717");
+        assert_eq!(display, "0x1717171717171717171717171717171717171717171717171717171717171717");
     }
 }

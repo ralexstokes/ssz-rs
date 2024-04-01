@@ -60,18 +60,15 @@ mod lib {
         pub use std::*;
     }
 
-    pub use self::core::{any, cmp, fmt, iter, slice};
+    pub use self::core::{any, cmp, fmt, slice};
 
     pub use self::{
         cmp::Ordering,
         core::{
-            array::TryFromSliceError,
             fmt::{Debug, Display, Formatter},
             ops::{Deref, DerefMut, Index, IndexMut},
             slice::SliceIndex,
-            str::FromStr,
         },
-        iter::ExactSizeIterator,
     };
 
     #[cfg(not(feature = "std"))]
@@ -109,6 +106,9 @@ pub trait Serializable: Serialize + Deserialize {
 pub trait SimpleSerialize: Serializable + HashTreeRoot + GeneralizedIndexable + Prove {}
 
 mod exports {
+    #[cfg(feature = "serde")]
+    pub use alloy_primitives::hex::{self, FromHex};
+
     pub use crate::{
         bitlist::Bitlist,
         bitvector::Bitvector,

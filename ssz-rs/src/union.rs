@@ -79,10 +79,10 @@ where
     T: SimpleSerialize,
 {
     fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
-        let chunks = Node::try_from(self.chunks()?.as_ref()).expect("is correct size");
+        let chunks = Node::try_from(self.chunks()?.as_slice()).expect("is correct size");
         match self {
-            Some(_) => Ok(mix_in_selector(&chunks, 1)),
-            None => Ok(mix_in_selector(&chunks, 0)),
+            Some(_) => Ok(mix_in_selector(chunks, 1)),
+            None => Ok(mix_in_selector(chunks, 0)),
         }
     }
 }
