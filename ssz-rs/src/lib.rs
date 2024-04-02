@@ -182,7 +182,7 @@ mod exports {
     where
         T: crate::Serializable,
     {
-        let mut result = vec![];
+        let mut result = crate::lib::Vec::new();
         value.serialize(&mut result)?;
         Ok(result)
     }

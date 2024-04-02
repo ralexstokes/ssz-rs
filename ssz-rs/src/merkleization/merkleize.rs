@@ -5,6 +5,7 @@ use crate::{
     ser::Serialize,
     GeneralizedIndex,
 };
+#[cfg(feature = "serde")]
 use alloy_primitives::hex::FromHex;
 use sha2::{Digest, Sha256};
 
@@ -251,6 +252,7 @@ impl Tree {
         Ok(())
     }
 
+    #[cfg(feature = "serde")]
     fn nodes(&self) -> impl Iterator<Item = Node> + '_ {
         self.0.chunks(BYTES_PER_CHUNK).map(|chunk| Node::from_hex(chunk).unwrap())
     }
