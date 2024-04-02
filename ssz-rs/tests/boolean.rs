@@ -48,7 +48,7 @@ fn test_boolean_byte_rev_nibble() {
 
 #[test]
 fn test_boolean_false() {
-    let mut value = false;
+    let value = false;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/boolean/valid/false/serialized.ssz_snappy",
@@ -58,7 +58,7 @@ fn test_boolean_false() {
     let recovered_value: bool = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -66,7 +66,7 @@ fn test_boolean_false() {
 
 #[test]
 fn test_boolean_true() {
-    let mut value = true;
+    let value = true;
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/boolean/valid/true/serialized.ssz_snappy",
@@ -76,7 +76,7 @@ fn test_boolean_true() {
     let recovered_value: bool = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0100000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);

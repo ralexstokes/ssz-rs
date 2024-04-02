@@ -67,7 +67,7 @@ impl<const N: usize> Default for Bitvector<N> {
 
 impl<const N: usize> Bitvector<N> {
     /// Return the bit at `index`. `None` if index is out-of-bounds.
-    pub fn get(&mut self, index: usize) -> Option<bool> {
+    pub fn get(&self, index: usize) -> Option<bool> {
         self.0.get(index).map(|value| *value)
     }
 
@@ -168,7 +168,7 @@ impl<const N: usize> Deserialize for Bitvector<N> {
 }
 
 impl<const N: usize> HashTreeRoot for Bitvector<N> {
-    fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+    fn hash_tree_root(&self) -> Result<Node, MerkleizationError> {
         let chunks = self.pack_bits()?;
         merkleize(&chunks, Some(Self::chunk_count()))
     }
@@ -205,7 +205,7 @@ impl<const N: usize> GeneralizedIndexable for Bitvector<N> {
 }
 
 impl<const N: usize> Prove for Bitvector<N> {
-    fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+    fn chunks(&self) -> Result<Vec<u8>, MerkleizationError> {
         self.pack_bits()
     }
 }

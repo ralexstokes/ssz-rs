@@ -41,7 +41,7 @@ impl Serializable for Node {
 }
 
 impl HashTreeRoot for Node {
-    fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+    fn hash_tree_root(&self) -> Result<Node, MerkleizationError> {
         let chunks = self.chunks()?;
         Ok(Node::try_from(chunks.as_slice()).expect("is right size"))
     }
@@ -54,7 +54,7 @@ impl HashTreeRoot for Node {
 impl GeneralizedIndexable for Node {}
 
 impl Prove for Node {
-    fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+    fn chunks(&self) -> Result<Vec<u8>, MerkleizationError> {
         Ok(self.to_vec())
     }
 }

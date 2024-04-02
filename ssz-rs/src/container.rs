@@ -242,15 +242,15 @@ mod tests {
             b: u64,
         }
 
-        let mut data = BasicContainer { a: 2343, d: true };
+        let data = BasicContainer { a: 2343, d: true };
         let path = &["a".into()];
-        compute_and_verify_proof_for_path(&mut data, path);
+        compute_and_verify_proof_for_path(&data, path);
 
-        let mut data = BasicContainer { a: 2343, d: true };
+        let data = BasicContainer { a: 2343, d: true };
         let path = &["d".into()];
-        compute_and_verify_proof_for_path(&mut data, path);
+        compute_and_verify_proof_for_path(&data, path);
 
-        let mut data = AnotherContainer {
+        let data = AnotherContainer {
             a: 23089,
             b: false,
             c: List::<bool, 32>::try_from(vec![true, false, false, false, true]).unwrap(),
@@ -265,21 +265,21 @@ mod tests {
             &["e".into()],
         ];
         for &path in paths {
-            compute_and_verify_proof_for_path(&mut data, path);
+            compute_and_verify_proof_for_path(&data, path);
         }
 
         let inner = V::try_from(vec![11u8; 25]).unwrap();
-        let mut data = Foo { a: W::try_from(vec![inner; 888]).unwrap(), b: 23 };
+        let data = Foo { a: W::try_from(vec![inner; 888]).unwrap(), b: 23 };
         let paths: &[Path] = &[&["a".into()], &["a".into(), 333.into(), 20.into()], &["b".into()]];
         for &path in paths {
-            compute_and_verify_proof_for_path(&mut data, path);
+            compute_and_verify_proof_for_path(&data, path);
         }
 
         let inner = X::try_from(vec![U256::from(11usize); 70]).unwrap();
-        let mut data = Bar { a: Y::try_from(vec![inner; 2]).unwrap(), b: 88888 };
+        let data = Bar { a: Y::try_from(vec![inner; 2]).unwrap(), b: 88888 };
         let paths: &[Path] = &[&["a".into()], &["a".into(), 0.into(), 64.into()], &["b".into()]];
         for &path in paths {
-            compute_and_verify_proof_for_path(&mut data, path);
+            compute_and_verify_proof_for_path(&data, path);
         }
     }
 }

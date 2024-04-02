@@ -196,10 +196,10 @@ impl<T, const N: usize> List<T, N>
 where
     T: SimpleSerialize,
 {
-    fn assemble_chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+    fn assemble_chunks(&self) -> Result<Vec<u8>, MerkleizationError> {
         if T::is_composite_type() {
             let count = self.len();
-            elements_to_chunks(self.data.iter_mut().enumerate(), count)
+            elements_to_chunks(self.data.iter().enumerate(), count)
         } else {
             pack(self)
         }
@@ -215,7 +215,7 @@ where
         (N * T::size_hint() + BYTES_PER_CHUNK - 1) / BYTES_PER_CHUNK
     }
 
-    fn compute_hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+    fn compute_hash_tree_root(&self) -> Result<Node, MerkleizationError> {
         let chunks = self.assemble_chunks()?;
         let data_root = if T::is_composite_type() {
             merkleize(&chunks, Some(N))?
@@ -230,7 +230,7 @@ impl<T, const N: usize> HashTreeRoot for List<T, N>
 where
     T: SimpleSerialize,
 {
-    fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+    fn hash_tree_root(&self) -> Result<Node, MerkleizationError> {
         self.compute_hash_tree_root()
     }
 }
@@ -279,19 +279,15 @@ impl<T, const N: usize> Prove for List<T, N>
 where
     T: SimpleSerialize,
 {
-    fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+    fn chunks(&self) -> Result<Vec<u8>, MerkleizationError> {
         self.assemble_chunks()
     }
 
-    fn prove_element(
-        &mut self,
-        index: usize,
-        prover: &mut Prover,
-    ) -> Result<(), MerkleizationError> {
+    fn prove_element(&self, index: usize, prover: &mut Prover) -> Result<(), MerkleizationError> {
         if index >= N {
             Err(MerkleizationError::InvalidInnerIndex)
         } else {
-            let child = &mut self[index];
+            let child = &self[index];
             prover.compute_proof(child)
         }
     }
@@ -403,7 +399,7 @@ mod tests {
         value.push(Default::default());
         let encoding = ssz_rs::serialize(&value).unwrap();
 
-        let mut recovered: Foo = ssz_rs::deserialize(&encoding).unwrap();
+        let recovered: Foo = ssz_rs::deserialize(&encoding).unwrap();
         assert_eq!(value, recovered);
 
         let _ = recovered.hash_tree_root().unwrap();
@@ -456,16 +452,16 @@ mod tests {
     fn test_prove_list() {
         type L = List<bool, 32>;
 
-        let mut data = L::try_from(vec![true, true, false, true]).unwrap();
+        let data = L::try_from(vec![true, true, false, true]).unwrap();
         let path = &[27.into()];
-        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
-        let mut data = L::default();
+        let data = L::default();
         let path = &[27.into()];
-        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
         let path = &[PathElement::Length];
-        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::proofs::tests::compute_and_verify_proof_for_path(&data, path);
     }
 
     #[test]
@@ -474,29 +470,29 @@ mod tests {
         type M = List<U256, 1>;
         type N = List<U256, 256>;
 
-        let mut data = M::default();
+        let data = M::default();
         let path = &[0.into()];
-        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
-        let mut data = N::try_from(vec![U256::from(11)]).unwrap();
+        let data = N::try_from(vec![U256::from(11)]).unwrap();
         let path = &[0.into()];
-        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
         let path = &[1.into()];
-        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
         let path = &[255.into()];
-        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
-        let mut data = L::try_from(vec![U256::from(23)]).unwrap();
+        let data = L::try_from(vec![U256::from(23)]).unwrap();
         let path = &[2.into()];
-        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
         let path = &[PathElement::Length];
-        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
-        let mut data = L::default();
+        let data = L::default();
         let path = &[0.into()];
-        crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path)
+        crate::proofs::tests::compute_and_verify_proof_for_path(&data, path)
     }
 }

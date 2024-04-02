@@ -78,7 +78,7 @@ impl<T> HashTreeRoot for Option<T>
 where
     T: SimpleSerialize,
 {
-    fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+    fn hash_tree_root(&self) -> Result<Node, MerkleizationError> {
         let chunks = Node::try_from(self.chunks()?.as_slice()).expect("is correct size");
         match self {
             Some(_) => Ok(mix_in_selector(chunks, 1)),
@@ -133,7 +133,7 @@ impl<T> Prove for Option<T>
 where
     T: SimpleSerialize,
 {
-    fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+    fn chunks(&self) -> Result<Vec<u8>, MerkleizationError> {
         match self {
             Some(value) => {
                 let root = value.hash_tree_root()?;
@@ -143,19 +143,15 @@ where
         }
     }
 
-    fn prove_element(
-        &mut self,
-        index: usize,
-        prover: &mut Prover,
-    ) -> Result<(), MerkleizationError> {
+    fn prove_element(&self, index: usize, prover: &mut Prover) -> Result<(), MerkleizationError> {
         if index >= 2 {
             Err(MerkleizationError::InvalidInnerIndex)
         } else {
             match self {
                 Some(value) => prover.compute_proof(value),
                 None => {
-                    let mut leaf = 0usize;
-                    prover.compute_proof(&mut leaf)
+                    let leaf = 0usize;
+                    prover.compute_proof(&leaf)
                 }
             }
         }
@@ -445,70 +441,70 @@ mod tests {
 
     #[test]
     fn prove_option() {
-        let mut data = Some(11u8);
+        let data = Some(11u8);
         let path = &[0.into()];
-        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
-        let mut data = Some(11u8);
+        let data = Some(11u8);
         let path = &[1.into()];
-        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
-        let mut data = Some(U256::from(23423u16));
+        let data = Some(U256::from(23423u16));
         let path = &[0.into()];
-        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
-        let mut data = Some(U256::from(23423u16));
+        let data = Some(U256::from(23423u16));
         let path = &[1.into()];
-        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
         let path = &[PathElement::Selector];
-        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
-        let mut data = Option::<U256>::None;
+        let data = Option::<U256>::None;
         let path = &[0.into()];
-        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
-        let mut data = Option::<U256>::None;
+        let data = Option::<U256>::None;
         let path = &[1.into()];
-        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
-        let mut data = Option::<u16>::None;
+        let data = Option::<u16>::None;
         let path = &[0.into()];
-        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
-        let mut data = Option::<u16>::None;
+        let data = Option::<u16>::None;
         let path = &[1.into()];
-        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
         let path = &[PathElement::Selector];
-        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&data, path);
     }
 
     #[test]
     fn prove_unions() {
-        let mut data = Boo::default();
+        let data = Boo::default();
         let path = &[0.into()];
-        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
-        let mut data = Boo::B(Default::default());
+        let data = Boo::B(Default::default());
         let path = &[1.into()];
-        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&data, path);
         let path = &[1.into(), "data".into(), 7.into()];
-        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
-        let mut data = Boo::C(Default::default());
+        let data = Boo::C(Default::default());
         let path = &[2.into()];
-        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&data, path);
         let path = &[2.into(), 0.into()];
-        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
-        let mut data = Boo::D(Default::default());
+        let data = Boo::D(Default::default());
         let path = &[3.into()];
-        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&data, path);
 
         let path = &[3.into(), 0.into()];
-        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&data, path);
         let path = &[3.into(), 1.into()];
-        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+        crate::merkleization::proofs::tests::compute_and_verify_proof_for_path(&data, path);
     }
 }
