@@ -1,4 +1,4 @@
-use ssz_rs::{prelude::*, proofs::prove};
+use ssz_rs::prelude::*;
 
 #[derive(PartialEq, Eq, Debug, Default, SimpleSerialize)]
 struct SingleFieldTestStruct {
@@ -94,14 +94,6 @@ fn main() {
     let expected_root =
         hex::decode("69b0ce69dfbc8abb8ae4fba564dcb813f5cc5b93c76d2b3d0689687c35821036").unwrap();
     assert_eq!(root.as_ref(), expected_root);
-
-    let path = &["a".into()];
-    let (proof, witness) = prove(&mut value, path).unwrap();
-    assert!(proof.verify(witness).is_ok());
-
-    let path = &["b".into(), 0.into()];
-    let (proof, witness) = prove(&mut value, path).unwrap();
-    assert!(proof.verify(witness).is_ok());
 
     let value = SerializableStruct {
         a: 61,

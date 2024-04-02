@@ -13,6 +13,7 @@ use crate::{
 };
 
 /// A homogenous collection of a fixed number of values.
+///
 /// NOTE: a `Vector` of length `0` is illegal.
 #[derive(Clone)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize), serde(transparent))]
@@ -340,7 +341,7 @@ impl<'de, T: Serializable + serde::Deserialize<'de>, const N: usize> serde::Dese
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{list::List, merkleization::proofs::prove, serialize, U256};
+    use crate::{list::List, serialize, U256};
 
     const COUNT: usize = 32;
 
@@ -526,12 +527,12 @@ mod tests {
         assert_eq!(index, 7);
     }
 
-    fn compute_and_verify_proof<T: SimpleSerialize>(
+    fn compute_and_verify_proof_against_index<T: SimpleSerialize>(
         data: &mut T,
         path: Path,
         expected_index: GeneralizedIndex,
     ) {
-        let (proof, witness) = prove(data, path).unwrap();
+        let (proof, witness) = data.prove(path).unwrap();
         assert!(proof.verify(witness).is_ok());
 
         let index = T::generalized_index(path).unwrap();
@@ -561,7 +562,7 @@ mod tests {
 
         let path = &[3.into()];
         let expected_index = 11;
-        compute_and_verify_proof(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&mut data, path, expected_index);
     }
 
     #[test]
@@ -572,7 +573,7 @@ mod tests {
 
         let path = &[3.into()];
         let expected_index = 2;
-        compute_and_verify_proof(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&mut data, path, expected_index);
     }
 
     #[test]
@@ -586,28 +587,28 @@ mod tests {
         // prove into non-leaf
         let path = &[0.into()];
         let expected_index = 2;
-        compute_and_verify_proof(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&mut data, path, expected_index);
 
         let path = &[1.into()];
         let expected_index = 3;
-        compute_and_verify_proof(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&mut data, path, expected_index);
 
         // prove into leaf
         let path = &[0.into(), 0.into()];
         let expected_index = 2;
-        compute_and_verify_proof(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&mut data, path, expected_index);
 
         let path = &[0.into(), 1.into()];
         let expected_index = 2;
-        compute_and_verify_proof(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&mut data, path, expected_index);
 
         let path = &[1.into(), 0.into()];
         let expected_index = 3;
-        compute_and_verify_proof(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&mut data, path, expected_index);
 
         let path = &[1.into(), 1.into()];
         let expected_index = 3;
-        compute_and_verify_proof(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&mut data, path, expected_index);
     }
 
     #[test]
@@ -621,28 +622,28 @@ mod tests {
         // prove into non-leaf
         let path = &[0.into()];
         let expected_index = 2;
-        compute_and_verify_proof(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&mut data, path, expected_index);
 
         let path = &[1.into()];
         let expected_index = 3;
-        compute_and_verify_proof(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&mut data, path, expected_index);
 
         // prove into leaf
         let path = &[0.into(), 0.into()];
         let expected_index = 4;
-        compute_and_verify_proof(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&mut data, path, expected_index);
 
         let path = &[0.into(), 1.into()];
         let expected_index = 5;
-        compute_and_verify_proof(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&mut data, path, expected_index);
 
         let path = &[1.into(), 0.into()];
         let expected_index = 6;
-        compute_and_verify_proof(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&mut data, path, expected_index);
 
         let path = &[1.into(), 1.into()];
         let expected_index = 7;
-        compute_and_verify_proof(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&mut data, path, expected_index);
     }
 
     #[test]

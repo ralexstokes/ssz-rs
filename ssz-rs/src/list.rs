@@ -206,7 +206,7 @@ where
         IterMut { inner: self.data.iter_mut() }
     }
 
-    pub fn assemble_chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+    fn assemble_chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
         if T::is_composite_type() {
             let count = self.len();
             elements_to_chunks(self.data.iter_mut().enumerate(), count)

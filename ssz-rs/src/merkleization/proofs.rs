@@ -9,6 +9,8 @@ use crate::{
 };
 use sha2::{Digest, Sha256};
 
+/// Convenience type for a Merkle proof and the root of the Merkle tree, which serves as
+/// "witness" that the proof is valid.
 pub type ProofAndWitness = (Proof, Node);
 
 fn get_depth(i: GeneralizedIndex) -> Result<u32, Error> {
@@ -19,6 +21,7 @@ fn get_index(i: GeneralizedIndex, depth: u32) -> usize {
     i % 2usize.pow(depth)
 }
 
+/// Return the index in the layer of the Merkle tree a node with generalized index `index` occupies.
 pub fn get_subtree_index(i: GeneralizedIndex) -> Result<usize, Error> {
     let depth = get_depth(i)?;
     Ok(get_index(i, depth))
@@ -27,7 +30,7 @@ pub fn get_subtree_index(i: GeneralizedIndex) -> Result<usize, Error> {
 // Identify the generalized index that is the largest parent of `i` that fits in a perfect binary
 // tree with `leaf_count` leaves. Return this index along with its depth in the tree
 // and its index in the leaf layer.
-pub fn compute_local_merkle_coordinates(
+pub(crate) fn compute_local_merkle_coordinates(
     mut i: GeneralizedIndex,
     leaf_count: usize,
 ) -> Result<(u32, usize, GeneralizedIndex), Error> {
@@ -39,6 +42,7 @@ pub fn compute_local_merkle_coordinates(
     Ok((depth, get_index(i, depth), i))
 }
 
+/// A type that knows how to compute Merkle proofs assuming a target type is `Prove`.
 #[derive(Debug)]
 pub struct Prover {
     hasher: Sha256,
@@ -62,7 +66,7 @@ impl Prover {
     }
 
     /// Derive a Merkle proof relative to `data` given the parameters in `self`.
-    pub fn compute_proof<T: Prove>(&mut self, data: &mut T) -> Result<(), Error> {
+    pub fn compute_proof<T: Prove + ?Sized>(&mut self, data: &mut T) -> Result<(), Error> {
         let chunk_count = T::chunk_count();
         let mut leaf_count = chunk_count.next_power_of_two();
         let parent_index = self.proof.index;
@@ -140,22 +144,27 @@ pub trait Prove: GeneralizedIndexable {
 
     /// Construct a proof of the member element located at the type-specific `index` assuming the
     /// context in `prover`.
-    fn prove_element(&mut self, _index: usize, _prover: &mut Prover) -> Result<(), Error> {
+    #[allow(unused)]
+    fn prove_element(&mut self, index: usize, prover: &mut Prover) -> Result<(), Error> {
         Err(Error::NoInnerElement)
     }
 
+    /// Returns the "decoration" if this type has any in the Merkle tree.
+    /// For `List`s, the length of the list is hashed into the root of the Merkle tree.
+    /// For unions, the type of the currently occupied variant is hashed into the root of the Merkle
+    /// tree.
     fn decoration(&self) -> Option<usize> {
         None
     }
-}
 
-/// Produce a Merkle proof (and corresponding witness) for the type `T` at the given `path` relative
-/// to `T`.
-pub fn prove<T: Prove>(data: &mut T, path: Path) -> Result<ProofAndWitness, Error> {
-    let index = T::generalized_index(path)?;
-    let mut prover = Prover::from(index);
-    prover.compute_proof(data)?;
-    Ok(prover.into())
+    /// Compute a Merkle proof of `Self` at the type's `path`, along with the root of the Merkle
+    /// tree as a witness value.
+    fn prove(&mut self, path: Path) -> Result<ProofAndWitness, Error> {
+        let index = Self::generalized_index(path)?;
+        let mut prover = Prover::from(index);
+        prover.compute_proof(self)?;
+        Ok(prover.into())
+    }
 }
 
 /// Contains data necessary to verify `leaf` was included under some witness "root" node
@@ -176,6 +185,8 @@ impl Proof {
     }
 }
 
+/// Verifies the Merkle proof against the `root` given the other metadata, assuming `leaf` occupies
+/// the `generalized_index` in the tree.
 pub fn is_valid_merkle_branch_for_generalized_index(
     leaf: Node,
     branch: &[Node],
@@ -187,8 +198,7 @@ pub fn is_valid_merkle_branch_for_generalized_index(
     is_valid_merkle_branch(leaf, branch, depth, index, root)
 }
 
-/// `is_valid_merkle_branch` verifies the Merkle proof
-/// against the `root` given the other metadata.
+/// `is_valid_merkle_branch` verifies the Merkle proof against the `root` given the other metadata.
 pub fn is_valid_merkle_branch(
     leaf: Node,
     branch: &[Node],
@@ -232,7 +242,7 @@ pub(crate) mod tests {
     }
 
     pub(crate) fn compute_and_verify_proof_for_path<T: SimpleSerialize>(data: &mut T, path: Path) {
-        let (proof, witness) = prove(data, path).unwrap();
+        let (proof, witness) = data.prove(path).unwrap();
         assert_eq!(witness, data.hash_tree_root().unwrap());
         let result = proof.verify(witness);
         if let Err(err) = result {
@@ -288,11 +298,11 @@ pub(crate) mod tests {
     #[test]
     fn test_proving_primitives_fails_with_bad_path() {
         let mut data = 8u8;
-        let result = prove(&mut data, &[PathElement::Length]);
+        let result = data.prove(&[PathElement::Length]);
         assert!(result.is_err());
 
         let mut data = true;
-        let result = prove(&mut data, &[234.into()]);
+        let result = data.prove(&[234.into()]);
         assert!(result.is_err());
     }
 
