@@ -1,7 +1,11 @@
 //! Provides a set of macros to derive implementations for the core SSZ traits given in the `ssz_rs`
 //! crate. Suppports native Rust structs and enums, subject to conditions compatible with SSZ
 //! containers and unions.
+//!
 //! Refer to the `examples` in the `ssz_rs` crate for a better idea on how to use this derive macro.
+//!
+//! This proc macro supports one attribute `ssz(transparent)` to pass through calls on a wrapping
+//! Rust enum to the underlying data. Refers to this crate's tests for example usage.
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote, quote_spanned};
 use syn::{
@@ -413,8 +417,6 @@ fn derive_merkleization_impl(
     }
 }
 
-// NOTE: due to the way this trait works, it *cannot* support the "transparent" helper attribute.
-// See https://github.com/ralexstokes/ssz-rs/issues/135#issuecomment-2030918455 for more info.
 fn derive_generalized_indexable_impl(
     data: &Data,
     name: &Ident,
@@ -672,7 +674,7 @@ fn derive_prove_impl(data: &Data, name: &Ident, generics: &Generics) -> TokenStr
                             },
                         )
                     }
-                    _ => unreachable!(),
+                    _ => unreachable!("other variants validated to not exist"),
                 }
             });
             let (impl_by_variant, decoration_by_variant): (Vec<_>, Vec<_>) =
@@ -740,7 +742,7 @@ fn filter_ssz_attrs<'a>(
 fn validate_no_attrs<'a>(fields: impl Iterator<Item = &'a Field>) {
     let mut ssz_attrs = fields.flat_map(|field| filter_ssz_attrs(field.attrs.iter()));
     if ssz_attrs.next().is_some() {
-        panic!("macro attribute `{SSZ_HELPER_ATTRIBUTE}` is only allowed at struct or enum level")
+        panic!("macro attribute `{SSZ_HELPER_ATTRIBUTE}` is only allowed at enum level")
     }
 }
 
@@ -990,21 +992,19 @@ pub fn derive_prove(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
 
 /// Derive `SimpleSerialize` for the attached item, including the relevant additional traits
 /// required by the trait bound. Most common macro used from this crate.
-#[proc_macro_derive(SimpleSerialize, attributes(ssz))]
+#[proc_macro_derive(SimpleSerialize)]
 pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
 
     let data = &input.data;
-    let helper_attrs = extract_helper_attrs(&input);
-    validate_derive_input(data, &helper_attrs);
-    let helper_attr = helper_attrs.first();
+    validate_derive_input(data, &[]);
 
     let name = &input.ident;
     let generics = &input.generics;
 
-    let serializable_impl = derive_serializable_impl(data, name, generics, helper_attr);
+    let serializable_impl = derive_serializable_impl(data, name, generics, None);
 
-    let merkleization_impl = derive_merkleization_impl(data, name, generics, helper_attr);
+    let merkleization_impl = derive_merkleization_impl(data, name, generics, None);
 
     let generalized_indexable_impl = derive_generalized_indexable_impl(data, name, generics);
 
