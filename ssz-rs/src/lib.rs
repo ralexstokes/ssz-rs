@@ -2,7 +2,7 @@
 //!
 //! # Examples
 //!
-//! De/serialize a simple value:
+//! {De,}serialize a simple value:
 //!
 //! ```
 //! # use ssz_rs::prelude::*;
@@ -11,7 +11,7 @@
 //! assert_eq!(u64::deserialize(&buf).unwrap(), 42);
 //! ```
 //!
-//! De/serialize a custom type using the derive macro:
+//! {De,}serialize a custom type using the derive macro:
 //!
 //! ```
 //! # use ssz_rs::prelude::*;
@@ -27,6 +27,58 @@
 //!   Data::deserialize(&buf).unwrap(),
 //!   Data { flag: true, value: 42 }
 //! );
+//! ```
+//!
+//! Compute the root of some type's SSZ merkle tree:
+//!
+//! ```
+//! # use ssz_rs::prelude::*;
+//! # use alloy_primitives::hex::FromHex;
+//! #[derive(Debug, Default, PartialEq, Eq, SimpleSerialize)]
+//! struct SomeOtherData {
+//!   flag: bool,
+//!   value: u64
+//! }
+//!
+//! let root = SomeOtherData { flag: true, value: 42 }.hash_tree_root().unwrap();
+//! assert_eq!(
+//!   root,
+//!   Node::from_hex("0xabde25256089fc38a25254778ebc4c8812dfd1a31e9634b013c6ff1983a77eda").unwrap()
+//! );
+//! ```
+//!
+//! Compute "generalized" indices for a given type:
+//!
+//! ```
+//! # use ssz_rs::prelude::*;
+//! #[derive(Debug, Default, PartialEq, Eq, SimpleSerialize)]
+//! struct SomeType {
+//!   flag: u8,
+//!   value: List<U256, 800>,
+//! }
+//!
+//! let path = &["value".into(), 23.into()];
+//! let index = SomeType::generalized_index(path).unwrap();
+//! assert_eq!(
+//!   index,
+//!   6167
+//! );
+//! ```
+//!
+//! Generate (and verify) a Merkle proof for some node in the type's Merkle tree:
+//!
+//! ```
+//! # use ssz_rs::prelude::*;
+//! #[derive(Debug, Default, PartialEq, Eq, SimpleSerialize)]
+//! struct YetAnotherType {
+//!   flag: u8,
+//!   value: List<U256, 800>,
+//! }
+//!
+//! let path = &["value".into(), 23.into()];
+//! let mut data = YetAnotherType::default();
+//! let (proof, witness) = data.prove(path).unwrap();
+//! assert!(proof.verify(witness).is_ok());
 //! ```
 //!
 //! [ssz]: https://github.com/ethereum/consensus-specs/blob/dev/ssz/simple-serialize.md
@@ -155,8 +207,11 @@ pub mod prelude {
 
     // expose this so the derive macro has everything in scope
     // with a simple `prelude` import
+    #[doc(hidden)]
     pub use crate as ssz_rs;
-    pub use ssz_rs_derive::{GeneralizedIndexable, HashTreeRoot, Serializable, SimpleSerialize};
+    pub use ssz_rs_derive::{
+        GeneralizedIndexable, HashTreeRoot, Prove, Serializable, SimpleSerialize,
+    };
 }
 
 #[doc(hidden)]

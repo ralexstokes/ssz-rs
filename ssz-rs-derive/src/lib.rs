@@ -1,5 +1,6 @@
-//! `SimpleSerialize` provides a macro to derive SSZ containers and union types from
-//! native Rust structs and enums.
+//! Provides a set of macros to derive implementations for the core SSZ traits given in the `ssz_rs`
+//! crate. Suppports native Rust structs and enums, subject to conditions compatible with SSZ
+//! containers and unions.
 //! Refer to the `examples` in the `ssz_rs` crate for a better idea on how to use this derive macro.
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote, quote_spanned};
@@ -911,6 +912,10 @@ fn extract_helper_attrs(input: &DeriveInput) -> Vec<HelperAttr> {
         .collect()
 }
 
+/// Derive an implementation of the `Serializable` trait, including the `Serialize` and
+/// `Deserialize` trait bounds.
+/// Useful if you only want to encode or decode SSZ streams and do not need any Merkle tree
+/// functionality.
 #[proc_macro_derive(Serializable, attributes(ssz))]
 pub fn derive_serializable(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
@@ -927,6 +932,8 @@ pub fn derive_serializable(input: proc_macro::TokenStream) -> proc_macro::TokenS
     proc_macro::TokenStream::from(expansion)
 }
 
+/// Derive an implementation of the `HashTreeRoot` trait to support computation of the root of a
+/// type's SSZ merkle tree.
 #[proc_macro_derive(HashTreeRoot, attributes(ssz))]
 pub fn derive_hash_tree_root(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
@@ -943,6 +950,8 @@ pub fn derive_hash_tree_root(input: proc_macro::TokenStream) -> proc_macro::Toke
     proc_macro::TokenStream::from(expansion)
 }
 
+/// Derive an implementation of the `GeneralizedIndexable` trait to support computation of
+/// generalized indices.
 #[proc_macro_derive(GeneralizedIndexable)]
 pub fn derive_generalized_indexable(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
@@ -956,6 +965,7 @@ pub fn derive_generalized_indexable(input: proc_macro::TokenStream) -> proc_macr
     proc_macro::TokenStream::from(expansion)
 }
 
+/// Derive an implementation of the `Prove` trait to support Merkle proofs.
 #[proc_macro_derive(Prove)]
 pub fn derive_prove(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
@@ -969,6 +979,8 @@ pub fn derive_prove(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     proc_macro::TokenStream::from(expansion)
 }
 
+/// Derive `SimpleSerialize` for the attached item, including the relevant additional traits
+/// required by the trait bound. Most common macro used from this crate.
 #[proc_macro_derive(SimpleSerialize, attributes(ssz))]
 pub fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as DeriveInput);

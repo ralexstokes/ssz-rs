@@ -18,11 +18,19 @@ struct Qux {
     a: Vector<u16, 8>,
 }
 
+#[derive(Debug, SimpleSerialize)]
+enum AnotherFoo {
+    A(u16),
+    B(Foo),
+}
+
 fn main() {
+    // vectors
     let path = &[2.into()];
     let index = Vector::<u8, 16>::generalized_index(path).unwrap();
     dbg!(index);
 
+    // lists
     let path = &[2.into()];
     let index = List::<u8, 256>::generalized_index(path).unwrap();
     dbg!(index);
@@ -46,5 +54,30 @@ fn main() {
 
     let path = &["f".into(), "y".into(), PathElement::Length];
     let index = Bar::generalized_index(path).unwrap();
+    dbg!(index);
+
+    // unions
+    let path = &[0.into()];
+    let index = AnotherFoo::generalized_index(path).unwrap();
+    dbg!(index);
+
+    let path = &[1.into()];
+    let index = AnotherFoo::generalized_index(path).unwrap();
+    dbg!(index);
+
+    let path = &[1.into(), "x".into(), 8.into()];
+    let index = AnotherFoo::generalized_index(path).unwrap();
+    dbg!(index);
+
+    let path = &[1.into(), "y".into(), 87.into()];
+    let index = AnotherFoo::generalized_index(path).unwrap();
+    dbg!(index);
+
+    let path = &[1.into(), "y".into(), PathElement::Length];
+    let index = AnotherFoo::generalized_index(path).unwrap();
+    dbg!(index);
+
+    let path = &[PathElement::Selector];
+    let index = AnotherFoo::generalized_index(path).unwrap();
     dbg!(index);
 }

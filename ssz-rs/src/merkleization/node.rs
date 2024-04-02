@@ -1,5 +1,6 @@
 use crate::{lib::*, merkleization::BYTES_PER_CHUNK, prelude::*};
 
+/// Represents a node in a Merkle tree as defined by the SSZ spec.
 pub type Node = alloy_primitives::B256;
 
 impl Serialize for Node {

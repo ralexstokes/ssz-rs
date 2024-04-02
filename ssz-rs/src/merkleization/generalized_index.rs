@@ -65,8 +65,8 @@ pub trait GeneralizedIndexable {
     }
 }
 
-// Return base 2 logarithm of `x`.
-// `None` is returned if `x` is `0` as this logarithm is undefined.
+/// Return base 2 logarithm of `x`.
+/// `None` is returned if `x` is `0` as this logarithm is undefined.
 pub fn log_2(x: usize) -> Option<u32> {
     x.checked_ilog2()
 }
@@ -82,6 +82,8 @@ pub fn get_power_of_two_ceil(x: usize) -> usize {
 /// these values.
 pub type GeneralizedIndex = usize;
 
+/// Return the "default" generalized index value. Note that these indices are 1-indexed and *not*
+/// 0-indexed.
 pub const fn default_generalized_index() -> GeneralizedIndex {
     1
 }

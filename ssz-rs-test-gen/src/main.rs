@@ -1,3 +1,5 @@
+//! Code generation utility for consuming consensus spec tests relevant to the `ssz_rs` crate.
+//! Not user facing.
 #![doc(hidden)]
 
 use convert_case::{Case, Casing};
