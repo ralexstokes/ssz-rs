@@ -5,7 +5,7 @@ use crate::{
 };
 
 /// Describes part of a `GeneralizedIndexable` type.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub enum PathElement {
     // Refers to either an element in a SSZ collection
     // or a particular variant of a SSZ union.
