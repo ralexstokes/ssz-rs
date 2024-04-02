@@ -413,6 +413,8 @@ fn derive_merkleization_impl(
     }
 }
 
+// NOTE: due to the way this trait works, it *cannot* support the "transparent" helper attribute.
+// See https://github.com/ralexstokes/ssz-rs/issues/135#issuecomment-2030918455 for more info.
 fn derive_generalized_indexable_impl(
     data: &Data,
     name: &Ident,
@@ -619,6 +621,7 @@ fn derive_prove_impl(data: &Data, name: &Ident, generics: &Generics) -> TokenStr
                 (chunks_impl, prove_element_impl, None)
             }
             Fields::Unnamed(..) => {
+                // NOTE: new type pattern, proxy to wrapped type...
                 let chunks_impl = quote! {
                     self.0.chunks()
                 };
@@ -626,7 +629,13 @@ fn derive_prove_impl(data: &Data, name: &Ident, generics: &Generics) -> TokenStr
                 let prove_element_impl = quote! {
                     self.0.prove_element(index, prover)
                 };
-                (chunks_impl, prove_element_impl, None)
+
+                let decoration_impl = quote! {
+                    fn decoration(&self) -> Option<usize> {
+                        self.0.decoration()
+                    }
+                };
+                (chunks_impl, prove_element_impl, Some(decoration_impl))
             }
             Fields::Unit => unreachable!("validated to exclude this type"),
         },
