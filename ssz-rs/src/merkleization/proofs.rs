@@ -66,7 +66,7 @@ impl Prover {
     }
 
     /// Derive a Merkle proof relative to `data` given the parameters in `self`.
-    pub fn compute_proof<T: Prove + ?Sized>(&mut self, data: &mut T) -> Result<(), Error> {
+    pub fn compute_proof<T: Prove + ?Sized>(&mut self, data: &T) -> Result<(), Error> {
         let chunk_count = T::chunk_count();
         let mut leaf_count = chunk_count.next_power_of_two();
         let parent_index = self.proof.index;
@@ -138,14 +138,14 @@ pub trait Prove: GeneralizedIndexable {
     /// Compute the "chunks" of this type as required for the SSZ merkle tree computation.
     /// Default implementation signals an error. Implementing types should override
     /// to provide the correct behavior.
-    fn chunks(&mut self) -> Result<Vec<u8>, Error> {
+    fn chunks(&self) -> Result<Vec<u8>, Error> {
         Err(Error::NotChunkable)
     }
 
     /// Construct a proof of the member element located at the type-specific `index` assuming the
     /// context in `prover`.
     #[allow(unused)]
-    fn prove_element(&mut self, index: usize, prover: &mut Prover) -> Result<(), Error> {
+    fn prove_element(&self, index: usize, prover: &mut Prover) -> Result<(), Error> {
         Err(Error::NoInnerElement)
     }
 
@@ -159,7 +159,7 @@ pub trait Prove: GeneralizedIndexable {
 
     /// Compute a Merkle proof of `Self` at the type's `path`, along with the root of the Merkle
     /// tree as a witness value.
-    fn prove(&mut self, path: Path) -> Result<ProofAndWitness, Error> {
+    fn prove(&self, path: Path) -> Result<ProofAndWitness, Error> {
         let index = Self::generalized_index(path)?;
         let mut prover = Prover::from(index);
         prover.compute_proof(self)?;
@@ -241,7 +241,7 @@ pub(crate) mod tests {
         Node::from_hex(hex).unwrap()
     }
 
-    pub(crate) fn compute_and_verify_proof_for_path<T: SimpleSerialize>(data: &mut T, path: Path) {
+    pub(crate) fn compute_and_verify_proof_for_path<T: SimpleSerialize>(data: &T, path: Path) {
         let (proof, witness) = data.prove(path).unwrap();
         assert_eq!(witness, data.hash_tree_root().unwrap());
         let result = proof.verify(witness);
@@ -297,43 +297,43 @@ pub(crate) mod tests {
 
     #[test]
     fn test_proving_primitives_fails_with_bad_path() {
-        let mut data = 8u8;
+        let data = 8u8;
         let result = data.prove(&[PathElement::Length]);
         assert!(result.is_err());
 
-        let mut data = true;
+        let data = true;
         let result = data.prove(&[234.into()]);
         assert!(result.is_err());
     }
 
     #[test]
     fn test_prove_primitives() {
-        let mut data = 8u8;
-        compute_and_verify_proof_for_path(&mut data, &[]);
+        let data = 8u8;
+        compute_and_verify_proof_for_path(&data, &[]);
 
-        let mut data = 0u8;
-        compute_and_verify_proof_for_path(&mut data, &[]);
+        let data = 0u8;
+        compute_and_verify_proof_for_path(&data, &[]);
 
-        let mut data = 234238u64;
-        compute_and_verify_proof_for_path(&mut data, &[]);
+        let data = 234238u64;
+        compute_and_verify_proof_for_path(&data, &[]);
 
-        let mut data = 0u128;
-        compute_and_verify_proof_for_path(&mut data, &[]);
+        let data = 0u128;
+        compute_and_verify_proof_for_path(&data, &[]);
 
-        let mut data = u128::MAX;
-        compute_and_verify_proof_for_path(&mut data, &[]);
+        let data = u128::MAX;
+        compute_and_verify_proof_for_path(&data, &[]);
 
-        let mut data = U256::from_str_radix(
+        let data = U256::from_str_radix(
             "f8c2ed25e9c31399d4149dcaa48c51f394043a6a1297e65780a5979e3d7bb77c",
             16,
         )
         .unwrap();
-        compute_and_verify_proof_for_path(&mut data, &[]);
+        compute_and_verify_proof_for_path(&data, &[]);
 
-        let mut data = true;
-        compute_and_verify_proof_for_path(&mut data, &[]);
+        let data = true;
+        compute_and_verify_proof_for_path(&data, &[]);
 
-        let mut data = false;
-        compute_and_verify_proof_for_path(&mut data, &[]);
+        let data = false;
+        compute_and_verify_proof_for_path(&data, &[]);
     }
 }

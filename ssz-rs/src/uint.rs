@@ -56,7 +56,7 @@ macro_rules! define_uint {
         }
 
         impl HashTreeRoot for $uint {
-            fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+            fn hash_tree_root(&self) -> Result<Node, MerkleizationError> {
                 let root = self.chunks()?;
                 Ok(root.as_slice().try_into().expect("is valid root"))
             }
@@ -73,7 +73,7 @@ macro_rules! define_uint {
         }
 
         impl Prove for $uint {
-            fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+            fn chunks(&self) -> Result<Vec<u8>, MerkleizationError> {
                 let mut root = Vec::with_capacity(BYTES_PER_CHUNK);
                 let _ = self.serialize(&mut root)?;
                 pack_bytes(&mut root);
@@ -137,7 +137,7 @@ impl Deserialize for U256 {
 }
 
 impl HashTreeRoot for U256 {
-    fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+    fn hash_tree_root(&self) -> Result<Node, MerkleizationError> {
         let chunks = self.chunks()?;
         Ok(Node::try_from(chunks.as_slice()).expect("is right size"))
     }
@@ -154,7 +154,7 @@ impl GeneralizedIndexable for U256 {
 }
 
 impl Prove for U256 {
-    fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+    fn chunks(&self) -> Result<Vec<u8>, MerkleizationError> {
         Ok(self.as_le_bytes().to_vec())
     }
 }

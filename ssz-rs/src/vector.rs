@@ -211,16 +211,16 @@ impl<T, const N: usize> Vector<T, N>
 where
     T: SimpleSerialize,
 {
-    fn assemble_chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+    fn assemble_chunks(&self) -> Result<Vec<u8>, MerkleizationError> {
         if T::is_composite_type() {
             let count = self.len();
-            elements_to_chunks(self.data.iter_mut().enumerate(), count)
+            elements_to_chunks(self.data.iter().enumerate(), count)
         } else {
             pack(&self.data)
         }
     }
 
-    fn compute_hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+    fn compute_hash_tree_root(&self) -> Result<Node, MerkleizationError> {
         let chunks = self.assemble_chunks()?;
         merkleize(&chunks, None)
     }
@@ -230,7 +230,7 @@ impl<T, const N: usize> HashTreeRoot for Vector<T, N>
 where
     T: SimpleSerialize,
 {
-    fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+    fn hash_tree_root(&self) -> Result<Node, MerkleizationError> {
         self.compute_hash_tree_root()
     }
 }
@@ -270,19 +270,15 @@ impl<T, const N: usize> Prove for Vector<T, N>
 where
     T: SimpleSerialize,
 {
-    fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+    fn chunks(&self) -> Result<Vec<u8>, MerkleizationError> {
         self.assemble_chunks()
     }
 
-    fn prove_element(
-        &mut self,
-        index: usize,
-        prover: &mut Prover,
-    ) -> Result<(), MerkleizationError> {
+    fn prove_element(&self, index: usize, prover: &mut Prover) -> Result<(), MerkleizationError> {
         if index >= N {
             Err(MerkleizationError::InvalidInnerIndex)
         } else {
-            let child = &mut self[index];
+            let child = &self[index];
             prover.compute_proof(child)
         }
     }
@@ -512,7 +508,7 @@ mod tests {
     }
 
     fn compute_and_verify_proof_against_index<T: SimpleSerialize>(
-        data: &mut T,
+        data: &T,
         path: Path,
         expected_index: GeneralizedIndex,
     ) {
@@ -533,7 +529,7 @@ mod tests {
     fn test_prove_vector_over_aligned_primitive() {
         type V = Vector<U256, 7>;
 
-        let mut data = V::try_from(vec![
+        let data = V::try_from(vec![
             U256::from(23),
             U256::from(34),
             U256::from(45),
@@ -546,18 +542,18 @@ mod tests {
 
         let path = &[3.into()];
         let expected_index = 11;
-        compute_and_verify_proof_against_index(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&data, path, expected_index);
     }
 
     #[test]
     fn test_prove_vector_over_non_aligned_primitive() {
         type V = Vector<u64, 7>;
 
-        let mut data = V::try_from(vec![23, 34, 45, 56, 67, 78, 11]).unwrap();
+        let data = V::try_from(vec![23, 34, 45, 56, 67, 78, 11]).unwrap();
 
         let path = &[3.into()];
         let expected_index = 2;
-        compute_and_verify_proof_against_index(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&data, path, expected_index);
     }
 
     #[test]
@@ -566,33 +562,33 @@ mod tests {
         type V = Vector<W, 2>;
 
         let inner = W::try_from(vec![true, true]).unwrap();
-        let mut data = V::try_from(vec![inner.clone(), inner]).unwrap();
+        let data = V::try_from(vec![inner.clone(), inner]).unwrap();
 
         // prove into non-leaf
         let path = &[0.into()];
         let expected_index = 2;
-        compute_and_verify_proof_against_index(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&data, path, expected_index);
 
         let path = &[1.into()];
         let expected_index = 3;
-        compute_and_verify_proof_against_index(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&data, path, expected_index);
 
         // prove into leaf
         let path = &[0.into(), 0.into()];
         let expected_index = 2;
-        compute_and_verify_proof_against_index(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&data, path, expected_index);
 
         let path = &[0.into(), 1.into()];
         let expected_index = 2;
-        compute_and_verify_proof_against_index(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&data, path, expected_index);
 
         let path = &[1.into(), 0.into()];
         let expected_index = 3;
-        compute_and_verify_proof_against_index(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&data, path, expected_index);
 
         let path = &[1.into(), 1.into()];
         let expected_index = 3;
-        compute_and_verify_proof_against_index(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&data, path, expected_index);
     }
 
     #[test]
@@ -601,33 +597,33 @@ mod tests {
         type V = Vector<W, 2>;
 
         let inner = W::try_from(vec![U256::from(1), U256::from(2)]).unwrap();
-        let mut data = V::try_from(vec![inner.clone(), inner]).unwrap();
+        let data = V::try_from(vec![inner.clone(), inner]).unwrap();
 
         // prove into non-leaf
         let path = &[0.into()];
         let expected_index = 2;
-        compute_and_verify_proof_against_index(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&data, path, expected_index);
 
         let path = &[1.into()];
         let expected_index = 3;
-        compute_and_verify_proof_against_index(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&data, path, expected_index);
 
         // prove into leaf
         let path = &[0.into(), 0.into()];
         let expected_index = 4;
-        compute_and_verify_proof_against_index(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&data, path, expected_index);
 
         let path = &[0.into(), 1.into()];
         let expected_index = 5;
-        compute_and_verify_proof_against_index(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&data, path, expected_index);
 
         let path = &[1.into(), 0.into()];
         let expected_index = 6;
-        compute_and_verify_proof_against_index(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&data, path, expected_index);
 
         let path = &[1.into(), 1.into()];
         let expected_index = 7;
-        compute_and_verify_proof_against_index(&mut data, path, expected_index);
+        compute_and_verify_proof_against_index(&data, path, expected_index);
     }
 
     #[test]
@@ -639,12 +635,12 @@ mod tests {
         type V = Vector<W, V_BOUND>;
 
         let inner = W::try_from(vec![T::from(11u32); W_BOUND]).unwrap();
-        let mut data = V::try_from(vec![inner; V_BOUND]).unwrap();
+        let data = V::try_from(vec![inner; V_BOUND]).unwrap();
 
         for i in 0..V_BOUND {
             for j in 0..W_BOUND {
                 let path = &[i.into(), j.into()];
-                crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+                crate::proofs::tests::compute_and_verify_proof_for_path(&data, path);
             }
         }
     }
@@ -658,12 +654,12 @@ mod tests {
         type V = Vector<W, V_BOUND>;
 
         let inner = W::try_from(vec![T::from(11u32); W_BOUND]).unwrap();
-        let mut data = V::try_from(vec![inner; V_BOUND]).unwrap();
+        let data = V::try_from(vec![inner; V_BOUND]).unwrap();
 
         for i in 0..V_BOUND {
             for j in 0..W_BOUND {
                 let path = &[i.into(), j.into()];
-                crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+                crate::proofs::tests::compute_and_verify_proof_for_path(&data, path);
             }
         }
     }
@@ -677,12 +673,12 @@ mod tests {
         type V = Vector<W, V_BOUND>;
 
         let inner = W::try_from(vec![T::from(11u32); W_BOUND]).unwrap();
-        let mut data = V::try_from(vec![inner; V_BOUND]).unwrap();
+        let data = V::try_from(vec![inner; V_BOUND]).unwrap();
 
         for i in 0..V_BOUND {
             for j in 0..W_BOUND {
                 let path = &[i.into(), j.into()];
-                crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+                crate::proofs::tests::compute_and_verify_proof_for_path(&data, path);
             }
         }
     }
@@ -696,12 +692,12 @@ mod tests {
         type V = Vector<W, V_BOUND>;
 
         let inner = W::try_from(vec![T::from(11u32); W_BOUND]).unwrap();
-        let mut data = V::try_from(vec![inner; V_BOUND]).unwrap();
+        let data = V::try_from(vec![inner; V_BOUND]).unwrap();
 
         for i in 0..V_BOUND {
             for j in 0..W_BOUND {
                 let path = &[i.into(), j.into()];
-                crate::proofs::tests::compute_and_verify_proof_for_path(&mut data, path);
+                crate::proofs::tests::compute_and_verify_proof_for_path(&data, path);
             }
         }
     }

@@ -43,7 +43,7 @@ impl Deserialize for bool {
 }
 
 impl HashTreeRoot for bool {
-    fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+    fn hash_tree_root(&self) -> Result<Node, MerkleizationError> {
         let mut node = Node::default();
         if *self {
             node[0] = 1;
@@ -63,7 +63,7 @@ impl GeneralizedIndexable for bool {
 }
 
 impl Prove for bool {
-    fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+    fn chunks(&self) -> Result<Vec<u8>, MerkleizationError> {
         let mut vec = vec![0u8; BYTES_PER_CHUNK];
         if *self {
             vec[0] = 1;

@@ -76,7 +76,7 @@ impl<T, const N: usize> HashTreeRoot for [T; N]
 where
     T: SimpleSerialize,
 {
-    fn hash_tree_root(&mut self) -> Result<Node, MerkleizationError> {
+    fn hash_tree_root(&self) -> Result<Node, MerkleizationError> {
         let chunks = self.chunks()?;
         merkleize(&chunks, None)
     }
@@ -121,24 +121,20 @@ impl<T, const N: usize> Prove for [T; N]
 where
     T: SimpleSerialize,
 {
-    fn chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
+    fn chunks(&self) -> Result<Vec<u8>, MerkleizationError> {
         if T::is_composite_type() {
             let count = self.len();
-            elements_to_chunks(self.iter_mut().enumerate(), count)
+            elements_to_chunks(self.iter().enumerate(), count)
         } else {
             pack(self)
         }
     }
 
-    fn prove_element(
-        &mut self,
-        index: usize,
-        prover: &mut Prover,
-    ) -> Result<(), MerkleizationError> {
+    fn prove_element(&self, index: usize, prover: &mut Prover) -> Result<(), MerkleizationError> {
         if index >= N {
             Err(MerkleizationError::InvalidInnerIndex)
         } else {
-            let child = &mut self[index];
+            let child = &self[index];
             prover.compute_proof(child)
         }
     }

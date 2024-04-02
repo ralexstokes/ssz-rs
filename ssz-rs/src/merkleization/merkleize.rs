@@ -5,6 +5,7 @@ use crate::{
     ser::Serialize,
     GeneralizedIndex,
 };
+#[cfg(feature = "serde")]
 use alloy_primitives::hex::FromHex;
 use sha2::{Digest, Sha256};
 
@@ -17,7 +18,7 @@ const DECORATION_GENERALIZED_INDEX: GeneralizedIndex = 3;
 /// Types that can provide the root of their corresponding Merkle tree following the SSZ spec.
 pub trait HashTreeRoot {
     /// Compute the "hash tree root" of `Self`.
-    fn hash_tree_root(&mut self) -> Result<Node, Error>;
+    fn hash_tree_root(&self) -> Result<Node, Error>;
 
     /// Indicate the "composite" nature of `Self`.
     fn is_composite_type() -> bool {
@@ -204,7 +205,7 @@ pub fn merkleize(chunks: &[u8], limit: Option<usize>) -> Result<Node, Error> {
     merkleize_chunks_with_virtual_padding(chunks, leaf_count)
 }
 
-fn mix_in_decoration(root: Node, mut decoration: usize) -> Node {
+fn mix_in_decoration(root: Node, decoration: usize) -> Node {
     let decoration_data = decoration.hash_tree_root().expect("can merkleize usize");
 
     let mut hasher = Sha256::new();
@@ -222,7 +223,7 @@ pub fn mix_in_selector(root: Node, selector: usize) -> Node {
 }
 
 pub(crate) fn elements_to_chunks<'a, T: HashTreeRoot + 'a>(
-    elements: impl Iterator<Item = (usize, &'a mut T)>,
+    elements: impl Iterator<Item = (usize, &'a T)>,
     count: usize,
 ) -> Result<Vec<u8>, Error> {
     let mut chunks = vec![0u8; count * BYTES_PER_CHUNK];
@@ -239,7 +240,7 @@ pub struct Tree(Vec<u8>);
 impl Tree {
     pub fn mix_in_decoration(
         &mut self,
-        mut decoration: usize,
+        decoration: usize,
         hasher: &mut Sha256,
     ) -> Result<(), Error> {
         let target_node = &mut self[DECORATION_GENERALIZED_INDEX];
@@ -251,6 +252,7 @@ impl Tree {
         Ok(())
     }
 
+    #[cfg(feature = "serde")]
     fn nodes(&self) -> impl Iterator<Item = Node> + '_ {
         self.0.chunks(BYTES_PER_CHUNK).map(|chunk| Node::from_hex(chunk).unwrap())
     }
@@ -496,7 +498,7 @@ mod tests {
 
     #[test]
     fn test_hash_tree_root_of_list() {
-        let mut a_list = List::<u16, 1024>::try_from(vec![
+        let a_list = List::<u16, 1024>::try_from(vec![
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -537,7 +539,7 @@ mod tests {
 
     #[test]
     fn test_hash_tree_root_of_empty_list() {
-        let mut a_list = List::<u16, 1024>::try_from(vec![]).unwrap();
+        let a_list = List::<u16, 1024>::try_from(vec![]).unwrap();
         let root = a_list.hash_tree_root().expect("can compute root");
         assert_eq!(
             root,
@@ -598,7 +600,7 @@ mod tests {
             )
         );
 
-        let mut original_foo = foo.clone();
+        let original_foo = foo.clone();
 
         foo.b[2] = 44u32;
         foo.d.pop();
@@ -647,7 +649,7 @@ mod tests {
 
     #[test]
     fn test_simple_serialize_of_root() {
-        let mut root = Node::default();
+        let root = Node::default();
         let mut result = vec![];
         let _ = root.serialize(&mut result).expect("can encode");
         let expected_encoding = vec![0; 32];
@@ -667,7 +669,7 @@ mod tests {
             a: U256,
         }
 
-        let mut foo = Foo { a: U256::from(68) };
+        let foo = Foo { a: U256::from(68) };
         let foo_root = foo.hash_tree_root().unwrap();
         let expected_root = decode_node_from_hex(
             "4400000000000000000000000000000000000000000000000000000000000000",

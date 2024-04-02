@@ -25,7 +25,7 @@ struct ComplexTestStruct {
     g: Vector<VarTestStruct, 2>,
 }
 
-fn compute_and_verify_proof<T: SimpleSerialize>(data: &mut T, path: Path) {
+fn compute_and_verify_proof<T: SimpleSerialize>(data: &T, path: Path) {
     let (proof, witness) = data.prove(path).unwrap();
     assert_eq!(witness, data.hash_tree_root().unwrap());
     dbg!(&proof);
@@ -36,11 +36,11 @@ fn compute_and_verify_proof<T: SimpleSerialize>(data: &mut T, path: Path) {
 }
 
 fn main() {
-    let mut data = 8u8;
+    let data = 8u8;
     let path = &[];
-    compute_and_verify_proof(&mut data, path);
+    compute_and_verify_proof(&data, path);
 
-    let mut data = ComplexTestStruct {
+    let data = ComplexTestStruct {
         a: 51972,
         b: List::<u16, 128>::try_from(vec![48645]).unwrap(),
         c: 46,
@@ -69,20 +69,20 @@ fn main() {
     };
 
     let path = &["a".into()];
-    compute_and_verify_proof(&mut data, path);
+    compute_and_verify_proof(&data, path);
 
     let path = &["b".into(), 0.into()];
-    compute_and_verify_proof(&mut data, path);
+    compute_and_verify_proof(&data, path);
 
     let path = &["e".into(), "a".into()];
-    compute_and_verify_proof(&mut data, path);
+    compute_and_verify_proof(&data, path);
 
     let path = &["e".into(), "b".into(), 0.into()];
-    compute_and_verify_proof(&mut data, path);
+    compute_and_verify_proof(&data, path);
 
     let path = &["e".into(), "b".into(), 33.into()];
-    compute_and_verify_proof(&mut data, path);
+    compute_and_verify_proof(&data, path);
 
     let path = &["g".into(), 1.into(), "b".into(), 0.into()];
-    compute_and_verify_proof(&mut data, path);
+    compute_and_verify_proof(&data, path);
 }

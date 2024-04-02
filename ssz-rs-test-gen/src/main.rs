@@ -442,7 +442,7 @@ impl Generator {
                         r#"
                 #[test]
                 fn test_{ssz_type}_{name}() {{
-                    let mut value = {value};
+                    let value = {value};
                     let encoding = serialize(&value);
                     let expected_encoding = read_ssz_snappy_from_test_data("{target_data_path}");
                     assert_eq!(encoding, expected_encoding);
@@ -450,7 +450,7 @@ impl Generator {
                     let recovered_value: {rust_type} = deserialize(&expected_encoding);
                     assert_eq!(recovered_value, value);
 
-                    let root = hash_tree_root(&mut value);
+                    let root = hash_tree_root(&value);
                     let expected_root = root_from_hex("{root}");
                     assert_eq!(root, expected_root);
                 }}

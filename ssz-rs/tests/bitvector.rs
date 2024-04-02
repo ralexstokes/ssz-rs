@@ -18,7 +18,7 @@ fn test_bitvector_bitvec_0() {
 
 #[test]
 fn test_bitvector_bitvec_16_max() {
-    let mut value =
+    let value =
         <Bitvector<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255, 255]).as_ref())
             .unwrap();
     let encoding = serialize(&value);
@@ -30,7 +30,7 @@ fn test_bitvector_bitvec_16_max() {
     let recovered_value: Bitvector<16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xffff000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -48,7 +48,7 @@ fn test_bitvector_bitvec_16_max_8() {
 
 #[test]
 fn test_bitvector_bitvec_16_random() {
-    let mut value =
+    let value =
         <Bitvector<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([46, 236]).as_ref())
             .unwrap();
     let encoding = serialize(&value);
@@ -60,7 +60,7 @@ fn test_bitvector_bitvec_16_random() {
     let recovered_value: Bitvector<16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x2eec000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -78,7 +78,7 @@ fn test_bitvector_bitvec_16_random_8() {
 
 #[test]
 fn test_bitvector_bitvec_16_zero() {
-    let mut value =
+    let value =
         <Bitvector<16> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0, 0]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -89,7 +89,7 @@ fn test_bitvector_bitvec_16_zero() {
     let recovered_value: Bitvector<16> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -107,7 +107,7 @@ fn test_bitvector_bitvec_16_zero_8() {
 
 #[test]
 fn test_bitvector_bitvec_1_max() {
-    let mut value =
+    let value =
         <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -118,7 +118,7 @@ fn test_bitvector_bitvec_1_max() {
     let recovered_value: Bitvector<1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0100000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -136,7 +136,7 @@ fn test_bitvector_bitvec_1_max_2() {
 
 #[test]
 fn test_bitvector_bitvec_1_random() {
-    let mut value =
+    let value =
         <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -147,7 +147,7 @@ fn test_bitvector_bitvec_1_random() {
     let recovered_value: Bitvector<1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -165,7 +165,7 @@ fn test_bitvector_bitvec_1_random_2() {
 
 #[test]
 fn test_bitvector_bitvec_1_zero() {
-    let mut value =
+    let value =
         <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -176,7 +176,7 @@ fn test_bitvector_bitvec_1_zero() {
     let recovered_value: Bitvector<1> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -194,7 +194,7 @@ fn test_bitvector_bitvec_1_zero_2() {
 
 #[test]
 fn test_bitvector_bitvec_2_max() {
-    let mut value =
+    let value =
         <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -205,7 +205,7 @@ fn test_bitvector_bitvec_2_max() {
     let recovered_value: Bitvector<2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0300000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -223,7 +223,7 @@ fn test_bitvector_bitvec_2_max_3() {
 
 #[test]
 fn test_bitvector_bitvec_2_random() {
-    let mut value =
+    let value =
         <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -234,7 +234,7 @@ fn test_bitvector_bitvec_2_random() {
     let recovered_value: Bitvector<2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0300000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -252,7 +252,7 @@ fn test_bitvector_bitvec_2_random_3() {
 
 #[test]
 fn test_bitvector_bitvec_2_zero() {
-    let mut value =
+    let value =
         <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -263,7 +263,7 @@ fn test_bitvector_bitvec_2_zero() {
     let recovered_value: Bitvector<2> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -281,7 +281,7 @@ fn test_bitvector_bitvec_2_zero_3() {
 
 #[test]
 fn test_bitvector_bitvec_31_max() {
-    let mut value = <Bitvector<31> as TryFrom<&[u8]>>::try_from(
+    let value = <Bitvector<31> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([255, 255, 255, 127]).as_ref(),
     )
     .unwrap();
@@ -294,7 +294,7 @@ fn test_bitvector_bitvec_31_max() {
     let recovered_value: Bitvector<31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xffffff7f00000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -302,7 +302,7 @@ fn test_bitvector_bitvec_31_max() {
 
 #[test]
 fn test_bitvector_bitvec_31_random() {
-    let mut value = <Bitvector<31> as TryFrom<&[u8]>>::try_from(
+    let value = <Bitvector<31> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([114, 223, 100, 21]).as_ref(),
     )
     .unwrap();
@@ -315,7 +315,7 @@ fn test_bitvector_bitvec_31_random() {
     let recovered_value: Bitvector<31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x72df641500000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -323,7 +323,7 @@ fn test_bitvector_bitvec_31_random() {
 
 #[test]
 fn test_bitvector_bitvec_31_zero() {
-    let mut value =
+    let value =
         <Bitvector<31> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0, 0, 0, 0]).as_ref())
             .unwrap();
     let encoding = serialize(&value);
@@ -335,7 +335,7 @@ fn test_bitvector_bitvec_31_zero() {
     let recovered_value: Bitvector<31> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -373,7 +373,7 @@ fn test_bitvector_bitvec_32_zero_33() {
 
 #[test]
 fn test_bitvector_bitvec_3_max() {
-    let mut value =
+    let value =
         <Bitvector<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -384,7 +384,7 @@ fn test_bitvector_bitvec_3_max() {
     let recovered_value: Bitvector<3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0700000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -402,7 +402,7 @@ fn test_bitvector_bitvec_3_max_4() {
 
 #[test]
 fn test_bitvector_bitvec_3_random() {
-    let mut value =
+    let value =
         <Bitvector<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -413,7 +413,7 @@ fn test_bitvector_bitvec_3_random() {
     let recovered_value: Bitvector<3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0700000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -431,7 +431,7 @@ fn test_bitvector_bitvec_3_random_4() {
 
 #[test]
 fn test_bitvector_bitvec_3_zero() {
-    let mut value =
+    let value =
         <Bitvector<3> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -442,7 +442,7 @@ fn test_bitvector_bitvec_3_zero() {
     let recovered_value: Bitvector<3> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -460,7 +460,7 @@ fn test_bitvector_bitvec_3_zero_4() {
 
 #[test]
 fn test_bitvector_bitvec_4_max() {
-    let mut value =
+    let value =
         <Bitvector<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -471,7 +471,7 @@ fn test_bitvector_bitvec_4_max() {
     let recovered_value: Bitvector<4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0f00000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -489,7 +489,7 @@ fn test_bitvector_bitvec_4_max_5() {
 
 #[test]
 fn test_bitvector_bitvec_4_random() {
-    let mut value =
+    let value =
         <Bitvector<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([13]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -500,7 +500,7 @@ fn test_bitvector_bitvec_4_random() {
     let recovered_value: Bitvector<4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0d00000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -518,7 +518,7 @@ fn test_bitvector_bitvec_4_random_5() {
 
 #[test]
 fn test_bitvector_bitvec_4_zero() {
-    let mut value =
+    let value =
         <Bitvector<4> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -529,7 +529,7 @@ fn test_bitvector_bitvec_4_zero() {
     let recovered_value: Bitvector<4> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -547,7 +547,7 @@ fn test_bitvector_bitvec_4_zero_5() {
 
 #[test]
 fn test_bitvector_bitvec_512_max() {
-    let mut value = <Bitvector<512> as TryFrom<&[u8]>>::try_from(
+    let value = <Bitvector<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -566,7 +566,7 @@ fn test_bitvector_bitvec_512_max() {
     let recovered_value: Bitvector<512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x8667e718294e9e0df1d30600ba3eeb201f764aad2dad72748643e4a285e1d1f7");
     assert_eq!(root, expected_root);
@@ -584,7 +584,7 @@ fn test_bitvector_bitvec_512_max_513() {
 
 #[test]
 fn test_bitvector_bitvec_512_random() {
-    let mut value = <Bitvector<512> as TryFrom<&[u8]>>::try_from(
+    let value = <Bitvector<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             80, 152, 209, 178, 29, 181, 106, 197, 239, 143, 96, 144, 164, 12, 18, 211, 12, 52, 56,
             123, 68, 155, 79, 101, 99, 209, 248, 11, 40, 23, 218, 4, 52, 27, 132, 94, 218, 129,
@@ -603,7 +603,7 @@ fn test_bitvector_bitvec_512_random() {
     let recovered_value: Bitvector<512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xfbdb71e991457c4fd956e16be1ae1dc959bceaf00f692fec9431de3f0175655a");
     assert_eq!(root, expected_root);
@@ -621,7 +621,7 @@ fn test_bitvector_bitvec_512_random_513() {
 
 #[test]
 fn test_bitvector_bitvec_512_zero() {
-    let mut value = <Bitvector<512> as TryFrom<&[u8]>>::try_from(
+    let value = <Bitvector<512> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -639,7 +639,7 @@ fn test_bitvector_bitvec_512_zero() {
     let recovered_value: Bitvector<512> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xf5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b");
     assert_eq!(root, expected_root);
@@ -657,7 +657,7 @@ fn test_bitvector_bitvec_512_zero_513() {
 
 #[test]
 fn test_bitvector_bitvec_513_max() {
-    let mut value = <Bitvector<513> as TryFrom<&[u8]>>::try_from(
+    let value = <Bitvector<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -676,7 +676,7 @@ fn test_bitvector_bitvec_513_max() {
     let recovered_value: Bitvector<513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x222dd9eebc6467de9788eb1c05ce9c2da8ecc89abdd38810925ce061d91236ef");
     assert_eq!(root, expected_root);
@@ -684,7 +684,7 @@ fn test_bitvector_bitvec_513_max() {
 
 #[test]
 fn test_bitvector_bitvec_513_random() {
-    let mut value = <Bitvector<513> as TryFrom<&[u8]>>::try_from(
+    let value = <Bitvector<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             35, 7, 207, 77, 114, 9, 148, 22, 93, 128, 20, 64, 206, 32, 22, 204, 234, 200, 252, 243,
             1, 27, 216, 80, 138, 122, 252, 100, 16, 87, 153, 189, 121, 111, 50, 2, 193, 3, 227, 15,
@@ -703,7 +703,7 @@ fn test_bitvector_bitvec_513_random() {
     let recovered_value: Bitvector<513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x84f06e5024cc71b8162c3a96f4b743505481722da5a281a6aaa69791b9f79283");
     assert_eq!(root, expected_root);
@@ -711,7 +711,7 @@ fn test_bitvector_bitvec_513_random() {
 
 #[test]
 fn test_bitvector_bitvec_513_zero() {
-    let mut value = <Bitvector<513> as TryFrom<&[u8]>>::try_from(
+    let value = <Bitvector<513> as TryFrom<&[u8]>>::try_from(
         Vec::<u8>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -729,7 +729,7 @@ fn test_bitvector_bitvec_513_zero() {
     let recovered_value: Bitvector<513> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xdb56114e00fdd4c1f85c892bf35ac9a89289aaecb1ebd0a96cde606a748b5d71");
     assert_eq!(root, expected_root);
@@ -737,7 +737,7 @@ fn test_bitvector_bitvec_513_zero() {
 
 #[test]
 fn test_bitvector_bitvec_5_max() {
-    let mut value =
+    let value =
         <Bitvector<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -748,7 +748,7 @@ fn test_bitvector_bitvec_5_max() {
     let recovered_value: Bitvector<5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x1f00000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -766,7 +766,7 @@ fn test_bitvector_bitvec_5_max_6() {
 
 #[test]
 fn test_bitvector_bitvec_5_random() {
-    let mut value =
+    let value =
         <Bitvector<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -777,7 +777,7 @@ fn test_bitvector_bitvec_5_random() {
     let recovered_value: Bitvector<5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0300000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -795,7 +795,7 @@ fn test_bitvector_bitvec_5_random_6() {
 
 #[test]
 fn test_bitvector_bitvec_5_zero() {
-    let mut value =
+    let value =
         <Bitvector<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -806,7 +806,7 @@ fn test_bitvector_bitvec_5_zero() {
     let recovered_value: Bitvector<5> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -824,7 +824,7 @@ fn test_bitvector_bitvec_5_zero_6() {
 
 #[test]
 fn test_bitvector_bitvec_8_max() {
-    let mut value =
+    let value =
         <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([255]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -835,7 +835,7 @@ fn test_bitvector_bitvec_8_max() {
     let recovered_value: Bitvector<8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xff00000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -853,7 +853,7 @@ fn test_bitvector_bitvec_8_max_9() {
 
 #[test]
 fn test_bitvector_bitvec_8_random() {
-    let mut value =
+    let value =
         <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([223]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -864,7 +864,7 @@ fn test_bitvector_bitvec_8_random() {
     let recovered_value: Bitvector<8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xdf00000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -882,7 +882,7 @@ fn test_bitvector_bitvec_8_random_9() {
 
 #[test]
 fn test_bitvector_bitvec_8_zero() {
-    let mut value =
+    let value =
         <Bitvector<8> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap();
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
@@ -893,7 +893,7 @@ fn test_bitvector_bitvec_8_zero() {
     let recovered_value: Bitvector<8> = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);

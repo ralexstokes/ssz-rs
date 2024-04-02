@@ -49,7 +49,7 @@ struct SerializableStruct {
 }
 
 fn main() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 51972,
         b: List::<u16, 128>::try_from(vec![48645]).unwrap(),
         c: 46,

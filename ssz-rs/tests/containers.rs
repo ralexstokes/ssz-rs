@@ -63,7 +63,7 @@ fn test_containers_bits_struct_extra_byte() {
 
 #[test]
 fn test_containers_bits_struct_lengthy_0() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([46]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -80,7 +80,7 @@ fn test_containers_bits_struct_lengthy_0() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x9c6ecf69a7358d02abee9eb030842f538e13cf10d67747887f0e536fe4eb791f");
     assert_eq!(root, expected_root);
@@ -88,7 +88,7 @@ fn test_containers_bits_struct_lengthy_0() {
 
 #[test]
 fn test_containers_bits_struct_lengthy_1() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([63]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -105,7 +105,7 @@ fn test_containers_bits_struct_lengthy_1() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xe60c419e4e47a1b6ef55da0450fdba5b8b6d9e8c8a1ddf913aad21c1faf6bb61");
     assert_eq!(root, expected_root);
@@ -113,7 +113,7 @@ fn test_containers_bits_struct_lengthy_1() {
 
 #[test]
 fn test_containers_bits_struct_lengthy_2() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([60]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -130,7 +130,7 @@ fn test_containers_bits_struct_lengthy_2() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x4a082a227bdfdf5f1b7ebd49d0d4cdf7e8408c789d3fb7c0fe864c76df8e24fc");
     assert_eq!(root, expected_root);
@@ -138,7 +138,7 @@ fn test_containers_bits_struct_lengthy_2() {
 
 #[test]
 fn test_containers_bits_struct_lengthy_3() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([50]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -154,7 +154,7 @@ fn test_containers_bits_struct_lengthy_3() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xd843398a3d7f8a24411eb830f22fac7c9717599712f914de6dac35eaccfdc1a7");
     assert_eq!(root, expected_root);
@@ -162,7 +162,7 @@ fn test_containers_bits_struct_lengthy_3() {
 
 #[test]
 fn test_containers_bits_struct_lengthy_4() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([47]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -178,7 +178,7 @@ fn test_containers_bits_struct_lengthy_4() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xa57212943eb47330d7a46286317233228ea24753830d7f535c9f3539da05c221");
     assert_eq!(root, expected_root);
@@ -186,7 +186,7 @@ fn test_containers_bits_struct_lengthy_4() {
 
 #[test]
 fn test_containers_bits_struct_lengthy_5() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([41]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -203,7 +203,7 @@ fn test_containers_bits_struct_lengthy_5() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x2f71110caf7d5cacae796b3ddeeb74b43390f33c06e1587b794b7872b5e6bbd9");
     assert_eq!(root, expected_root);
@@ -211,7 +211,7 @@ fn test_containers_bits_struct_lengthy_5() {
 
 #[test]
 fn test_containers_bits_struct_lengthy_6() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([52]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -227,7 +227,7 @@ fn test_containers_bits_struct_lengthy_6() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x1d2a640e0bd2c88f0e39fe04acac9ccab6023295f82442fbcb8f437cd5958928");
     assert_eq!(root, expected_root);
@@ -235,7 +235,7 @@ fn test_containers_bits_struct_lengthy_6() {
 
 #[test]
 fn test_containers_bits_struct_lengthy_7() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([53]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -251,7 +251,7 @@ fn test_containers_bits_struct_lengthy_7() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xf1355a89ade8334350d4d958939abf8c912e13680583a94614f6f579fa7cf321");
     assert_eq!(root, expected_root);
@@ -259,7 +259,7 @@ fn test_containers_bits_struct_lengthy_7() {
 
 #[test]
 fn test_containers_bits_struct_lengthy_8() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([36]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -275,7 +275,7 @@ fn test_containers_bits_struct_lengthy_8() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x30c3e66f646c942bdcfcee75ac9df9ff077b4cf42a4e83036eab3f6694c0d9ef");
     assert_eq!(root, expected_root);
@@ -283,7 +283,7 @@ fn test_containers_bits_struct_lengthy_8() {
 
 #[test]
 fn test_containers_bits_struct_lengthy_9() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([61]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -300,7 +300,7 @@ fn test_containers_bits_struct_lengthy_9() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x180723e3b3e1cdc31c4273a035a3c6aa98429a81022a538eb11527500c3eed54");
     assert_eq!(root, expected_root);
@@ -308,7 +308,7 @@ fn test_containers_bits_struct_lengthy_9() {
 
 #[test]
 fn test_containers_bits_struct_lengthy_chaos_0() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([24]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -325,7 +325,7 @@ fn test_containers_bits_struct_lengthy_chaos_0() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xc519405516b452d688b17e71d666d289b3c869240fe80a0777f667079dcdd417");
     assert_eq!(root, expected_root);
@@ -333,7 +333,7 @@ fn test_containers_bits_struct_lengthy_chaos_0() {
 
 #[test]
 fn test_containers_bits_struct_lengthy_chaos_1() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -350,7 +350,7 @@ fn test_containers_bits_struct_lengthy_chaos_1() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x9d428532ee66fb4d06c44d1bbe7e8e7c833de8c5d7d6d21d8d0c4061e2b4fa98");
     assert_eq!(root, expected_root);
@@ -358,7 +358,7 @@ fn test_containers_bits_struct_lengthy_chaos_1() {
 
 #[test]
 fn test_containers_bits_struct_lengthy_chaos_2() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -374,7 +374,7 @@ fn test_containers_bits_struct_lengthy_chaos_2() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x1242c79e7318d2fe4313ee7c803fffeba9c536a176904ec947a6e4ff118c6e7a");
     assert_eq!(root, expected_root);
@@ -462,7 +462,7 @@ fn test_containers_bits_struct_lengthy_offset_6_zeroed() {
 
 #[test]
 fn test_containers_bits_struct_max() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -479,7 +479,7 @@ fn test_containers_bits_struct_max() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x190480a9dff580c6ae64dcf4906a5db90dfd45a2ad0baed4ad53995d1951fc81");
     assert_eq!(root, expected_root);
@@ -487,7 +487,7 @@ fn test_containers_bits_struct_max() {
 
 #[test]
 fn test_containers_bits_struct_max_0() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -504,7 +504,7 @@ fn test_containers_bits_struct_max_0() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xeae3e4f6352cba6d4f3177ba2b84c3a8a64cc32cd4ab95a3f9c803da92d10c73");
     assert_eq!(root, expected_root);
@@ -512,7 +512,7 @@ fn test_containers_bits_struct_max_0() {
 
 #[test]
 fn test_containers_bits_struct_max_1() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([63]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -529,7 +529,7 @@ fn test_containers_bits_struct_max_1() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x8b80e46316a0153807d81741e170b9b2c1c33a42ed143a5bd3fca75e248f8382");
     assert_eq!(root, expected_root);
@@ -537,7 +537,7 @@ fn test_containers_bits_struct_max_1() {
 
 #[test]
 fn test_containers_bits_struct_max_2() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -554,7 +554,7 @@ fn test_containers_bits_struct_max_2() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x190480a9dff580c6ae64dcf4906a5db90dfd45a2ad0baed4ad53995d1951fc81");
     assert_eq!(root, expected_root);
@@ -562,7 +562,7 @@ fn test_containers_bits_struct_max_2() {
 
 #[test]
 fn test_containers_bits_struct_max_3() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([15]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -579,7 +579,7 @@ fn test_containers_bits_struct_max_3() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x662a52b056d31844fe9a143bc7bf82f6c52d7cc9d6b9d9736c2e0d7c9a4b65f3");
     assert_eq!(root, expected_root);
@@ -587,7 +587,7 @@ fn test_containers_bits_struct_max_3() {
 
 #[test]
 fn test_containers_bits_struct_max_4() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -604,7 +604,7 @@ fn test_containers_bits_struct_max_4() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x9b86a73b16c1aabe418cf266c4ba7160bdd39881fa3f36196c0b8fd21c689236");
     assert_eq!(root, expected_root);
@@ -612,7 +612,7 @@ fn test_containers_bits_struct_max_4() {
 
 #[test]
 fn test_containers_bits_struct_max_5() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -629,7 +629,7 @@ fn test_containers_bits_struct_max_5() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xd075a5e28fe1a7cec77ef949d5cee0e5a49ce1f7ff024141635f9a057abb22b9");
     assert_eq!(root, expected_root);
@@ -637,7 +637,7 @@ fn test_containers_bits_struct_max_5() {
 
 #[test]
 fn test_containers_bits_struct_max_6() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -654,7 +654,7 @@ fn test_containers_bits_struct_max_6() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x190480a9dff580c6ae64dcf4906a5db90dfd45a2ad0baed4ad53995d1951fc81");
     assert_eq!(root, expected_root);
@@ -662,7 +662,7 @@ fn test_containers_bits_struct_max_6() {
 
 #[test]
 fn test_containers_bits_struct_max_7() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -679,7 +679,7 @@ fn test_containers_bits_struct_max_7() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x66f206fba60009ff2bcadce0380055d893d4eb154f13bbce8a1e88618ad17f7c");
     assert_eq!(root, expected_root);
@@ -687,7 +687,7 @@ fn test_containers_bits_struct_max_7() {
 
 #[test]
 fn test_containers_bits_struct_max_8() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([7]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -704,7 +704,7 @@ fn test_containers_bits_struct_max_8() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xad8ac96de2066eef5bcb859e32dbf4120dff7d64efd015629878c805d7d38a01");
     assert_eq!(root, expected_root);
@@ -712,7 +712,7 @@ fn test_containers_bits_struct_max_8() {
 
 #[test]
 fn test_containers_bits_struct_max_9() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([31]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -729,7 +729,7 @@ fn test_containers_bits_struct_max_9() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x40a1610ef58a700508f807372f97fe4f218b495f1b2dac7eb7e3473c08e12e8a");
     assert_eq!(root, expected_root);
@@ -737,7 +737,7 @@ fn test_containers_bits_struct_max_9() {
 
 #[test]
 fn test_containers_bits_struct_max_chaos_0() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([35]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -753,7 +753,7 @@ fn test_containers_bits_struct_max_chaos_0() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x4f2f961dd57ecda6054514babf40477a40ff8a1fa93181300d2c423202ed8c9c");
     assert_eq!(root, expected_root);
@@ -761,7 +761,7 @@ fn test_containers_bits_struct_max_chaos_0() {
 
 #[test]
 fn test_containers_bits_struct_max_chaos_1() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -777,7 +777,7 @@ fn test_containers_bits_struct_max_chaos_1() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x284a24c22e1267eaceb9a5ccc4a33b62be2214d29e4bcf51bb1ce3b814543751");
     assert_eq!(root, expected_root);
@@ -785,7 +785,7 @@ fn test_containers_bits_struct_max_chaos_1() {
 
 #[test]
 fn test_containers_bits_struct_max_chaos_2() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -801,7 +801,7 @@ fn test_containers_bits_struct_max_chaos_2() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x44c854217e658de6aadd600dd1d35b161c957258b52f1a714ab484899752ce17");
     assert_eq!(root, expected_root);
@@ -809,7 +809,7 @@ fn test_containers_bits_struct_max_chaos_2() {
 
 #[test]
 fn test_containers_bits_struct_nil_0() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -826,7 +826,7 @@ fn test_containers_bits_struct_nil_0() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x02cae738e3dc8b57f344ada4f509f2945e8264c80c3438eadaf7c02535f9e5ef");
     assert_eq!(root, expected_root);
@@ -834,7 +834,7 @@ fn test_containers_bits_struct_nil_0() {
 
 #[test]
 fn test_containers_bits_struct_nil_1() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -850,7 +850,7 @@ fn test_containers_bits_struct_nil_1() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xe82bc1a89606f63c4bdacbe443e271857c6d30b872266f9b27684779d96dae87");
     assert_eq!(root, expected_root);
@@ -858,7 +858,7 @@ fn test_containers_bits_struct_nil_1() {
 
 #[test]
 fn test_containers_bits_struct_nil_2() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -874,7 +874,7 @@ fn test_containers_bits_struct_nil_2() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xa980a92d284073c940c314a2e9e2c5ccbd4c38185095c01b625ddd74985b5100");
     assert_eq!(root, expected_root);
@@ -882,7 +882,7 @@ fn test_containers_bits_struct_nil_2() {
 
 #[test]
 fn test_containers_bits_struct_nil_3() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -898,7 +898,7 @@ fn test_containers_bits_struct_nil_3() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x26d7bf2aa63ea0083ab583c594d124e800fc6f2bddf60e421e8b19e9cce812c8");
     assert_eq!(root, expected_root);
@@ -906,7 +906,7 @@ fn test_containers_bits_struct_nil_3() {
 
 #[test]
 fn test_containers_bits_struct_nil_4() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -923,7 +923,7 @@ fn test_containers_bits_struct_nil_4() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0ba55be71b0c8aa27881aa7d980e2b48d14d613ee44de539507f146f7c6e0dd8");
     assert_eq!(root, expected_root);
@@ -931,7 +931,7 @@ fn test_containers_bits_struct_nil_4() {
 
 #[test]
 fn test_containers_bits_struct_nil_5() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -948,7 +948,7 @@ fn test_containers_bits_struct_nil_5() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xbe88737ecc160104b6d2b57424aeadc47a65e5fa0bb5bf78ddf4c2cf3430e1ac");
     assert_eq!(root, expected_root);
@@ -956,7 +956,7 @@ fn test_containers_bits_struct_nil_5() {
 
 #[test]
 fn test_containers_bits_struct_nil_6() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -972,7 +972,7 @@ fn test_containers_bits_struct_nil_6() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xbdbeec5011cc40b1917d0c7954acc5001525b78f91eccfddd9a25bda277301e8");
     assert_eq!(root, expected_root);
@@ -980,7 +980,7 @@ fn test_containers_bits_struct_nil_6() {
 
 #[test]
 fn test_containers_bits_struct_nil_7() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -997,7 +997,7 @@ fn test_containers_bits_struct_nil_7() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x2b87f84bf6446b279917684baa83c80f4fa8d689f62e145be8d712015a18a2d5");
     assert_eq!(root, expected_root);
@@ -1005,7 +1005,7 @@ fn test_containers_bits_struct_nil_7() {
 
 #[test]
 fn test_containers_bits_struct_nil_8() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -1022,7 +1022,7 @@ fn test_containers_bits_struct_nil_8() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xc1299667d3f14c145f16a59725a14f80ccec9a83e337111e3610778964134490");
     assert_eq!(root, expected_root);
@@ -1030,7 +1030,7 @@ fn test_containers_bits_struct_nil_8() {
 
 #[test]
 fn test_containers_bits_struct_nil_9() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -1047,7 +1047,7 @@ fn test_containers_bits_struct_nil_9() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x6ac1452c1f8cd1182acd576a5d19d6eb4dc2004f4bde3c6571876be6a0227702");
     assert_eq!(root, expected_root);
@@ -1055,7 +1055,7 @@ fn test_containers_bits_struct_nil_9() {
 
 #[test]
 fn test_containers_bits_struct_nil_chaos_0() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -1071,7 +1071,7 @@ fn test_containers_bits_struct_nil_chaos_0() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x60a456ab306a8e0f64432852dfc84c3dad3bd89cd7bbd579eab99cea81741f30");
     assert_eq!(root, expected_root);
@@ -1079,7 +1079,7 @@ fn test_containers_bits_struct_nil_chaos_0() {
 
 #[test]
 fn test_containers_bits_struct_nil_chaos_1() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -1095,7 +1095,7 @@ fn test_containers_bits_struct_nil_chaos_1() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x9d19b565eb266738667e6a8da2f208b1c7134a5b7c0567b667082a7590e9021a");
     assert_eq!(root, expected_root);
@@ -1103,7 +1103,7 @@ fn test_containers_bits_struct_nil_chaos_1() {
 
 #[test]
 fn test_containers_bits_struct_nil_chaos_2() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([41]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -1119,7 +1119,7 @@ fn test_containers_bits_struct_nil_chaos_2() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x1e26e04116dd161c893ae1113250ca48a28e7a022f55d52d1602ee435600e601");
     assert_eq!(root, expected_root);
@@ -1187,7 +1187,7 @@ fn test_containers_bits_struct_nil_offset_6_zeroed() {
 
 #[test]
 fn test_containers_bits_struct_one_0() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -1204,7 +1204,7 @@ fn test_containers_bits_struct_one_0() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x7fd438e3ac2c6ad689ef88c4438fea7d4ed8ea53ae0a245c57a8b52369959654");
     assert_eq!(root, expected_root);
@@ -1212,7 +1212,7 @@ fn test_containers_bits_struct_one_0() {
 
 #[test]
 fn test_containers_bits_struct_one_1() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -1229,7 +1229,7 @@ fn test_containers_bits_struct_one_1() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xce39647d9029abdc453ad6d6b247495fc23e5e82013ba821b120dabfab8fb537");
     assert_eq!(root, expected_root);
@@ -1237,7 +1237,7 @@ fn test_containers_bits_struct_one_1() {
 
 #[test]
 fn test_containers_bits_struct_one_2() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -1253,7 +1253,7 @@ fn test_containers_bits_struct_one_2() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x097a90072bcf49d920b02bcab4e1da31a077dcbee8bfce2966d7840c3022f838");
     assert_eq!(root, expected_root);
@@ -1261,7 +1261,7 @@ fn test_containers_bits_struct_one_2() {
 
 #[test]
 fn test_containers_bits_struct_one_3() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -1277,7 +1277,7 @@ fn test_containers_bits_struct_one_3() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x4d33c9a02ae2fa2d66880c086862b88e4300727de2ab8860e5599de3a7653c64");
     assert_eq!(root, expected_root);
@@ -1285,7 +1285,7 @@ fn test_containers_bits_struct_one_3() {
 
 #[test]
 fn test_containers_bits_struct_one_4() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -1302,7 +1302,7 @@ fn test_containers_bits_struct_one_4() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x3d2f26de96c8814d47d80494bad8a04cb958198a1a10950f19e2324d29e3a037");
     assert_eq!(root, expected_root);
@@ -1310,7 +1310,7 @@ fn test_containers_bits_struct_one_4() {
 
 #[test]
 fn test_containers_bits_struct_one_5() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -1327,7 +1327,7 @@ fn test_containers_bits_struct_one_5() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x02289430e9b794b65c6e1ac184209135a3ccb6c3b5e8b4fd2c3064fae138667d");
     assert_eq!(root, expected_root);
@@ -1335,7 +1335,7 @@ fn test_containers_bits_struct_one_5() {
 
 #[test]
 fn test_containers_bits_struct_one_6() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -1351,7 +1351,7 @@ fn test_containers_bits_struct_one_6() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x226c12e28fc1b8a77c3b19cf64436d3312a4437301fe83783b8be1840c1e8653");
     assert_eq!(root, expected_root);
@@ -1359,7 +1359,7 @@ fn test_containers_bits_struct_one_6() {
 
 #[test]
 fn test_containers_bits_struct_one_7() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -1376,7 +1376,7 @@ fn test_containers_bits_struct_one_7() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x6f276c9d37fdb7089835b85c261c14d75b198c06c2eb819dd71643f4589f7d18");
     assert_eq!(root, expected_root);
@@ -1384,7 +1384,7 @@ fn test_containers_bits_struct_one_7() {
 
 #[test]
 fn test_containers_bits_struct_one_8() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -1401,7 +1401,7 @@ fn test_containers_bits_struct_one_8() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x74f7aac312d88b6652023e15626bfd39184bd672f1fa3d79884b6decc800fb4d");
     assert_eq!(root, expected_root);
@@ -1409,7 +1409,7 @@ fn test_containers_bits_struct_one_8() {
 
 #[test]
 fn test_containers_bits_struct_one_9() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -1425,7 +1425,7 @@ fn test_containers_bits_struct_one_9() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x7cab55ba2fd53be0f8a4f8c4251b7c0a5ef803d7823412898d665823abfbc306");
     assert_eq!(root, expected_root);
@@ -1433,7 +1433,7 @@ fn test_containers_bits_struct_one_9() {
 
 #[test]
 fn test_containers_bits_struct_one_chaos_0() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -1450,7 +1450,7 @@ fn test_containers_bits_struct_one_chaos_0() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xff3ba06886f4ad196c05211f6e949d9308d3c6db2387b26d43ca0e8c5e9046b1");
     assert_eq!(root, expected_root);
@@ -1458,7 +1458,7 @@ fn test_containers_bits_struct_one_chaos_0() {
 
 #[test]
 fn test_containers_bits_struct_one_chaos_1() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([42]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -1475,7 +1475,7 @@ fn test_containers_bits_struct_one_chaos_1() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x10f2e40368c4ddd6e2bbfc642ba10f92d87e1e163b5c3c6cecc6f4f2fce4af11");
     assert_eq!(root, expected_root);
@@ -1483,7 +1483,7 @@ fn test_containers_bits_struct_one_chaos_1() {
 
 #[test]
 fn test_containers_bits_struct_one_chaos_2() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -1500,7 +1500,7 @@ fn test_containers_bits_struct_one_chaos_2() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x643306351ddbcaa2e885e08cc0a794491f5a7802d4ed29026b508d0446ded10a");
     assert_eq!(root, expected_root);
@@ -1592,7 +1592,7 @@ fn test_containers_bits_struct_one_offset_6_zeroed() {
 
 #[test]
 fn test_containers_bits_struct_random_0() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -1609,7 +1609,7 @@ fn test_containers_bits_struct_random_0() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x3d6d0bb8bf83015e09b309485d2e76fab9218bbf6c3a9e7c69cfe542ad1dc763");
     assert_eq!(root, expected_root);
@@ -1617,7 +1617,7 @@ fn test_containers_bits_struct_random_0() {
 
 #[test]
 fn test_containers_bits_struct_random_1() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([42]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -1634,7 +1634,7 @@ fn test_containers_bits_struct_random_1() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x15d9164c4e094b4403feb31122f3b66b7ca7822e4df67f26def12cc8215eb841");
     assert_eq!(root, expected_root);
@@ -1642,7 +1642,7 @@ fn test_containers_bits_struct_random_1() {
 
 #[test]
 fn test_containers_bits_struct_random_2() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([11]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -1659,7 +1659,7 @@ fn test_containers_bits_struct_random_2() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xecba0d802886089cf592e9fc1618eba10423632ccb4ee47861ef967a46cb0128");
     assert_eq!(root, expected_root);
@@ -1667,7 +1667,7 @@ fn test_containers_bits_struct_random_2() {
 
 #[test]
 fn test_containers_bits_struct_random_3() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([27]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -1684,7 +1684,7 @@ fn test_containers_bits_struct_random_3() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x51edea0f4034e4367f17128b2ca93ce6d640ca7d0cbd5441115e0a88f3570286");
     assert_eq!(root, expected_root);
@@ -1692,7 +1692,7 @@ fn test_containers_bits_struct_random_3() {
 
 #[test]
 fn test_containers_bits_struct_random_4() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([27]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -1709,7 +1709,7 @@ fn test_containers_bits_struct_random_4() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x755039126524a09294e1127ef05e4d63ef1d24b08697ef1b8492264b397c23ca");
     assert_eq!(root, expected_root);
@@ -1717,7 +1717,7 @@ fn test_containers_bits_struct_random_4() {
 
 #[test]
 fn test_containers_bits_struct_random_5() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -1734,7 +1734,7 @@ fn test_containers_bits_struct_random_5() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x3febb22617b99d80ea55324e92473257af007edd898977edbaf18b292e9883ab");
     assert_eq!(root, expected_root);
@@ -1742,7 +1742,7 @@ fn test_containers_bits_struct_random_5() {
 
 #[test]
 fn test_containers_bits_struct_random_6() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([14]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -1759,7 +1759,7 @@ fn test_containers_bits_struct_random_6() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x56a559c34fc3c84452dfa273cbf2e6e59d07475374a37caeee6a33e5172842b0");
     assert_eq!(root, expected_root);
@@ -1767,7 +1767,7 @@ fn test_containers_bits_struct_random_6() {
 
 #[test]
 fn test_containers_bits_struct_random_7() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -1783,7 +1783,7 @@ fn test_containers_bits_struct_random_7() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x13ec3bf0b472b0e516f29b26ea2cd1b2df5339f4523b13aa382467a227ce9630");
     assert_eq!(root, expected_root);
@@ -1791,7 +1791,7 @@ fn test_containers_bits_struct_random_7() {
 
 #[test]
 fn test_containers_bits_struct_random_8() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([59]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -1808,7 +1808,7 @@ fn test_containers_bits_struct_random_8() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x7cac78985bce1d521c85c04de9131c25c520f41e4e8199a1d29531f8e1770049");
     assert_eq!(root, expected_root);
@@ -1816,7 +1816,7 @@ fn test_containers_bits_struct_random_8() {
 
 #[test]
 fn test_containers_bits_struct_random_9() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -1832,7 +1832,7 @@ fn test_containers_bits_struct_random_9() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x79724705ac18d0920f81f87f6f727d38ce5c83253a5391151efba7664f6a5695");
     assert_eq!(root, expected_root);
@@ -1840,7 +1840,7 @@ fn test_containers_bits_struct_random_9() {
 
 #[test]
 fn test_containers_bits_struct_random_chaos_0() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([11]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -1857,7 +1857,7 @@ fn test_containers_bits_struct_random_chaos_0() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x95854efa0f0935a1a80eefdd467742fd57bcba65b702cafe6ae1486054da4577");
     assert_eq!(root, expected_root);
@@ -1865,7 +1865,7 @@ fn test_containers_bits_struct_random_chaos_0() {
 
 #[test]
 fn test_containers_bits_struct_random_chaos_1() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([9]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -1882,7 +1882,7 @@ fn test_containers_bits_struct_random_chaos_1() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x62a43ebc4181c5be74e81c7d524e8d0a73c0c824b997c1788cdeb0d502b6a56e");
     assert_eq!(root, expected_root);
@@ -1890,7 +1890,7 @@ fn test_containers_bits_struct_random_chaos_1() {
 
 #[test]
 fn test_containers_bits_struct_random_chaos_2() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([61]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -1907,7 +1907,7 @@ fn test_containers_bits_struct_random_chaos_2() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x9b213c958d8c67fbee3c40ce85f14eb32efbe45919b9374844a878cd37ddc531");
     assert_eq!(root, expected_root);
@@ -1971,7 +1971,7 @@ fn test_containers_bits_struct_random_offset_6_zeroed() {
 
 #[test]
 fn test_containers_bits_struct_zero() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -1987,7 +1987,7 @@ fn test_containers_bits_struct_zero() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x434f7fd5c6afb75027d4220d1638330a7db1e338e3926862797e2b3dc06df758");
     assert_eq!(root, expected_root);
@@ -1995,7 +1995,7 @@ fn test_containers_bits_struct_zero() {
 
 #[test]
 fn test_containers_bits_struct_zero_0() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([2]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -2011,7 +2011,7 @@ fn test_containers_bits_struct_zero_0() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xde86acdbf24592cddb2b2c46ae0a7a8df2500ff298ebb7991d3ba9b1004aa3a7");
     assert_eq!(root, expected_root);
@@ -2019,7 +2019,7 @@ fn test_containers_bits_struct_zero_0() {
 
 #[test]
 fn test_containers_bits_struct_zero_1() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -2035,7 +2035,7 @@ fn test_containers_bits_struct_zero_1() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x23ef8cd72a9fc4008bd066d5ff490fa88b67da044916c18c08f2a932c974f981");
     assert_eq!(root, expected_root);
@@ -2043,7 +2043,7 @@ fn test_containers_bits_struct_zero_1() {
 
 #[test]
 fn test_containers_bits_struct_zero_2() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -2059,7 +2059,7 @@ fn test_containers_bits_struct_zero_2() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x23ef8cd72a9fc4008bd066d5ff490fa88b67da044916c18c08f2a932c974f981");
     assert_eq!(root, expected_root);
@@ -2067,7 +2067,7 @@ fn test_containers_bits_struct_zero_2() {
 
 #[test]
 fn test_containers_bits_struct_zero_3() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -2083,7 +2083,7 @@ fn test_containers_bits_struct_zero_3() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xa08e590982dffd5e3b7a9410c9d86d152cfb2d342bd00eec228aab3e3c5ef64b");
     assert_eq!(root, expected_root);
@@ -2091,7 +2091,7 @@ fn test_containers_bits_struct_zero_3() {
 
 #[test]
 fn test_containers_bits_struct_zero_4() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([32]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -2107,7 +2107,7 @@ fn test_containers_bits_struct_zero_4() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x9e0668c44cbaefb38cebe11f091d66fa6b78c970bbefe5b1e9d6412adae30179");
     assert_eq!(root, expected_root);
@@ -2115,7 +2115,7 @@ fn test_containers_bits_struct_zero_4() {
 
 #[test]
 fn test_containers_bits_struct_zero_5() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([16]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -2131,7 +2131,7 @@ fn test_containers_bits_struct_zero_5() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x7aa68d25017352ef95142af2bb269ce805269676da6111d74887aa9cdcb072a4");
     assert_eq!(root, expected_root);
@@ -2139,7 +2139,7 @@ fn test_containers_bits_struct_zero_5() {
 
 #[test]
 fn test_containers_bits_struct_zero_6() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([32]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -2155,7 +2155,7 @@ fn test_containers_bits_struct_zero_6() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xe7767ef6cf38ec10994866c9dbfc2263fdbae71ab5b70728fbe184f7714511bd");
     assert_eq!(root, expected_root);
@@ -2163,7 +2163,7 @@ fn test_containers_bits_struct_zero_6() {
 
 #[test]
 fn test_containers_bits_struct_zero_7() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([32]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -2179,7 +2179,7 @@ fn test_containers_bits_struct_zero_7() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x9e0668c44cbaefb38cebe11f091d66fa6b78c970bbefe5b1e9d6412adae30179");
     assert_eq!(root, expected_root);
@@ -2187,7 +2187,7 @@ fn test_containers_bits_struct_zero_7() {
 
 #[test]
 fn test_containers_bits_struct_zero_8() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([8]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -2203,7 +2203,7 @@ fn test_containers_bits_struct_zero_8() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x7ae92ab3514825eced5b012a3506efa5034df961f432552a898b3f13cad1d064");
     assert_eq!(root, expected_root);
@@ -2211,7 +2211,7 @@ fn test_containers_bits_struct_zero_8() {
 
 #[test]
 fn test_containers_bits_struct_zero_9() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([4]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([0]).as_ref()).unwrap(),
@@ -2227,7 +2227,7 @@ fn test_containers_bits_struct_zero_9() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xa7c8f2f9944d28e0554028670f6c36c9887e8d3bcbe583e1fbef3c5ca2071f34");
     assert_eq!(root, expected_root);
@@ -2235,7 +2235,7 @@ fn test_containers_bits_struct_zero_9() {
 
 #[test]
 fn test_containers_bits_struct_zero_chaos_0() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -2251,7 +2251,7 @@ fn test_containers_bits_struct_zero_chaos_0() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xb1eb7e2c64e6ce5bc27ee4f1a03ed21dcc80eff8981e3397dd81316778cec97c");
     assert_eq!(root, expected_root);
@@ -2259,7 +2259,7 @@ fn test_containers_bits_struct_zero_chaos_0() {
 
 #[test]
 fn test_containers_bits_struct_zero_chaos_1() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -2276,7 +2276,7 @@ fn test_containers_bits_struct_zero_chaos_1() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xdbec2b84815a9559d7a268df030674d92da93d7ba62d356542f09f721b928a97");
     assert_eq!(root, expected_root);
@@ -2284,7 +2284,7 @@ fn test_containers_bits_struct_zero_chaos_1() {
 
 #[test]
 fn test_containers_bits_struct_zero_chaos_2() {
-    let mut value = BitsStruct {
+    let value = BitsStruct {
         a: <Bitlist<5> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
         b: <Bitvector<2> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([3]).as_ref()).unwrap(),
         c: <Bitvector<1> as TryFrom<&[u8]>>::try_from(Vec::<u8>::from_iter([1]).as_ref()).unwrap(),
@@ -2301,7 +2301,7 @@ fn test_containers_bits_struct_zero_chaos_2() {
     let recovered_value: BitsStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xf523978784972b9399337193a286299df5ef1559f4d336b4d1859331cc1fa99b");
     assert_eq!(root, expected_root);
@@ -2319,7 +2319,7 @@ fn test_containers_complex_test_struct_extra_byte() {
 
 #[test]
 fn test_containers_complex_test_struct_lengthy_0() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 5717,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             235, 64949, 43916, 37422, 6559, 2732, 61895, 2418, 64448, 36828, 54582, 10602, 58840,
@@ -2664,7 +2664,7 @@ fn test_containers_complex_test_struct_lengthy_0() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x409c14e61e36bf8db6c0a273f5fca52280863df38f70c876ba562c01533cba17");
     assert_eq!(root, expected_root);
@@ -2672,7 +2672,7 @@ fn test_containers_complex_test_struct_lengthy_0() {
 
 #[test]
 fn test_containers_complex_test_struct_lengthy_1() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 55607,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             62505, 41292, 62622, 63875, 25101, 7094, 43058, 29347, 7897, 45444, 63411, 49477,
@@ -3017,7 +3017,7 @@ fn test_containers_complex_test_struct_lengthy_1() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xa4207e21d4f48b20a17aae0219bd46da1eb9b13485685656fe109d55cd369ac8");
     assert_eq!(root, expected_root);
@@ -3025,7 +3025,7 @@ fn test_containers_complex_test_struct_lengthy_1() {
 
 #[test]
 fn test_containers_complex_test_struct_lengthy_2() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 32608,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             55350, 21656, 57724, 51795, 3930, 4048, 47282, 29956, 20641, 44773, 60183, 30145,
@@ -3371,7 +3371,7 @@ fn test_containers_complex_test_struct_lengthy_2() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xf41cc77c30f0cd5add63388b749139c9df6fcb8ff2806512e79d98466ba1fa41");
     assert_eq!(root, expected_root);
@@ -3379,7 +3379,7 @@ fn test_containers_complex_test_struct_lengthy_2() {
 
 #[test]
 fn test_containers_complex_test_struct_lengthy_3() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 22118,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             34158, 709, 41595, 32315, 36989, 37132, 49334, 7713, 10602, 52865, 45676, 59352, 54292,
@@ -3724,7 +3724,7 @@ fn test_containers_complex_test_struct_lengthy_3() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x31fc8b3bb311ac99f398eb8b474bd4ddc903588f3c654bba01758d752bcbacad");
     assert_eq!(root, expected_root);
@@ -3732,7 +3732,7 @@ fn test_containers_complex_test_struct_lengthy_3() {
 
 #[test]
 fn test_containers_complex_test_struct_lengthy_4() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 53065,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             8619, 43550, 7933, 30929, 42442, 12522, 32152, 1808, 32026, 6854, 46390, 64625, 65295,
@@ -4078,7 +4078,7 @@ fn test_containers_complex_test_struct_lengthy_4() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x3ad83cce6644031d6c4b7a69eea5a1cd13e8912a746e706a02ef08843dc043ee");
     assert_eq!(root, expected_root);
@@ -4086,7 +4086,7 @@ fn test_containers_complex_test_struct_lengthy_4() {
 
 #[test]
 fn test_containers_complex_test_struct_lengthy_5() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 18122,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             20954, 38379, 3749, 18564, 6778, 35025, 27343, 44320, 35889, 56845, 60482, 53328,
@@ -4433,7 +4433,7 @@ fn test_containers_complex_test_struct_lengthy_5() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0b01c7ef4ea7cfde110e2926c6bcde2dc49be76c35702768fc6328265296577d");
     assert_eq!(root, expected_root);
@@ -4441,7 +4441,7 @@ fn test_containers_complex_test_struct_lengthy_5() {
 
 #[test]
 fn test_containers_complex_test_struct_lengthy_6() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 61904,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             48367, 44269, 5739, 44814, 9723, 33067, 30071, 58706, 9435, 23016, 21381, 43658, 53430,
@@ -4786,7 +4786,7 @@ fn test_containers_complex_test_struct_lengthy_6() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x87a78833e8bbf97b366cec1dfdea6afe7db2f45ddbebe89e530a61ee30916317");
     assert_eq!(root, expected_root);
@@ -4794,7 +4794,7 @@ fn test_containers_complex_test_struct_lengthy_6() {
 
 #[test]
 fn test_containers_complex_test_struct_lengthy_7() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 7107,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             28503, 63450, 61337, 26522, 10224, 44515, 40100, 46378, 44123, 49466, 14003, 27129,
@@ -5140,7 +5140,7 @@ fn test_containers_complex_test_struct_lengthy_7() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x1e7461b40d33feff5e512edc9beed8bf33a7a5594423c131897f12e0e5ec37d2");
     assert_eq!(root, expected_root);
@@ -5148,7 +5148,7 @@ fn test_containers_complex_test_struct_lengthy_7() {
 
 #[test]
 fn test_containers_complex_test_struct_lengthy_8() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 22011,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             7085, 55600, 36311, 62044, 16166, 44872, 42545, 27688, 20688, 59144, 7216, 58148,
@@ -5495,7 +5495,7 @@ fn test_containers_complex_test_struct_lengthy_8() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x5a922b2dc965a5c310302bb0706dccd63445e59234cdc203412fcd48517c5567");
     assert_eq!(root, expected_root);
@@ -5503,7 +5503,7 @@ fn test_containers_complex_test_struct_lengthy_8() {
 
 #[test]
 fn test_containers_complex_test_struct_lengthy_9() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 56435,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             3952, 290, 251, 58961, 30325, 51905, 50433, 13351, 17042, 42136, 54586, 6638, 17986,
@@ -5848,7 +5848,7 @@ fn test_containers_complex_test_struct_lengthy_9() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x18714348fd9390ada358e4a2c28b5c5f89e697a7e3d1e72945c8a5d51a63eddb");
     assert_eq!(root, expected_root);
@@ -5856,7 +5856,7 @@ fn test_containers_complex_test_struct_lengthy_9() {
 
 #[test]
 fn test_containers_complex_test_struct_lengthy_chaos_0() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 0,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 22202, 27857, 0, 42502, 17093, 55470, 38783, 0, 20844, 61541, 24724, 65535, 26906,
@@ -6112,7 +6112,7 @@ fn test_containers_complex_test_struct_lengthy_chaos_0() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xe44dd00cd673ec9a1ac4c4c809b2dc4a709e6c606045d3098bb6b6daff757086");
     assert_eq!(root, expected_root);
@@ -6120,7 +6120,7 @@ fn test_containers_complex_test_struct_lengthy_chaos_0() {
 
 #[test]
 fn test_containers_complex_test_struct_lengthy_chaos_1() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 23928,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             29889, 65535, 6919, 17783, 48165, 15126, 7391, 38239, 63793, 21029, 0, 12957, 0, 65535,
@@ -6258,7 +6258,7 @@ fn test_containers_complex_test_struct_lengthy_chaos_1() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xf55c38f28e2305a905c22ee6a1bc0001216ec753835851e48b8f4adf0607ff2a");
     assert_eq!(root, expected_root);
@@ -6266,7 +6266,7 @@ fn test_containers_complex_test_struct_lengthy_chaos_1() {
 
 #[test]
 fn test_containers_complex_test_struct_lengthy_chaos_2() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 0,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             64091, 22003, 13074, 45519, 65535, 52650, 31421, 12635, 9020, 17970, 32335, 29377,
@@ -6373,7 +6373,7 @@ fn test_containers_complex_test_struct_lengthy_chaos_2() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x2188f5a9533d6ac453782f96a17aa100bcd8847755b95fc6a1cff5313b696357");
     assert_eq!(root, expected_root);
@@ -6461,7 +6461,7 @@ fn test_containers_complex_test_struct_lengthy_offset_7_zeroed() {
 
 #[test]
 fn test_containers_complex_test_struct_max() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 65535,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -6560,7 +6560,7 @@ fn test_containers_complex_test_struct_max() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x88848f1694182d82948d7d61dd420638ced418fbd7b0d599a5006133e5f275e6");
     assert_eq!(root, expected_root);
@@ -6568,7 +6568,7 @@ fn test_containers_complex_test_struct_max() {
 
 #[test]
 fn test_containers_complex_test_struct_max_0() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 65535,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -6782,7 +6782,7 @@ fn test_containers_complex_test_struct_max_0() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x49523d3cfe6d9486ae984e3ed16997da67d623cb9d91a7ddf79474273557c278");
     assert_eq!(root, expected_root);
@@ -6790,7 +6790,7 @@ fn test_containers_complex_test_struct_max_0() {
 
 #[test]
 fn test_containers_complex_test_struct_max_1() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 65535,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -6936,7 +6936,7 @@ fn test_containers_complex_test_struct_max_1() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x851e0a459531f06bce0ae644ff2beec71f59bde9272bb0608d3d81e4be6c7b79");
     assert_eq!(root, expected_root);
@@ -6944,7 +6944,7 @@ fn test_containers_complex_test_struct_max_1() {
 
 #[test]
 fn test_containers_complex_test_struct_max_2() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 65535,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -7078,7 +7078,7 @@ fn test_containers_complex_test_struct_max_2() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x89ef01b048542f12299fc4c7c1ca891c52d451e65e1cecb6eea027d0879a437b");
     assert_eq!(root, expected_root);
@@ -7086,7 +7086,7 @@ fn test_containers_complex_test_struct_max_2() {
 
 #[test]
 fn test_containers_complex_test_struct_max_3() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 65535,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -7235,7 +7235,7 @@ fn test_containers_complex_test_struct_max_3() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x895ae3955634ee47df5502b910cc7eb4ce1638e8b6ed2d394f3d102ad15f7fbc");
     assert_eq!(root, expected_root);
@@ -7243,7 +7243,7 @@ fn test_containers_complex_test_struct_max_3() {
 
 #[test]
 fn test_containers_complex_test_struct_max_4() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 65535,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -7339,7 +7339,7 @@ fn test_containers_complex_test_struct_max_4() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x2764a7c55d05740396bcaa0aaad1c79ee51e6e0f00d857c6ef00adbc925359eb");
     assert_eq!(root, expected_root);
@@ -7347,7 +7347,7 @@ fn test_containers_complex_test_struct_max_4() {
 
 #[test]
 fn test_containers_complex_test_struct_max_5() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 65535,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -7582,7 +7582,7 @@ fn test_containers_complex_test_struct_max_5() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xcb22d4bcd66eee249a2fa9880a5014688bffb619d1a1d0cece0958fdc6ef67a0");
     assert_eq!(root, expected_root);
@@ -7590,7 +7590,7 @@ fn test_containers_complex_test_struct_max_5() {
 
 #[test]
 fn test_containers_complex_test_struct_max_6() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 65535,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -7770,7 +7770,7 @@ fn test_containers_complex_test_struct_max_6() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x98176543e9f5948bfcce73bfc90b0487cf2feba17c54f123a0186278585d2255");
     assert_eq!(root, expected_root);
@@ -7778,7 +7778,7 @@ fn test_containers_complex_test_struct_max_6() {
 
 #[test]
 fn test_containers_complex_test_struct_max_7() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 65535,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -8018,7 +8018,7 @@ fn test_containers_complex_test_struct_max_7() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x86e208bf04cbe646770f39838f02ff47d77c3eecd6416a15c963200090343ce6");
     assert_eq!(root, expected_root);
@@ -8026,7 +8026,7 @@ fn test_containers_complex_test_struct_max_7() {
 
 #[test]
 fn test_containers_complex_test_struct_max_8() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 65535,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -8221,7 +8221,7 @@ fn test_containers_complex_test_struct_max_8() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xfc3e2fdcfc18a9a1a2939ab101ea90d5822364e8169f74ac41563bde13f77dde");
     assert_eq!(root, expected_root);
@@ -8229,7 +8229,7 @@ fn test_containers_complex_test_struct_max_8() {
 
 #[test]
 fn test_containers_complex_test_struct_max_9() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 65535,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -8384,7 +8384,7 @@ fn test_containers_complex_test_struct_max_9() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x3df75b0d07a91733fa91042699b686dd7f871b3bc647bd282e11b83d7b8bad4e");
     assert_eq!(root, expected_root);
@@ -8392,7 +8392,7 @@ fn test_containers_complex_test_struct_max_9() {
 
 #[test]
 fn test_containers_complex_test_struct_max_chaos_0() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 65535,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             33548, 65535, 27252, 30260, 7129, 50745, 46575, 65535, 14243, 49842, 12278, 16138,
@@ -8620,7 +8620,7 @@ fn test_containers_complex_test_struct_max_chaos_0() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x7830b5fabc26bdb3f55dfaf8111fe4790a4320c3444bca8c38d1b8ac253f684e");
     assert_eq!(root, expected_root);
@@ -8628,7 +8628,7 @@ fn test_containers_complex_test_struct_max_chaos_0() {
 
 #[test]
 fn test_containers_complex_test_struct_max_chaos_1() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 65535,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             23886, 48569, 0, 50118, 65535, 32879, 65535, 44111, 18232, 51122, 65535, 62233, 20445,
@@ -8857,7 +8857,7 @@ fn test_containers_complex_test_struct_max_chaos_1() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xe18df8aacc7cb9e900244c003b5850297314c74f42b7b7faf3451c33c97a8d38");
     assert_eq!(root, expected_root);
@@ -8865,7 +8865,7 @@ fn test_containers_complex_test_struct_max_chaos_1() {
 
 #[test]
 fn test_containers_complex_test_struct_max_chaos_2() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 65535,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 65535, 54084, 16256, 34273, 65535, 65535, 48971, 65535, 60519, 65535, 19583, 62612,
@@ -9005,7 +9005,7 @@ fn test_containers_complex_test_struct_max_chaos_2() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x83f81e711657e10a505159f722c03e2a4388b20ebda4210094cd8aba93f53d5d");
     assert_eq!(root, expected_root);
@@ -9013,7 +9013,7 @@ fn test_containers_complex_test_struct_max_chaos_2() {
 
 #[test]
 fn test_containers_complex_test_struct_nil_0() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 19485,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 180,
@@ -9053,7 +9053,7 @@ fn test_containers_complex_test_struct_nil_0() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x05bb1882d46575e2bc5dc7148051bf464e4df6f271a31321001e857c7895bacf");
     assert_eq!(root, expected_root);
@@ -9061,7 +9061,7 @@ fn test_containers_complex_test_struct_nil_0() {
 
 #[test]
 fn test_containers_complex_test_struct_nil_1() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 31862,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 130,
@@ -9101,7 +9101,7 @@ fn test_containers_complex_test_struct_nil_1() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x58ee3514728894b03c5099a22a571ecd725755466df364bf7a57e7b28a3a5a0d");
     assert_eq!(root, expected_root);
@@ -9109,7 +9109,7 @@ fn test_containers_complex_test_struct_nil_1() {
 
 #[test]
 fn test_containers_complex_test_struct_nil_2() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 23196,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 113,
@@ -9149,7 +9149,7 @@ fn test_containers_complex_test_struct_nil_2() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x200f6d4be8b29aa0f833d63639119d08eae8acacc527047690318e25819d7239");
     assert_eq!(root, expected_root);
@@ -9157,7 +9157,7 @@ fn test_containers_complex_test_struct_nil_2() {
 
 #[test]
 fn test_containers_complex_test_struct_nil_3() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 60841,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 187,
@@ -9197,7 +9197,7 @@ fn test_containers_complex_test_struct_nil_3() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x620f18ab8fddf91e5207f8887d9761be6fb672c4a57d01fa4962604c4d812fad");
     assert_eq!(root, expected_root);
@@ -9205,7 +9205,7 @@ fn test_containers_complex_test_struct_nil_3() {
 
 #[test]
 fn test_containers_complex_test_struct_nil_4() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 21814,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 4,
@@ -9245,7 +9245,7 @@ fn test_containers_complex_test_struct_nil_4() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xc75a13f8ba4d56d78324313bc49f15de88dc7b23c8a19b96bde8092a9bb70b83");
     assert_eq!(root, expected_root);
@@ -9253,7 +9253,7 @@ fn test_containers_complex_test_struct_nil_4() {
 
 #[test]
 fn test_containers_complex_test_struct_nil_5() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 25053,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 58,
@@ -9293,7 +9293,7 @@ fn test_containers_complex_test_struct_nil_5() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x6ef0e14dc6f46f40c86d65c94c29afa89f2dde63f2b2931e64bf820900b0755d");
     assert_eq!(root, expected_root);
@@ -9301,7 +9301,7 @@ fn test_containers_complex_test_struct_nil_5() {
 
 #[test]
 fn test_containers_complex_test_struct_nil_6() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 49427,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 38,
@@ -9341,7 +9341,7 @@ fn test_containers_complex_test_struct_nil_6() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0b1c17953fafada3820c7a59db020154d0f5f1d4b06b772c4db16230c9d77a9d");
     assert_eq!(root, expected_root);
@@ -9349,7 +9349,7 @@ fn test_containers_complex_test_struct_nil_6() {
 
 #[test]
 fn test_containers_complex_test_struct_nil_7() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 3985,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 215,
@@ -9389,7 +9389,7 @@ fn test_containers_complex_test_struct_nil_7() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x9b967a5a3ba0e36a9e065908ea5aed331d03f8f17228ec7583071c4fd7a279ff");
     assert_eq!(root, expected_root);
@@ -9397,7 +9397,7 @@ fn test_containers_complex_test_struct_nil_7() {
 
 #[test]
 fn test_containers_complex_test_struct_nil_8() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 9027,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 140,
@@ -9437,7 +9437,7 @@ fn test_containers_complex_test_struct_nil_8() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xae34c46e97a3d2c4a6ad6782a17cce892f912deb9e27f8342c076e463a4ab1af");
     assert_eq!(root, expected_root);
@@ -9445,7 +9445,7 @@ fn test_containers_complex_test_struct_nil_8() {
 
 #[test]
 fn test_containers_complex_test_struct_nil_9() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 38573,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 146,
@@ -9485,7 +9485,7 @@ fn test_containers_complex_test_struct_nil_9() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x052e5374ba3620756ed73b79878607555e407a7393515f1aeea3da9f2ec252a8");
     assert_eq!(root, expected_root);
@@ -9493,7 +9493,7 @@ fn test_containers_complex_test_struct_nil_9() {
 
 #[test]
 fn test_containers_complex_test_struct_nil_chaos_0() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 31237,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             65535, 2814, 48248, 28900, 0, 0, 58773, 65535, 55881, 54469, 57296, 51980, 35061,
@@ -9646,7 +9646,7 @@ fn test_containers_complex_test_struct_nil_chaos_0() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x663ac96094d20fa3ee53493a634653172d3864513da3f38d14d2a4429ed4bbd3");
     assert_eq!(root, expected_root);
@@ -9654,7 +9654,7 @@ fn test_containers_complex_test_struct_nil_chaos_0() {
 
 #[test]
 fn test_containers_complex_test_struct_nil_chaos_1() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 64128,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 65472, 14705, 36376, 65535, 56894, 26486, 4406, 0, 25544, 65535, 65535, 29047, 0, 0,
@@ -9809,7 +9809,7 @@ fn test_containers_complex_test_struct_nil_chaos_1() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x1de2e6e269b79034e9e81aba443f9e2e8c0c66e49ffb49c3dea82ce5a0788398");
     assert_eq!(root, expected_root);
@@ -9817,7 +9817,7 @@ fn test_containers_complex_test_struct_nil_chaos_1() {
 
 #[test]
 fn test_containers_complex_test_struct_nil_chaos_2() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 19852,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 142,
@@ -9896,7 +9896,7 @@ fn test_containers_complex_test_struct_nil_chaos_2() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x43c51c1784a07f7eb57f8ae5dfe7a4ec37c7a086101f331b753bf1117fd7236b");
     assert_eq!(root, expected_root);
@@ -9960,7 +9960,7 @@ fn test_containers_complex_test_struct_nil_offset_7_zeroed() {
 
 #[test]
 fn test_containers_complex_test_struct_one_0() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 38154,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([47908])).unwrap(),
         c: 143,
@@ -10000,7 +10000,7 @@ fn test_containers_complex_test_struct_one_0() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xff0954642b226bd43a9e5039d29f93ac8b691cc448bbf4eb2dfe4d189da9cbed");
     assert_eq!(root, expected_root);
@@ -10008,7 +10008,7 @@ fn test_containers_complex_test_struct_one_0() {
 
 #[test]
 fn test_containers_complex_test_struct_one_1() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 13143,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([8619])).unwrap(),
         c: 204,
@@ -10048,7 +10048,7 @@ fn test_containers_complex_test_struct_one_1() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x30585fde416d36ce2d348b70297cd7fd09c4551b0dd1deee62d41aedfb95af0e");
     assert_eq!(root, expected_root);
@@ -10056,7 +10056,7 @@ fn test_containers_complex_test_struct_one_1() {
 
 #[test]
 fn test_containers_complex_test_struct_one_2() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 2132,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([12333])).unwrap(),
         c: 91,
@@ -10096,7 +10096,7 @@ fn test_containers_complex_test_struct_one_2() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xc9437ccf57457f4cbe655692eba592369aa3db85848d6aadf306ce972f5491e0");
     assert_eq!(root, expected_root);
@@ -10104,7 +10104,7 @@ fn test_containers_complex_test_struct_one_2() {
 
 #[test]
 fn test_containers_complex_test_struct_one_3() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 36438,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([6183])).unwrap(),
         c: 56,
@@ -10144,7 +10144,7 @@ fn test_containers_complex_test_struct_one_3() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x7aa69f757591d6ea01a99f7e924d78fdc082e32ca8f07c00a8a183d76bfe1c61");
     assert_eq!(root, expected_root);
@@ -10152,7 +10152,7 @@ fn test_containers_complex_test_struct_one_3() {
 
 #[test]
 fn test_containers_complex_test_struct_one_4() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 7019,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([21115])).unwrap(),
         c: 38,
@@ -10192,7 +10192,7 @@ fn test_containers_complex_test_struct_one_4() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x233b24ab7e5f473361ee2bda67221aa64da667b1d130f48673fe642fe3fc393d");
     assert_eq!(root, expected_root);
@@ -10200,7 +10200,7 @@ fn test_containers_complex_test_struct_one_4() {
 
 #[test]
 fn test_containers_complex_test_struct_one_5() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 42404,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([27499])).unwrap(),
         c: 129,
@@ -10240,7 +10240,7 @@ fn test_containers_complex_test_struct_one_5() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x13abc7a3790c13f6ef94157a97d1b90d1c05d488fb40a9a1fda9e8d5c8cc01b1");
     assert_eq!(root, expected_root);
@@ -10248,7 +10248,7 @@ fn test_containers_complex_test_struct_one_5() {
 
 #[test]
 fn test_containers_complex_test_struct_one_6() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 6760,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([53019])).unwrap(),
         c: 203,
@@ -10288,7 +10288,7 @@ fn test_containers_complex_test_struct_one_6() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x2eb015bc47b6979baaf4f6b282f88e9ae9fe0c42d119e3adbfeea304f59c9adb");
     assert_eq!(root, expected_root);
@@ -10296,7 +10296,7 @@ fn test_containers_complex_test_struct_one_6() {
 
 #[test]
 fn test_containers_complex_test_struct_one_7() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 27051,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([41373])).unwrap(),
         c: 93,
@@ -10336,7 +10336,7 @@ fn test_containers_complex_test_struct_one_7() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xa5942e18cbc2c03264bfc0cc69e29e13f134c95495103c2b3466df20c75ef1e7");
     assert_eq!(root, expected_root);
@@ -10344,7 +10344,7 @@ fn test_containers_complex_test_struct_one_7() {
 
 #[test]
 fn test_containers_complex_test_struct_one_8() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 25971,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([20564])).unwrap(),
         c: 187,
@@ -10384,7 +10384,7 @@ fn test_containers_complex_test_struct_one_8() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x7a8efffdb7f5d3439511ce3561de603f5045de609f2b32f18fd3f047679f9904");
     assert_eq!(root, expected_root);
@@ -10392,7 +10392,7 @@ fn test_containers_complex_test_struct_one_8() {
 
 #[test]
 fn test_containers_complex_test_struct_one_9() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 21941,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([36043])).unwrap(),
         c: 128,
@@ -10432,7 +10432,7 @@ fn test_containers_complex_test_struct_one_9() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x6e7ac8728198a06e6edf766748f545ad7a70867b8bc834415f88167f19933eb6");
     assert_eq!(root, expected_root);
@@ -10440,7 +10440,7 @@ fn test_containers_complex_test_struct_one_9() {
 
 #[test]
 fn test_containers_complex_test_struct_one_chaos_0() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 15280,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 255,
@@ -10723,7 +10723,7 @@ fn test_containers_complex_test_struct_one_chaos_0() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x4c0a5c0335b803a36ad2e8ae8063eaa7420c091797074082bf0113df9a941df2");
     assert_eq!(root, expected_root);
@@ -10731,7 +10731,7 @@ fn test_containers_complex_test_struct_one_chaos_0() {
 
 #[test]
 fn test_containers_complex_test_struct_one_chaos_1() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 34335,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             28911, 23128, 5142, 39460, 28794, 0, 45973, 0, 65535, 14654, 0, 20168, 44845, 65535,
@@ -10778,7 +10778,7 @@ fn test_containers_complex_test_struct_one_chaos_1() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xd9c780f1cc4ba0f9f4c121062c817a6b74825de8e4d374a7b17f11ecea73cb3b");
     assert_eq!(root, expected_root);
@@ -10786,7 +10786,7 @@ fn test_containers_complex_test_struct_one_chaos_1() {
 
 #[test]
 fn test_containers_complex_test_struct_one_chaos_2() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 6168,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             23271, 13490, 0, 0, 8475, 6430, 29468, 65535, 8198, 65535, 3774, 22672, 38858, 4157,
@@ -11002,7 +11002,7 @@ fn test_containers_complex_test_struct_one_chaos_2() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xf2662f0b6e96aa420aa3eef028c170264009f6768273afd0646de22f0873d033");
     assert_eq!(root, expected_root);
@@ -11090,7 +11090,7 @@ fn test_containers_complex_test_struct_one_offset_7_zeroed() {
 
 #[test]
 fn test_containers_complex_test_struct_random_0() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 36613,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             26357, 19789, 53414, 41528, 43058, 36456, 17712, 64993, 14992, 3994, 4491, 37237,
@@ -11272,7 +11272,7 @@ fn test_containers_complex_test_struct_random_0() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x1677290a19a687395e9912e9b41e5e3b4ea7e0db5daf8417ae531552e3f6395d");
     assert_eq!(root, expected_root);
@@ -11280,7 +11280,7 @@ fn test_containers_complex_test_struct_random_0() {
 
 #[test]
 fn test_containers_complex_test_struct_random_1() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 5814,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             13962, 12707, 37305, 29690, 1586, 45727, 61950, 20772, 19719, 25719, 17231, 18362,
@@ -11501,7 +11501,7 @@ fn test_containers_complex_test_struct_random_1() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xe32e03a987cb2baeadbc01e090ddf3d00edcffd93f93812fb192524585345e06");
     assert_eq!(root, expected_root);
@@ -11509,7 +11509,7 @@ fn test_containers_complex_test_struct_random_1() {
 
 #[test]
 fn test_containers_complex_test_struct_random_2() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 30472,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             49312, 29633, 44804, 1208, 59965, 7626, 18533, 16651, 61231, 26530, 6559, 46253, 3629,
@@ -11763,7 +11763,7 @@ fn test_containers_complex_test_struct_random_2() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x80f233ed450b080e645437eb00253f9000760d4e37788026fd7948b7329ade91");
     assert_eq!(root, expected_root);
@@ -11771,7 +11771,7 @@ fn test_containers_complex_test_struct_random_2() {
 
 #[test]
 fn test_containers_complex_test_struct_random_3() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 51614,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             53782, 28969, 18301, 63374, 56984, 55478, 16687,
@@ -12001,7 +12001,7 @@ fn test_containers_complex_test_struct_random_3() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x8fc069cc0b3cf9d3b5a2ba1ed9668ceb7538a3814b045b6743a861a69c65ef58");
     assert_eq!(root, expected_root);
@@ -12009,7 +12009,7 @@ fn test_containers_complex_test_struct_random_3() {
 
 #[test]
 fn test_containers_complex_test_struct_random_4() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 46515,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             19362, 29937, 37197, 17341, 19247, 46329, 65029, 59777, 12984, 1102, 20472, 52710,
@@ -12160,7 +12160,7 @@ fn test_containers_complex_test_struct_random_4() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x2ea25cba8117cccb157ba87fae135ce7c9664164e9dcd6ef18bb0bac068b2d4a");
     assert_eq!(root, expected_root);
@@ -12168,7 +12168,7 @@ fn test_containers_complex_test_struct_random_4() {
 
 #[test]
 fn test_containers_complex_test_struct_random_5() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 23283,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             18483, 29026, 38069, 48164, 17418, 12521, 41392, 25184, 18692, 37690, 63055, 14440,
@@ -12371,7 +12371,7 @@ fn test_containers_complex_test_struct_random_5() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xfd4e05bd4a5888d4313babf3e7ce4b74c7660cdec611af2ccdd5f1d65a13d761");
     assert_eq!(root, expected_root);
@@ -12379,7 +12379,7 @@ fn test_containers_complex_test_struct_random_5() {
 
 #[test]
 fn test_containers_complex_test_struct_random_6() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 32343,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             13118, 45070, 36699, 34426, 53562, 47965, 49426, 8279, 16168, 5347, 61069, 52341,
@@ -12535,7 +12535,7 @@ fn test_containers_complex_test_struct_random_6() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xbd149483bde62bcbc37fad5a43ea14579623cec6435387a0578d19bbb3f08503");
     assert_eq!(root, expected_root);
@@ -12543,7 +12543,7 @@ fn test_containers_complex_test_struct_random_6() {
 
 #[test]
 fn test_containers_complex_test_struct_random_7() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 53455,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             28472, 20013, 10186, 52619, 37505, 32299, 35612, 7194, 25051, 43900, 20431, 58627,
@@ -12822,7 +12822,7 @@ fn test_containers_complex_test_struct_random_7() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x774e0245882bec129d09f588f961cf712bde706bc4f255b228551eed4879879a");
     assert_eq!(root, expected_root);
@@ -12830,7 +12830,7 @@ fn test_containers_complex_test_struct_random_7() {
 
 #[test]
 fn test_containers_complex_test_struct_random_8() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 2705,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([34403, 7858, 29371, 4245])).unwrap(),
         c: 5,
@@ -13000,7 +13000,7 @@ fn test_containers_complex_test_struct_random_8() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xe5956b72a5b8403ed677d979cf840a28ec09ed55bb80ce0feaf4fec3049ef40a");
     assert_eq!(root, expected_root);
@@ -13008,7 +13008,7 @@ fn test_containers_complex_test_struct_random_8() {
 
 #[test]
 fn test_containers_complex_test_struct_random_9() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 47426,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             19759, 24984, 33337, 36131, 45227, 54145, 47460, 60807, 15609, 5357, 23158, 749, 55515,
@@ -13273,7 +13273,7 @@ fn test_containers_complex_test_struct_random_9() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x9054f3149ce6b8079f9bf1b858a8937ff85bb645a70f1b592195f37c33013990");
     assert_eq!(root, expected_root);
@@ -13281,7 +13281,7 @@ fn test_containers_complex_test_struct_random_9() {
 
 #[test]
 fn test_containers_complex_test_struct_random_chaos_0() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 65535,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 53109, 16152, 8907, 43706, 12557, 29217, 0, 65535, 65535, 53745, 0, 44917, 0, 41205,
@@ -13393,7 +13393,7 @@ fn test_containers_complex_test_struct_random_chaos_0() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xae1e922e817ee774556b4db803a022256303c5976fb7877838d68a303ab639a6");
     assert_eq!(root, expected_root);
@@ -13401,7 +13401,7 @@ fn test_containers_complex_test_struct_random_chaos_0() {
 
 #[test]
 fn test_containers_complex_test_struct_random_chaos_1() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 65535,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([25564, 22479, 0])).unwrap(),
         c: 198,
@@ -13551,7 +13551,7 @@ fn test_containers_complex_test_struct_random_chaos_1() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x00fa804cb785eb45fdd8d96b6466f613e0d0e5a2c0d3b2d0a568b162c9ceea63");
     assert_eq!(root, expected_root);
@@ -13559,7 +13559,7 @@ fn test_containers_complex_test_struct_random_chaos_1() {
 
 #[test]
 fn test_containers_complex_test_struct_random_chaos_2() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 0,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             54727, 11819, 50263, 46482, 54220, 42693, 0, 22107, 11129, 65535, 16209, 46452, 65535,
@@ -13680,7 +13680,7 @@ fn test_containers_complex_test_struct_random_chaos_2() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xf5c310453f8053e0cacc58bb955684048cf2879354b546433592a8fc6e84ef28");
     assert_eq!(root, expected_root);
@@ -13744,7 +13744,7 @@ fn test_containers_complex_test_struct_random_offset_7_zeroed() {
 
 #[test]
 fn test_containers_complex_test_struct_zero() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 0,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -13872,7 +13872,7 @@ fn test_containers_complex_test_struct_zero() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xfa353b25483c1bce7a459da360aef0bf390398ff94040fc368ca0656dd36cafd");
     assert_eq!(root, expected_root);
@@ -13880,7 +13880,7 @@ fn test_containers_complex_test_struct_zero() {
 
 #[test]
 fn test_containers_complex_test_struct_zero_0() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 0,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -14000,7 +14000,7 @@ fn test_containers_complex_test_struct_zero_0() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x796da05fdc213f44fba67f9c4c113d647a86f70a58950461b7326b411b94eb6d");
     assert_eq!(root, expected_root);
@@ -14008,7 +14008,7 @@ fn test_containers_complex_test_struct_zero_0() {
 
 #[test]
 fn test_containers_complex_test_struct_zero_1() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 0,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]))
             .unwrap(),
@@ -14119,7 +14119,7 @@ fn test_containers_complex_test_struct_zero_1() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x8738293bf20a8e620887aec3956815d54d8ef18feb18756c8cb60236ee972c98");
     assert_eq!(root, expected_root);
@@ -14127,7 +14127,7 @@ fn test_containers_complex_test_struct_zero_1() {
 
 #[test]
 fn test_containers_complex_test_struct_zero_2() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 0,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -14255,7 +14255,7 @@ fn test_containers_complex_test_struct_zero_2() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x09c0008b8fb65319fe8e5db9e0334cf57328793c9e36a7dd4638de677f40392c");
     assert_eq!(root, expected_root);
@@ -14263,7 +14263,7 @@ fn test_containers_complex_test_struct_zero_2() {
 
 #[test]
 fn test_containers_complex_test_struct_zero_3() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 0,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -14377,7 +14377,7 @@ fn test_containers_complex_test_struct_zero_3() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xe545099c564f5331c87e9b4805760b5a212ce9e552e0c4ac4ab1288c185907ca");
     assert_eq!(root, expected_root);
@@ -14385,7 +14385,7 @@ fn test_containers_complex_test_struct_zero_3() {
 
 #[test]
 fn test_containers_complex_test_struct_zero_4() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 0,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -14503,7 +14503,7 @@ fn test_containers_complex_test_struct_zero_4() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x2278700f1c8b6bacee1aeb99204b47d3e12939b88c75534e07595e236be676c3");
     assert_eq!(root, expected_root);
@@ -14511,7 +14511,7 @@ fn test_containers_complex_test_struct_zero_4() {
 
 #[test]
 fn test_containers_complex_test_struct_zero_5() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 0,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -14615,7 +14615,7 @@ fn test_containers_complex_test_struct_zero_5() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xaa57bdc7c1f1c3582329bcfe7e14331b4ebe8396a4539d450d8df2e489783190");
     assert_eq!(root, expected_root);
@@ -14623,7 +14623,7 @@ fn test_containers_complex_test_struct_zero_5() {
 
 #[test]
 fn test_containers_complex_test_struct_zero_6() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 0,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -14753,7 +14753,7 @@ fn test_containers_complex_test_struct_zero_6() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xd0682307761ba3cd546856f9b77594c4fa2e831b2ca74863d7cde954cb2e2ea4");
     assert_eq!(root, expected_root);
@@ -14761,7 +14761,7 @@ fn test_containers_complex_test_struct_zero_6() {
 
 #[test]
 fn test_containers_complex_test_struct_zero_7() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 0,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -14883,7 +14883,7 @@ fn test_containers_complex_test_struct_zero_7() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xcfde5a1ae1dc38d662d2f34b99c9ac9c36897a12c9aaff1c35ec577d834bf16b");
     assert_eq!(root, expected_root);
@@ -14891,7 +14891,7 @@ fn test_containers_complex_test_struct_zero_7() {
 
 #[test]
 fn test_containers_complex_test_struct_zero_8() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 0,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -14991,7 +14991,7 @@ fn test_containers_complex_test_struct_zero_8() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x587e3644da523a49b282fb076f22a8ba61ae675e7e0427ec9d88e3d20265cf7b");
     assert_eq!(root, expected_root);
@@ -14999,7 +14999,7 @@ fn test_containers_complex_test_struct_zero_8() {
 
 #[test]
 fn test_containers_complex_test_struct_zero_9() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 0,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -15119,7 +15119,7 @@ fn test_containers_complex_test_struct_zero_9() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x26490ddf2bdc78df57dae1cef92531f24edc013c4fbce99fff734aca1820828a");
     assert_eq!(root, expected_root);
@@ -15127,7 +15127,7 @@ fn test_containers_complex_test_struct_zero_9() {
 
 #[test]
 fn test_containers_complex_test_struct_zero_chaos_0() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 65535,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 224,
@@ -15167,7 +15167,7 @@ fn test_containers_complex_test_struct_zero_chaos_0() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x436e534d95a1a12bf97c5d140c8e03399f62fe64a8335d828e17fa2769ba0ea6");
     assert_eq!(root, expected_root);
@@ -15175,7 +15175,7 @@ fn test_containers_complex_test_struct_zero_chaos_0() {
 
 #[test]
 fn test_containers_complex_test_struct_zero_chaos_1() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 0,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([
             8564, 58231, 65535, 0, 0, 24610, 65535, 63219, 28771, 0, 42839, 0, 0, 58799, 0, 0,
@@ -15337,7 +15337,7 @@ fn test_containers_complex_test_struct_zero_chaos_1() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xc8146e52b0d514f7e8597da0e6a2dd87cc5a7f7a66804b8b95f1d4ab456cf1a3");
     assert_eq!(root, expected_root);
@@ -15345,7 +15345,7 @@ fn test_containers_complex_test_struct_zero_chaos_1() {
 
 #[test]
 fn test_containers_complex_test_struct_zero_chaos_2() {
-    let mut value = ComplexTestStruct {
+    let value = ComplexTestStruct {
         a: 34579,
         b: List::<u16, 128>::try_from(Vec::<u16>::from_iter([50087])).unwrap(),
         c: 255,
@@ -15421,7 +15421,7 @@ fn test_containers_complex_test_struct_zero_chaos_2() {
     let recovered_value: ComplexTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x4a54450bf13e580af032198c139336321ed5fe021a9d7abc32fd8c5516d0dfc7");
     assert_eq!(root, expected_root);
@@ -15439,7 +15439,7 @@ fn test_containers_fixed_test_struct_extra_byte() {
 
 #[test]
 fn test_containers_fixed_test_struct_max() {
-    let mut value = FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 };
+    let value = FixedTestStruct { a: 255, b: 18446744073709551615, c: 4294967295 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_max/serialized.ssz_snappy",
@@ -15449,7 +15449,7 @@ fn test_containers_fixed_test_struct_max() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x3925681862db7892428eac4afae08671930e623601b5b85fbbc366371e29acd7");
     assert_eq!(root, expected_root);
@@ -15457,7 +15457,7 @@ fn test_containers_fixed_test_struct_max() {
 
 #[test]
 fn test_containers_fixed_test_struct_max_chaos_0() {
-    let mut value = FixedTestStruct { a: 0, b: 16368780024300315290, c: 3425460342 };
+    let value = FixedTestStruct { a: 0, b: 16368780024300315290, c: 3425460342 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_chaos_0/serialized.ssz_snappy",
@@ -15467,7 +15467,7 @@ fn test_containers_fixed_test_struct_max_chaos_0() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xf9da7cee7f59d318ddece7744f9d57038776dcd2cb84ec1487df7810ab855eb8");
     assert_eq!(root, expected_root);
@@ -15475,7 +15475,7 @@ fn test_containers_fixed_test_struct_max_chaos_0() {
 
 #[test]
 fn test_containers_fixed_test_struct_max_chaos_1() {
-    let mut value = FixedTestStruct { a: 215, b: 0, c: 872994431 };
+    let value = FixedTestStruct { a: 215, b: 0, c: 872994431 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_chaos_1/serialized.ssz_snappy",
@@ -15485,7 +15485,7 @@ fn test_containers_fixed_test_struct_max_chaos_1() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x775dcfb6a6f9ca7b3cc6e1a705c6892d46f88448ff5a32a139e17d5147c35f20");
     assert_eq!(root, expected_root);
@@ -15493,7 +15493,7 @@ fn test_containers_fixed_test_struct_max_chaos_1() {
 
 #[test]
 fn test_containers_fixed_test_struct_max_chaos_2() {
-    let mut value = FixedTestStruct { a: 255, b: 6156748712181862619, c: 0 };
+    let value = FixedTestStruct { a: 255, b: 6156748712181862619, c: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_max_chaos_2/serialized.ssz_snappy",
@@ -15503,7 +15503,7 @@ fn test_containers_fixed_test_struct_max_chaos_2() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xa2302ab770b50379d8a20013864f1ce653d180241a54a23e57413cb63b63148b");
     assert_eq!(root, expected_root);
@@ -15511,7 +15511,7 @@ fn test_containers_fixed_test_struct_max_chaos_2() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_0() {
-    let mut value = FixedTestStruct { a: 24, b: 13167263067087249200, c: 734541227 };
+    let value = FixedTestStruct { a: 24, b: 13167263067087249200, c: 734541227 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_0/serialized.ssz_snappy",
@@ -15521,7 +15521,7 @@ fn test_containers_fixed_test_struct_random_0() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x2f104507507c20439914e44dbbc82ab18c9c506cadbe96c33b136f3a4ff0f182");
     assert_eq!(root, expected_root);
@@ -15529,7 +15529,7 @@ fn test_containers_fixed_test_struct_random_0() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_1() {
-    let mut value = FixedTestStruct { a: 31, b: 736233927488800041, c: 1393334686 };
+    let value = FixedTestStruct { a: 31, b: 736233927488800041, c: 1393334686 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_1/serialized.ssz_snappy",
@@ -15539,7 +15539,7 @@ fn test_containers_fixed_test_struct_random_1() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xf157cd7285b6607caac863911709648c432059be3cc3ccd7e7efbbd0abdf2cb0");
     assert_eq!(root, expected_root);
@@ -15547,7 +15547,7 @@ fn test_containers_fixed_test_struct_random_1() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_2() {
-    let mut value = FixedTestStruct { a: 195, b: 16990693813108383139, c: 1812634554 };
+    let value = FixedTestStruct { a: 195, b: 16990693813108383139, c: 1812634554 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_2/serialized.ssz_snappy",
@@ -15557,7 +15557,7 @@ fn test_containers_fixed_test_struct_random_2() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xadcb9275cf22b9fbe5a8ef1372336712f9402e335e3b4e085400955909f5b463");
     assert_eq!(root, expected_root);
@@ -15565,7 +15565,7 @@ fn test_containers_fixed_test_struct_random_2() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_3() {
-    let mut value = FixedTestStruct { a: 77, b: 9825468808305409092, c: 3282831501 };
+    let value = FixedTestStruct { a: 77, b: 9825468808305409092, c: 3282831501 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_3/serialized.ssz_snappy",
@@ -15575,7 +15575,7 @@ fn test_containers_fixed_test_struct_random_3() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xa31d9957f3f5c3f46bbc9916d92ac481f13a9d86df14c5960ea82d05c4930bfc");
     assert_eq!(root, expected_root);
@@ -15583,7 +15583,7 @@ fn test_containers_fixed_test_struct_random_3() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_4() {
-    let mut value = FixedTestStruct { a: 142, b: 12943316248327749193, c: 1177791689 };
+    let value = FixedTestStruct { a: 142, b: 12943316248327749193, c: 1177791689 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_4/serialized.ssz_snappy",
@@ -15593,7 +15593,7 @@ fn test_containers_fixed_test_struct_random_4() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x37bb39a61e6a896157c3f9b750ae496f07ea4746c88f8125d2ce0b71b379b26c");
     assert_eq!(root, expected_root);
@@ -15601,7 +15601,7 @@ fn test_containers_fixed_test_struct_random_4() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_5() {
-    let mut value = FixedTestStruct { a: 152, b: 968434759530807861, c: 1892169706 };
+    let value = FixedTestStruct { a: 152, b: 968434759530807861, c: 1892169706 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_5/serialized.ssz_snappy",
@@ -15611,7 +15611,7 @@ fn test_containers_fixed_test_struct_random_5() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x4048d84fe07daa71c9275b17f8766ee911c7b5b15f72156a12e8eb7bf73bd112");
     assert_eq!(root, expected_root);
@@ -15619,7 +15619,7 @@ fn test_containers_fixed_test_struct_random_5() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_6() {
-    let mut value = FixedTestStruct { a: 251, b: 7019754704604394785, c: 10515695 };
+    let value = FixedTestStruct { a: 251, b: 7019754704604394785, c: 10515695 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_6/serialized.ssz_snappy",
@@ -15629,7 +15629,7 @@ fn test_containers_fixed_test_struct_random_6() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xed6fdab725487c5048cca3ddd3cc337d0b6a180c1d5207cf95d7f5dd6cef97b5");
     assert_eq!(root, expected_root);
@@ -15637,7 +15637,7 @@ fn test_containers_fixed_test_struct_random_6() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_7() {
-    let mut value = FixedTestStruct { a: 245, b: 5504897097224035493, c: 3554733444 };
+    let value = FixedTestStruct { a: 245, b: 5504897097224035493, c: 3554733444 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_7/serialized.ssz_snappy",
@@ -15647,7 +15647,7 @@ fn test_containers_fixed_test_struct_random_7() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x91acafb600aa939a37f345ef75dee1a0ac48593f5a884827a22db67cc9cba8e7");
     assert_eq!(root, expected_root);
@@ -15655,7 +15655,7 @@ fn test_containers_fixed_test_struct_random_7() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_8() {
-    let mut value = FixedTestStruct { a: 95, b: 11592110677720298001, c: 675128003 };
+    let value = FixedTestStruct { a: 95, b: 11592110677720298001, c: 675128003 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_8/serialized.ssz_snappy",
@@ -15665,7 +15665,7 @@ fn test_containers_fixed_test_struct_random_8() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x393d6ba272e0211a0ea3e5d0abcf00a85a2d4680f804d0aee43205fb64d322b9");
     assert_eq!(root, expected_root);
@@ -15673,7 +15673,7 @@ fn test_containers_fixed_test_struct_random_8() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_9() {
-    let mut value = FixedTestStruct { a: 189, b: 11077154515319582367, c: 885055256 };
+    let value = FixedTestStruct { a: 189, b: 11077154515319582367, c: 885055256 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_9/serialized.ssz_snappy",
@@ -15683,7 +15683,7 @@ fn test_containers_fixed_test_struct_random_9() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xc2db52e4b936b48ac2b1762a5de13ece767c2358bcf8388d7f3bd588a8bcddf0");
     assert_eq!(root, expected_root);
@@ -15691,7 +15691,7 @@ fn test_containers_fixed_test_struct_random_9() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_chaos_0() {
-    let mut value = FixedTestStruct { a: 224, b: 18446744073709551615, c: 4294967295 };
+    let value = FixedTestStruct { a: 224, b: 18446744073709551615, c: 4294967295 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_chaos_0/serialized.ssz_snappy",
@@ -15701,7 +15701,7 @@ fn test_containers_fixed_test_struct_random_chaos_0() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x60c749becbd41b9c2cc1c45d9a3248248a359bbd3b51a63073a637f69078c87f");
     assert_eq!(root, expected_root);
@@ -15709,7 +15709,7 @@ fn test_containers_fixed_test_struct_random_chaos_0() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_chaos_1() {
-    let mut value = FixedTestStruct { a: 0, b: 14186696757779471686, c: 3610222285 };
+    let value = FixedTestStruct { a: 0, b: 14186696757779471686, c: 3610222285 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_chaos_1/serialized.ssz_snappy",
@@ -15719,7 +15719,7 @@ fn test_containers_fixed_test_struct_random_chaos_1() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x353a7d181607e8a955687d78b0d6e8905276b7746885b0760caae95a51579518");
     assert_eq!(root, expected_root);
@@ -15727,7 +15727,7 @@ fn test_containers_fixed_test_struct_random_chaos_1() {
 
 #[test]
 fn test_containers_fixed_test_struct_random_chaos_2() {
-    let mut value = FixedTestStruct { a: 130, b: 6370563341294793538, c: 4137753490 };
+    let value = FixedTestStruct { a: 130, b: 6370563341294793538, c: 4137753490 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_random_chaos_2/serialized.ssz_snappy",
@@ -15737,7 +15737,7 @@ fn test_containers_fixed_test_struct_random_chaos_2() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x031b378c61c08633e1e99c601fdb3d899cc7f1c50c65ec8183e9caa958dadf43");
     assert_eq!(root, expected_root);
@@ -15745,7 +15745,7 @@ fn test_containers_fixed_test_struct_random_chaos_2() {
 
 #[test]
 fn test_containers_fixed_test_struct_zero() {
-    let mut value = FixedTestStruct { a: 0, b: 0, c: 0 };
+    let value = FixedTestStruct { a: 0, b: 0, c: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_zero/serialized.ssz_snappy",
@@ -15755,7 +15755,7 @@ fn test_containers_fixed_test_struct_zero() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xdb56114e00fdd4c1f85c892bf35ac9a89289aaecb1ebd0a96cde606a748b5d71");
     assert_eq!(root, expected_root);
@@ -15763,7 +15763,7 @@ fn test_containers_fixed_test_struct_zero() {
 
 #[test]
 fn test_containers_fixed_test_struct_zero_chaos_0() {
-    let mut value = FixedTestStruct { a: 255, b: 0, c: 3380095576 };
+    let value = FixedTestStruct { a: 255, b: 0, c: 3380095576 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_zero_chaos_0/serialized.ssz_snappy",
@@ -15773,7 +15773,7 @@ fn test_containers_fixed_test_struct_zero_chaos_0() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xb7cf66c7aea564846607c9ecdcd467300442e1020ef59dcf2d2e988afb75c0b8");
     assert_eq!(root, expected_root);
@@ -15781,7 +15781,7 @@ fn test_containers_fixed_test_struct_zero_chaos_0() {
 
 #[test]
 fn test_containers_fixed_test_struct_zero_chaos_1() {
-    let mut value = FixedTestStruct { a: 40, b: 14820154409811446657, c: 0 };
+    let value = FixedTestStruct { a: 40, b: 14820154409811446657, c: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_zero_chaos_1/serialized.ssz_snappy",
@@ -15791,7 +15791,7 @@ fn test_containers_fixed_test_struct_zero_chaos_1() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0bef8d07795e1cb94eccc23fc5e0de20f96f777123ec914dc476513b74ce986b");
     assert_eq!(root, expected_root);
@@ -15799,7 +15799,7 @@ fn test_containers_fixed_test_struct_zero_chaos_1() {
 
 #[test]
 fn test_containers_fixed_test_struct_zero_chaos_2() {
-    let mut value = FixedTestStruct { a: 162, b: 18446744073709551615, c: 867140057 };
+    let value = FixedTestStruct { a: 162, b: 18446744073709551615, c: 867140057 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/FixedTestStruct_zero_chaos_2/serialized.ssz_snappy",
@@ -15809,7 +15809,7 @@ fn test_containers_fixed_test_struct_zero_chaos_2() {
     let recovered_value: FixedTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x9e79f87f5b034ada5f987f76e441790a13ead694ddd2d904170b6d6a93a9399d");
     assert_eq!(root, expected_root);
@@ -15825,7 +15825,7 @@ fn test_containers_single_field_test_struct_extra_byte() {
 
 #[test]
 fn test_containers_single_field_test_struct_max() {
-    let mut value = SingleFieldTestStruct { a: 255 };
+    let value = SingleFieldTestStruct { a: 255 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_max/serialized.ssz_snappy",
@@ -15835,7 +15835,7 @@ fn test_containers_single_field_test_struct_max() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xff00000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -15843,7 +15843,7 @@ fn test_containers_single_field_test_struct_max() {
 
 #[test]
 fn test_containers_single_field_test_struct_max_chaos_0() {
-    let mut value = SingleFieldTestStruct { a: 247 };
+    let value = SingleFieldTestStruct { a: 247 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_max_chaos_0/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
@@ -15851,7 +15851,7 @@ fn test_containers_single_field_test_struct_max_chaos_0() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xf700000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -15859,7 +15859,7 @@ fn test_containers_single_field_test_struct_max_chaos_0() {
 
 #[test]
 fn test_containers_single_field_test_struct_max_chaos_1() {
-    let mut value = SingleFieldTestStruct { a: 76 };
+    let value = SingleFieldTestStruct { a: 76 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_max_chaos_1/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
@@ -15867,7 +15867,7 @@ fn test_containers_single_field_test_struct_max_chaos_1() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x4c00000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -15875,7 +15875,7 @@ fn test_containers_single_field_test_struct_max_chaos_1() {
 
 #[test]
 fn test_containers_single_field_test_struct_max_chaos_2() {
-    let mut value = SingleFieldTestStruct { a: 0 };
+    let value = SingleFieldTestStruct { a: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_max_chaos_2/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
@@ -15883,7 +15883,7 @@ fn test_containers_single_field_test_struct_max_chaos_2() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -15891,7 +15891,7 @@ fn test_containers_single_field_test_struct_max_chaos_2() {
 
 #[test]
 fn test_containers_single_field_test_struct_random_0() {
-    let mut value = SingleFieldTestStruct { a: 58 };
+    let value = SingleFieldTestStruct { a: 58 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_0/serialized.ssz_snappy",
@@ -15901,7 +15901,7 @@ fn test_containers_single_field_test_struct_random_0() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x3a00000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -15909,7 +15909,7 @@ fn test_containers_single_field_test_struct_random_0() {
 
 #[test]
 fn test_containers_single_field_test_struct_random_1() {
-    let mut value = SingleFieldTestStruct { a: 7 };
+    let value = SingleFieldTestStruct { a: 7 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_1/serialized.ssz_snappy",
@@ -15919,7 +15919,7 @@ fn test_containers_single_field_test_struct_random_1() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0700000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -15927,7 +15927,7 @@ fn test_containers_single_field_test_struct_random_1() {
 
 #[test]
 fn test_containers_single_field_test_struct_random_2() {
-    let mut value = SingleFieldTestStruct { a: 249 };
+    let value = SingleFieldTestStruct { a: 249 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_2/serialized.ssz_snappy",
@@ -15937,7 +15937,7 @@ fn test_containers_single_field_test_struct_random_2() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xf900000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -15945,7 +15945,7 @@ fn test_containers_single_field_test_struct_random_2() {
 
 #[test]
 fn test_containers_single_field_test_struct_random_3() {
-    let mut value = SingleFieldTestStruct { a: 127 };
+    let value = SingleFieldTestStruct { a: 127 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_3/serialized.ssz_snappy",
@@ -15955,7 +15955,7 @@ fn test_containers_single_field_test_struct_random_3() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x7f00000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -15963,7 +15963,7 @@ fn test_containers_single_field_test_struct_random_3() {
 
 #[test]
 fn test_containers_single_field_test_struct_random_4() {
-    let mut value = SingleFieldTestStruct { a: 33 };
+    let value = SingleFieldTestStruct { a: 33 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_4/serialized.ssz_snappy",
@@ -15973,7 +15973,7 @@ fn test_containers_single_field_test_struct_random_4() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x2100000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -15981,7 +15981,7 @@ fn test_containers_single_field_test_struct_random_4() {
 
 #[test]
 fn test_containers_single_field_test_struct_random_5() {
-    let mut value = SingleFieldTestStruct { a: 238 };
+    let value = SingleFieldTestStruct { a: 238 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_5/serialized.ssz_snappy",
@@ -15991,7 +15991,7 @@ fn test_containers_single_field_test_struct_random_5() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xee00000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -15999,7 +15999,7 @@ fn test_containers_single_field_test_struct_random_5() {
 
 #[test]
 fn test_containers_single_field_test_struct_random_6() {
-    let mut value = SingleFieldTestStruct { a: 35 };
+    let value = SingleFieldTestStruct { a: 35 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_6/serialized.ssz_snappy",
@@ -16009,7 +16009,7 @@ fn test_containers_single_field_test_struct_random_6() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x2300000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -16017,7 +16017,7 @@ fn test_containers_single_field_test_struct_random_6() {
 
 #[test]
 fn test_containers_single_field_test_struct_random_7() {
-    let mut value = SingleFieldTestStruct { a: 45 };
+    let value = SingleFieldTestStruct { a: 45 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_7/serialized.ssz_snappy",
@@ -16027,7 +16027,7 @@ fn test_containers_single_field_test_struct_random_7() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x2d00000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -16035,7 +16035,7 @@ fn test_containers_single_field_test_struct_random_7() {
 
 #[test]
 fn test_containers_single_field_test_struct_random_8() {
-    let mut value = SingleFieldTestStruct { a: 23 };
+    let value = SingleFieldTestStruct { a: 23 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_8/serialized.ssz_snappy",
@@ -16045,7 +16045,7 @@ fn test_containers_single_field_test_struct_random_8() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x1700000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -16053,7 +16053,7 @@ fn test_containers_single_field_test_struct_random_8() {
 
 #[test]
 fn test_containers_single_field_test_struct_random_9() {
-    let mut value = SingleFieldTestStruct { a: 138 };
+    let value = SingleFieldTestStruct { a: 138 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_9/serialized.ssz_snappy",
@@ -16063,7 +16063,7 @@ fn test_containers_single_field_test_struct_random_9() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x8a00000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -16071,7 +16071,7 @@ fn test_containers_single_field_test_struct_random_9() {
 
 #[test]
 fn test_containers_single_field_test_struct_random_chaos_0() {
-    let mut value = SingleFieldTestStruct { a: 3 };
+    let value = SingleFieldTestStruct { a: 3 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_chaos_0/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
@@ -16079,7 +16079,7 @@ fn test_containers_single_field_test_struct_random_chaos_0() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0300000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -16087,7 +16087,7 @@ fn test_containers_single_field_test_struct_random_chaos_0() {
 
 #[test]
 fn test_containers_single_field_test_struct_random_chaos_1() {
-    let mut value = SingleFieldTestStruct { a: 17 };
+    let value = SingleFieldTestStruct { a: 17 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_chaos_1/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
@@ -16095,7 +16095,7 @@ fn test_containers_single_field_test_struct_random_chaos_1() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x1100000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -16103,7 +16103,7 @@ fn test_containers_single_field_test_struct_random_chaos_1() {
 
 #[test]
 fn test_containers_single_field_test_struct_random_chaos_2() {
-    let mut value = SingleFieldTestStruct { a: 42 };
+    let value = SingleFieldTestStruct { a: 42 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_random_chaos_2/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
@@ -16111,7 +16111,7 @@ fn test_containers_single_field_test_struct_random_chaos_2() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x2a00000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -16119,7 +16119,7 @@ fn test_containers_single_field_test_struct_random_chaos_2() {
 
 #[test]
 fn test_containers_single_field_test_struct_zero() {
-    let mut value = SingleFieldTestStruct { a: 0 };
+    let value = SingleFieldTestStruct { a: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_zero/serialized.ssz_snappy",
@@ -16129,7 +16129,7 @@ fn test_containers_single_field_test_struct_zero() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0000000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -16137,7 +16137,7 @@ fn test_containers_single_field_test_struct_zero() {
 
 #[test]
 fn test_containers_single_field_test_struct_zero_chaos_0() {
-    let mut value = SingleFieldTestStruct { a: 255 };
+    let value = SingleFieldTestStruct { a: 255 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_zero_chaos_0/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
@@ -16145,7 +16145,7 @@ fn test_containers_single_field_test_struct_zero_chaos_0() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xff00000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -16153,7 +16153,7 @@ fn test_containers_single_field_test_struct_zero_chaos_0() {
 
 #[test]
 fn test_containers_single_field_test_struct_zero_chaos_1() {
-    let mut value = SingleFieldTestStruct { a: 15 };
+    let value = SingleFieldTestStruct { a: 15 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_zero_chaos_1/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
@@ -16161,7 +16161,7 @@ fn test_containers_single_field_test_struct_zero_chaos_1() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x0f00000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -16169,7 +16169,7 @@ fn test_containers_single_field_test_struct_zero_chaos_1() {
 
 #[test]
 fn test_containers_single_field_test_struct_zero_chaos_2() {
-    let mut value = SingleFieldTestStruct { a: 255 };
+    let value = SingleFieldTestStruct { a: 255 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data("ssz-rs/tests/data/containers/valid/SingleFieldTestStruct_zero_chaos_2/serialized.ssz_snappy");
     assert_eq!(encoding, expected_encoding);
@@ -16177,7 +16177,7 @@ fn test_containers_single_field_test_struct_zero_chaos_2() {
     let recovered_value: SingleFieldTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xff00000000000000000000000000000000000000000000000000000000000000");
     assert_eq!(root, expected_root);
@@ -16195,7 +16195,7 @@ fn test_containers_small_test_struct_extra_byte() {
 
 #[test]
 fn test_containers_small_test_struct_max() {
-    let mut value = SmallTestStruct { a: 65535, b: 65535 };
+    let value = SmallTestStruct { a: 65535, b: 65535 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_max/serialized.ssz_snappy",
@@ -16205,7 +16205,7 @@ fn test_containers_small_test_struct_max() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x5ee8ff3d8661977c818a2d7f926019872cfef9cf4270b99ff833160f41fc01ec");
     assert_eq!(root, expected_root);
@@ -16213,7 +16213,7 @@ fn test_containers_small_test_struct_max() {
 
 #[test]
 fn test_containers_small_test_struct_max_chaos_0() {
-    let mut value = SmallTestStruct { a: 28192, b: 0 };
+    let value = SmallTestStruct { a: 28192, b: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_max_chaos_0/serialized.ssz_snappy",
@@ -16223,7 +16223,7 @@ fn test_containers_small_test_struct_max_chaos_0() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x006805ecbb4e3f031d5ce707ce5617e4944e1962212f655c71dcfffcb3aae99b");
     assert_eq!(root, expected_root);
@@ -16231,7 +16231,7 @@ fn test_containers_small_test_struct_max_chaos_0() {
 
 #[test]
 fn test_containers_small_test_struct_max_chaos_1() {
-    let mut value = SmallTestStruct { a: 65535, b: 18511 };
+    let value = SmallTestStruct { a: 65535, b: 18511 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_max_chaos_1/serialized.ssz_snappy",
@@ -16241,7 +16241,7 @@ fn test_containers_small_test_struct_max_chaos_1() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x32c367f05a28d3f374ac725e7b9f3ea466012c486d2cb2afc47bbe615e513c4a");
     assert_eq!(root, expected_root);
@@ -16249,7 +16249,7 @@ fn test_containers_small_test_struct_max_chaos_1() {
 
 #[test]
 fn test_containers_small_test_struct_max_chaos_2() {
-    let mut value = SmallTestStruct { a: 65535, b: 5189 };
+    let value = SmallTestStruct { a: 65535, b: 5189 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_max_chaos_2/serialized.ssz_snappy",
@@ -16259,7 +16259,7 @@ fn test_containers_small_test_struct_max_chaos_2() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x8067c7c9cc558dcc9ea3ae383b60db9e1ad5cb1dbff54b0460ca7f942ebfd6a7");
     assert_eq!(root, expected_root);
@@ -16267,7 +16267,7 @@ fn test_containers_small_test_struct_max_chaos_2() {
 
 #[test]
 fn test_containers_small_test_struct_random_0() {
-    let mut value = SmallTestStruct { a: 54558, b: 36278 };
+    let value = SmallTestStruct { a: 54558, b: 36278 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_0/serialized.ssz_snappy",
@@ -16277,7 +16277,7 @@ fn test_containers_small_test_struct_random_0() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xab1a70fc42d5926b912ae7f68ec3aba10e8e99415e9863b2e4ca39b4c0c42685");
     assert_eq!(root, expected_root);
@@ -16285,7 +16285,7 @@ fn test_containers_small_test_struct_random_0() {
 
 #[test]
 fn test_containers_small_test_struct_random_1() {
-    let mut value = SmallTestStruct { a: 5269, b: 23244 };
+    let value = SmallTestStruct { a: 5269, b: 23244 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_1/serialized.ssz_snappy",
@@ -16295,7 +16295,7 @@ fn test_containers_small_test_struct_random_1() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x78d69e508cfe68f18cf7245e073e0606536efb5e89dee7c2cf9287ca1cc2faf7");
     assert_eq!(root, expected_root);
@@ -16303,7 +16303,7 @@ fn test_containers_small_test_struct_random_1() {
 
 #[test]
 fn test_containers_small_test_struct_random_2() {
-    let mut value = SmallTestStruct { a: 35608, b: 20259 };
+    let value = SmallTestStruct { a: 35608, b: 20259 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_2/serialized.ssz_snappy",
@@ -16313,7 +16313,7 @@ fn test_containers_small_test_struct_random_2() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x3f57db803a4eb733537fd43e3c3e05b19011e478879d00efafb82c309efc3884");
     assert_eq!(root, expected_root);
@@ -16321,7 +16321,7 @@ fn test_containers_small_test_struct_random_2() {
 
 #[test]
 fn test_containers_small_test_struct_random_3() {
-    let mut value = SmallTestStruct { a: 39357, b: 20257 };
+    let value = SmallTestStruct { a: 39357, b: 20257 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_3/serialized.ssz_snappy",
@@ -16331,7 +16331,7 @@ fn test_containers_small_test_struct_random_3() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xe4e0fd2c3fd96d28c58544b4ed004137777a86ec9c0e66438706b02e5f518f48");
     assert_eq!(root, expected_root);
@@ -16339,7 +16339,7 @@ fn test_containers_small_test_struct_random_3() {
 
 #[test]
 fn test_containers_small_test_struct_random_4() {
-    let mut value = SmallTestStruct { a: 60883, b: 5382 };
+    let value = SmallTestStruct { a: 60883, b: 5382 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_4/serialized.ssz_snappy",
@@ -16349,7 +16349,7 @@ fn test_containers_small_test_struct_random_4() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xcb365ed50aa40cb323b64768fc4575b3d07642055a368de7c217f5838e2c7273");
     assert_eq!(root, expected_root);
@@ -16357,7 +16357,7 @@ fn test_containers_small_test_struct_random_4() {
 
 #[test]
 fn test_containers_small_test_struct_random_5() {
-    let mut value = SmallTestStruct { a: 50617, b: 45821 };
+    let value = SmallTestStruct { a: 50617, b: 45821 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_5/serialized.ssz_snappy",
@@ -16367,7 +16367,7 @@ fn test_containers_small_test_struct_random_5() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x9ef7194e27a8b01c71347e4ba177ee47417418720d05a6ca67cb875de700a971");
     assert_eq!(root, expected_root);
@@ -16375,7 +16375,7 @@ fn test_containers_small_test_struct_random_5() {
 
 #[test]
 fn test_containers_small_test_struct_random_6() {
-    let mut value = SmallTestStruct { a: 64992, b: 44788 };
+    let value = SmallTestStruct { a: 64992, b: 44788 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_6/serialized.ssz_snappy",
@@ -16385,7 +16385,7 @@ fn test_containers_small_test_struct_random_6() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xef90a603c65f807f800fa6c96e6f2e00f5445e057b239ce5be1f8c239387f2cd");
     assert_eq!(root, expected_root);
@@ -16393,7 +16393,7 @@ fn test_containers_small_test_struct_random_6() {
 
 #[test]
 fn test_containers_small_test_struct_random_7() {
-    let mut value = SmallTestStruct { a: 61357, b: 62381 };
+    let value = SmallTestStruct { a: 61357, b: 62381 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_7/serialized.ssz_snappy",
@@ -16403,7 +16403,7 @@ fn test_containers_small_test_struct_random_7() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x7863111a4784d0e710f7933c38fb6c21764654482360cb43c65c5730aa3e420d");
     assert_eq!(root, expected_root);
@@ -16411,7 +16411,7 @@ fn test_containers_small_test_struct_random_7() {
 
 #[test]
 fn test_containers_small_test_struct_random_8() {
-    let mut value = SmallTestStruct { a: 5941, b: 61713 };
+    let value = SmallTestStruct { a: 5941, b: 61713 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_8/serialized.ssz_snappy",
@@ -16421,7 +16421,7 @@ fn test_containers_small_test_struct_random_8() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x415461b066dcc4b21f7fb2b51f24f6ae8bf360b0de9ffb72f2d6e798da9ad400");
     assert_eq!(root, expected_root);
@@ -16429,7 +16429,7 @@ fn test_containers_small_test_struct_random_8() {
 
 #[test]
 fn test_containers_small_test_struct_random_9() {
-    let mut value = SmallTestStruct { a: 22278, b: 57618 };
+    let value = SmallTestStruct { a: 22278, b: 57618 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_9/serialized.ssz_snappy",
@@ -16439,7 +16439,7 @@ fn test_containers_small_test_struct_random_9() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x859b42be5e5c733e8ab234c5f09a5e91b87c070d72740d6a8890995690a9acc5");
     assert_eq!(root, expected_root);
@@ -16447,7 +16447,7 @@ fn test_containers_small_test_struct_random_9() {
 
 #[test]
 fn test_containers_small_test_struct_random_chaos_0() {
-    let mut value = SmallTestStruct { a: 39639, b: 46561 };
+    let value = SmallTestStruct { a: 39639, b: 46561 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_chaos_0/serialized.ssz_snappy",
@@ -16457,7 +16457,7 @@ fn test_containers_small_test_struct_random_chaos_0() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x37a05524f5a46555c6f1924c6c1b67218e760596b42f53dadd6db5ff876cd660");
     assert_eq!(root, expected_root);
@@ -16465,7 +16465,7 @@ fn test_containers_small_test_struct_random_chaos_0() {
 
 #[test]
 fn test_containers_small_test_struct_random_chaos_1() {
-    let mut value = SmallTestStruct { a: 0, b: 26218 };
+    let value = SmallTestStruct { a: 0, b: 26218 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_chaos_1/serialized.ssz_snappy",
@@ -16475,7 +16475,7 @@ fn test_containers_small_test_struct_random_chaos_1() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xa278a189a4d8b4909ad5bbfbb4bacc31005e1e4fcbcbb0bf7caa604cf92ab166");
     assert_eq!(root, expected_root);
@@ -16483,7 +16483,7 @@ fn test_containers_small_test_struct_random_chaos_1() {
 
 #[test]
 fn test_containers_small_test_struct_random_chaos_2() {
-    let mut value = SmallTestStruct { a: 2529, b: 9252 };
+    let value = SmallTestStruct { a: 2529, b: 9252 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_random_chaos_2/serialized.ssz_snappy",
@@ -16493,7 +16493,7 @@ fn test_containers_small_test_struct_random_chaos_2() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xc0bb95db0a18e3538a7d1bc39ce8227bb028c8f68bc74bee7150560a4f1b0887");
     assert_eq!(root, expected_root);
@@ -16501,7 +16501,7 @@ fn test_containers_small_test_struct_random_chaos_2() {
 
 #[test]
 fn test_containers_small_test_struct_zero() {
-    let mut value = SmallTestStruct { a: 0, b: 0 };
+    let value = SmallTestStruct { a: 0, b: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_zero/serialized.ssz_snappy",
@@ -16511,7 +16511,7 @@ fn test_containers_small_test_struct_zero() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xf5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b");
     assert_eq!(root, expected_root);
@@ -16519,7 +16519,7 @@ fn test_containers_small_test_struct_zero() {
 
 #[test]
 fn test_containers_small_test_struct_zero_chaos_0() {
-    let mut value = SmallTestStruct { a: 65535, b: 0 };
+    let value = SmallTestStruct { a: 65535, b: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_zero_chaos_0/serialized.ssz_snappy",
@@ -16529,7 +16529,7 @@ fn test_containers_small_test_struct_zero_chaos_0() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x9f0a4f1b805c05c92e76c5d1479d46d0515834106f56fa521febbbaef26902be");
     assert_eq!(root, expected_root);
@@ -16537,7 +16537,7 @@ fn test_containers_small_test_struct_zero_chaos_0() {
 
 #[test]
 fn test_containers_small_test_struct_zero_chaos_1() {
-    let mut value = SmallTestStruct { a: 49459, b: 0 };
+    let value = SmallTestStruct { a: 49459, b: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_zero_chaos_1/serialized.ssz_snappy",
@@ -16547,7 +16547,7 @@ fn test_containers_small_test_struct_zero_chaos_1() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x8aa53bd0929b0cefb8834c52af0ef93b01141666adc535a1e4181e3061bb77b7");
     assert_eq!(root, expected_root);
@@ -16555,7 +16555,7 @@ fn test_containers_small_test_struct_zero_chaos_1() {
 
 #[test]
 fn test_containers_small_test_struct_zero_chaos_2() {
-    let mut value = SmallTestStruct { a: 65087, b: 0 };
+    let value = SmallTestStruct { a: 65087, b: 0 };
     let encoding = serialize(&value);
     let expected_encoding = read_ssz_snappy_from_test_data(
         "ssz-rs/tests/data/containers/valid/SmallTestStruct_zero_chaos_2/serialized.ssz_snappy",
@@ -16565,7 +16565,7 @@ fn test_containers_small_test_struct_zero_chaos_2() {
     let recovered_value: SmallTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x9efcc36dc09f38bf60ee694007c1e5ee80d7dc10c6db68c17e5fb33dbd25bb5a");
     assert_eq!(root, expected_root);
@@ -16583,7 +16583,7 @@ fn test_containers_var_test_struct_extra_byte() {
 
 #[test]
 fn test_containers_var_test_struct_lengthy_0() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 17006,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             22717, 10092, 23181, 44132, 56083, 9786, 18029, 6053, 14557, 30014, 52849, 53581, 1706,
@@ -16682,7 +16682,7 @@ fn test_containers_var_test_struct_lengthy_0() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x91c099892139bf956ca5617b630e4c2e5375af8ffabc70d23112f44606845f78");
     assert_eq!(root, expected_root);
@@ -16690,7 +16690,7 @@ fn test_containers_var_test_struct_lengthy_0() {
 
 #[test]
 fn test_containers_var_test_struct_lengthy_1() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 51340,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             47589, 20821, 19661, 27886, 43003, 60221, 64176, 49983, 28476, 34857, 4565, 56689,
@@ -16789,7 +16789,7 @@ fn test_containers_var_test_struct_lengthy_1() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xdb86f83887def79e8136565c15109754858ad4020a5ca615b213f657bbc47a6e");
     assert_eq!(root, expected_root);
@@ -16797,7 +16797,7 @@ fn test_containers_var_test_struct_lengthy_1() {
 
 #[test]
 fn test_containers_var_test_struct_lengthy_2() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 62388,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             15173, 48097, 34784, 17125, 53078, 63472, 59950, 51563, 46205, 28969, 11302, 34038,
@@ -16896,7 +16896,7 @@ fn test_containers_var_test_struct_lengthy_2() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xd9e504e079375d102319315806576a257499618495abd7374383895c6e6c9c86");
     assert_eq!(root, expected_root);
@@ -16904,7 +16904,7 @@ fn test_containers_var_test_struct_lengthy_2() {
 
 #[test]
 fn test_containers_var_test_struct_lengthy_3() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 20604,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             34957, 22356, 49238, 15530, 12659, 22637, 4844, 40024, 12527, 63141, 52298, 1765,
@@ -17003,7 +17003,7 @@ fn test_containers_var_test_struct_lengthy_3() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x403fec5d885fc3b79002c68502f5884a13139045f7d584299d4aa6440c621a08");
     assert_eq!(root, expected_root);
@@ -17011,7 +17011,7 @@ fn test_containers_var_test_struct_lengthy_3() {
 
 #[test]
 fn test_containers_var_test_struct_lengthy_4() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 31723,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             54898, 17572, 14430, 62910, 3421, 12689, 12978, 26233, 431, 28622, 46748, 44543, 51497,
@@ -17111,7 +17111,7 @@ fn test_containers_var_test_struct_lengthy_4() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xc52442fb8e6d1d382578c0506a26d9f7a88ca1f40913e825f93a2ce12d8ccb9f");
     assert_eq!(root, expected_root);
@@ -17119,7 +17119,7 @@ fn test_containers_var_test_struct_lengthy_4() {
 
 #[test]
 fn test_containers_var_test_struct_lengthy_5() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 62701,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             13450, 24351, 51399, 56826, 60224, 65266, 53856, 23188, 34504, 34114, 15786, 19629,
@@ -17218,7 +17218,7 @@ fn test_containers_var_test_struct_lengthy_5() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x3d9572d393c997f81bbf98bf9bbc40ee291d5f798c8fc8fbe0ff668db6432b8c");
     assert_eq!(root, expected_root);
@@ -17226,7 +17226,7 @@ fn test_containers_var_test_struct_lengthy_5() {
 
 #[test]
 fn test_containers_var_test_struct_lengthy_6() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 55972,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             11399, 15291, 30938, 30612, 5398, 6772, 58525, 31460, 46486, 44751, 50458, 7858, 43542,
@@ -17325,7 +17325,7 @@ fn test_containers_var_test_struct_lengthy_6() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xe408e32f2280694b2fe31693dd5ac1bfada7abeff3d7de21539eb51a87beb1cd");
     assert_eq!(root, expected_root);
@@ -17333,7 +17333,7 @@ fn test_containers_var_test_struct_lengthy_6() {
 
 #[test]
 fn test_containers_var_test_struct_lengthy_7() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 44853,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             62481, 28416, 26298, 58537, 60679, 56277, 19174, 41894, 17873, 64750, 9105, 19665,
@@ -17432,7 +17432,7 @@ fn test_containers_var_test_struct_lengthy_7() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x47415855521dd2b3c7928c4fa89f4e8fd64308b8a8f310c35319976154e8df3b");
     assert_eq!(root, expected_root);
@@ -17440,7 +17440,7 @@ fn test_containers_var_test_struct_lengthy_7() {
 
 #[test]
 fn test_containers_var_test_struct_lengthy_8() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 20549,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             3953, 42181, 26705, 51056, 39573, 25650, 49315, 48964, 13112, 56492, 18886, 45518, 130,
@@ -17539,7 +17539,7 @@ fn test_containers_var_test_struct_lengthy_8() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xde9f1e6dbba6727cd87bea1d93ac0f92ac4b889c5d3a483650af23e10712621d");
     assert_eq!(root, expected_root);
@@ -17547,7 +17547,7 @@ fn test_containers_var_test_struct_lengthy_8() {
 
 #[test]
 fn test_containers_var_test_struct_lengthy_9() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 36734,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             19081, 32810, 33919, 8568, 20609, 44802, 35110, 36218, 59983, 22518, 1472, 41772,
@@ -17647,7 +17647,7 @@ fn test_containers_var_test_struct_lengthy_9() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xcd9fe8ea8862ba4f70244b0649956fb3584ac19580eeb413d3c8d6754e0eb21e");
     assert_eq!(root, expected_root);
@@ -17655,7 +17655,7 @@ fn test_containers_var_test_struct_lengthy_9() {
 
 #[test]
 fn test_containers_var_test_struct_lengthy_chaos_0() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 60445,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             41248, 0, 65535, 65535, 60137, 57750, 11223, 65535, 65535, 11355, 16613, 3189, 24359,
@@ -17681,7 +17681,7 @@ fn test_containers_var_test_struct_lengthy_chaos_0() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x6f6184da799c0ebf0154aa56847a4d491a8f62f317d018334bf7367fee6f31a4");
     assert_eq!(root, expected_root);
@@ -17689,7 +17689,7 @@ fn test_containers_var_test_struct_lengthy_chaos_0() {
 
 #[test]
 fn test_containers_var_test_struct_lengthy_chaos_1() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 1543,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([51731])).unwrap(),
         c: 220,
@@ -17703,7 +17703,7 @@ fn test_containers_var_test_struct_lengthy_chaos_1() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xee381964ccbada8328e12c5b1f25b3c47ad1930cb99d9d4e1be20bc0a7e3e143");
     assert_eq!(root, expected_root);
@@ -17711,7 +17711,7 @@ fn test_containers_var_test_struct_lengthy_chaos_1() {
 
 #[test]
 fn test_containers_var_test_struct_lengthy_chaos_2() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 30938,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 0,
@@ -17725,7 +17725,7 @@ fn test_containers_var_test_struct_lengthy_chaos_2() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xc2ab319d105839cf5f2740dca530f09f84f06feef99e5c8672811cc0a554fd54");
     assert_eq!(root, expected_root);
@@ -17765,7 +17765,7 @@ fn test_containers_var_test_struct_lengthy_offset_2_zeroed() {
 
 #[test]
 fn test_containers_var_test_struct_max() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 65535,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -17862,7 +17862,7 @@ fn test_containers_var_test_struct_max() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x15e9ad3c97423dc2d351f940bfbff9a4dec9770850ddd9225b34237e118adc7c");
     assert_eq!(root, expected_root);
@@ -17870,7 +17870,7 @@ fn test_containers_var_test_struct_max() {
 
 #[test]
 fn test_containers_var_test_struct_max_0() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 65535,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -17963,7 +17963,7 @@ fn test_containers_var_test_struct_max_0() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x56580a519ee0bb5185653c7acb73abe3db0d43a0075aa93d10eab9fa37a68ac6");
     assert_eq!(root, expected_root);
@@ -17971,7 +17971,7 @@ fn test_containers_var_test_struct_max_0() {
 
 #[test]
 fn test_containers_var_test_struct_max_1() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 65535,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -18063,7 +18063,7 @@ fn test_containers_var_test_struct_max_1() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x325f49ca48bb009071c1af915c2affdf0115a990516ec4f8519c1160dd9f64d7");
     assert_eq!(root, expected_root);
@@ -18071,7 +18071,7 @@ fn test_containers_var_test_struct_max_1() {
 
 #[test]
 fn test_containers_var_test_struct_max_2() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 65535,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -18121,7 +18121,7 @@ fn test_containers_var_test_struct_max_2() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xcab1dfb713ab90635b4c202630a0a178fb5b1b4cbc72695faf5ecb81a94cff8c");
     assert_eq!(root, expected_root);
@@ -18129,7 +18129,7 @@ fn test_containers_var_test_struct_max_2() {
 
 #[test]
 fn test_containers_var_test_struct_max_3() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 65535,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -18150,7 +18150,7 @@ fn test_containers_var_test_struct_max_3() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xb49546827cdbce75f2facc47daab8ec3886f914e1f7f1756ebc7d17bfeccc617");
     assert_eq!(root, expected_root);
@@ -18158,7 +18158,7 @@ fn test_containers_var_test_struct_max_3() {
 
 #[test]
 fn test_containers_var_test_struct_max_4() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 65535,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -18178,7 +18178,7 @@ fn test_containers_var_test_struct_max_4() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xfa233782570411ce535e4d9fdb537990d5f40437d2d85d463ca3e7dad4a74d9f");
     assert_eq!(root, expected_root);
@@ -18186,7 +18186,7 @@ fn test_containers_var_test_struct_max_4() {
 
 #[test]
 fn test_containers_var_test_struct_max_5() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 65535,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -18217,7 +18217,7 @@ fn test_containers_var_test_struct_max_5() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x566b5e483ba5cb5ef93506a1b711df754e93308b118b13e046d6e9ad74418273");
     assert_eq!(root, expected_root);
@@ -18225,7 +18225,7 @@ fn test_containers_var_test_struct_max_5() {
 
 #[test]
 fn test_containers_var_test_struct_max_6() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 65535,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -18282,7 +18282,7 @@ fn test_containers_var_test_struct_max_6() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x714e5d28c6cadb4c41c52ff0873f5eedefcc3a29e79d4c50310cda970687abb8");
     assert_eq!(root, expected_root);
@@ -18290,7 +18290,7 @@ fn test_containers_var_test_struct_max_6() {
 
 #[test]
 fn test_containers_var_test_struct_max_7() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 65535,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -18353,7 +18353,7 @@ fn test_containers_var_test_struct_max_7() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x8bb40c9d2ea53fd72efb9b07c1f91f35fa9c884869734074a50011e9b4571882");
     assert_eq!(root, expected_root);
@@ -18361,7 +18361,7 @@ fn test_containers_var_test_struct_max_7() {
 
 #[test]
 fn test_containers_var_test_struct_max_8() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 65535,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -18403,7 +18403,7 @@ fn test_containers_var_test_struct_max_8() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x234d219bcd661de659d3675a667e74c56720d96fbe1c3c1f866a4579e84e9b7f");
     assert_eq!(root, expected_root);
@@ -18411,7 +18411,7 @@ fn test_containers_var_test_struct_max_8() {
 
 #[test]
 fn test_containers_var_test_struct_max_9() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 65535,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535,
@@ -18487,7 +18487,7 @@ fn test_containers_var_test_struct_max_9() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xc0797bf78883955d067a148d7b37737debccf2e7b16107e3480156744565b8b8");
     assert_eq!(root, expected_root);
@@ -18495,7 +18495,7 @@ fn test_containers_var_test_struct_max_9() {
 
 #[test]
 fn test_containers_var_test_struct_max_chaos_0() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 65535,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 255,
@@ -18509,7 +18509,7 @@ fn test_containers_var_test_struct_max_chaos_0() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xdcbe7541bc36b70f18046e6312563a5315d439a69a088931ee0daca2fdd2440b");
     assert_eq!(root, expected_root);
@@ -18517,7 +18517,7 @@ fn test_containers_var_test_struct_max_chaos_0() {
 
 #[test]
 fn test_containers_var_test_struct_max_chaos_1() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 23436,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 255,
@@ -18531,7 +18531,7 @@ fn test_containers_var_test_struct_max_chaos_1() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x16a0be99b3ef5107a5959bb009cf98c8a5a37aeeafd1b966c84b3c630186cfc3");
     assert_eq!(root, expected_root);
@@ -18539,7 +18539,7 @@ fn test_containers_var_test_struct_max_chaos_1() {
 
 #[test]
 fn test_containers_var_test_struct_max_chaos_2() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 1123,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             7029, 0, 1713, 15092, 0, 28021, 22657, 65535, 0, 45891, 52860, 22869, 26735, 727,
@@ -18631,7 +18631,7 @@ fn test_containers_var_test_struct_max_chaos_2() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xe0364b8fc432a7b5849ca9453cfdade41ede56abc18f93b71433f11eff8755a6");
     assert_eq!(root, expected_root);
@@ -18639,7 +18639,7 @@ fn test_containers_var_test_struct_max_chaos_2() {
 
 #[test]
 fn test_containers_var_test_struct_nil_0() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 46959,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 40,
@@ -18653,7 +18653,7 @@ fn test_containers_var_test_struct_nil_0() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x50683dbb595c06624e23b54b9a9aab8245af7b19e0c23e3cd35c5ccaa0beed8e");
     assert_eq!(root, expected_root);
@@ -18661,7 +18661,7 @@ fn test_containers_var_test_struct_nil_0() {
 
 #[test]
 fn test_containers_var_test_struct_nil_1() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 55458,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 194,
@@ -18675,7 +18675,7 @@ fn test_containers_var_test_struct_nil_1() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x67d4e19ce21a6f72866a977768ebf9ee04cbe3b6769f44c58b3f6e53c0fa6a35");
     assert_eq!(root, expected_root);
@@ -18683,7 +18683,7 @@ fn test_containers_var_test_struct_nil_1() {
 
 #[test]
 fn test_containers_var_test_struct_nil_2() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 56441,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 118,
@@ -18697,7 +18697,7 @@ fn test_containers_var_test_struct_nil_2() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x695bc170943f72a828f0a0b1cb861ca3df701de71b08b87831e69bf61f0e0e3e");
     assert_eq!(root, expected_root);
@@ -18705,7 +18705,7 @@ fn test_containers_var_test_struct_nil_2() {
 
 #[test]
 fn test_containers_var_test_struct_nil_3() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 51959,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 229,
@@ -18719,7 +18719,7 @@ fn test_containers_var_test_struct_nil_3() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x5f6b6e1b555aab6e53e8d53c23e768616ff751c9da3d0573c0c2fd6b1b0f1b45");
     assert_eq!(root, expected_root);
@@ -18727,7 +18727,7 @@ fn test_containers_var_test_struct_nil_3() {
 
 #[test]
 fn test_containers_var_test_struct_nil_4() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 55400,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 204,
@@ -18741,7 +18741,7 @@ fn test_containers_var_test_struct_nil_4() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xbbf774ab4d952407bddbcc33e3f28482ab974102d9666fa00b5d927e1cb05082");
     assert_eq!(root, expected_root);
@@ -18749,7 +18749,7 @@ fn test_containers_var_test_struct_nil_4() {
 
 #[test]
 fn test_containers_var_test_struct_nil_5() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 60183,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 81,
@@ -18763,7 +18763,7 @@ fn test_containers_var_test_struct_nil_5() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x13937b49bed01535ecf11e8afb110d8ceae82a481be8e77157e62f031b91d25c");
     assert_eq!(root, expected_root);
@@ -18771,7 +18771,7 @@ fn test_containers_var_test_struct_nil_5() {
 
 #[test]
 fn test_containers_var_test_struct_nil_6() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 44944,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 138,
@@ -18785,7 +18785,7 @@ fn test_containers_var_test_struct_nil_6() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x9c0ac1fd37b09b9259a7d26c70e9bcb122af290f3c51dff941d7178f649807f1");
     assert_eq!(root, expected_root);
@@ -18793,7 +18793,7 @@ fn test_containers_var_test_struct_nil_6() {
 
 #[test]
 fn test_containers_var_test_struct_nil_7() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 28606,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 108,
@@ -18807,7 +18807,7 @@ fn test_containers_var_test_struct_nil_7() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x2c193129d8189cced897c240632e249e85ded4ee7a5af48ba4222254194afbf9");
     assert_eq!(root, expected_root);
@@ -18815,7 +18815,7 @@ fn test_containers_var_test_struct_nil_7() {
 
 #[test]
 fn test_containers_var_test_struct_nil_8() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 20040,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 226,
@@ -18829,7 +18829,7 @@ fn test_containers_var_test_struct_nil_8() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x4feef9858a3460aac32922ce090914cb1a66c9232f92e6ddcb2672ba34e85f12");
     assert_eq!(root, expected_root);
@@ -18837,7 +18837,7 @@ fn test_containers_var_test_struct_nil_8() {
 
 #[test]
 fn test_containers_var_test_struct_nil_9() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 16949,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 54,
@@ -18851,7 +18851,7 @@ fn test_containers_var_test_struct_nil_9() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xdc7656b3be9495ff7f31a568ac0cbfd73abf7081726578d5c42401fad0168ae9");
     assert_eq!(root, expected_root);
@@ -18859,7 +18859,7 @@ fn test_containers_var_test_struct_nil_9() {
 
 #[test]
 fn test_containers_var_test_struct_nil_chaos_0() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 5285,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 25201, 0, 16037, 31280, 65535, 33272, 11848, 3343, 65535, 60290, 46167, 18257,
@@ -18949,7 +18949,7 @@ fn test_containers_var_test_struct_nil_chaos_0() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xbff50cbed553df006a7ad81b7dc89c1a9a5fd7c8d5e9e3e55a6bc4112cf6a0b1");
     assert_eq!(root, expected_root);
@@ -18957,7 +18957,7 @@ fn test_containers_var_test_struct_nil_chaos_0() {
 
 #[test]
 fn test_containers_var_test_struct_nil_chaos_1() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 19203,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 143,
@@ -18971,7 +18971,7 @@ fn test_containers_var_test_struct_nil_chaos_1() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x63652fbaf8d9d6069f52ef3d06f6e61915b8033746fc69bcaabdef6daf69cf1f");
     assert_eq!(root, expected_root);
@@ -18979,7 +18979,7 @@ fn test_containers_var_test_struct_nil_chaos_1() {
 
 #[test]
 fn test_containers_var_test_struct_nil_chaos_2() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 19771,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([41167])).unwrap(),
         c: 94,
@@ -18993,7 +18993,7 @@ fn test_containers_var_test_struct_nil_chaos_2() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xbe0f5ed20e35ba55f1d00c027a5f9a44b269eefa31d7de8647abb984a5874981");
     assert_eq!(root, expected_root);
@@ -19025,7 +19025,7 @@ fn test_containers_var_test_struct_nil_offset_2_zeroed() {
 
 #[test]
 fn test_containers_var_test_struct_one_0() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 13373,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([31906])).unwrap(),
         c: 63,
@@ -19039,7 +19039,7 @@ fn test_containers_var_test_struct_one_0() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x15d8fbc422bd7e8dcd7d6dd01b0c520953301abe056d134e1b5f06ed6a34a7f2");
     assert_eq!(root, expected_root);
@@ -19047,7 +19047,7 @@ fn test_containers_var_test_struct_one_0() {
 
 #[test]
 fn test_containers_var_test_struct_one_1() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 5133,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([18771])).unwrap(),
         c: 183,
@@ -19061,7 +19061,7 @@ fn test_containers_var_test_struct_one_1() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x4899c18db80f87208bbc34681b3c19e8fed493b3aa7b1f33e792d192f9c988a5");
     assert_eq!(root, expected_root);
@@ -19069,7 +19069,7 @@ fn test_containers_var_test_struct_one_1() {
 
 #[test]
 fn test_containers_var_test_struct_one_2() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 6105,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([26812])).unwrap(),
         c: 6,
@@ -19083,7 +19083,7 @@ fn test_containers_var_test_struct_one_2() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x041dd05e1f7b1a9a1074ba2fee348b8ebd72db7fc8009c2659a03a968dfddc57");
     assert_eq!(root, expected_root);
@@ -19091,7 +19091,7 @@ fn test_containers_var_test_struct_one_2() {
 
 #[test]
 fn test_containers_var_test_struct_one_3() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 3451,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([45630])).unwrap(),
         c: 227,
@@ -19105,7 +19105,7 @@ fn test_containers_var_test_struct_one_3() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xeaac8045bfb7091e56c92d4d1cec95a3df282ffeecee43ec96c3433930806cc2");
     assert_eq!(root, expected_root);
@@ -19113,7 +19113,7 @@ fn test_containers_var_test_struct_one_3() {
 
 #[test]
 fn test_containers_var_test_struct_one_4() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 32090,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([18295])).unwrap(),
         c: 17,
@@ -19127,7 +19127,7 @@ fn test_containers_var_test_struct_one_4() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x4e4d3794a045d1c25d43fdb283932f7c830f9e93ed0716bdda8c4e8b19000933");
     assert_eq!(root, expected_root);
@@ -19135,7 +19135,7 @@ fn test_containers_var_test_struct_one_4() {
 
 #[test]
 fn test_containers_var_test_struct_one_5() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 30693,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([24817])).unwrap(),
         c: 213,
@@ -19149,7 +19149,7 @@ fn test_containers_var_test_struct_one_5() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xa0b55c31403744e66948427e585a2fe66b8f0b26454e52d11e15d9ea43ebae17");
     assert_eq!(root, expected_root);
@@ -19157,7 +19157,7 @@ fn test_containers_var_test_struct_one_5() {
 
 #[test]
 fn test_containers_var_test_struct_one_6() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 39023,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([18503])).unwrap(),
         c: 120,
@@ -19171,7 +19171,7 @@ fn test_containers_var_test_struct_one_6() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x9735380cbd6f8519644148d132f911a786c0eb47e1f04e65e57ebad8fe56b8ff");
     assert_eq!(root, expected_root);
@@ -19179,7 +19179,7 @@ fn test_containers_var_test_struct_one_6() {
 
 #[test]
 fn test_containers_var_test_struct_one_7() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 51727,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([63012])).unwrap(),
         c: 142,
@@ -19193,7 +19193,7 @@ fn test_containers_var_test_struct_one_7() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xad8a125fdaa8db83b1fc9d7423a811170584e2e2be39f8644d3e4f01505a7acf");
     assert_eq!(root, expected_root);
@@ -19201,7 +19201,7 @@ fn test_containers_var_test_struct_one_7() {
 
 #[test]
 fn test_containers_var_test_struct_one_8() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 14916,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([39519])).unwrap(),
         c: 4,
@@ -19215,7 +19215,7 @@ fn test_containers_var_test_struct_one_8() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xa5b1584410838d0961fbb3933d3acf55b4bb50bae0fd55acd95077a0079d29a7");
     assert_eq!(root, expected_root);
@@ -19223,7 +19223,7 @@ fn test_containers_var_test_struct_one_8() {
 
 #[test]
 fn test_containers_var_test_struct_one_9() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 18626,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([52279])).unwrap(),
         c: 157,
@@ -19237,7 +19237,7 @@ fn test_containers_var_test_struct_one_9() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xc457b698aee081685c2ff7536da84413b7c27a9ccd7f0c0f1c5b4d41dcf7b4d9");
     assert_eq!(root, expected_root);
@@ -19245,7 +19245,7 @@ fn test_containers_var_test_struct_one_9() {
 
 #[test]
 fn test_containers_var_test_struct_one_chaos_0() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 40138,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 0, 31331, 0, 34012, 65535, 51817, 65535, 53427, 0, 28979, 15627, 65535, 0, 0,
@@ -19327,7 +19327,7 @@ fn test_containers_var_test_struct_one_chaos_0() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x75a21e43d653f955dcaa219e22bd3c802e6ee0787005f203fd24b94c0cc26918");
     assert_eq!(root, expected_root);
@@ -19335,7 +19335,7 @@ fn test_containers_var_test_struct_one_chaos_0() {
 
 #[test]
 fn test_containers_var_test_struct_one_chaos_1() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 30440,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([])).unwrap(),
         c: 0,
@@ -19349,7 +19349,7 @@ fn test_containers_var_test_struct_one_chaos_1() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x6b8e9bdd7303c481cd6f00e9051e8eb081b07699e806f5ed750d8405f92e52f1");
     assert_eq!(root, expected_root);
@@ -19357,7 +19357,7 @@ fn test_containers_var_test_struct_one_chaos_1() {
 
 #[test]
 fn test_containers_var_test_struct_one_chaos_2() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 0,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             41095, 65535, 28658, 44280, 65535, 65535, 19737, 61292, 19192, 0, 12891, 65535, 0,
@@ -19422,7 +19422,7 @@ fn test_containers_var_test_struct_one_chaos_2() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x70cc1bfa7fb688bab448160b81321a6a245a8847e671257b95e9ddc6043efc1d");
     assert_eq!(root, expected_root);
@@ -19462,7 +19462,7 @@ fn test_containers_var_test_struct_one_offset_2_zeroed() {
 
 #[test]
 fn test_containers_var_test_struct_random_0() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 13603,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             36974, 14793, 41047, 42644, 47525, 8585, 41126, 3068, 61868, 32452, 52070, 33625,
@@ -19529,7 +19529,7 @@ fn test_containers_var_test_struct_random_0() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xf7c368f32d7a4842614e5b13e4d4df0423427c72aa564c7743265ef21217f744");
     assert_eq!(root, expected_root);
@@ -19537,7 +19537,7 @@ fn test_containers_var_test_struct_random_0() {
 
 #[test]
 fn test_containers_var_test_struct_random_1() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 12339,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             6435, 5027, 12935, 58835, 25601, 42816, 55130, 46980, 33955, 2700, 62344, 26772, 49951,
@@ -19580,7 +19580,7 @@ fn test_containers_var_test_struct_random_1() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xe1b98199d4cb498e33bf2efdbaa2fdde0efa008171804b1ec780bfc2f20fa12d");
     assert_eq!(root, expected_root);
@@ -19588,7 +19588,7 @@ fn test_containers_var_test_struct_random_1() {
 
 #[test]
 fn test_containers_var_test_struct_random_2() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 205,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             50820, 37658, 24377, 10169, 41075, 53746, 8356, 25932, 45622, 27068, 52763, 3905,
@@ -19626,7 +19626,7 @@ fn test_containers_var_test_struct_random_2() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x990f1a2c4c2362a7c59bbf94a93ac6898f23516b4e8144c23bf68d6c152df640");
     assert_eq!(root, expected_root);
@@ -19634,7 +19634,7 @@ fn test_containers_var_test_struct_random_2() {
 
 #[test]
 fn test_containers_var_test_struct_random_3() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 59954,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             47544, 35901, 35508, 52836, 1719, 31754, 34244, 52550, 16561, 58801, 25853, 43681,
@@ -19728,7 +19728,7 @@ fn test_containers_var_test_struct_random_3() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x41d081029855c4979db545ce107d84ef51497ce93419d43d2ed3ee7d85660b6a");
     assert_eq!(root, expected_root);
@@ -19736,7 +19736,7 @@ fn test_containers_var_test_struct_random_3() {
 
 #[test]
 fn test_containers_var_test_struct_random_4() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 64822,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             16734, 9497, 13409, 58763, 25059, 15369, 39800, 59064, 57777, 39067, 51491, 16990,
@@ -19813,7 +19813,7 @@ fn test_containers_var_test_struct_random_4() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xd6139a50ec151d61a71e52f8bd45e3b30bed9b3aaa69c833c3da30bd36d243e4");
     assert_eq!(root, expected_root);
@@ -19821,7 +19821,7 @@ fn test_containers_var_test_struct_random_4() {
 
 #[test]
 fn test_containers_var_test_struct_random_5() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 27545,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             21413, 8654, 13117, 51057, 44329, 9178, 12592, 57532, 49952, 31, 62331, 54527, 20925,
@@ -19892,7 +19892,7 @@ fn test_containers_var_test_struct_random_5() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xe72553d4b1b08c4c64c3b7781bba9d4c6eb20c6cb6c2cb91fd10b3004d9cbf6b");
     assert_eq!(root, expected_root);
@@ -19900,7 +19900,7 @@ fn test_containers_var_test_struct_random_5() {
 
 #[test]
 fn test_containers_var_test_struct_random_6() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 2546,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             34018, 8390, 30159, 22918, 60518, 657, 6213, 58030, 24457, 42466, 40615, 18842, 17930,
@@ -19940,7 +19940,7 @@ fn test_containers_var_test_struct_random_6() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xf7d6dd5cae0fef7e20398d9b7032e2432627bac1bd36af4ae0282af071a2d9f3");
     assert_eq!(root, expected_root);
@@ -19948,7 +19948,7 @@ fn test_containers_var_test_struct_random_6() {
 
 #[test]
 fn test_containers_var_test_struct_random_7() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 32956,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             27138, 27095, 53009, 54159, 8538, 53786, 56204, 29089, 35375, 14190, 46500, 3428,
@@ -20023,7 +20023,7 @@ fn test_containers_var_test_struct_random_7() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x4b6da8debc43236f10ae7a472cbae050e165235867af5cea48d89e370815e23c");
     assert_eq!(root, expected_root);
@@ -20031,7 +20031,7 @@ fn test_containers_var_test_struct_random_7() {
 
 #[test]
 fn test_containers_var_test_struct_random_8() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 2060,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             42551, 29164, 21013, 20151, 44157, 25636, 59364, 61542, 49967, 15147, 57085, 44552,
@@ -20084,7 +20084,7 @@ fn test_containers_var_test_struct_random_8() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x84bef9b1a73afced6bee012877fdb48c4aa6fe6d04abe017f751694eef538871");
     assert_eq!(root, expected_root);
@@ -20092,7 +20092,7 @@ fn test_containers_var_test_struct_random_8() {
 
 #[test]
 fn test_containers_var_test_struct_random_9() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 10642,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             54718, 63609, 42996, 4237, 51836, 49123, 55803, 62568, 48996, 39224, 10120, 2400,
@@ -20121,7 +20121,7 @@ fn test_containers_var_test_struct_random_9() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x87f0a7aa36ee9495cff11dbc34a49df4aff53a34b5b1d117737b6297600034a8");
     assert_eq!(root, expected_root);
@@ -20129,7 +20129,7 @@ fn test_containers_var_test_struct_random_9() {
 
 #[test]
 fn test_containers_var_test_struct_random_chaos_0() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 61327,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             48055, 8544, 0, 43486, 65535, 65535, 65535, 43330, 38506, 25502, 36573, 26738, 65535,
@@ -20221,7 +20221,7 @@ fn test_containers_var_test_struct_random_chaos_0() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x848cbb400c84bed5e4e210776c75894ff0c0f8d6058e9b6b30399d9174f61ee4");
     assert_eq!(root, expected_root);
@@ -20229,7 +20229,7 @@ fn test_containers_var_test_struct_random_chaos_0() {
 
 #[test]
 fn test_containers_var_test_struct_random_chaos_1() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 57484,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             57695, 21309, 65535, 36350, 38811, 1214, 0, 65535, 65535, 51370, 6760, 0, 128, 26614,
@@ -20248,7 +20248,7 @@ fn test_containers_var_test_struct_random_chaos_1() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xf9e1edc08d6a8666c941982ca4fc444ba36e4cebab7b35a7ab4568e78427235b");
     assert_eq!(root, expected_root);
@@ -20256,7 +20256,7 @@ fn test_containers_var_test_struct_random_chaos_1() {
 
 #[test]
 fn test_containers_var_test_struct_random_chaos_2() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 22342,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([40410])).unwrap(),
         c: 151,
@@ -20270,7 +20270,7 @@ fn test_containers_var_test_struct_random_chaos_2() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x96fd92859ccf7ed5cecea85dc34c4a56fd99ff02bab864cfef5c138efe9f187d");
     assert_eq!(root, expected_root);
@@ -20302,7 +20302,7 @@ fn test_containers_var_test_struct_random_offset_2_zeroed() {
 
 #[test]
 fn test_containers_var_test_struct_zero() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 0,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -20351,7 +20351,7 @@ fn test_containers_var_test_struct_zero() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x16acbeea0d56bf42f89e617952156532bc11ef5ec02054964d827ae524bd9356");
     assert_eq!(root, expected_root);
@@ -20359,7 +20359,7 @@ fn test_containers_var_test_struct_zero() {
 
 #[test]
 fn test_containers_var_test_struct_zero_0() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 0,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -20378,7 +20378,7 @@ fn test_containers_var_test_struct_zero_0() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x2c871e8c0540811d51f15de23d73717fc2a929dec0fda436be955d7cf2f3df9d");
     assert_eq!(root, expected_root);
@@ -20386,7 +20386,7 @@ fn test_containers_var_test_struct_zero_0() {
 
 #[test]
 fn test_containers_var_test_struct_zero_1() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 0,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -20432,7 +20432,7 @@ fn test_containers_var_test_struct_zero_1() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x2af7038b882598953c563fe437767e0df6418ac184c3dedd82a790f42306db53");
     assert_eq!(root, expected_root);
@@ -20440,7 +20440,7 @@ fn test_containers_var_test_struct_zero_1() {
 
 #[test]
 fn test_containers_var_test_struct_zero_2() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 0,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -20487,7 +20487,7 @@ fn test_containers_var_test_struct_zero_2() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xd8817199ad16ef7defe2ebe7eed43e875d3190444975a212c29032255783e892");
     assert_eq!(root, expected_root);
@@ -20495,7 +20495,7 @@ fn test_containers_var_test_struct_zero_2() {
 
 #[test]
 fn test_containers_var_test_struct_zero_3() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 0,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -20517,7 +20517,7 @@ fn test_containers_var_test_struct_zero_3() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x2fec69323cd5e304fab170b42dbedd74ea45eafcce0e0ea7b786e0c127237c44");
     assert_eq!(root, expected_root);
@@ -20525,7 +20525,7 @@ fn test_containers_var_test_struct_zero_3() {
 
 #[test]
 fn test_containers_var_test_struct_zero_4() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 0,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -20543,7 +20543,7 @@ fn test_containers_var_test_struct_zero_4() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xb0c8e63107347f4d1c70b4f6aff92840432065befc84a8c0a79d0e50e65fb0cf");
     assert_eq!(root, expected_root);
@@ -20551,7 +20551,7 @@ fn test_containers_var_test_struct_zero_4() {
 
 #[test]
 fn test_containers_var_test_struct_zero_5() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 0,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -20594,7 +20594,7 @@ fn test_containers_var_test_struct_zero_5() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xe5f19c1bb9eed4f20d95ff6205e1b4cc884207a99ff6d06f61b4fc7a68a362da");
     assert_eq!(root, expected_root);
@@ -20602,7 +20602,7 @@ fn test_containers_var_test_struct_zero_5() {
 
 #[test]
 fn test_containers_var_test_struct_zero_6() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 0,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -20647,7 +20647,7 @@ fn test_containers_var_test_struct_zero_6() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x2234142ef7bd4660edcd29578f9308d36d3c3cbc87e769c64a391b1f6cf52bca");
     assert_eq!(root, expected_root);
@@ -20655,7 +20655,7 @@ fn test_containers_var_test_struct_zero_6() {
 
 #[test]
 fn test_containers_var_test_struct_zero_7() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 0,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -20706,7 +20706,7 @@ fn test_containers_var_test_struct_zero_7() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x09e5ca8868427972a8491f46951fb2c508b2f3dd5ce3fdb550be256dbd959477");
     assert_eq!(root, expected_root);
@@ -20714,7 +20714,7 @@ fn test_containers_var_test_struct_zero_7() {
 
 #[test]
 fn test_containers_var_test_struct_zero_8() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 0,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -20749,7 +20749,7 @@ fn test_containers_var_test_struct_zero_8() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xb5db5710ba6f6237071537b206aa4c78616410315b54507ae5e835a70b52ffcd");
     assert_eq!(root, expected_root);
@@ -20757,7 +20757,7 @@ fn test_containers_var_test_struct_zero_8() {
 
 #[test]
 fn test_containers_var_test_struct_zero_9() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 0,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -20794,7 +20794,7 @@ fn test_containers_var_test_struct_zero_9() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x3435d4b16347c2f0f695680b96bbf19e7026196ab96bc9fb96f9d35b954cba51");
     assert_eq!(root, expected_root);
@@ -20802,7 +20802,7 @@ fn test_containers_var_test_struct_zero_9() {
 
 #[test]
 fn test_containers_var_test_struct_zero_chaos_0() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 30711,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             728, 55064, 35225, 37227, 9777, 65535, 21575, 59226, 0, 38436, 65535, 65535, 65535,
@@ -20866,7 +20866,7 @@ fn test_containers_var_test_struct_zero_chaos_0() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0xd772e661be2b3fcd82c2bf7a4351073a3f54305159d70dc2f2e6c9099cf85e22");
     assert_eq!(root, expected_root);
@@ -20874,7 +20874,7 @@ fn test_containers_var_test_struct_zero_chaos_0() {
 
 #[test]
 fn test_containers_var_test_struct_zero_chaos_1() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 24501,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             65535, 20397, 900, 1821, 41061, 47857, 0, 38153, 0, 40001, 20908, 16043, 53524, 32823,
@@ -20965,7 +20965,7 @@ fn test_containers_var_test_struct_zero_chaos_1() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x7fbb2d2fde27c7a3135a7e9b312987d3633ee8b4d23c8b4c8b56c4088d0290ab");
     assert_eq!(root, expected_root);
@@ -20973,7 +20973,7 @@ fn test_containers_var_test_struct_zero_chaos_1() {
 
 #[test]
 fn test_containers_var_test_struct_zero_chaos_2() {
-    let mut value = VarTestStruct {
+    let value = VarTestStruct {
         a: 0,
         b: List::<u16, 1024>::try_from(Vec::<u16>::from_iter([
             0, 63908, 4719, 0, 65535, 31561, 63902, 43408, 0, 0, 43171, 2965, 37781, 65535, 3809,
@@ -21046,7 +21046,7 @@ fn test_containers_var_test_struct_zero_chaos_2() {
     let recovered_value: VarTestStruct = deserialize(&expected_encoding);
     assert_eq!(recovered_value, value);
 
-    let root = hash_tree_root(&mut value);
+    let root = hash_tree_root(&value);
     let expected_root =
         root_from_hex("0x6147fa8c73be30da574a1b8a983141ae0986c0ec6d1a5cc63bf164a87f1667a5");
     assert_eq!(root, expected_root);

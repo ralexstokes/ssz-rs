@@ -404,13 +404,13 @@ fn derive_merkleization_impl(
     let (impl_generics, ty_generics, _) = generics.split_for_impl();
     quote! {
         impl #impl_generics #name #ty_generics {
-            fn assemble_chunks(&mut self) -> Result<Vec<u8>, ssz_rs::MerkleizationError> {
+            fn assemble_chunks(&self) -> Result<Vec<u8>, ssz_rs::MerkleizationError> {
                 #chunks_impl
             }
         }
 
         impl #impl_generics ssz_rs::HashTreeRoot for #name #ty_generics {
-            fn hash_tree_root(&mut self) -> Result<ssz_rs::Node, ssz_rs::MerkleizationError> {
+            fn hash_tree_root(&self) -> Result<ssz_rs::Node, ssz_rs::MerkleizationError> {
                 #hash_tree_root_impl
             }
         }
@@ -600,7 +600,7 @@ fn derive_prove_impl(data: &Data, name: &Ident, generics: &Generics) -> TokenStr
                     let field_name = field.ident.as_ref().expect("only named fields");
                     quote! {
                          #i => {
-                            let child = &mut self.#field_name;
+                            let child = &self.#field_name;
                             prover.compute_proof(child)
                         }
                     }
@@ -665,8 +665,8 @@ fn derive_prove_impl(data: &Data, name: &Ident, generics: &Generics) -> TokenStr
                         (
                             quote! {
                                 Self::None => {
-                                    let mut leaf = 0usize;
-                                    prover.compute_proof(&mut leaf)
+                                    let leaf = 0usize;
+                                    prover.compute_proof(&leaf)
                                 }
                             },
                             quote! {
@@ -706,12 +706,12 @@ fn derive_prove_impl(data: &Data, name: &Ident, generics: &Generics) -> TokenStr
 
     quote! {
         impl #impl_generics ssz_rs::Prove for #name #ty_generics {
-            fn chunks(&mut self) -> Result<Vec<u8>, ssz_rs::MerkleizationError> {
+            fn chunks(&self) -> Result<Vec<u8>, ssz_rs::MerkleizationError> {
                 #chunks_impl
             }
 
             fn prove_element(
-                &mut self,
+                &self,
                 index: usize,
                 prover: &mut ssz_rs::proofs::Prover,
             ) -> Result<(), ssz_rs::MerkleizationError> {
