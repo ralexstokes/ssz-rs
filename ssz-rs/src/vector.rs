@@ -116,6 +116,15 @@ where
     }
 }
 
+impl<T, const N: usize> DerefMut for Vector<T, N>
+where
+    T: Serializable,
+{
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.data
+    }
+}
+
 impl<T, Idx: SliceIndex<[T]>, const N: usize> Index<Idx> for Vector<T, N>
 where
     T: Serializable,
@@ -127,9 +136,6 @@ where
     }
 }
 
-// NOTE: implement `IndexMut` rather than `DerefMut` to ensure
-// the inner data is not mutated without being able to
-// track which elements changed
 impl<T, Idx: SliceIndex<[T]>, const N: usize> IndexMut<Idx> for Vector<T, N>
 where
     T: Serializable,
@@ -198,28 +204,6 @@ where
             Error::Type(err) => DeserializeError::InvalidType(err),
             _ => unreachable!("no other error variant can be returned at this point"),
         })
-    }
-}
-
-impl<T, const N: usize> Vector<T, N>
-where
-    T: Serializable,
-{
-    pub fn iter_mut(&mut self) -> IterMut<'_, T> {
-        let inner = self.data.iter_mut();
-        IterMut { inner }
-    }
-}
-
-pub struct IterMut<'a, T: 'a> {
-    inner: slice::IterMut<'a, T>,
-}
-
-impl<'a, T> Iterator for IterMut<'a, T> {
-    type Item = &'a mut T;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.inner.next()
     }
 }
 

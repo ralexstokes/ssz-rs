@@ -111,7 +111,7 @@ mod lib {
         pub use std::*;
     }
 
-    pub use self::core::{any, cmp, fmt, slice};
+    pub use self::core::{any, cmp, fmt};
 
     pub use self::{
         cmp::Ordering,

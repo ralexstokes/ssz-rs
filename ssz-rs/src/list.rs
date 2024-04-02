@@ -105,6 +105,15 @@ where
     }
 }
 
+impl<T, const N: usize> DerefMut for List<T, N>
+where
+    T: Serializable,
+{
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.data
+    }
+}
+
 impl<T, Idx: SliceIndex<[T]>, const N: usize> Index<Idx> for List<T, N>
 where
     T: Serializable,
@@ -116,9 +125,6 @@ where
     }
 }
 
-// NOTE: implement `IndexMut` rather than `DerefMut` to ensure
-// the inner data is not mutated without being able to
-// track which elements changed
 impl<T, Idx: SliceIndex<[T]>, const N: usize> IndexMut<Idx> for List<T, N>
 where
     T: Serializable,
@@ -190,22 +196,6 @@ impl<T, const N: usize> List<T, N>
 where
     T: SimpleSerialize,
 {
-    pub fn push(&mut self, element: T) {
-        self.data.push(element);
-    }
-
-    pub fn pop(&mut self) -> Option<T> {
-        self.data.pop()
-    }
-
-    pub fn clear(&mut self) {
-        self.data.clear();
-    }
-
-    pub fn iter_mut(&mut self) -> IterMut<'_, T> {
-        IterMut { inner: self.data.iter_mut() }
-    }
-
     fn assemble_chunks(&mut self) -> Result<Vec<u8>, MerkleizationError> {
         if T::is_composite_type() {
             let count = self.len();
@@ -213,18 +203,6 @@ where
         } else {
             pack(self)
         }
-    }
-}
-
-pub struct IterMut<'a, T> {
-    inner: slice::IterMut<'a, T>,
-}
-
-impl<'a, T> Iterator for IterMut<'a, T> {
-    type Item = &'a mut T;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.inner.next()
     }
 }
 
