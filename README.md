@@ -7,7 +7,7 @@
 
 An implementation of the [`SSZ` serialization scheme defined in the consensus-specs repo](https://github.com/ethereum/consensus-specs/tree/fa09d896484bbe240334fa21ffaa454bafe5842e/ssz).
 
-This repo aims to remain lightweight and relatively free-standing, rather than coupled to other ethereum consensus code/dependencies.
+This repo aims to remain lightweight and relatively free-standing, rather than coupled to other ethereum consensus code/dependencies. It also supports light client use cases with functionality for Merkle proofs and reasoning about generalized indices.
 
 # 🚧 WARNING 🚧
 
@@ -28,16 +28,16 @@ This library provides routines to serialize from and deserialize into a Rust typ
 
 ## Merkleization
 
-This library provides the [hash tree root](https://github.com/ethereum/consensus-specs/blob/fa09d896484bbe240334fa21ffaa454bafe5842e/ssz/simple-serialize.md#merkleization) computation for types implementing [`Merkleized`](https://docs.rs/ssz_rs/latest/ssz_rs/trait.Merkleized.html).
+This library provides the [hash tree root](https://github.com/ethereum/consensus-specs/blob/fa09d896484bbe240334fa21ffaa454bafe5842e/ssz/simple-serialize.md#merkleization) computation for types implementing [`HashTreeRoot`](https://docs.rs/ssz_rs/latest/ssz_rs/trait.HashTreeRoot.html).
 
-* *NOTE*: more sophisticated hashing strategies are possible, users may run into memory or performance issues with the current implementation.
+* *NOTE*: The hashing strategies employed are not particularly sophisticated; users may run into memory or performance issues with the current implementation.
 
-## Multiproofs
+## Merkle proofs
 
 This library provides the ability to reason about [generalized indices](https://github.com/ethereum/consensus-specs/blob/fa09d896484bbe240334fa21ffaa454bafe5842e/ssz/merkle-proofs.md#generalized-merkle-tree-index) for a given `SSZ` definition,
 along with the ability to generate and verify proofs of data at those indices.
 
-* *NOTE*: still under construction
+* *NOTE*: Merkle proving is implemented for the "single" proof category, with only experimental support for "multiproofs" defined in the `SSZ` spec.
 
 ## `no-std` feature
 
@@ -55,8 +55,7 @@ This library attempts to provide as minimal an interface over the native Rust ty
 For example, the `uint64` type from the `SSZ` spec is represented by Rust's native `u64` type.
 
 The library also provides custom types for `List`, `Vector`, `Bitlist` and `Bitvector` following the `SSZ` spec.
-Each of these custom types should behave approximately like Rust's `Vec` type. A notable exception is deferring to
-the underlying type's iteration capabilities; e.g. to iterate a `List` you must explicitly call `.iter()`.
+Each of these custom types should behave approximately like Rust's `Vec` type.
 
 For safety, there are only a few ways to construct an instance of each of these custom types:
 
@@ -66,11 +65,11 @@ For safety, there are only a few ways to construct an instance of each of these 
 
 * `ssz_rs::Deserialize`
 
-Moreover, the `ssz_rs_derive` package provides macros to derive the encoding and decoding routines for `SSZ` containers and unions (represented as Rust `struct`s and `enum`s, respectively).
+Moreover, the `ssz_rs_derive` package provides macros to derive the various trait implementations for `SSZ` containers and unions (represented as Rust `struct`s and `enum`s, respectively).
 
 # Examples
 
-See the [`examples`](./ssz-rs/examples) for example usage of the facilities of this library.
+See the [`examples`](./ssz-rs/examples) for example usage of the facilities of this library. There are additional samples of how to use the code in the tests, if the examples don't capture your use case.
 
 # Testing
 
