@@ -145,23 +145,17 @@ mod tests {
 
     #[test]
     fn test_compute_proof_descriptor() {
+        assert_eq!(compute_proof_descriptor(&[42]).expect("can make descriptor"), vec![0x25, 0xe0]);
         assert_eq!(
-            compute_proof_descriptor(&vec![42]).expect("can make descriptor"),
-            vec![0x25, 0xe0]
-        );
-        assert_eq!(
-            compute_proof_descriptor(&vec![5567]).expect("can make descriptor"),
+            compute_proof_descriptor(&[5567]).expect("can make descriptor"),
             vec![0x25, 0x2a, 0xaf, 0x80]
         );
-        assert_eq!(
-            compute_proof_descriptor(&vec![66]).expect("can make descriptor"),
-            vec![0x5, 0xf8]
-        );
+        assert_eq!(compute_proof_descriptor(&[66]).expect("can make descriptor"), vec![0x5, 0xf8]);
     }
 
     #[test]
     fn test_verify_compact_merkle_multiproof() {
-        let descriptor = compute_proof_descriptor(&vec![42]).expect("can make descriptor");
+        let descriptor = compute_proof_descriptor(&[42]).expect("can make descriptor");
 
         let expected_state_root = decode_node_from_hex(
             "0x7903bc7cc62f3677c5c0e38562a122638a3627dd945d1f7992e4d32f1d4ef11e",
