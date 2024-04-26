@@ -83,9 +83,7 @@ fn compute_bits_from_proof_descriptor(descriptor: &[u8]) -> Result<Vec<bool>, Er
 
         // Check mismatch condition at the last index
         if (count_0_vs_1 < 0) != (i == last_one_index) {
-            return Err(Error::InvalidDescriptor(
-                "Mismatch in count of '0's vs '1's at the last index".to_string(),
-            ));
+            return Err(Error::InvalidIndexBalanceInDescriptor);
         }
     }
 

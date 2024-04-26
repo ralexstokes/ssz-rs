@@ -89,11 +89,11 @@ pub fn calculate_multi_merkle_root(
     indices: &[GeneralizedIndex],
 ) -> Result<Node, Error> {
     if leaves.len() != indices.len() {
-        return Err(Error::InvalidProof);
+        return Err(Error::InvalidProof)
     }
     let helper_indices = get_helper_indices(indices);
     if proof.len() != helper_indices.len() {
-        return Err(Error::InvalidProof);
+        return Err(Error::InvalidProof)
     }
 
     let mut objects = HashMap::new();
