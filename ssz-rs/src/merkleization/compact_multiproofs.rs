@@ -90,11 +90,16 @@ fn compute_bits_from_proof_descriptor(descriptor: &[u8]) -> Result<Vec<bool>, Er
     Ok(bits)
 }
 
+struct Pointer {
+    bit_index: usize,
+    node_index: usize,
+}
+
 fn calculate_compact_multi_merkle_root(nodes: &[Node], descriptor: &[u8]) -> Result<Node, Error> {
     let bits = compute_bits_from_proof_descriptor(descriptor)?;
-    let mut ptr = [0, 0]; // [bit_index, node_index]
+    let mut ptr = Pointer { bit_index: 0, node_index: 0 };
     let root = calculate_compact_multi_merkle_root_inner(nodes, &bits, &mut ptr)?;
-    if ptr[0] != bits.len() || ptr[1] != nodes.len() {
+    if ptr.bit_index != bits.len() || ptr.node_index != nodes.len() {
         Err(Error::InvalidProof)
     } else {
         Ok(root)
@@ -104,13 +109,13 @@ fn calculate_compact_multi_merkle_root(nodes: &[Node], descriptor: &[u8]) -> Res
 fn calculate_compact_multi_merkle_root_inner(
     nodes: &[Node],
     bits: &[bool],
-    ptr: &mut [usize; 2],
+    ptr: &mut Pointer,
 ) -> Result<Node, Error> {
-    let bit = bits[ptr[0]];
-    ptr[0] += 1;
+    let bit = bits[ptr.bit_index];
+    ptr.bit_index += 1;
     if bit {
-        let node = nodes[ptr[1]];
-        ptr[1] += 1;
+        let node = nodes[ptr.node_index];
+        ptr.node_index += 1;
         Ok(node)
     } else {
         let left = calculate_compact_multi_merkle_root_inner(nodes, bits, ptr)?;
