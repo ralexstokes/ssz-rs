@@ -15,7 +15,7 @@ use crate::{
 /// A homogenous collection of a fixed number of values.
 ///
 /// NOTE: a `Vector` of length `0` is illegal.
-#[derive(Clone)]
+#[derive(PartialOrd, Ord, Clone)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize), serde(transparent))]
 pub struct Vector<T: Serializable, const N: usize> {
     data: Vec<T>,
@@ -321,7 +321,7 @@ impl<'de, T: Serializable + serde::Deserialize<'de>, const N: usize> serde::Dese
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{list::List, serialize, U256};
+    use crate::{lib::cmp::Ordering, list::List, serialize, U256};
 
     const COUNT: usize = 32;
 
@@ -700,5 +700,47 @@ mod tests {
                 crate::proofs::tests::compute_and_verify_proof_for_path(&data, path);
             }
         }
+    }
+
+    #[test]
+    fn test_ord() {
+        type V = Vector<U256, 7>;
+
+        let data = V::try_from(vec![
+            U256::from(23),
+            U256::from(34),
+            U256::from(45),
+            U256::from(56),
+            U256::from(67),
+            U256::from(78),
+            U256::from(11),
+        ])
+        .unwrap();
+
+        let other = V::try_from(vec![
+            U256::from(23),
+            U256::from(34),
+            U256::from(45),
+            U256::from(56),
+            U256::from(67),
+            U256::from(78),
+            U256::from(11),
+        ])
+        .unwrap();
+
+        assert_eq!(data.cmp(&other), Ordering::Equal);
+
+        let another = V::try_from(vec![
+            U256::from(23),
+            U256::from(34),
+            U256::from(45),
+            U256::from(56),
+            U256::from(67),
+            U256::from(78),
+            U256::from(12),
+        ])
+        .unwrap();
+
+        assert_eq!(data.cmp(&another), Ordering::Less);
     }
 }

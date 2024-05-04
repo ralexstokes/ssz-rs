@@ -24,7 +24,7 @@ fn byte_length(bound: usize) -> usize {
 type BitlistInner = BitVec<u8, Lsb0>;
 
 /// A homogenous collection of a variable number of boolean values.
-#[derive(PartialEq, Eq, Clone)]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Clone)]
 pub struct Bitlist<const N: usize>(BitlistInner);
 
 impl<const N: usize> fmt::Debug for Bitlist<N> {

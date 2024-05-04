@@ -13,7 +13,7 @@ use crate::{
 };
 
 /// A homogenous collection of a variable number of values.
-#[derive(Clone)]
+#[derive(PartialOrd, Ord, Clone)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize), serde(transparent))]
 pub struct List<T: Serializable, const N: usize> {
     data: Vec<T>,
@@ -334,7 +334,7 @@ impl<'de, T: Serializable + serde::Deserialize<'de>, const N: usize> serde::Dese
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{serialize, U256};
+    use crate::{lib::cmp::Ordering, serialize, U256};
 
     const COUNT: usize = 32;
 
@@ -494,5 +494,26 @@ mod tests {
         let data = L::default();
         let path = &[0.into()];
         crate::proofs::tests::compute_and_verify_proof_for_path(&data, path)
+    }
+
+    #[test]
+    fn test_ord() {
+        type L = List<u8, 4>;
+        let data = vec![1u8, 22];
+        let input = L::try_from(data).unwrap();
+
+        let mut other = L::default();
+        assert_eq!(input.cmp(&other), Ordering::Greater);
+
+        other.push(0);
+        assert_eq!(input.cmp(&other), Ordering::Greater);
+        other.push(0);
+        assert_eq!(input.cmp(&other), Ordering::Greater);
+        other.push(0);
+        assert_eq!(input.cmp(&other), Ordering::Greater);
+        other.push(0);
+        assert_eq!(input.cmp(&other), Ordering::Greater);
+        other[0] = 244;
+        assert_eq!(input.cmp(&other), Ordering::Less);
     }
 }
