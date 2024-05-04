@@ -33,7 +33,7 @@ type BitvectorInner = BitVec<u8, Lsb0>;
 // bitvec::array::BitArray<T, {N / 8}> where T: BitRegister, [T; {N / 8}]: BitViewSized
 //
 // Refer: <https://stackoverflow.com/a/65462213>
-#[derive(PartialEq, Eq, Clone)]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Clone)]
 pub struct Bitvector<const N: usize>(BitvectorInner);
 
 impl<const N: usize> fmt::Debug for Bitvector<N> {
