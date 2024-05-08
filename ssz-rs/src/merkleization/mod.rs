@@ -1,3 +1,4 @@
+pub mod cache;
 pub mod generalized_index;
 mod merkleize;
 pub mod multiproofs;

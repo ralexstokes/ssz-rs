@@ -3,10 +3,11 @@ use crate::{
     error::{Error, InstanceError, TypeError},
     lib::*,
     merkleization::{
+        cache::{Cache, ChunkIndex},
         elements_to_chunks, get_power_of_two_ceil, merkleize, pack,
         proofs::{Prove, Prover},
         GeneralizedIndex, GeneralizedIndexable, HashTreeRoot, MerkleizationError, Node, Path,
-        PathElement,
+        PathElement, BYTES_PER_CHUNK,
     },
     ser::{Serialize, SerializeError, Serializer},
     Serializable, SimpleSerialize,
@@ -19,6 +20,8 @@ use crate::{
 #[cfg_attr(feature = "serde", derive(serde::Serialize), serde(transparent))]
 pub struct Vector<T: Serializable, const N: usize> {
     data: Vec<T>,
+    #[serde(skip)]
+    cache: Cache,
 }
 
 impl<T: Serializable, const N: usize> AsRef<[T]> for Vector<T, N> {
@@ -46,7 +49,7 @@ impl<T: Serializable, const N: usize> TryFrom<Vec<T>> for Vector<T, N> {
             let len = data.len();
             Err((data, Error::Instance(InstanceError::Exact { required: N, provided: len })))
         } else {
-            Ok(Self { data })
+            Ok(Self { data, cache: Cache::new(N) })
         }
     }
 }
@@ -65,7 +68,7 @@ where
             let len = data.len();
             Err(Error::Instance(InstanceError::Exact { required: N, provided: len }))
         } else {
-            Ok(Self { data: data.to_vec() })
+            Ok(Self { data: data.to_vec(), cache: Cache::new(N) })
         }
     }
 }
@@ -107,7 +110,7 @@ where
 
 impl<T, const N: usize> Deref for Vector<T, N>
 where
-    T: Serializable,
+    T: SimpleSerialize,
 {
     type Target = Vec<T>;
 
@@ -116,32 +119,127 @@ where
     }
 }
 
-impl<T, const N: usize> DerefMut for Vector<T, N>
+impl<T, const N: usize> Index<usize> for Vector<T, N>
 where
-    T: Serializable,
+    T: SimpleSerialize,
 {
-    fn deref_mut(&mut self) -> &mut Self::Target {
-        &mut self.data
+    type Output = T;
+
+    fn index(&self, index: usize) -> &Self::Output {
+        self.data.index(index)
     }
 }
 
-impl<T, Idx: SliceIndex<[T]>, const N: usize> Index<Idx> for Vector<T, N>
+impl<T, const N: usize> IndexMut<usize> for Vector<T, N>
 where
-    T: Serializable,
+    T: SimpleSerialize,
 {
-    type Output = <Idx as SliceIndex<[T]>>::Output;
-
-    fn index(&self, index: Idx) -> &Self::Output {
-        &self.data[index]
+    fn index_mut(&mut self, index: usize) -> &mut Self::Output {
+        let chunk_index = Self::element_index_to_chunk_index(index);
+        self.cache.invalidate_cache_element(chunk_index);
+        self.data.index_mut(index)
     }
 }
 
-impl<T, Idx: SliceIndex<[T]>, const N: usize> IndexMut<Idx> for Vector<T, N>
+macro_rules! impl_index_for_range {
+    ($target:ty) => {
+        impl<T, const N: usize> Index<$target> for Vector<T, N>
+        where
+            T: SimpleSerialize,
+        {
+            type Output = [T];
+
+            fn index(&self, range: $target) -> &Self::Output {
+                self.data.index(range)
+            }
+        }
+    };
+}
+
+impl_index_for_range!(Range<usize>);
+impl_index_for_range!(RangeFrom<usize>);
+impl_index_for_range!(RangeFull);
+impl_index_for_range!(RangeInclusive<usize>);
+impl_index_for_range!(RangeTo<usize>);
+impl_index_for_range!(RangeToInclusive<usize>);
+
+impl<T, const N: usize> IndexMut<Range<usize>> for Vector<T, N>
 where
-    T: Serializable,
+    T: SimpleSerialize,
 {
-    fn index_mut(&mut self, index: Idx) -> &mut Self::Output {
-        &mut self.data[index]
+    fn index_mut(&mut self, mut range: Range<usize>) -> &mut Self::Output {
+        for index in range.by_ref() {
+            let chunk_index = Self::element_index_to_chunk_index(index);
+            self.cache.invalidate_cache_element(chunk_index);
+        }
+        self.data.index_mut(range)
+    }
+}
+
+impl<T, const N: usize> IndexMut<RangeFrom<usize>> for Vector<T, N>
+where
+    T: SimpleSerialize,
+{
+    fn index_mut(&mut self, range: RangeFrom<usize>) -> &mut Self::Output {
+        for index in range.start..N {
+            let chunk_index = Self::element_index_to_chunk_index(index);
+            self.cache.invalidate_cache_element(chunk_index);
+        }
+        self.data.index_mut(range)
+    }
+}
+
+impl<T, const N: usize> IndexMut<RangeFull> for Vector<T, N>
+where
+    T: SimpleSerialize,
+{
+    fn index_mut(&mut self, range: RangeFull) -> &mut Self::Output {
+        for index in 0..N {
+            let chunk_index = Self::element_index_to_chunk_index(index);
+            self.cache.invalidate_cache_element(chunk_index);
+        }
+        self.data.index_mut(range)
+    }
+}
+
+impl<T, const N: usize> IndexMut<RangeInclusive<usize>> for Vector<T, N>
+where
+    T: SimpleSerialize,
+{
+    fn index_mut(&mut self, range: RangeInclusive<usize>) -> &mut Self::Output {
+        let start = *range.start();
+        let end = *range.end();
+        for index in start..=end {
+            let chunk_index = Self::element_index_to_chunk_index(index);
+            self.cache.invalidate_cache_element(chunk_index);
+        }
+        self.data.index_mut(range)
+    }
+}
+
+impl<T, const N: usize> IndexMut<RangeTo<usize>> for Vector<T, N>
+where
+    T: SimpleSerialize,
+{
+    fn index_mut(&mut self, range: RangeTo<usize>) -> &mut Self::Output {
+        for index in 0..range.end {
+            let chunk_index = Self::element_index_to_chunk_index(index);
+            self.cache.invalidate_cache_element(chunk_index);
+        }
+        self.data.index_mut(range)
+    }
+}
+
+impl<T, const N: usize> IndexMut<RangeToInclusive<usize>> for Vector<T, N>
+where
+    T: SimpleSerialize,
+{
+    fn index_mut(&mut self, range: RangeToInclusive<usize>) -> &mut Self::Output {
+        for index in 0..=range.end {
+            let chunk_index = Self::element_index_to_chunk_index(index);
+            self.cache.invalidate_cache_element(chunk_index);
+        }
+        self.data.index_mut(range)
     }
 }
 
@@ -224,6 +322,33 @@ where
         let chunks = self.assemble_chunks()?;
         merkleize(&chunks, None)
     }
+
+    pub fn iter_mut(&mut self) -> IterMut<'_, T, N> {
+        IterMut { iter: self.data.iter_mut().enumerate(), cache: self.cache.clone() }
+    }
+
+    fn element_index_to_chunk_index(index: usize) -> ChunkIndex {
+        index * T::item_length() / BYTES_PER_CHUNK
+    }
+}
+
+pub struct IterMut<'a, T: SimpleSerialize, const N: usize> {
+    iter: iter::Enumerate<iter::IterMut<'a, T>>,
+    cache: Cache,
+}
+
+impl<'a, const N: usize, T: SimpleSerialize> Iterator for IterMut<'a, T, N> {
+    type Item = &'a mut T;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        if let Some((index, next)) = self.iter.next() {
+            let index = Vector::<T, N>::element_index_to_chunk_index(index);
+            self.cache.invalidate_cache_element(index);
+            Some(next)
+        } else {
+            None
+        }
+    }
 }
 
 impl<T, const N: usize> HashTreeRoot for Vector<T, N>
@@ -240,7 +365,7 @@ where
     T: SimpleSerialize,
 {
     fn chunk_count() -> usize {
-        (N * T::item_length() + 31) / 32
+        (N * T::item_length() + BYTES_PER_CHUNK - 1) / BYTES_PER_CHUNK
     }
 
     fn compute_generalized_index(
@@ -253,7 +378,7 @@ where
                     if *i >= N {
                         return Err(MerkleizationError::InvalidPathElement(next.clone()))
                     }
-                    let chunk_position = i * T::item_length() / 32;
+                    let chunk_position = i * T::item_length() / BYTES_PER_CHUNK;
                     let child =
                         parent * get_power_of_two_ceil(Self::chunk_count()) + chunk_position;
                     T::compute_generalized_index(child, rest)
