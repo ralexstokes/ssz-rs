@@ -30,7 +30,7 @@ fn get_path_indices(tree_index: GeneralizedIndex) -> Vec<GeneralizedIndex> {
     result
 }
 
-fn get_helper_indices(indices: &[GeneralizedIndex]) -> Vec<GeneralizedIndex> {
+pub fn get_helper_indices(indices: &[GeneralizedIndex]) -> Vec<GeneralizedIndex> {
     let mut all_helper_indices = HashSet::new();
     let mut all_path_indices = HashSet::new();
 
