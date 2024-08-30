@@ -251,7 +251,7 @@ pub fn is_valid_merkle_branch(
     root: Node,
 ) -> Result<(), Error> {
     if branch.len() != depth {
-        return Err(Error::InvalidProof);
+        return Err(Error::InvalidProof)
     }
 
     let mut derived_root = leaf;
