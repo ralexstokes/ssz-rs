@@ -20,7 +20,7 @@ serde = ["dep:serde", "alloy-primitives/serde"]
 [dependencies]
 bitvec = { version = "1.0.0", default-features = false, features = ["alloc"] }
 ssz_rs_derive = { path = "../ssz-rs-derive", version = "0.9.0" }
-sha2 = { version = "0.9.8", default-features = false, features = ["asm"] }
+sha2 = { version = "0.9.8", default-features = false }
 serde = { version = "1.0", default-features = false, features = [
     "alloc",
     "derive",
