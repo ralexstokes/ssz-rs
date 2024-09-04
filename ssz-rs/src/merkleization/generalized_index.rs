@@ -77,6 +77,7 @@ pub fn get_power_of_two_ceil(x: usize) -> usize {
 }
 
 /// Represents a "generalized index" from the SSZ spec.
+///
 /// Note: the default `GeneralizedIndex` is _not_ what `Default::default()`
 /// provides. See the function `default_generalized_index` when working with
 /// these values.

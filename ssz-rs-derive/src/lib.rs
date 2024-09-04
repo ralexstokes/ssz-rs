@@ -923,8 +923,9 @@ fn extract_helper_attrs(input: &DeriveInput) -> Vec<HelperAttr> {
         .collect()
 }
 
-/// Derive an implementation of the `Serializable` trait, including the `Serialize` and
-/// `Deserialize` trait bounds.
+/// Derive an implementation of the `Serializable` trait.
+///
+/// Includes the `Serialize` and `Deserialize` trait bounds.
 /// Useful if you only want to encode or decode SSZ streams and do not need any Merkle tree
 /// functionality.
 #[proc_macro_derive(Serializable, attributes(ssz))]
