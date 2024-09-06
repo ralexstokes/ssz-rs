@@ -50,7 +50,7 @@ where
 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if encoding.is_empty() {
-            return Err(DeserializeError::ExpectedFurtherInput { provided: 0, expected: 1 })
+            return Err(DeserializeError::ExpectedFurtherInput { provided: 0, expected: 1 });
         }
 
         // SAFETY: index is safe because encoding is not empty; qed
@@ -60,7 +60,7 @@ where
                     return Err(DeserializeError::AdditionalInput {
                         provided: encoding.len(),
                         expected: 1,
-                    })
+                    });
                 }
                 Ok(None)
             }
@@ -99,7 +99,7 @@ where
             match next {
                 PathElement::Index(i) => {
                     if *i >= 2 {
-                        return Err(MerkleizationError::InvalidPathElement(next.clone()))
+                        return Err(MerkleizationError::InvalidPathElement(next.clone()));
                     }
                     let child = parent * 2;
                     match i {

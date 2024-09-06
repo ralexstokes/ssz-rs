@@ -7,7 +7,8 @@ use crate::{
         Node, Path,
     },
 };
-use sha2::{Digest, Sha256};
+
+use super::hasher::hash_chunks;
 
 /// Convenience type for a Merkle proof and the root of the Merkle tree, which serves as
 /// "witness" that the proof is valid.
@@ -45,7 +46,6 @@ pub(crate) fn compute_local_merkle_coordinates(
 /// A type that knows how to compute Merkle proofs assuming a target type is `Prove`.
 #[derive(Debug)]
 pub struct Prover {
-    hasher: Sha256,
     proof: Proof,
     witness: Node,
 }
@@ -94,9 +94,9 @@ impl Prover {
             is_leaf_local = true;
         }
         let chunks = data.chunks()?;
-        let mut tree = compute_merkle_tree(&mut self.hasher, &chunks, leaf_count)?;
+        let mut tree = compute_merkle_tree(&chunks, leaf_count)?;
         if let Some(decoration) = decoration {
-            tree.mix_in_decoration(decoration, &mut self.hasher)?;
+            tree.mix_in_decoration(decoration)?;
         }
 
         if is_leaf_local {
@@ -126,7 +126,6 @@ impl From<Prover> for ProofAndWitness {
 impl From<GeneralizedIndex> for Prover {
     fn from(index: GeneralizedIndex) -> Self {
         Self {
-            hasher: Sha256::new(),
             proof: Proof { leaf: Default::default(), branch: vec![], index },
             witness: Default::default(),
         }
@@ -207,21 +206,19 @@ pub fn is_valid_merkle_branch(
     root: Node,
 ) -> Result<(), Error> {
     if branch.len() != depth {
-        return Err(Error::InvalidProof)
+        return Err(Error::InvalidProof);
     }
 
     let mut derived_root = leaf;
-    let mut hasher = Sha256::new();
 
     for (i, node) in branch.iter().enumerate() {
-        if (index / 2usize.pow(i as u32)) % 2 != 0 {
-            hasher.update(node);
-            hasher.update(derived_root);
+        let out = if (index / 2usize.pow(i as u32)) % 2 != 0 {
+            hash_chunks(node, derived_root)
         } else {
-            hasher.update(derived_root);
-            hasher.update(node);
-        }
-        derived_root.copy_from_slice(&hasher.finalize_reset());
+            hash_chunks(derived_root, node)
+        };
+
+        derived_root.copy_from_slice(&out);
     }
 
     if derived_root == root {

@@ -3,10 +3,10 @@ use crate::{
     lib::*,
     merkleization::{
         generalized_index::{get_bit, get_path_length, parent, sibling},
+        hasher::hash_chunks,
         GeneralizedIndex, MerkleizationError as Error, Node,
     },
 };
-use sha2::{Digest, Sha256};
 
 fn get_branch_indices(tree_index: GeneralizedIndex) -> Vec<GeneralizedIndex> {
     let mut focus = sibling(tree_index);
@@ -52,20 +52,15 @@ pub fn calculate_merkle_root(
 ) -> Result<Node, Error> {
     let path_length = get_path_length(index)?;
     if path_length != proof.len() {
-        return Err(Error::InvalidProof)
+        return Err(Error::InvalidProof);
     }
     let mut result = leaf;
 
-    let mut hasher = Sha256::new();
     for (i, next) in proof.iter().enumerate() {
-        if get_bit(index, i) {
-            hasher.update(next);
-            hasher.update(result);
-        } else {
-            hasher.update(result);
-            hasher.update(next);
-        }
-        result.copy_from_slice(&hasher.finalize_reset());
+        let out =
+            if get_bit(index, i) { hash_chunks(next, result) } else { hash_chunks(result, next) };
+
+        result.copy_from_slice(&out);
     }
     Ok(result)
 }
@@ -89,11 +84,11 @@ pub fn calculate_multi_merkle_root(
     indices: &[GeneralizedIndex],
 ) -> Result<Node, Error> {
     if leaves.len() != indices.len() {
-        return Err(Error::InvalidProof)
+        return Err(Error::InvalidProof);
     }
     let helper_indices = get_helper_indices(indices);
     if proof.len() != helper_indices.len() {
-        return Err(Error::InvalidProof)
+        return Err(Error::InvalidProof);
     }
 
     let mut objects = HashMap::new();
@@ -107,7 +102,6 @@ pub fn calculate_multi_merkle_root(
     let mut keys = objects.keys().cloned().collect::<Vec<_>>();
     keys.sort_by(|a, b| b.cmp(a));
 
-    let mut hasher = Sha256::new();
     let mut pos = 0;
     while pos < keys.len() {
         let key = keys.get(pos).unwrap();
@@ -121,11 +115,11 @@ pub fn calculate_multi_merkle_root(
             let left_index = sibling(right_index);
             let left_input = objects.get(&left_index).expect("contains index");
             let right_input = objects.get(&right_index).expect("contains index");
-            hasher.update(left_input);
-            hasher.update(right_input);
+
+            let out = hash_chunks(left_input, right_input);
 
             let parent = objects.entry(parent_index).or_default();
-            parent.copy_from_slice(&hasher.finalize_reset());
+            parent.copy_from_slice(&out);
             keys.push(parent_index);
         }
         pos += 1;
