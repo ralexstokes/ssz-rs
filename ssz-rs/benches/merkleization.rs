@@ -13,7 +13,7 @@ fn generate_id(name: &str) -> String {
     format!("{}_{}", name, tag)
 }
 
-fn bench_hash_tree_root(c: &mut Criterion) {
+fn bench_merkleization(c: &mut Criterion) {
     use ssz_rs::{HashTreeRoot, List};
 
     let inner: Vec<List<u8, 1073741824>> = vec![
@@ -41,6 +41,6 @@ fn bench_hash_tree_root(c: &mut Criterion) {
     });
 }
 
-criterion_group!(benches, bench_hash_tree_root,);
+criterion_group!(benches, bench_merkleization,);
 
 criterion_main!(benches);
