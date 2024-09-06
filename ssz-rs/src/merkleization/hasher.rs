@@ -11,17 +11,11 @@ static INIT: Once = Once::new();
 
 #[inline]
 #[cfg(feature = "hashtree")]
-pub fn hash_chunks_hashtree(
-    left: impl AsRef<[u8]>,
-    right: impl AsRef<[u8]>,
-) -> [u8; BYTES_PER_CHUNK] {
+fn hash_chunks_hashtree(left: impl AsRef<[u8]>, right: impl AsRef<[u8]>) -> [u8; BYTES_PER_CHUNK] {
     // Initialize the hashtree library (once)
     INIT.call_once(|| {
         hashtree::init();
     });
-
-    debug_assert!(left.as_ref().len() == BYTES_PER_CHUNK);
-    debug_assert!(right.as_ref().len() == BYTES_PER_CHUNK);
 
     let mut out = [0u8; BYTES_PER_CHUNK];
 
@@ -39,13 +33,7 @@ pub fn hash_chunks_hashtree(
 
 #[inline]
 #[cfg(not(feature = "hashtree"))]
-pub fn hash_chunks_sha256(
-    left: impl AsRef<[u8]>,
-    right: impl AsRef<[u8]>,
-) -> [u8; BYTES_PER_CHUNK] {
-    debug_assert!(left.as_ref().len() == BYTES_PER_CHUNK);
-    debug_assert!(right.as_ref().len() == BYTES_PER_CHUNK);
-
+fn hash_chunks_sha256(left: impl AsRef<[u8]>, right: impl AsRef<[u8]>) -> [u8; BYTES_PER_CHUNK] {
     let mut hasher = Sha256::new();
     hasher.update(left.as_ref());
     hasher.update(right.as_ref());
@@ -59,6 +47,9 @@ pub fn hash_chunks_sha256(
 /// - hashtree (with the "hashtree" feature flag)
 #[inline]
 pub fn hash_chunks(left: impl AsRef<[u8]>, right: impl AsRef<[u8]>) -> [u8; BYTES_PER_CHUNK] {
+    debug_assert!(left.as_ref().len() == BYTES_PER_CHUNK);
+    debug_assert!(right.as_ref().len() == BYTES_PER_CHUNK);
+
     #[cfg(feature = "hashtree")]
     return hash_chunks_hashtree(left, right);
 
