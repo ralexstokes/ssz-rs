@@ -25,13 +25,14 @@ pub fn hash_chunks_hashtree(
 
     let mut out = [0u8; BYTES_PER_CHUNK];
 
-    let mut chunks = Vec::with_capacity(2 * BYTES_PER_CHUNK);
-    chunks.extend_from_slice(left.as_ref());
-    chunks.extend_from_slice(right.as_ref());
+    let mut chunks = [0u8; 2 * BYTES_PER_CHUNK];
+
+    chunks[..BYTES_PER_CHUNK].copy_from_slice(left.as_ref());
+    chunks[BYTES_PER_CHUNK..].copy_from_slice(right.as_ref());
 
     // NOTE: hashtree "chunks" are 64 bytes long, not 32. That's why we
     // specify "1" as the chunk count.
-    hashtree::hash(&mut out, chunks.as_slice(), 1);
+    hashtree::hash(&mut out, &chunks, 1);
 
     out
 }
