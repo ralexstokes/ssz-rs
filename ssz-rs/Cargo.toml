@@ -15,12 +15,14 @@ exclude = ["tests/data"]
 default = ["serde", "std"]
 std = ["bitvec/default", "sha2/default", "alloy-primitives/default"]
 sha2-asm = ["sha2/asm"]
+hashtree = ["dep:hashtree"]
 serde = ["dep:serde", "alloy-primitives/serde"]
 
 [dependencies]
 bitvec = { version = "1.0.0", default-features = false, features = ["alloc"] }
 ssz_rs_derive = { path = "../ssz-rs-derive", version = "0.9.0" }
 sha2 = { version = "0.9.8", default-features = false }
+hashtree = { version = "0.2.0", optional = true, package = "hashtree-rs" }
 serde = { version = "1.0", default-features = false, features = [
     "alloc",
     "derive",
@@ -32,6 +34,11 @@ snap = "1.0"
 project-root = "0.2.2"
 serde_json = "1.0.81"
 hex = "0.4.3"
+criterion = { version = "0.5", features = ["html_reports"] }
 
 [build-dependencies]
 sha2 = "0.9.8"
+
+[[bench]]
+name = "proofs"
+harness = false

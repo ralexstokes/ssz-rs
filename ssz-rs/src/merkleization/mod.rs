@@ -1,4 +1,5 @@
 pub mod generalized_index;
+mod hasher;
 mod merkleize;
 pub mod multiproofs;
 mod node;
