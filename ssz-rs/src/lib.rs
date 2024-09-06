@@ -82,10 +82,12 @@
 //! ```
 //!
 //! [ssz]: https://github.com/ethereum/consensus-specs/blob/dev/ssz/simple-serialize.md
-#![cfg_attr(not(feature = "std"), no_std)]
 
+#![feature(test)]
+#![cfg_attr(not(feature = "std"), no_std)]
 #[cfg(not(feature = "std"))]
 extern crate alloc;
+extern crate test;
 
 mod array;
 mod bitlist;

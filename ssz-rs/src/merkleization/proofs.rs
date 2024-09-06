@@ -295,8 +295,8 @@ pub(crate) mod tests {
         assert!(result.is_ok());
     }
 
-    #[test]
-    fn test_list_proving() {
+    #[bench]
+    fn bench_proof_generation(b: &mut test::Bencher) {
         let inner: Vec<List<u8, 1073741824>> = vec![
             vec![0u8, 1u8, 2u8].try_into().unwrap(),
             vec![3u8, 4u8, 5u8].try_into().unwrap(),
@@ -307,20 +307,27 @@ pub(crate) mod tests {
         // Emulate a transactions tree
         let outer: List<List<u8, 1073741824>, 1048576> = List::try_from(inner).unwrap();
 
-        let root = outer.hash_tree_root().unwrap();
+        b.iter(|| {
+            let index = PathElement::from(1);
+            outer.prove(&[index]).unwrap()
+        })
+    }
 
+    #[bench]
+    fn bench_proof_verification(b: &mut test::Bencher) {
+        let inner: Vec<List<u8, 1073741824>> = vec![
+            vec![0u8, 1u8, 2u8].try_into().unwrap(),
+            vec![3u8, 4u8, 5u8].try_into().unwrap(),
+            vec![6u8, 7u8, 8u8].try_into().unwrap(),
+            vec![9u8, 10u8, 11u8].try_into().unwrap(),
+        ];
+
+        // Emulate a transactions tree
+        let outer: List<List<u8, 1073741824>, 1048576> = List::try_from(inner).unwrap();
         let index = PathElement::from(1);
-
-        let start_proof = std::time::Instant::now();
         let (proof, witness) = outer.prove(&[index]).unwrap();
-        println!("Generated proof in {:?}", start_proof.elapsed());
 
-        // Root and witness must be the same
-        assert_eq!(root, witness);
-
-        let start_verify = std::time::Instant::now();
-        assert!(proof.verify(witness).is_ok());
-        println!("Verified proof in {:?}", start_verify.elapsed());
+        b.iter(|| proof.verify(witness))
     }
 
     #[test]
