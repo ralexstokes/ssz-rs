@@ -43,6 +43,9 @@ pub fn hash_chunks_sha256(
     left: impl AsRef<[u8]>,
     right: impl AsRef<[u8]>,
 ) -> [u8; BYTES_PER_CHUNK] {
+    debug_assert!(left.as_ref().len() == BYTES_PER_CHUNK);
+    debug_assert!(right.as_ref().len() == BYTES_PER_CHUNK);
+
     let mut hasher = Sha256::new();
     hasher.update(left.as_ref());
     hasher.update(right.as_ref());
