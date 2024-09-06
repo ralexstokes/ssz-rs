@@ -48,8 +48,8 @@ pub fn hash_chunks_sha256(
     hasher.finalize_reset().into()
 }
 
-/// Function that hashes 2 [BYTES_PER_CHUNK] (32) len byte slices together. Depending on the feature flags,
-/// this will either use:
+/// Function that hashes 2 [BYTES_PER_CHUNK] (32) len byte slices together. Depending on the feature
+/// flags, this will either use:
 /// - sha256 (default)
 /// - sha256 with assembly support (with the "sha2-asm" feature flag)
 /// - hashtree (with the "hashtree" feature flag)
