@@ -295,41 +295,6 @@ pub(crate) mod tests {
         assert!(result.is_ok());
     }
 
-    #[bench]
-    fn bench_proof_generation(b: &mut test::Bencher) {
-        let inner: Vec<List<u8, 1073741824>> = vec![
-            vec![0u8, 1u8, 2u8].try_into().unwrap(),
-            vec![3u8, 4u8, 5u8].try_into().unwrap(),
-            vec![6u8, 7u8, 8u8].try_into().unwrap(),
-            vec![9u8, 10u8, 11u8].try_into().unwrap(),
-        ];
-
-        // Emulate a transactions tree
-        let outer: List<List<u8, 1073741824>, 1048576> = List::try_from(inner).unwrap();
-
-        b.iter(|| {
-            let index = PathElement::from(1);
-            outer.prove(&[index]).unwrap()
-        })
-    }
-
-    #[bench]
-    fn bench_proof_verification(b: &mut test::Bencher) {
-        let inner: Vec<List<u8, 1073741824>> = vec![
-            vec![0u8, 1u8, 2u8].try_into().unwrap(),
-            vec![3u8, 4u8, 5u8].try_into().unwrap(),
-            vec![6u8, 7u8, 8u8].try_into().unwrap(),
-            vec![9u8, 10u8, 11u8].try_into().unwrap(),
-        ];
-
-        // Emulate a transactions tree
-        let outer: List<List<u8, 1073741824>, 1048576> = List::try_from(inner).unwrap();
-        let index = PathElement::from(1);
-        let (proof, witness) = outer.prove(&[index]).unwrap();
-
-        b.iter(|| proof.verify(witness))
-    }
-
     #[test]
     fn test_proving_primitives_fails_with_bad_path() {
         let data = 8u8;
