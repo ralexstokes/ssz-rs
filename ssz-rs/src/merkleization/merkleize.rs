@@ -162,9 +162,9 @@ impl Tree {
     /// `chunks` forms the bottom layer of this tree.
     ///
     /// This implementation is memory efficient by relying on pre-computed subtrees of all
-    /// "zero" leaves stored in the `CONTEXT`. SSZ specifies that `chunks` is padded to the next power
-    /// of two and this can be quite large for some types. "Zero" subtrees are virtualized to avoid the
-    /// memory and computation cost of large trees with partially empty leaves.
+    /// "zero" leaves stored in the `CONTEXT`. SSZ specifies that `chunks` is padded to the next
+    /// power of two and this can be quite large for some types. "Zero" subtrees are virtualized
+    /// to avoid the memory and computation cost of large trees with partially empty leaves.
     ///
     /// The implementation approach treats `chunks` as the bottom layer of a perfect binary tree
     /// and for each height performs the hashing required to compute the parent layer in place.
