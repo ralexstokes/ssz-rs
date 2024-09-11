@@ -229,6 +229,7 @@ impl Index<GeneralizedIndex> for Tree {
         let map_index = index - start_index;
 
         if map_index >= (self.data[depth as usize].len() / BYTES_PER_CHUNK) {
+            // Virtualize node
             return &CONTEXT[self.depth - depth as usize];
         }
 
@@ -245,9 +246,11 @@ impl IndexMut<GeneralizedIndex> for Tree {
         let map_index = index - start_index;
 
         if map_index >= (self.data[depth as usize].len() / BYTES_PER_CHUNK) {
-            let len = self.data[depth as usize].len();
-            self.data[depth as usize]
-                .splice(len..len, CONTEXT[self.depth - depth as usize].to_vec());
+            // Allocate space with virtualized nodes
+            let len = self.data[depth as usize].len() / BYTES_PER_CHUNK;
+            let new_slots = (map_index + 1) - len;
+            let data: Vec<u8> = CONTEXT[self.depth - depth as usize].repeat(new_slots);
+            self.data[depth as usize].extend_from_slice(&data);
         }
 
         let start = map_index * BYTES_PER_CHUNK;
@@ -383,7 +386,8 @@ mod tests {
     #[test]
     fn test_merkleize_chunks() {
         let chunks = vec![1u8; 3 * BYTES_PER_CHUNK];
-        let root = merkleize_chunks_with_virtual_padding(&chunks, 4).expect("can merkleize");
+        let tree = Tree::new(&chunks, 4).expect("can merkleize");
+        let root = tree.root().expect("can produce root");
         assert_eq!(
             root,
             decode_node_from_hex(
@@ -392,7 +396,8 @@ mod tests {
         );
 
         let chunks = vec![1u8; 5 * BYTES_PER_CHUNK];
-        let root = merkleize_chunks_with_virtual_padding(&chunks, 8).expect("can merkleize");
+        let tree = Tree::new(&chunks, 8).expect("can merkleize");
+        let root = tree.root().expect("can produce root");
         assert_eq!(
             root,
             decode_node_from_hex(
@@ -401,7 +406,8 @@ mod tests {
         );
 
         let chunks = vec![1u8; 6 * BYTES_PER_CHUNK];
-        let root = merkleize_chunks_with_virtual_padding(&chunks, 8).expect("can merkleize");
+        let tree = Tree::new(&chunks, 8).expect("can merkleize");
+        let root = tree.root().expect("can produce root");
         assert_eq!(
             root,
             decode_node_from_hex(
@@ -413,8 +419,8 @@ mod tests {
     #[test]
     fn test_merkleize_chunks_with_many_virtual_nodes() {
         let chunks = vec![1u8; 5 * BYTES_PER_CHUNK];
-        let root =
-            merkleize_chunks_with_virtual_padding(&chunks, 2usize.pow(10)).expect("can merkleize");
+        let tree = Tree::new(&chunks, 2usize.pow(10)).expect("can merkleize");
+        let root = tree.root().expect("can produce root");
         assert_eq!(
             root,
             decode_node_from_hex(
@@ -423,8 +429,8 @@ mod tests {
         );
 
         let chunks = vec![1u8; 70 * BYTES_PER_CHUNK];
-        let root =
-            merkleize_chunks_with_virtual_padding(&chunks, 2usize.pow(63)).expect("can merkleize");
+        let tree = Tree::new(&chunks, 2usize.pow(63)).expect("can merkleize");
+        let root = tree.root().expect("can produce root");
         assert_eq!(
             root,
             decode_node_from_hex(
