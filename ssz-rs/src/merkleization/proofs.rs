@@ -166,8 +166,8 @@ pub trait Prove: GeneralizedIndexable {
         Ok(prover.into())
     }
 
-    /// Compute a Multi Merkle proof of `Self` at the type's `paths`, along with the root of the Merkle
-    /// tree as a witness value.
+    /// Compute a Multi Merkle proof of `Self` at the type's `paths`, along with the root of the
+    /// Merkle tree as a witness value.
     fn multi_prove(&self, paths: &[Path]) -> Result<(MultiProof, Node), Error> {
         let indices: Vec<GeneralizedIndex> =
             paths.iter().map(|x| Self::generalized_index(x).unwrap()).collect();
@@ -251,7 +251,7 @@ pub fn is_valid_merkle_branch(
     root: Node,
 ) -> Result<(), Error> {
     if branch.len() != depth {
-        return Err(Error::InvalidProof)
+        return Err(Error::InvalidProof);
     }
 
     let mut derived_root = leaf;
