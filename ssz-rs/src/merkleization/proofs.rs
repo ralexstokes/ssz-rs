@@ -3,8 +3,7 @@ pub use crate::merkleization::generalized_index::log_2;
 use crate::{
     lib::*,
     merkleization::{
-        compute_merkle_tree, GeneralizedIndex, GeneralizedIndexable, MerkleizationError as Error,
-        Node, Path,
+        GeneralizedIndex, GeneralizedIndexable, MerkleizationError as Error, Node, Path, Tree,
     },
 };
 use sha2::{Digest, Sha256};
@@ -93,17 +92,20 @@ impl Prover {
             // NOTE: leaf is within the current object, set a flag to grab from merkle tree later
             is_leaf_local = true;
         }
+
         let chunks = data.chunks()?;
-        let mut tree = compute_merkle_tree(&mut self.hasher, &chunks, leaf_count)?;
+        let mut tree = Tree::new(&chunks, leaf_count)?;
+
         if let Some(decoration) = decoration {
             tree.mix_in_decoration(decoration, &mut self.hasher)?;
         }
+
+        let mut target = local_generalized_index;
 
         if is_leaf_local {
             self.set_leaf(&tree[parent_index]);
         }
 
-        let mut target = local_generalized_index;
         for _ in 0..local_depth {
             let sibling = if target % 2 != 0 { &tree[target - 1] } else { &tree[target + 1] };
             self.extend_branch(sibling);
@@ -207,7 +209,7 @@ pub fn is_valid_merkle_branch(
     root: Node,
 ) -> Result<(), Error> {
     if branch.len() != depth {
-        return Err(Error::InvalidProof)
+        return Err(Error::InvalidProof);
     }
 
     let mut derived_root = leaf;
