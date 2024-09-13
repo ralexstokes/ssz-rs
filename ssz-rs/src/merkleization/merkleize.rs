@@ -212,7 +212,10 @@ impl Tree {
 
     #[cfg(feature = "serde")]
     fn nodes(&self) -> impl Iterator<Item = Node> + '_ {
-        self.data[0].chunks(BYTES_PER_CHUNK).map(|chunk| Node::from_hex(chunk.clone()).unwrap())
+        self.data
+            .iter()
+            .flat_map(|vec| vec.chunks(BYTES_PER_CHUNK))
+            .map(|chunk| Node::from_slice(chunk))
     }
 
     fn root(&self) -> Result<Node, Error> {
