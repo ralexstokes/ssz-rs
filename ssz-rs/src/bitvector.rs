@@ -20,7 +20,7 @@ use bitvec::{
 const BITS_PER_BYTE: usize = crate::BITS_PER_BYTE as usize;
 
 fn byte_length(bound: usize) -> usize {
-    (bound + BITS_PER_BYTE - 1) / BITS_PER_BYTE
+    bound.div_ceil(BITS_PER_BYTE)
 }
 
 type BitvectorInner = BitVec<u8, Lsb0>;
@@ -89,7 +89,7 @@ impl<const N: usize> Bitvector<N> {
     }
 
     fn chunk_count() -> usize {
-        (N + BITS_PER_CHUNK - 1) / BITS_PER_CHUNK
+        N.div_ceil(BITS_PER_CHUNK)
     }
 }
 

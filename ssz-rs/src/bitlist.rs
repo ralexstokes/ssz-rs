@@ -101,7 +101,7 @@ impl<const N: usize> Bitlist<N> {
     }
 
     fn chunk_count() -> usize {
-        (N + BITS_PER_CHUNK - 1) / BITS_PER_CHUNK
+        N.div_ceil(BITS_PER_CHUNK)
     }
 }
 

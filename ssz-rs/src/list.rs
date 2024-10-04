@@ -212,7 +212,7 @@ where
 {
     // Number of chunks for this type, rounded up to a complete number of chunks
     fn chunk_count() -> usize {
-        (N * T::size_hint() + BYTES_PER_CHUNK - 1) / BYTES_PER_CHUNK
+        (N * T::size_hint()).div_ceil(BYTES_PER_CHUNK)
     }
 
     fn compute_hash_tree_root(&self) -> Result<Node, MerkleizationError> {
