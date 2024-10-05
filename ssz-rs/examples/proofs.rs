@@ -1,5 +1,7 @@
 use ssz_rs::prelude::*;
 
+const VALIDATOR_REGISTRY_LIMIT: usize = 1099511627776;
+
 #[derive(PartialEq, Eq, Debug, Default, Clone, SimpleSerialize)]
 struct FixedTestStruct {
     a: u8,
@@ -23,12 +25,13 @@ struct ComplexTestStruct {
     e: VarTestStruct,
     f: Vector<FixedTestStruct, 4>,
     g: Vector<VarTestStruct, 2>,
+    h: List<u64, VALIDATOR_REGISTRY_LIMIT>,
 }
 
 fn compute_and_verify_proof<T: SimpleSerialize>(data: &T, path: Path) {
     let (proof, witness) = data.prove(path).unwrap();
     assert_eq!(witness, data.hash_tree_root().unwrap());
-    dbg!(&proof);
+    dbg!(&proof, &witness);
     let result = proof.verify(witness);
     if let Err(err) = result {
         panic!("{err} for {proof:?} with witness {witness}")
@@ -66,6 +69,7 @@ fn main() {
             },
         ])
         .unwrap(),
+        h: List::<u64, VALIDATOR_REGISTRY_LIMIT>::try_from(vec![10000, 4000]).unwrap(),
     };
 
     let path = &["a".into()];
@@ -84,5 +88,8 @@ fn main() {
     compute_and_verify_proof(&data, path);
 
     let path = &["g".into(), 1.into(), "b".into(), 0.into()];
+    compute_and_verify_proof(&data, path);
+
+    let path = &["h".into(), 1.into()];
     compute_and_verify_proof(&data, path);
 }
