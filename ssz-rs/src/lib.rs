@@ -111,14 +111,22 @@ mod lib {
         pub use std::*;
     }
 
+    pub mod iter {
+        pub use core::{iter::Enumerate, slice::IterMut};
+    }
+
     pub use self::core::{any, cmp, fmt};
 
     pub use self::{
         cmp::Ordering,
         core::{
             fmt::{Debug, Display, Formatter},
-            ops::{Deref, DerefMut, Index, IndexMut},
+            ops::{
+                Deref, DerefMut, Index, IndexMut, Range, RangeFrom, RangeFull, RangeInclusive,
+                RangeTo, RangeToInclusive,
+            },
             slice::SliceIndex,
+            sync::{Arc, Mutex, MutexGuard},
         },
     };
 
