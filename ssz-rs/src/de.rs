@@ -129,7 +129,12 @@ where
         if start > end {
             return Err(DeserializeError::OffsetNotIncreasing { start, end })
         }
-
+        if end > encoding.len() {
+            return Err(DeserializeError::ExpectedFurtherInput {
+                provided: encoding.len(),
+                expected: end,
+            })
+        }
         // SAFETY: index is safe because start <= end; qed
         let element = T::deserialize(&encoding[start..end])?;
         result.push(element);
@@ -192,15 +197,15 @@ impl ContainerDeserializer {
 
                 if *previous_offset > encoding.len() {
                     return Err(DeserializeError::ExpectedFurtherInput {
-                        provided: encoding.len() - previous_offset,
-                        expected: next_offset - previous_offset,
+                        provided: encoding.len(),
+                        expected: *previous_offset,
                     })
                 }
 
                 if next_offset > encoding.len() {
                     return Err(DeserializeError::ExpectedFurtherInput {
-                        provided: encoding.len() - next_offset,
-                        expected: next_offset - previous_offset,
+                        provided: encoding.len(),
+                        expected: next_offset,
                     })
                 }
             }
