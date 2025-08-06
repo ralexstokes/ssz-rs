@@ -1,7 +1,10 @@
 //! Support for computing Merkle trees.
 use crate::{
     lib::*,
-    merkleization::{MerkleizationError as Error, Node, BYTES_PER_CHUNK},
+    merkleization::{
+        hasher::{hash_chunks, hash_pairs_bulk},
+        MerkleizationError as Error, Node, BYTES_PER_CHUNK,
+    },
     ser::Serialize,
     GeneralizedIndex,
 };
@@ -85,9 +88,8 @@ include!(concat!(env!("OUT_DIR"), "/context.rs"));
 /// of two and this can be quite large for some types. "Zero" subtrees are virtualized to avoid the
 /// memory and computation cost of large trees with partially empty leaves.
 ///
-/// The implementation approach treats `chunks` as the bottom layer of a perfect binary tree
-/// and for each height performs the hashing required to compute the parent layer in place.
-/// This process is repated until the root is computed.
+/// The implementation uses an efficient two-buffer swapping approach to compute the root
+/// level-by-level, minimizing memory allocations.
 ///
 /// Invariant: `chunks.len() % BYTES_PER_CHUNK == 0`
 /// Invariant: `leaf_count.next_power_of_two() == leaf_count`
@@ -207,11 +209,7 @@ pub fn merkleize(chunks: &[u8], limit: Option<usize>) -> Result<Node, Error> {
 
 fn mix_in_decoration(root: Node, decoration: usize) -> Node {
     let decoration_data = decoration.hash_tree_root().expect("can merkleize usize");
-
-    let mut hasher = Sha256::new();
-    let mut output = vec![0u8; BYTES_PER_CHUNK];
-    hash_nodes(&mut hasher, root, decoration_data, &mut output);
-    output.as_slice().try_into().expect("can extract root")
+    hash_chunks(root, decoration_data).try_into().expect("can extract root")
 }
 
 pub(crate) fn mix_in_length(root: Node, length: usize) -> Node {
@@ -226,11 +224,13 @@ pub(crate) fn elements_to_chunks<'a, T: HashTreeRoot + 'a>(
     elements: impl Iterator<Item = (usize, &'a T)>,
     count: usize,
 ) -> Result<Vec<u8>, Error> {
-    let mut chunks = vec![0u8; count * BYTES_PER_CHUNK];
+    let total = count * BYTES_PER_CHUNK;
+    let mut chunks = vec![0u8; total];
+
     for (i, elem) in elements {
         let chunk = elem.hash_tree_root()?;
-        let range = i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK;
-        chunks[range].copy_from_slice(chunk.as_ref());
+        let dst = &mut chunks[i * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK];
+        dst.copy_from_slice(chunk.as_ref());
     }
     Ok(chunks)
 }
@@ -238,17 +238,13 @@ pub(crate) fn elements_to_chunks<'a, T: HashTreeRoot + 'a>(
 pub struct Tree(Vec<u8>);
 
 impl Tree {
-    pub fn mix_in_decoration(
-        &mut self,
-        decoration: usize,
-        hasher: &mut Sha256,
-    ) -> Result<(), Error> {
+    pub fn mix_in_decoration(&mut self, decoration: usize) -> Result<(), Error> {
         let target_node = &mut self[DECORATION_GENERALIZED_INDEX];
         let decoration_node = decoration.hash_tree_root()?;
         target_node.copy_from_slice(decoration_node.as_ref());
-        hasher.update(&self[INNER_ROOT_GENERALIZED_INDEX]);
-        hasher.update(&self[DECORATION_GENERALIZED_INDEX]);
-        self[1].copy_from_slice(&hasher.finalize_reset());
+        let out =
+            hash_chunks(&self[INNER_ROOT_GENERALIZED_INDEX], &self[DECORATION_GENERALIZED_INDEX]);
+        self[1].copy_from_slice(&out);
         Ok(())
     }
 
@@ -286,43 +282,108 @@ impl std::fmt::Debug for Tree {
 // Return the full Merkle tree of the `chunks`.
 // Invariant: `chunks.len() % BYTES_PER_CHUNK == 0`
 // Invariant: `leaf_count.next_power_of_two() == leaf_count`
-// NOTE: naive implementation, can make much more efficient
-pub fn compute_merkle_tree(
-    hasher: &mut Sha256,
-    chunks: &[u8],
-    leaf_count: usize,
-) -> Result<Tree, Error> {
+pub fn compute_merkle_tree(chunks: &[u8], leaf_count: usize) -> Result<Tree, Error> {
     debug_assert!(chunks.len() % BYTES_PER_CHUNK == 0);
     debug_assert!(leaf_count.next_power_of_two() == leaf_count);
-
-    // SAFETY: checked subtraction is unnecessary,
-    // as leaf_count != 0 (0.next_power_of_two() == 1); qed
-    let node_count = 2 * leaf_count - 1;
-    // SAFETY: checked subtraction is unnecessary, as node_count >= leaf_count; qed
-    let interior_count = node_count - leaf_count;
-    let leaf_start = interior_count * BYTES_PER_CHUNK;
-
-    let mut buffer = vec![0u8; node_count * BYTES_PER_CHUNK];
-    buffer[leaf_start..leaf_start + chunks.len()].copy_from_slice(chunks);
-
-    for i in (1..node_count).rev().step_by(2) {
-        // SAFETY: checked subtraction is unnecessary, as i >= 1; qed
-        let parent_index = (i - 1) / 2;
-        let focus = &mut buffer[parent_index * BYTES_PER_CHUNK..(i + 1) * BYTES_PER_CHUNK];
-        // SAFETY: checked subtraction is unnecessary:
-        // focus.len() = (i + 1 - parent_index) * BYTES_PER_CHUNK
-        //             = ((2*i + 2 - i + 1) / 2) * BYTES_PER_CHUNK
-        //             = ((i + 3) / 2) * BYTES_PER_CHUNK
-        // and
-        // i >= 1
-        // so focus.len() >= 2 * BYTES_PER_CHUNK; qed
-        let children_index = focus.len() - 2 * BYTES_PER_CHUNK;
-        // NOTE: children.len() == 2 * BYTES_PER_CHUNK
-        let (parent, children) = focus.split_at_mut(children_index);
-        let (left, right) = children.split_at(BYTES_PER_CHUNK);
-        hash_nodes(hasher, left, right, &mut parent[..BYTES_PER_CHUNK]);
+    if leaf_count < 2 {
+        return Ok(Tree(chunks.to_vec()));
     }
+
+    let node_count = 2 * leaf_count - 1;
+    let leaf_start = leaf_count - 1;
+    let node_bytes = node_count * BYTES_PER_CHUNK;
+
+    // Zero-initialized buffer for safe merkle tree construction.
+    let mut buffer = vec![0u8; node_bytes];
+
+    // Copy the actual chunks into leaf area.
+    let leaf_start_bytes = leaf_start * BYTES_PER_CHUNK;
+    buffer[leaf_start_bytes..leaf_start_bytes + chunks.len()].copy_from_slice(chunks);
+
+    // If odd number of chunks, ensure the single extra child we will read is zeroed.
+    let chunk_count = chunks.len() / BYTES_PER_CHUNK;
+    if chunk_count & 1 == 1 {
+        let off = leaf_start_bytes + chunk_count * BYTES_PER_CHUNK;
+        // write exactly one zero-node; parents above will be filled from CONTEXT.
+        buffer[off..off + BYTES_PER_CHUNK].fill(0);
+    }
+
+    compute_merkle_tree_inplace(&mut buffer, leaf_count, chunk_count);
     Ok(Tree(buffer))
+}
+
+pub fn compute_merkle_tree_inplace(buffer: &mut [u8], leaf_count: usize, chunk_count: usize) {
+    debug_assert!(leaf_count.is_power_of_two());
+    if leaf_count < 2 {
+        return;
+    }
+
+    let h = leaf_count.ilog2() as usize;
+    let mut real = chunk_count; // number of child nodes at this level that are "real"
+
+    for depth in (0..h).rev() {
+        let num_parent_nodes = 1usize << depth;
+
+        let child_level_start_node = (1 << (depth + 1)) - 1;
+        let parent_level_start_node = (1 << depth) - 1;
+
+        let child_start_byte = child_level_start_node * BYTES_PER_CHUNK;
+        let parent_start_byte = parent_level_start_node * BYTES_PER_CHUNK;
+
+        // Split once so the two borrows are disjoint
+        let (prefix, child_and_rest) = buffer.split_at_mut(child_start_byte);
+
+        // Parent layer lives entirely in `prefix`
+        let parent_layer =
+            &mut prefix[parent_start_byte..parent_start_byte + num_parent_nodes * BYTES_PER_CHUNK];
+
+        // Child layer lives at the beginning of `child_and_rest`
+        let child_layer = &child_and_rest[..num_parent_nodes * 2 * BYTES_PER_CHUNK];
+
+        // How many parents actually depend on data at this level
+        let need = (real + 1) / 2;
+
+        // Use bulk hashing for maximum SIMD efficiency
+        if need > 0 {
+            // The children that are inputs to our real parent nodes
+            let child_pairs_to_hash = &child_layer[..need * 2 * BYTES_PER_CHUNK];
+            // The parents that will be the output of the hash
+            let parent_hashes_to_fill = &mut parent_layer[..need * BYTES_PER_CHUNK];
+
+            // Use the bulk hash function to process the entire layer at once
+            hash_pairs_bulk(child_pairs_to_hash, parent_hashes_to_fill);
+        }
+
+        // Fill the tail with the correct zero-subtree hash for this level
+        if need < num_parent_nodes {
+            let zero = &CONTEXT[h - depth];
+            let tail = &mut parent_layer[need * BYTES_PER_CHUNK..];
+            fill_zeros_bytes(tail, zero);
+        }
+
+        real = need;
+    }
+}
+
+#[inline]
+fn fill_zeros_bytes(dst: &mut [u8], zero: &[u8]) {
+    debug_assert!(dst.len() % BYTES_PER_CHUNK == 0);
+    debug_assert!(zero.len() == BYTES_PER_CHUNK);
+    if dst.is_empty() {
+        return;
+    }
+
+    // Seed once
+    dst[..BYTES_PER_CHUNK].copy_from_slice(&zero[..BYTES_PER_CHUNK]);
+
+    // Geometric copy
+    let mut filled = BYTES_PER_CHUNK;
+    while filled < dst.len() {
+        let (left, right) = dst.split_at_mut(filled);
+        let n = filled.min(right.len());
+        right[..n].copy_from_slice(&left[..n]);
+        filled <<= 1;
+    }
 }
 
 #[cfg(test)]
@@ -332,8 +393,7 @@ mod tests {
 
     // Return the root of the Merklization of a binary tree formed from `chunks`.
     fn merkleize_chunks(chunks: &[u8], leaf_count: usize) -> Result<Node, Error> {
-        let mut hasher = Sha256::new();
-        let tree = compute_merkle_tree(&mut hasher, chunks, leaf_count)?;
+        let tree = compute_merkle_tree(chunks, leaf_count)?;
         let root_index = default_generalized_index();
         Ok(tree[root_index].try_into().expect("can produce a single root chunk"))
     }
